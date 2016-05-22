@@ -28,6 +28,8 @@ package tools.descartes.librede.rrde;
 
 import java.io.File;
 
+import javax.security.auth.login.Configuration;
+
 import org.apache.log4j.Logger;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
@@ -39,6 +41,9 @@ import tools.descartes.librede.bayesplusplus.BayesLibrary;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.ipopt.java.IpoptLibrary;
 import tools.descartes.librede.nnls.NNLSLibrary;
+import tools.descartes.librede.rrde.configuration.implementations.MasterConfigurationOptimizer;
+import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettings;
+import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettingsBuilder;
 
 /**
  * The main class of this Plug-In.
@@ -56,8 +61,10 @@ public class Plugin implements IApplication {
 	public Object start(IApplicationContext context) throws Exception {
 		Wrapper.init();
 		try {
-			Librede.printSummary(Wrapper.executeLibrede((Librede
-					.loadConfiguration(new File(PATH).toPath()))));
+			LibredeConfiguration configuration = Librede
+					.loadConfiguration(new File(PATH).toPath());
+			runConfigurationOptimization(configuration);
+//			Librede.printSummary(Wrapper.executeLibrede(configuration));
 		} catch (Exception e) {
 			log.error("Error occurred", e);
 		}
@@ -68,6 +75,12 @@ public class Plugin implements IApplication {
 	@Override
 	public void stop() {
 
+	}
+
+	private void runConfigurationOptimization(LibredeConfiguration configuration) {
+		ConfigurationOptimizationSettings settings = new ConfigurationOptimizationSettingsBuilder()
+				.setTimeOut(10000).build();
+		new MasterConfigurationOptimizer().optimizeConfiguration(configuration, settings);
 	}
 
 }
