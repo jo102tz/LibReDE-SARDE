@@ -54,10 +54,10 @@
   <estimation window="60">
     <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
     <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
-    <approaches type="tools.descartes.librede.approach.WangKalmanFilterApproach"/>
     <approaches type="tools.descartes.librede.approach.RoliaRegressionApproach"/>
-    <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>
     <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
+    <approaches type="tools.descartes.librede.approach.WangKalmanFilterApproach"/>
+    <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>
     <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
     <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
@@ -79,7 +79,7 @@
       <parameters name="FileName" value="estimates"/>
     </exporters>
   </output>
-  <validation validationFolds="2" validateEstimates="true">
+  <validation validateEstimates="true">
     <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
     <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
   </validation>

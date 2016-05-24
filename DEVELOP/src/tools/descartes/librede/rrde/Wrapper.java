@@ -56,7 +56,6 @@ public class Wrapper {
 	 * along with its libraries.
 	 */
 	public static void init() {
-		Librede.initLogging();
 		Librede.init();
 		IpoptLibrary.init();
 		NNLSLibrary.init();
@@ -71,8 +70,14 @@ public class Wrapper {
 	 * @return The results returned by LibReDE
 	 */
 	public static LibredeResults executeLibrede(LibredeConfiguration conf) {
-		Librede.initRepo(new LibredeVariables(conf));
-		return Librede.execute(conf);
+		LibredeVariables var = new LibredeVariables(conf);
+		Librede.initRepo(var);
+		try {
+			return Librede.runEstimationWithValidation(var);
+		} catch (Exception e) {
+			log.error("Error running estimation.", e);
+			return null;
+		}
 	}
 
 }

@@ -28,7 +28,11 @@ package tools.descartes.librede.rrde.configuration;
 
 import org.apache.log4j.Logger;
 
+import tools.descartes.librede.ApproachResult;
+import tools.descartes.librede.LibredeResults;
+import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.Wrapper;
 import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettings;
 import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettingsBuilder;
 
@@ -52,6 +56,22 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * The configuration to be modified
 	 */
 	private LibredeConfiguration configuration;
+
+	/**
+	 * The stored result of the most recent execution or null if no execution
+	 * has been done yet.
+	 */
+	private LibredeResults result;
+
+	/**
+	 * A counter storing the number of executed iterations for debugging
+	 */
+	private int iterationcounter;
+
+	/**
+	 * The time when starting the run
+	 */
+	private long time;
 
 	/**
 	 * Returns a copy of the underlying algorithm settings, so a change in them
@@ -87,10 +107,26 @@ public abstract class AbstractConfigurationOptimizer implements
 	}
 
 	/**
+	 * @return the result
+	 */
+	public LibredeResults getResult() {
+		return result;
+	}
+
+	/**
+	 * @param result
+	 *            the result to set
+	 */
+	public void setResult(LibredeResults result) {
+		this.result = result;
+	}
+
+	/**
 	 * Constructor preparing and initializing execution
 	 */
 	public AbstractConfigurationOptimizer() {
 		super();
+		iterationcounter = 0;
 	}
 
 	@Override
@@ -112,6 +148,10 @@ public abstract class AbstractConfigurationOptimizer implements
 			ConfigurationOptimizationSettings settings) {
 		setSettings(settings);
 		setConfiguration(configuration);
+		getLog().info(
+				"Starting reconfiguration of configuration file "
+						+ getConfiguration().toString());
+		time = System.currentTimeMillis();
 		Thread t = new Thread(this);
 		t.start();
 		while (t.isAlive()) {
@@ -124,8 +164,10 @@ public abstract class AbstractConfigurationOptimizer implements
 			}
 		}
 		getLog().info(
-				"Successfully ran a reconfiguration of configuration file "
+				"Successfully ran reconfiguration of configuration file "
 						+ getConfiguration().toString());
+		getLog().info("Number of iterations:" + iterationcounter);
+		getLog().info("Time: " + (System.currentTimeMillis() - time) + " ms");
 		return true;
 	}
 
@@ -136,4 +178,52 @@ public abstract class AbstractConfigurationOptimizer implements
 	 */
 	protected abstract Logger getLog();
 
+	/**
+	 * Runs one iteration with the current configuration. The Result table is
+	 * stored and returned.
+	 * 
+	 * @return
+	 */
+	protected LibredeResults runIteration() {
+		iterationcounter++;
+		setResult(Wrapper.executeLibrede(getConfiguration()));
+		return getResult();
+	}
+
+	/**
+	 * Runs one iteration with the current configuration and returns the average
+	 * error in terms of validation this run.
+	 * 
+	 * @return The average error of all estimates
+	 */
+	protected double getAverageError() {
+		runIteration();
+		double cum = 0;
+		for (Class<? extends IEstimationApproach> approach : getResult()
+				.getApproaches()) {
+			cum += getResult().getApproachValidationErrors(approach);
+		}
+		return cum / (double) getResult().getApproaches().size();
+	}
+
+	/**
+	 * Runs one iteration with the current configuration and returns the minimum
+	 * error in terms of validation run.
+	 * 
+	 * @return The smallest error of all estimates
+	 */
+	protected double getMinimumError() {
+		runIteration();
+		double min = Double.MAX_VALUE;
+		for (Class<? extends IEstimationApproach> approach : getResult()
+				.getApproaches()) {
+			min = Math.min(min,
+					getResult().getApproachValidationErrors(approach));
+
+			System.out.println(approach.getSimpleName() + " validation error: "
+					+ getResult().getApproachValidationErrors(approach));
+		}
+		System.out.println("Min: " + min);
+		return min;
+	}
 }

@@ -59,6 +59,7 @@ public class Plugin implements IApplication {
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
+		initLogging();
 		Wrapper.init();
 		try {
 			LibredeConfiguration configuration = Librede
@@ -81,6 +82,10 @@ public class Plugin implements IApplication {
 		ConfigurationOptimizationSettings settings = new ConfigurationOptimizationSettingsBuilder()
 				.setTimeOut(10000).build();
 		new MasterConfigurationOptimizer().optimizeConfiguration(configuration, settings);
+	}
+	
+	public void initLogging(){
+		Librede.initLogging();
 	}
 
 }
