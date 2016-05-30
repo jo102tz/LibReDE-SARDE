@@ -26,6 +26,8 @@
  */
 package tools.descartes.librede.rrde.configuration.settings;
 
+import java.util.List;
+
 /**
  * Builder class as outlined in the Second Edition of Joshua Bloch's Effective
  * Java that is used to build a {@link ConfigurationOptimizationSettings}
@@ -35,9 +37,25 @@ public class ConfigurationOptimizationSettingsBuilder {
 
 	private long timeout = 0;
 
+	private List<String> approaches = null;
+
+	private HillClimbingSettings hillClimbingSettings = new HillClimbingSettings();
+
 	public ConfigurationOptimizationSettingsBuilder setTimeOut(
 			final long timeout) {
 		this.timeout = timeout;
+		return this;
+	}
+
+	public ConfigurationOptimizationSettingsBuilder setApproaches(
+			final List<String> approaches) {
+		this.approaches = approaches;
+		return this;
+	}
+	
+	public ConfigurationOptimizationSettingsBuilder setHillClimbingSettings(
+			final HillClimbingSettings hillClimbingSettings) {
+		this.hillClimbingSettings = hillClimbingSettings;
 		return this;
 	}
 
@@ -48,7 +66,8 @@ public class ConfigurationOptimizationSettingsBuilder {
 	 * @return
 	 */
 	public ConfigurationOptimizationSettings build() {
-		return new ConfigurationOptimizationSettings(timeout);
+		return new ConfigurationOptimizationSettings(timeout, approaches,
+				hillClimbingSettings);
 	}
 
 	/**
@@ -61,6 +80,7 @@ public class ConfigurationOptimizationSettingsBuilder {
 	 */
 	public static ConfigurationOptimizationSettings copy(
 			ConfigurationOptimizationSettings c) {
-		return new ConfigurationOptimizationSettings(c.getTimeout());
+		return new ConfigurationOptimizationSettings(c.getTimeout(),
+				c.getApproaches(), c.getHillClimbingSettings());
 	}
 }

@@ -27,21 +27,22 @@
 package tools.descartes.librede.rrde;
 
 import java.io.File;
+import java.util.ArrayList;
 
-import javax.security.auth.login.Configuration;
-
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
-import tools.descartes.librede.LibredeVariables;
-import tools.descartes.librede.bayesplusplus.BayesLibrary;
+import tools.descartes.librede.approach.IEstimationApproach;
+import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.ipopt.java.IpoptLibrary;
-import tools.descartes.librede.nnls.NNLSLibrary;
 import tools.descartes.librede.rrde.configuration.implementations.MasterConfigurationOptimizer;
+import tools.descartes.librede.rrde.configuration.implementations.SeparateStepSizeOptimizer;
 import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettings;
 import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettingsBuilder;
 
@@ -65,7 +66,7 @@ public class Plugin implements IApplication {
 			LibredeConfiguration configuration = Librede
 					.loadConfiguration(new File(PATH).toPath());
 			runConfigurationOptimization(configuration);
-//			Librede.printSummary(Wrapper.executeLibrede(configuration));
+			// Librede.printSummary(Wrapper.executeLibrede(configuration));
 		} catch (Exception e) {
 			log.error("Error occurred", e);
 		}
@@ -78,14 +79,46 @@ public class Plugin implements IApplication {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	private void runConfigurationOptimization(LibredeConfiguration configuration) {
 		ConfigurationOptimizationSettings settings = new ConfigurationOptimizationSettingsBuilder()
 				.setTimeOut(10000).build();
-		new MasterConfigurationOptimizer().optimizeConfiguration(configuration, settings);
+		// copy configuration and optimize approaches separately in order to be
+		// able to configure parameters like step size and window size
+		// independently of each other
+		for (EstimationApproachConfiguration approach : configuration
+				.getEstimation().getApproaches()) {
+			LibredeConfiguration conf = Librede
+					.loadConfiguration(new File(PATH).toPath());
+			Class<? extends IEstimationApproach> approachclass = null;
+			try {
+				approachclass = (Class<? extends IEstimationApproach>) Class
+						.forName(approach.getType());
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			// remove all and add only the current approach
+			ArrayList<EstimationApproachConfiguration> lastConf = new ArrayList<EstimationApproachConfiguration>();
+			for (EstimationApproachConfiguration a : conf.getEstimation()
+					.getApproaches()) {
+				if (!a.getType().equals(approach.getType())) {
+					lastConf.add(a);
+				}
+			}
+			// delete all other approaches
+			conf.getEstimation().getApproaches().removeAll(lastConf);
+			new SeparateStepSizeOptimizer(approachclass).optimizeConfiguration(
+					conf, settings);
+			conf.getEstimation().getApproaches().addAll(lastConf);
+			log.error("Found stepsize of "
+					+ conf.getEstimation().getStepSize().getValue()
+					+ " for approach " + approachclass.getCanonicalName());
+		}
 	}
-	
-	public void initLogging(){
+
+	public void initLogging() {
 		Librede.initLogging();
+		LogManager.getRootLogger().setLevel(Level.ERROR);
 	}
 
 }

@@ -24,46 +24,9 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.configuration.implementations;
-
-import org.apache.log4j.Logger;
-
-import tools.descartes.librede.rrde.configuration.AbstractConfigurationOptimizer;
-
 /**
- * This is the main class delegating different optimization algorithm
- * implementations.
- * 
+ * Contains the Unit-tests for several modules of this package.
  * @author JS
  *
  */
-public class MasterConfigurationOptimizer extends
-		AbstractConfigurationOptimizer {
-
-	private static final Logger log = Logger
-			.getLogger(MasterConfigurationOptimizer.class);
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Runnable#run()
-	 */
-	@Override
-	public void run() {
-		new SimpleStepSizeOptimizer().optimizeConfiguration(getConfiguration(),
-				getSettings());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * tools.descartes.librede.rrde.configuration.AbstractConfigurationOptimizer
-	 * #getLog()
-	 */
-	@Override
-	protected Logger getLog() {
-		return log;
-	}
-
-}
+package tools.descartes.librede.rrde.tests;

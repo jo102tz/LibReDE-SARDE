@@ -28,39 +28,57 @@ package tools.descartes.librede.rrde.configuration.implementations;
 
 import org.apache.log4j.Logger;
 
-import tools.descartes.librede.rrde.configuration.AbstractConfigurationOptimizer;
+import tools.descartes.librede.approach.IEstimationApproach;
 
 /**
- * This is the main class delegating different optimization algorithm
- * implementations.
+ * This subclass of {@link SimpleStepSizeOptimizer} just optimizes one single
+ * approach specified in the constructor.
  * 
  * @author JS
  *
  */
-public class MasterConfigurationOptimizer extends
-		AbstractConfigurationOptimizer {
+public class SeparateStepSizeOptimizer extends SimpleStepSizeOptimizer {
 
 	private static final Logger log = Logger
-			.getLogger(MasterConfigurationOptimizer.class);
+			.getLogger(SeparateStepSizeOptimizer.class);
+
+	private Class<? extends IEstimationApproach> approach;
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see java.lang.Runnable#run()
+	 * @see tools.descartes.librede.rrde.configuration.implementations.
+	 * SimpleStepSizeOptimizer#errorFunction()
 	 */
 	@Override
-	public void run() {
-		new SimpleStepSizeOptimizer().optimizeConfiguration(getConfiguration(),
-				getSettings());
+	protected double errorFunction() {
+		return getError(getApproach());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * tools.descartes.librede.rrde.configuration.AbstractConfigurationOptimizer
-	 * #getLog()
+	/**
+	 * @param approach
 	 */
+	public SeparateStepSizeOptimizer(
+			Class<? extends IEstimationApproach> approach) {
+		super();
+		this.approach = approach;
+	}
+
+	/**
+	 * @return the approach
+	 */
+	public Class<? extends IEstimationApproach> getApproach() {
+		return approach;
+	}
+
+	/**
+	 * @param approach
+	 *            the approach to set
+	 */
+	public void setApproach(Class<? extends IEstimationApproach> approach) {
+		this.approach = approach;
+	}
+
 	@Override
 	protected Logger getLog() {
 		return log;

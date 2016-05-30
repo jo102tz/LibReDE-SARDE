@@ -26,11 +26,15 @@
  */
 package tools.descartes.librede.rrde.configuration;
 
-import org.apache.log4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
 
-import tools.descartes.librede.ApproachResult;
+import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
+
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.approach.IEstimationApproach;
+import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.Wrapper;
 import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettings;
@@ -188,6 +192,42 @@ public abstract class AbstractConfigurationOptimizer implements
 		iterationcounter++;
 		setResult(Wrapper.executeLibrede(getConfiguration()));
 		return getResult();
+	}
+
+	// /**
+	// * Modifies the configuration that only the given approach is executed.
+	// * After the execution the configuration is restored.
+	// *
+	// * @param approach
+	// */
+	// private synchronized LibredeResults runSingleIteration(
+	// Class<? extends IEstimationApproach> approach) {
+	// ArrayList<EstimationApproachConfiguration> lastConf = new
+	// ArrayList<EstimationApproachConfiguration>();
+	// for (EstimationApproachConfiguration a : getConfiguration()
+	// .getEstimation().getApproaches()) {
+	// if (a.getClass() != approach) {
+	// lastConf.add(a);
+	// getConfiguration().getEstimation().getApproaches().remove(a);
+	// } else {
+	// System.out.println("not deleting" + a.getClass());
+	// }
+	// }
+	// LibredeResults res = runIteration();
+	// getConfiguration().getEstimation().getApproaches().addAll(lastConf);
+	// return res;
+	// }
+
+	/**
+	 * Runs one iteration with the current configuration and returns the
+	 * validation error of the given approach. Note, that all approaches in the
+	 * configurations file are still executed.
+	 * 
+	 * @return The validation error of the given approach
+	 */
+	protected double getError(Class<? extends IEstimationApproach> approach) {
+		runIteration();
+		return getResult().getApproachValidationErrors(approach);
 	}
 
 	/**

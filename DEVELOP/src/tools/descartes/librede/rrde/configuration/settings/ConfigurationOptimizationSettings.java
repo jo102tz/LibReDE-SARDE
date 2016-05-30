@@ -26,6 +26,8 @@
  */
 package tools.descartes.librede.rrde.configuration.settings;
 
+import java.util.List;
+
 import tools.descartes.librede.rrde.configuration.IConfigurationOptimizer;
 
 /**
@@ -50,11 +52,25 @@ public class ConfigurationOptimizationSettings {
 	private long timeout;
 
 	/**
+	 * The approaches which parameters should be optimized qualified by the full
+	 * class name. If empty or null, all approaches of the configuration file
+	 * will be optimized.
+	 */
+	private List<String> approaches;
+
+	/**
+	 * Configuration data for Hill-climbing algorithms.
+	 */
+	private HillClimbingSettings hillClimbingSettings;
+
+	/**
 	 * @param timeout
 	 */
-	ConfigurationOptimizationSettings(long timeout) {
+	ConfigurationOptimizationSettings(long timeout, List<String> approaches, HillClimbingSettings hillClimbingSettings) {
 		super();
 		this.timeout = timeout;
+		this.approaches = approaches;
+		this.hillClimbingSettings = hillClimbingSettings;
 	}
 
 	/**
@@ -72,6 +88,33 @@ public class ConfigurationOptimizationSettings {
 		this.timeout = timeout;
 	}
 
+	/**
+	 * @return the approaches
+	 */
+	public List<String> getApproaches() {
+		return approaches;
+	}
 
+	/**
+	 * @param approaches
+	 *            the approaches to set
+	 */
+	public void setApproaches(List<String> approaches) {
+		this.approaches = approaches;
+	}
+
+	/**
+	 * @return the hillClimbingSettings
+	 */
+	public HillClimbingSettings getHillClimbingSettings() {
+		return hillClimbingSettings;
+	}
+
+	/**
+	 * @param hillClimbingSettings the hillClimbingSettings to set
+	 */
+	public void setHillClimbingSettings(HillClimbingSettings hillClimbingSettings) {
+		this.hillClimbingSettings = hillClimbingSettings;
+	}
 
 }

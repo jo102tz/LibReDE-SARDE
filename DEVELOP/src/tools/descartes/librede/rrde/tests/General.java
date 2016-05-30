@@ -24,46 +24,35 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.configuration.implementations;
+package tools.descartes.librede.rrde.tests;
 
-import org.apache.log4j.Logger;
+import static org.junit.Assert.*;
 
-import tools.descartes.librede.rrde.configuration.AbstractConfigurationOptimizer;
+import java.io.File;
+
+import org.junit.Test;
+
+import tools.descartes.librede.Librede;
+import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.Plugin;
+import tools.descartes.librede.rrde.Wrapper;
 
 /**
- * This is the main class delegating different optimization algorithm
- * implementations.
- * 
  * @author JS
  *
  */
-public class MasterConfigurationOptimizer extends
-		AbstractConfigurationOptimizer {
+public class General {
 
-	private static final Logger log = Logger
-			.getLogger(MasterConfigurationOptimizer.class);
+	public final static String PATH = "resources/estimation.librede";
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Runnable#run()
-	 */
-	@Override
-	public void run() {
-		new SimpleStepSizeOptimizer().optimizeConfiguration(getConfiguration(),
-				getSettings());
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * tools.descartes.librede.rrde.configuration.AbstractConfigurationOptimizer
-	 * #getLog()
-	 */
-	@Override
-	protected Logger getLog() {
-		return log;
+	@Test
+	public void test() {
+		Plugin p = new Plugin();
+		p.initLogging();
+		Wrapper.init();
+		LibredeConfiguration configuration = Librede
+				.loadConfiguration(new File(PATH).toPath());
+		Librede.printSummary(Wrapper.executeLibrede(configuration));
 	}
 
 }
