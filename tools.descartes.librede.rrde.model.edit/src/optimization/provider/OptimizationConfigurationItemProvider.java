@@ -9,12 +9,14 @@ import java.util.List;
 import optimization.OptimizationConfiguration;
 import optimization.OptimizationFactory;
 import optimization.OptimizationPackage;
+
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -150,11 +152,6 @@ public class OptimizationConfigurationItemProvider
 			(createChildParameter
 				(OptimizationPackage.Literals.OPTIMIZATION_CONFIGURATION__CONTAINS_OF,
 				 OptimizationFactory.eINSTANCE.createRunCall()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(OptimizationPackage.Literals.OPTIMIZATION_CONFIGURATION__CONTAINS_OF,
-				 optimization.optimization.OptimizationFactory.eINSTANCE.createRunCall()));
 	}
 
 	/**

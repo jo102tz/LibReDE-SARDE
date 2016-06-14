@@ -702,7 +702,6 @@ public class OptimizationEditor
 
 		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new OptimizationItemProviderAdapterFactory());
-		adapterFactory.addAdapterFactory(new optimization.optimization.provider.OptimizationItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
 		// Create the command stack that will notify this editor as commands are executed.

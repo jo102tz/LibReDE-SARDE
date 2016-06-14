@@ -113,16 +113,11 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		isInited = true;
 
-		// Obtain or create and register interdependencies
-		optimization.optimization.impl.OptimizationPackageImpl theOptimizationPackage_1 = (optimization.optimization.impl.OptimizationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(optimization.optimization.OptimizationPackage.eNS_URI) instanceof optimization.optimization.impl.OptimizationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(optimization.optimization.OptimizationPackage.eNS_URI) : optimization.optimization.OptimizationPackage.eINSTANCE);
-
 		// Create package meta-data objects
 		theOptimizationPackage.createPackageContents();
-		theOptimizationPackage_1.createPackageContents();
 
 		// Initialize created meta-data
 		theOptimizationPackage.initializePackageContents();
-		theOptimizationPackage_1.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theOptimizationPackage.freeze();
@@ -370,12 +365,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		setName(eNAME);
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
-
-		// Obtain other dependent packages
-		optimization.optimization.OptimizationPackage theOptimizationPackage_1 = (optimization.optimization.OptimizationPackage)EPackage.Registry.INSTANCE.getEPackage(optimization.optimization.OptimizationPackage.eNS_URI);
-
-		// Add subpackages
-		getESubpackages().add(theOptimizationPackage_1);
 
 		// Create type parameters
 

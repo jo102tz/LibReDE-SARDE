@@ -8,6 +8,7 @@ import java.util.List;
 
 import optimization.InputData;
 import optimization.OptimizationPackage;
+
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 

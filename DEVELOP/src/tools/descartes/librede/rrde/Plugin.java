@@ -29,7 +29,9 @@ package tools.descartes.librede.rrde;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.apache.log4j.BasicConfigurator;
+import optimization.OptimizationConfiguration;
+import optimization.RunCall;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -37,11 +39,9 @@ import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import tools.descartes.librede.Librede;
-import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.configuration.implementations.MasterConfigurationOptimizer;
 import tools.descartes.librede.rrde.configuration.implementations.SeparateStepSizeOptimizer;
 import tools.descartes.librede.rrde.configuration.implementations.SeparateWindowSizeOptimizer;
 import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettings;
@@ -67,6 +67,11 @@ public class Plugin implements IApplication {
 			LibredeConfiguration configuration = Librede
 					.loadConfiguration(new File(PATH).toPath());
 			runConfigurationOptimization(configuration);
+			OptimizationConfiguration conf = null;
+			// execute all runCalls
+			for(RunCall call: conf.getContainsOf()){
+				
+			}
 		} catch (Exception e) {
 			log.error("Error occurred", e);
 		}

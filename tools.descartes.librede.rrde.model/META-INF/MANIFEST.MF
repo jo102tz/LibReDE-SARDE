@@ -9,9 +9,6 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: optimization,
  optimization.impl,
- optimization.optimization,
- optimization.optimization.impl,
- optimization.optimization.util,
  optimization.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport

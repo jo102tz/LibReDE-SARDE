@@ -3,6 +3,7 @@
 package optimization;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface OptimizationConfiguration extends EObject {
-
 	/**
 	 * Returns the value of the '<em><b>Contains Of</b></em>' containment reference list.
 	 * The list contents are of type {@link optimization.RunCall}.
@@ -38,4 +38,5 @@ public interface OptimizationConfiguration extends EObject {
 	 * @generated
 	 */
 	EList<RunCall> getContainsOf();
+
 } // OptimizationConfiguration

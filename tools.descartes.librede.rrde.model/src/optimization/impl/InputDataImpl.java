@@ -6,6 +6,7 @@ import optimization.InputData;
 import optimization.OptimizationPackage;
 
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -34,6 +35,7 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	 * @ordered
 	 */
 	protected static final String LOCATION_EDEFAULT = null;
+
 	/**
 	 * The cached value of the '{@link #getLocation() <em>Location</em>}' attribute.
 	 * <!-- begin-user-doc -->

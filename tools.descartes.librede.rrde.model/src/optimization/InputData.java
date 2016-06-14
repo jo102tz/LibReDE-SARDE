@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface InputData extends EObject {
-
 	/**
 	 * Returns the value of the '<em><b>Location</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -47,4 +46,5 @@ public interface InputData extends EObject {
 	 * @generated
 	 */
 	void setLocation(String value);
+
 } // InputData
