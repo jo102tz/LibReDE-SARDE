@@ -43,6 +43,7 @@ import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.configuration.implementations.MasterConfigurationOptimizer;
 import tools.descartes.librede.rrde.configuration.implementations.SeparateStepSizeOptimizer;
+import tools.descartes.librede.rrde.configuration.implementations.SeparateWindowSizeOptimizer;
 import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettings;
 import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettingsBuilder;
 
@@ -66,11 +67,10 @@ public class Plugin implements IApplication {
 			LibredeConfiguration configuration = Librede
 					.loadConfiguration(new File(PATH).toPath());
 			runConfigurationOptimization(configuration);
-			// Librede.printSummary(Wrapper.executeLibrede(configuration));
 		} catch (Exception e) {
 			log.error("Error occurred", e);
 		}
-		log.info("DONE.");
+		log.info("Finished.");
 		return null;
 	}
 
@@ -82,7 +82,7 @@ public class Plugin implements IApplication {
 	@SuppressWarnings("unchecked")
 	private void runConfigurationOptimization(LibredeConfiguration configuration) {
 		ConfigurationOptimizationSettings settings = new ConfigurationOptimizationSettingsBuilder()
-				.setTimeOut(10000).build();
+				.setTimeOut(100000).build();
 		// copy configuration and optimize approaches separately in order to be
 		// able to configure parameters like step size and window size
 		// independently of each other
@@ -107,12 +107,20 @@ public class Plugin implements IApplication {
 			}
 			// delete all other approaches
 			conf.getEstimation().getApproaches().removeAll(lastConf);
+
+			// do actual optimization
 			new SeparateStepSizeOptimizer(approachclass).optimizeConfiguration(
 					conf, settings);
-			conf.getEstimation().getApproaches().addAll(lastConf);
 			log.error("Found stepsize of "
 					+ conf.getEstimation().getStepSize().getValue()
 					+ " for approach " + approachclass.getCanonicalName());
+			new SeparateWindowSizeOptimizer(approachclass)
+					.optimizeConfiguration(conf, settings);
+			log.error("Found windowsize of " + conf.getEstimation().getWindow()
+					+ " for approach " + approachclass.getCanonicalName());
+
+			// restore configuration for other approaches
+			conf.getEstimation().getApproaches().addAll(lastConf);
 		}
 	}
 

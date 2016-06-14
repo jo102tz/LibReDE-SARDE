@@ -28,21 +28,21 @@ package tools.descartes.librede.rrde.configuration.implementations;
 
 import org.apache.log4j.Logger;
 
+import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;
 import tools.descartes.librede.units.UnitsFactory;
 
 /**
- * A simple algorithm, that optimizes the step size using the Hill-climbing
- * routine {@link HillClimbingAlgorithm}.
- * 
  * @author JS
  *
  */
-public class SimpleStepSizeOptimizer extends HillClimbingAlgorithm {
+public class SeparateWindowSizeOptimizer extends HillClimbingAlgorithm {
 
 	private static final Logger log = Logger
-			.getLogger(SimpleStepSizeOptimizer.class);
+			.getLogger(SeparateStepSizeOptimizer.class);
+
+	private Class<? extends IEstimationApproach> approach;
 
 	/*
 	 * (non-Javadoc)
@@ -51,11 +51,36 @@ public class SimpleStepSizeOptimizer extends HillClimbingAlgorithm {
 	 */
 	@Override
 	public void run() {
-		getLog().info("Now optimizing step size.");
+		getLog().info("Now optimizing window size.");
 		hillclimbing();
 		getLog().info(
-				"Optimization of step size is done. New step size: "
+				"Optimization of window size is done. New step size for "
+						+ approach.getCanonicalName() + " : "
 						+ getConfiguration().getEstimation().getStepSize());
+	}
+
+	/**
+	 * @param approach
+	 */
+	public SeparateWindowSizeOptimizer(
+			Class<? extends IEstimationApproach> approach) {
+		super();
+		this.approach = approach;
+	}
+
+	/**
+	 * @return the approach
+	 */
+	public Class<? extends IEstimationApproach> getApproach() {
+		return approach;
+	}
+
+	/**
+	 * @param approach
+	 *            the approach to set
+	 */
+	public void setApproach(Class<? extends IEstimationApproach> approach) {
+		this.approach = approach;
 	}
 
 	/*
@@ -74,11 +99,11 @@ public class SimpleStepSizeOptimizer extends HillClimbingAlgorithm {
 	 * (non-Javadoc)
 	 * 
 	 * @see tools.descartes.librede.rrde.configuration.implementations.
-	 * HillClimbingAlgorithm#errorFunction()
+	 * SimpleStepSizeOptimizer#errorFunction()
 	 */
 	@Override
 	protected double errorFunction() {
-		return getAverageError();
+		return getError(getApproach());
 	}
 
 	/*
@@ -89,10 +114,7 @@ public class SimpleStepSizeOptimizer extends HillClimbingAlgorithm {
 	 */
 	@Override
 	protected void setTargetValue(double value) {
-		Quantity<Time> stepSize = UnitsFactory.eINSTANCE.createQuantity();
-		stepSize.setValue(value);
-		stepSize.setUnit(Time.SECONDS);
-		getConfiguration().getEstimation().setStepSize(stepSize);
+		getConfiguration().getEstimation().setWindow((int) value);
 	}
 
 	/*
@@ -103,7 +125,7 @@ public class SimpleStepSizeOptimizer extends HillClimbingAlgorithm {
 	 */
 	@Override
 	protected double getTargetValue() {
-		return getConfiguration().getEstimation().getStepSize().getValue();
+		return getConfiguration().getEstimation().getWindow();
 	}
 
 }

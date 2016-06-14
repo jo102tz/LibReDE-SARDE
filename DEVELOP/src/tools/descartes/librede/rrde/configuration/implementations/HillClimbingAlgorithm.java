@@ -45,13 +45,9 @@ public abstract class HillClimbingAlgorithm extends
 	 * @return
 	 */
 	protected void hillclimbing() {
-		double value = 0;
-		if (settings().getInitialValue() == 0)
-			value = getConfiguration().getEstimation().getStepSize().getValue();
-		else {
-			value = settings().getInitialValue();
-			setTargetValue(value);
-		}
+
+		double value = settings().getInitialValue();
+		setTargetValue(value);
 		// run first iteration
 		double before = errorFunction();
 		getLog().info("Initial step size: " + value);
@@ -69,28 +65,47 @@ public abstract class HillClimbingAlgorithm extends
 
 	private double[] oneWayAscend(double start, double startvalue,
 			double operation) {
-		double[] result = new double[2];
+		double[] currbest = { startvalue, start };
 		setTargetValue(start);
 		double before = startvalue;
 		double newerr = before;
-		double gain = settings().getMinGain() + 1;
-		while (gain >= settings().getMinGain()) {
+		while (repeat(before, newerr, currbest[0]) && !outOfBounds(operation)) {
 			before = newerr;
-			setTargetValue(getConfiguration().getEstimation().getStepSize()
-					.getValue()
-					+ operation);
+			setTargetValue(getTargetValue() + operation);
 			newerr = errorFunction();
 			getLog().trace(
-					"New target function with target value "
-							+ getConfiguration().getEstimation().getStepSize()
-									.getValue() + " :" + newerr);
-			gain = before - newerr;
+					"New target function with target value " + getTargetValue()
+							+ " :" + newerr);
+
+			// update currbest
+			if (newerr < currbest[0]) {
+				currbest[0] = newerr;
+				currbest[1] = getTargetValue();
+			}
 		}
-		// best value was obtained before last iteration
-		result[0] = before;
-		result[1] = getConfiguration().getEstimation().getStepSize().getValue()
-				- operation;
-		return result;
+		return currbest;
+	}
+
+	private boolean outOfBounds(double operation) {
+		if (getTargetValue() + operation < settings().getMinimum()
+				|| getTargetValue() + operation > settings().getMaximum())
+			return true;
+		else
+			return false;
+	}
+
+	protected boolean repeat(double before, double after, double currbest) {
+		double gain = before - after;
+		if (gain >= settings().getMinGain()) {
+			// if we have a gain
+			return true;
+		} else if (after <= currbest + (currbest * settings().getTolerance())) {
+			// if we have no gain, but are still in our tolerance radius
+			return true;
+		} else {
+			// outside of tolerance radius
+			return false;
+		}
 	}
 
 	private HillClimbingSettings settings() {
@@ -112,5 +127,12 @@ public abstract class HillClimbingAlgorithm extends
 	 *            The target value of the optimizing function
 	 */
 	protected abstract void setTargetValue(double value);
+
+	/**
+	 * Returns the target value accordingly.
+	 * 
+	 * @returns value The current value of the optimizing function
+	 */
+	protected abstract double getTargetValue();
 
 }

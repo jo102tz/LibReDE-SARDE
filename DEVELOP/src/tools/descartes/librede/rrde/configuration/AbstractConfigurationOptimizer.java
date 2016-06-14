@@ -78,13 +78,10 @@ public abstract class AbstractConfigurationOptimizer implements
 	private long time;
 
 	/**
-	 * Returns a copy of the underlying algorithm settings, so a change in them
-	 * has no effect on the currently running execution.
-	 * 
 	 * @return the settings
 	 */
 	public ConfigurationOptimizationSettings getSettings() {
-		return ConfigurationOptimizationSettingsBuilder.copy(settings);
+		return settings;
 	}
 
 	/**
@@ -159,6 +156,13 @@ public abstract class AbstractConfigurationOptimizer implements
 		Thread t = new Thread(this);
 		t.start();
 		while (t.isAlive()) {
+			if (getSettings().getTimeout() > 0
+					&& time + getSettings().getTimeout() > System
+							.currentTimeMillis()) {
+				getLog().warn("Timeout expired. Trying to shut down optimizer.");
+				shutdown(t);
+				return false;
+			}
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -173,6 +177,25 @@ public abstract class AbstractConfigurationOptimizer implements
 		getLog().info("Number of iterations:" + iterationcounter);
 		getLog().info("Time: " + (System.currentTimeMillis() - time) + " ms");
 		return true;
+	}
+
+	/**
+	 * Tries to shutdown the thread. Default implementation just waits for its
+	 * termination. Subclasses can override this behavior.
+	 * 
+	 * @param t
+	 *            The thread to shutdown
+	 */
+	protected void shutdown(Thread t) {
+		while (t.isAlive()) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				getLog().warn("Thread was interrupted.", e);
+			}
+		}
+		getLog().warn(
+				"Optimizer did time out, but terminated without intervention.");
 	}
 
 	/**

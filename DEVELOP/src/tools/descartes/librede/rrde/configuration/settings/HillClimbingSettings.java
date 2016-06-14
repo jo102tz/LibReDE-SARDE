@@ -37,6 +37,16 @@ import tools.descartes.librede.rrde.configuration.implementations.HillClimbingAl
 public class HillClimbingSettings {
 
 	/**
+	 * The lower bound for the target value.
+	 */
+	private double minimum = 1;
+
+	/**
+	 * The upper bound for the target value
+	 */
+	private double maximum = 200;
+
+	/**
 	 * The lower bound for a gain in order to proceed.
 	 */
 	private double minGain = 0;
@@ -47,16 +57,48 @@ public class HillClimbingSettings {
 	private double stepSize = 1;
 
 	/**
-	 * The initial value used on the start. If zero, the default configuration
-	 * value will be used.
+	 * The initial value used on the start.
 	 */
 	private double initialValue = 60;
 
 	/**
 	 * The tolerance radius of how much the found solution (for negative
-	 * epsilon) can deviate from the current best
+	 * epsilon) can deviate from the current best. Given as a relative number
+	 * between, zero meaning no tolerance radius, 0.1 meaning the value can be
+	 * up to 10 percent higher, and 1 meaning it can be up to double the error
+	 * of the currently best solution.
 	 */
-	private double tolerance = 0;
+	private double tolerance = 0.05;
+
+	/**
+	 * @return the minimum
+	 */
+	public double getMinimum() {
+		return minimum;
+	}
+
+	/**
+	 * @param minimum
+	 *            the minimum to set
+	 */
+	public void setMinimum(double minimum) {
+		this.minimum = minimum;
+	}
+
+	/**
+	 * @return the maximum
+	 */
+	public double getMaximum() {
+		return maximum;
+	}
+
+	/**
+	 * @param maximum
+	 *            the maximum to set
+	 */
+	public void setMaximum(double maximum) {
+		this.maximum = maximum;
+	}
 
 	/**
 	 * @return the minGain
@@ -123,23 +165,6 @@ public class HillClimbingSettings {
 	 */
 	public HillClimbingSettings() {
 		// using default values
-	}
-
-	/**
-	 * Constructor with all values
-	 * 
-	 * @param minGain
-	 * @param stepSize
-	 * @param initialValue
-	 * @param tolerance
-	 */
-	public HillClimbingSettings(double minGain, double stepSize,
-			double initialValue, double tolerance) {
-		super();
-		this.minGain = minGain;
-		this.stepSize = stepSize;
-		this.initialValue = initialValue;
-		this.tolerance = tolerance;
 	}
 
 }
