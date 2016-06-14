@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated rrde -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="optimization.presentation.OptimizationModelWizardID"
+            name="%_UI_OptimizationModelWizard_label"
+            class="optimization.presentation.OptimizationModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/OptimizationModelFile.gif">
+         <description>%_UI_OptimizationModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated rrde -->
+      <editor
+            id="optimization.presentation.OptimizationEditorID"
+            name="%_UI_OptimizationEditor_label"
+            icon="icons/full/obj16/OptimizationModelFile.gif"
+            extensions="optimization"
+            class="optimization.presentation.OptimizationEditor"
+            contributorClass="optimization.presentation.OptimizationActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated rrde -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="optimization.optimization.presentation.OptimizationModelWizardID"
+            name="%_UI_OptimizationModelWizard_label"
+            class="optimization.optimization.presentation.OptimizationModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/OptimizationModelFile.gif">
+         <description>%_UI_OptimizationModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated rrde -->
+      <editor
+            id="optimization.optimization.presentation.OptimizationEditorID"
+            name="%_UI_OptimizationEditor_label"
+            icon="icons/full/obj16/OptimizationModelFile.gif"
+            extensions="optimization"
+            class="optimization.optimization.presentation.OptimizationEditor"
+            contributorClass="optimization.optimization.presentation.OptimizationActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

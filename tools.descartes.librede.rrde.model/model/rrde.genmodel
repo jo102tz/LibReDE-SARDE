@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/tools.descartes.librede.rrde.model/src" modelPluginID="tools.descartes.librede.rrde.model"
+    modelName="Rrde" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>rrde.ecore</foreignModel>
+  <genPackages prefix="Optimization" disposableProviderFactory="true" ecorePackage="rrde.ecore#/">
+    <genClasses ecoreClass="rrde.ecore#//OptimizationConfiguration"/>
+    <genClasses image="false" ecoreClass="rrde.ecore#//IAlgorithm"/>
+    <genClasses ecoreClass="rrde.ecore#//HillClimbingSettings">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/minimum"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/maximum"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/tolerance"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/maximumNumberOfSteps"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/startValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/stepSize"/>
+    </genClasses>
+    <genClasses ecoreClass="rrde.ecore#//RunCall">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/containsOf"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/executes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/executesOn"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/specifiedBy"/>
+    </genClasses>
+    <genClasses ecoreClass="rrde.ecore#//InputData"/>
+    <genClasses image="false" ecoreClass="rrde.ecore#//Settings">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//Settings/timeOut"/>
+    </genClasses>
+    <nestedGenPackages prefix="Optimization" disposableProviderFactory="true" ecorePackage="rrde.ecore#/">
+      <genClasses ecoreClass="rrde.ecore#//OptimizationConfiguration"/>
+      <genClasses image="false" ecoreClass="rrde.ecore#//IAlgorithm"/>
+      <genClasses ecoreClass="rrde.ecore#//HillClimbingSettings">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/minimum"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/maximum"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/tolerance"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/maximumNumberOfSteps"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/startValue"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//HillClimbingSettings/stepSize"/>
+      </genClasses>
+      <genClasses ecoreClass="rrde.ecore#//RunCall">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/containsOf"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference rrde.ecore#//RunCall/executes"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference rrde.ecore#//RunCall/executesOn"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference rrde.ecore#//RunCall/specifiedBy"/>
+      </genClasses>
+      <genClasses ecoreClass="rrde.ecore#//InputData"/>
+      <genClasses image="false" ecoreClass="rrde.ecore#//Settings">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//Settings/timeOut"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>
