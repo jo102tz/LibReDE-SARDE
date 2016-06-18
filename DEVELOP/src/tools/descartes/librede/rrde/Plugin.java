@@ -29,6 +29,7 @@ package tools.descartes.librede.rrde;
 import java.io.File;
 import java.util.ArrayList;
 
+import optimization.ConfigurationSettings;
 import optimization.OptimizationConfiguration;
 import optimization.RunCall;
 
@@ -42,10 +43,11 @@ import tools.descartes.librede.Librede;
 import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.configuration.IConfigurationOptimizer;
 import tools.descartes.librede.rrde.configuration.implementations.SeparateStepSizeOptimizer;
 import tools.descartes.librede.rrde.configuration.implementations.SeparateWindowSizeOptimizer;
-import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettings;
-import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettingsBuilder;
+
+import com.sun.scenario.Settings;
 
 /**
  * The main class of this Plug-In.
@@ -66,11 +68,11 @@ public class Plugin implements IApplication {
 		try {
 			LibredeConfiguration configuration = Librede
 					.loadConfiguration(new File(PATH).toPath());
-			runConfigurationOptimization(configuration);
+//			runConfigurationOptimization(configuration);
 			OptimizationConfiguration conf = null;
 			// execute all runCalls
-			for(RunCall call: conf.getContainsOf()){
-				
+			for (RunCall call : conf.getContainsOf()) {
+				executeCall(configuration, call);
 			}
 		} catch (Exception e) {
 			log.error("Error occurred", e);
@@ -79,15 +81,27 @@ public class Plugin implements IApplication {
 		return null;
 	}
 
+	/**
+	 * Executes one specified call.
+	 * @param configuration 
+	 * 
+	 * @param call
+	 */
+	private void executeCall(LibredeConfiguration configuration, RunCall call) {
+		// TODO
+//		runConfigurationOptimization(configuration, call.getExecutes(), call.getSpecifiedBy());
+	}
+
 	@Override
 	public void stop() {
 
 	}
 
 	@SuppressWarnings("unchecked")
-	private void runConfigurationOptimization(LibredeConfiguration configuration) {
-		ConfigurationOptimizationSettings settings = new ConfigurationOptimizationSettingsBuilder()
-				.setTimeOut(100000).build();
+	private void runConfigurationOptimization(
+			LibredeConfiguration configuration, IConfigurationOptimizer algo,
+			ConfigurationSettings settings) {
+		// TODO EcoreUtil.Copier kopieren der strukturen
 		// copy configuration and optimize approaches separately in order to be
 		// able to configure parameters like step size and window size
 		// independently of each other
@@ -113,14 +127,16 @@ public class Plugin implements IApplication {
 			// delete all other approaches
 			conf.getEstimation().getApproaches().removeAll(lastConf);
 
+//			algo.optimizeConfiguration(configuration, settings);
+
 			// do actual optimization
-			new SeparateStepSizeOptimizer(approachclass).optimizeConfiguration(
-					conf, settings);
+//			new SeparateStepSizeOptimizer(approachclass).optimizeConfiguration(
+//					conf, settings);
 			log.error("Found stepsize of "
 					+ conf.getEstimation().getStepSize().getValue()
 					+ " for approach " + approachclass.getCanonicalName());
-			new SeparateWindowSizeOptimizer(approachclass)
-					.optimizeConfiguration(conf, settings);
+//			new SeparateWindowSizeOptimizer(approachclass)
+//					.optimizeConfiguration(conf, settings);
 			log.error("Found windowsize of " + conf.getEstimation().getWindow()
 					+ " for approach " + approachclass.getCanonicalName());
 

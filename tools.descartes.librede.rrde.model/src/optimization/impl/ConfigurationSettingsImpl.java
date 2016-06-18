@@ -2,8 +2,8 @@
  */
 package optimization.impl;
 
+import optimization.ConfigurationSettings;
 import optimization.OptimizationPackage;
-import optimization.Settings;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -14,18 +14,18 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Settings</b></em>'.
+ * An implementation of the model object '<em><b>Configuration Settings</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link optimization.impl.SettingsImpl#getTimeOut <em>Time Out</em>}</li>
+ *   <li>{@link optimization.impl.ConfigurationSettingsImpl#getTimeOut <em>Time Out</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class SettingsImpl extends MinimalEObjectImpl.Container implements Settings {
+public abstract class ConfigurationSettingsImpl extends MinimalEObjectImpl.Container implements ConfigurationSettings {
 	/**
 	 * The default value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -51,7 +51,7 @@ public abstract class SettingsImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SettingsImpl() {
+	protected ConfigurationSettingsImpl() {
 		super();
 	}
 
@@ -62,7 +62,7 @@ public abstract class SettingsImpl extends MinimalEObjectImpl.Container implemen
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return OptimizationPackage.Literals.SETTINGS;
+		return OptimizationPackage.Literals.CONFIGURATION_SETTINGS;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public abstract class SettingsImpl extends MinimalEObjectImpl.Container implemen
 		long oldTimeOut = timeOut;
 		timeOut = newTimeOut;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.SETTINGS__TIME_OUT, oldTimeOut, timeOut));
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.CONFIGURATION_SETTINGS__TIME_OUT, oldTimeOut, timeOut));
 	}
 
 	/**
@@ -94,7 +94,7 @@ public abstract class SettingsImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OptimizationPackage.SETTINGS__TIME_OUT:
+			case OptimizationPackage.CONFIGURATION_SETTINGS__TIME_OUT:
 				return getTimeOut();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -108,7 +108,7 @@ public abstract class SettingsImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OptimizationPackage.SETTINGS__TIME_OUT:
+			case OptimizationPackage.CONFIGURATION_SETTINGS__TIME_OUT:
 				setTimeOut((Long)newValue);
 				return;
 		}
@@ -123,7 +123,7 @@ public abstract class SettingsImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.SETTINGS__TIME_OUT:
+			case OptimizationPackage.CONFIGURATION_SETTINGS__TIME_OUT:
 				setTimeOut(TIME_OUT_EDEFAULT);
 				return;
 		}
@@ -138,7 +138,7 @@ public abstract class SettingsImpl extends MinimalEObjectImpl.Container implemen
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.SETTINGS__TIME_OUT:
+			case OptimizationPackage.CONFIGURATION_SETTINGS__TIME_OUT:
 				return timeOut != TIME_OUT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
@@ -160,4 +160,4 @@ public abstract class SettingsImpl extends MinimalEObjectImpl.Container implemen
 		return result.toString();
 	}
 
-} //SettingsImpl
+} //ConfigurationSettingsImpl

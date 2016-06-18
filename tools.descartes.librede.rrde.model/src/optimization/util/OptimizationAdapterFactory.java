@@ -76,6 +76,10 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 				return createIAlgorithmAdapter();
 			}
 			@Override
+			public Adapter caseConfigurationSettings(ConfigurationSettings object) {
+				return createConfigurationSettingsAdapter();
+			}
+			@Override
 			public Adapter caseHillClimbingSettings(HillClimbingSettings object) {
 				return createHillClimbingSettingsAdapter();
 			}
@@ -86,10 +90,6 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseInputData(InputData object) {
 				return createInputDataAdapter();
-			}
-			@Override
-			public Adapter caseSettings(Settings object) {
-				return createSettingsAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -140,6 +140,20 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link optimization.ConfigurationSettings <em>Configuration Settings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see optimization.ConfigurationSettings
+	 * @generated
+	 */
+	public Adapter createConfigurationSettingsAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link optimization.HillClimbingSettings <em>Hill Climbing Settings</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -178,20 +192,6 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createInputDataAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link optimization.Settings <em>Settings</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see optimization.Settings
-	 * @generated
-	 */
-	public Adapter createSettingsAdapter() {
 		return null;
 	}
 

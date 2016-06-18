@@ -2,6 +2,7 @@
  */
 package optimization.impl;
 
+import optimization.ConfigurationSettings;
 import optimization.HillClimbingSettings;
 import optimization.IAlgorithm;
 import optimization.InputData;
@@ -9,7 +10,6 @@ import optimization.OptimizationConfiguration;
 import optimization.OptimizationFactory;
 import optimization.OptimizationPackage;
 import optimization.RunCall;
-import optimization.Settings;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -44,6 +44,13 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass configurationSettingsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass hillClimbingSettingsEClass = null;
 
 	/**
@@ -59,13 +66,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * @generated
 	 */
 	private EClass inputDataEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass settingsEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -153,6 +153,24 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 */
 	public EClass getIAlgorithm() {
 		return iAlgorithmEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getConfigurationSettings() {
+		return configurationSettingsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConfigurationSettings_TimeOut() {
+		return (EAttribute)configurationSettingsEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -277,24 +295,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSettings() {
-		return settingsEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getSettings_TimeOut() {
-		return (EAttribute)settingsEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public OptimizationFactory getOptimizationFactory() {
 		return (OptimizationFactory)getEFactoryInstance();
 	}
@@ -323,6 +323,9 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		iAlgorithmEClass = createEClass(IALGORITHM);
 
+		configurationSettingsEClass = createEClass(CONFIGURATION_SETTINGS);
+		createEAttribute(configurationSettingsEClass, CONFIGURATION_SETTINGS__TIME_OUT);
+
 		hillClimbingSettingsEClass = createEClass(HILL_CLIMBING_SETTINGS);
 		createEAttribute(hillClimbingSettingsEClass, HILL_CLIMBING_SETTINGS__MINIMUM);
 		createEAttribute(hillClimbingSettingsEClass, HILL_CLIMBING_SETTINGS__MAXIMUM);
@@ -338,9 +341,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		inputDataEClass = createEClass(INPUT_DATA);
 		createEAttribute(inputDataEClass, INPUT_DATA__LOCATION);
-
-		settingsEClass = createEClass(SETTINGS);
-		createEAttribute(settingsEClass, SETTINGS__TIME_OUT);
 	}
 
 	/**
@@ -371,13 +371,16 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		hillClimbingSettingsEClass.getESuperTypes().add(this.getSettings());
+		hillClimbingSettingsEClass.getESuperTypes().add(this.getConfigurationSettings());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(optimizationConfigurationEClass, OptimizationConfiguration.class, "OptimizationConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOptimizationConfiguration_ContainsOf(), this.getRunCall(), null, "containsOf", null, 0, -1, OptimizationConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(iAlgorithmEClass, IAlgorithm.class, "IAlgorithm", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(configurationSettingsEClass, ConfigurationSettings.class, "ConfigurationSettings", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getConfigurationSettings_TimeOut(), ecorePackage.getELong(), "timeOut", "-1", 0, 1, ConfigurationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(hillClimbingSettingsEClass, HillClimbingSettings.class, "HillClimbingSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getHillClimbingSettings_Minimum(), ecorePackage.getEDouble(), "minimum", "0", 0, 1, HillClimbingSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -390,13 +393,10 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEClass(runCallEClass, RunCall.class, "RunCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRunCall_Executes(), this.getIAlgorithm(), null, "executes", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRunCall_ExecutesOn(), this.getInputData(), null, "executesOn", null, 1, -1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRunCall_SpecifiedBy(), this.getSettings(), null, "specifiedBy", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRunCall_SpecifiedBy(), this.getConfigurationSettings(), null, "specifiedBy", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(inputDataEClass, InputData.class, "InputData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getInputData_Location(), ecorePackage.getEString(), "location", null, 0, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(settingsEClass, Settings.class, "Settings", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSettings_TimeOut(), ecorePackage.getELong(), "timeOut", "-1", 0, 1, Settings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

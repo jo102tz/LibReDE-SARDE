@@ -4,11 +4,11 @@ package optimization.impl;
 
 import java.util.Collection;
 
+import optimization.ConfigurationSettings;
 import optimization.IAlgorithm;
 import optimization.InputData;
 import optimization.OptimizationPackage;
 import optimization.RunCall;
-import optimization.Settings;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -66,7 +66,7 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * @generated
 	 * @ordered
 	 */
-	protected Settings specifiedBy;
+	protected ConfigurationSettings specifiedBy;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -142,10 +142,10 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Settings getSpecifiedBy() {
+	public ConfigurationSettings getSpecifiedBy() {
 		if (specifiedBy != null && specifiedBy.eIsProxy()) {
 			InternalEObject oldSpecifiedBy = (InternalEObject)specifiedBy;
-			specifiedBy = (Settings)eResolveProxy(oldSpecifiedBy);
+			specifiedBy = (ConfigurationSettings)eResolveProxy(oldSpecifiedBy);
 			if (specifiedBy != oldSpecifiedBy) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, OptimizationPackage.RUN_CALL__SPECIFIED_BY, oldSpecifiedBy, specifiedBy));
@@ -159,7 +159,7 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Settings basicGetSpecifiedBy() {
+	public ConfigurationSettings basicGetSpecifiedBy() {
 		return specifiedBy;
 	}
 
@@ -168,8 +168,8 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSpecifiedBy(Settings newSpecifiedBy) {
-		Settings oldSpecifiedBy = specifiedBy;
+	public void setSpecifiedBy(ConfigurationSettings newSpecifiedBy) {
+		ConfigurationSettings oldSpecifiedBy = specifiedBy;
 		specifiedBy = newSpecifiedBy;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.RUN_CALL__SPECIFIED_BY, oldSpecifiedBy, specifiedBy));
@@ -212,7 +212,7 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 				getExecutesOn().addAll((Collection<? extends InputData>)newValue);
 				return;
 			case OptimizationPackage.RUN_CALL__SPECIFIED_BY:
-				setSpecifiedBy((Settings)newValue);
+				setSpecifiedBy((ConfigurationSettings)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -233,7 +233,7 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 				getExecutesOn().clear();
 				return;
 			case OptimizationPackage.RUN_CALL__SPECIFIED_BY:
-				setSpecifiedBy((Settings)null);
+				setSpecifiedBy((ConfigurationSettings)null);
 				return;
 		}
 		super.eUnset(featureID);

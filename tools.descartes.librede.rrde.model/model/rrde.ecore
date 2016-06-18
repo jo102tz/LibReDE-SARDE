@@ -7,7 +7,11 @@
         eType="#//RunCall" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IAlgorithm" abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="HillClimbingSettings" eSuperTypes="#//Settings">
+  <eClassifiers xsi:type="ecore:EClass" name="ConfigurationSettings" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeOut" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+        defaultValueLiteral="-1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HillClimbingSettings" eSuperTypes="#//ConfigurationSettings">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimum" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
         defaultValueLiteral="0"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximum" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
@@ -26,13 +30,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="executesOn" lowerBound="1"
         upperBound="-1" eType="#//InputData"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specifiedBy" lowerBound="1"
-        eType="#//Settings"/>
+        eType="#//ConfigurationSettings"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InputData">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Settings" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeOut" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
-        defaultValueLiteral="-1"/>
   </eClassifiers>
 </ecore:EPackage>

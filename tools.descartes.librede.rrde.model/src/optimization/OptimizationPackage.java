@@ -122,14 +122,14 @@ public interface OptimizationPackage extends EPackage {
 	int IALGORITHM_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link optimization.impl.SettingsImpl <em>Settings</em>}' class.
+	 * The meta object id for the '{@link optimization.impl.ConfigurationSettingsImpl <em>Configuration Settings</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see optimization.impl.SettingsImpl
-	 * @see optimization.impl.OptimizationPackageImpl#getSettings()
+	 * @see optimization.impl.ConfigurationSettingsImpl
+	 * @see optimization.impl.OptimizationPackageImpl#getConfigurationSettings()
 	 * @generated
 	 */
-	int SETTINGS = 5;
+	int CONFIGURATION_SETTINGS = 2;
 
 	/**
 	 * The feature id for the '<em><b>Time Out</b></em>' attribute.
@@ -138,25 +138,25 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SETTINGS__TIME_OUT = 0;
+	int CONFIGURATION_SETTINGS__TIME_OUT = 0;
 
 	/**
-	 * The number of structural features of the '<em>Settings</em>' class.
+	 * The number of structural features of the '<em>Configuration Settings</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SETTINGS_FEATURE_COUNT = 1;
+	int CONFIGURATION_SETTINGS_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of operations of the '<em>Settings</em>' class.
+	 * The number of operations of the '<em>Configuration Settings</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SETTINGS_OPERATION_COUNT = 0;
+	int CONFIGURATION_SETTINGS_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link optimization.impl.HillClimbingSettingsImpl <em>Hill Climbing Settings</em>}' class.
@@ -166,7 +166,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @see optimization.impl.OptimizationPackageImpl#getHillClimbingSettings()
 	 * @generated
 	 */
-	int HILL_CLIMBING_SETTINGS = 2;
+	int HILL_CLIMBING_SETTINGS = 3;
 
 	/**
 	 * The feature id for the '<em><b>Time Out</b></em>' attribute.
@@ -175,7 +175,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HILL_CLIMBING_SETTINGS__TIME_OUT = SETTINGS__TIME_OUT;
+	int HILL_CLIMBING_SETTINGS__TIME_OUT = CONFIGURATION_SETTINGS__TIME_OUT;
 
 	/**
 	 * The feature id for the '<em><b>Minimum</b></em>' attribute.
@@ -184,7 +184,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HILL_CLIMBING_SETTINGS__MINIMUM = SETTINGS_FEATURE_COUNT + 0;
+	int HILL_CLIMBING_SETTINGS__MINIMUM = CONFIGURATION_SETTINGS_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Maximum</b></em>' attribute.
@@ -193,7 +193,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HILL_CLIMBING_SETTINGS__MAXIMUM = SETTINGS_FEATURE_COUNT + 1;
+	int HILL_CLIMBING_SETTINGS__MAXIMUM = CONFIGURATION_SETTINGS_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Tolerance</b></em>' attribute.
@@ -202,7 +202,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HILL_CLIMBING_SETTINGS__TOLERANCE = SETTINGS_FEATURE_COUNT + 2;
+	int HILL_CLIMBING_SETTINGS__TOLERANCE = CONFIGURATION_SETTINGS_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Number Of Steps</b></em>' attribute.
@@ -211,7 +211,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HILL_CLIMBING_SETTINGS__MAXIMUM_NUMBER_OF_STEPS = SETTINGS_FEATURE_COUNT + 3;
+	int HILL_CLIMBING_SETTINGS__MAXIMUM_NUMBER_OF_STEPS = CONFIGURATION_SETTINGS_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Start Value</b></em>' attribute.
@@ -220,7 +220,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HILL_CLIMBING_SETTINGS__START_VALUE = SETTINGS_FEATURE_COUNT + 4;
+	int HILL_CLIMBING_SETTINGS__START_VALUE = CONFIGURATION_SETTINGS_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Step Size</b></em>' attribute.
@@ -229,7 +229,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HILL_CLIMBING_SETTINGS__STEP_SIZE = SETTINGS_FEATURE_COUNT + 5;
+	int HILL_CLIMBING_SETTINGS__STEP_SIZE = CONFIGURATION_SETTINGS_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Hill Climbing Settings</em>' class.
@@ -238,7 +238,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HILL_CLIMBING_SETTINGS_FEATURE_COUNT = SETTINGS_FEATURE_COUNT + 6;
+	int HILL_CLIMBING_SETTINGS_FEATURE_COUNT = CONFIGURATION_SETTINGS_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>Hill Climbing Settings</em>' class.
@@ -247,7 +247,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HILL_CLIMBING_SETTINGS_OPERATION_COUNT = SETTINGS_OPERATION_COUNT + 0;
+	int HILL_CLIMBING_SETTINGS_OPERATION_COUNT = CONFIGURATION_SETTINGS_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link optimization.impl.RunCallImpl <em>Run Call</em>}' class.
@@ -257,7 +257,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @see optimization.impl.OptimizationPackageImpl#getRunCall()
 	 * @generated
 	 */
-	int RUN_CALL = 3;
+	int RUN_CALL = 4;
 
 	/**
 	 * The feature id for the '<em><b>Executes</b></em>' reference.
@@ -312,7 +312,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @see optimization.impl.OptimizationPackageImpl#getInputData()
 	 * @generated
 	 */
-	int INPUT_DATA = 4;
+	int INPUT_DATA = 5;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' attribute.
@@ -372,6 +372,27 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getIAlgorithm();
+
+	/**
+	 * Returns the meta object for class '{@link optimization.ConfigurationSettings <em>Configuration Settings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Configuration Settings</em>'.
+	 * @see optimization.ConfigurationSettings
+	 * @generated
+	 */
+	EClass getConfigurationSettings();
+
+	/**
+	 * Returns the meta object for the attribute '{@link optimization.ConfigurationSettings#getTimeOut <em>Time Out</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Time Out</em>'.
+	 * @see optimization.ConfigurationSettings#getTimeOut()
+	 * @see #getConfigurationSettings()
+	 * @generated
+	 */
+	EAttribute getConfigurationSettings_TimeOut();
 
 	/**
 	 * Returns the meta object for class '{@link optimization.HillClimbingSettings <em>Hill Climbing Settings</em>}'.
@@ -514,27 +535,6 @@ public interface OptimizationPackage extends EPackage {
 	EAttribute getInputData_Location();
 
 	/**
-	 * Returns the meta object for class '{@link optimization.Settings <em>Settings</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Settings</em>'.
-	 * @see optimization.Settings
-	 * @generated
-	 */
-	EClass getSettings();
-
-	/**
-	 * Returns the meta object for the attribute '{@link optimization.Settings#getTimeOut <em>Time Out</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Time Out</em>'.
-	 * @see optimization.Settings#getTimeOut()
-	 * @see #getSettings()
-	 * @generated
-	 */
-	EAttribute getSettings_TimeOut();
-
-	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -584,6 +584,24 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EClass IALGORITHM = eINSTANCE.getIAlgorithm();
+
+		/**
+		 * The meta object literal for the '{@link optimization.impl.ConfigurationSettingsImpl <em>Configuration Settings</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see optimization.impl.ConfigurationSettingsImpl
+		 * @see optimization.impl.OptimizationPackageImpl#getConfigurationSettings()
+		 * @generated
+		 */
+		EClass CONFIGURATION_SETTINGS = eINSTANCE.getConfigurationSettings();
+
+		/**
+		 * The meta object literal for the '<em><b>Time Out</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONFIGURATION_SETTINGS__TIME_OUT = eINSTANCE.getConfigurationSettings_TimeOut();
 
 		/**
 		 * The meta object literal for the '{@link optimization.impl.HillClimbingSettingsImpl <em>Hill Climbing Settings</em>}' class.
@@ -694,24 +712,6 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INPUT_DATA__LOCATION = eINSTANCE.getInputData_Location();
-
-		/**
-		 * The meta object literal for the '{@link optimization.impl.SettingsImpl <em>Settings</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see optimization.impl.SettingsImpl
-		 * @see optimization.impl.OptimizationPackageImpl#getSettings()
-		 * @generated
-		 */
-		EClass SETTINGS = eINSTANCE.getSettings();
-
-		/**
-		 * The meta object literal for the '<em><b>Time Out</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SETTINGS__TIME_OUT = eINSTANCE.getSettings_TimeOut();
 
 	}
 

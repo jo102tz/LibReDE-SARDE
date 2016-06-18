@@ -13,7 +13,7 @@ import optimization.OptimizationFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class HillClimbingSettingsTest extends SettingsTest {
+public class HillClimbingSettingsTest extends ConfigurationSettingsTest {
 
 	/**
 	 * <!-- begin-user-doc -->

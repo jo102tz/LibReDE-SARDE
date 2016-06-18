@@ -78,10 +78,16 @@ public class OptimizationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case OptimizationPackage.CONFIGURATION_SETTINGS: {
+				ConfigurationSettings configurationSettings = (ConfigurationSettings)theEObject;
+				T result = caseConfigurationSettings(configurationSettings);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case OptimizationPackage.HILL_CLIMBING_SETTINGS: {
 				HillClimbingSettings hillClimbingSettings = (HillClimbingSettings)theEObject;
 				T result = caseHillClimbingSettings(hillClimbingSettings);
-				if (result == null) result = caseSettings(hillClimbingSettings);
+				if (result == null) result = caseConfigurationSettings(hillClimbingSettings);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -94,12 +100,6 @@ public class OptimizationSwitch<T> extends Switch<T> {
 			case OptimizationPackage.INPUT_DATA: {
 				InputData inputData = (InputData)theEObject;
 				T result = caseInputData(inputData);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case OptimizationPackage.SETTINGS: {
-				Settings settings = (Settings)theEObject;
-				T result = caseSettings(settings);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -134,6 +134,21 @@ public class OptimizationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIAlgorithm(IAlgorithm object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Configuration Settings</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Configuration Settings</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConfigurationSettings(ConfigurationSettings object) {
 		return null;
 	}
 
@@ -179,21 +194,6 @@ public class OptimizationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseInputData(InputData object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Settings</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Settings</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseSettings(Settings object) {
 		return null;
 	}
 

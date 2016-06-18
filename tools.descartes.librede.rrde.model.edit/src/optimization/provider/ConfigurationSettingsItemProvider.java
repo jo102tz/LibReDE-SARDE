@@ -6,8 +6,8 @@ package optimization.provider;
 import java.util.Collection;
 import java.util.List;
 
+import optimization.ConfigurationSettings;
 import optimization.OptimizationPackage;
-import optimization.Settings;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -26,12 +26,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link optimization.Settings} object.
+ * This is the item provider adapter for a {@link optimization.ConfigurationSettings} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SettingsItemProvider 
+public class ConfigurationSettingsItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -45,7 +45,7 @@ public class SettingsItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SettingsItemProvider(AdapterFactory adapterFactory) {
+	public ConfigurationSettingsItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -76,9 +76,9 @@ public class SettingsItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Settings_timeOut_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Settings_timeOut_feature", "_UI_Settings_type"),
-				 OptimizationPackage.Literals.SETTINGS__TIME_OUT,
+				 getString("_UI_ConfigurationSettings_timeOut_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ConfigurationSettings_timeOut_feature", "_UI_ConfigurationSettings_type"),
+				 OptimizationPackage.Literals.CONFIGURATION_SETTINGS__TIME_OUT,
 				 true,
 				 false,
 				 false,
@@ -95,8 +95,8 @@ public class SettingsItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		Settings settings = (Settings)object;
-		return getString("_UI_Settings_type") + " " + settings.getTimeOut();
+		ConfigurationSettings configurationSettings = (ConfigurationSettings)object;
+		return getString("_UI_ConfigurationSettings_type") + " " + configurationSettings.getTimeOut();
 	}
 	
 
@@ -111,8 +111,8 @@ public class SettingsItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Settings.class)) {
-			case OptimizationPackage.SETTINGS__TIME_OUT:
+		switch (notification.getFeatureID(ConfigurationSettings.class)) {
+			case OptimizationPackage.CONFIGURATION_SETTINGS__TIME_OUT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

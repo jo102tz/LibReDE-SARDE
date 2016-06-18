@@ -76,12 +76,12 @@ public interface RunCall extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Specified By</em>' reference.
-	 * @see #setSpecifiedBy(Settings)
+	 * @see #setSpecifiedBy(ConfigurationSettings)
 	 * @see optimization.OptimizationPackage#getRunCall_SpecifiedBy()
 	 * @model required="true"
 	 * @generated
 	 */
-	Settings getSpecifiedBy();
+	ConfigurationSettings getSpecifiedBy();
 
 	/**
 	 * Sets the value of the '{@link optimization.RunCall#getSpecifiedBy <em>Specified By</em>}' reference.
@@ -91,6 +91,6 @@ public interface RunCall extends EObject {
 	 * @see #getSpecifiedBy()
 	 * @generated
 	 */
-	void setSpecifiedBy(Settings value);
+	void setSpecifiedBy(ConfigurationSettings value);
 
 } // RunCall

@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class HillClimbingSettingsImpl extends SettingsImpl implements HillClimbingSettings {
+public class HillClimbingSettingsImpl extends ConfigurationSettingsImpl implements HillClimbingSettings {
 	/**
 	 * The default value of the '{@link #getMinimum() <em>Minimum</em>}' attribute.
 	 * <!-- begin-user-doc -->

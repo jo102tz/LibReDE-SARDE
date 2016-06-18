@@ -29,6 +29,8 @@ package tools.descartes.librede.rrde.configuration;
 import java.util.ArrayList;
 import java.util.List;
 
+import optimization.ConfigurationSettings;
+
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 

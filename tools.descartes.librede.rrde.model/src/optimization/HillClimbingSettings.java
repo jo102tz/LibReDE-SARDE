@@ -24,7 +24,7 @@ package optimization;
  * @model
  * @generated
  */
-public interface HillClimbingSettings extends Settings {
+public interface HillClimbingSettings extends ConfigurationSettings {
 	/**
 	 * Returns the value of the '<em><b>Minimum</b></em>' attribute.
 	 * The default value is <code>"0"</code>.
