@@ -10,7 +10,31 @@
       <!-- @generated rrde -->
       <package
             uri="http://tools/descartes/librede/rrde/optimization"
-            class="optimization.OptimizationPackage"
+            class="tools.descartes.librede.rrde.optimization.OptimizationPackage"
+            genModel="model/rrde.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated rrde -->
+      <package
+            uri="http://www.descartes-research.net/librede/configuration/1.0"
+            class="tools.descartes.librede.configuration.ConfigurationPackage"
+            genModel="model/rrde.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated rrde -->
+      <package
+            uri="http://www.descartes-research.net/librede/units/1.0"
+            class="tools.descartes.librede.units.UnitsPackage"
+            genModel="model/rrde.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated rrde -->
+      <package
+            uri="http://www.descartes-research.net/librede/metrics/1.0"
+            class="tools.descartes.librede.metrics.MetricsPackage"
             genModel="model/rrde.genmodel"/>
    </extension>
 

@@ -2,14 +2,23 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: tools.descartes.librede.rrde.model;singleton:=true
-Bundle-Version: 0.1.0.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: optimization,
- optimization.impl,
- optimization.util
+Export-Package: tools.descartes.librede.configuration,
+ tools.descartes.librede.configuration.impl,
+ tools.descartes.librede.configuration.util,
+ tools.descartes.librede.metrics,
+ tools.descartes.librede.metrics.impl,
+ tools.descartes.librede.metrics.util,
+ tools.descartes.librede.rrde.optimization,
+ tools.descartes.librede.rrde.optimization.impl,
+ tools.descartes.librede.rrde.optimization.util,
+ tools.descartes.librede.units,
+ tools.descartes.librede.units.impl,
+ tools.descartes.librede.units.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy
