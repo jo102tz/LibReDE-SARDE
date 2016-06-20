@@ -206,4 +206,13 @@ public class ResourceDemandImpl extends TaskImpl implements ResourceDemand {
 		return super.eIsSet(featureID);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(ResourceDemand o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 } //ResourceDemandImpl
