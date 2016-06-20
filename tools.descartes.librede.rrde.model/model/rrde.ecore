@@ -3,36 +3,95 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="optimization" nsURI="http://tools/descartes/librede/rrde/optimization"
     nsPrefix="tools.descartes.librede.rrde.optimization">
   <eClassifiers xsi:type="ecore:EClass" name="OptimizationConfiguration">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A configuration of algorithms optimizing LibReDE configurations of estimation approaches."/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containsOf" upperBound="-1"
         eType="#//RunCall" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IAlgorithm" abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ConfigurationSettings" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeOut" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
-        defaultValueLiteral="-1"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IConfigurationOptimizationAlgorithm"
+      abstract="true" interface="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="This is a basic interface for algorithms optimizing LibReDE configurations of estimation approaches."/>
+    </eAnnotations>
+    <eOperations name="runOptimization" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Tries to change the given configuration in order to optimize the quality and the runtime of the algorithms in the given EstimationSpecification. &#xD;&#xA;Different implementation support different parameters which can be configured with the configure method in order to influence the behavior."/>
+      </eAnnotations>
+      <eParameters name="input" eType="#//InputData"/>
+      <eParameters name="settings" eType="#//OptimizationSettings"/>
+      <eParameters name="estimation" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"/>
+    </eOperations>
+    <eOperations name="configure" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Configures the given parameter with the given value. Different subclasses might support different parameters. An Exception is thrown, if the given parameter is not supported by this specific implementation."/>
+      </eAnnotations>
+      <eParameters name="parameter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="value" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeOut" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="-1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HillClimbingSettings" eSuperTypes="#//ConfigurationSettings">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimum" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-        defaultValueLiteral="0"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximum" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-        defaultValueLiteral="200"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tolerance" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-        defaultValueLiteral="0.05"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximumNumberOfSteps" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-        defaultValueLiteral="60"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-        defaultValueLiteral="1"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractLocalSearchOptimizer" abstract="true"
+      eSuperTypes="#//IConfigurationOptimizationAlgorithm">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimum" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximum" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="200"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tolerance" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="0.05"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximumNumberOfSteps" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startValue" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="60"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepSize" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RunCall">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="executes" lowerBound="1"
-        eType="#//IAlgorithm"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="executesOn" lowerBound="1"
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="One iteration of optimization specified by input or training data, a set of OptimizationSettings, an EstimationSpecification to optimize and one instance of an IConfigurationOptimizationAlgorithm"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trainingData" lowerBound="1"
         upperBound="-1" eType="#//InputData"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="specifiedBy" lowerBound="1"
-        eType="#//ConfigurationSettings"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="algorithm" lowerBound="1"
+        eType="#//IConfigurationOptimizationAlgorithm"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="estimationSpecification"
+        lowerBound="1" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="settings" lowerBound="1"
+        eType="#//OptimizationSettings"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InputData">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InputData" eSuperTypes="../../tools.descartes.librede.model/model/librede.ecore#//InputSpecification">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultsFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="An optional path to a file containing the results of the data to be estimated in order to improve the performance of the algorithms."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OptimizationSettings">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A settings file containing several general parameters configuring the executing algorithm."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="IgnoreApproaches" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Approaches that will not be optimized in this Run and that will be ignored by the algorithm."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parametersToOptmize" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The parameters that will be optimized by the algorithms as far as supported."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validator" lowerBound="1"
+        eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//ValidationSpecification"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractIterativeParameterOptimizer"
+      abstract="true" eSuperTypes="#//IConfigurationOptimizationAlgorithm">
+    <eOperations name="stop" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfSplits" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="10"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfExplorations" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="50"/>
   </eClassifiers>
 </ecore:EPackage>
