@@ -210,7 +210,7 @@ public class ResourceDemandImpl extends TaskImpl implements ResourceDemand {
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
-	public int compareTo(ResourceDemand o) {
+	public int compareTo(ResourceDemand arg0) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

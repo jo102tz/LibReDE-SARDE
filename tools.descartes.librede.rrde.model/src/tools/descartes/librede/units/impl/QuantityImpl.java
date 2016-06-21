@@ -311,7 +311,7 @@ public class QuantityImpl<D extends Dimension> extends MinimalEObjectImpl.Contai
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
-	public int compareTo(Quantity<D> arg0) {
+	public int compareTo(Quantity<D> o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

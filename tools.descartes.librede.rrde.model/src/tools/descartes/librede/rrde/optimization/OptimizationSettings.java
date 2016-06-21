@@ -62,26 +62,26 @@ public interface OptimizationSettings extends EObject {
 	EList<String> getParametersToOptmize();
 
 	/**
-	 * Returns the value of the '<em><b>Validator</b></em>' reference.
+	 * Returns the value of the '<em><b>Validator</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Validator</em>' reference isn't clear,
+	 * If the meaning of the '<em>Validator</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Validator</em>' reference.
+	 * @return the value of the '<em>Validator</em>' containment reference.
 	 * @see #setValidator(ValidationSpecification)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getOptimizationSettings_Validator()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	ValidationSpecification getValidator();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getValidator <em>Validator</em>}' reference.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getValidator <em>Validator</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Validator</em>' reference.
+	 * @param value the new value of the '<em>Validator</em>' containment reference.
 	 * @see #getValidator()
 	 * @generated
 	 */

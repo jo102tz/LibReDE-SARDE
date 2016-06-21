@@ -296,7 +296,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRunCall_TrainingData() {
+	public EReference getRunCall_Algorithm() {
 		return (EReference)runCallEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -305,7 +305,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRunCall_Algorithm() {
+	public EReference getRunCall_TrainingData() {
 		return (EReference)runCallEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -314,7 +314,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRunCall_EstimationSpecification() {
+	public EReference getRunCall_Settings() {
 		return (EReference)runCallEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -323,7 +323,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRunCall_Settings() {
+	public EReference getRunCall_EstimationSpecification() {
 		return (EReference)runCallEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -462,10 +462,10 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		createEAttribute(abstractLocalSearchOptimizerEClass, ABSTRACT_LOCAL_SEARCH_OPTIMIZER__STEP_SIZE);
 
 		runCallEClass = createEClass(RUN_CALL);
-		createEReference(runCallEClass, RUN_CALL__TRAINING_DATA);
 		createEReference(runCallEClass, RUN_CALL__ALGORITHM);
-		createEReference(runCallEClass, RUN_CALL__ESTIMATION_SPECIFICATION);
+		createEReference(runCallEClass, RUN_CALL__TRAINING_DATA);
 		createEReference(runCallEClass, RUN_CALL__SETTINGS);
+		createEReference(runCallEClass, RUN_CALL__ESTIMATION_SPECIFICATION);
 
 		inputDataEClass = createEClass(INPUT_DATA);
 		createEAttribute(inputDataEClass, INPUT_DATA__RESULTS_FILE);
@@ -542,10 +542,10 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEAttribute(getAbstractLocalSearchOptimizer_StepSize(), ecorePackage.getEDouble(), "stepSize", "1", 1, 1, AbstractLocalSearchOptimizer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(runCallEClass, RunCall.class, "RunCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRunCall_TrainingData(), this.getInputData(), null, "trainingData", null, 1, -1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRunCall_Algorithm(), this.getIConfigurationOptimizationAlgorithm(), null, "algorithm", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRunCall_EstimationSpecification(), theConfigurationPackage.getEstimationSpecification(), null, "estimationSpecification", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRunCall_Settings(), this.getOptimizationSettings(), null, "settings", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRunCall_Algorithm(), this.getIConfigurationOptimizationAlgorithm(), null, "algorithm", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRunCall_TrainingData(), this.getInputData(), null, "trainingData", null, 1, -1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRunCall_Settings(), this.getOptimizationSettings(), null, "settings", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRunCall_EstimationSpecification(), theConfigurationPackage.getEstimationSpecification(), null, "estimationSpecification", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(inputDataEClass, InputData.class, "InputData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getInputData_ResultsFile(), ecorePackage.getEString(), "resultsFile", null, 0, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -553,7 +553,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEClass(optimizationSettingsEClass, OptimizationSettings.class, "OptimizationSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOptimizationSettings_IgnoreApproaches(), theXMLTypePackage.getString(), "IgnoreApproaches", null, 0, -1, OptimizationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOptimizationSettings_ParametersToOptmize(), theXMLTypePackage.getString(), "parametersToOptmize", null, 0, -1, OptimizationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOptimizationSettings_Validator(), theConfigurationPackage.getValidationSpecification(), null, "validator", null, 1, 1, OptimizationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOptimizationSettings_Validator(), theConfigurationPackage.getValidationSpecification(), null, "validator", null, 1, 1, OptimizationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abstractIterativeParameterOptimizerEClass, AbstractIterativeParameterOptimizer.class, "AbstractIterativeParameterOptimizer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAbstractIterativeParameterOptimizer_NumberOfSplits(), theXMLTypePackage.getInt(), "numberOfSplits", "10", 1, 1, AbstractIterativeParameterOptimizer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

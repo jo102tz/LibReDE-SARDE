@@ -31,10 +31,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//AbstractLocalSearchOptimizer/stepSize"/>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//RunCall">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/trainingData"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/algorithm"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/estimationSpecification"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/settings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/algorithm"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/trainingData"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/settings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/estimationSpecification"/>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//InputData">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//InputData/resultsFile"/>
@@ -42,7 +42,7 @@
     <genClasses ecoreClass="rrde.ecore#//OptimizationSettings">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//OptimizationSettings/IgnoreApproaches"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//OptimizationSettings/parametersToOptmize"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rrde.ecore#//OptimizationSettings/validator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//OptimizationSettings/validator"/>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//AbstractIterativeParameterOptimizer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//AbstractIterativeParameterOptimizer/numberOfSplits"/>

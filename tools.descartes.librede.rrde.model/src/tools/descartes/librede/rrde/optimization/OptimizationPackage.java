@@ -271,40 +271,40 @@ public interface OptimizationPackage extends EPackage {
 	int RUN_CALL = 3;
 
 	/**
-	 * The feature id for the '<em><b>Training Data</b></em>' reference list.
+	 * The feature id for the '<em><b>Algorithm</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RUN_CALL__TRAINING_DATA = 0;
+	int RUN_CALL__ALGORITHM = 0;
 
 	/**
-	 * The feature id for the '<em><b>Algorithm</b></em>' reference.
+	 * The feature id for the '<em><b>Training Data</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RUN_CALL__ALGORITHM = 1;
+	int RUN_CALL__TRAINING_DATA = 1;
 
 	/**
-	 * The feature id for the '<em><b>Estimation Specification</b></em>' reference.
+	 * The feature id for the '<em><b>Settings</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RUN_CALL__ESTIMATION_SPECIFICATION = 2;
+	int RUN_CALL__SETTINGS = 2;
 
 	/**
-	 * The feature id for the '<em><b>Settings</b></em>' reference.
+	 * The feature id for the '<em><b>Estimation Specification</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RUN_CALL__SETTINGS = 3;
+	int RUN_CALL__ESTIMATION_SPECIFICATION = 3;
 
 	/**
 	 * The number of structural features of the '<em>Run Call</em>' class.
@@ -417,7 +417,7 @@ public interface OptimizationPackage extends EPackage {
 	int OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTMIZE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Validator</b></em>' reference.
+	 * The feature id for the '<em><b>Validator</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -675,21 +675,10 @@ public interface OptimizationPackage extends EPackage {
 	EClass getRunCall();
 
 	/**
-	 * Returns the meta object for the reference list '{@link tools.descartes.librede.rrde.optimization.RunCall#getTrainingData <em>Training Data</em>}'.
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.RunCall#getAlgorithm <em>Algorithm</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Training Data</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.RunCall#getTrainingData()
-	 * @see #getRunCall()
-	 * @generated
-	 */
-	EReference getRunCall_TrainingData();
-
-	/**
-	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.optimization.RunCall#getAlgorithm <em>Algorithm</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Algorithm</em>'.
+	 * @return the meta object for the containment reference '<em>Algorithm</em>'.
 	 * @see tools.descartes.librede.rrde.optimization.RunCall#getAlgorithm()
 	 * @see #getRunCall()
 	 * @generated
@@ -697,26 +686,37 @@ public interface OptimizationPackage extends EPackage {
 	EReference getRunCall_Algorithm();
 
 	/**
-	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.optimization.RunCall#getEstimationSpecification <em>Estimation Specification</em>}'.
+	 * Returns the meta object for the containment reference list '{@link tools.descartes.librede.rrde.optimization.RunCall#getTrainingData <em>Training Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Estimation Specification</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.RunCall#getEstimationSpecification()
+	 * @return the meta object for the containment reference list '<em>Training Data</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.RunCall#getTrainingData()
 	 * @see #getRunCall()
 	 * @generated
 	 */
-	EReference getRunCall_EstimationSpecification();
+	EReference getRunCall_TrainingData();
 
 	/**
-	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.optimization.RunCall#getSettings <em>Settings</em>}'.
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.RunCall#getSettings <em>Settings</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Settings</em>'.
+	 * @return the meta object for the containment reference '<em>Settings</em>'.
 	 * @see tools.descartes.librede.rrde.optimization.RunCall#getSettings()
 	 * @see #getRunCall()
 	 * @generated
 	 */
 	EReference getRunCall_Settings();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.RunCall#getEstimationSpecification <em>Estimation Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Estimation Specification</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.RunCall#getEstimationSpecification()
+	 * @see #getRunCall()
+	 * @generated
+	 */
+	EReference getRunCall_EstimationSpecification();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.InputData <em>Input Data</em>}'.
@@ -772,10 +772,10 @@ public interface OptimizationPackage extends EPackage {
 	EAttribute getOptimizationSettings_ParametersToOptmize();
 
 	/**
-	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getValidator <em>Validator</em>}'.
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getValidator <em>Validator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Validator</em>'.
+	 * @return the meta object for the containment reference '<em>Validator</em>'.
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationSettings#getValidator()
 	 * @see #getOptimizationSettings()
 	 * @generated
@@ -968,15 +968,7 @@ public interface OptimizationPackage extends EPackage {
 		EClass RUN_CALL = eINSTANCE.getRunCall();
 
 		/**
-		 * The meta object literal for the '<em><b>Training Data</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RUN_CALL__TRAINING_DATA = eINSTANCE.getRunCall_TrainingData();
-
-		/**
-		 * The meta object literal for the '<em><b>Algorithm</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Algorithm</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -984,20 +976,28 @@ public interface OptimizationPackage extends EPackage {
 		EReference RUN_CALL__ALGORITHM = eINSTANCE.getRunCall_Algorithm();
 
 		/**
-		 * The meta object literal for the '<em><b>Estimation Specification</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Training Data</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RUN_CALL__ESTIMATION_SPECIFICATION = eINSTANCE.getRunCall_EstimationSpecification();
+		EReference RUN_CALL__TRAINING_DATA = eINSTANCE.getRunCall_TrainingData();
 
 		/**
-		 * The meta object literal for the '<em><b>Settings</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Settings</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference RUN_CALL__SETTINGS = eINSTANCE.getRunCall_Settings();
+
+		/**
+		 * The meta object literal for the '<em><b>Estimation Specification</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RUN_CALL__ESTIMATION_SPECIFICATION = eINSTANCE.getRunCall_EstimationSpecification();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl <em>Input Data</em>}' class.
@@ -1044,7 +1044,7 @@ public interface OptimizationPackage extends EPackage {
 		EAttribute OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTMIZE = eINSTANCE.getOptimizationSettings_ParametersToOptmize();
 
 		/**
-		 * The meta object literal for the '<em><b>Validator</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Validator</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

@@ -5,6 +5,7 @@ package tools.descartes.librede.rrde.optimization.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -58,7 +59,7 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	protected EList<String> parametersToOptmize;
 
 	/**
-	 * The cached value of the '{@link #getValidator() <em>Validator</em>}' reference.
+	 * The cached value of the '{@link #getValidator() <em>Validator</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getValidator()
@@ -116,14 +117,6 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	 * @generated
 	 */
 	public ValidationSpecification getValidator() {
-		if (validator != null && validator.eIsProxy()) {
-			InternalEObject oldValidator = (InternalEObject)validator;
-			validator = (ValidationSpecification)eResolveProxy(oldValidator);
-			if (validator != oldValidator) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR, oldValidator, validator));
-			}
-		}
 		return validator;
 	}
 
@@ -132,8 +125,14 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValidationSpecification basicGetValidator() {
-		return validator;
+	public NotificationChain basicSetValidator(ValidationSpecification newValidator, NotificationChain msgs) {
+		ValidationSpecification oldValidator = validator;
+		validator = newValidator;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR, oldValidator, newValidator);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -142,10 +141,31 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	 * @generated
 	 */
 	public void setValidator(ValidationSpecification newValidator) {
-		ValidationSpecification oldValidator = validator;
-		validator = newValidator;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR, oldValidator, validator));
+		if (newValidator != validator) {
+			NotificationChain msgs = null;
+			if (validator != null)
+				msgs = ((InternalEObject)validator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR, null, msgs);
+			if (newValidator != null)
+				msgs = ((InternalEObject)newValidator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR, null, msgs);
+			msgs = basicSetValidator(newValidator, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR, newValidator, newValidator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR:
+				return basicSetValidator(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -161,8 +181,7 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTMIZE:
 				return getParametersToOptmize();
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR:
-				if (resolve) return getValidator();
-				return basicGetValidator();
+				return getValidator();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
