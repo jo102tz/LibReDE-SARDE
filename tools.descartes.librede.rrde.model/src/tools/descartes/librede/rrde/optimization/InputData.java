@@ -2,7 +2,9 @@
  */
 package tools.descartes.librede.rrde.optimization;
 
+import org.eclipse.emf.ecore.EObject;
 import tools.descartes.librede.configuration.InputSpecification;
+import tools.descartes.librede.configuration.WorkloadDescription;
 
 /**
  * <!-- begin-user-doc -->
@@ -12,7 +14,8 @@ import tools.descartes.librede.configuration.InputSpecification;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getResultsFile <em>Results File</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getInputSpecification <em>Input Specification</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -20,30 +23,57 @@ import tools.descartes.librede.configuration.InputSpecification;
  * @model
  * @generated
  */
-public interface InputData extends InputSpecification {
+public interface InputData extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Results File</b></em>' attribute.
+	 * Returns the value of the '<em><b>Input Specification</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Input Specification</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * An optional path to a file containing the results of the data to be estimated in order to improve the performance of the algorithms.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Results File</em>' attribute.
-	 * @see #setResultsFile(String)
-	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getInputData_ResultsFile()
-	 * @model
+	 * @return the value of the '<em>Input Specification</em>' containment reference.
+	 * @see #setInputSpecification(InputSpecification)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getInputData_InputSpecification()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	String getResultsFile();
+	InputSpecification getInputSpecification();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.InputData#getResultsFile <em>Results File</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.InputData#getInputSpecification <em>Input Specification</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Results File</em>' attribute.
-	 * @see #getResultsFile()
+	 * @param value the new value of the '<em>Input Specification</em>' containment reference.
+	 * @see #getInputSpecification()
 	 * @generated
 	 */
-	void setResultsFile(String value);
+	void setInputSpecification(InputSpecification value);
+
+	/**
+	 * Returns the value of the '<em><b>Description</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Description</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Description</em>' containment reference.
+	 * @see #setDescription(WorkloadDescription)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getInputData_Description()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	WorkloadDescription getDescription();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.InputData#getDescription <em>Description</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Description</em>' containment reference.
+	 * @see #getDescription()
+	 * @generated
+	 */
+	void setDescription(WorkloadDescription value);
 
 } // InputData

@@ -4,7 +4,10 @@ package tools.descartes.librede.rrde.optimization.tests;
 
 import junit.framework.TestCase;
 
+import junit.textui.TestRunner;
+
 import tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer;
+import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,7 +23,7 @@ import tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptim
  * </p>
  * @generated
  */
-public abstract class AbstractIterativeParameterOptimizerTest extends TestCase {
+public class AbstractIterativeParameterOptimizerTest extends TestCase {
 
 	/**
 	 * The fixture for this Abstract Iterative Parameter Optimizer test case.
@@ -29,6 +32,15 @@ public abstract class AbstractIterativeParameterOptimizerTest extends TestCase {
 	 * @generated
 	 */
 	protected AbstractIterativeParameterOptimizer fixture = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static void main(String[] args) {
+		TestRunner.run(AbstractIterativeParameterOptimizerTest.class);
+	}
 
 	/**
 	 * Constructs a new Abstract Iterative Parameter Optimizer test case with the given name.
@@ -58,6 +70,28 @@ public abstract class AbstractIterativeParameterOptimizerTest extends TestCase {
 	 */
 	protected AbstractIterativeParameterOptimizer getFixture() {
 		return fixture;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see junit.framework.TestCase#setUp()
+	 * @generated
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		setFixture(OptimizationFactory.eINSTANCE.createAbstractIterativeParameterOptimizer());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see junit.framework.TestCase#tearDown()
+	 * @generated
+	 */
+	@Override
+	protected void tearDown() throws Exception {
+		setFixture(null);
 	}
 
 	/**

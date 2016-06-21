@@ -2,9 +2,9 @@
  */
 package tools.descartes.librede.rrde.optimization.tests;
 
-import junit.textui.TestRunner;
+import junit.framework.TestCase;
 
-import tools.descartes.librede.configuration.tests.InputSpecificationTest;
+import junit.textui.TestRunner;
 
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationFactory;
@@ -15,7 +15,15 @@ import tools.descartes.librede.rrde.optimization.OptimizationFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InputDataTest extends InputSpecificationTest {
+public class InputDataTest extends TestCase {
+
+	/**
+	 * The fixture for this Input Data test case.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InputData fixture = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -37,14 +45,23 @@ public class InputDataTest extends InputSpecificationTest {
 	}
 
 	/**
+	 * Sets the fixture for this Input Data test case.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void setFixture(InputData fixture) {
+		this.fixture = fixture;
+	}
+
+	/**
 	 * Returns the fixture for this Input Data test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected InputData getFixture() {
-		return (InputData)fixture;
+		return fixture;
 	}
 
 	/**

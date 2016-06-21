@@ -4,11 +4,7 @@ package tools.descartes.librede.rrde.optimization.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
-import tools.descartes.librede.configuration.InputSpecification;
-
 import tools.descartes.librede.rrde.optimization.*;
 
 /**
@@ -96,7 +92,6 @@ public class OptimizationSwitch<T> extends Switch<T> {
 			case OptimizationPackage.INPUT_DATA: {
 				InputData inputData = (InputData)theEObject;
 				T result = caseInputData(inputData);
-				if (result == null) result = caseInputSpecification(inputData);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -219,21 +214,6 @@ public class OptimizationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAbstractIterativeParameterOptimizer(AbstractIterativeParameterOptimizer object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Input Specification</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Input Specification</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseInputSpecification(InputSpecification object) {
 		return null;
 	}
 

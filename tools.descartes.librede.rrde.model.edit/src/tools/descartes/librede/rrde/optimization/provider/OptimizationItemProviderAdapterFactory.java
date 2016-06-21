@@ -95,6 +95,29 @@ public class OptimizationItemProviderAdapterFactory extends OptimizationAdapterF
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AbstractLocalSearchOptimizerItemProvider abstractLocalSearchOptimizerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAbstractLocalSearchOptimizerAdapter() {
+		if (abstractLocalSearchOptimizerItemProvider == null) {
+			abstractLocalSearchOptimizerItemProvider = new AbstractLocalSearchOptimizerItemProvider(this);
+		}
+
+		return abstractLocalSearchOptimizerItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.optimization.RunCall} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -161,6 +184,29 @@ public class OptimizationItemProviderAdapterFactory extends OptimizationAdapterF
 		}
 
 		return optimizationSettingsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AbstractIterativeParameterOptimizerItemProvider abstractIterativeParameterOptimizerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAbstractIterativeParameterOptimizerAdapter() {
+		if (abstractIterativeParameterOptimizerItemProvider == null) {
+			abstractIterativeParameterOptimizerItemProvider = new AbstractIterativeParameterOptimizerItemProvider(this);
+		}
+
+		return abstractIterativeParameterOptimizerItemProvider;
 	}
 
 	/**
@@ -263,9 +309,11 @@ public class OptimizationItemProviderAdapterFactory extends OptimizationAdapterF
 	 */
 	public void dispose() {
 		if (optimizationConfigurationItemProvider != null) optimizationConfigurationItemProvider.dispose();
+		if (abstractLocalSearchOptimizerItemProvider != null) abstractLocalSearchOptimizerItemProvider.dispose();
 		if (runCallItemProvider != null) runCallItemProvider.dispose();
 		if (inputDataItemProvider != null) inputDataItemProvider.dispose();
 		if (optimizationSettingsItemProvider != null) optimizationSettingsItemProvider.dispose();
+		if (abstractIterativeParameterOptimizerItemProvider != null) abstractIterativeParameterOptimizerItemProvider.dispose();
 	}
 
 }

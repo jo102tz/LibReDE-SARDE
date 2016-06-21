@@ -26,8 +26,6 @@ import tools.descartes.librede.configuration.ConfigurationFactory;
 import tools.descartes.librede.configuration.ConfigurationPackage;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 
-import tools.descartes.librede.rrde.optimization.OptimizationFactory;
-
 import tools.descartes.librede.rrde.optimization.provider.RrdeEditPlugin;
 
 /**
@@ -169,11 +167,6 @@ public class LibredeConfigurationItemProvider
 			(createChildParameter
 				(ConfigurationPackage.Literals.LIBREDE_CONFIGURATION__INPUT,
 				 ConfigurationFactory.eINSTANCE.createInputSpecification()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(ConfigurationPackage.Literals.LIBREDE_CONFIGURATION__INPUT,
-				 OptimizationFactory.eINSTANCE.createInputData()));
 
 		newChildDescriptors.add
 			(createChildParameter

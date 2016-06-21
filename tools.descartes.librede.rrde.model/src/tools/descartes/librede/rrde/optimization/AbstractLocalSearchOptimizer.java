@@ -21,7 +21,7 @@ package tools.descartes.librede.rrde.optimization;
  * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getAbstractLocalSearchOptimizer()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface AbstractLocalSearchOptimizer extends IConfigurationOptimizationAlgorithm {

@@ -57,9 +57,11 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case OptimizationPackage.OPTIMIZATION_CONFIGURATION: return createOptimizationConfiguration();
+			case OptimizationPackage.ABSTRACT_LOCAL_SEARCH_OPTIMIZER: return createAbstractLocalSearchOptimizer();
 			case OptimizationPackage.RUN_CALL: return createRunCall();
 			case OptimizationPackage.INPUT_DATA: return createInputData();
 			case OptimizationPackage.OPTIMIZATION_SETTINGS: return createOptimizationSettings();
+			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER: return createAbstractIterativeParameterOptimizer();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -73,6 +75,16 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 	public OptimizationConfiguration createOptimizationConfiguration() {
 		OptimizationConfigurationImpl optimizationConfiguration = new OptimizationConfigurationImpl();
 		return optimizationConfiguration;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AbstractLocalSearchOptimizer createAbstractLocalSearchOptimizer() {
+		AbstractLocalSearchOptimizerImpl abstractLocalSearchOptimizer = new AbstractLocalSearchOptimizerImpl();
+		return abstractLocalSearchOptimizer;
 	}
 
 	/**
@@ -103,6 +115,16 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 	public OptimizationSettings createOptimizationSettings() {
 		OptimizationSettingsImpl optimizationSettings = new OptimizationSettingsImpl();
 		return optimizationSettings;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AbstractIterativeParameterOptimizer createAbstractIterativeParameterOptimizer() {
+		AbstractIterativeParameterOptimizerImpl abstractIterativeParameterOptimizer = new AbstractIterativeParameterOptimizerImpl();
+		return abstractIterativeParameterOptimizer;
 	}
 
 	/**

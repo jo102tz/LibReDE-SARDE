@@ -37,7 +37,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/estimationSpecification"/>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//InputData">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//InputData/resultsFile"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//InputData/inputSpecification"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//InputData/description"/>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//OptimizationSettings">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//OptimizationSettings/IgnoreApproaches"/>
@@ -101,7 +102,6 @@
     </genClasses>
     <genClasses ecoreClass="../../tools.descartes.librede.model/model/librede.ecore#//TraceConfiguration">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../tools.descartes.librede.model/model/librede.ecore#//TraceConfiguration/dataSource"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../tools.descartes.librede.model/model/librede.ecore#//TraceConfiguration/unit"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../tools.descartes.librede.model/model/librede.ecore#//TraceConfiguration/interval"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../tools.descartes.librede.model/model/librede.ecore#//TraceConfiguration/location"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../tools.descartes.librede.model/model/librede.ecore#//TraceConfiguration/mappings"/>
@@ -177,26 +177,7 @@
     </genClasses>
   </genPackages>
   <genPackages prefix="Units" basePackage="tools.descartes.librede" ecorePackage="../../tools.descartes.librede.model/model/units.ecore#/">
-    <genClasses image="false" ecoreClass="../../tools.descartes.librede.model/model/units.ecore#//Dimension">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../tools.descartes.librede.model/model/units.ecore#//Dimension/baseUnit"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../tools.descartes.librede.model/model/units.ecore#//Dimension/units"/>
-    </genClasses>
-    <genClasses ecoreClass="../../tools.descartes.librede.model/model/units.ecore#//Unit">
-      <genTypeParameters ecoreTypeParameter="../../tools.descartes.librede.model/model/units.ecore#//Unit/D"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../tools.descartes.librede.model/model/units.ecore#//Unit/id"/>
-      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute ../../tools.descartes.librede.model/model/units.ecore#//Unit/name"/>
-      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute ../../tools.descartes.librede.model/model/units.ecore#//Unit/symbol"/>
-      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute ../../tools.descartes.librede.model/model/units.ecore#//Unit/baseFactor"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ../../tools.descartes.librede.model/model/units.ecore#//Unit/dimension"/>
-      <genOperations ecoreOperation="../../tools.descartes.librede.model/model/units.ecore#//Unit/convertTo">
-        <genParameters ecoreParameter="../../tools.descartes.librede.model/model/units.ecore#//Unit/convertTo/value"/>
-        <genParameters ecoreParameter="../../tools.descartes.librede.model/model/units.ecore#//Unit/convertTo/targetUnit"/>
-      </genOperations>
-      <genOperations ecoreOperation="../../tools.descartes.librede.model/model/units.ecore#//Unit/convertFrom">
-        <genParameters ecoreParameter="../../tools.descartes.librede.model/model/units.ecore#//Unit/convertFrom/value"/>
-        <genParameters ecoreParameter="../../tools.descartes.librede.model/model/units.ecore#//Unit/convertFrom/sourceUnit"/>
-      </genOperations>
-    </genClasses>
+    <genClasses image="false" ecoreClass="../../tools.descartes.librede.model/model/units.ecore#//Dimension"/>
     <genClasses ecoreClass="../../tools.descartes.librede.model/model/units.ecore#//RequestRate"/>
     <genClasses ecoreClass="../../tools.descartes.librede.model/model/units.ecore#//Time"/>
     <genClasses ecoreClass="../../tools.descartes.librede.model/model/units.ecore#//RequestCount"/>
@@ -207,7 +188,6 @@
     <genClasses ecoreClass="../../tools.descartes.librede.model/model/units.ecore#//Quantity">
       <genTypeParameters ecoreTypeParameter="../../tools.descartes.librede.model/model/units.ecore#//Quantity/D"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../tools.descartes.librede.model/model/units.ecore#//Quantity/value"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../tools.descartes.librede.model/model/units.ecore#//Quantity/unit"/>
       <genOperations ecoreOperation="../../tools.descartes.librede.model/model/units.ecore#//Quantity/convertTo">
         <genParameters ecoreParameter="../../tools.descartes.librede.model/model/units.ecore#//Quantity/convertTo/targetUnit"/>
       </genOperations>

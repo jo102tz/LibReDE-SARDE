@@ -40,7 +40,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationSettings;
  *
  * @generated
  */
-public abstract class AbstractLocalSearchOptimizerImpl extends MinimalEObjectImpl.Container implements AbstractLocalSearchOptimizer {
+public class AbstractLocalSearchOptimizerImpl extends MinimalEObjectImpl.Container implements AbstractLocalSearchOptimizer {
 	/**
 	 * The default value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
 	 * <!-- begin-user-doc -->

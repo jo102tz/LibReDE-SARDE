@@ -8,8 +8,6 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
-import tools.descartes.librede.configuration.ConfigurationPackage;
-
 /**
  * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
@@ -335,40 +333,22 @@ public interface OptimizationPackage extends EPackage {
 	int INPUT_DATA = 4;
 
 	/**
-	 * The feature id for the '<em><b>Data Sources</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input Specification</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_DATA__DATA_SOURCES = ConfigurationPackage.INPUT_SPECIFICATION__DATA_SOURCES;
+	int INPUT_DATA__INPUT_SPECIFICATION = 0;
 
 	/**
-	 * The feature id for the '<em><b>Observations</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Description</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_DATA__OBSERVATIONS = ConfigurationPackage.INPUT_SPECIFICATION__OBSERVATIONS;
-
-	/**
-	 * The feature id for the '<em><b>Constant Data Points</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INPUT_DATA__CONSTANT_DATA_POINTS = ConfigurationPackage.INPUT_SPECIFICATION__CONSTANT_DATA_POINTS;
-
-	/**
-	 * The feature id for the '<em><b>Results File</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INPUT_DATA__RESULTS_FILE = ConfigurationPackage.INPUT_SPECIFICATION_FEATURE_COUNT + 0;
+	int INPUT_DATA__DESCRIPTION = 1;
 
 	/**
 	 * The number of structural features of the '<em>Input Data</em>' class.
@@ -377,7 +357,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_DATA_FEATURE_COUNT = ConfigurationPackage.INPUT_SPECIFICATION_FEATURE_COUNT + 1;
+	int INPUT_DATA_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Input Data</em>' class.
@@ -386,7 +366,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_DATA_OPERATION_COUNT = ConfigurationPackage.INPUT_SPECIFICATION_OPERATION_COUNT + 0;
+	int INPUT_DATA_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl <em>Settings</em>}' class.
@@ -729,15 +709,26 @@ public interface OptimizationPackage extends EPackage {
 	EClass getInputData();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.InputData#getResultsFile <em>Results File</em>}'.
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.InputData#getInputSpecification <em>Input Specification</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Results File</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.InputData#getResultsFile()
+	 * @return the meta object for the containment reference '<em>Input Specification</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.InputData#getInputSpecification()
 	 * @see #getInputData()
 	 * @generated
 	 */
-	EAttribute getInputData_ResultsFile();
+	EReference getInputData_InputSpecification();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.InputData#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Description</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.InputData#getDescription()
+	 * @see #getInputData()
+	 * @generated
+	 */
+	EReference getInputData_Description();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings <em>Settings</em>}'.
@@ -1010,12 +1001,20 @@ public interface OptimizationPackage extends EPackage {
 		EClass INPUT_DATA = eINSTANCE.getInputData();
 
 		/**
-		 * The meta object literal for the '<em><b>Results File</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Input Specification</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute INPUT_DATA__RESULTS_FILE = eINSTANCE.getInputData_ResultsFile();
+		EReference INPUT_DATA__INPUT_SPECIFICATION = eINSTANCE.getInputData_InputSpecification();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INPUT_DATA__DESCRIPTION = eINSTANCE.getInputData_Description();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl <em>Settings</em>}' class.

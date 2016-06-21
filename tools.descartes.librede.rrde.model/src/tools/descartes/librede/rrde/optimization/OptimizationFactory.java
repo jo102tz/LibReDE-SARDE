@@ -31,6 +31,15 @@ public interface OptimizationFactory extends EFactory {
 	OptimizationConfiguration createOptimizationConfiguration();
 
 	/**
+	 * Returns a new object of class '<em>Abstract Local Search Optimizer</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Abstract Local Search Optimizer</em>'.
+	 * @generated
+	 */
+	AbstractLocalSearchOptimizer createAbstractLocalSearchOptimizer();
+
+	/**
 	 * Returns a new object of class '<em>Run Call</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -56,6 +65,15 @@ public interface OptimizationFactory extends EFactory {
 	 * @generated
 	 */
 	OptimizationSettings createOptimizationSettings();
+
+	/**
+	 * Returns a new object of class '<em>Abstract Iterative Parameter Optimizer</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Abstract Iterative Parameter Optimizer</em>'.
+	 * @generated
+	 */
+	AbstractIterativeParameterOptimizer createAbstractIterativeParameterOptimizer();
 
 	/**
 	 * Returns the package supported by this factory.

@@ -4,13 +4,8 @@ package tools.descartes.librede.rrde.optimization.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
-import tools.descartes.librede.configuration.InputSpecification;
-
 import tools.descartes.librede.rrde.optimization.*;
 
 /**
@@ -96,10 +91,6 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseAbstractIterativeParameterOptimizer(AbstractIterativeParameterOptimizer object) {
 				return createAbstractIterativeParameterOptimizerAdapter();
-			}
-			@Override
-			public Adapter caseInputSpecification(InputSpecification object) {
-				return createInputSpecificationAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -216,20 +207,6 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAbstractIterativeParameterOptimizerAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.configuration.InputSpecification <em>Input Specification</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see tools.descartes.librede.configuration.InputSpecification
-	 * @generated
-	 */
-	public Adapter createInputSpecificationAdapter() {
 		return null;
 	}
 

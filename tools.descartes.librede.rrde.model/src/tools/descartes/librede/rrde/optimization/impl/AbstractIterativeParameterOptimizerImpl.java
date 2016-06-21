@@ -36,7 +36,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationSettings;
  *
  * @generated
  */
-public abstract class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.Container implements AbstractIterativeParameterOptimizer {
+public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.Container implements AbstractIterativeParameterOptimizer {
 	/**
 	 * The default value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
 	 * <!-- begin-user-doc -->

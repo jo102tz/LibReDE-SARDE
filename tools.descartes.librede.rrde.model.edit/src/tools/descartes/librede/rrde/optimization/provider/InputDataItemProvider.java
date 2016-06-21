@@ -11,12 +11,18 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import tools.descartes.librede.configuration.provider.InputSpecificationItemProvider;
+import tools.descartes.librede.configuration.ConfigurationFactory;
 
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
@@ -27,7 +33,14 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InputDataItemProvider extends InputSpecificationItemProvider {
+public class InputDataItemProvider 
+	extends ItemProviderAdapter
+	implements
+		IEditingDomainItemProvider,
+		IStructuredItemContentProvider,
+		ITreeItemContentProvider,
+		IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -49,31 +62,39 @@ public class InputDataItemProvider extends InputSpecificationItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addResultsFilePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Results File feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addResultsFilePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_InputData_resultsFile_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_InputData_resultsFile_feature", "_UI_InputData_type"),
-				 OptimizationPackage.Literals.INPUT_DATA__RESULTS_FILE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(OptimizationPackage.Literals.INPUT_DATA__INPUT_SPECIFICATION);
+			childrenFeatures.add(OptimizationPackage.Literals.INPUT_DATA__DESCRIPTION);
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -95,10 +116,7 @@ public class InputDataItemProvider extends InputSpecificationItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((InputData)object).getResultsFile();
-		return label == null || label.length() == 0 ?
-			getString("_UI_InputData_type") :
-			getString("_UI_InputData_type") + " " + label;
+		return getString("_UI_InputData_type");
 	}
 	
 
@@ -114,8 +132,9 @@ public class InputDataItemProvider extends InputSpecificationItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(InputData.class)) {
-			case OptimizationPackage.INPUT_DATA__RESULTS_FILE:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			case OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION:
+			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -131,6 +150,16 @@ public class InputDataItemProvider extends InputSpecificationItemProvider {
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(OptimizationPackage.Literals.INPUT_DATA__INPUT_SPECIFICATION,
+				 ConfigurationFactory.eINSTANCE.createInputSpecification()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(OptimizationPackage.Literals.INPUT_DATA__DESCRIPTION,
+				 ConfigurationFactory.eINSTANCE.createWorkloadDescription()));
 	}
 
 	/**

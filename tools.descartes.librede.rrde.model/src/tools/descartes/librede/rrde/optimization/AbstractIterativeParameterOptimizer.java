@@ -17,7 +17,7 @@ package tools.descartes.librede.rrde.optimization;
  * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getAbstractIterativeParameterOptimizer()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface AbstractIterativeParameterOptimizer extends IConfigurationOptimizationAlgorithm {
