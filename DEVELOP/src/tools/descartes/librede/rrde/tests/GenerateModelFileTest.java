@@ -26,6 +26,7 @@
  */
 package tools.descartes.librede.rrde.tests;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,16 +36,15 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.junit.Test;
 
 import tools.descartes.librede.Librede;
+import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.Plugin;
 import tools.descartes.librede.rrde.Wrapper;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
-import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 
 /**
  * @author JS
@@ -57,24 +57,25 @@ public class GenerateModelFileTest {
 
 	@Test
 	public void loadModelsAndModify() {
-//		Plugin p = new Plugin();
-//		p.initLogging();
-//		Wrapper.init();
-//		Librede.init();
-		// LibredeConfiguration configuration = Librede
-		// .loadConfiguration(new File(LIBREDE_PATH).toPath());
-		// OptimizationConfiguration optimization = Plugin
-		// .loadConfiguration(new File(CONFIG_PATH).toPath());
-		ResourceSet rs = new ResourceSetImpl();
-		// Here the resource is created, with fileextensions "gast" and "xml"
-		// (adapt this to use your own file extension).
-		Resource resource = createAndAddResource(CONFIG_PATH, new String[] {
-				"optimization", "xml" }, rs);
-		// The root object is created by using (adapt this to create your own
-		// root object)
-		OptimizationConfiguration root = OptimizationFactory.eINSTANCE.createOptimizationConfiguration();
-		resource.getContents().add(root);
-		saveResource(resource);
+		Plugin p = new Plugin();
+		p.initLogging();
+		Wrapper.init();
+		Librede.init();
+		LibredeConfiguration configuration = Librede
+				.loadConfiguration(new File(LIBREDE_PATH).toPath());
+		OptimizationConfiguration optimization = Plugin
+				.loadConfiguration(new File(CONFIG_PATH).toPath());
+		// ResourceSet rs = new ResourceSetImpl();
+		// // Here the resource is created, with fileextensions "gast" and "xml"
+		// // (adapt this to use your own file extension).
+		// Resource resource = createAndAddResource(CONFIG_PATH, new String[] {
+		// "optimization", "xml" }, rs);
+		// // The root object is created by using (adapt this to create your own
+		// // root object)
+		// OptimizationConfiguration root =
+		// OptimizationFactory.eINSTANCE.createOptimizationConfiguration();
+		// resource.getContents().add(root);
+		// saveResource(resource);
 	}
 
 	@SuppressWarnings("unchecked")
