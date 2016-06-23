@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<librede-optimization:OptimizationConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization">
+  <containsOf>
+    <algorithm xsi:type="librede-optimization:AbstractLocalSearchOptimizer"/>
+    <trainingData>
+      <inputSpecification>
+        <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource"/>
+	        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@inputSpecification/@dataSources.0" file="C:\Users\Veronika\Desktop\example1\experiment1_WC0_RESPONSE_TIME.csv">
+	      <metric href="librede:metrics#RESPONSE_TIME"/>
+	      <unit href="librede:units#SECONDS"/>
+	      <interval>
+	        <unit href="librede:units#SECONDS"/>
+	      </interval>
+	      <mappings entity="//@containsOf.0/@trainingData.0/@description/@services.0"/>
+	    </observations>
+	    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@inputSpecification/@dataSources.0" file="C:\Users\Veronika\Desktop\example1\experiment1_WC1_RESPONSE_TIME.csv">
+	      <metric href="librede:metrics#RESPONSE_TIME"/>
+	      <unit href="librede:units#SECONDS"/>
+	      <interval>
+	        <unit href="librede:units#SECONDS"/>
+	      </interval>
+	      <mappings entity="//@containsOf.0/@trainingData.0/@description/@services.1"/>
+	    </observations>
+	    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@inputSpecification/@dataSources.0" file="C:\Users\Veronika\Desktop\example1\experiment1_WC2_RESPONSE_TIME.csv">
+	      <metric href="librede:metrics#RESPONSE_TIME"/>
+	      <unit href="librede:units#SECONDS"/>
+	      <interval>
+	        <unit href="librede:units#SECONDS"/>
+	      </interval>
+	      <mappings entity="//@containsOf.0/@trainingData.0/@description/@services.2"/>
+	    </observations>
+	    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@containsOf.0/@trainingData.0/@inputSpecification/@dataSources.0" file="C:\Users\Veronika\Desktop\example1\host1_CPU_UTILIZATION.csv">
+	      <metric href="librede:metrics#UTILIZATION"/>
+	      <unit href="librede:units#NONE"/>
+	      <interval value="30.0">
+	        <unit href="librede:units#SECONDS"/>
+	      </interval>
+	      <mappings entity="//@containsOf.0/@trainingData.0/@description/@resources.0"/>
+	    </observations>
+      </inputSpecification>
+      <description>
+        <resources name="Host1" demands="//@containsOf.0/@trainingData.0/@description/@services.0/@tasks.0 //@containsOf.0/@trainingData.0/@description/@services.1/@tasks.0 //@containsOf.0/@trainingData.0/@description/@services.2/@tasks.0"/>
+        <services name="WC0">
+          <tasks xsi:type="librede:ResourceDemand" name="WC0" resource="//@containsOf.0/@trainingData.0/@description/@resources.0"/>
+        </services>
+        <services name="WC1">
+          <tasks xsi:type="librede:ResourceDemand" name="WC1" resource="//@containsOf.0/@trainingData.0/@description/@resources.0"/>
+        </services>
+        <services name="WC2">
+          <tasks xsi:type="librede:ResourceDemand" name="WC2" resource="//@containsOf.0/@trainingData.0/@description/@resources.0"/>
+        </services>
+      </description>
+    </trainingData>
+    <settings>
+      <parametersToOptmize>stepSize</parametersToOptmize>
+      <parametersToOptmize>windowSize</parametersToOptmize>
+      <validator validationFolds="5" validateEstimates="true">
+        <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
+        <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
+      </validator>
+    </settings>
+    <estimationSpecification window="60">
+      <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
+      <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
+      <approaches type="tools.descartes.librede.approach.WangKalmanFilterApproach"/>
+      <approaches type="tools.descartes.librede.approach.RoliaRegressionApproach"/>
+      <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>
+      <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
+      <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
+      <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+      <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+      <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+      <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+      <stepSize value="60.0">
+        <unit href="librede:units#SECONDS"/>
+      </stepSize>
+      <startTimestamp value="1.370087520861E9">
+        <unit href="librede:units#SECONDS"/>
+      </startTimestamp>
+      <endTimestamp value="1.370090939129E9">
+        <unit href="librede:units#SECONDS"/>
+      </endTimestamp>
+    </estimationSpecification>
+  </containsOf>
+</librede-optimization:OptimizationConfiguration>

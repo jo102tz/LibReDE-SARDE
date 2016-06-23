@@ -53,7 +53,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 public class GenerateModelFileTest {
 
 	public final static String LIBREDE_PATH = "resources/estimation.librede";
-	public final static String CONFIG_PATH = "resources/configuration.optimization";
+	public final static String CONFIG_PATH = "resources/conf.optimization";
 
 	@Test
 	public void loadModelsAndModify() {
