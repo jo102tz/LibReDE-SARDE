@@ -6,9 +6,14 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.emf.common.ui.URIEditorInput;
+import org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.UniqueEList;
+import org.eclipse.emf.edit.ui.action.LoadResourceAction;
+import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
-
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -40,19 +45,7 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-import org.eclipse.emf.common.ui.URIEditorInput;
-import org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.common.util.UniqueEList;
-import org.eclipse.emf.edit.ui.action.LoadResourceAction;
-import org.eclipse.emf.edit.ui.util.EditUIUtil;
-
-import tools.descartes.librede.rrde.optimization.presentation.RrdeEditorPlugin;
 import tools.descartes.librede.configuration.presentation.ConfigurationEditor;
-
-import tools.descartes.librede.metrics.presentation.MetricsEditor;
-
-import tools.descartes.librede.units.presentation.UnitsEditor;
 
 
 /**
@@ -79,9 +72,6 @@ public final class RrdeEditorAdvisor extends WorkbenchAdvisor {
 	private static String[] getFileExtensionFilters() {
 		List<String> result = new UniqueEList<String>();
 		result.addAll(OptimizationEditor.FILE_EXTENSION_FILTERS);
-		result.addAll(ConfigurationEditor.FILE_EXTENSION_FILTERS);
-		result.addAll(UnitsEditor.FILE_EXTENSION_FILTERS);
-		result.addAll(MetricsEditor.FILE_EXTENSION_FILTERS);
 		return result.toArray(new String[0]);
 	} 
 

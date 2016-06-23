@@ -16,10 +16,6 @@ import tools.descartes.librede.configuration.ConfigurationPackage;
 
 import tools.descartes.librede.configuration.impl.ConfigurationPackageImpl;
 
-import tools.descartes.librede.metrics.MetricsPackage;
-
-import tools.descartes.librede.metrics.impl.MetricsPackageImpl;
-
 import tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer;
 import tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm;
@@ -29,10 +25,6 @@ import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 import tools.descartes.librede.rrde.optimization.RunCall;
-
-import tools.descartes.librede.units.UnitsPackage;
-
-import tools.descartes.librede.units.impl.UnitsPackageImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -141,20 +133,14 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		// Obtain or create and register interdependencies
 		ConfigurationPackageImpl theConfigurationPackage = (ConfigurationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ConfigurationPackage.eNS_URI) instanceof ConfigurationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ConfigurationPackage.eNS_URI) : ConfigurationPackage.eINSTANCE);
-		UnitsPackageImpl theUnitsPackage = (UnitsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(UnitsPackage.eNS_URI) instanceof UnitsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(UnitsPackage.eNS_URI) : UnitsPackage.eINSTANCE);
-		MetricsPackageImpl theMetricsPackage = (MetricsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(MetricsPackage.eNS_URI) instanceof MetricsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(MetricsPackage.eNS_URI) : MetricsPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theOptimizationPackage.createPackageContents();
 		theConfigurationPackage.createPackageContents();
-		theUnitsPackage.createPackageContents();
-		theMetricsPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theOptimizationPackage.initializePackageContents();
 		theConfigurationPackage.initializePackageContents();
-		theUnitsPackage.initializePackageContents();
-		theMetricsPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theOptimizationPackage.freeze();

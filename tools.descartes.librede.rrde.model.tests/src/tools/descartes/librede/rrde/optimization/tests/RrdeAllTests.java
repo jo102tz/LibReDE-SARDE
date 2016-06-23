@@ -7,12 +7,6 @@ import junit.framework.TestSuite;
 
 import junit.textui.TestRunner;
 
-import tools.descartes.librede.configuration.tests.ConfigurationTests;
-
-import tools.descartes.librede.metrics.tests.MetricsTests;
-
-import tools.descartes.librede.units.tests.UnitsTests;
-
 /**
  * <!-- begin-user-doc -->
  * A test suite for the '<em><b>Rrde</b></em>' model.
@@ -38,9 +32,6 @@ public class RrdeAllTests extends TestSuite {
 	public static Test suite() {
 		TestSuite suite = new RrdeAllTests("Rrde Tests");
 		suite.addTest(OptimizationTests.suite());
-		suite.addTest(ConfigurationTests.suite());
-		suite.addTest(UnitsTests.suite());
-		suite.addTest(MetricsTests.suite());
 		return suite;
 	}
 

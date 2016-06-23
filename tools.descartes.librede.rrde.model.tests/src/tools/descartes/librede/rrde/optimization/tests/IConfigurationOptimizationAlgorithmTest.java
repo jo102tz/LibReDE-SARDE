@@ -1,5 +1,3 @@
-/**
- */
 package tools.descartes.librede.rrde.optimization.tests;
 
 import junit.framework.TestCase;

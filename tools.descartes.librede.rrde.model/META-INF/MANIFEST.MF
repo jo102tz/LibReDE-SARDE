@@ -7,19 +7,10 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: tools.descartes.librede.configuration,
- tools.descartes.librede.configuration.impl,
- tools.descartes.librede.configuration.util,
- tools.descartes.librede.metrics,
- tools.descartes.librede.metrics.impl,
- tools.descartes.librede.metrics.util,
- tools.descartes.librede.rrde.optimization,
+Export-Package: tools.descartes.librede.rrde.optimization,
  tools.descartes.librede.rrde.optimization.impl,
- tools.descartes.librede.rrde.optimization.util,
- tools.descartes.librede.units,
- tools.descartes.librede.units.impl
+ tools.descartes.librede.rrde.optimization.util
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport
+ org.eclipse.emf.ecore;visibility:=reexport,
+ tools.descartes.librede.model;bundle-version="1.1.0"
 Bundle-ActivationPolicy: lazy
-Import-Package: tools.descartes.librede.units,
- tools.descartes.librede.units.impl
