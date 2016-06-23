@@ -351,13 +351,22 @@ public interface OptimizationPackage extends EPackage {
 	int INPUT_DATA__DESCRIPTION = 1;
 
 	/**
+	 * The feature id for the '<em><b>Root Folder</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT_DATA__ROOT_FOLDER = 2;
+
+	/**
 	 * The number of structural features of the '<em>Input Data</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_DATA_FEATURE_COUNT = 2;
+	int INPUT_DATA_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Input Data</em>' class.
@@ -731,6 +740,17 @@ public interface OptimizationPackage extends EPackage {
 	EReference getInputData_Description();
 
 	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.InputData#getRootFolder <em>Root Folder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Root Folder</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.InputData#getRootFolder()
+	 * @see #getInputData()
+	 * @generated
+	 */
+	EAttribute getInputData_RootFolder();
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings <em>Settings</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1015,6 +1035,14 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference INPUT_DATA__DESCRIPTION = eINSTANCE.getInputData_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Root Folder</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INPUT_DATA__ROOT_FOLDER = eINSTANCE.getInputData_RootFolder();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl <em>Settings</em>}' class.

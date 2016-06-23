@@ -26,21 +26,13 @@
  */
 package tools.descartes.librede.rrde.configuration;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import optimization.ConfigurationSettings;
-
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.approach.IEstimationApproach;
-import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.Wrapper;
 import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettings;
-import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettingsBuilder;
 
 /**
  * This class contains an abstract implementation of an
@@ -252,7 +244,9 @@ public abstract class AbstractConfigurationOptimizer implements
 	 */
 	protected double getError(Class<? extends IEstimationApproach> approach) {
 		runIteration();
-		return getResult().getApproachValidationErrors(approach);
+//		return getResult().getApproachValidationErrors(approach);
+		// TODO 
+		return 0;
 	}
 
 	/**
@@ -262,13 +256,15 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * @return The average error of all estimates
 	 */
 	protected double getAverageError() {
-		runIteration();
-		double cum = 0;
-		for (Class<? extends IEstimationApproach> approach : getResult()
-				.getApproaches()) {
-			cum += getResult().getApproachValidationErrors(approach);
-		}
-		return cum / (double) getResult().getApproaches().size();
+//		runIteration();
+//		double cum = 0;
+//		for (Class<? extends IEstimationApproach> approach : getResult()
+//				.getApproaches()) {
+//			cum += getResult().getApproachValidationErrors(approach);
+//		}
+//		return cum / (double) getResult().getApproaches().size();0
+		return 0;
+		// TODO
 	}
 
 	/**
@@ -277,18 +273,18 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * 
 	 * @return The smallest error of all estimates
 	 */
-	protected double getMinimumError() {
-		runIteration();
-		double min = Double.MAX_VALUE;
-		for (Class<? extends IEstimationApproach> approach : getResult()
-				.getApproaches()) {
-			min = Math.min(min,
-					getResult().getApproachValidationErrors(approach));
-
-			System.out.println(approach.getSimpleName() + " validation error: "
-					+ getResult().getApproachValidationErrors(approach));
-		}
-		System.out.println("Min: " + min);
-		return min;
-	}
+//	protected double getMinimumError() {
+//		runIteration();
+//		double min = Double.MAX_VALUE;
+//		for (Class<? extends IEstimationApproach> approach : getResult()
+//				.getApproaches()) {
+//			min = Math.min(min,
+//					getResult().getApproachValidationErrors(approach));
+//
+//			System.out.println(approach.getSimpleName() + " validation error: "
+//					+ getResult().getApproachValidationErrors(approach));
+//		}
+//		System.out.println("Min: " + min);
+//		return min;
+//	}
 }

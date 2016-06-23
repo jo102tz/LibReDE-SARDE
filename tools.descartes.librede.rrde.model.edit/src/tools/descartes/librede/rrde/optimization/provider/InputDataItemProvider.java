@@ -13,12 +13,14 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -62,8 +64,31 @@ public class InputDataItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addRootFolderPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Root Folder feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRootFolderPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_InputData_rootFolder_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_InputData_rootFolder_feature", "_UI_InputData_type"),
+				 OptimizationPackage.Literals.INPUT_DATA__ROOT_FOLDER,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -116,7 +141,10 @@ public class InputDataItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_InputData_type");
+		String label = ((InputData)object).getRootFolder();
+		return label == null || label.length() == 0 ?
+			getString("_UI_InputData_type") :
+			getString("_UI_InputData_type") + " " + label;
 	}
 	
 
@@ -132,6 +160,9 @@ public class InputDataItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(InputData.class)) {
+			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION:
 			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));

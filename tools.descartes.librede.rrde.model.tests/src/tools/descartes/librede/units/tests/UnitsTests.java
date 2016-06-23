@@ -31,7 +31,6 @@ public class UnitsTests extends TestSuite {
 	 */
 	public static Test suite() {
 		TestSuite suite = new UnitsTests("units Tests");
-		suite.addTestSuite(UnitTest.class);
 		suite.addTestSuite(QuantityTest.class);
 		return suite;
 	}

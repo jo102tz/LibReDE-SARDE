@@ -22,10 +22,8 @@ import tools.descartes.librede.configuration.DataSourceConfiguration;
 import tools.descartes.librede.configuration.TraceConfiguration;
 import tools.descartes.librede.configuration.TraceToEntityMapping;
 
-import tools.descartes.librede.units.Dimension;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;
-import tools.descartes.librede.units.Unit;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,7 +33,6 @@ import tools.descartes.librede.units.Unit;
  * The following features are implemented:
  * <ul>
  *   <li>{@link tools.descartes.librede.configuration.impl.TraceConfigurationImpl#getDataSource <em>Data Source</em>}</li>
- *   <li>{@link tools.descartes.librede.configuration.impl.TraceConfigurationImpl#getUnit <em>Unit</em>}</li>
  *   <li>{@link tools.descartes.librede.configuration.impl.TraceConfigurationImpl#getInterval <em>Interval</em>}</li>
  *   <li>{@link tools.descartes.librede.configuration.impl.TraceConfigurationImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link tools.descartes.librede.configuration.impl.TraceConfigurationImpl#getMappings <em>Mappings</em>}</li>
@@ -54,16 +51,6 @@ public class TraceConfigurationImpl extends ObservationImpl implements TraceConf
 	 * @ordered
 	 */
 	protected DataSourceConfiguration dataSource;
-
-	/**
-	 * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getUnit()
-	 * @generated
-	 * @ordered
-	 */
-	protected Unit<? extends Dimension> unit;
 
 	/**
 	 * The cached value of the '{@link #getInterval() <em>Interval</em>}' containment reference.
@@ -160,45 +147,6 @@ public class TraceConfigurationImpl extends ObservationImpl implements TraceConf
 		dataSource = newDataSource;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ConfigurationPackage.TRACE_CONFIGURATION__DATA_SOURCE, oldDataSource, dataSource));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	public Unit<? extends Dimension> getUnit() {
-		if (unit != null && unit.eIsProxy()) {
-			InternalEObject oldUnit = (InternalEObject)unit;
-			unit = (Unit<? extends Dimension>)eResolveProxy(oldUnit);
-			if (unit != oldUnit) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConfigurationPackage.TRACE_CONFIGURATION__UNIT, oldUnit, unit));
-			}
-		}
-		return unit;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Unit<? extends Dimension> basicGetUnit() {
-		return unit;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setUnit(Unit<? extends Dimension> newUnit) {
-		Unit<? extends Dimension> oldUnit = unit;
-		unit = newUnit;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConfigurationPackage.TRACE_CONFIGURATION__UNIT, oldUnit, unit));
 	}
 
 	/**
@@ -304,9 +252,6 @@ public class TraceConfigurationImpl extends ObservationImpl implements TraceConf
 			case ConfigurationPackage.TRACE_CONFIGURATION__DATA_SOURCE:
 				if (resolve) return getDataSource();
 				return basicGetDataSource();
-			case ConfigurationPackage.TRACE_CONFIGURATION__UNIT:
-				if (resolve) return getUnit();
-				return basicGetUnit();
 			case ConfigurationPackage.TRACE_CONFIGURATION__INTERVAL:
 				return getInterval();
 			case ConfigurationPackage.TRACE_CONFIGURATION__LOCATION:
@@ -328,9 +273,6 @@ public class TraceConfigurationImpl extends ObservationImpl implements TraceConf
 		switch (featureID) {
 			case ConfigurationPackage.TRACE_CONFIGURATION__DATA_SOURCE:
 				setDataSource((DataSourceConfiguration)newValue);
-				return;
-			case ConfigurationPackage.TRACE_CONFIGURATION__UNIT:
-				setUnit((Unit<? extends Dimension>)newValue);
 				return;
 			case ConfigurationPackage.TRACE_CONFIGURATION__INTERVAL:
 				setInterval((Quantity<Time>)newValue);
@@ -357,9 +299,6 @@ public class TraceConfigurationImpl extends ObservationImpl implements TraceConf
 			case ConfigurationPackage.TRACE_CONFIGURATION__DATA_SOURCE:
 				setDataSource((DataSourceConfiguration)null);
 				return;
-			case ConfigurationPackage.TRACE_CONFIGURATION__UNIT:
-				setUnit((Unit<? extends Dimension>)null);
-				return;
 			case ConfigurationPackage.TRACE_CONFIGURATION__INTERVAL:
 				setInterval((Quantity<Time>)null);
 				return;
@@ -383,8 +322,6 @@ public class TraceConfigurationImpl extends ObservationImpl implements TraceConf
 		switch (featureID) {
 			case ConfigurationPackage.TRACE_CONFIGURATION__DATA_SOURCE:
 				return dataSource != null;
-			case ConfigurationPackage.TRACE_CONFIGURATION__UNIT:
-				return unit != null;
 			case ConfigurationPackage.TRACE_CONFIGURATION__INTERVAL:
 				return interval != null;
 			case ConfigurationPackage.TRACE_CONFIGURATION__LOCATION:

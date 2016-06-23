@@ -3,6 +3,7 @@
 package tools.descartes.librede.rrde.optimization;
 
 import org.eclipse.emf.ecore.EObject;
+
 import tools.descartes.librede.configuration.InputSpecification;
 import tools.descartes.librede.configuration.WorkloadDescription;
 
@@ -16,6 +17,7 @@ import tools.descartes.librede.configuration.WorkloadDescription;
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getInputSpecification <em>Input Specification</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getDescription <em>Description</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getRootFolder <em>Root Folder</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,5 +77,31 @@ public interface InputData extends EObject {
 	 * @generated
 	 */
 	void setDescription(WorkloadDescription value);
+
+	/**
+	 * Returns the value of the '<em><b>Root Folder</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Root Folder</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Root Folder</em>' attribute.
+	 * @see #setRootFolder(String)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getInputData_RootFolder()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+	 * @generated
+	 */
+	String getRootFolder();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.InputData#getRootFolder <em>Root Folder</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Root Folder</em>' attribute.
+	 * @see #getRootFolder()
+	 * @generated
+	 */
+	void setRootFolder(String value);
 
 } // InputData

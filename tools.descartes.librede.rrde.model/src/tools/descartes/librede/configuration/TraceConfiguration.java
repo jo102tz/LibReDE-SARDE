@@ -4,10 +4,8 @@ package tools.descartes.librede.configuration;
 
 import org.eclipse.emf.common.util.EList;
 
-import tools.descartes.librede.units.Dimension;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;
-import tools.descartes.librede.units.Unit;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,7 +16,6 @@ import tools.descartes.librede.units.Unit;
  * The following features are supported:
  * <ul>
  *   <li>{@link tools.descartes.librede.configuration.TraceConfiguration#getDataSource <em>Data Source</em>}</li>
- *   <li>{@link tools.descartes.librede.configuration.TraceConfiguration#getUnit <em>Unit</em>}</li>
  *   <li>{@link tools.descartes.librede.configuration.TraceConfiguration#getInterval <em>Interval</em>}</li>
  *   <li>{@link tools.descartes.librede.configuration.TraceConfiguration#getLocation <em>Location</em>}</li>
  *   <li>{@link tools.descartes.librede.configuration.TraceConfiguration#getMappings <em>Mappings</em>}</li>
@@ -55,32 +52,6 @@ public interface TraceConfiguration extends Observation {
 	 * @generated
 	 */
 	void setDataSource(DataSourceConfiguration value);
-
-	/**
-	 * Returns the value of the '<em><b>Unit</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Unit</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Unit</em>' reference.
-	 * @see #setUnit(Unit)
-	 * @see tools.descartes.librede.configuration.ConfigurationPackage#getTraceConfiguration_Unit()
-	 * @model required="true"
-	 * @generated
-	 */
-	Unit<? extends Dimension> getUnit();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.configuration.TraceConfiguration#getUnit <em>Unit</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Unit</em>' reference.
-	 * @see #getUnit()
-	 * @generated
-	 */
-	void setUnit(Unit<? extends Dimension> value);
 
 	/**
 	 * Returns the value of the '<em><b>Interval</b></em>' containment reference.

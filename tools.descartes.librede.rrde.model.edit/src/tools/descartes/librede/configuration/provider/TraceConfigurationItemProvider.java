@@ -53,7 +53,6 @@ public class TraceConfigurationItemProvider extends ObservationItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addDataSourcePropertyDescriptor(object);
-			addUnitPropertyDescriptor(object);
 			addLocationPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -73,28 +72,6 @@ public class TraceConfigurationItemProvider extends ObservationItemProvider {
 				 getString("_UI_TraceConfiguration_dataSource_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_TraceConfiguration_dataSource_feature", "_UI_TraceConfiguration_type"),
 				 ConfigurationPackage.Literals.TRACE_CONFIGURATION__DATA_SOURCE,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Unit feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addUnitPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TraceConfiguration_unit_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TraceConfiguration_unit_feature", "_UI_TraceConfiguration_type"),
-				 ConfigurationPackage.Literals.TRACE_CONFIGURATION__UNIT,
 				 true,
 				 false,
 				 true,

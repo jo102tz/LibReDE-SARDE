@@ -658,7 +658,7 @@ public class ConfigurationPackageImpl extends EPackageImpl implements Configurat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTraceConfiguration_Unit() {
+	public EReference getTraceConfiguration_Interval() {
 		return (EReference)traceConfigurationEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -667,17 +667,8 @@ public class ConfigurationPackageImpl extends EPackageImpl implements Configurat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTraceConfiguration_Interval() {
-		return (EReference)traceConfigurationEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getTraceConfiguration_Location() {
-		return (EAttribute)traceConfigurationEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)traceConfigurationEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -686,7 +677,7 @@ public class ConfigurationPackageImpl extends EPackageImpl implements Configurat
 	 * @generated
 	 */
 	public EReference getTraceConfiguration_Mappings() {
-		return (EReference)traceConfigurationEClass.getEStructuralFeatures().get(4);
+		return (EReference)traceConfigurationEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1238,7 +1229,6 @@ public class ConfigurationPackageImpl extends EPackageImpl implements Configurat
 
 		traceConfigurationEClass = createEClass(TRACE_CONFIGURATION);
 		createEReference(traceConfigurationEClass, TRACE_CONFIGURATION__DATA_SOURCE);
-		createEReference(traceConfigurationEClass, TRACE_CONFIGURATION__UNIT);
 		createEReference(traceConfigurationEClass, TRACE_CONFIGURATION__INTERVAL);
 		createEAttribute(traceConfigurationEClass, TRACE_CONFIGURATION__LOCATION);
 		createEReference(traceConfigurationEClass, TRACE_CONFIGURATION__MAPPINGS);
@@ -1413,12 +1403,6 @@ public class ConfigurationPackageImpl extends EPackageImpl implements Configurat
 
 		initEClass(traceConfigurationEClass, TraceConfiguration.class, "TraceConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTraceConfiguration_DataSource(), this.getDataSourceConfiguration(), null, "dataSource", null, 1, 1, TraceConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		g1 = createEGenericType(theUnitsPackage.getUnit());
-		g2 = createEGenericType();
-		g1.getETypeArguments().add(g2);
-		EGenericType g3 = createEGenericType(theUnitsPackage.getDimension());
-		g2.setEUpperBound(g3);
-		initEReference(getTraceConfiguration_Unit(), g1, null, "unit", null, 1, 1, TraceConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		g1 = createEGenericType(theUnitsPackage.getQuantity());
 		g2 = createEGenericType(theUnitsPackage.getTime());
 		g1.getETypeArguments().add(g2);
@@ -1499,7 +1483,7 @@ public class ConfigurationPackageImpl extends EPackageImpl implements Configurat
 		g1 = createEGenericType(theMetricsPackage.getMetric());
 		g2 = createEGenericType();
 		g1.getETypeArguments().add(g2);
-		g3 = createEGenericType(theUnitsPackage.getDimension());
+		EGenericType g3 = createEGenericType(theUnitsPackage.getDimension());
 		g2.setEUpperBound(g3);
 		initEReference(getObservation_Metric(), g1, null, "metric", null, 1, 1, Observation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -17,8 +17,9 @@ Export-Package: tools.descartes.librede.configuration,
  tools.descartes.librede.rrde.optimization.impl,
  tools.descartes.librede.rrde.optimization.util,
  tools.descartes.librede.units,
- tools.descartes.librede.units.impl,
- tools.descartes.librede.units.util
+ tools.descartes.librede.units.impl
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy
+Import-Package: tools.descartes.librede.units,
+ tools.descartes.librede.units.impl

@@ -4,12 +4,16 @@ package tools.descartes.librede.rrde.optimization.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import tools.descartes.librede.configuration.InputSpecification;
 import tools.descartes.librede.configuration.WorkloadDescription;
+
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 
@@ -22,6 +26,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getInputSpecification <em>Input Specification</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getRootFolder <em>Root Folder</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,6 +52,26 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	 * @ordered
 	 */
 	protected WorkloadDescription description;
+
+	/**
+	 * The default value of the '{@link #getRootFolder() <em>Root Folder</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRootFolder()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ROOT_FOLDER_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getRootFolder() <em>Root Folder</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRootFolder()
+	 * @generated
+	 * @ordered
+	 */
+	protected String rootFolder = ROOT_FOLDER_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -158,6 +183,27 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getRootFolder() {
+		return rootFolder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRootFolder(String newRootFolder) {
+		String oldRootFolder = rootFolder;
+		rootFolder = newRootFolder;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.INPUT_DATA__ROOT_FOLDER, oldRootFolder, rootFolder));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -181,6 +227,8 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 				return getInputSpecification();
 			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
 				return getDescription();
+			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
+				return getRootFolder();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -198,6 +246,9 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 				return;
 			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
 				setDescription((WorkloadDescription)newValue);
+				return;
+			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
+				setRootFolder((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -217,6 +268,9 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
 				setDescription((WorkloadDescription)null);
 				return;
+			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
+				setRootFolder(ROOT_FOLDER_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -233,8 +287,26 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 				return inputSpecification != null;
 			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
 				return description != null;
+			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
+				return ROOT_FOLDER_EDEFAULT == null ? rootFolder != null : !ROOT_FOLDER_EDEFAULT.equals(rootFolder);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (rootFolder: ");
+		result.append(rootFolder);
+		result.append(')');
+		return result.toString();
 	}
 
 } //InputDataImpl

@@ -4,8 +4,6 @@ package tools.descartes.librede.configuration;
 
 import org.eclipse.emf.common.util.EList;
 
-import tools.descartes.librede.units.Quantity;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Constant Data Point</b></em>'.

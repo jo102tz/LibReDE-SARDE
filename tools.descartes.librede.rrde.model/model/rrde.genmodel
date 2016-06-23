@@ -39,6 +39,7 @@
     <genClasses ecoreClass="rrde.ecore#//InputData">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//InputData/inputSpecification"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//InputData/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//InputData/rootFolder"/>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//OptimizationSettings">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//OptimizationSettings/IgnoreApproaches"/>

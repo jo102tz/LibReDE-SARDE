@@ -26,7 +26,6 @@
  */
 package tools.descartes.librede.rrde.configuration;
 
-import optimization.ConfigurationSettings;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettings;
 
