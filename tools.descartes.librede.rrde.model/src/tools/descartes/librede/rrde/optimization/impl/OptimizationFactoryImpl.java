@@ -57,11 +57,14 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case OptimizationPackage.OPTIMIZATION_CONFIGURATION: return createOptimizationConfiguration();
-			case OptimizationPackage.ABSTRACT_LOCAL_SEARCH_OPTIMIZER: return createAbstractLocalSearchOptimizer();
+			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER: return createLocalSearchSpecifier();
 			case OptimizationPackage.RUN_CALL: return createRunCall();
 			case OptimizationPackage.INPUT_DATA: return createInputData();
 			case OptimizationPackage.OPTIMIZATION_SETTINGS: return createOptimizationSettings();
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER: return createAbstractIterativeParameterOptimizer();
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER: return createIterativeParameterOptimizerSpecifier();
+			case OptimizationPackage.GENERIC_PARAMETER: return createGenericParameter();
+			case OptimizationPackage.STEP_SIZE: return createStepSize();
+			case OptimizationPackage.WINDOW_SIZE: return createWindowSize();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -82,9 +85,9 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractLocalSearchOptimizer createAbstractLocalSearchOptimizer() {
-		AbstractLocalSearchOptimizerImpl abstractLocalSearchOptimizer = new AbstractLocalSearchOptimizerImpl();
-		return abstractLocalSearchOptimizer;
+	public LocalSearchSpecifier createLocalSearchSpecifier() {
+		LocalSearchSpecifierImpl localSearchSpecifier = new LocalSearchSpecifierImpl();
+		return localSearchSpecifier;
 	}
 
 	/**
@@ -122,9 +125,39 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractIterativeParameterOptimizer createAbstractIterativeParameterOptimizer() {
-		AbstractIterativeParameterOptimizerImpl abstractIterativeParameterOptimizer = new AbstractIterativeParameterOptimizerImpl();
-		return abstractIterativeParameterOptimizer;
+	public IterativeParameterOptimizerSpecifier createIterativeParameterOptimizerSpecifier() {
+		IterativeParameterOptimizerSpecifierImpl iterativeParameterOptimizerSpecifier = new IterativeParameterOptimizerSpecifierImpl();
+		return iterativeParameterOptimizerSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenericParameter createGenericParameter() {
+		GenericParameterImpl genericParameter = new GenericParameterImpl();
+		return genericParameter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StepSize createStepSize() {
+		StepSizeImpl stepSize = new StepSizeImpl();
+		return stepSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WindowSize createWindowSize() {
+		WindowSizeImpl windowSize = new WindowSizeImpl();
+		return windowSize;
 	}
 
 	/**

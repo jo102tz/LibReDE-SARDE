@@ -9,10 +9,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="containsOf" upperBound="-1"
         eType="#//RunCall" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IConfigurationOptimizationAlgorithm"
+  <eClassifiers xsi:type="ecore:EClass" name="IConfigurationOptimizationAlgorithmSpecifier"
       abstract="true" interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="This is a basic interface for algorithms optimizing LibReDE configurations of estimation approaches."/>
+      <details key="documentation" value="This is a basic interface for configurations of algorithms optimizing LibReDE configurations of estimation approaches."/>
     </eAnnotations>
     <eOperations name="runOptimization" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -32,26 +32,20 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeOut" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="-1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractLocalSearchOptimizer" eSuperTypes="#//IConfigurationOptimizationAlgorithm">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimum" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="0"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximum" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="200"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LocalSearchSpecifier" eSuperTypes="#//IConfigurationOptimizationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tolerance" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="0.05"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximumNumberOfSteps" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="-1"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startValue" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="60"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepSize" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RunCall">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="One iteration of optimization specified by input or training data, a set of OptimizationSettings, an EstimationSpecification to optimize and one instance of an IConfigurationOptimizationAlgorithm"/>
+      <details key="documentation" value="One iteration of optimization specified by input or training data, a set of OptimizationSettings, an EstimationSpecification to optimize and one instance of an IConfigurationOptimizationAlgorithmSpecifier"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="algorithm" lowerBound="1"
-        eType="#//IConfigurationOptimizationAlgorithm" containment="true"/>
+        eType="#//IConfigurationOptimizationAlgorithmSpecifier" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="trainingData" lowerBound="1"
         upperBound="-1" eType="#//InputData" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="settings" lowerBound="1"
@@ -80,22 +74,33 @@
         <details key="documentation" value="Approaches that will not be optimized in this Run and that will be ignored by the algorithm."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parametersToOptmize" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The parameters that will be optimized by the algorithms as far as supported."/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="validator" lowerBound="1"
         eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//ValidationSpecification"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parametersToOptimize" upperBound="-1"
+        eType="#//IOptimizableParameter" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractIterativeParameterOptimizer"
-      eSuperTypes="#//IConfigurationOptimizationAlgorithm">
+  <eClassifiers xsi:type="ecore:EClass" name="IterativeParameterOptimizerSpecifier"
+      eSuperTypes="#//IConfigurationOptimizationAlgorithmSpecifier">
     <eOperations name="stop" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfSplits" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="10"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfExplorations" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="50"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IOptimizableParameter" abstract="true"
+      interface="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="An interface for the different parameter types that can be optimized."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerBound" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="upperBound" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startValue" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//AnySimpleType"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenericParameter" eSuperTypes="#//IOptimizableParameter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StepSize" eSuperTypes="#//IOptimizableParameter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WindowSize" eSuperTypes="#//IOptimizableParameter"/>
 </ecore:EPackage>

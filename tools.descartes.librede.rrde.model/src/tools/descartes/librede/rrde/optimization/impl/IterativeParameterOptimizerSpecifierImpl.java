@@ -16,27 +16,27 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 
-import tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer;
 import tools.descartes.librede.rrde.optimization.InputData;
+import tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Abstract Iterative Parameter Optimizer</b></em>'.
+ * An implementation of the model object '<em><b>Iterative Parameter Optimizer Specifier</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.AbstractIterativeParameterOptimizerImpl#getTimeOut <em>Time Out</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.AbstractIterativeParameterOptimizerImpl#getNumberOfSplits <em>Number Of Splits</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.AbstractIterativeParameterOptimizerImpl#getNumberOfExplorations <em>Number Of Explorations</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl#getTimeOut <em>Time Out</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl#getNumberOfSplits <em>Number Of Splits</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl#getNumberOfExplorations <em>Number Of Explorations</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.Container implements AbstractIterativeParameterOptimizer {
+public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl.Container implements IterativeParameterOptimizerSpecifier {
 	/**
 	 * The default value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -102,7 +102,7 @@ public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected AbstractIterativeParameterOptimizerImpl() {
+	protected IterativeParameterOptimizerSpecifierImpl() {
 		super();
 	}
 
@@ -113,7 +113,7 @@ public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return OptimizationPackage.Literals.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER;
+		return OptimizationPackage.Literals.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER;
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.
 		long oldTimeOut = timeOut;
 		timeOut = newTimeOut;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__TIME_OUT, oldTimeOut, timeOut));
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__TIME_OUT, oldTimeOut, timeOut));
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.
 		int oldNumberOfSplits = numberOfSplits;
 		numberOfSplits = newNumberOfSplits;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_SPLITS, oldNumberOfSplits, numberOfSplits));
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS, oldNumberOfSplits, numberOfSplits));
 	}
 
 	/**
@@ -176,7 +176,7 @@ public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.
 		int oldNumberOfExplorations = numberOfExplorations;
 		numberOfExplorations = newNumberOfExplorations;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_EXPLORATIONS, oldNumberOfExplorations, numberOfExplorations));
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS, oldNumberOfExplorations, numberOfExplorations));
 	}
 
 	/**
@@ -220,11 +220,11 @@ public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__TIME_OUT:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__TIME_OUT:
 				return getTimeOut();
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_SPLITS:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS:
 				return getNumberOfSplits();
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_EXPLORATIONS:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS:
 				return getNumberOfExplorations();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -238,13 +238,13 @@ public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__TIME_OUT:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__TIME_OUT:
 				setTimeOut((Long)newValue);
 				return;
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_SPLITS:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS:
 				setNumberOfSplits((Integer)newValue);
 				return;
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_EXPLORATIONS:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS:
 				setNumberOfExplorations((Integer)newValue);
 				return;
 		}
@@ -259,13 +259,13 @@ public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__TIME_OUT:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__TIME_OUT:
 				setTimeOut(TIME_OUT_EDEFAULT);
 				return;
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_SPLITS:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS:
 				setNumberOfSplits(NUMBER_OF_SPLITS_EDEFAULT);
 				return;
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_EXPLORATIONS:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS:
 				setNumberOfExplorations(NUMBER_OF_EXPLORATIONS_EDEFAULT);
 				return;
 		}
@@ -280,11 +280,11 @@ public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__TIME_OUT:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__TIME_OUT:
 				return timeOut != TIME_OUT_EDEFAULT;
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_SPLITS:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS:
 				return numberOfSplits != NUMBER_OF_SPLITS_EDEFAULT;
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_EXPLORATIONS:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS:
 				return numberOfExplorations != NUMBER_OF_EXPLORATIONS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
@@ -298,11 +298,11 @@ public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.
 	@Override
 	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
 		switch (operationID) {
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER___STOP:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___STOP:
 				return stop();
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION:
 				return runOptimization((InputData)arguments.get(0), (OptimizationSettings)arguments.get(1), (EstimationSpecification)arguments.get(2));
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER___CONFIGURE__STRING_EOBJECT:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___CONFIGURE__STRING_EOBJECT:
 				return configure((String)arguments.get(0), (EObject)arguments.get(1));
 		}
 		return super.eInvoke(operationID, arguments);
@@ -328,4 +328,4 @@ public class AbstractIterativeParameterOptimizerImpl extends MinimalEObjectImpl.
 		return result.toString();
 	}
 
-} //AbstractIterativeParameterOptimizerImpl
+} //IterativeParameterOptimizerSpecifierImpl

@@ -141,6 +141,8 @@ import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import tools.descartes.librede.configuration.provider.ConfigurationItemProviderAdapterFactory;
+import tools.descartes.librede.metrics.provider.MetricsItemProviderAdapterFactory;
+import tools.descartes.librede.units.provider.UnitsItemProviderAdapterFactory;
 
 
 /**
@@ -609,6 +611,8 @@ public class OptimizationEditor
 		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new OptimizationItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new ConfigurationItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new MetricsItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new UnitsItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
 		// Create the command stack that will notify this editor as commands are executed.

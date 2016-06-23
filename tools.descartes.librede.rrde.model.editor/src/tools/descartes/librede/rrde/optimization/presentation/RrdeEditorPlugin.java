@@ -7,6 +7,7 @@ import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.ui.EclipseUIPlugin;
 
 import org.eclipse.emf.common.util.ResourceLocator;
+import tools.descartes.librede.configuration.provider.LibredeEditPlugin;
 
 /**
  * This is the central singleton for the Rrde editor plugin.
@@ -40,6 +41,7 @@ public final class RrdeEditorPlugin extends EMFPlugin {
 	public RrdeEditorPlugin() {
 		super
 			(new ResourceLocator [] {
+				LibredeEditPlugin.INSTANCE,
 			});
 	}
 

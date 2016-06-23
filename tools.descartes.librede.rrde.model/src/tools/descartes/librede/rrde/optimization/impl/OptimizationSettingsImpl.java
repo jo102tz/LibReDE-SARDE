@@ -16,9 +16,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import tools.descartes.librede.configuration.ValidationSpecification;
 
+import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 
@@ -30,8 +33,8 @@ import tools.descartes.librede.rrde.optimization.OptimizationSettings;
  * The following features are implemented:
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl#getIgnoreApproaches <em>Ignore Approaches</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl#getParametersToOptmize <em>Parameters To Optmize</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl#getValidator <em>Validator</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl#getParametersToOptimize <em>Parameters To Optimize</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,16 +52,6 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	protected EList<String> ignoreApproaches;
 
 	/**
-	 * The cached value of the '{@link #getParametersToOptmize() <em>Parameters To Optmize</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getParametersToOptmize()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<String> parametersToOptmize;
-
-	/**
 	 * The cached value of the '{@link #getValidator() <em>Validator</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,6 +60,16 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	 * @ordered
 	 */
 	protected ValidationSpecification validator;
+
+	/**
+	 * The cached value of the '{@link #getParametersToOptimize() <em>Parameters To Optimize</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParametersToOptimize()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<IOptimizableParameter> parametersToOptimize;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -97,18 +100,6 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 			ignoreApproaches = new EDataTypeUniqueEList<String>(String.class, this, OptimizationPackage.OPTIMIZATION_SETTINGS__IGNORE_APPROACHES);
 		}
 		return ignoreApproaches;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<String> getParametersToOptmize() {
-		if (parametersToOptmize == null) {
-			parametersToOptmize = new EDataTypeUniqueEList<String>(String.class, this, OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTMIZE);
-		}
-		return parametersToOptmize;
 	}
 
 	/**
@@ -159,11 +150,25 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<IOptimizableParameter> getParametersToOptimize() {
+		if (parametersToOptimize == null) {
+			parametersToOptimize = new EObjectContainmentEList<IOptimizableParameter>(IOptimizableParameter.class, this, OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE);
+		}
+		return parametersToOptimize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR:
 				return basicSetValidator(null, msgs);
+			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE:
+				return ((InternalEList<?>)getParametersToOptimize()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -178,10 +183,10 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 		switch (featureID) {
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__IGNORE_APPROACHES:
 				return getIgnoreApproaches();
-			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTMIZE:
-				return getParametersToOptmize();
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR:
 				return getValidator();
+			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE:
+				return getParametersToOptimize();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -199,12 +204,12 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 				getIgnoreApproaches().clear();
 				getIgnoreApproaches().addAll((Collection<? extends String>)newValue);
 				return;
-			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTMIZE:
-				getParametersToOptmize().clear();
-				getParametersToOptmize().addAll((Collection<? extends String>)newValue);
-				return;
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR:
 				setValidator((ValidationSpecification)newValue);
+				return;
+			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE:
+				getParametersToOptimize().clear();
+				getParametersToOptimize().addAll((Collection<? extends IOptimizableParameter>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -221,11 +226,11 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__IGNORE_APPROACHES:
 				getIgnoreApproaches().clear();
 				return;
-			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTMIZE:
-				getParametersToOptmize().clear();
-				return;
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR:
 				setValidator((ValidationSpecification)null);
+				return;
+			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE:
+				getParametersToOptimize().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -241,10 +246,10 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 		switch (featureID) {
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__IGNORE_APPROACHES:
 				return ignoreApproaches != null && !ignoreApproaches.isEmpty();
-			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTMIZE:
-				return parametersToOptmize != null && !parametersToOptmize.isEmpty();
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR:
 				return validator != null;
+			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE:
+				return parametersToOptimize != null && !parametersToOptimize.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -261,8 +266,6 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (IgnoreApproaches: ");
 		result.append(ignoreApproaches);
-		result.append(", parametersToOptmize: ");
-		result.append(parametersToOptmize);
 		result.append(')');
 		return result.toString();
 	}

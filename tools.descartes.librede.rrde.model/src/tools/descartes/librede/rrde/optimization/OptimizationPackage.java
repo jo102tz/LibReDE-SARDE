@@ -95,14 +95,14 @@ public interface OptimizationPackage extends EPackage {
 	int OPTIMIZATION_CONFIGURATION_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm <em>IConfiguration Optimization Algorithm</em>}' class.
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier <em>IConfiguration Optimization Algorithm Specifier</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm
-	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getIConfigurationOptimizationAlgorithm()
+	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier
+	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getIConfigurationOptimizationAlgorithmSpecifier()
 	 * @generated
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM = 1;
+	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER = 1;
 
 	/**
 	 * The feature id for the '<em><b>Time Out</b></em>' attribute.
@@ -111,16 +111,16 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM__TIME_OUT = 0;
+	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT = 0;
 
 	/**
-	 * The number of structural features of the '<em>IConfiguration Optimization Algorithm</em>' class.
+	 * The number of structural features of the '<em>IConfiguration Optimization Algorithm Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_FEATURE_COUNT = 1;
+	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT = 1;
 
 	/**
 	 * The operation id for the '<em>Run Optimization</em>' operation.
@@ -129,7 +129,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = 0;
+	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = 0;
 
 	/**
 	 * The operation id for the '<em>Configure</em>' operation.
@@ -138,26 +138,26 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM___CONFIGURE__STRING_EOBJECT = 1;
+	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___CONFIGURE__STRING_EOBJECT = 1;
 
 	/**
-	 * The number of operations of the '<em>IConfiguration Optimization Algorithm</em>' class.
+	 * The number of operations of the '<em>IConfiguration Optimization Algorithm Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_OPERATION_COUNT = 2;
+	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.AbstractLocalSearchOptimizerImpl <em>Abstract Local Search Optimizer</em>}' class.
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl <em>Local Search Specifier</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see tools.descartes.librede.rrde.optimization.impl.AbstractLocalSearchOptimizerImpl
-	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getAbstractLocalSearchOptimizer()
+	 * @see tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl
+	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getLocalSearchSpecifier()
 	 * @generated
 	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER = 2;
+	int LOCAL_SEARCH_SPECIFIER = 2;
 
 	/**
 	 * The feature id for the '<em><b>Time Out</b></em>' attribute.
@@ -166,25 +166,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER__TIME_OUT = ICONFIGURATION_OPTIMIZATION_ALGORITHM__TIME_OUT;
-
-	/**
-	 * The feature id for the '<em><b>Minimum</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER__MINIMUM = ICONFIGURATION_OPTIMIZATION_ALGORITHM_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Maximum</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER__MAXIMUM = ICONFIGURATION_OPTIMIZATION_ALGORITHM_FEATURE_COUNT + 1;
+	int LOCAL_SEARCH_SPECIFIER__TIME_OUT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
 
 	/**
 	 * The feature id for the '<em><b>Tolerance</b></em>' attribute.
@@ -193,7 +175,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER__TOLERANCE = ICONFIGURATION_OPTIMIZATION_ALGORITHM_FEATURE_COUNT + 2;
+	int LOCAL_SEARCH_SPECIFIER__TOLERANCE = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Number Of Steps</b></em>' attribute.
@@ -202,16 +184,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER__MAXIMUM_NUMBER_OF_STEPS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Start Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER__START_VALUE = ICONFIGURATION_OPTIMIZATION_ALGORITHM_FEATURE_COUNT + 4;
+	int LOCAL_SEARCH_SPECIFIER__MAXIMUM_NUMBER_OF_STEPS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Step Size</b></em>' attribute.
@@ -220,16 +193,16 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER__STEP_SIZE = ICONFIGURATION_OPTIMIZATION_ALGORITHM_FEATURE_COUNT + 5;
+	int LOCAL_SEARCH_SPECIFIER__STEP_SIZE = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the '<em>Abstract Local Search Optimizer</em>' class.
+	 * The number of structural features of the '<em>Local Search Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_FEATURE_COUNT + 6;
+	int LOCAL_SEARCH_SPECIFIER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The operation id for the '<em>Run Optimization</em>' operation.
@@ -238,7 +211,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = ICONFIGURATION_OPTIMIZATION_ALGORITHM___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION;
+	int LOCAL_SEARCH_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION;
 
 	/**
 	 * The operation id for the '<em>Configure</em>' operation.
@@ -247,16 +220,16 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER___CONFIGURE__STRING_EOBJECT = ICONFIGURATION_OPTIMIZATION_ALGORITHM___CONFIGURE__STRING_EOBJECT;
+	int LOCAL_SEARCH_SPECIFIER___CONFIGURE__STRING_EOBJECT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___CONFIGURE__STRING_EOBJECT;
 
 	/**
-	 * The number of operations of the '<em>Abstract Local Search Optimizer</em>' class.
+	 * The number of operations of the '<em>Local Search Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_LOCAL_SEARCH_OPTIMIZER_OPERATION_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_OPERATION_COUNT + 0;
+	int LOCAL_SEARCH_SPECIFIER_OPERATION_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl <em>Run Call</em>}' class.
@@ -397,22 +370,22 @@ public interface OptimizationPackage extends EPackage {
 	int OPTIMIZATION_SETTINGS__IGNORE_APPROACHES = 0;
 
 	/**
-	 * The feature id for the '<em><b>Parameters To Optmize</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTMIZE = 1;
-
-	/**
 	 * The feature id for the '<em><b>Validator</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPTIMIZATION_SETTINGS__VALIDATOR = 2;
+	int OPTIMIZATION_SETTINGS__VALIDATOR = 1;
+
+	/**
+	 * The feature id for the '<em><b>Parameters To Optimize</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE = 2;
 
 	/**
 	 * The number of structural features of the '<em>Settings</em>' class.
@@ -433,14 +406,14 @@ public interface OptimizationPackage extends EPackage {
 	int OPTIMIZATION_SETTINGS_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.AbstractIterativeParameterOptimizerImpl <em>Abstract Iterative Parameter Optimizer</em>}' class.
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl <em>Iterative Parameter Optimizer Specifier</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see tools.descartes.librede.rrde.optimization.impl.AbstractIterativeParameterOptimizerImpl
-	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getAbstractIterativeParameterOptimizer()
+	 * @see tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl
+	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getIterativeParameterOptimizerSpecifier()
 	 * @generated
 	 */
-	int ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER = 6;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER = 6;
 
 	/**
 	 * The feature id for the '<em><b>Time Out</b></em>' attribute.
@@ -449,7 +422,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__TIME_OUT = ICONFIGURATION_OPTIMIZATION_ALGORITHM__TIME_OUT;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__TIME_OUT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
 
 	/**
 	 * The feature id for the '<em><b>Number Of Splits</b></em>' attribute.
@@ -458,7 +431,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_SPLITS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_FEATURE_COUNT + 0;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Number Of Explorations</b></em>' attribute.
@@ -467,16 +440,16 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_EXPLORATIONS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_FEATURE_COUNT + 1;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Abstract Iterative Parameter Optimizer</em>' class.
+	 * The number of structural features of the '<em>Iterative Parameter Optimizer Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_FEATURE_COUNT + 2;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
 
 	/**
 	 * The operation id for the '<em>Run Optimization</em>' operation.
@@ -485,7 +458,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = ICONFIGURATION_OPTIMIZATION_ALGORITHM___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION;
 
 	/**
 	 * The operation id for the '<em>Configure</em>' operation.
@@ -494,7 +467,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER___CONFIGURE__STRING_EOBJECT = ICONFIGURATION_OPTIMIZATION_ALGORITHM___CONFIGURE__STRING_EOBJECT;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___CONFIGURE__STRING_EOBJECT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___CONFIGURE__STRING_EOBJECT;
 
 	/**
 	 * The operation id for the '<em>Stop</em>' operation.
@@ -503,16 +476,245 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER___STOP = ICONFIGURATION_OPTIMIZATION_ALGORITHM_OPERATION_COUNT + 0;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___STOP = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Abstract Iterative Parameter Optimizer</em>' class.
+	 * The number of operations of the '<em>Iterative Parameter Optimizer Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER_OPERATION_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_OPERATION_COUNT + 1;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER_OPERATION_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter <em>IOptimizable Parameter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.optimization.IOptimizableParameter
+	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getIOptimizableParameter()
+	 * @generated
+	 */
+	int IOPTIMIZABLE_PARAMETER = 7;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IOPTIMIZABLE_PARAMETER__LOWER_BOUND = 0;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IOPTIMIZABLE_PARAMETER__UPPER_BOUND = 1;
+
+	/**
+	 * The feature id for the '<em><b>Start Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IOPTIMIZABLE_PARAMETER__START_VALUE = 2;
+
+	/**
+	 * The number of structural features of the '<em>IOptimizable Parameter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IOPTIMIZABLE_PARAMETER_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>IOptimizable Parameter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IOPTIMIZABLE_PARAMETER_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl <em>Generic Parameter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl
+	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getGenericParameter()
+	 * @generated
+	 */
+	int GENERIC_PARAMETER = 8;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERIC_PARAMETER__LOWER_BOUND = IOPTIMIZABLE_PARAMETER__LOWER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERIC_PARAMETER__UPPER_BOUND = IOPTIMIZABLE_PARAMETER__UPPER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Start Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERIC_PARAMETER__START_VALUE = IOPTIMIZABLE_PARAMETER__START_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERIC_PARAMETER__KEY = IOPTIMIZABLE_PARAMETER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Generic Parameter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERIC_PARAMETER_FEATURE_COUNT = IOPTIMIZABLE_PARAMETER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Generic Parameter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GENERIC_PARAMETER_OPERATION_COUNT = IOPTIMIZABLE_PARAMETER_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.StepSizeImpl <em>Step Size</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.optimization.impl.StepSizeImpl
+	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getStepSize()
+	 * @generated
+	 */
+	int STEP_SIZE = 9;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_SIZE__LOWER_BOUND = IOPTIMIZABLE_PARAMETER__LOWER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_SIZE__UPPER_BOUND = IOPTIMIZABLE_PARAMETER__UPPER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Start Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_SIZE__START_VALUE = IOPTIMIZABLE_PARAMETER__START_VALUE;
+
+	/**
+	 * The number of structural features of the '<em>Step Size</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_SIZE_FEATURE_COUNT = IOPTIMIZABLE_PARAMETER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Step Size</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_SIZE_OPERATION_COUNT = IOPTIMIZABLE_PARAMETER_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.WindowSizeImpl <em>Window Size</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.optimization.impl.WindowSizeImpl
+	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getWindowSize()
+	 * @generated
+	 */
+	int WINDOW_SIZE = 10;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WINDOW_SIZE__LOWER_BOUND = IOPTIMIZABLE_PARAMETER__LOWER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WINDOW_SIZE__UPPER_BOUND = IOPTIMIZABLE_PARAMETER__UPPER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Start Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WINDOW_SIZE__START_VALUE = IOPTIMIZABLE_PARAMETER__START_VALUE;
+
+	/**
+	 * The number of structural features of the '<em>Window Size</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WINDOW_SIZE_FEATURE_COUNT = IOPTIMIZABLE_PARAMETER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Window Size</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WINDOW_SIZE_OPERATION_COUNT = IOPTIMIZABLE_PARAMETER_OPERATION_COUNT + 0;
 
 
 	/**
@@ -537,121 +739,88 @@ public interface OptimizationPackage extends EPackage {
 	EReference getOptimizationConfiguration_ContainsOf();
 
 	/**
-	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm <em>IConfiguration Optimization Algorithm</em>}'.
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier <em>IConfiguration Optimization Algorithm Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>IConfiguration Optimization Algorithm</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm
+	 * @return the meta object for class '<em>IConfiguration Optimization Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier
 	 * @generated
 	 */
-	EClass getIConfigurationOptimizationAlgorithm();
+	EClass getIConfigurationOptimizationAlgorithmSpecifier();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm#getTimeOut <em>Time Out</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#getTimeOut <em>Time Out</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Time Out</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm#getTimeOut()
-	 * @see #getIConfigurationOptimizationAlgorithm()
+	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#getTimeOut()
+	 * @see #getIConfigurationOptimizationAlgorithmSpecifier()
 	 * @generated
 	 */
-	EAttribute getIConfigurationOptimizationAlgorithm_TimeOut();
+	EAttribute getIConfigurationOptimizationAlgorithmSpecifier_TimeOut();
 
 	/**
-	 * Returns the meta object for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm#runOptimization(tools.descartes.librede.rrde.optimization.InputData, tools.descartes.librede.rrde.optimization.OptimizationSettings, tools.descartes.librede.configuration.EstimationSpecification) <em>Run Optimization</em>}' operation.
+	 * Returns the meta object for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#runOptimization(tools.descartes.librede.rrde.optimization.InputData, tools.descartes.librede.rrde.optimization.OptimizationSettings, tools.descartes.librede.configuration.EstimationSpecification) <em>Run Optimization</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Run Optimization</em>' operation.
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm#runOptimization(tools.descartes.librede.rrde.optimization.InputData, tools.descartes.librede.rrde.optimization.OptimizationSettings, tools.descartes.librede.configuration.EstimationSpecification)
+	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#runOptimization(tools.descartes.librede.rrde.optimization.InputData, tools.descartes.librede.rrde.optimization.OptimizationSettings, tools.descartes.librede.configuration.EstimationSpecification)
 	 * @generated
 	 */
-	EOperation getIConfigurationOptimizationAlgorithm__RunOptimization__InputData_OptimizationSettings_EstimationSpecification();
+	EOperation getIConfigurationOptimizationAlgorithmSpecifier__RunOptimization__InputData_OptimizationSettings_EstimationSpecification();
 
 	/**
-	 * Returns the meta object for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm#configure(java.lang.String, org.eclipse.emf.ecore.EObject) <em>Configure</em>}' operation.
+	 * Returns the meta object for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#configure(java.lang.String, org.eclipse.emf.ecore.EObject) <em>Configure</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Configure</em>' operation.
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm#configure(java.lang.String, org.eclipse.emf.ecore.EObject)
+	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#configure(java.lang.String, org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	EOperation getIConfigurationOptimizationAlgorithm__Configure__String_EObject();
+	EOperation getIConfigurationOptimizationAlgorithmSpecifier__Configure__String_EObject();
 
 	/**
-	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer <em>Abstract Local Search Optimizer</em>}'.
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier <em>Local Search Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abstract Local Search Optimizer</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer
+	 * @return the meta object for class '<em>Local Search Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.LocalSearchSpecifier
 	 * @generated
 	 */
-	EClass getAbstractLocalSearchOptimizer();
+	EClass getLocalSearchSpecifier();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getMinimum <em>Minimum</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Minimum</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getMinimum()
-	 * @see #getAbstractLocalSearchOptimizer()
-	 * @generated
-	 */
-	EAttribute getAbstractLocalSearchOptimizer_Minimum();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getMaximum <em>Maximum</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Maximum</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getMaximum()
-	 * @see #getAbstractLocalSearchOptimizer()
-	 * @generated
-	 */
-	EAttribute getAbstractLocalSearchOptimizer_Maximum();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getTolerance <em>Tolerance</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier#getTolerance <em>Tolerance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Tolerance</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getTolerance()
-	 * @see #getAbstractLocalSearchOptimizer()
+	 * @see tools.descartes.librede.rrde.optimization.LocalSearchSpecifier#getTolerance()
+	 * @see #getLocalSearchSpecifier()
 	 * @generated
 	 */
-	EAttribute getAbstractLocalSearchOptimizer_Tolerance();
+	EAttribute getLocalSearchSpecifier_Tolerance();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getMaximumNumberOfSteps <em>Maximum Number Of Steps</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier#getMaximumNumberOfSteps <em>Maximum Number Of Steps</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Maximum Number Of Steps</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getMaximumNumberOfSteps()
-	 * @see #getAbstractLocalSearchOptimizer()
+	 * @see tools.descartes.librede.rrde.optimization.LocalSearchSpecifier#getMaximumNumberOfSteps()
+	 * @see #getLocalSearchSpecifier()
 	 * @generated
 	 */
-	EAttribute getAbstractLocalSearchOptimizer_MaximumNumberOfSteps();
+	EAttribute getLocalSearchSpecifier_MaximumNumberOfSteps();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getStartValue <em>Start Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Start Value</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getStartValue()
-	 * @see #getAbstractLocalSearchOptimizer()
-	 * @generated
-	 */
-	EAttribute getAbstractLocalSearchOptimizer_StartValue();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getStepSize <em>Step Size</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier#getStepSize <em>Step Size</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Step Size</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer#getStepSize()
-	 * @see #getAbstractLocalSearchOptimizer()
+	 * @see tools.descartes.librede.rrde.optimization.LocalSearchSpecifier#getStepSize()
+	 * @see #getLocalSearchSpecifier()
 	 * @generated
 	 */
-	EAttribute getAbstractLocalSearchOptimizer_StepSize();
+	EAttribute getLocalSearchSpecifier_StepSize();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.RunCall <em>Run Call</em>}'.
@@ -772,17 +941,6 @@ public interface OptimizationPackage extends EPackage {
 	EAttribute getOptimizationSettings_IgnoreApproaches();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getParametersToOptmize <em>Parameters To Optmize</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Parameters To Optmize</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.OptimizationSettings#getParametersToOptmize()
-	 * @see #getOptimizationSettings()
-	 * @generated
-	 */
-	EAttribute getOptimizationSettings_ParametersToOptmize();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getValidator <em>Validator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -794,46 +952,141 @@ public interface OptimizationPackage extends EPackage {
 	EReference getOptimizationSettings_Validator();
 
 	/**
-	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer <em>Abstract Iterative Parameter Optimizer</em>}'.
+	 * Returns the meta object for the containment reference list '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getParametersToOptimize <em>Parameters To Optimize</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abstract Iterative Parameter Optimizer</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer
+	 * @return the meta object for the containment reference list '<em>Parameters To Optimize</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationSettings#getParametersToOptimize()
+	 * @see #getOptimizationSettings()
 	 * @generated
 	 */
-	EClass getAbstractIterativeParameterOptimizer();
+	EReference getOptimizationSettings_ParametersToOptimize();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer#getNumberOfSplits <em>Number Of Splits</em>}'.
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier <em>Iterative Parameter Optimizer Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Iterative Parameter Optimizer Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier
+	 * @generated
+	 */
+	EClass getIterativeParameterOptimizerSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfSplits <em>Number Of Splits</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Number Of Splits</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer#getNumberOfSplits()
-	 * @see #getAbstractIterativeParameterOptimizer()
+	 * @see tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfSplits()
+	 * @see #getIterativeParameterOptimizerSpecifier()
 	 * @generated
 	 */
-	EAttribute getAbstractIterativeParameterOptimizer_NumberOfSplits();
+	EAttribute getIterativeParameterOptimizerSpecifier_NumberOfSplits();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer#getNumberOfExplorations <em>Number Of Explorations</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfExplorations <em>Number Of Explorations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Number Of Explorations</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer#getNumberOfExplorations()
-	 * @see #getAbstractIterativeParameterOptimizer()
+	 * @see tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfExplorations()
+	 * @see #getIterativeParameterOptimizerSpecifier()
 	 * @generated
 	 */
-	EAttribute getAbstractIterativeParameterOptimizer_NumberOfExplorations();
+	EAttribute getIterativeParameterOptimizerSpecifier_NumberOfExplorations();
 
 	/**
-	 * Returns the meta object for the '{@link tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer#stop() <em>Stop</em>}' operation.
+	 * Returns the meta object for the '{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#stop() <em>Stop</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Stop</em>' operation.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer#stop()
+	 * @see tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#stop()
 	 * @generated
 	 */
-	EOperation getAbstractIterativeParameterOptimizer__Stop();
+	EOperation getIterativeParameterOptimizerSpecifier__Stop();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter <em>IOptimizable Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>IOptimizable Parameter</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.IOptimizableParameter
+	 * @generated
+	 */
+	EClass getIOptimizableParameter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter#getLowerBound <em>Lower Bound</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lower Bound</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.IOptimizableParameter#getLowerBound()
+	 * @see #getIOptimizableParameter()
+	 * @generated
+	 */
+	EAttribute getIOptimizableParameter_LowerBound();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter#getUpperBound <em>Upper Bound</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Upper Bound</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.IOptimizableParameter#getUpperBound()
+	 * @see #getIOptimizableParameter()
+	 * @generated
+	 */
+	EAttribute getIOptimizableParameter_UpperBound();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter#getStartValue <em>Start Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Start Value</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.IOptimizableParameter#getStartValue()
+	 * @see #getIOptimizableParameter()
+	 * @generated
+	 */
+	EAttribute getIOptimizableParameter_StartValue();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.GenericParameter <em>Generic Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Generic Parameter</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.GenericParameter
+	 * @generated
+	 */
+	EClass getGenericParameter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.GenericParameter#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.GenericParameter#getKey()
+	 * @see #getGenericParameter()
+	 * @generated
+	 */
+	EAttribute getGenericParameter_Key();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.StepSize <em>Step Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Step Size</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.StepSize
+	 * @generated
+	 */
+	EClass getStepSize();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.WindowSize <em>Window Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Window Size</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.WindowSize
+	 * @generated
+	 */
+	EClass getWindowSize();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -877,14 +1130,14 @@ public interface OptimizationPackage extends EPackage {
 		EReference OPTIMIZATION_CONFIGURATION__CONTAINS_OF = eINSTANCE.getOptimizationConfiguration_ContainsOf();
 
 		/**
-		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm <em>IConfiguration Optimization Algorithm</em>}' class.
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier <em>IConfiguration Optimization Algorithm Specifier</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm
-		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getIConfigurationOptimizationAlgorithm()
+		 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier
+		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getIConfigurationOptimizationAlgorithmSpecifier()
 		 * @generated
 		 */
-		EClass ICONFIGURATION_OPTIMIZATION_ALGORITHM = eINSTANCE.getIConfigurationOptimizationAlgorithm();
+		EClass ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier();
 
 		/**
 		 * The meta object literal for the '<em><b>Time Out</b></em>' attribute feature.
@@ -892,7 +1145,7 @@ public interface OptimizationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ICONFIGURATION_OPTIMIZATION_ALGORITHM__TIME_OUT = eINSTANCE.getIConfigurationOptimizationAlgorithm_TimeOut();
+		EAttribute ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier_TimeOut();
 
 		/**
 		 * The meta object literal for the '<em><b>Run Optimization</b></em>' operation.
@@ -900,7 +1153,7 @@ public interface OptimizationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EOperation ICONFIGURATION_OPTIMIZATION_ALGORITHM___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = eINSTANCE.getIConfigurationOptimizationAlgorithm__RunOptimization__InputData_OptimizationSettings_EstimationSpecification();
+		EOperation ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier__RunOptimization__InputData_OptimizationSettings_EstimationSpecification();
 
 		/**
 		 * The meta object literal for the '<em><b>Configure</b></em>' operation.
@@ -908,33 +1161,17 @@ public interface OptimizationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EOperation ICONFIGURATION_OPTIMIZATION_ALGORITHM___CONFIGURE__STRING_EOBJECT = eINSTANCE.getIConfigurationOptimizationAlgorithm__Configure__String_EObject();
+		EOperation ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___CONFIGURE__STRING_EOBJECT = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier__Configure__String_EObject();
 
 		/**
-		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.AbstractLocalSearchOptimizerImpl <em>Abstract Local Search Optimizer</em>}' class.
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl <em>Local Search Specifier</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see tools.descartes.librede.rrde.optimization.impl.AbstractLocalSearchOptimizerImpl
-		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getAbstractLocalSearchOptimizer()
+		 * @see tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl
+		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getLocalSearchSpecifier()
 		 * @generated
 		 */
-		EClass ABSTRACT_LOCAL_SEARCH_OPTIMIZER = eINSTANCE.getAbstractLocalSearchOptimizer();
-
-		/**
-		 * The meta object literal for the '<em><b>Minimum</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ABSTRACT_LOCAL_SEARCH_OPTIMIZER__MINIMUM = eINSTANCE.getAbstractLocalSearchOptimizer_Minimum();
-
-		/**
-		 * The meta object literal for the '<em><b>Maximum</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ABSTRACT_LOCAL_SEARCH_OPTIMIZER__MAXIMUM = eINSTANCE.getAbstractLocalSearchOptimizer_Maximum();
+		EClass LOCAL_SEARCH_SPECIFIER = eINSTANCE.getLocalSearchSpecifier();
 
 		/**
 		 * The meta object literal for the '<em><b>Tolerance</b></em>' attribute feature.
@@ -942,7 +1179,7 @@ public interface OptimizationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ABSTRACT_LOCAL_SEARCH_OPTIMIZER__TOLERANCE = eINSTANCE.getAbstractLocalSearchOptimizer_Tolerance();
+		EAttribute LOCAL_SEARCH_SPECIFIER__TOLERANCE = eINSTANCE.getLocalSearchSpecifier_Tolerance();
 
 		/**
 		 * The meta object literal for the '<em><b>Maximum Number Of Steps</b></em>' attribute feature.
@@ -950,15 +1187,7 @@ public interface OptimizationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ABSTRACT_LOCAL_SEARCH_OPTIMIZER__MAXIMUM_NUMBER_OF_STEPS = eINSTANCE.getAbstractLocalSearchOptimizer_MaximumNumberOfSteps();
-
-		/**
-		 * The meta object literal for the '<em><b>Start Value</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ABSTRACT_LOCAL_SEARCH_OPTIMIZER__START_VALUE = eINSTANCE.getAbstractLocalSearchOptimizer_StartValue();
+		EAttribute LOCAL_SEARCH_SPECIFIER__MAXIMUM_NUMBER_OF_STEPS = eINSTANCE.getLocalSearchSpecifier_MaximumNumberOfSteps();
 
 		/**
 		 * The meta object literal for the '<em><b>Step Size</b></em>' attribute feature.
@@ -966,7 +1195,7 @@ public interface OptimizationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ABSTRACT_LOCAL_SEARCH_OPTIMIZER__STEP_SIZE = eINSTANCE.getAbstractLocalSearchOptimizer_StepSize();
+		EAttribute LOCAL_SEARCH_SPECIFIER__STEP_SIZE = eINSTANCE.getLocalSearchSpecifier_StepSize();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl <em>Run Call</em>}' class.
@@ -1063,14 +1292,6 @@ public interface OptimizationPackage extends EPackage {
 		EAttribute OPTIMIZATION_SETTINGS__IGNORE_APPROACHES = eINSTANCE.getOptimizationSettings_IgnoreApproaches();
 
 		/**
-		 * The meta object literal for the '<em><b>Parameters To Optmize</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTMIZE = eINSTANCE.getOptimizationSettings_ParametersToOptmize();
-
-		/**
 		 * The meta object literal for the '<em><b>Validator</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1079,14 +1300,22 @@ public interface OptimizationPackage extends EPackage {
 		EReference OPTIMIZATION_SETTINGS__VALIDATOR = eINSTANCE.getOptimizationSettings_Validator();
 
 		/**
-		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.AbstractIterativeParameterOptimizerImpl <em>Abstract Iterative Parameter Optimizer</em>}' class.
+		 * The meta object literal for the '<em><b>Parameters To Optimize</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see tools.descartes.librede.rrde.optimization.impl.AbstractIterativeParameterOptimizerImpl
-		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getAbstractIterativeParameterOptimizer()
 		 * @generated
 		 */
-		EClass ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER = eINSTANCE.getAbstractIterativeParameterOptimizer();
+		EReference OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE = eINSTANCE.getOptimizationSettings_ParametersToOptimize();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl <em>Iterative Parameter Optimizer Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl
+		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getIterativeParameterOptimizerSpecifier()
+		 * @generated
+		 */
+		EClass ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER = eINSTANCE.getIterativeParameterOptimizerSpecifier();
 
 		/**
 		 * The meta object literal for the '<em><b>Number Of Splits</b></em>' attribute feature.
@@ -1094,7 +1323,7 @@ public interface OptimizationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_SPLITS = eINSTANCE.getAbstractIterativeParameterOptimizer_NumberOfSplits();
+		EAttribute ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS = eINSTANCE.getIterativeParameterOptimizerSpecifier_NumberOfSplits();
 
 		/**
 		 * The meta object literal for the '<em><b>Number Of Explorations</b></em>' attribute feature.
@@ -1102,7 +1331,7 @@ public interface OptimizationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER__NUMBER_OF_EXPLORATIONS = eINSTANCE.getAbstractIterativeParameterOptimizer_NumberOfExplorations();
+		EAttribute ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS = eINSTANCE.getIterativeParameterOptimizerSpecifier_NumberOfExplorations();
 
 		/**
 		 * The meta object literal for the '<em><b>Stop</b></em>' operation.
@@ -1110,7 +1339,79 @@ public interface OptimizationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EOperation ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER___STOP = eINSTANCE.getAbstractIterativeParameterOptimizer__Stop();
+		EOperation ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___STOP = eINSTANCE.getIterativeParameterOptimizerSpecifier__Stop();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter <em>IOptimizable Parameter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.optimization.IOptimizableParameter
+		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getIOptimizableParameter()
+		 * @generated
+		 */
+		EClass IOPTIMIZABLE_PARAMETER = eINSTANCE.getIOptimizableParameter();
+
+		/**
+		 * The meta object literal for the '<em><b>Lower Bound</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IOPTIMIZABLE_PARAMETER__LOWER_BOUND = eINSTANCE.getIOptimizableParameter_LowerBound();
+
+		/**
+		 * The meta object literal for the '<em><b>Upper Bound</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IOPTIMIZABLE_PARAMETER__UPPER_BOUND = eINSTANCE.getIOptimizableParameter_UpperBound();
+
+		/**
+		 * The meta object literal for the '<em><b>Start Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IOPTIMIZABLE_PARAMETER__START_VALUE = eINSTANCE.getIOptimizableParameter_StartValue();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl <em>Generic Parameter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl
+		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getGenericParameter()
+		 * @generated
+		 */
+		EClass GENERIC_PARAMETER = eINSTANCE.getGenericParameter();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GENERIC_PARAMETER__KEY = eINSTANCE.getGenericParameter_Key();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.StepSizeImpl <em>Step Size</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.optimization.impl.StepSizeImpl
+		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getStepSize()
+		 * @generated
+		 */
+		EClass STEP_SIZE = eINSTANCE.getStepSize();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.WindowSizeImpl <em>Window Size</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.optimization.impl.WindowSizeImpl
+		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getWindowSize()
+		 * @generated
+		 */
+		EClass WINDOW_SIZE = eINSTANCE.getWindowSize();
 
 	}
 

@@ -72,12 +72,12 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 				return createOptimizationConfigurationAdapter();
 			}
 			@Override
-			public Adapter caseIConfigurationOptimizationAlgorithm(IConfigurationOptimizationAlgorithm object) {
-				return createIConfigurationOptimizationAlgorithmAdapter();
+			public Adapter caseIConfigurationOptimizationAlgorithmSpecifier(IConfigurationOptimizationAlgorithmSpecifier object) {
+				return createIConfigurationOptimizationAlgorithmSpecifierAdapter();
 			}
 			@Override
-			public Adapter caseAbstractLocalSearchOptimizer(AbstractLocalSearchOptimizer object) {
-				return createAbstractLocalSearchOptimizerAdapter();
+			public Adapter caseLocalSearchSpecifier(LocalSearchSpecifier object) {
+				return createLocalSearchSpecifierAdapter();
 			}
 			@Override
 			public Adapter caseRunCall(RunCall object) {
@@ -92,8 +92,24 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 				return createOptimizationSettingsAdapter();
 			}
 			@Override
-			public Adapter caseAbstractIterativeParameterOptimizer(AbstractIterativeParameterOptimizer object) {
-				return createAbstractIterativeParameterOptimizerAdapter();
+			public Adapter caseIterativeParameterOptimizerSpecifier(IterativeParameterOptimizerSpecifier object) {
+				return createIterativeParameterOptimizerSpecifierAdapter();
+			}
+			@Override
+			public Adapter caseIOptimizableParameter(IOptimizableParameter object) {
+				return createIOptimizableParameterAdapter();
+			}
+			@Override
+			public Adapter caseGenericParameter(GenericParameter object) {
+				return createGenericParameterAdapter();
+			}
+			@Override
+			public Adapter caseStepSize(StepSize object) {
+				return createStepSizeAdapter();
+			}
+			@Override
+			public Adapter caseWindowSize(WindowSize object) {
+				return createWindowSizeAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -130,30 +146,30 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm <em>IConfiguration Optimization Algorithm</em>}'.
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier <em>IConfiguration Optimization Algorithm Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm
+	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier
 	 * @generated
 	 */
-	public Adapter createIConfigurationOptimizationAlgorithmAdapter() {
+	public Adapter createIConfigurationOptimizationAlgorithmSpecifierAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer <em>Abstract Local Search Optimizer</em>}'.
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier <em>Local Search Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractLocalSearchOptimizer
+	 * @see tools.descartes.librede.rrde.optimization.LocalSearchSpecifier
 	 * @generated
 	 */
-	public Adapter createAbstractLocalSearchOptimizerAdapter() {
+	public Adapter createLocalSearchSpecifierAdapter() {
 		return null;
 	}
 
@@ -200,16 +216,72 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer <em>Abstract Iterative Parameter Optimizer</em>}'.
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier <em>Iterative Parameter Optimizer Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see tools.descartes.librede.rrde.optimization.AbstractIterativeParameterOptimizer
+	 * @see tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier
 	 * @generated
 	 */
-	public Adapter createAbstractIterativeParameterOptimizerAdapter() {
+	public Adapter createIterativeParameterOptimizerSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter <em>IOptimizable Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.optimization.IOptimizableParameter
+	 * @generated
+	 */
+	public Adapter createIOptimizableParameterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.GenericParameter <em>Generic Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.optimization.GenericParameter
+	 * @generated
+	 */
+	public Adapter createGenericParameterAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.StepSize <em>Step Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.optimization.StepSize
+	 * @generated
+	 */
+	public Adapter createStepSizeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.WindowSize <em>Window Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.optimization.WindowSize
+	 * @generated
+	 */
+	public Adapter createWindowSizeAdapter() {
 		return null;
 	}
 

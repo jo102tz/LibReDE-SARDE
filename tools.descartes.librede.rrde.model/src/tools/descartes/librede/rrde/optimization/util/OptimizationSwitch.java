@@ -72,16 +72,16 @@ public class OptimizationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case OptimizationPackage.ICONFIGURATION_OPTIMIZATION_ALGORITHM: {
-				IConfigurationOptimizationAlgorithm iConfigurationOptimizationAlgorithm = (IConfigurationOptimizationAlgorithm)theEObject;
-				T result = caseIConfigurationOptimizationAlgorithm(iConfigurationOptimizationAlgorithm);
+			case OptimizationPackage.ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER: {
+				IConfigurationOptimizationAlgorithmSpecifier iConfigurationOptimizationAlgorithmSpecifier = (IConfigurationOptimizationAlgorithmSpecifier)theEObject;
+				T result = caseIConfigurationOptimizationAlgorithmSpecifier(iConfigurationOptimizationAlgorithmSpecifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case OptimizationPackage.ABSTRACT_LOCAL_SEARCH_OPTIMIZER: {
-				AbstractLocalSearchOptimizer abstractLocalSearchOptimizer = (AbstractLocalSearchOptimizer)theEObject;
-				T result = caseAbstractLocalSearchOptimizer(abstractLocalSearchOptimizer);
-				if (result == null) result = caseIConfigurationOptimizationAlgorithm(abstractLocalSearchOptimizer);
+			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER: {
+				LocalSearchSpecifier localSearchSpecifier = (LocalSearchSpecifier)theEObject;
+				T result = caseLocalSearchSpecifier(localSearchSpecifier);
+				if (result == null) result = caseIConfigurationOptimizationAlgorithmSpecifier(localSearchSpecifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -103,10 +103,37 @@ public class OptimizationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case OptimizationPackage.ABSTRACT_ITERATIVE_PARAMETER_OPTIMIZER: {
-				AbstractIterativeParameterOptimizer abstractIterativeParameterOptimizer = (AbstractIterativeParameterOptimizer)theEObject;
-				T result = caseAbstractIterativeParameterOptimizer(abstractIterativeParameterOptimizer);
-				if (result == null) result = caseIConfigurationOptimizationAlgorithm(abstractIterativeParameterOptimizer);
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER: {
+				IterativeParameterOptimizerSpecifier iterativeParameterOptimizerSpecifier = (IterativeParameterOptimizerSpecifier)theEObject;
+				T result = caseIterativeParameterOptimizerSpecifier(iterativeParameterOptimizerSpecifier);
+				if (result == null) result = caseIConfigurationOptimizationAlgorithmSpecifier(iterativeParameterOptimizerSpecifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case OptimizationPackage.IOPTIMIZABLE_PARAMETER: {
+				IOptimizableParameter iOptimizableParameter = (IOptimizableParameter)theEObject;
+				T result = caseIOptimizableParameter(iOptimizableParameter);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case OptimizationPackage.GENERIC_PARAMETER: {
+				GenericParameter genericParameter = (GenericParameter)theEObject;
+				T result = caseGenericParameter(genericParameter);
+				if (result == null) result = caseIOptimizableParameter(genericParameter);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case OptimizationPackage.STEP_SIZE: {
+				StepSize stepSize = (StepSize)theEObject;
+				T result = caseStepSize(stepSize);
+				if (result == null) result = caseIOptimizableParameter(stepSize);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case OptimizationPackage.WINDOW_SIZE: {
+				WindowSize windowSize = (WindowSize)theEObject;
+				T result = caseWindowSize(windowSize);
+				if (result == null) result = caseIOptimizableParameter(windowSize);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -130,32 +157,32 @@ public class OptimizationSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>IConfiguration Optimization Algorithm</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>IConfiguration Optimization Algorithm Specifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>IConfiguration Optimization Algorithm</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>IConfiguration Optimization Algorithm Specifier</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseIConfigurationOptimizationAlgorithm(IConfigurationOptimizationAlgorithm object) {
+	public T caseIConfigurationOptimizationAlgorithmSpecifier(IConfigurationOptimizationAlgorithmSpecifier object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract Local Search Optimizer</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Local Search Specifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract Local Search Optimizer</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Local Search Specifier</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAbstractLocalSearchOptimizer(AbstractLocalSearchOptimizer object) {
+	public T caseLocalSearchSpecifier(LocalSearchSpecifier object) {
 		return null;
 	}
 
@@ -205,17 +232,77 @@ public class OptimizationSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract Iterative Parameter Optimizer</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Iterative Parameter Optimizer Specifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract Iterative Parameter Optimizer</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Iterative Parameter Optimizer Specifier</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAbstractIterativeParameterOptimizer(AbstractIterativeParameterOptimizer object) {
+	public T caseIterativeParameterOptimizerSpecifier(IterativeParameterOptimizerSpecifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>IOptimizable Parameter</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>IOptimizable Parameter</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIOptimizableParameter(IOptimizableParameter object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Generic Parameter</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Generic Parameter</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenericParameter(GenericParameter object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Step Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Step Size</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStepSize(StepSize object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Window Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Window Size</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWindowSize(WindowSize object) {
 		return null;
 	}
 

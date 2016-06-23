@@ -12,5 +12,6 @@ Export-Package: tools.descartes.librede.rrde.optimization.provider
 Require-Bundle: org.eclipse.core.runtime,
  tools.descartes.librede.rrde.model;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport,
- tools.descartes.librede.model.edit;bundle-version="1.1.0"
+ tools.descartes.librede.model;visibility:=reexport,
+ tools.descartes.librede.model.edit;bundle-version="1.1.0";visibility:=reexport
 Bundle-ActivationPolicy: lazy

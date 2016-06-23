@@ -102,30 +102,4 @@
       </editor>
    </extension>
 
-   <extension point="org.eclipse.ui.actionSets">
-      <!-- @generated rrde -->
-      <actionSet
-            label="%_UI_ConfigurationModelWizard_ActionSet_label"
-            visible="true"
-            id="tools.descartes.librede.configuration.presentation.ConfigurationActionBarContributorActionSet">
-         <action
-               label="%_UI_ConfigurationModelWizard_label"
-               class="tools.descartes.librede.configuration.presentation.ConfigurationActionBarContributor$NewAction"
-               menubarPath="file/new/additions"
-               id="tools.descartes.librede.configuration.presentation.ConfigurationActionBarContributorNewAction"/>
-      </actionSet>
-   </extension>
-
-   <extension point="org.eclipse.ui.editors">
-      <!-- @generated rrde -->
-      <editor
-            id="tools.descartes.librede.configuration.presentation.ConfigurationEditorID"
-            name="%_UI_ConfigurationEditor_label"
-            icon="icons/full/obj16/ConfigurationModelFile.gif"
-            extensions="configuration"
-            class="tools.descartes.librede.configuration.presentation.ConfigurationEditor"
-            contributorClass="tools.descartes.librede.configuration.presentation.ConfigurationActionBarContributor">
-      </editor>
-   </extension>
-
 </plugin>

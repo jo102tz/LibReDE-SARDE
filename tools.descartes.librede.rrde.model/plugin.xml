@@ -14,12 +14,4 @@
             genModel="model/rrde.genmodel"/>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated rrde -->
-      <package
-            uri="http://www.descartes-research.net/librede/configuration/1.0"
-            class="tools.descartes.librede.configuration.ConfigurationPackage"
-            genModel="model/rrde.genmodel"/>
-   </extension>
-
 </plugin>

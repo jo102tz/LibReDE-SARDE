@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 
-import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithm;
+import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
@@ -51,7 +51,7 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * @generated
 	 * @ordered
 	 */
-	protected IConfigurationOptimizationAlgorithm algorithm;
+	protected IConfigurationOptimizationAlgorithmSpecifier algorithm;
 
 	/**
 	 * The cached value of the '{@link #getTrainingData() <em>Training Data</em>}' containment reference list.
@@ -107,7 +107,7 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IConfigurationOptimizationAlgorithm getAlgorithm() {
+	public IConfigurationOptimizationAlgorithmSpecifier getAlgorithm() {
 		return algorithm;
 	}
 
@@ -116,8 +116,8 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetAlgorithm(IConfigurationOptimizationAlgorithm newAlgorithm, NotificationChain msgs) {
-		IConfigurationOptimizationAlgorithm oldAlgorithm = algorithm;
+	public NotificationChain basicSetAlgorithm(IConfigurationOptimizationAlgorithmSpecifier newAlgorithm, NotificationChain msgs) {
+		IConfigurationOptimizationAlgorithmSpecifier oldAlgorithm = algorithm;
 		algorithm = newAlgorithm;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OptimizationPackage.RUN_CALL__ALGORITHM, oldAlgorithm, newAlgorithm);
@@ -131,7 +131,7 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAlgorithm(IConfigurationOptimizationAlgorithm newAlgorithm) {
+	public void setAlgorithm(IConfigurationOptimizationAlgorithmSpecifier newAlgorithm) {
 		if (newAlgorithm != algorithm) {
 			NotificationChain msgs = null;
 			if (algorithm != null)
@@ -293,7 +293,7 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case OptimizationPackage.RUN_CALL__ALGORITHM:
-				setAlgorithm((IConfigurationOptimizationAlgorithm)newValue);
+				setAlgorithm((IConfigurationOptimizationAlgorithmSpecifier)newValue);
 				return;
 			case OptimizationPackage.RUN_CALL__TRAINING_DATA:
 				getTrainingData().clear();
@@ -318,7 +318,7 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case OptimizationPackage.RUN_CALL__ALGORITHM:
-				setAlgorithm((IConfigurationOptimizationAlgorithm)null);
+				setAlgorithm((IConfigurationOptimizationAlgorithmSpecifier)null);
 				return;
 			case OptimizationPackage.RUN_CALL__TRAINING_DATA:
 				getTrainingData().clear();

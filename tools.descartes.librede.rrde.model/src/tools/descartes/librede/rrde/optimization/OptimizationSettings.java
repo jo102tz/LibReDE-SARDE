@@ -21,8 +21,8 @@ import tools.descartes.librede.configuration.ValidationSpecification;
  * The following features are supported:
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getIgnoreApproaches <em>Ignore Approaches</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getParametersToOptmize <em>Parameters To Optmize</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getValidator <em>Validator</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getParametersToOptimize <em>Parameters To Optimize</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,21 +45,6 @@ public interface OptimizationSettings extends EObject {
 	 * @generated
 	 */
 	EList<String> getIgnoreApproaches();
-
-	/**
-	 * Returns the value of the '<em><b>Parameters To Optmize</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.String}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The parameters that will be optimized by the algorithms as far as supported.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Parameters To Optmize</em>' attribute list.
-	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getOptimizationSettings_ParametersToOptmize()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 * @generated
-	 */
-	EList<String> getParametersToOptmize();
 
 	/**
 	 * Returns the value of the '<em><b>Validator</b></em>' containment reference.
@@ -86,5 +71,21 @@ public interface OptimizationSettings extends EObject {
 	 * @generated
 	 */
 	void setValidator(ValidationSpecification value);
+
+	/**
+	 * Returns the value of the '<em><b>Parameters To Optimize</b></em>' containment reference list.
+	 * The list contents are of type {@link tools.descartes.librede.rrde.optimization.IOptimizableParameter}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parameters To Optimize</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parameters To Optimize</em>' containment reference list.
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getOptimizationSettings_ParametersToOptimize()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<IOptimizableParameter> getParametersToOptimize();
 
 } // OptimizationSettings

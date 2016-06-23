@@ -31,13 +31,13 @@ public interface OptimizationFactory extends EFactory {
 	OptimizationConfiguration createOptimizationConfiguration();
 
 	/**
-	 * Returns a new object of class '<em>Abstract Local Search Optimizer</em>'.
+	 * Returns a new object of class '<em>Local Search Specifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Abstract Local Search Optimizer</em>'.
+	 * @return a new object of class '<em>Local Search Specifier</em>'.
 	 * @generated
 	 */
-	AbstractLocalSearchOptimizer createAbstractLocalSearchOptimizer();
+	LocalSearchSpecifier createLocalSearchSpecifier();
 
 	/**
 	 * Returns a new object of class '<em>Run Call</em>'.
@@ -67,13 +67,40 @@ public interface OptimizationFactory extends EFactory {
 	OptimizationSettings createOptimizationSettings();
 
 	/**
-	 * Returns a new object of class '<em>Abstract Iterative Parameter Optimizer</em>'.
+	 * Returns a new object of class '<em>Iterative Parameter Optimizer Specifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Abstract Iterative Parameter Optimizer</em>'.
+	 * @return a new object of class '<em>Iterative Parameter Optimizer Specifier</em>'.
 	 * @generated
 	 */
-	AbstractIterativeParameterOptimizer createAbstractIterativeParameterOptimizer();
+	IterativeParameterOptimizerSpecifier createIterativeParameterOptimizerSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>Generic Parameter</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Generic Parameter</em>'.
+	 * @generated
+	 */
+	GenericParameter createGenericParameter();
+
+	/**
+	 * Returns a new object of class '<em>Step Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Step Size</em>'.
+	 * @generated
+	 */
+	StepSize createStepSize();
+
+	/**
+	 * Returns a new object of class '<em>Window Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Window Size</em>'.
+	 * @generated
+	 */
+	WindowSize createWindowSize();
 
 	/**
 	 * Returns the package supported by this factory.

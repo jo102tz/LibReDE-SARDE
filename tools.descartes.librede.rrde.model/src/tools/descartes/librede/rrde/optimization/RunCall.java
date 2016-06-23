@@ -14,7 +14,7 @@ import tools.descartes.librede.configuration.EstimationSpecification;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * One iteration of optimization specified by input or training data, a set of OptimizationSettings, an EstimationSpecification to optimize and one instance of an IConfigurationOptimizationAlgorithm
+ * One iteration of optimization specified by input or training data, a set of OptimizationSettings, an EstimationSpecification to optimize and one instance of an IConfigurationOptimizationAlgorithmSpecifier
  * <!-- end-model-doc -->
  *
  * <p>
@@ -41,12 +41,12 @@ public interface RunCall extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Algorithm</em>' containment reference.
-	 * @see #setAlgorithm(IConfigurationOptimizationAlgorithm)
+	 * @see #setAlgorithm(IConfigurationOptimizationAlgorithmSpecifier)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getRunCall_Algorithm()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	IConfigurationOptimizationAlgorithm getAlgorithm();
+	IConfigurationOptimizationAlgorithmSpecifier getAlgorithm();
 
 	/**
 	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.RunCall#getAlgorithm <em>Algorithm</em>}' containment reference.
@@ -56,7 +56,7 @@ public interface RunCall extends EObject {
 	 * @see #getAlgorithm()
 	 * @generated
 	 */
-	void setAlgorithm(IConfigurationOptimizationAlgorithm value);
+	void setAlgorithm(IConfigurationOptimizationAlgorithmSpecifier value);
 
 	/**
 	 * Returns the value of the '<em><b>Training Data</b></em>' containment reference list.

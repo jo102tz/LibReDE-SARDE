@@ -4,14 +4,12 @@ package tools.descartes.librede.rrde.optimization.presentation;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.List;
-
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.edit.ui.action.LoadResourceAction;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
+import tools.descartes.librede.rrde.optimization.presentation.RrdeEditorPlugin;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.jface.action.GroupMarker;
@@ -45,8 +43,6 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-import tools.descartes.librede.configuration.presentation.ConfigurationEditor;
-
 
 /**
  * Customized {@link WorkbenchAdvisor} for the RCP application.
@@ -61,19 +57,7 @@ public final class RrdeEditorAdvisor extends WorkbenchAdvisor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final String[] FILE_EXTENSION_FILTERS = getFileExtensionFilters();
-
-	/**
-	 * Returns the default file extension filters. This method should only be used to initialize {@link #FILE_EXTENSION_FILTERS}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private static String[] getFileExtensionFilters() {
-		List<String> result = new UniqueEList<String>();
-		result.addAll(OptimizationEditor.FILE_EXTENSION_FILTERS);
-		return result.toArray(new String[0]);
-	} 
+	private static final String[] FILE_EXTENSION_FILTERS = OptimizationEditor.FILE_EXTENSION_FILTERS.toArray(new String[0]);
 
 	/**
 	 * This looks up a string in the plugin's plugin.properties file.
