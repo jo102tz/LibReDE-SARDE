@@ -42,8 +42,7 @@ import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimiza
  * @author JS
  *
  */
-public abstract class AbstractConfigurationOptimizer implements
-		IConfigurationOptimizer, Runnable {
+public abstract class AbstractConfigurationOptimizer  {
 
 	/**
 	 * The settings of the optimizer specifying its behavior.

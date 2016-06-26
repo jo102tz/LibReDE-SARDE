@@ -26,8 +26,13 @@
  */
 package tools.descartes.librede.rrde.configuration;
 
+import java.util.InputMismatchException;
+
+import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimizationSettings;
+import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.optimization.InputData;
+import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 
 /**
  * Basic interface for algorithms optimizing LibReDE configuration files.
@@ -38,21 +43,37 @@ import tools.descartes.librede.rrde.configuration.settings.ConfigurationOptimiza
 public interface IConfigurationOptimizer {
 
 	/**
-	 * Tries to change the given configuration in order to optimize the quality
-	 * and the runtime of the activated algorithms of the
-	 * {@link LibredeConfiguration}. Different parameters can be changed in the
-	 * {@link ConfigurationOptimizationSettings}.
+	 * Tries to change the given {@link EstimationSpecification} in order to
+	 * optimize the quality and the runtime of the activated algorithms in a
+	 * corresponding {@link LibredeConfiguration}. Different parameters can be
+	 * changed through {@link OptimizationSettings} and an instance of the
+	 * interface {@link IConfigurationOptimizationAlgorithmSpecifier}.
 	 * 
-	 * @param configuration
-	 *            The {@link LibredeConfiguration} to be optimized.
+	 * @param estimation
+	 *            The {@link EstimationSpecification} to be optimized
+	 * @param input
+	 *            An {@link InputData} specifying the training data
 	 * @param settings
-	 *            A {@link ConfigurationOptimizationSettings} instance
-	 *            containing defining parameters.
+	 *            An instance of {@link OptimizationSettings} to specify general
+	 *            setting for the algorithm, like the parameters to optimize or
+	 *            the validation to be used
+	 * @param specifier
+	 *            An instance implementing
+	 *            {@link IConfigurationOptimizationAlgorithmSpecifier} defining
+	 *            specific parameters of the concretely used algorithm.
+	 * 
 	 * @return True, if the executed finished successfully, false if the
 	 *         execution was interrupted or otherwise not finish as planned.
+	 * @throws InputMismatchException
+	 *             If the instance of
+	 *             {@link IConfigurationOptimizationAlgorithmSpecifier} is not
+	 *             supported by the implementing type as returned by
+	 *             {@link #isSpecifierSupported(IConfigurationOptimizationAlgorithmSpecifier)}
 	 */
-	public boolean optimizeConfiguration(LibredeConfiguration configuration,
-			ConfigurationOptimizationSettings settings);
+	public boolean optimizeConfiguration(EstimationSpecification estimation,
+			InputData input, OptimizationSettings settings,
+			IConfigurationOptimizationAlgorithmSpecifier specifier)
+			throws InputMismatchException;
 
 	/**
 	 * Returns the name of the algorithm.
@@ -61,4 +82,18 @@ public interface IConfigurationOptimizer {
 	 */
 	public String getSimpleName();
 
+	/**
+	 * Checks if the given instance of an
+	 * {@link IConfigurationOptimizationAlgorithmSpecifier} is supported by the
+	 * implementing type, i.e. if the contained settings can be interpreted by
+	 * the underlying algorithm.
+	 * 
+	 * @param specifier
+	 *            An instance of
+	 *            {@link IConfigurationOptimizationAlgorithmSpecifier}
+	 * @return True, if the implementing type supports the instance, false
+	 *         otherwise.
+	 */
+	public boolean isSpecifierSupported(
+			IConfigurationOptimizationAlgorithmSpecifier specifier);
 }

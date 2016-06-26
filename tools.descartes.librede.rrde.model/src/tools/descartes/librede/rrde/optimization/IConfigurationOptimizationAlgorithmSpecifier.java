@@ -4,8 +4,6 @@ package tools.descartes.librede.rrde.optimization;
 
 import org.eclipse.emf.ecore.EObject;
 
-import tools.descartes.librede.configuration.EstimationSpecification;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>IConfiguration Optimization Algorithm Specifier</b></em>'.
@@ -53,28 +51,5 @@ public interface IConfigurationOptimizationAlgorithmSpecifier extends EObject {
 	 * @generated
 	 */
 	void setTimeOut(long value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Tries to change the given configuration in order to optimize the quality and the runtime of the algorithms in the given EstimationSpecification. 
-	 * Different implementation support different parameters which can be configured with the configure method in order to influence the behavior.
-	 * <!-- end-model-doc -->
-	 * @model
-	 * @generated
-	 */
-	EstimationSpecification runOptimization(InputData input, OptimizationSettings settings, EstimationSpecification estimation);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Configures the given parameter with the given value. Different subclasses might support different parameters. An Exception is thrown, if the given parameter is not supported by this specific implementation.
-	 * <!-- end-model-doc -->
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-	 * @generated
-	 */
-	boolean configure(String parameter, EObject value);
 
 } // IConfigurationOptimizationAlgorithmSpecifier

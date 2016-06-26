@@ -9,17 +9,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import tools.descartes.librede.configuration.EstimationSpecification;
-
-import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
-import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 
 /**
  * <!-- begin-user-doc -->
@@ -195,28 +190,6 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EstimationSpecification runOptimization(InputData input, OptimizationSettings settings, EstimationSpecification estimation) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean configure(String parameter, EObject value) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -300,10 +273,6 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 		switch (operationID) {
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___STOP:
 				return stop();
-			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION:
-				return runOptimization((InputData)arguments.get(0), (OptimizationSettings)arguments.get(1), (EstimationSpecification)arguments.get(2));
-			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___CONFIGURE__STRING_EOBJECT:
-				return configure((String)arguments.get(0), (EObject)arguments.get(1));
 		}
 		return super.eInvoke(operationID, arguments);
 	}

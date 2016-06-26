@@ -224,24 +224,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EOperation getIConfigurationOptimizationAlgorithmSpecifier__RunOptimization__InputData_OptimizationSettings_EstimationSpecification() {
-		return iConfigurationOptimizationAlgorithmSpecifierEClass.getEOperations().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EOperation getIConfigurationOptimizationAlgorithmSpecifier__Configure__String_EObject() {
-		return iConfigurationOptimizationAlgorithmSpecifierEClass.getEOperations().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getLocalSearchSpecifier() {
 		return localSearchSpecifierEClass;
 	}
@@ -531,8 +513,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		iConfigurationOptimizationAlgorithmSpecifierEClass = createEClass(ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER);
 		createEAttribute(iConfigurationOptimizationAlgorithmSpecifierEClass, ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT);
-		createEOperation(iConfigurationOptimizationAlgorithmSpecifierEClass, ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION);
-		createEOperation(iConfigurationOptimizationAlgorithmSpecifierEClass, ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___CONFIGURE__STRING_EOBJECT);
 
 		localSearchSpecifierEClass = createEClass(LOCAL_SEARCH_SPECIFIER);
 		createEAttribute(localSearchSpecifierEClass, LOCAL_SEARCH_SPECIFIER__TOLERANCE);
@@ -617,15 +597,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		initEClass(iConfigurationOptimizationAlgorithmSpecifierEClass, IConfigurationOptimizationAlgorithmSpecifier.class, "IConfigurationOptimizationAlgorithmSpecifier", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIConfigurationOptimizationAlgorithmSpecifier_TimeOut(), ecorePackage.getELong(), "timeOut", "-1", 1, 1, IConfigurationOptimizationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		EOperation op = initEOperation(getIConfigurationOptimizationAlgorithmSpecifier__RunOptimization__InputData_OptimizationSettings_EstimationSpecification(), theConfigurationPackage.getEstimationSpecification(), "runOptimization", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getInputData(), "input", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getOptimizationSettings(), "settings", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theConfigurationPackage.getEstimationSpecification(), "estimation", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = initEOperation(getIConfigurationOptimizationAlgorithmSpecifier__Configure__String_EObject(), theXMLTypePackage.getBoolean(), "configure", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "parameter", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEObject(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(localSearchSpecifierEClass, LocalSearchSpecifier.class, "LocalSearchSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLocalSearchSpecifier_Tolerance(), ecorePackage.getEDouble(), "tolerance", "0.05", 1, 1, LocalSearchSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

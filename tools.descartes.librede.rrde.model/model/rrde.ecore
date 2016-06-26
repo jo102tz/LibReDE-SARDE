@@ -14,21 +14,6 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="This is a basic interface for configurations of algorithms optimizing LibReDE configurations of estimation approaches."/>
     </eAnnotations>
-    <eOperations name="runOptimization" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Tries to change the given configuration in order to optimize the quality and the runtime of the algorithms in the given EstimationSpecification. &#xD;&#xA;Different implementation support different parameters which can be configured with the configure method in order to influence the behavior."/>
-      </eAnnotations>
-      <eParameters name="input" eType="#//InputData"/>
-      <eParameters name="settings" eType="#//OptimizationSettings"/>
-      <eParameters name="estimation" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"/>
-    </eOperations>
-    <eOperations name="configure" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Configures the given parameter with the given value. Different subclasses might support different parameters. An Exception is thrown, if the given parameter is not supported by this specific implementation."/>
-      </eAnnotations>
-      <eParameters name="parameter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eParameters name="value" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeOut" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="-1"/>
   </eClassifiers>

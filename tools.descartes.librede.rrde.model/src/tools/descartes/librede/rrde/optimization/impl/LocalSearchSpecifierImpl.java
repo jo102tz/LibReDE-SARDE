@@ -2,24 +2,15 @@
  */
 package tools.descartes.librede.rrde.optimization.impl;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import tools.descartes.librede.configuration.EstimationSpecification;
-
-import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
-import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 
 /**
  * <!-- begin-user-doc -->
@@ -226,28 +217,6 @@ public class LocalSearchSpecifierImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EstimationSpecification runOptimization(InputData input, OptimizationSettings settings, EstimationSpecification estimation) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean configure(String parameter, EObject value) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -329,22 +298,6 @@ public class LocalSearchSpecifierImpl extends MinimalEObjectImpl.Container imple
 				return stepSize != STEP_SIZE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
-		switch (operationID) {
-			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION:
-				return runOptimization((InputData)arguments.get(0), (OptimizationSettings)arguments.get(1), (EstimationSpecification)arguments.get(2));
-			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER___CONFIGURE__STRING_EOBJECT:
-				return configure((String)arguments.get(0), (EObject)arguments.get(1));
-		}
-		return super.eInvoke(operationID, arguments);
 	}
 
 	/**

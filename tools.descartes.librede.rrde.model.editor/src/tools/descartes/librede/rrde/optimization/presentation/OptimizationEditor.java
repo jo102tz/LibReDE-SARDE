@@ -141,7 +141,9 @@ import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import tools.descartes.librede.configuration.provider.ConfigurationItemProviderAdapterFactory;
+
 import tools.descartes.librede.metrics.provider.MetricsItemProviderAdapterFactory;
+
 import tools.descartes.librede.units.provider.UnitsItemProviderAdapterFactory;
 
 

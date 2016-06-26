@@ -123,31 +123,13 @@ public interface OptimizationPackage extends EPackage {
 	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT = 1;
 
 	/**
-	 * The operation id for the '<em>Run Optimization</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = 0;
-
-	/**
-	 * The operation id for the '<em>Configure</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___CONFIGURE__STRING_EOBJECT = 1;
-
-	/**
 	 * The number of operations of the '<em>IConfiguration Optimization Algorithm Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT = 2;
+	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl <em>Local Search Specifier</em>}' class.
@@ -203,24 +185,6 @@ public interface OptimizationPackage extends EPackage {
 	 * @ordered
 	 */
 	int LOCAL_SEARCH_SPECIFIER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
-
-	/**
-	 * The operation id for the '<em>Run Optimization</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_SEARCH_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION;
-
-	/**
-	 * The operation id for the '<em>Configure</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_SEARCH_SPECIFIER___CONFIGURE__STRING_EOBJECT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___CONFIGURE__STRING_EOBJECT;
 
 	/**
 	 * The number of operations of the '<em>Local Search Specifier</em>' class.
@@ -450,24 +414,6 @@ public interface OptimizationPackage extends EPackage {
 	 * @ordered
 	 */
 	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
-
-	/**
-	 * The operation id for the '<em>Run Optimization</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION;
-
-	/**
-	 * The operation id for the '<em>Configure</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___CONFIGURE__STRING_EOBJECT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___CONFIGURE__STRING_EOBJECT;
 
 	/**
 	 * The operation id for the '<em>Stop</em>' operation.
@@ -758,26 +704,6 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getIConfigurationOptimizationAlgorithmSpecifier_TimeOut();
-
-	/**
-	 * Returns the meta object for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#runOptimization(tools.descartes.librede.rrde.optimization.InputData, tools.descartes.librede.rrde.optimization.OptimizationSettings, tools.descartes.librede.configuration.EstimationSpecification) <em>Run Optimization</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the '<em>Run Optimization</em>' operation.
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#runOptimization(tools.descartes.librede.rrde.optimization.InputData, tools.descartes.librede.rrde.optimization.OptimizationSettings, tools.descartes.librede.configuration.EstimationSpecification)
-	 * @generated
-	 */
-	EOperation getIConfigurationOptimizationAlgorithmSpecifier__RunOptimization__InputData_OptimizationSettings_EstimationSpecification();
-
-	/**
-	 * Returns the meta object for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#configure(java.lang.String, org.eclipse.emf.ecore.EObject) <em>Configure</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the '<em>Configure</em>' operation.
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#configure(java.lang.String, org.eclipse.emf.ecore.EObject)
-	 * @generated
-	 */
-	EOperation getIConfigurationOptimizationAlgorithmSpecifier__Configure__String_EObject();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier <em>Local Search Specifier</em>}'.
@@ -1146,22 +1072,6 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier_TimeOut();
-
-		/**
-		 * The meta object literal for the '<em><b>Run Optimization</b></em>' operation.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EOperation ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___RUN_OPTIMIZATION__INPUTDATA_OPTIMIZATIONSETTINGS_ESTIMATIONSPECIFICATION = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier__RunOptimization__InputData_OptimizationSettings_EstimationSpecification();
-
-		/**
-		 * The meta object literal for the '<em><b>Configure</b></em>' operation.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EOperation ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER___CONFIGURE__STRING_EOBJECT = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier__Configure__String_EObject();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl <em>Local Search Specifier</em>}' class.
