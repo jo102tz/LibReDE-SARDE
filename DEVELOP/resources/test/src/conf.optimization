@@ -5,7 +5,7 @@
     <trainingData rootFolder="C:\Users\JS\Desktop\Train">
       <inputSpecification>
         <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource"/>
-        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@inputSpecification/@dataSources.0" location="" file="experiment1_WC0_RESPONSE_TIME.csv">
+        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@inputSpecification/@dataSources.0" location="" file="WC0_RESPONSE_TIME.csv">
           <metric href="librede:metrics#RESPONSE_TIME"/>
           <unit href="librede:units#SECONDS"/>
           <interval>
@@ -13,7 +13,7 @@
           </interval>
           <mappings entity="//@containsOf.0/@trainingData.0/@description/@services.0"/>
         </observations>
-        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@inputSpecification/@dataSources.0" location="" file="experiment1_WC1_RESPONSE_TIME.csv">
+        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@inputSpecification/@dataSources.0" location="" file="WC1_RESPONSE_TIME.csv">
           <metric href="librede:metrics#RESPONSE_TIME"/>
           <unit href="librede:units#SECONDS"/>
           <interval>
@@ -21,7 +21,7 @@
           </interval>
           <mappings entity="//@containsOf.0/@trainingData.0/@description/@services.1"/>
         </observations>
-        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@inputSpecification/@dataSources.0" location="" file="experiment1_WC2_RESPONSE_TIME.csv">
+        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@inputSpecification/@dataSources.0" location="" file="WC2_RESPONSE_TIME.csv">
           <metric href="librede:metrics#RESPONSE_TIME"/>
           <unit href="librede:units#SECONDS"/>
           <interval>

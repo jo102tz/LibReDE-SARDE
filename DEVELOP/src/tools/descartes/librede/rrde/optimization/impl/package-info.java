@@ -25,9 +25,8 @@
  * in the United States and other countries.]
  */
 /**
- * This package contains utilities for configuring different 
- * {@link tools.descartes.librede.rrde.configuration.IConfigurationOptimizer} implementations.
+ * This package contains some implementations for {@link tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer}.
  * @author JS
  *
  */
-package tools.descartes.librede.rrde.configuration.settings;
+package tools.descartes.librede.rrde.optimization.impl;

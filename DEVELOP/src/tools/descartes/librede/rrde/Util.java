@@ -24,35 +24,14 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.tests;
-
-import static org.junit.Assert.*;
-
-import java.io.File;
-
-import org.junit.Test;
-
-import tools.descartes.librede.Librede;
-import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.Plugin;
-import tools.descartes.librede.rrde.Wrapper;
+package tools.descartes.librede.rrde;
 
 /**
+ * This class contains some useful utilities.
+ * 
  * @author JS
  *
  */
-public class General {
-
-	public final static String PATH = "resources/estimation.librede";
-
-	@Test
-	public void test() {
-		Plugin p = new Plugin();
-		p.initLogging();
-		Wrapper.init();
-		LibredeConfiguration configuration = Librede
-				.loadConfiguration(new File(PATH).toPath());
-		Librede.printSummary(Wrapper.executeLibrede(configuration));
-	}
+public class Util {
 
 }

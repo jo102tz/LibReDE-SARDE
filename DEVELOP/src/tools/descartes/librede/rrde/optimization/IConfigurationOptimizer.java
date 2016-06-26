@@ -24,9 +24,11 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.configuration;
+package tools.descartes.librede.rrde.optimization;
 
 import java.util.InputMismatchException;
+
+import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
@@ -52,7 +54,8 @@ public interface IConfigurationOptimizer {
 	 * @param estimation
 	 *            The {@link EstimationSpecification} to be optimized
 	 * @param input
-	 *            An {@link InputData} specifying the training data
+	 *            An {@link EList} of {@link InputData} specifying the training
+	 *            data
 	 * @param settings
 	 *            An instance of {@link OptimizationSettings} to specify general
 	 *            setting for the algorithm, like the parameters to optimize or
@@ -64,16 +67,32 @@ public interface IConfigurationOptimizer {
 	 * 
 	 * @return True, if the executed finished successfully, false if the
 	 *         execution was interrupted or otherwise not finish as planned.
-	 * @throws InputMismatchException
+	 * @throws IllegalArgumentException
 	 *             If the instance of
 	 *             {@link IConfigurationOptimizationAlgorithmSpecifier} is not
 	 *             supported by the implementing type as returned by
 	 *             {@link #isSpecifierSupported(IConfigurationOptimizationAlgorithmSpecifier)}
 	 */
 	public boolean optimizeConfiguration(EstimationSpecification estimation,
-			InputData input, OptimizationSettings settings,
+			EList<InputData> input, OptimizationSettings settings,
 			IConfigurationOptimizationAlgorithmSpecifier specifier)
-			throws InputMismatchException;
+			throws IllegalArgumentException;
+
+	/**
+	 * Returns the result of the optimization. The call of this method is
+	 * optional, since the {@link EstimationSpecification} in
+	 * {@link #optimizeConfiguration(EstimationSpecification, EList, OptimizationSettings, IConfigurationOptimizationAlgorithmSpecifier)}
+	 * should be optimized via call-by-reference and therefore already be the
+	 * required result. Throws an {@link IllegalStateException} if the result is
+	 * not yet final.
+	 * 
+	 * @return The resulting specification after optimization
+	 * 
+	 * @throws IllegalStateException
+	 *             If the computation is still ongoing and no result is
+	 *             available
+	 */
+	public EstimationSpecification getResult() throws IllegalStateException;
 
 	/**
 	 * Returns the name of the algorithm.

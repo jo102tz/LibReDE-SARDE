@@ -62,6 +62,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.StepSize;
 import tools.descartes.librede.rrde.optimization.WindowSize;
+import tools.descartes.librede.rrde.optimization.impl.HillClimbingAlgorithm;
 import tools.descartes.librede.rrde.optimization.impl.StepSizeImpl;
 import tools.descartes.librede.rrde.optimization.impl.WindowSizeImpl;
 
@@ -278,7 +279,7 @@ public class Plugin implements IApplication {
 
 	public void initLogging() {
 		Librede.initLogging();
-//		LogManager.getRootLogger().setLevel(Level.WARN);
+		// LogManager.getRootLogger().setLevel(Level.WARN);
 	}
 
 	private class RunCallExecutor implements Callable<EstimationSpecification> {
@@ -302,7 +303,11 @@ public class Plugin implements IApplication {
 		public EstimationSpecification call() throws Exception {
 			// TODO Auto-generated method stub
 			log.trace("Executing Call: " + call.toString());
-			return call.getEstimationSpecification();
+			HillClimbingAlgorithm algo = new HillClimbingAlgorithm();
+			algo.optimizeConfiguration(call.getEstimationSpecification(),
+					call.getTrainingData(), call.getSettings(),
+					call.getAlgorithm());
+			return algo.getSpecification();
 		}
 
 	}

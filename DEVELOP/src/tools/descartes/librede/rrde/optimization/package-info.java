@@ -25,8 +25,11 @@
  * in the United States and other countries.]
  */
 /**
- * This package contains some implementations of the {@link tools.descartes.librede.rrde.configuration.IConfigurationOptimizer} interface.
+ * This package contains functionality to optimize the parameter settings of a 
+ * LibReDE configuration file in order to optimize quality and runtime of the 
+ * estimators.
+ * 
  * @author JS
  *
  */
-package tools.descartes.librede.rrde.configuration.implementations;
+package tools.descartes.librede.rrde.optimization;

@@ -56,7 +56,7 @@ public class GenerateModelFileTest {
 	public final static String CONFIG_PATH = "resources/conf.optimization";
 
 	@Test
-	public void loadModelsAndModify() {
+	public void loadModels() {
 		Plugin p = new Plugin();
 		p.initLogging();
 		Wrapper.init();
@@ -65,43 +65,6 @@ public class GenerateModelFileTest {
 				.loadConfiguration(new File(LIBREDE_PATH).toPath());
 		OptimizationConfiguration optimization = Plugin
 				.loadConfiguration(new File(CONFIG_PATH).toPath());
-		// ResourceSet rs = new ResourceSetImpl();
-		// // Here the resource is created, with fileextensions "gast" and "xml"
-		// // (adapt this to use your own file extension).
-		// Resource resource = createAndAddResource(CONFIG_PATH, new String[] {
-		// "optimization", "xml" }, rs);
-		// // The root object is created by using (adapt this to create your own
-		// // root object)
-		// OptimizationConfiguration root =
-		// OptimizationFactory.eINSTANCE.createOptimizationConfiguration();
-		// resource.getContents().add(root);
-		// saveResource(resource);
-	}
-
-	@SuppressWarnings("unchecked")
-	public static Resource createAndAddResource(String outputFile,
-			String[] fileextensions, ResourceSet rs) {
-		for (String fileext : fileextensions) {
-			rs.getResourceFactoryRegistry().getExtensionToFactoryMap()
-					.put(fileext, new XMLResourceFactoryImpl());
-		}
-		URI uri = URI.createFileURI(outputFile);
-		Resource resource = rs.createResource(uri);
-		((ResourceImpl) resource).setIntrinsicIDToEObjectMap(new HashMap());
-		return resource;
-	}
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static void saveResource(Resource resource) {
-		Map saveOptions = ((XMLResource) resource).getDefaultSaveOptions();
-		saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-		saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE,
-				new ArrayList());
-		try {
-			resource.save(saveOptions);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 }

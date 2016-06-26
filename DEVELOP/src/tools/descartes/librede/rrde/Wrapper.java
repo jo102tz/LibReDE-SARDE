@@ -38,7 +38,7 @@ import tools.descartes.librede.nnls.NNLSLibrary;
 
 /**
  * This class provides some interface functionality and serves as a wrapper
- * around the standard LibReDE tool in order to make calls for the estimators
+ * around the standard LibReDE tool in order to make calls for the algorithms
  * implemented here.
  * 
  * @author JS
@@ -49,7 +49,7 @@ public class Wrapper {
 	/**
 	 * The logging tool to be used in this context.
 	 */
-	private static final Logger log = Logger.getLogger(Plugin.class);
+	private static final Logger log = Logger.getLogger(Wrapper.class);
 
 	/**
 	 * Initialize the connection and set up the target, in this case LibReDE
