@@ -57,10 +57,12 @@ import tools.descartes.librede.configuration.ValidationSpecification;
 import tools.descartes.librede.configuration.ValidatorConfiguration;
 import tools.descartes.librede.configuration.WorkloadDescription;
 import tools.descartes.librede.datasource.IDataSource;
+import tools.descartes.librede.datasource.csv.CsvDataSource;
 import tools.descartes.librede.registry.Instantiator;
 import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;
+import tools.descartes.librede.units.Unit;
 import tools.descartes.librede.units.UnitsFactory;
 
 /**
@@ -112,7 +114,7 @@ public class Discovery {
 	private static Set<InputSpecification> discoverOne(InputData input) {
 		HashSet<InputSpecification> set = new HashSet<InputSpecification>();
 		File folder = new File(input.getRootFolder());
-		if (folder.exists()) {
+		if (!folder.exists()) {
 			log.warn(folder.toString() + " could not be found.");
 			return set;
 		}
@@ -188,9 +190,11 @@ public class Discovery {
 		while (iter.hasNext()) {
 			Path filepath = iter.next();
 			for (TraceConfiguration source : copy.getObservations()) {
-				if (filepath.toString().contains(source.getLocation())) {
+				if (filepath.toString().contains(
+						((FileTraceConfiguration) source).getFile())) {
 					// the filepath contains the file ending
-					source.setLocation(filepath.toAbsolutePath().toString());
+					((FileTraceConfiguration) source).setFile(filepath
+							.toAbsolutePath().toString());
 				}
 			}
 		}
@@ -201,7 +205,8 @@ public class Discovery {
 			for (TraceConfiguration before : main.getObservations()) {
 				// if any of the configuration is like the one in the main file
 				// -> fail
-				if (before.equals(after))
+				if (((FileTraceConfiguration) before).getFile().equals(
+						((FileTraceConfiguration) after).getFile()))
 					equal = true;
 
 			}
@@ -221,6 +226,8 @@ public class Discovery {
 
 		double maxStart = Double.MIN_VALUE;
 		double minEnd = Double.MAX_VALUE;
+
+		Unit<Time> unit = Time.MILLISECONDS;
 
 		for (TraceConfiguration trace : conf.getInput().getObservations()) {
 			if (trace instanceof FileTraceConfiguration) {
@@ -247,22 +254,28 @@ public class Discovery {
 							}
 						}
 						// retrieve all important parameters
-						for (Parameter param : dataSourceConf.getParameters()) {
-							// TODO separator, TimeUnit
-							System.out.println(param.getName());
-						}
-
-						if (fileTrace.getMappings().size() >= 1) {
-							try {
-								// assume that the timestamp is always in column
-								// 0, this should be changed afterwards?
-								maxStart = Math.max(
-										loadFirst(inputFile, 0, ","), maxStart);
-								minEnd = Math.min(loadLast(inputFile, 0, ","),
-										minEnd);
-							} catch (Exception e) {
-								e.printStackTrace();
+						if (ds instanceof CsvDataSource) {
+							CsvDataSource csv = (CsvDataSource) ds;
+							unit = parseTimeUnit(csv.getTimestampFormat());
+							if (fileTrace.getMappings().size() >= 1) {
+								try {
+									// assume that the timestamp is always in
+									// column
+									// 0, this should be changed?
+									maxStart = Math.max(
+											loadFirst(inputFile, 0,
+													csv.getSeparators()),
+											maxStart);
+									minEnd = Math.min(
+											loadLast(inputFile, 0,
+													csv.getSeparators()),
+											minEnd);
+								} catch (Exception e) {
+									log.error("Error occurred", e);
+								}
 							}
+						} else {
+							log.error("Other Datasources than csv are not supported yet...");
 						}
 					}
 				}
@@ -276,20 +289,44 @@ public class Discovery {
 
 		Quantity<Time> maxStartpoint = UnitsFactory.eINSTANCE.createQuantity();
 		maxStartpoint.setValue(maxStart);
-		maxStartpoint.setUnit(Time.SECONDS);
+		maxStartpoint.setUnit(unit);
 		Quantity<Time> minEndpoint = UnitsFactory.eINSTANCE.createQuantity();
 		minEndpoint.setValue(minEnd);
-		minEndpoint.setUnit(Time.SECONDS);
+		minEndpoint.setUnit(unit);
 
 		conf.getEstimation().setStartTimestamp(maxStartpoint);
 		conf.getEstimation().setEndTimestamp(minEndpoint);
 
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		log.trace("Starpoint of config " + conf.toString() + " set to "
+		log.debug("Startpoint of config " + conf.toString() + " set to "
 				+ date.format(maxStartpoint.getValue(Time.MILLISECONDS)));
-		log.trace("Endpoint of config " + conf.toString() + " set to "
+		log.debug("Endpoint of config " + conf.toString() + " set to "
 				+ date.format(minEndpoint.getValue(Time.MILLISECONDS)));
 
+	}
+
+	private static Unit<Time> parseTimeUnit(SimpleDateFormat simpleDateFormat) {
+		if(simpleDateFormat == null){
+			return Time.MILLISECONDS;
+		}
+		
+		Unit<Time> dateUnit = Time.MILLISECONDS;
+		if (simpleDateFormat.toString() != null && !simpleDateFormat.toString().isEmpty()) {
+			if (simpleDateFormat.toString().startsWith("[")
+					&& simpleDateFormat.toString().endsWith("]")) {
+				String unit = simpleDateFormat.toString().substring(1,
+						simpleDateFormat.toString().length() - 1);
+				for (Unit<?> u : Time.INSTANCE.getUnits()) {
+					if (u.getSymbol().equalsIgnoreCase(unit)) {
+						dateUnit = (Unit<Time>) u;
+						break;
+					}
+				}
+			} else {
+				dateUnit = Time.MILLISECONDS;
+			}
+		}
+		return dateUnit;
 	}
 
 	private static double loadLast(File inputFile, int col, String separator) {

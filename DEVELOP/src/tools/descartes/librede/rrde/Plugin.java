@@ -279,7 +279,7 @@ public class Plugin implements IApplication {
 
 	public void initLogging() {
 		Librede.initLogging();
-		// LogManager.getRootLogger().setLevel(Level.WARN);
+		LogManager.getRootLogger().setLevel(Level.TRACE);
 	}
 
 	private class RunCallExecutor implements Callable<EstimationSpecification> {
