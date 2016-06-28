@@ -26,6 +26,13 @@
  */
 package tools.descartes.librede.rrde;
 
+import org.apache.log4j.Logger;
+
+import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.optimization.GenericParameter;
+import tools.descartes.librede.rrde.optimization.StepSize;
+import tools.descartes.librede.rrde.optimization.WindowSize;
+
 /**
  * This class contains some useful utilities.
  * 
@@ -33,5 +40,25 @@ package tools.descartes.librede.rrde;
  *
  */
 public class Util {
+	
+	private static final Logger log = Logger.getLogger(Util.class);
+	
+	public static void setValue(LibredeConfiguration librede, double value, String eClass) {
+		if (eClass.equals(StepSize.class.getName())) {
+			librede.getEstimation().getStepSize().setValue(value);
+			log.info("Set Stepsize to " + value);
+		} else if (eClass.equals(WindowSize.class.getName())) {
+			int integer = (int) Math.round(value);
+			if (integer != value) {
+				log.warn("The value " + value + " is not an Integer and had to be rounded to fit as window size.");
+			}
+			librede.getEstimation().setWindow(integer);
+			log.info("Set Windowsize to " + integer);
+		} else if (eClass.equals(GenericParameter.class.getName())) {
+			log.warn("The setting of GenericParameter is not supported and will be ignored.");
+		} else {
+			log.error("No handling adapter of setting Optimizable Parameter " + eClass);
+		}
+	}
 
 }

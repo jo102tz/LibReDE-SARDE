@@ -44,7 +44,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
@@ -64,8 +63,6 @@ import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.StepSize;
 import tools.descartes.librede.rrde.optimization.WindowSize;
 import tools.descartes.librede.rrde.optimization.impl.HillClimbingAlgorithm;
-import tools.descartes.librede.rrde.optimization.impl.StepSizeImpl;
-import tools.descartes.librede.rrde.optimization.impl.WindowSizeImpl;
 
 /**
  * The main class of this Plug-In. TODO comment
@@ -74,6 +71,8 @@ import tools.descartes.librede.rrde.optimization.impl.WindowSizeImpl;
  *
  */
 public class Plugin implements IApplication {
+	
+	private static final Level loglevel = Level.WARN;
 
 	private static final Logger log = Logger.getLogger(Plugin.class);
 
@@ -187,10 +186,10 @@ public class Plugin implements IApplication {
 				stat.addValue(d);
 			log.warn("There were multiple results for the single parameter " + eClass + ". Using the average of "
 					+ stat.getMean() + " as final result.");
-			setValue(librede, stat.getMean(), eClass);
+			Util.setValue(librede, stat.getMean(), eClass);
 		} else {
 			// there is exactly one value
-			setValue(librede, nums.iterator().next(), eClass);
+			Util.setValue(librede, nums.iterator().next(), eClass);
 		}
 	}
 
@@ -214,23 +213,6 @@ public class Plugin implements IApplication {
 		return nums;
 	}
 
-	private void setValue(LibredeConfiguration librede, double value, String eClass) {
-		if (eClass.equals(StepSize.class.getName())) {
-			librede.getEstimation().getStepSize().setValue(value);
-			log.info("Set Stepsize to " + value);
-		} else if (eClass.equals(WindowSize.class.getName())) {
-			int integer = (int) Math.round(value);
-			if (integer != value) {
-				log.warn("The value " + value + " is not an Integer and had to be rounded to fit as window size.");
-			}
-			librede.getEstimation().setWindow(integer);
-			log.info("Set Windowsize to " + integer);
-		} else if (eClass.equals(GenericParameter.class.getName())) {
-			log.warn("The setting of GenericParameter is not supported and will be ignored.");
-		} else {
-			log.error("No handling adapter of setting Optimizable Parameter " + eClass);
-		}
-	}
 
 	public HashMap<RunCall, EstimationSpecification> collectResults(Collection<RunCall> calls) {
 		// Run each RunCall separately and concurrently
@@ -272,7 +254,7 @@ public class Plugin implements IApplication {
 
 	public void initLogging() {
 		Librede.initLogging();
-		LogManager.getRootLogger().setLevel(Level.TRACE);
+		LogManager.getRootLogger().setLevel(loglevel);
 	}
 
 	private class RunCallExecutor implements Callable<EstimationSpecification> {
@@ -294,12 +276,12 @@ public class Plugin implements IApplication {
 		 */
 		@Override
 		public EstimationSpecification call() throws Exception {
-			// TODO Auto-generated method stub
+			// TODO retrieve right algo
 			log.trace("Executing Call: " + call.toString());
 			HillClimbingAlgorithm algo = new HillClimbingAlgorithm();
 			algo.optimizeConfiguration(call.getEstimationSpecification(), call.getTrainingData(), call.getSettings(),
 					call.getAlgorithm());
-			return algo.getSpecification();
+			return algo.getResult();
 		}
 
 	}

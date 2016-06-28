@@ -26,15 +26,10 @@
  */
 package tools.descartes.librede.rrde.optimization;
 
-import java.util.InputMismatchException;
-
 import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
-import tools.descartes.librede.rrde.optimization.InputData;
-import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 
 /**
  * Basic interface for algorithms optimizing LibReDE configuration files.

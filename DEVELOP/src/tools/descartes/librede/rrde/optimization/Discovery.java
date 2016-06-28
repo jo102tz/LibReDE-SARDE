@@ -54,7 +54,6 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.Parameter;
 import tools.descartes.librede.configuration.TraceConfiguration;
 import tools.descartes.librede.configuration.ValidationSpecification;
-import tools.descartes.librede.configuration.ValidatorConfiguration;
 import tools.descartes.librede.configuration.WorkloadDescription;
 import tools.descartes.librede.datasource.IDataSource;
 import tools.descartes.librede.datasource.csv.CsvDataSource;
@@ -77,6 +76,12 @@ public class Discovery {
 
 	private static final Logger log = Logger.getLogger(Discovery.class);
 
+	
+	/**
+	 * TODO comments
+	 * @param input
+	 * @return
+	 */
 	public static Map<WorkloadDescription, Set<InputSpecification>> discoverInputs(EList<InputData> input) {
 		HashMap<WorkloadDescription, Set<InputSpecification>> map = new HashMap<WorkloadDescription, Set<InputSpecification>>();
 		for (InputData data : input) {
@@ -98,6 +103,9 @@ public class Discovery {
 			for (InputSpecification spec : entry.getValue()) {
 				// for each inputSpecification create own LibredeFile
 				LibredeConfiguration additional = EcoreUtil.copy(conf);
+				if(entry.getKey()==null){
+					System.out.println("alert");
+				}
 				additional.setWorkloadDescription(entry.getKey());
 				additional.setInput(spec);
 				// adapt time stamps
@@ -295,6 +303,7 @@ public class Discovery {
 		return ",";
 	}
 
+	@SuppressWarnings("unchecked")
 	private static Unit<Time> parseTimeUnit(DataSourceConfiguration datasource) {
 		String simpleDateFormat = null;
 		for (Parameter p : datasource.getParameters()) {

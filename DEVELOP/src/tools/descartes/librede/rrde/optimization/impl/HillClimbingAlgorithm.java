@@ -30,6 +30,7 @@ import org.apache.log4j.Logger;
 
 import tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
 
 /**
  * A general implementation of a Hill-climbing routine supporting a tolerance
@@ -61,10 +62,13 @@ public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
 	 * IConfigurationOptimizationAlgorithmSpecifier)
 	 */
 	@Override
-	public boolean isSpecifierSupported(
-			IConfigurationOptimizationAlgorithmSpecifier specifier) {
-		// TODO Auto-generated method stub
-		return true;
+	public boolean isSpecifierSupported(IConfigurationOptimizationAlgorithmSpecifier specifier) {
+		if (specifier == null)
+			return false;
+		if(specifier instanceof LocalSearchSpecifier){
+			return true;
+		}
+		return false;
 	}
 
 	/*
@@ -88,100 +92,102 @@ public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
 	 */
 	@Override
 	public void executeAlgorithm() {
-		// TODO Auto-generated method stub
+		// TODO
+		runIteration();
 		System.out.println("Executing.....");
 	}
-	
-//	/**
-//	 * Starts the routine.
-//	 * 
-//	 * @return
-//	 */
-//	protected void hillclimbing() {
-//
-//		double value = settings().getInitialValue();
-//		setTargetValue(value);
-//		// run first iteration
-//		double before = errorFunction();
-//		getLog().info("Initial step size: " + value);
-//		// run up and down at the same time with stepsize
-//		double[] resultup = oneWayAscend(value, before, +settings()
-//				.getStepSize());
-//		double[] resultdown = oneWayAscend(value, before, -settings()
-//				.getStepSize());
-//		// if running up has better results than down
-//		if (resultup[0] < resultdown[0]) {
-//			// apply value of going up
-//			setTargetValue(resultup[1]);
-//		}
-//	}
-//
-//	private double[] oneWayAscend(double start, double startvalue,
-//			double operation) {
-//		double[] currbest = { startvalue, start };
-//		setTargetValue(start);
-//		double before = startvalue;
-//		double newerr = before;
-//		while (repeat(before, newerr, currbest[0]) && !outOfBounds(operation)) {
-//			before = newerr;
-//			setTargetValue(getTargetValue() + operation);
-//			newerr = errorFunction();
-//			getLog().trace(
-//					"New target function with target value " + getTargetValue()
-//							+ " :" + newerr);
-//
-//			// update currbest
-//			if (newerr < currbest[0]) {
-//				currbest[0] = newerr;
-//				currbest[1] = getTargetValue();
-//			}
-//		}
-//		return currbest;
-//	}
-//
-//	private boolean outOfBounds(double operation) {
-//		if (getTargetValue() + operation < settings().getMinimum()
-//				|| getTargetValue() + operation > settings().getMaximum())
-//			return true;
-//		else
-//			return false;
-//	}
-//
-//	protected boolean repeat(double before, double after, double currbest) {
-//		double gain = before - after;
-//		if (gain >= settings().getMinGain()) {
-//			// if we have a gain
-//			return true;
-//		} else if (after <= currbest + (currbest * settings().getTolerance())) {
-//			// if we have no gain, but are still in our tolerance radius
-//			return true;
-//		} else {
-//			// outside of tolerance radius
-//			return false;
-//		}
-//	}
-//
-//	/**
-//	 * The objective function to be optimized. The function is assumed to be an
-//	 * error function, i.e. the smaller the value, the better.
-//	 * 
-//	 * @return The target value for the current configuration
-//	 */
-//	protected abstract double errorFunction();
-//
-//	/**
-//	 * Sets the target value accordingly.
-//	 * 
-//	 * @param value
-//	 *            The target value of the optimizing function
-//	 */
-//	protected abstract void setTargetValue(double value);
-//
-//	/**
-//	 * Returns the target value accordingly.
-//	 * 
-//	 * @returns value The current value of the optimizing function
-//	 */
-//	protected abstract double getTargetValue();
+
+	// /**
+	// * Starts the routine.
+	// *
+	// * @return
+	// */
+	// protected void hillclimbing() {
+	//
+	// double value = settings().getInitialValue();
+	// setTargetValue(value);
+	// // run first iteration
+	// double before = errorFunction();
+	// getLog().info("Initial step size: " + value);
+	// // run up and down at the same time with stepsize
+	// double[] resultup = oneWayAscend(value, before, +settings()
+	// .getStepSize());
+	// double[] resultdown = oneWayAscend(value, before, -settings()
+	// .getStepSize());
+	// // if running up has better results than down
+	// if (resultup[0] < resultdown[0]) {
+	// // apply value of going up
+	// setTargetValue(resultup[1]);
+	// }
+	// }
+	//
+	// private double[] oneWayAscend(double start, double startvalue,
+	// double operation) {
+	// double[] currbest = { startvalue, start };
+	// setTargetValue(start);
+	// double before = startvalue;
+	// double newerr = before;
+	// while (repeat(before, newerr, currbest[0]) && !outOfBounds(operation)) {
+	// before = newerr;
+	// setTargetValue(getTargetValue() + operation);
+	// newerr = errorFunction();
+	// getLog().trace(
+	// "New target function with target value " + getTargetValue()
+	// + " :" + newerr);
+	//
+	// // update currbest
+	// if (newerr < currbest[0]) {
+	// currbest[0] = newerr;
+	// currbest[1] = getTargetValue();
+	// }
+	// }
+	// return currbest;
+	// }
+	//
+	// private boolean outOfBounds(double operation) {
+	// if (getTargetValue() + operation < settings().getMinimum()
+	// || getTargetValue() + operation > settings().getMaximum())
+	// return true;
+	// else
+	// return false;
+	// }
+	//
+	// protected boolean repeat(double before, double after, double currbest) {
+	// double gain = before - after;
+	// if (gain >= settings().getMinGain()) {
+	// // if we have a gain
+	// return true;
+	// } else if (after <= currbest + (currbest * settings().getTolerance())) {
+	// // if we have no gain, but are still in our tolerance radius
+	// return true;
+	// } else {
+	// // outside of tolerance radius
+	// return false;
+	// }
+	// }
+	//
+	// /**
+	// * The objective function to be optimized. The function is assumed to be
+	// an
+	// * error function, i.e. the smaller the value, the better.
+	// *
+	// * @return The target value for the current configuration
+	// */
+	// protected abstract double errorFunction();
+	//
+	// /**
+	// * Sets the target value accordingly.
+	// *
+	// * @param value
+	// * The target value of the optimizing function
+	// */
+	// protected abstract void setTargetValue(double value);
+	//
+	// /**
+	// * Returns the target value accordingly.
+	// *
+	// * @returns value The current value of the optimizing function
+	// */
+	// protected abstract double getTargetValue();
 
 }

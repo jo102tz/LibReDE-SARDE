@@ -26,13 +26,16 @@
  */
 package tools.descartes.librede.rrde.optimization;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
-import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
-import tools.descartes.librede.rrde.optimization.InputData;
-import tools.descartes.librede.rrde.optimization.OptimizationSettings;
+import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.Wrapper;
 
 /**
  * This class contains an abstract implementation of an
@@ -42,8 +45,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationSettings;
  * @author JS
  *
  */
-public abstract class AbstractConfigurationOptimizer implements
-		IConfigurationOptimizer {
+public abstract class AbstractConfigurationOptimizer implements IConfigurationOptimizer {
 
 	/**
 	 * The specification of LibReDE to modify
@@ -84,6 +86,11 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * Flag signaling, if the calculation is still ongoing.
 	 */
 	private boolean finished = false;
+
+	/**
+	 * The set of LibredeConfigurations to run for every iteration.
+	 */
+	private Set<LibredeConfiguration> confs;
 
 	/**
 	 * Constructor preparing and initializing execution
@@ -150,8 +157,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * @param algorithm
 	 *            the algorithm to set
 	 */
-	public void setAlgorithm(
-			IConfigurationOptimizationAlgorithmSpecifier algorithm) {
+	public void setAlgorithm(IConfigurationOptimizationAlgorithmSpecifier algorithm) {
 		this.algorithm = algorithm;
 	}
 
@@ -174,33 +180,25 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * .librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier)
 	 */
 	@Override
-	public boolean optimizeConfiguration(EstimationSpecification estimation,
-			EList<InputData> input, OptimizationSettings settings,
-			IConfigurationOptimizationAlgorithmSpecifier specifier)
+	public boolean optimizeConfiguration(EstimationSpecification estimation, EList<InputData> input,
+			OptimizationSettings settings, IConfigurationOptimizationAlgorithmSpecifier specifier)
 			throws IllegalArgumentException {
 		if (!isSpecifierSupported(specifier)) {
-			throw new IllegalArgumentException(
-					"The given specifier does not apply for this algorithm.");
+			throw new IllegalArgumentException("The given specifier does not apply for this algorithm.");
 		}
-		if (estimation == null || input == null || specifier == null
-				|| settings == null) {
-			throw new NullPointerException(
-					"None of the given parameters can be null.");
+		if (estimation == null || input == null || specifier == null || settings == null) {
+			throw new NullPointerException("None of the given parameters can be null.");
 		}
 		setSettings(settings);
 		setInput(input);
 		setSpecification(estimation);
 		setAlgorithm(specifier);
-		getLog().info(
-				"Starting reconfiguration of configuration "
-						+ getSpecification().toString());
+		getLog().info("Starting reconfiguration of configuration " + getSpecification().toString());
 		time = System.currentTimeMillis();
 		init();
 		executeAlgorithm();
 		finished = true;
-		getLog().info(
-				"Successfully ran optimization of configuration file "
-						+ getSpecification().toString());
+		getLog().info("Successfully ran optimization of configuration file " + getSpecification().toString());
 		getLog().info("Number of iterations:" + iterationcounter);
 		getLog().info("Number of total executions:" + totalruns);
 		getLog().info("Time: " + (System.currentTimeMillis() - time) + " ms");
@@ -208,25 +206,51 @@ public abstract class AbstractConfigurationOptimizer implements
 	}
 
 	/**
-	 * 
+	 * Initializes all resources required for execution.
 	 */
 	private void init() {
-		Discovery.createConfigurations(getSpecification(), getInput(),
-				getSettings().getValidator());
+		Wrapper.init();
+		confs = Discovery.createConfigurations(getSpecification(), getInput(), getSettings().getValidator());
+		validateConfs();
+		getLog().info("Finished initialization.");
+	}
+
+	/**
+	 * Validate all configurations and deletes the ones that do not suffice.
+	 */
+	private void validateConfs() {
+		HashSet<LibredeConfiguration> remove = new HashSet<LibredeConfiguration>();
+		for (LibredeConfiguration single : confs) {
+			if (single.getWorkloadDescription() == null || single.getEstimation() == null || single.getInput() == null
+					|| single.getOutput() == null || single.getValidation() == null) {
+				getLog().warn("Malformed Configuration. Ignoring " + single.toString() + ".");
+				remove.add(single);
+			}
+		}
+		confs.removeAll(remove);
 	}
 
 	/**
 	 * Runs one iteration of the current configurations.
+	 * 
+	 * @return The error value of this iteration.
 	 */
-	protected void runIteration() {
+	protected double runIteration() {
+		DescriptiveStatistics stat = new DescriptiveStatistics();
+		for (LibredeConfiguration single : confs) {
+
+			Wrapper.executeLibrede(single);
+
+		}
 		// TODO
+		return stat.getMean();
+
 	}
 
 	@Override
 	public EstimationSpecification getResult() throws IllegalStateException {
 		if (!finished) {
-			throw new IllegalStateException(
-					"The optimization is still ongoing.");
+			throw new IllegalStateException("The optimization is still ongoing.");
 		}
 		return getSpecification();
 	}
