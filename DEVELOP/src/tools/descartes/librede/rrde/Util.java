@@ -40,25 +40,43 @@ import tools.descartes.librede.rrde.optimization.WindowSize;
  *
  */
 public class Util {
-	
+
 	private static final Logger log = Logger.getLogger(Util.class);
-	
-	public static void setValue(LibredeConfiguration librede, double value, String eClass) {
+
+	public static void setValue(LibredeConfiguration librede, double value,
+			String eClass) {
 		if (eClass.equals(StepSize.class.getName())) {
 			librede.getEstimation().getStepSize().setValue(value);
-			log.info("Set Stepsize to " + value);
+			log.trace("Set Stepsize to " + value);
 		} else if (eClass.equals(WindowSize.class.getName())) {
 			int integer = (int) Math.round(value);
 			if (integer != value) {
-				log.warn("The value " + value + " is not an Integer and had to be rounded to fit as window size.");
+				log.warn("The value "
+						+ value
+						+ " is not an Integer and had to be rounded to fit as window size.");
 			}
 			librede.getEstimation().setWindow(integer);
-			log.info("Set Windowsize to " + integer);
+			log.trace("Set Windowsize to " + integer);
 		} else if (eClass.equals(GenericParameter.class.getName())) {
 			log.warn("The setting of GenericParameter is not supported and will be ignored.");
 		} else {
-			log.error("No handling adapter of setting Optimizable Parameter " + eClass);
+			log.error("No handling adapter of setting Optimizable Parameter "
+					+ eClass);
 		}
+	}
+
+	public static double getValue(LibredeConfiguration librede, String eClass) {
+		if (eClass.equals(StepSize.class.getName())) {
+			return librede.getEstimation().getStepSize().getValue();
+		} else if (eClass.equals(WindowSize.class.getName())) {
+			return librede.getEstimation().getWindow();
+		} else if (eClass.equals(GenericParameter.class.getName())) {
+			log.warn("The setting of GenericParameter is not supported and will be ignored.");
+		} else {
+			log.error("No handling adapter of setting Optimizable Parameter "
+					+ eClass);
+		}
+		return -1;
 	}
 
 }

@@ -30,6 +30,7 @@ import org.apache.log4j.Logger;
 
 import tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
 
 /**
@@ -41,7 +42,10 @@ import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
  */
 public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
 
-	private static final Logger log = Logger.getLogger(HillClimbingAlgorithm.class);
+	private static final Logger log = Logger
+			.getLogger(HillClimbingAlgorithm.class);
+
+	private LocalSearchSpecifier settings;
 
 	/*
 	 * (non-Javadoc)
@@ -62,10 +66,11 @@ public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
 	 * IConfigurationOptimizationAlgorithmSpecifier)
 	 */
 	@Override
-	public boolean isSpecifierSupported(IConfigurationOptimizationAlgorithmSpecifier specifier) {
+	public boolean isSpecifierSupported(
+			IConfigurationOptimizationAlgorithmSpecifier specifier) {
 		if (specifier == null)
 			return false;
-		if(specifier instanceof LocalSearchSpecifier){
+		if (specifier instanceof LocalSearchSpecifier) {
 			return true;
 		}
 		return false;
@@ -92,102 +97,87 @@ public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
 	 */
 	@Override
 	public void executeAlgorithm() {
-		// TODO
+		// should be safe, since exception is otherwise thrown
+		settings = (LocalSearchSpecifier) getAlgorithm();
+		// initial iteration to evaluate first error
 		runIteration();
-		System.out.println("Executing.....");
+		for (IOptimizableParameter param : getSettings()
+				.getParametersToOptimize()) {
+			getLog().info("Now optimizing " + param.toString());
+			hillclimbing(param);
+			getLog().info(
+					"Found value of " + getTargetValue(param)
+							+ " for Parameter " + param.toString());
+		}
+
 	}
 
-	// /**
-	// * Starts the routine.
-	// *
-	// * @return
-	// */
-	// protected void hillclimbing() {
-	//
-	// double value = settings().getInitialValue();
-	// setTargetValue(value);
-	// // run first iteration
-	// double before = errorFunction();
-	// getLog().info("Initial step size: " + value);
-	// // run up and down at the same time with stepsize
-	// double[] resultup = oneWayAscend(value, before, +settings()
-	// .getStepSize());
-	// double[] resultdown = oneWayAscend(value, before, -settings()
-	// .getStepSize());
-	// // if running up has better results than down
-	// if (resultup[0] < resultdown[0]) {
-	// // apply value of going up
-	// setTargetValue(resultup[1]);
-	// }
-	// }
-	//
-	// private double[] oneWayAscend(double start, double startvalue,
-	// double operation) {
-	// double[] currbest = { startvalue, start };
-	// setTargetValue(start);
-	// double before = startvalue;
-	// double newerr = before;
-	// while (repeat(before, newerr, currbest[0]) && !outOfBounds(operation)) {
-	// before = newerr;
-	// setTargetValue(getTargetValue() + operation);
-	// newerr = errorFunction();
-	// getLog().trace(
-	// "New target function with target value " + getTargetValue()
-	// + " :" + newerr);
-	//
-	// // update currbest
-	// if (newerr < currbest[0]) {
-	// currbest[0] = newerr;
-	// currbest[1] = getTargetValue();
-	// }
-	// }
-	// return currbest;
-	// }
-	//
-	// private boolean outOfBounds(double operation) {
-	// if (getTargetValue() + operation < settings().getMinimum()
-	// || getTargetValue() + operation > settings().getMaximum())
-	// return true;
-	// else
-	// return false;
-	// }
-	//
-	// protected boolean repeat(double before, double after, double currbest) {
-	// double gain = before - after;
-	// if (gain >= settings().getMinGain()) {
-	// // if we have a gain
-	// return true;
-	// } else if (after <= currbest + (currbest * settings().getTolerance())) {
-	// // if we have no gain, but are still in our tolerance radius
-	// return true;
-	// } else {
-	// // outside of tolerance radius
-	// return false;
-	// }
-	// }
-	//
-	// /**
-	// * The objective function to be optimized. The function is assumed to be
-	// an
-	// * error function, i.e. the smaller the value, the better.
-	// *
-	// * @return The target value for the current configuration
-	// */
-	// protected abstract double errorFunction();
-	//
-	// /**
-	// * Sets the target value accordingly.
-	// *
-	// * @param value
-	// * The target value of the optimizing function
-	// */
-	// protected abstract void setTargetValue(double value);
-	//
-	// /**
-	// * Returns the target value accordingly.
-	// *
-	// * @returns value The current value of the optimizing function
-	// */
-	// protected abstract double getTargetValue();
+	/**
+	 * Starts a hillclimbing routine
+	 *
+	 * @return
+	 */
+	protected void hillclimbing(IOptimizableParameter param) {
+
+		double value = param.getStartValue();
+		setTargetValue(param, value);
+		double before = getLastError();
+		getLog().info("Initial step size: " + value);
+		// run up and down at the same time with stepsize
+		double[] resultup = oneWayAscend(param, value, before, +settings()
+				.getStepSize());
+		double[] resultdown = oneWayAscend(param, value, before, -settings()
+				.getStepSize());
+		// if running up has better results than down
+		if (resultup[0] < resultdown[0]) {
+			// apply value of going up
+			setTargetValue(param, resultup[1]);
+		}
+	}
+
+	private double[] oneWayAscend(IOptimizableParameter param, double start,
+			double startvalue, double operation) {
+		double[] currbest = { startvalue, start };
+		setTargetValue(param, start);
+		double newerr = startvalue;
+		while (repeat(newerr, currbest[0]) && !outOfBounds(param, operation)) {
+			setTargetValue(param, getTargetValue(param) + operation);
+			// run with changed settings
+			runIteration();
+			newerr = getLastError();
+			getLog().trace(
+					"New target function with target value "
+							+ getTargetValue(param) + " :" + newerr);
+
+			// update currbest
+			if (newerr < currbest[0]) {
+				currbest[0] = newerr;
+				currbest[1] = getTargetValue(param);
+			}
+		}
+		return currbest;
+	}
+
+	private boolean outOfBounds(IOptimizableParameter param, double operation) {
+		if (getTargetValue(param) + operation < param.getLowerBound()
+				|| getTargetValue(param) + operation > param.getUpperBound())
+			return true;
+		else
+			return false;
+	}
+
+	protected boolean repeat(double after, double currbest) {
+		if (after <= currbest + (currbest * settings().getTolerance())) {
+			// if we have no gain, but are still in our tolerance radius
+			return true;
+		} else {
+			// outside of tolerance radius
+			return false;
+		}
+	}
+
+	private LocalSearchSpecifier settings() {
+		return settings;
+	}
 
 }

@@ -3,24 +3,16 @@
 package tools.descartes.librede.rrde.optimization.impl;
 
 import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import tools.descartes.librede.configuration.ValidationSpecification;
-
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
@@ -32,7 +24,6 @@ import tools.descartes.librede.rrde.optimization.OptimizationSettings;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl#getIgnoreApproaches <em>Ignore Approaches</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl#getValidator <em>Validator</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl#getParametersToOptimize <em>Parameters To Optimize</em>}</li>
  * </ul>
@@ -41,16 +32,6 @@ import tools.descartes.librede.rrde.optimization.OptimizationSettings;
  * @generated
  */
 public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container implements OptimizationSettings {
-	/**
-	 * The cached value of the '{@link #getIgnoreApproaches() <em>Ignore Approaches</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getIgnoreApproaches()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<String> ignoreApproaches;
-
 	/**
 	 * The cached value of the '{@link #getValidator() <em>Validator</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -88,18 +69,6 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	protected EClass eStaticClass() {
 		return OptimizationPackage.Literals.OPTIMIZATION_SETTINGS;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<String> getIgnoreApproaches() {
-		if (ignoreApproaches == null) {
-			ignoreApproaches = new EDataTypeUniqueEList<String>(String.class, this, OptimizationPackage.OPTIMIZATION_SETTINGS__IGNORE_APPROACHES);
-		}
-		return ignoreApproaches;
 	}
 
 	/**
@@ -181,8 +150,6 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OptimizationPackage.OPTIMIZATION_SETTINGS__IGNORE_APPROACHES:
-				return getIgnoreApproaches();
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR:
 				return getValidator();
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE:
@@ -200,10 +167,6 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OptimizationPackage.OPTIMIZATION_SETTINGS__IGNORE_APPROACHES:
-				getIgnoreApproaches().clear();
-				getIgnoreApproaches().addAll((Collection<? extends String>)newValue);
-				return;
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR:
 				setValidator((ValidationSpecification)newValue);
 				return;
@@ -223,9 +186,6 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.OPTIMIZATION_SETTINGS__IGNORE_APPROACHES:
-				getIgnoreApproaches().clear();
-				return;
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR:
 				setValidator((ValidationSpecification)null);
 				return;
@@ -244,30 +204,12 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.OPTIMIZATION_SETTINGS__IGNORE_APPROACHES:
-				return ignoreApproaches != null && !ignoreApproaches.isEmpty();
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__VALIDATOR:
 				return validator != null;
 			case OptimizationPackage.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE:
 				return parametersToOptimize != null && !parametersToOptimize.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (IgnoreApproaches: ");
-		result.append(ignoreApproaches);
-		result.append(')');
-		return result.toString();
 	}
 
 } //OptimizationSettingsImpl

@@ -37,7 +37,7 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object LOWER_BOUND_EDEFAULT = null;
+	protected static final double LOWER_BOUND_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getLowerBound() <em>Lower Bound</em>}' attribute.
@@ -47,7 +47,7 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * @generated
 	 * @ordered
 	 */
-	protected Object lowerBound = LOWER_BOUND_EDEFAULT;
+	protected double lowerBound = LOWER_BOUND_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getUpperBound() <em>Upper Bound</em>}' attribute.
@@ -57,7 +57,7 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object UPPER_BOUND_EDEFAULT = null;
+	protected static final double UPPER_BOUND_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getUpperBound() <em>Upper Bound</em>}' attribute.
@@ -67,7 +67,7 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * @generated
 	 * @ordered
 	 */
-	protected Object upperBound = UPPER_BOUND_EDEFAULT;
+	protected double upperBound = UPPER_BOUND_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getStartValue() <em>Start Value</em>}' attribute.
@@ -77,7 +77,7 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object START_VALUE_EDEFAULT = null;
+	protected static final double START_VALUE_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getStartValue() <em>Start Value</em>}' attribute.
@@ -87,7 +87,7 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * @generated
 	 * @ordered
 	 */
-	protected Object startValue = START_VALUE_EDEFAULT;
+	protected double startValue = START_VALUE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getKey() <em>Key</em>}' attribute.
@@ -133,7 +133,7 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getLowerBound() {
+	public double getLowerBound() {
 		return lowerBound;
 	}
 
@@ -142,8 +142,8 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setLowerBound(Object newLowerBound) {
-		Object oldLowerBound = lowerBound;
+	public void setLowerBound(double newLowerBound) {
+		double oldLowerBound = lowerBound;
 		lowerBound = newLowerBound;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.GENERIC_PARAMETER__LOWER_BOUND, oldLowerBound, lowerBound));
@@ -154,7 +154,7 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getUpperBound() {
+	public double getUpperBound() {
 		return upperBound;
 	}
 
@@ -163,8 +163,8 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setUpperBound(Object newUpperBound) {
-		Object oldUpperBound = upperBound;
+	public void setUpperBound(double newUpperBound) {
+		double oldUpperBound = upperBound;
 		upperBound = newUpperBound;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.GENERIC_PARAMETER__UPPER_BOUND, oldUpperBound, upperBound));
@@ -175,7 +175,7 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getStartValue() {
+	public double getStartValue() {
 		return startValue;
 	}
 
@@ -184,8 +184,8 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStartValue(Object newStartValue) {
-		Object oldStartValue = startValue;
+	public void setStartValue(double newStartValue) {
+		double oldStartValue = startValue;
 		startValue = newStartValue;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.GENERIC_PARAMETER__START_VALUE, oldStartValue, startValue));
@@ -241,13 +241,13 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case OptimizationPackage.GENERIC_PARAMETER__LOWER_BOUND:
-				setLowerBound(newValue);
+				setLowerBound((Double)newValue);
 				return;
 			case OptimizationPackage.GENERIC_PARAMETER__UPPER_BOUND:
-				setUpperBound(newValue);
+				setUpperBound((Double)newValue);
 				return;
 			case OptimizationPackage.GENERIC_PARAMETER__START_VALUE:
-				setStartValue(newValue);
+				setStartValue((Double)newValue);
 				return;
 			case OptimizationPackage.GENERIC_PARAMETER__KEY:
 				setKey((String)newValue);
@@ -289,11 +289,11 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case OptimizationPackage.GENERIC_PARAMETER__LOWER_BOUND:
-				return LOWER_BOUND_EDEFAULT == null ? lowerBound != null : !LOWER_BOUND_EDEFAULT.equals(lowerBound);
+				return lowerBound != LOWER_BOUND_EDEFAULT;
 			case OptimizationPackage.GENERIC_PARAMETER__UPPER_BOUND:
-				return UPPER_BOUND_EDEFAULT == null ? upperBound != null : !UPPER_BOUND_EDEFAULT.equals(upperBound);
+				return upperBound != UPPER_BOUND_EDEFAULT;
 			case OptimizationPackage.GENERIC_PARAMETER__START_VALUE:
-				return START_VALUE_EDEFAULT == null ? startValue != null : !START_VALUE_EDEFAULT.equals(startValue);
+				return startValue != START_VALUE_EDEFAULT;
 			case OptimizationPackage.GENERIC_PARAMETER__KEY:
 				return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
 		}

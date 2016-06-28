@@ -114,13 +114,22 @@ public interface OptimizationPackage extends EPackage {
 	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT = 0;
 
 	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME = 1;
+
+	/**
 	 * The number of structural features of the '<em>IConfiguration Optimization Algorithm Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT = 1;
+	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>IConfiguration Optimization Algorithm Specifier</em>' class.
@@ -149,6 +158,15 @@ public interface OptimizationPackage extends EPackage {
 	 * @ordered
 	 */
 	int LOCAL_SEARCH_SPECIFIER__TIME_OUT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOCAL_SEARCH_SPECIFIER__ALGORITHM_NAME = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Tolerance</b></em>' attribute.
@@ -325,22 +343,13 @@ public interface OptimizationPackage extends EPackage {
 	int OPTIMIZATION_SETTINGS = 5;
 
 	/**
-	 * The feature id for the '<em><b>Ignore Approaches</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OPTIMIZATION_SETTINGS__IGNORE_APPROACHES = 0;
-
-	/**
 	 * The feature id for the '<em><b>Validator</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPTIMIZATION_SETTINGS__VALIDATOR = 1;
+	int OPTIMIZATION_SETTINGS__VALIDATOR = 0;
 
 	/**
 	 * The feature id for the '<em><b>Parameters To Optimize</b></em>' containment reference list.
@@ -349,7 +358,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE = 2;
+	int OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE = 1;
 
 	/**
 	 * The number of structural features of the '<em>Settings</em>' class.
@@ -358,7 +367,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPTIMIZATION_SETTINGS_FEATURE_COUNT = 3;
+	int OPTIMIZATION_SETTINGS_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Settings</em>' class.
@@ -387,6 +396,15 @@ public interface OptimizationPackage extends EPackage {
 	 * @ordered
 	 */
 	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__TIME_OUT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__ALGORITHM_NAME = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Number Of Splits</b></em>' attribute.
@@ -706,6 +724,17 @@ public interface OptimizationPackage extends EPackage {
 	EAttribute getIConfigurationOptimizationAlgorithmSpecifier_TimeOut();
 
 	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#getAlgorithmName <em>Algorithm Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Algorithm Name</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#getAlgorithmName()
+	 * @see #getIConfigurationOptimizationAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName();
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier <em>Local Search Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -854,17 +883,6 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getOptimizationSettings();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getIgnoreApproaches <em>Ignore Approaches</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Ignore Approaches</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.OptimizationSettings#getIgnoreApproaches()
-	 * @see #getOptimizationSettings()
-	 * @generated
-	 */
-	EAttribute getOptimizationSettings_IgnoreApproaches();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getValidator <em>Validator</em>}'.
@@ -1074,6 +1092,14 @@ public interface OptimizationPackage extends EPackage {
 		EAttribute ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier_TimeOut();
 
 		/**
+		 * The meta object literal for the '<em><b>Algorithm Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName();
+
+		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl <em>Local Search Specifier</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1192,14 +1218,6 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EClass OPTIMIZATION_SETTINGS = eINSTANCE.getOptimizationSettings();
-
-		/**
-		 * The meta object literal for the '<em><b>Ignore Approaches</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute OPTIMIZATION_SETTINGS__IGNORE_APPROACHES = eINSTANCE.getOptimizationSettings_IgnoreApproaches();
 
 		/**
 		 * The meta object literal for the '<em><b>Validator</b></em>' containment reference feature.

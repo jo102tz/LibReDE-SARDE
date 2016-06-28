@@ -61,6 +61,7 @@ public class LocalSearchSpecifierItemProvider
 			super.getPropertyDescriptors(object);
 
 			addTimeOutPropertyDescriptor(object);
+			addAlgorithmNamePropertyDescriptor(object);
 			addTolerancePropertyDescriptor(object);
 			addMaximumNumberOfStepsPropertyDescriptor(object);
 			addStepSizePropertyDescriptor(object);
@@ -86,6 +87,28 @@ public class LocalSearchSpecifierItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Algorithm Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAlgorithmNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_IConfigurationOptimizationAlgorithmSpecifier_algorithmName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_IConfigurationOptimizationAlgorithmSpecifier_algorithmName_feature", "_UI_IConfigurationOptimizationAlgorithmSpecifier_type"),
+				 OptimizationPackage.Literals.ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -175,8 +198,10 @@ public class LocalSearchSpecifierItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		LocalSearchSpecifier localSearchSpecifier = (LocalSearchSpecifier)object;
-		return getString("_UI_LocalSearchSpecifier_type") + " " + localSearchSpecifier.getTimeOut();
+		String label = ((LocalSearchSpecifier)object).getAlgorithmName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_LocalSearchSpecifier_type") :
+			getString("_UI_LocalSearchSpecifier_type") + " " + label;
 	}
 	
 
@@ -193,6 +218,7 @@ public class LocalSearchSpecifierItemProvider
 
 		switch (notification.getFeatureID(LocalSearchSpecifier.class)) {
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__TIME_OUT:
+			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__ALGORITHM_NAME:
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__TOLERANCE:
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__MAXIMUM_NUMBER_OF_STEPS:
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__STEP_SIZE:

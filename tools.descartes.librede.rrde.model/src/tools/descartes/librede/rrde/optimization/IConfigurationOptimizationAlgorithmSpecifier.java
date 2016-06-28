@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#getTimeOut <em>Time Out</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#getAlgorithmName <em>Algorithm Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,5 +52,31 @@ public interface IConfigurationOptimizationAlgorithmSpecifier extends EObject {
 	 * @generated
 	 */
 	void setTimeOut(long value);
+
+	/**
+	 * Returns the value of the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Algorithm Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Algorithm Name</em>' attribute.
+	 * @see #setAlgorithmName(String)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 * @generated
+	 */
+	String getAlgorithmName();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#getAlgorithmName <em>Algorithm Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Algorithm Name</em>' attribute.
+	 * @see #getAlgorithmName()
+	 * @generated
+	 */
+	void setAlgorithmName(String value);
 
 } // IConfigurationOptimizationAlgorithmSpecifier

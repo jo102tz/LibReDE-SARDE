@@ -224,6 +224,15 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName() {
+		return (EAttribute)iConfigurationOptimizationAlgorithmSpecifierEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLocalSearchSpecifier() {
 		return localSearchSpecifierEClass;
 	}
@@ -350,17 +359,8 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getOptimizationSettings_IgnoreApproaches() {
-		return (EAttribute)optimizationSettingsEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getOptimizationSettings_Validator() {
-		return (EReference)optimizationSettingsEClass.getEStructuralFeatures().get(1);
+		return (EReference)optimizationSettingsEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -369,7 +369,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * @generated
 	 */
 	public EReference getOptimizationSettings_ParametersToOptimize() {
-		return (EReference)optimizationSettingsEClass.getEStructuralFeatures().get(2);
+		return (EReference)optimizationSettingsEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -513,6 +513,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		iConfigurationOptimizationAlgorithmSpecifierEClass = createEClass(ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER);
 		createEAttribute(iConfigurationOptimizationAlgorithmSpecifierEClass, ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT);
+		createEAttribute(iConfigurationOptimizationAlgorithmSpecifierEClass, ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME);
 
 		localSearchSpecifierEClass = createEClass(LOCAL_SEARCH_SPECIFIER);
 		createEAttribute(localSearchSpecifierEClass, LOCAL_SEARCH_SPECIFIER__TOLERANCE);
@@ -531,7 +532,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		createEAttribute(inputDataEClass, INPUT_DATA__ROOT_FOLDER);
 
 		optimizationSettingsEClass = createEClass(OPTIMIZATION_SETTINGS);
-		createEAttribute(optimizationSettingsEClass, OPTIMIZATION_SETTINGS__IGNORE_APPROACHES);
 		createEReference(optimizationSettingsEClass, OPTIMIZATION_SETTINGS__VALIDATOR);
 		createEReference(optimizationSettingsEClass, OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE);
 
@@ -577,8 +577,8 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		ConfigurationPackage theConfigurationPackage = (ConfigurationPackage)EPackage.Registry.INSTANCE.getEPackage(ConfigurationPackage.eNS_URI);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
+		ConfigurationPackage theConfigurationPackage = (ConfigurationPackage)EPackage.Registry.INSTANCE.getEPackage(ConfigurationPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -597,6 +597,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		initEClass(iConfigurationOptimizationAlgorithmSpecifierEClass, IConfigurationOptimizationAlgorithmSpecifier.class, "IConfigurationOptimizationAlgorithmSpecifier", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIConfigurationOptimizationAlgorithmSpecifier_TimeOut(), ecorePackage.getELong(), "timeOut", "-1", 1, 1, IConfigurationOptimizationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName(), theXMLTypePackage.getString(), "algorithmName", null, 0, 1, IConfigurationOptimizationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(localSearchSpecifierEClass, LocalSearchSpecifier.class, "LocalSearchSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLocalSearchSpecifier_Tolerance(), ecorePackage.getEDouble(), "tolerance", "0.05", 1, 1, LocalSearchSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -615,7 +616,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEAttribute(getInputData_RootFolder(), theXMLTypePackage.getString(), "rootFolder", null, 1, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(optimizationSettingsEClass, OptimizationSettings.class, "OptimizationSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getOptimizationSettings_IgnoreApproaches(), theXMLTypePackage.getString(), "IgnoreApproaches", null, 0, -1, OptimizationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOptimizationSettings_Validator(), theConfigurationPackage.getValidationSpecification(), null, "validator", null, 1, 1, OptimizationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOptimizationSettings_ParametersToOptimize(), this.getIOptimizableParameter(), null, "parametersToOptimize", null, 0, -1, OptimizationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -626,9 +626,9 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEOperation(getIterativeParameterOptimizerSpecifier__Stop(), theXMLTypePackage.getBoolean(), "stop", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(iOptimizableParameterEClass, IOptimizableParameter.class, "IOptimizableParameter", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIOptimizableParameter_LowerBound(), theXMLTypePackage.getAnySimpleType(), "lowerBound", null, 0, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIOptimizableParameter_UpperBound(), theXMLTypePackage.getAnySimpleType(), "upperBound", null, 0, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIOptimizableParameter_StartValue(), theXMLTypePackage.getAnySimpleType(), "startValue", null, 0, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIOptimizableParameter_LowerBound(), theXMLTypePackage.getDouble(), "lowerBound", null, 0, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIOptimizableParameter_UpperBound(), theXMLTypePackage.getDouble(), "upperBound", null, 0, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIOptimizableParameter_StartValue(), theXMLTypePackage.getDouble(), "startValue", null, 0, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genericParameterEClass, GenericParameter.class, "GenericParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenericParameter_Key(), theXMLTypePackage.getString(), "key", null, 1, 1, GenericParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

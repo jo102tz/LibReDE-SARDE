@@ -85,7 +85,7 @@ public class GenericParameterItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -107,7 +107,7 @@ public class GenericParameterItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -129,7 +129,7 @@ public class GenericParameterItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -175,11 +175,8 @@ public class GenericParameterItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		Object labelValue = ((GenericParameter)object).getLowerBound();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_GenericParameter_type") :
-			getString("_UI_GenericParameter_type") + " " + label;
+		GenericParameter genericParameter = (GenericParameter)object;
+		return getString("_UI_GenericParameter_type") + " " + genericParameter.getLowerBound();
 	}
 	
 

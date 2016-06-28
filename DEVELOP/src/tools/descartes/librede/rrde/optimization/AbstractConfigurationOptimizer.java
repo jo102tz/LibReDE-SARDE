@@ -33,9 +33,13 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 
+import tools.descartes.librede.LibredeResults;
+import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.Util;
 import tools.descartes.librede.rrde.Wrapper;
+import tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl;
 
 /**
  * This class contains an abstract implementation of an
@@ -92,6 +96,11 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * The set of LibredeConfigurations to run for every iteration.
 	 */
 	private Set<LibredeConfiguration> confs;
+
+	/**
+	 * The value of the last error.
+	 */
+	private double lastError;
 
 	/**
 	 * Constructor preparing and initializing execution
@@ -223,7 +232,9 @@ public abstract class AbstractConfigurationOptimizer implements
 		confs = Discovery.createConfigurations(getSpecification(), getInput(),
 				getSettings().getValidator());
 		validateConfs();
-		getLog().info("Finished initialization.");
+		getLog().info(
+				"Finished initialization. Available Training-Configurations: "
+						+ confs.size());
 	}
 
 	/**
@@ -246,7 +257,8 @@ public abstract class AbstractConfigurationOptimizer implements
 	}
 
 	/**
-	 * Runs one iteration of the current configurations.
+	 * Runs one iteration of the current configurations and returns the
+	 * equal-weighted mean of the mean validation error of all approaches.
 	 * 
 	 * @return The error value of this iteration.
 	 */
@@ -255,11 +267,17 @@ public abstract class AbstractConfigurationOptimizer implements
 		for (LibredeConfiguration single : confs) {
 			totalruns++;
 			getLog().debug("Starting execution of " + single.toString());
-			Wrapper.executeLibrede(single);
+			// equally weigh all approaches with their validation errors
+			LibredeResults results = Wrapper.executeLibrede(single);
+			for (Class<? extends IEstimationApproach> approach : results
+					.getApproaches()) {
+				stat.addValue(results.getApproachResults(approach)
+						.getMeanValidationError());
+			}
 		}
-		// TODO
 		iterationcounter++;
-		return stat.getMean();
+		lastError = stat.getMean();
+		return getLastError();
 
 	}
 
@@ -270,6 +288,39 @@ public abstract class AbstractConfigurationOptimizer implements
 					"The optimization is still ongoing.");
 		}
 		return getSpecification();
+	}
+
+	/**
+	 * The objective function to be optimized. The function is assumed to be an
+	 * error function, i.e. the smaller the value, the better.
+	 *
+	 * @return The target value for the current configuration
+	 */
+	protected double getLastError() {
+		return lastError;
+	}
+
+	/**
+	 * Sets the target value accordingly.
+	 *
+	 * @param value
+	 *            The target value of the optimizing function
+	 */
+	protected void setTargetValue(IOptimizableParameter param, double value) {
+		for (LibredeConfiguration conf : confs) {
+			Util.setValue(conf, value,
+					param.getClass().getInterfaces()[0].getName());
+		}
+	}
+
+	/**
+	 * Returns the target value accordingly.
+	 *
+	 * @returns value The current value of the optimizing function
+	 */
+	protected double getTargetValue(IOptimizableParameter param) {
+		return Util.getValue(confs.iterator().next(), param.getClass()
+				.getInterfaces()[0].getName());
 	}
 
 	/**

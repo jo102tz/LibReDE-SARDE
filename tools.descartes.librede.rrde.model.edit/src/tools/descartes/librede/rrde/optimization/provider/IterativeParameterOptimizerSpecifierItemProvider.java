@@ -61,6 +61,7 @@ public class IterativeParameterOptimizerSpecifierItemProvider
 			super.getPropertyDescriptors(object);
 
 			addTimeOutPropertyDescriptor(object);
+			addAlgorithmNamePropertyDescriptor(object);
 			addNumberOfSplitsPropertyDescriptor(object);
 			addNumberOfExplorationsPropertyDescriptor(object);
 		}
@@ -85,6 +86,28 @@ public class IterativeParameterOptimizerSpecifierItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Algorithm Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAlgorithmNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_IConfigurationOptimizationAlgorithmSpecifier_algorithmName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_IConfigurationOptimizationAlgorithmSpecifier_algorithmName_feature", "_UI_IConfigurationOptimizationAlgorithmSpecifier_type"),
+				 OptimizationPackage.Literals.ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -152,8 +175,10 @@ public class IterativeParameterOptimizerSpecifierItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		IterativeParameterOptimizerSpecifier iterativeParameterOptimizerSpecifier = (IterativeParameterOptimizerSpecifier)object;
-		return getString("_UI_IterativeParameterOptimizerSpecifier_type") + " " + iterativeParameterOptimizerSpecifier.getTimeOut();
+		String label = ((IterativeParameterOptimizerSpecifier)object).getAlgorithmName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_IterativeParameterOptimizerSpecifier_type") :
+			getString("_UI_IterativeParameterOptimizerSpecifier_type") + " " + label;
 	}
 	
 
@@ -170,6 +195,7 @@ public class IterativeParameterOptimizerSpecifierItemProvider
 
 		switch (notification.getFeatureID(IterativeParameterOptimizerSpecifier.class)) {
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__TIME_OUT:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__ALGORITHM_NAME:
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS:
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

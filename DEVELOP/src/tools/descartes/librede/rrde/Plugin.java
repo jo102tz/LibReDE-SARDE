@@ -63,6 +63,7 @@ import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.StepSize;
 import tools.descartes.librede.rrde.optimization.WindowSize;
 import tools.descartes.librede.rrde.optimization.impl.HillClimbingAlgorithm;
+import tools.descartes.librede.rrde.optimization.impl.StepSizeImpl;
 
 /**
  * The main class of this Plug-In. TODO comment

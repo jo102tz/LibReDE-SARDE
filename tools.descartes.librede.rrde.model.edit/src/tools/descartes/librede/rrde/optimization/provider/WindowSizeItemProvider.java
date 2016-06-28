@@ -84,7 +84,7 @@ public class WindowSizeItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -106,7 +106,7 @@ public class WindowSizeItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -128,7 +128,7 @@ public class WindowSizeItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -152,11 +152,8 @@ public class WindowSizeItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		Object labelValue = ((WindowSize)object).getLowerBound();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_WindowSize_type") :
-			getString("_UI_WindowSize_type") + " " + label;
+		WindowSize windowSize = (WindowSize)object;
+		return getString("_UI_WindowSize_type") + " " + windowSize.getLowerBound();
 	}
 	
 

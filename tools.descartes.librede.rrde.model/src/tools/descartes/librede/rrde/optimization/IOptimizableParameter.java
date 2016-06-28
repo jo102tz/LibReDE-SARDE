@@ -36,12 +36,12 @@ public interface IOptimizableParameter extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Lower Bound</em>' attribute.
-	 * @see #setLowerBound(Object)
+	 * @see #setLowerBound(double)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIOptimizableParameter_LowerBound()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.AnySimpleType"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double"
 	 * @generated
 	 */
-	Object getLowerBound();
+	double getLowerBound();
 
 	/**
 	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter#getLowerBound <em>Lower Bound</em>}' attribute.
@@ -51,7 +51,7 @@ public interface IOptimizableParameter extends EObject {
 	 * @see #getLowerBound()
 	 * @generated
 	 */
-	void setLowerBound(Object value);
+	void setLowerBound(double value);
 
 	/**
 	 * Returns the value of the '<em><b>Upper Bound</b></em>' attribute.
@@ -62,12 +62,12 @@ public interface IOptimizableParameter extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Upper Bound</em>' attribute.
-	 * @see #setUpperBound(Object)
+	 * @see #setUpperBound(double)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIOptimizableParameter_UpperBound()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.AnySimpleType"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double"
 	 * @generated
 	 */
-	Object getUpperBound();
+	double getUpperBound();
 
 	/**
 	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter#getUpperBound <em>Upper Bound</em>}' attribute.
@@ -77,7 +77,7 @@ public interface IOptimizableParameter extends EObject {
 	 * @see #getUpperBound()
 	 * @generated
 	 */
-	void setUpperBound(Object value);
+	void setUpperBound(double value);
 
 	/**
 	 * Returns the value of the '<em><b>Start Value</b></em>' attribute.
@@ -88,12 +88,12 @@ public interface IOptimizableParameter extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Start Value</em>' attribute.
-	 * @see #setStartValue(Object)
+	 * @see #setStartValue(double)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIOptimizableParameter_StartValue()
-	 * @model id="true" dataType="org.eclipse.emf.ecore.xml.type.AnySimpleType"
+	 * @model id="true" dataType="org.eclipse.emf.ecore.xml.type.Double"
 	 * @generated
 	 */
-	Object getStartValue();
+	double getStartValue();
 
 	/**
 	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter#getStartValue <em>Start Value</em>}' attribute.
@@ -103,6 +103,6 @@ public interface IOptimizableParameter extends EObject {
 	 * @see #getStartValue()
 	 * @generated
 	 */
-	void setStartValue(Object value);
+	void setStartValue(double value);
 
 } // IOptimizableParameter

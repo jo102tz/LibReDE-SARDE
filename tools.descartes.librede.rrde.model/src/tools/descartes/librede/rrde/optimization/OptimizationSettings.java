@@ -20,7 +20,6 @@ import tools.descartes.librede.configuration.ValidationSpecification;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getIgnoreApproaches <em>Ignore Approaches</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getValidator <em>Validator</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getParametersToOptimize <em>Parameters To Optimize</em>}</li>
  * </ul>
@@ -31,21 +30,6 @@ import tools.descartes.librede.configuration.ValidationSpecification;
  * @generated
  */
 public interface OptimizationSettings extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Ignore Approaches</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.String}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Approaches that will not be optimized in this Run and that will be ignored by the algorithm.
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Ignore Approaches</em>' attribute list.
-	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getOptimizationSettings_IgnoreApproaches()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 * @generated
-	 */
-	EList<String> getIgnoreApproaches();
-
 	/**
 	 * Returns the value of the '<em><b>Validator</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
