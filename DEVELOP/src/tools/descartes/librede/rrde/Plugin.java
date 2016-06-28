@@ -58,6 +58,7 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.StepSize;
@@ -76,9 +77,10 @@ public class Plugin implements IApplication {
 
 	private static final Logger log = Logger.getLogger(Plugin.class);
 
-	public final static String LIB_PATH = "resources/estimation.librede";
+	public final static String LIB_PATH = "resources" + File.separator + "estimation.librede";
 
-	public final static String CONF_PATH = "resources/test/src/conf.optimization";
+	public final static String CONF_PATH = "resources" + File.separator + "test" + File.separator + "src"
+			+ File.separator + "conf.optimization";
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
@@ -86,10 +88,8 @@ public class Plugin implements IApplication {
 		Wrapper.init();
 		try {
 			// load config files
-			LibredeConfiguration configuration = Librede
-					.loadConfiguration(new File(LIB_PATH).toPath());
-			OptimizationConfiguration conf = loadConfiguration(new File(
-					CONF_PATH).toPath());
+			LibredeConfiguration configuration = Librede.loadConfiguration(new File(LIB_PATH).toPath());
+			OptimizationConfiguration conf = loadConfiguration(new File(CONF_PATH).toPath());
 
 			// run optimization
 			runConfigurationOptimization(configuration, conf);
@@ -112,11 +112,21 @@ public class Plugin implements IApplication {
 	 * @param librede
 	 * @param conf
 	 */
-	public void runConfigurationOptimization(LibredeConfiguration librede,
-			OptimizationConfiguration conf) {
+	public void runConfigurationOptimization(LibredeConfiguration librede, OptimizationConfiguration conf) {
 		if (conf.getContainsOf().size() > 1) {
-			log.error("As of now, only one RunCall is supported to avoid merge conflicts. Therefore, only the first one will be executed.");
+			log.error(
+					"As of now, only one RunCall is supported to avoid merge conflicts. Therefore, only the first one will be executed.");
 			conf.getContainsOf().retainAll(conf.getContainsOf().subList(0, 1));
+		}
+
+		// This is a fixup to replace the data sources with ones from librede.
+		// This might cause unwanted behavior so it can be changed afterwards if
+		// the problem of the unspecified data source can be fixed
+		for (RunCall call : conf.getContainsOf()) {
+			for (InputData spec : call.getTrainingData()) {
+				spec.getInputSpecification().getDataSources().get(0).getParameters()
+						.addAll(librede.getInput().getDataSources().get(0).getParameters());
+			}
 		}
 
 		// split one RunCall with several approaches into multiple RunCalls with
@@ -126,13 +136,11 @@ public class Plugin implements IApplication {
 		for (RunCall call : conf.getContainsOf()) {
 			if (call.getEstimationSpecification().getApproaches().size() > 1) {
 				// split up
-				for (EstimationApproachConfiguration approach : call
-						.getEstimationSpecification().getApproaches()) {
+				for (EstimationApproachConfiguration approach : call.getEstimationSpecification().getApproaches()) {
 					RunCall newCall = EcoreUtil.copy(call);
 					ArrayList<EstimationApproachConfiguration> doNotRemove = new ArrayList<EstimationApproachConfiguration>();
 					doNotRemove.add(approach);
-					newCall.getEstimationSpecification().getApproaches()
-							.retainAll(doNotRemove);
+					newCall.getEstimationSpecification().getApproaches().retainAll(doNotRemove);
 					newRunCalls.add(newCall);
 				}
 			} else {
@@ -143,8 +151,7 @@ public class Plugin implements IApplication {
 		conf.getContainsOf().addAll(newRunCalls);
 
 		// execute Calls
-		HashMap<RunCall, EstimationSpecification> results = collectResults(conf
-				.getContainsOf());
+		HashMap<RunCall, EstimationSpecification> results = collectResults(conf.getContainsOf());
 
 		// merge the obtained results into one EstimationSpecification
 		try {
@@ -157,14 +164,12 @@ public class Plugin implements IApplication {
 		// TODO merge runCalls
 	}
 
-	private void mergeNumericParameter(LibredeConfiguration librede,
-			HashMap<RunCall, EstimationSpecification> results, String eClass)
-			throws InstantiationException, IllegalAccessException {
+	private void mergeNumericParameter(LibredeConfiguration librede, HashMap<RunCall, EstimationSpecification> results,
+			String eClass) throws InstantiationException, IllegalAccessException {
 		HashMap<RunCall, EstimationSpecification> tmp = new HashMap<RunCall, EstimationSpecification>();
 		for (RunCall result : results.keySet()) {
 			// look through all results with given parameter
-			for (IOptimizableParameter para : result.getSettings()
-					.getParametersToOptimize()) {
+			for (IOptimizableParameter para : result.getSettings().getParametersToOptimize()) {
 				if (para.getClass().getInterfaces()[0].getName().equals(eClass)) {
 					tmp.put(result, results.get(result));
 				}
@@ -180,9 +185,8 @@ public class Plugin implements IApplication {
 			DescriptiveStatistics stat = new DescriptiveStatistics();
 			for (Double d : nums)
 				stat.addValue(d);
-			log.warn("There were multiple results for the single parameter "
-					+ eClass + ". Using the average of " + stat.getMean()
-					+ " as final result.");
+			log.warn("There were multiple results for the single parameter " + eClass + ". Using the average of "
+					+ stat.getMean() + " as final result.");
 			setValue(librede, stat.getMean(), eClass);
 		} else {
 			// there is exactly one value
@@ -190,8 +194,7 @@ public class Plugin implements IApplication {
 		}
 	}
 
-	private HashSet<Double> retrieveNumerics(
-			HashMap<RunCall, EstimationSpecification> results, String eClass)
+	private HashSet<Double> retrieveNumerics(HashMap<RunCall, EstimationSpecification> results, String eClass)
 			throws InstantiationException, IllegalAccessException {
 		HashSet<Double> nums = new HashSet<Double>();
 
@@ -204,38 +207,32 @@ public class Plugin implements IApplication {
 			} else if (eClass.equals(GenericParameter.class.getName())) {
 				log.warn("The merging of GenericParameter is not supported and will be ignored.");
 			} else {
-				log.error("No handling adapter of merging OptimizableParameter "
-						+ eClass);
+				log.error("No handling adapter of merging OptimizableParameter " + eClass);
 			}
 		}
 
 		return nums;
 	}
 
-	private void setValue(LibredeConfiguration librede, double value,
-			String eClass) {
+	private void setValue(LibredeConfiguration librede, double value, String eClass) {
 		if (eClass.equals(StepSize.class.getName())) {
 			librede.getEstimation().getStepSize().setValue(value);
 			log.info("Set Stepsize to " + value);
 		} else if (eClass.equals(WindowSize.class.getName())) {
 			int integer = (int) Math.round(value);
 			if (integer != value) {
-				log.warn("The value "
-						+ value
-						+ " is not an Integer and had to be rounded to fit as window size.");
+				log.warn("The value " + value + " is not an Integer and had to be rounded to fit as window size.");
 			}
 			librede.getEstimation().setWindow(integer);
 			log.info("Set Windowsize to " + integer);
 		} else if (eClass.equals(GenericParameter.class.getName())) {
 			log.warn("The setting of GenericParameter is not supported and will be ignored.");
 		} else {
-			log.error("No handling adapter of setting Optimizable Parameter "
-					+ eClass);
+			log.error("No handling adapter of setting Optimizable Parameter " + eClass);
 		}
 	}
 
-	public HashMap<RunCall, EstimationSpecification> collectResults(
-			Collection<RunCall> calls) {
+	public HashMap<RunCall, EstimationSpecification> collectResults(Collection<RunCall> calls) {
 		// Run each RunCall separately and concurrently
 		ExecutorService pool = Executors.newCachedThreadPool();
 		HashMap<RunCall, Future<EstimationSpecification>> results = new HashMap<RunCall, Future<EstimationSpecification>>();
@@ -253,12 +250,9 @@ public class Plugin implements IApplication {
 			} catch (CancellationException e) {
 				log.error("RunCall got cancelled.", e);
 			} catch (InterruptedException e) {
-				log.error(
-						"Waiting for an unfinished RunCall failed and was interrupted",
-						e);
+				log.error("Waiting for an unfinished RunCall failed and was interrupted", e);
 			} catch (ExecutionException e) {
-				log.error("Executing a RunCall threw the following exception",
-						e);
+				log.error("Executing a RunCall threw the following exception", e);
 			}
 		}
 
@@ -267,12 +261,11 @@ public class Plugin implements IApplication {
 
 	public static OptimizationConfiguration loadConfiguration(Path path) {
 		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put("optimization", new XMIResourceFactoryImpl());
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("optimization",
+				new XMIResourceFactoryImpl());
 		File configFile = new File(path.toString());
 		URI fileURI = URI.createFileURI(configFile.getAbsolutePath());
-		org.eclipse.emf.ecore.resource.Resource resource = resourceSet
-				.getResource(fileURI, true);
+		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(fileURI, true);
 		EcoreUtil.resolveAll(resource);
 		return (OptimizationConfiguration) resource.getContents().get(0);
 	}
@@ -304,8 +297,7 @@ public class Plugin implements IApplication {
 			// TODO Auto-generated method stub
 			log.trace("Executing Call: " + call.toString());
 			HillClimbingAlgorithm algo = new HillClimbingAlgorithm();
-			algo.optimizeConfiguration(call.getEstimationSpecification(),
-					call.getTrainingData(), call.getSettings(),
+			algo.optimizeConfiguration(call.getEstimationSpecification(), call.getTrainingData(), call.getSettings(),
 					call.getAlgorithm());
 			return algo.getSpecification();
 		}

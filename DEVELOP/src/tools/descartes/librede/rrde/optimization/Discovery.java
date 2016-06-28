@@ -77,8 +77,7 @@ public class Discovery {
 
 	private static final Logger log = Logger.getLogger(Discovery.class);
 
-	public static Map<WorkloadDescription, Set<InputSpecification>> discoverInputs(
-			EList<InputData> input) {
+	public static Map<WorkloadDescription, Set<InputSpecification>> discoverInputs(EList<InputData> input) {
 		HashMap<WorkloadDescription, Set<InputSpecification>> map = new HashMap<WorkloadDescription, Set<InputSpecification>>();
 		for (InputData data : input) {
 			map.put(data.getDescription(), discoverOne(data));
@@ -86,9 +85,8 @@ public class Discovery {
 		return map;
 	}
 
-	public static Set<LibredeConfiguration> createConfigurations(
-			EstimationSpecification estimation, EList<InputData> input,
-			ValidationSpecification validator) {
+	public static Set<LibredeConfiguration> createConfigurations(EstimationSpecification estimation,
+			EList<InputData> input, ValidationSpecification validator) {
 		HashSet<LibredeConfiguration> set = new HashSet<LibredeConfiguration>();
 
 		// change important settings of base file
@@ -96,8 +94,7 @@ public class Discovery {
 
 		// explore inputs and create as many configurations
 		Map<WorkloadDescription, Set<InputSpecification>> map = discoverInputs(input);
-		for (Entry<WorkloadDescription, Set<InputSpecification>> entry : map
-				.entrySet()) {
+		for (Entry<WorkloadDescription, Set<InputSpecification>> entry : map.entrySet()) {
 			for (InputSpecification spec : entry.getValue()) {
 				// for each inputSpecification create own LibredeFile
 				LibredeConfiguration additional = EcoreUtil.copy(conf);
@@ -126,11 +123,9 @@ public class Discovery {
 		return set;
 	}
 
-	private static LibredeConfiguration createConfigFile(
-			EstimationSpecification estimation,
+	private static LibredeConfiguration createConfigFile(EstimationSpecification estimation,
 			ValidationSpecification validator) {
-		LibredeConfiguration copy = ConfigurationFactory.eINSTANCE
-				.createLibredeConfiguration();
+		LibredeConfiguration copy = ConfigurationFactory.eINSTANCE.createLibredeConfiguration();
 
 		// set values to the one of the runcall
 		copy.setEstimation(estimation);
@@ -138,10 +133,8 @@ public class Discovery {
 
 		// set other fields to empty values
 		copy.setInput(ConfigurationFactory.eINSTANCE.createInputSpecification());
-		copy.setOutput(ConfigurationFactory.eINSTANCE
-				.createOutputSpecification());
-		copy.setWorkloadDescription(ConfigurationFactory.eINSTANCE
-				.createWorkloadDescription());
+		copy.setOutput(ConfigurationFactory.eINSTANCE.createOutputSpecification());
+		copy.setWorkloadDescription(ConfigurationFactory.eINSTANCE.createWorkloadDescription());
 
 		// set these to false, since they are not required for optimization
 		copy.getEstimation().setAutomaticApproachSelection(false);
@@ -150,8 +143,7 @@ public class Discovery {
 		return copy;
 	}
 
-	private static void iterateDirectories(Path root, InputSpecification main,
-			Set<InputSpecification> set) {
+	private static void iterateDirectories(Path root, InputSpecification main, Set<InputSpecification> set) {
 		if (root.toFile().isDirectory()) {
 			DirectoryStream<Path> stream = null;
 			try {
@@ -175,8 +167,7 @@ public class Discovery {
 		}
 	}
 
-	private static void checkThisFolder(Path root, InputSpecification main,
-			Set<InputSpecification> set) {
+	private static void checkThisFolder(Path root, InputSpecification main, Set<InputSpecification> set) {
 		DirectoryStream<Path> stream = null;
 		try {
 			stream = Files.newDirectoryStream(root);
@@ -190,11 +181,9 @@ public class Discovery {
 		while (iter.hasNext()) {
 			Path filepath = iter.next();
 			for (TraceConfiguration source : copy.getObservations()) {
-				if (filepath.toString().contains(
-						((FileTraceConfiguration) source).getFile())) {
+				if (filepath.toString().contains(((FileTraceConfiguration) source).getFile())) {
 					// the filepath contains the file ending
-					((FileTraceConfiguration) source).setFile(filepath
-							.toAbsolutePath().toString());
+					((FileTraceConfiguration) source).setFile(filepath.toAbsolutePath().toString());
 				}
 			}
 		}
@@ -205,8 +194,7 @@ public class Discovery {
 			for (TraceConfiguration before : main.getObservations()) {
 				// if any of the configuration is like the one in the main file
 				// -> fail
-				if (((FileTraceConfiguration) before).getFile().equals(
-						((FileTraceConfiguration) after).getFile()))
+				if (((FileTraceConfiguration) before).getFile().equals(((FileTraceConfiguration) after).getFile()))
 					equal = true;
 
 			}
@@ -216,8 +204,7 @@ public class Discovery {
 			set.add(copy);
 			log.info("Found valid configuration in " + root + " folder.");
 		} else {
-			log.debug("No valid configuration files found in " + root
-					+ " folder.");
+			log.debug("No valid configuration files found in " + root + " folder.");
 		}
 	}
 
@@ -234,41 +221,34 @@ public class Discovery {
 				FileTraceConfiguration fileTrace = (FileTraceConfiguration) trace;
 				File inputFile = new File(fileTrace.getFile());
 				if (inputFile.exists()) {
-					DataSourceConfiguration dataSourceConf = fileTrace
-							.getDataSource();
+					DataSourceConfiguration dataSourceConf = fileTrace.getDataSource();
 					if (dataSourceConf != null) {
-						IDataSource ds = dataSources.get(dataSourceConf
-								.getType());
+						IDataSource ds = dataSources.get(dataSourceConf.getType());
 
 						if (ds == null) {
 							try {
-								Class<?> cl = Registry.INSTANCE
-										.getInstanceClass(dataSourceConf
-												.getType());
-								ds = (IDataSource) Instantiator.newInstance(cl,
-										dataSourceConf.getParameters());
+								Class<?> cl = Registry.INSTANCE.getInstanceClass(dataSourceConf.getType());
+								ds = (IDataSource) Instantiator.newInstance(cl, dataSourceConf.getParameters());
 								dataSources.put(dataSourceConf.getType(), ds);
 							} catch (Exception e) {
 								e.printStackTrace();
 								return;
 							}
 						}
+
 						// retrieve all important parameters
 						if (ds instanceof CsvDataSource) {
-							CsvDataSource csv = (CsvDataSource) ds;
-							unit = parseTimeUnit(csv.getTimestampFormat());
+
+							unit = parseTimeUnit(fileTrace.getDataSource());
 							if (fileTrace.getMappings().size() >= 1) {
 								try {
 									// assume that the timestamp is always in
 									// column
 									// 0, this should be changed?
 									maxStart = Math.max(
-											loadFirst(inputFile, 0,
-													csv.getSeparators()),
+											loadFirst(inputFile, 0, getSeparators(fileTrace.getDataSource())),
 											maxStart);
-									minEnd = Math.min(
-											loadLast(inputFile, 0,
-													csv.getSeparators()),
+									minEnd = Math.min(loadLast(inputFile, 0, getSeparators(fileTrace.getDataSource())),
 											minEnd);
 								} catch (Exception e) {
 									log.error("Error occurred", e);
@@ -305,17 +285,34 @@ public class Discovery {
 
 	}
 
-	private static Unit<Time> parseTimeUnit(SimpleDateFormat simpleDateFormat) {
-		if(simpleDateFormat == null){
+	private static String getSeparators(DataSourceConfiguration dataSource) {
+		for (Parameter p : dataSource.getParameters()) {
+			if (p.getName().equals("Separators")) {
+				return p.getValue();
+			}
+		}
+		// default
+		return ",";
+	}
+
+	private static Unit<Time> parseTimeUnit(DataSourceConfiguration datasource) {
+		String simpleDateFormat = null;
+		for (Parameter p : datasource.getParameters()) {
+			if (p.getName().equals("TimestampFormat")) {
+				simpleDateFormat = p.getValue();
+			}
+		}
+
+		if (simpleDateFormat == null) {
+			// default
 			return Time.MILLISECONDS;
 		}
-		
+
+		// default
 		Unit<Time> dateUnit = Time.MILLISECONDS;
-		if (simpleDateFormat.toString() != null && !simpleDateFormat.toString().isEmpty()) {
-			if (simpleDateFormat.toString().startsWith("[")
-					&& simpleDateFormat.toString().endsWith("]")) {
-				String unit = simpleDateFormat.toString().substring(1,
-						simpleDateFormat.toString().length() - 1);
+		if (simpleDateFormat != null && !simpleDateFormat.isEmpty()) {
+			if (simpleDateFormat.startsWith("[") && simpleDateFormat.endsWith("]")) {
+				String unit = simpleDateFormat.substring(1, simpleDateFormat.length() - 1);
 				for (Unit<?> u : Time.INSTANCE.getUnits()) {
 					if (u.getSymbol().equalsIgnoreCase(unit)) {
 						dateUnit = (Unit<Time>) u;
@@ -323,6 +320,7 @@ public class Discovery {
 					}
 				}
 			} else {
+				// default
 				dateUnit = Time.MILLISECONDS;
 			}
 		}
