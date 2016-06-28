@@ -45,7 +45,8 @@ import tools.descartes.librede.rrde.Wrapper;
  * @author JS
  *
  */
-public abstract class AbstractConfigurationOptimizer implements IConfigurationOptimizer {
+public abstract class AbstractConfigurationOptimizer implements
+		IConfigurationOptimizer {
 
 	/**
 	 * The specification of LibReDE to modify
@@ -157,7 +158,8 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	 * @param algorithm
 	 *            the algorithm to set
 	 */
-	public void setAlgorithm(IConfigurationOptimizationAlgorithmSpecifier algorithm) {
+	public void setAlgorithm(
+			IConfigurationOptimizationAlgorithmSpecifier algorithm) {
 		this.algorithm = algorithm;
 	}
 
@@ -180,25 +182,33 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	 * .librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier)
 	 */
 	@Override
-	public boolean optimizeConfiguration(EstimationSpecification estimation, EList<InputData> input,
-			OptimizationSettings settings, IConfigurationOptimizationAlgorithmSpecifier specifier)
+	public boolean optimizeConfiguration(EstimationSpecification estimation,
+			EList<InputData> input, OptimizationSettings settings,
+			IConfigurationOptimizationAlgorithmSpecifier specifier)
 			throws IllegalArgumentException {
 		if (!isSpecifierSupported(specifier)) {
-			throw new IllegalArgumentException("The given specifier does not apply for this algorithm.");
+			throw new IllegalArgumentException(
+					"The given specifier does not apply for this algorithm.");
 		}
-		if (estimation == null || input == null || specifier == null || settings == null) {
-			throw new NullPointerException("None of the given parameters can be null.");
+		if (estimation == null || input == null || specifier == null
+				|| settings == null) {
+			throw new NullPointerException(
+					"None of the given parameters can be null.");
 		}
 		setSettings(settings);
 		setInput(input);
 		setSpecification(estimation);
 		setAlgorithm(specifier);
-		getLog().info("Starting reconfiguration of configuration " + getSpecification().toString());
+		getLog().info(
+				"Starting reconfiguration of configuration "
+						+ getSpecification().toString());
 		time = System.currentTimeMillis();
 		init();
 		executeAlgorithm();
 		finished = true;
-		getLog().info("Successfully ran optimization of configuration file " + getSpecification().toString());
+		getLog().info(
+				"Successfully ran optimization of configuration file "
+						+ getSpecification().toString());
 		getLog().info("Number of iterations:" + iterationcounter);
 		getLog().info("Number of total executions:" + totalruns);
 		getLog().info("Time: " + (System.currentTimeMillis() - time) + " ms");
@@ -210,7 +220,8 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	 */
 	private void init() {
 		Wrapper.init();
-		confs = Discovery.createConfigurations(getSpecification(), getInput(), getSettings().getValidator());
+		confs = Discovery.createConfigurations(getSpecification(), getInput(),
+				getSettings().getValidator());
 		validateConfs();
 		getLog().info("Finished initialization.");
 	}
@@ -221,9 +232,13 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	private void validateConfs() {
 		HashSet<LibredeConfiguration> remove = new HashSet<LibredeConfiguration>();
 		for (LibredeConfiguration single : confs) {
-			if (single.getWorkloadDescription() == null || single.getEstimation() == null || single.getInput() == null
-					|| single.getOutput() == null || single.getValidation() == null) {
-				getLog().warn("Malformed Configuration. Ignoring " + single.toString() + ".");
+			if (single.getWorkloadDescription() == null
+					|| single.getEstimation() == null
+					|| single.getInput() == null || single.getOutput() == null
+					|| single.getValidation() == null) {
+				getLog().warn(
+						"Malformed Configuration. Ignoring "
+								+ single.toString() + ".");
 				remove.add(single);
 			}
 		}
@@ -238,11 +253,12 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	protected double runIteration() {
 		DescriptiveStatistics stat = new DescriptiveStatistics();
 		for (LibredeConfiguration single : confs) {
-
+			totalruns++;
+			getLog().debug("Starting execution of " + single.toString());
 			Wrapper.executeLibrede(single);
-
 		}
 		// TODO
+		iterationcounter++;
 		return stat.getMean();
 
 	}
@@ -250,7 +266,8 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	@Override
 	public EstimationSpecification getResult() throws IllegalStateException {
 		if (!finished) {
-			throw new IllegalStateException("The optimization is still ongoing.");
+			throw new IllegalStateException(
+					"The optimization is still ongoing.");
 		}
 		return getSpecification();
 	}

@@ -106,8 +106,8 @@ public class Discovery {
 				if(entry.getKey()==null){
 					System.out.println("alert");
 				}
-				additional.setWorkloadDescription(entry.getKey());
-				additional.setInput(spec);
+				additional.setWorkloadDescription(EcoreUtil.copy(entry.getKey()));
+				additional.setInput(EcoreUtil.copy(spec));
 				// adapt time stamps
 				fixTimeStamp(additional);
 				set.add(additional);
@@ -136,8 +136,8 @@ public class Discovery {
 		LibredeConfiguration copy = ConfigurationFactory.eINSTANCE.createLibredeConfiguration();
 
 		// set values to the one of the runcall
-		copy.setEstimation(estimation);
-		copy.setValidation(validator);
+		copy.setEstimation(EcoreUtil.copy(estimation));
+		copy.setValidation(EcoreUtil.copy(validator));
 
 		// set other fields to empty values
 		copy.setInput(ConfigurationFactory.eINSTANCE.createInputSpecification());

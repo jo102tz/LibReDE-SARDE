@@ -72,7 +72,7 @@ import tools.descartes.librede.rrde.optimization.impl.HillClimbingAlgorithm;
  */
 public class Plugin implements IApplication {
 	
-	private static final Level loglevel = Level.WARN;
+	private static final Level loglevel = Level.INFO;
 
 	private static final Logger log = Logger.getLogger(Plugin.class);
 
