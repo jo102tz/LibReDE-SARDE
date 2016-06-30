@@ -30,6 +30,7 @@ import org.apache.log4j.Logger;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
+import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.bayesplusplus.BayesLibrary;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.ipopt.java.IpoptLibrary;
@@ -69,12 +70,12 @@ public class Wrapper {
 	 * @return The results returned by LibReDE
 	 */
 	public static LibredeResults executeLibrede(LibredeConfiguration conf) {
-//		LibredeVariables var = new LibredeVariables(conf);
-//		Librede.initRepo(var);
+		LibredeVariables var = new LibredeVariables(conf);
+		Librede.initRepo(var);
 		try {
 //			return Librede.executeContinuous(var, new HashMap<String, IDataSource>());
-			return Librede.execute(conf);
-//			return Librede.runEstimationWithValidation(var);
+//			return Librede.execute(conf);
+			return Librede.runEstimationWithCrossValidation(var);
 		} catch (Exception e) {
 			log.error("Error running estimation.", e);
 			return null;

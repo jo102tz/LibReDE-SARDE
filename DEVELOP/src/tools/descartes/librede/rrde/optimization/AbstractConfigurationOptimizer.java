@@ -278,6 +278,11 @@ public abstract class AbstractConfigurationOptimizer implements
 			totalruns++;
 			getLog().trace("Starting execution of " + single.toString());
 			LibredeResults results = Wrapper.executeLibrede(single);
+			if (results == null || results.getApproaches() == null) {
+				getLog().error("The execution resulted an non-trackable error.");
+				lastError = Double.MAX_VALUE;
+				return getLastError();
+			}
 			if (results.getApproaches().size() > 1) {
 				getLog().error(
 						"There must not be more than one approach per optimization run.");
@@ -323,7 +328,10 @@ public abstract class AbstractConfigurationOptimizer implements
 	 *            The target value of the optimizing function
 	 */
 	protected void setTargetValue(IOptimizableParameter param, double value) {
-		getLog().debug("Set value of " + param.toString() + " to " + value);
+		getLog().debug(
+				"Set value of " + param.toString() + " for Approach "
+						+ getSpecification().getApproaches().get(0) + " to "
+						+ value);
 		for (LibredeConfiguration conf : confs) {
 			Util.setValue(conf, value,
 					param.getClass().getInterfaces()[0].getName());

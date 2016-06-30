@@ -103,7 +103,9 @@ public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
 		runIteration();
 		for (IOptimizableParameter param : getSettings()
 				.getParametersToOptimize()) {
-			getLog().info("Now optimizing " + param.toString());
+			getLog().info(
+					"Now optimizing " + param.toString() + " of approach "
+							+ getSpecification().getApproaches().get(0));
 			hillclimbing(param);
 			getLog().info(
 					"Found value of " + getTargetValue(param)
@@ -122,7 +124,7 @@ public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
 		double value = param.getStartValue();
 		setTargetValue(param, value);
 		double before = getLastError();
-		getLog().info("Initial step size: " + value);
+		getLog().info("Initial parameter value:" + value);
 		// run up and down at the same time with stepsize
 		double[] resultup = oneWayAscend(param, value, before, +settings()
 				.getStepSize());

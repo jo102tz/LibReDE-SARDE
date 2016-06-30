@@ -73,7 +73,7 @@ import tools.descartes.librede.rrde.optimization.impl.StepSizeImpl;
  */
 public class Plugin implements IApplication {
 
-	private static final Level loglevel = Level.WARN;
+	private static final Level loglevel = Level.INFO;
 
 	private static final Logger log = Logger.getLogger(Plugin.class);
 
@@ -280,6 +280,11 @@ public class Plugin implements IApplication {
 	public void initLogging() {
 		Librede.initLogging();
 		LogManager.getRootLogger().setLevel(loglevel);
+		Logger.getLogger(tools.descartes.librede.Librede.class.getPackage().getName())
+				.setLevel(Level.WARN);
+		Logger.getLogger(tools.descartes.librede.rrde.Plugin.class.getPackage().getName())
+				.setLevel(loglevel);
+
 	}
 
 	private class RunCallExecutor implements Callable<EstimationSpecification> {
