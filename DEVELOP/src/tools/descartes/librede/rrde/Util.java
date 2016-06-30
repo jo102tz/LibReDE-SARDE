@@ -26,7 +26,15 @@
  */
 package tools.descartes.librede.rrde;
 
+import java.util.Collection;
+
+import javax.jws.soap.SOAPBinding.Use;
+
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.GenericParameter;

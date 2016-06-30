@@ -34,6 +34,7 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -51,9 +52,11 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.FileTraceConfiguration;
 import tools.descartes.librede.configuration.InputSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.configuration.OutputSpecification;
 import tools.descartes.librede.configuration.Parameter;
+import tools.descartes.librede.configuration.Resource;
+import tools.descartes.librede.configuration.Service;
 import tools.descartes.librede.configuration.TraceConfiguration;
+import tools.descartes.librede.configuration.TraceToEntityMapping;
 import tools.descartes.librede.configuration.ValidationSpecification;
 import tools.descartes.librede.configuration.WorkloadDescription;
 import tools.descartes.librede.datasource.IDataSource;
@@ -95,7 +98,7 @@ public class Discovery {
 	public static Set<LibredeConfiguration> createConfigurations(
 			EstimationSpecification estimation, EList<InputData> input,
 			ValidationSpecification validator) {
-		HashSet<LibredeConfiguration> set = new HashSet<LibredeConfiguration>();
+		Set<LibredeConfiguration> set = new HashSet<LibredeConfiguration>();
 
 		// change important settings of base file
 		LibredeConfiguration conf = createConfigFile(estimation, validator);
@@ -104,33 +107,66 @@ public class Discovery {
 		Map<WorkloadDescription, Set<InputSpecification>> map = discoverInputs(input);
 		for (Entry<WorkloadDescription, Set<InputSpecification>> entry : map
 				.entrySet()) {
+
+			ArrayList<Resource> reslist = new ArrayList<Resource>();
+			reslist.addAll(entry.getKey().getResources());
+
+			ArrayList<Service> serlist = new ArrayList<Service>();
+			serlist.addAll(entry.getKey().getServices());
+
 			for (InputSpecification spec : entry.getValue()) {
 				// for each inputSpecification create own LibredeFile
 				LibredeConfiguration additional = EcoreUtil.copy(conf);
 
-				additional
-						.setWorkloadDescription(EcoreUtil.copy(entry.getKey()));
+				// do not copy references
+				additional.setWorkloadDescription(EcoreUtil.copy(entry.getKey()));
+
 				additional.setInput(EcoreUtil.copy(spec));
 
 				// edit output folder
-				additional.setOutput(EcoreUtil.copy(conf.getOutput()));
-				additional
-						.getOutput()
-						.getExporters()
-						.get(0)
-						.getParameters()
-						.get(0)
-						.setValue(
-								new File(((FileTraceConfiguration) spec
-										.getObservations().get(0)).getFile())
-										.getParent());
+				// additional
+				// .getOutput()
+				// .getExporters()
+				// .get(0)
+				// .getParameters()
+				// .get(0)
+				// .setValue(
+				// new File(((FileTraceConfiguration) spec
+				// .getObservations().get(0)).getFile())
+				// .getParent());
 
 				// adapt time stamps
 				fixTimeStamp(additional);
+
+				// fix mapping references
+				fixMapping(additional);
 				set.add(additional);
 			}
 		}
 		return set;
+	}
+
+	/**
+	 * @param additional
+	 */
+	private static void fixMapping(LibredeConfiguration additional) {
+		for (TraceConfiguration trace : additional.getInput().getObservations()) {
+			for (TraceToEntityMapping mapping : trace.getMappings()) {
+				for (Resource res : additional.getWorkloadDescription()
+						.getResources()) {
+					if (mapping.getEntity().getName().equals(res.getName())) {
+						mapping.setEntity(res);
+					}
+				}
+				for (Service ser : additional.getWorkloadDescription()
+						.getServices()) {
+					if (mapping.getEntity().getName().equals(ser.getName())) {
+						mapping.setEntity(ser);
+					}
+				}
+			}
+		}
+
 	}
 
 	private static Set<InputSpecification> discoverOne(InputData input) {
@@ -166,17 +202,17 @@ public class Discovery {
 		// configure output
 		copy.setOutput(ConfigurationFactory.eINSTANCE
 				.createOutputSpecification());
-		copy.getOutput()
-				.getExporters()
-				.add(ConfigurationFactory.eINSTANCE
-						.createExporterConfiguration());
-		copy.getOutput().getExporters().get(0).setName("Default");
-		copy.getOutput().getExporters().get(0).setType("tools.descartes.librede.export.csv.CsvExporter");
-		copy.getOutput().getExporters().get(0).getParameters().add(ConfigurationFactory.eINSTANCE.createParameter());
-		copy.getOutput().getExporters().get(0).getParameters().add(ConfigurationFactory.eINSTANCE.createParameter());
-		copy.getOutput().getExporters().get(0).getParameters().get(0).setName("OutputDirectory");
-		copy.getOutput().getExporters().get(0).getParameters().get(1).setName("FileName");
-		copy.getOutput().getExporters().get(0).getParameters().get(1).setValue("estimates");
+		// copy.getOutput()
+		// .getExporters()
+		// .add(ConfigurationFactory.eINSTANCE
+		// .createExporterConfiguration());
+		// copy.getOutput().getExporters().get(0).setName("Default");
+		// copy.getOutput().getExporters().get(0).setType("tools.descartes.librede.export.csv.CsvExporter");
+		// copy.getOutput().getExporters().get(0).getParameters().add(ConfigurationFactory.eINSTANCE.createParameter());
+		// copy.getOutput().getExporters().get(0).getParameters().add(ConfigurationFactory.eINSTANCE.createParameter());
+		// copy.getOutput().getExporters().get(0).getParameters().get(0).setName("OutputDirectory");
+		// copy.getOutput().getExporters().get(0).getParameters().get(1).setName("FileName");
+		// copy.getOutput().getExporters().get(0).getParameters().get(1).setValue("estimates");
 
 		// set these to false, since they are not required for optimization
 		copy.getEstimation().setAutomaticApproachSelection(false);

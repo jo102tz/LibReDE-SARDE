@@ -248,12 +248,22 @@ public abstract class AbstractConfigurationOptimizer implements
 					|| single.getInput() == null || single.getOutput() == null
 					|| single.getValidation() == null) {
 				getLog().warn(
-						"Malformed Configuration. Ignoring "
+						"Malformed Configuration. (Null-values) Ignoring "
+								+ single.toString() + ".");
+
+			} else if (single.getWorkloadDescription().getResources().isEmpty()
+					|| single.getWorkloadDescription().getServices().isEmpty()) {
+				getLog().warn(
+						"Malformed Configuration. Resources or Services are empty. Ignoring "
 								+ single.toString() + ".");
 				remove.add(single);
 			}
 		}
 		confs.removeAll(remove);
+		if (confs.isEmpty()) {
+			getLog().error(
+					"There are no valid configurations as training data.");
+		}
 	}
 
 	/**
@@ -266,19 +276,25 @@ public abstract class AbstractConfigurationOptimizer implements
 		DescriptiveStatistics stat = new DescriptiveStatistics();
 		for (LibredeConfiguration single : confs) {
 			totalruns++;
-			getLog().debug("Starting execution of " + single.toString());
-			// equally weigh all approaches with their validation errors
+			getLog().trace("Starting execution of " + single.toString());
 			LibredeResults results = Wrapper.executeLibrede(single);
+			if (results.getApproaches().size() > 1) {
+				getLog().error(
+						"There must not be more than one approach per optimization run.");
+			}
 			for (Class<? extends IEstimationApproach> approach : results
 					.getApproaches()) {
 				stat.addValue(results.getApproachResults(approach)
-						.getMeanValidationError());
+						.getMeanError());
 			}
+			if (results.getApproaches().isEmpty()) {
+				getLog().warn("Result table is empty.");
+			}
+
 		}
 		iterationcounter++;
 		lastError = stat.getMean();
 		return getLastError();
-
 	}
 
 	@Override
@@ -307,6 +323,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	 *            The target value of the optimizing function
 	 */
 	protected void setTargetValue(IOptimizableParameter param, double value) {
+		getLog().debug("Set value of " + param.toString() + " to " + value);
 		for (LibredeConfiguration conf : confs) {
 			Util.setValue(conf, value,
 					param.getClass().getInterfaces()[0].getName());
