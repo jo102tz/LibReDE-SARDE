@@ -328,7 +328,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	 *            The target value of the optimizing function
 	 */
 	protected void setTargetValue(IOptimizableParameter param, double value) {
-		getLog().debug(
+		getLog().info(
 				"Set value of " + param.toString() + " for Approach "
 						+ getSpecification().getApproaches().get(0) + " to "
 						+ value);

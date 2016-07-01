@@ -26,6 +26,8 @@
  */
 package tools.descartes.librede.rrde;
 
+import java.util.HashMap;
+
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.Librede;
@@ -35,6 +37,7 @@ import tools.descartes.librede.bayesplusplus.BayesLibrary;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.ipopt.java.IpoptLibrary;
 import tools.descartes.librede.nnls.NNLSLibrary;
+import tools.descartes.librede.repository.IRepositoryCursor;
 
 /**
  * This class provides some interface functionality and serves as a wrapper
@@ -51,6 +54,8 @@ public class Wrapper {
 	 */
 	private static final Logger log = Logger.getLogger(Wrapper.class);
 
+	private static HashMap<LibredeConfiguration, LibredeVariables> cache = new HashMap<LibredeConfiguration, LibredeVariables>();
+
 	/**
 	 * Initialize the connection and set up the target, in this case LibReDE
 	 * along with its libraries.
@@ -60,6 +65,7 @@ public class Wrapper {
 		IpoptLibrary.init();
 		NNLSLibrary.init();
 		BayesLibrary.init();
+		cache = new HashMap<LibredeConfiguration, LibredeVariables>();
 	}
 
 	/**
@@ -70,11 +76,25 @@ public class Wrapper {
 	 * @return The results returned by LibReDE
 	 */
 	public static LibredeResults executeLibrede(LibredeConfiguration conf) {
-		LibredeVariables var = new LibredeVariables(conf);
-		Librede.initRepo(var);
+		
+		// cache variables in order to avoid constant re-initialization and overflows
+		LibredeVariables var = null;
+		if(cache.get(conf)==null){
+			var = new LibredeVariables(conf);
+			Librede.initRepo(var);
+			cache.put(conf, var);
+		} else {
+			var = cache.get(conf);
+			for (IRepositoryCursor cursor : var.getCursors().values()) {
+				cursor.reset();
+			}
+		}
+		
+
 		try {
-//			return Librede.executeContinuous(var, new HashMap<String, IDataSource>());
-//			return Librede.execute(conf);
+			// return Librede.executeContinuous(var, new HashMap<String,
+			// IDataSource>());
+			// return Librede.execute(conf);
 			return Librede.runEstimationWithCrossValidation(var);
 		} catch (Exception e) {
 			log.error("Error running estimation.", e);

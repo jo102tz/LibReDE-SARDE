@@ -372,9 +372,9 @@ public class Discovery {
 		conf.getEstimation().setEndTimestamp(minEndpoint);
 
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		log.debug("Startpoint of config " + conf.toString() + " set to "
+		log.trace("Startpoint of config " + conf.toString() + " set to "
 				+ date.format(maxStartpoint.getValue(Time.MILLISECONDS)));
-		log.debug("Endpoint of config " + conf.toString() + " set to "
+		log.trace("Endpoint of config " + conf.toString() + " set to "
 				+ date.format(minEndpoint.getValue(Time.MILLISECONDS)));
 
 	}
