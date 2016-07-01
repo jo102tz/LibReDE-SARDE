@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 
+import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.StepSize;
@@ -51,10 +52,10 @@ public class Util {
 
 	private static final Logger log = Logger.getLogger(Util.class);
 
-	public static void setValue(LibredeConfiguration librede, double value,
+	public static void setValue(EstimationSpecification librede, double value,
 			String eClass) {
 		if (eClass.equals(StepSize.class.getName())) {
-			librede.getEstimation().getStepSize().setValue(value);
+			librede.getStepSize().setValue(value);
 			log.trace("Set Stepsize to " + value);
 		} else if (eClass.equals(WindowSize.class.getName())) {
 			int integer = (int) Math.round(value);
@@ -63,7 +64,7 @@ public class Util {
 						+ value
 						+ " is not an Integer and had to be rounded to fit as window size.");
 			}
-			librede.getEstimation().setWindow(integer);
+			librede.setWindow(integer);
 			log.trace("Set Windowsize to " + integer);
 		} else if (eClass.equals(GenericParameter.class.getName())) {
 			log.warn("The setting of GenericParameter is not supported and will be ignored.");

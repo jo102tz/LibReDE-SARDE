@@ -208,6 +208,7 @@ public abstract class AbstractConfigurationOptimizer implements
 		setInput(input);
 		setSpecification(estimation);
 		setAlgorithm(specifier);
+		finished = false;
 		getLog().info(
 				"Starting reconfiguration of configuration "
 						+ getSpecification().toString());
@@ -333,9 +334,11 @@ public abstract class AbstractConfigurationOptimizer implements
 						+ getSpecification().getApproaches().get(0) + " to "
 						+ value);
 		for (LibredeConfiguration conf : confs) {
-			Util.setValue(conf, value,
+			Util.setValue(conf.getEstimation(), value,
 					param.getClass().getInterfaces()[0].getName());
 		}
+		//set actual output
+		Util.setValue(getSpecification(), value, param.getClass().getInterfaces()[0].getName());
 	}
 
 	/**
