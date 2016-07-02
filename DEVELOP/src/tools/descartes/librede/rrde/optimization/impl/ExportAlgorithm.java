@@ -30,13 +30,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 
 import tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
@@ -298,7 +295,11 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 			return null;
 		}
 		try {
-			return new BufferedWriter(new FileWriter(uri.path()));
+			File f = new File(uri.path());
+			if(!f.exists()){
+				f.createNewFile();
+			}
+			return new BufferedWriter(new FileWriter(f));
 		} catch (IOException e) {
 			getLog().error("There was an error when opening the file", e);
 		}

@@ -56,8 +56,8 @@
         <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
         <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
       </validator>
-      <parametersToOptimize xsi:type="librede-optimization:WindowSize" lowerBound="10.0" upperBound="200.0" startValue="60.0"/>
-      <parametersToOptimize xsi:type="librede-optimization:StepSize" lowerBound="10.0" upperBound="100.0" startValue="60.0"/>
+      <parametersToOptimize xsi:type="librede-optimization:WindowSize" lowerBound="20.0" upperBound="100.0" startValue="60.0"/>
+      <parametersToOptimize xsi:type="librede-optimization:StepSize" lowerBound="20.0" upperBound="100.0" startValue="60.0"/>
     </settings>
     <estimationSpecification window="60">
       <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>

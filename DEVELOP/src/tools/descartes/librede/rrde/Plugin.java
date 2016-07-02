@@ -63,7 +63,6 @@ import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.impl.ExportAlgorithm;
-import tools.descartes.librede.rrde.optimization.impl.HillClimbingAlgorithm;
 
 /**
  * The main class of this Plug-In. TODO comment
@@ -73,7 +72,7 @@ import tools.descartes.librede.rrde.optimization.impl.HillClimbingAlgorithm;
  */
 public class Plugin implements IApplication {
 
-	private static final Level loglevel = Level.DEBUG;
+	private static final Level loglevel = Level.WARN;
 
 	private static final Logger log = Logger.getLogger(Plugin.class);
 
