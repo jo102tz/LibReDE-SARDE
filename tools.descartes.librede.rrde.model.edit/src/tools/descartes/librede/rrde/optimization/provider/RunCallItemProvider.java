@@ -168,6 +168,11 @@ public class RunCallItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(OptimizationPackage.Literals.RUN_CALL__ALGORITHM,
+				 OptimizationFactory.eINSTANCE.createDataExportSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(OptimizationPackage.Literals.RUN_CALL__TRAINING_DATA,
 				 OptimizationFactory.eINSTANCE.createInputData()));
 

@@ -112,6 +112,10 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 				return createWindowSizeAdapter();
 			}
 			@Override
+			public Adapter caseDataExportSpecifier(DataExportSpecifier object) {
+				return createDataExportSpecifierAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -282,6 +286,20 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createWindowSizeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier <em>Data Export Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.optimization.DataExportSpecifier
+	 * @generated
+	 */
+	public Adapter createDataExportSpecifierAdapter() {
 		return null;
 	}
 

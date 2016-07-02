@@ -33,6 +33,8 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
+
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationSpecification;
@@ -170,6 +172,20 @@ public abstract class AbstractConfigurationOptimizer implements
 	public void setAlgorithm(
 			IConfigurationOptimizationAlgorithmSpecifier algorithm) {
 		this.algorithm = algorithm;
+	}
+
+	/**
+	 * @return the finished
+	 */
+	public boolean isFinished() {
+		return finished;
+	}
+
+	/**
+	 * @return the confs
+	 */
+	public Set<LibredeConfiguration> getConfs() {
+		return confs;
 	}
 
 	/**
@@ -334,11 +350,12 @@ public abstract class AbstractConfigurationOptimizer implements
 						+ getSpecification().getApproaches().get(0) + " to "
 						+ value);
 		for (LibredeConfiguration conf : confs) {
-			Util.setValue(conf.getEstimation(), value,
-					param.getClass().getInterfaces()[0].getName());
+			Util.setValue(conf.getEstimation(), value, param.getClass()
+					.getInterfaces()[0].getName());
 		}
-		//set actual output
-		Util.setValue(getSpecification(), value, param.getClass().getInterfaces()[0].getName());
+		// set actual output
+		Util.setValue(getSpecification(), value, param.getClass()
+				.getInterfaces()[0].getName());
 	}
 
 	/**
@@ -349,6 +366,17 @@ public abstract class AbstractConfigurationOptimizer implements
 	protected double getTargetValue(IOptimizableParameter param) {
 		return Util.getValue(confs.iterator().next(), param.getClass()
 				.getInterfaces()[0].getName());
+	}
+
+	/**
+	 * Return a simple name of the approach this algorithm is optimizing. Useful
+	 * for logging
+	 * 
+	 * @return A simple descriptor of the approach
+	 */
+	public String getSimpleApproachName() {
+		return getSpecification().getApproaches().get(0).getType()
+				.replace("tools.descartes.librede.approach.", "");
 	}
 
 	/**

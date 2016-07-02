@@ -103,6 +103,15 @@ public interface OptimizationFactory extends EFactory {
 	WindowSize createWindowSize();
 
 	/**
+	 * Returns a new object of class '<em>Data Export Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Data Export Specifier</em>'.
+	 * @generated
+	 */
+	DataExportSpecifier createDataExportSpecifier();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

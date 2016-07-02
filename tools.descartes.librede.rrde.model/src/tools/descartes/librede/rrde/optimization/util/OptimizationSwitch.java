@@ -137,6 +137,13 @@ public class OptimizationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER: {
+				DataExportSpecifier dataExportSpecifier = (DataExportSpecifier)theEObject;
+				T result = caseDataExportSpecifier(dataExportSpecifier);
+				if (result == null) result = caseIConfigurationOptimizationAlgorithmSpecifier(dataExportSpecifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -303,6 +310,21 @@ public class OptimizationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseWindowSize(WindowSize object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Data Export Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Data Export Specifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDataExportSpecifier(DataExportSpecifier object) {
 		return null;
 	}
 

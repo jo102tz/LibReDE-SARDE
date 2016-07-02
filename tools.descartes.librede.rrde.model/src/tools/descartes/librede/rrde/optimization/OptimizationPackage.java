@@ -682,6 +682,80 @@ public interface OptimizationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl <em>Data Export Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl
+	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getDataExportSpecifier()
+	 * @generated
+	 */
+	int DATA_EXPORT_SPECIFIER = 11;
+
+	/**
+	 * The feature id for the '<em><b>Time Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_EXPORT_SPECIFIER__TIME_OUT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_EXPORT_SPECIFIER__ALGORITHM_NAME = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Output Directory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Multidimensional</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Split Configurations</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Data Export Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_EXPORT_SPECIFIER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of operations of the '<em>Data Export Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_EXPORT_SPECIFIER_OPERATION_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.OptimizationConfiguration <em>Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1033,6 +1107,49 @@ public interface OptimizationPackage extends EPackage {
 	EClass getWindowSize();
 
 	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier <em>Data Export Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Data Export Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.DataExportSpecifier
+	 * @generated
+	 */
+	EClass getDataExportSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getOutputDirectory <em>Output Directory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Output Directory</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.DataExportSpecifier#getOutputDirectory()
+	 * @see #getDataExportSpecifier()
+	 * @generated
+	 */
+	EAttribute getDataExportSpecifier_OutputDirectory();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isMultidimensional <em>Multidimensional</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Multidimensional</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.DataExportSpecifier#isMultidimensional()
+	 * @see #getDataExportSpecifier()
+	 * @generated
+	 */
+	EAttribute getDataExportSpecifier_Multidimensional();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isSplitConfigurations <em>Split Configurations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Split Configurations</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.DataExportSpecifier#isSplitConfigurations()
+	 * @see #getDataExportSpecifier()
+	 * @generated
+	 */
+	EAttribute getDataExportSpecifier_SplitConfigurations();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1340,6 +1457,40 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EClass WINDOW_SIZE = eINSTANCE.getWindowSize();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl <em>Data Export Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl
+		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getDataExportSpecifier()
+		 * @generated
+		 */
+		EClass DATA_EXPORT_SPECIFIER = eINSTANCE.getDataExportSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Output Directory</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY = eINSTANCE.getDataExportSpecifier_OutputDirectory();
+
+		/**
+		 * The meta object literal for the '<em><b>Multidimensional</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL = eINSTANCE.getDataExportSpecifier_Multidimensional();
+
+		/**
+		 * The meta object literal for the '<em><b>Split Configurations</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS = eINSTANCE.getDataExportSpecifier_SplitConfigurations();
 
 	}
 

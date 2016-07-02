@@ -65,6 +65,7 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 			case OptimizationPackage.GENERIC_PARAMETER: return createGenericParameter();
 			case OptimizationPackage.STEP_SIZE: return createStepSize();
 			case OptimizationPackage.WINDOW_SIZE: return createWindowSize();
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER: return createDataExportSpecifier();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -158,6 +159,16 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 	public WindowSize createWindowSize() {
 		WindowSizeImpl windowSize = new WindowSizeImpl();
 		return windowSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataExportSpecifier createDataExportSpecifier() {
+		DataExportSpecifierImpl dataExportSpecifier = new DataExportSpecifierImpl();
+		return dataExportSpecifier;
 	}
 
 	/**

@@ -16,6 +16,7 @@ import tools.descartes.librede.configuration.ConfigurationPackage;
 
 import tools.descartes.librede.metrics.MetricsPackage;
 
+import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
@@ -115,6 +116,13 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * @generated
 	 */
 	private EClass windowSizeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass dataExportSpecifierEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -485,6 +493,42 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDataExportSpecifier() {
+		return dataExportSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDataExportSpecifier_OutputDirectory() {
+		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDataExportSpecifier_Multidimensional() {
+		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDataExportSpecifier_SplitConfigurations() {
+		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public OptimizationFactory getOptimizationFactory() {
 		return (OptimizationFactory)getEFactoryInstance();
 	}
@@ -551,6 +595,11 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		stepSizeEClass = createEClass(STEP_SIZE);
 
 		windowSizeEClass = createEClass(WINDOW_SIZE);
+
+		dataExportSpecifierEClass = createEClass(DATA_EXPORT_SPECIFIER);
+		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY);
+		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL);
+		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS);
 	}
 
 	/**
@@ -590,6 +639,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		genericParameterEClass.getESuperTypes().add(this.getIOptimizableParameter());
 		stepSizeEClass.getESuperTypes().add(this.getIOptimizableParameter());
 		windowSizeEClass.getESuperTypes().add(this.getIOptimizableParameter());
+		dataExportSpecifierEClass.getESuperTypes().add(this.getIConfigurationOptimizationAlgorithmSpecifier());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(optimizationConfigurationEClass, OptimizationConfiguration.class, "OptimizationConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -597,7 +647,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		initEClass(iConfigurationOptimizationAlgorithmSpecifierEClass, IConfigurationOptimizationAlgorithmSpecifier.class, "IConfigurationOptimizationAlgorithmSpecifier", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIConfigurationOptimizationAlgorithmSpecifier_TimeOut(), ecorePackage.getELong(), "timeOut", "-1", 1, 1, IConfigurationOptimizationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName(), theXMLTypePackage.getString(), "algorithmName", null, 0, 1, IConfigurationOptimizationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName(), theXMLTypePackage.getString(), "algorithmName", null, 1, 1, IConfigurationOptimizationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(localSearchSpecifierEClass, LocalSearchSpecifier.class, "LocalSearchSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLocalSearchSpecifier_Tolerance(), ecorePackage.getEDouble(), "tolerance", "0.05", 1, 1, LocalSearchSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -636,6 +686,11 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEClass(stepSizeEClass, StepSize.class, "StepSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(windowSizeEClass, WindowSize.class, "WindowSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(dataExportSpecifierEClass, DataExportSpecifier.class, "DataExportSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDataExportSpecifier_OutputDirectory(), theXMLTypePackage.getString(), "OutputDirectory", "\"\"", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataExportSpecifier_Multidimensional(), theXMLTypePackage.getBoolean(), "multidimensional", "false", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataExportSpecifier_SplitConfigurations(), theXMLTypePackage.getBoolean(), "splitConfigurations", "false", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

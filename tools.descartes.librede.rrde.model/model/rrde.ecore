@@ -16,7 +16,8 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeOut" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="-1"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithmName" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithmName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LocalSearchSpecifier" eSuperTypes="#//IConfigurationOptimizationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tolerance" lowerBound="1"
@@ -83,4 +84,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StepSize" eSuperTypes="#//IOptimizableParameter"/>
   <eClassifiers xsi:type="ecore:EClass" name="WindowSize" eSuperTypes="#//IOptimizableParameter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataExportSpecifier" eSuperTypes="#//IConfigurationOptimizationAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OutputDirectory" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String" defaultValueLiteral="&quot;&quot;"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="multidimensional" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="splitConfigurations" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="false"/>
+  </eClassifiers>
 </ecore:EPackage>

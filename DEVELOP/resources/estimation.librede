@@ -15,8 +15,8 @@
   <input>
     <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
       <parameters name="SkipFirstLine" value="on"/>
-      <parameters name="Separators" value=";"/>
       <parameters name="TimestampFormat" value="[ms]"/>
+      <parameters name="Separators" value=";"/>
     </dataSources>
     <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" aggregation="AVERAGE" file="C:\Users\JS\Documents\Uni\Master\Masterarbeit\ExportCSV\artificial_exp_03_06_2013\sampling_1sec\util_80\exp_14\r0\host1_CPU_UTILIZATION.csv">
       <metric href="librede:metrics#UTILIZATION"/>
@@ -82,7 +82,7 @@
     </exporters>
   </output>
   <validation validateEstimates="true">
-    <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
     <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
+    <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
   </validation>
 </librede:LibredeConfiguration>

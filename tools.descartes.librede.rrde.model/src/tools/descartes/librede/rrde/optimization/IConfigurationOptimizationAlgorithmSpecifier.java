@@ -64,7 +64,7 @@ public interface IConfigurationOptimizationAlgorithmSpecifier extends EObject {
 	 * @return the value of the '<em>Algorithm Name</em>' attribute.
 	 * @see #setAlgorithmName(String)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
 	 * @generated
 	 */
 	String getAlgorithmName();

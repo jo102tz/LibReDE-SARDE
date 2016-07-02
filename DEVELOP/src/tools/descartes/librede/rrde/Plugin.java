@@ -39,7 +39,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
@@ -59,9 +58,11 @@ import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.registry.Registry;
+import tools.descartes.librede.rrde.optimization.IConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
+import tools.descartes.librede.rrde.optimization.impl.ExportAlgorithm;
 import tools.descartes.librede.rrde.optimization.impl.HillClimbingAlgorithm;
 
 /**
@@ -371,7 +372,7 @@ public class Plugin implements IApplication {
 		public EstimationSpecification call() throws Exception {
 			// TODO retrieve right algo
 			log.trace("Executing Call: " + call.toString());
-			HillClimbingAlgorithm algo = new HillClimbingAlgorithm();
+			IConfigurationOptimizer algo = new ExportAlgorithm();
 			algo.optimizeConfiguration(call.getEstimationSpecification(),
 					call.getTrainingData(), call.getSettings(),
 					call.getAlgorithm());
