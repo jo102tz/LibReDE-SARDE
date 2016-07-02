@@ -84,7 +84,7 @@ public class Plugin implements IApplication {
 			+ "test" + File.separator + "src" + File.separator
 			+ "conf.optimization";
 
-	public final static String OUTPUT = "resources";
+	public final static String OUTPUT = "output";
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
