@@ -308,6 +308,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 			return;
 		try {
 			s.write(BREAKLINE);
+			s.flush();
 		} catch (IOException e) {
 			getLog().error("Writing caused an error.", e);
 		}
