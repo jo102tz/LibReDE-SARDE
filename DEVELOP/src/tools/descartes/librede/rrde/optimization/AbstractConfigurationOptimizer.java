@@ -347,7 +347,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	protected void setTargetValue(IOptimizableParameter param, double value) {
 		getLog().info(
 				"Set value of " + param.toString() + " for Approach "
-						+ getSpecification().getApproaches().get(0) + " to "
+						+ getSimpleApproachName() + " to "
 						+ value);
 		for (LibredeConfiguration conf : confs) {
 			Util.setValue(conf.getEstimation(), value, param.getClass()

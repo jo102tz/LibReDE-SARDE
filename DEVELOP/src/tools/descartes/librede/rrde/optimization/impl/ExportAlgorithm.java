@@ -30,11 +30,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 
+import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
@@ -144,7 +148,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 								+ getSpecification().getApproaches().get(0)
 										.getType());
 				exportSingleParameter(param);
-
 			}
 		} else {
 			getLog().info(
@@ -201,6 +204,12 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 			newLine(s);
 		}
 		writeString(s, parametersToOptimize.get(0).getClass().getSimpleName());
+
+		// set to default again
+		setTargetValue(parametersToOptimize.get(0), parametersToOptimize.get(0)
+				.getStartValue());
+		setTargetValue(parametersToOptimize.get(1), parametersToOptimize.get(1)
+				.getStartValue());
 		try {
 			s.close();
 		} catch (IOException e) {
@@ -216,7 +225,45 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 *            the parameter to export
 	 */
 	private void exportSingleParameter(IOptimizableParameter param) {
-		// TODO Auto-generated method stub
+		BufferedWriter s = initFile(getSimpleApproachName() + "_"
+				+ param.getClass().getSimpleName() + ".csv");
+		if (!settings().isSplitConfigurations()) {
+			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i++) {
+				writeDouble(s, i);
+				setTargetValue(param, i);
+				runIteration();
+				writeDouble(s, getLastError());
+				newLine(s);
+			}
+		} else {
+			Set<LibredeConfiguration> original = new HashSet<LibredeConfiguration>(getConfs());
+			// write header
+			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i++) {
+				writeDouble(s, i);
+			}
+			newLine(s);
+			// split for configurations
+			for (LibredeConfiguration conf : original) {
+				getConfs().clear();
+				getConfs().add(conf);
+				for (double i = param.getLowerBound(); i <= param
+						.getUpperBound(); i++) {
+					setTargetValue(param, i);
+					runIteration();
+					writeDouble(s, getLastError());
+				}
+				newLine(s);
+			}
+			getConfs().clear();
+			getConfs().addAll(original);
+		}
+		// set to default again
+		setTargetValue(param, param.getStartValue());
+		try {
+			s.close();
+		} catch (IOException e) {
+			getLog().error("Closing resource caused an error.", e);
+		}
 	}
 
 	/**
@@ -276,9 +323,8 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	private BufferedWriter initFile(String suffix) {
 		URI uri = null;
 		try {
-			uri = URI
-					.createFileURI(new File(settings().getOutputDirectory())
-							.toString() + File.separator + suffix);
+			uri = URI.createFileURI(new File(settings().getOutputDirectory())
+					.toString() + File.separator + suffix);
 		} catch (Exception e) {
 			getLog().error(
 					"The given direction was not found."
@@ -296,7 +342,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		}
 		try {
 			File f = new File(uri.path());
-			if(!f.exists()){
+			if (!f.exists()) {
 				f.createNewFile();
 			}
 			return new BufferedWriter(new FileWriter(f));
