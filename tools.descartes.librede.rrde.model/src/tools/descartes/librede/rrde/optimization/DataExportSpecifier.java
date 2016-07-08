@@ -10,12 +10,13 @@ package tools.descartes.librede.rrde.optimization;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getOutputDirectory <em>Output Directory</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isMultidimensional <em>Multidimensional</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isSplitConfigurations <em>Split Configurations</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize <em>Step Size</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getDataExportSpecifier()
  * @model
@@ -102,5 +103,32 @@ public interface DataExportSpecifier extends IConfigurationOptimizationAlgorithm
 	 * @generated
 	 */
 	void setSplitConfigurations(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Step Size</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Step Size</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Step Size</em>' attribute.
+	 * @see #setStepSize(int)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getDataExportSpecifier_StepSize()
+	 * @model default="1" dataType="org.eclipse.emf.ecore.xml.type.Int"
+	 * @generated
+	 */
+	int getStepSize();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize <em>Step Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Step Size</em>' attribute.
+	 * @see #getStepSize()
+	 * @generated
+	 */
+	void setStepSize(int value);
 
 } // DataExportSpecifier

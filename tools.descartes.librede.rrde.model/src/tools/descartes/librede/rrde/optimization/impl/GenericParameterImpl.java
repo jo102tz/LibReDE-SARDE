@@ -18,13 +18,13 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl#getLowerBound <em>Lower Bound</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl#getUpperBound <em>Upper Bound</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl#getStartValue <em>Start Value</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl#getKey <em>Key</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

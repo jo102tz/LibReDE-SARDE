@@ -22,13 +22,13 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl#getTimeOut <em>Time Out</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl#getNumberOfSplits <em>Number Of Splits</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl#getNumberOfExplorations <em>Number Of Explorations</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

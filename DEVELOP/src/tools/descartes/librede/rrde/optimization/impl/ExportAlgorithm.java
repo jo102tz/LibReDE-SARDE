@@ -185,18 +185,18 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		// write headerline
 		writeString(s, parametersToOptimize.get(1).getClass().getSimpleName());
 		for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize
-				.get(1).getUpperBound(); j++) {
+				.get(1).getUpperBound(); j += settings().getStepSize()) {
 			writeDouble(s, j);
 		}
 		newLine(s);
 
 		// write matrix
 		for (double i = parametersToOptimize.get(0).getLowerBound(); i <= parametersToOptimize
-				.get(0).getUpperBound(); i++) {
+				.get(0).getUpperBound(); i += settings().getStepSize()) {
 			writeDouble(s, i);
 			setTargetValue(parametersToOptimize.get(0), i);
 			for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize
-					.get(1).getUpperBound(); j++) {
+					.get(1).getUpperBound(); j += settings().getStepSize()) {
 				setTargetValue(parametersToOptimize.get(1), j);
 				runIteration();
 				writeDouble(s, getLastError());
@@ -228,7 +228,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		BufferedWriter s = initFile(getSimpleApproachName() + "_"
 				+ param.getClass().getSimpleName() + ".csv");
 		if (!settings().isSplitConfigurations()) {
-			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i++) {
+			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
 				writeDouble(s, i);
 				setTargetValue(param, i);
 				runIteration();
@@ -238,7 +238,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		} else {
 			Set<LibredeConfiguration> original = new HashSet<LibredeConfiguration>(getConfs());
 			// write header
-			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i++) {
+			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
 				writeDouble(s, i);
 			}
 			newLine(s);
@@ -247,7 +247,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 				getConfs().clear();
 				getConfs().add(conf);
 				for (double i = param.getLowerBound(); i <= param
-						.getUpperBound(); i++) {
+						.getUpperBound(); i += settings().getStepSize()) {
 					setTargetValue(param, i);
 					runIteration();
 					writeDouble(s, getLastError());

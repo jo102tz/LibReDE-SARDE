@@ -18,12 +18,12 @@ import tools.descartes.librede.rrde.optimization.StepSize;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.StepSizeImpl#getLowerBound <em>Lower Bound</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.StepSizeImpl#getUpperBound <em>Upper Bound</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.StepSizeImpl#getStartValue <em>Start Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

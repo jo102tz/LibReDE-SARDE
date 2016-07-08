@@ -18,12 +18,12 @@ import tools.descartes.librede.rrde.optimization.WindowSize;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.WindowSizeImpl#getLowerBound <em>Lower Bound</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.WindowSizeImpl#getUpperBound <em>Upper Bound</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.WindowSizeImpl#getStartValue <em>Start Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

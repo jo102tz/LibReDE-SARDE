@@ -23,12 +23,12 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getInputSpecification <em>Input Specification</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getRootFolder <em>Root Folder</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -93,5 +93,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="splitConfigurations" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepSize" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"
+        defaultValueLiteral="1"/>
   </eClassifiers>
 </ecore:EPackage>

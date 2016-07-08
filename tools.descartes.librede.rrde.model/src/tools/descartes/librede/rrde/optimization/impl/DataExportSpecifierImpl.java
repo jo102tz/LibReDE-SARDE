@@ -18,14 +18,15 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getTimeOut <em>Time Out</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getOutputDirectory <em>Output Directory</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#isMultidimensional <em>Multidimensional</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#isSplitConfigurations <em>Split Configurations</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getStepSize <em>Step Size</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -129,6 +130,26 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	 * @ordered
 	 */
 	protected boolean splitConfigurations = SPLIT_CONFIGURATIONS_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getStepSize() <em>Step Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int STEP_SIZE_EDEFAULT = 1;
+
+	/**
+	 * The cached value of the '{@link #getStepSize() <em>Step Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected int stepSize = STEP_SIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -259,6 +280,27 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getStepSize() {
+		return stepSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStepSize(int newStepSize) {
+		int oldStepSize = stepSize;
+		stepSize = newStepSize;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE, oldStepSize, stepSize));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -272,6 +314,8 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 				return isMultidimensional();
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				return isSplitConfigurations();
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
+				return getStepSize();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -298,6 +342,9 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 				return;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				setSplitConfigurations((Boolean)newValue);
+				return;
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
+				setStepSize((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -326,6 +373,9 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				setSplitConfigurations(SPLIT_CONFIGURATIONS_EDEFAULT);
 				return;
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
+				setStepSize(STEP_SIZE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -348,6 +398,8 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 				return multidimensional != MULTIDIMENSIONAL_EDEFAULT;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				return splitConfigurations != SPLIT_CONFIGURATIONS_EDEFAULT;
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
+				return stepSize != STEP_SIZE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -372,6 +424,8 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 		result.append(multidimensional);
 		result.append(", splitConfigurations: ");
 		result.append(splitConfigurations);
+		result.append(", stepSize: ");
+		result.append(stepSize);
 		result.append(')');
 		return result.toString();
 	}

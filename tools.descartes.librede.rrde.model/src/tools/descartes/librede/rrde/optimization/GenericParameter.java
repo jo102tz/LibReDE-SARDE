@@ -10,10 +10,10 @@ package tools.descartes.librede.rrde.optimization;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.GenericParameter#getKey <em>Key</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getGenericParameter()
  * @model

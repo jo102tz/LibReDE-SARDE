@@ -19,11 +19,11 @@ import tools.descartes.librede.configuration.ValidationSpecification;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getValidator <em>Validator</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.OptimizationSettings#getParametersToOptimize <em>Parameters To Optimize</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getOptimizationSettings()
  * @model
