@@ -85,9 +85,9 @@ public class Wrapper {
 			cache.put(conf, var);
 		} else {
 			var = cache.get(conf);
-//			for (IRepositoryCursor cursor : var.getCursors().values()) {
-//				cursor.reset();
-//			}
+			for (IRepositoryCursor cursor : var.getCursors().values()) {
+				cursor.reset();
+			}
 		}
 
 		try {

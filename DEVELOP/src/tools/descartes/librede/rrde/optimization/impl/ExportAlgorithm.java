@@ -30,8 +30,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collections;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -62,6 +64,16 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * The settings used by this algorithm
 	 */
 	private DataExportSpecifier settings;
+	
+	/**
+	 * The Decimal format to format the output values.
+	 */
+	private DecimalFormat df;
+	
+	/**
+	 * This value will be used to replace MAX_DOUBLE values.
+	 */
+	private static final double MAX_DOUBLE_REPLACE = 10;
 
 	/**
 	 * The character to differentiate between to elements in the file
@@ -71,8 +83,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	/**
 	 * The character to skip to the next line
 	 */
-	private static final String BREAKLINE = System
-			.getProperty("line.separator");
+	private static final String BREAKLINE = System.getProperty("line.separator");
 
 	/**
 	 * @return the settings
@@ -100,8 +111,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * IConfigurationOptimizationAlgorithmSpecifier)
 	 */
 	@Override
-	public boolean isSpecifierSupported(
-			IConfigurationOptimizationAlgorithmSpecifier specifier) {
+	public boolean isSpecifierSupported(IConfigurationOptimizationAlgorithmSpecifier specifier) {
 		if (specifier == null)
 			return false;
 		if (specifier instanceof DataExportSpecifier) {
@@ -131,33 +141,27 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 */
 	@Override
 	public void executeAlgorithm() {
+		// define output format
+		df = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
+        df.setMaximumFractionDigits(8);
+		
 		settings = (DataExportSpecifier) getAlgorithm();
-		if (settings().isMultidimensional()
-				&& settings().isSplitConfigurations()) {
+		if (settings().isMultidimensional() && settings().isSplitConfigurations()) {
 			getLog().error(
 					"It is not possible to export multiple parameters and with configurations values. Only choose one of the options.");
 		}
 		if (!settings.isMultidimensional()) {
 			getLog().info("Separate outputs for each parameter.");
-			for (IOptimizableParameter param : getSettings()
-					.getParametersToOptimize()) {
-				getLog().info(
-						"Now exporting "
-								+ param.toString()
-								+ " of approach "
-								+ getSpecification().getApproaches().get(0)
-										.getType());
+			for (IOptimizableParameter param : getSettings().getParametersToOptimize()) {
+				getLog().info("Now exporting " + param.toString() + " of approach "
+						+ getSpecification().getApproaches().get(0).getType());
 				exportSingleParameter(param);
 			}
 		} else {
-			getLog().info(
-					"Exporting all parameters of "
-							+ getSpecification().getApproaches().get(0)
-									.getType());
+			getLog().info("Exporting all parameters of " + getSpecification().getApproaches().get(0).getType());
 			exportAllParameters(getSettings().getParametersToOptimize());
 		}
-		getLog().info(
-				"Done exporting to " + settings().getOutputDirectory() + " .");
+		getLog().info("Done exporting to " + settings().getOutputDirectory() + " .");
 	}
 
 	/**
@@ -167,11 +171,9 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * @param parametersToOptimize
 	 *            the parameters to export
 	 */
-	private void exportAllParameters(
-			EList<IOptimizableParameter> parametersToOptimize) {
+	private void exportAllParameters(EList<IOptimizableParameter> parametersToOptimize) {
 		if (parametersToOptimize.size() != 2) {
-			getLog().error(
-					"Output with other than two parameters is not supported yet.");
+			getLog().error("Output with other than two parameters is not supported yet.");
 			return;
 		} else if (parametersToOptimize.size() <= 0) {
 			getLog().warn("No parameters specified.");
@@ -184,32 +186,30 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 
 		// write headerline
 		writeString(s, parametersToOptimize.get(1).getClass().getSimpleName());
-		for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize
-				.get(1).getUpperBound(); j += settings().getStepSize()) {
+		for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize.get(1)
+				.getUpperBound(); j += settings().getStepSize()) {
 			writeDouble(s, j);
 		}
 		newLine(s);
 
 		// write matrix
-		for (double i = parametersToOptimize.get(0).getLowerBound(); i <= parametersToOptimize
-				.get(0).getUpperBound(); i += settings().getStepSize()) {
+		for (double i = parametersToOptimize.get(0).getLowerBound(); i <= parametersToOptimize.get(0)
+				.getUpperBound(); i += settings().getStepSize()) {
 			writeDouble(s, i);
 			setTargetValue(parametersToOptimize.get(0), i);
-			for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize
-					.get(1).getUpperBound(); j += settings().getStepSize()) {
+			for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize.get(1)
+					.getUpperBound(); j += settings().getStepSize()) {
 				setTargetValue(parametersToOptimize.get(1), j);
 				runIteration();
-				writeDouble(s, getLastError());
+				writeError(s, getLastError());
 			}
 			newLine(s);
 		}
 		writeString(s, parametersToOptimize.get(0).getClass().getSimpleName());
 
 		// set to default again
-		setTargetValue(parametersToOptimize.get(0), parametersToOptimize.get(0)
-				.getStartValue());
-		setTargetValue(parametersToOptimize.get(1), parametersToOptimize.get(1)
-				.getStartValue());
+		setTargetValue(parametersToOptimize.get(0), parametersToOptimize.get(0).getStartValue());
+		setTargetValue(parametersToOptimize.get(1), parametersToOptimize.get(1).getStartValue());
 		try {
 			s.close();
 		} catch (IOException e) {
@@ -225,14 +225,13 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 *            the parameter to export
 	 */
 	private void exportSingleParameter(IOptimizableParameter param) {
-		BufferedWriter s = initFile(getSimpleApproachName() + "_"
-				+ param.getClass().getSimpleName() + ".csv");
+		BufferedWriter s = initFile(getSimpleApproachName() + "_" + param.getClass().getSimpleName() + ".csv");
 		if (!settings().isSplitConfigurations()) {
 			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
 				writeDouble(s, i);
 				setTargetValue(param, i);
 				runIteration();
-				writeDouble(s, getLastError());
+				writeError(s, getLastError());
 				newLine(s);
 			}
 		} else {
@@ -246,11 +245,10 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 			for (LibredeConfiguration conf : original) {
 				getConfs().clear();
 				getConfs().add(conf);
-				for (double i = param.getLowerBound(); i <= param
-						.getUpperBound(); i += settings().getStepSize()) {
+				for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
 					setTargetValue(param, i);
 					runIteration();
-					writeDouble(s, getLastError());
+					writeError(s, getLastError());
 				}
 				newLine(s);
 			}
@@ -264,6 +262,30 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		} catch (IOException e) {
 			getLog().error("Closing resource caused an error.", e);
 		}
+	}
+
+	/**
+	 * Writes an error value in the output (as opposed to an index) and
+	 * therefore checks if the error is of somewhat of a malformed structure.
+	 * If so, an error message is logged to the console.
+	 * 
+	 * @param s
+	 *            the writer
+	 * @param double
+	 *            the error to write
+	 */
+	private void writeError(BufferedWriter s, double d) {
+		if(d==Double.MAX_VALUE){
+			getLog().warn("Error is Double.MAX_VALUE.");
+			writeDouble(s, MAX_DOUBLE_REPLACE);
+			return;
+		}
+		if(d < 0){
+			getLog().warn("Error is negative.");
+			writeDouble(s, 0);
+			return;
+		}
+		writeDouble(s, d);
 	}
 
 	/**
@@ -290,10 +312,11 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * 
 	 * @param s
 	 *            the writer
-	 * @param double the double to write
+	 * @param double
+	 *            the double to write
 	 */
-	private void writeDouble(BufferedWriter s, double d) {
-		writeString(s, Double.toString(d));
+	private void writeDouble(BufferedWriter s, double d){
+		writeString(s, df.format(d));
 	}
 
 	/**
@@ -301,7 +324,8 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * 
 	 * @param s
 	 *            the writer
-	 * @param double the double to write
+	 * @param double
+	 *            the double to write
 	 */
 	private void newLine(BufferedWriter s) {
 		if (s == null)
@@ -324,21 +348,16 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	private BufferedWriter initFile(String suffix) {
 		URI uri = null;
 		try {
-			uri = URI.createFileURI(new File(settings().getOutputDirectory())
-					.toString() + File.separator + suffix);
+			uri = URI.createFileURI(new File(settings().getOutputDirectory()).toString() + File.separator + suffix);
 		} catch (Exception e) {
 			getLog().error(
-					"The given direction was not found."
-							+ settings().getOutputDirectory() + File.separator
-							+ suffix);
+					"The given direction was not found." + settings().getOutputDirectory() + File.separator + suffix);
 			return null;
 		}
 
 		if (uri == null) {
 			getLog().error(
-					"The given direction was not found."
-							+ settings().getOutputDirectory() + File.separator
-							+ suffix);
+					"The given direction was not found." + settings().getOutputDirectory() + File.separator + suffix);
 			return null;
 		}
 		try {
