@@ -33,15 +33,12 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
-
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.Util;
 import tools.descartes.librede.rrde.Wrapper;
-import tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl;
 
 /**
  * This class contains an abstract implementation of an
@@ -304,15 +301,10 @@ public abstract class AbstractConfigurationOptimizer implements
 				getLog().error(
 						"There must not be more than one approach per optimization run.");
 			}
-			for (Class<? extends IEstimationApproach> approach : results
-					.getApproaches()) {
-				stat.addValue(results.getApproachResults(approach)
-						.getMeanError());
-			}
 			if (results.getApproaches().isEmpty()) {
 				getLog().warn("Result table is empty.");
 			}
-
+			stat.addValue(Util.getMeanValidationError(results));
 		}
 		iterationcounter++;
 		lastError = stat.getMean();
@@ -347,8 +339,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	protected void setTargetValue(IOptimizableParameter param, double value) {
 		getLog().info(
 				"Set value of " + param.toString() + " for Approach "
-						+ getSimpleApproachName() + " to "
-						+ value);
+						+ getSimpleApproachName() + " to " + value);
 		for (LibredeConfiguration conf : confs) {
 			Util.setValue(conf.getEstimation(), value, param.getClass()
 					.getInterfaces()[0].getName());

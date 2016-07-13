@@ -26,21 +26,24 @@
  */
 package tools.descartes.librede.rrde;
 
-import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
-import javax.jws.soap.SOAPBinding.Use;
-
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.eclipse.equinox.internal.app.AppPersistence;
 
+import tools.descartes.librede.LibredeResults;
+import tools.descartes.librede.ResultTable;
+import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.linalg.Matrix;
+import tools.descartes.librede.linalg.Vector;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.StepSize;
 import tools.descartes.librede.rrde.optimization.WindowSize;
+import tools.descartes.librede.validation.IValidator;
 
 /**
  * This class contains some useful utilities.
@@ -50,8 +53,21 @@ import tools.descartes.librede.rrde.optimization.WindowSize;
  */
 public class Util {
 
+	/**
+	 * The logger of this class
+	 */
 	private static final Logger log = Logger.getLogger(Util.class);
 
+	/**
+	 * Set the value of the given Parameter in the given specification
+	 * 
+	 * @param librede
+	 *            The LibReDE Configuration to modify
+	 * @param value
+	 *            The value to set
+	 * @param eClass
+	 *            The class of the Parameter to set
+	 */
 	public static void setValue(EstimationSpecification librede, double value,
 			String eClass) {
 		if (eClass.equals(StepSize.class.getName())) {
@@ -74,6 +90,16 @@ public class Util {
 		}
 	}
 
+	/**
+	 * Retrieves the value of the given Parameter in the given specification
+	 * 
+	 * @param librede
+	 *            The LibReDE Configuration to read
+	 * @param eClass
+	 *            The class of the Parameter to get
+	 * 
+	 * @return The double value of the parameter
+	 */
 	public static double getValue(LibredeConfiguration librede, String eClass) {
 		if (eClass.equals(StepSize.class.getName())) {
 			return librede.getEstimation().getStepSize().getValue();
@@ -86,6 +112,44 @@ public class Util {
 					+ eClass);
 		}
 		return -1;
+	}
+
+	/**
+	 * Calculates the mean Validation error, i.e. the target function value.
+	 * 
+	 * @param result
+	 *            The result produced by LibReDE
+	 * @return The mean validation error
+	 */
+	public static double getMeanValidationError(LibredeResults result) {
+		// equally averaging over all validators and all approaches
+		DescriptiveStatistics values = new DescriptiveStatistics();
+		Map<Class<? extends IEstimationApproach>, Matrix> errorMap = result
+				.getValidationErrors();
+		for (Class<? extends IEstimationApproach> approach : result
+				.getApproaches()) {
+			Matrix appError = errorMap.get(approach);
+			if ((int) appError.columns() != result.getNumberOfFolds()) {
+				log.warn("Not enough fold validation results available: "
+						+ result.toString());
+			}
+			if (appError.rows() != result.getValidatedEntities().entrySet()
+					.size()) {
+				log.warn("Not enough validators for results available: "
+						+ result.toString());
+			}
+
+			for (int i = 0; i < appError.columns(); i++)
+				for (int j = 0; j < appError.rows(); j++)
+					values.addValue(appError.get(j, i));
+
+			if (values.getN() < 1) {
+				log.warn("No validation results for approach "
+						+ result.getApproaches().iterator().next());
+				return 0;
+			}
+		}
+		return values.getMean();
 	}
 
 }
