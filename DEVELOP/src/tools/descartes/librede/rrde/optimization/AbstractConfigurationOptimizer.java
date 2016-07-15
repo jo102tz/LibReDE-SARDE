@@ -34,7 +34,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.LibredeResults;
-import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.Util;
@@ -341,12 +340,10 @@ public abstract class AbstractConfigurationOptimizer implements
 				"Set value of " + param.toString() + " for Approach "
 						+ getSimpleApproachName() + " to " + value);
 		for (LibredeConfiguration conf : confs) {
-			Util.setValue(conf.getEstimation(), value, param.getClass()
-					.getInterfaces()[0].getName());
+			Util.setValue(conf.getEstimation(), value, param);
 		}
 		// set actual output
-		Util.setValue(getSpecification(), value, param.getClass()
-				.getInterfaces()[0].getName());
+		Util.setValue(getSpecification(), value, param);
 	}
 
 	/**
@@ -355,8 +352,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * @returns value The current value of the optimizing function
 	 */
 	protected double getTargetValue(IOptimizableParameter param) {
-		return Util.getValue(confs.iterator().next(), param.getClass()
-				.getInterfaces()[0].getName());
+		return Util.getValue(confs.iterator().next().getEstimation(), param);
 	}
 
 	/**
