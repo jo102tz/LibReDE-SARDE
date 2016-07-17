@@ -28,6 +28,7 @@ package tools.descartes.librede.rrde;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,16 +49,17 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import tools.descartes.librede.Librede;
+import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.exceptions.EstimationException;
 import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.InputData;
@@ -66,24 +68,40 @@ import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.impl.ExportAlgorithm;
 
 /**
- * The main class of this Plug-In. TODO comment
+ * The main class of this Plug-In. Here, the configuration files are read, and
+ * the {@link RunCall}s scheduled and executed.
  * 
  * @author JS
  *
  */
 public class Plugin implements IApplication {
 
+	/**
+	 * The logging level for all classes of this package
+	 */
 	private static final Level loglevel = Level.INFO;
 
+	/**
+	 * The logger used for logging
+	 */
 	private static final Logger log = Logger.getLogger(Plugin.class);
 
+	/**
+	 * The path to the default {@link LibredeConfiguration}
+	 */
 	public final static String LIB_PATH = "resources" + File.separator
 			+ "estimation.librede";
 
+	/**
+	 * The path to the default {@link OptimizationConfiguration}
+	 */
 	public final static String CONF_PATH = "resources" + File.separator
 			+ "test" + File.separator + "src" + File.separator
 			+ "conf.optimization";
 
+	/**
+	 * The output path, where all output files are stored.
+	 */
 	public final static String OUTPUT = "output";
 
 	@Override
@@ -99,9 +117,6 @@ public class Plugin implements IApplication {
 
 			// This is a fixup to replace the data sources with ones from
 			// librede.
-			// This might cause unwanted behavior so it can be changed
-			// afterwards if
-			// the problem of the unspecified data source can be fixed
 			for (RunCall call : conf.getContainsOf()) {
 				for (InputData spec : call.getTrainingData()) {
 					spec.getInputSpecification()
@@ -114,7 +129,7 @@ public class Plugin implements IApplication {
 			}
 
 			// run optimization
-			runConfigurationOptimization(librede, conf);
+			runConfigurationOptimization(librede, conf, OUTPUT);
 
 		} catch (Exception e) {
 			log.error("Error occurred", e);
@@ -129,13 +144,37 @@ public class Plugin implements IApplication {
 	}
 
 	/**
-	 * TODO
+	 * Runs an optimization of the {@link EstimationSpecification} of the given
+	 * {@link OptimizationConfiguration} and sets is as a result in one or many
+	 * {@link LibredeConfiguration}. For this purpose, the given configuration
+	 * is copied and altered. As a result, the initial
+	 * {@link EstimationSpecification} is only dependent on the
+	 * {@link OptimizationConfiguration}, not on the
+	 * {@link LibredeConfiguration}. <br>
+	 * <br>
+	 * As of now, multiple {@link RunCall}s are executed independently and are
+	 * all producing different output files. Additionally, for multiple
+	 * {@link IEstimationApproach}es defined in one {@link RunCall}, this call
+	 * is split up into several identical {@link RunCall}s, each containing only
+	 * one {@link IEstimationApproach} to optimize at a time.<br>
+	 * <br>
+	 * The (multiple) resulting {@link LibredeConfiguration}s are stored as
+	 * separate files with corresponding suffixes.<br>
+	 * <br>
+	 * This method tries to use parallel execution for different independent
+	 * {@link RunCall}s as far as possible.
 	 * 
 	 * @param librede
+	 *            The LibReDE configuration to use as skeleton for the outputs
 	 * @param conf
+	 *            The {@link OptimizationConfiguration}, specifying the desired
+	 *            optimizations
+	 * @param outputDir
+	 *            The String of the output directory used for modified
+	 *            {@link LibredeConfiguration} files.
 	 */
 	public void runConfigurationOptimization(LibredeConfiguration librede,
-			OptimizationConfiguration conf) {
+			OptimizationConfiguration conf, String outputDir) {
 
 		// split one RunCall with several approaches into multiple RunCalls with
 		// just one approach each, since the framework can not handle multiple
@@ -182,31 +221,45 @@ public class Plugin implements IApplication {
 		// store each specification in a different file
 		int i = 0;
 		for (EstimationSpecification spec : results.values()) {
-			store(spec, librede, i++, spec.getApproaches().get(0).getType()
-					.replace("tools.descartes.librede.approach.", ""));
+			String name = outputDir
+					+ File.separator
+					+ "Optimized_RunCall"
+					+ i++
+					+ "_"
+					+ spec.getApproaches().get(0).getType()
+							.replace("tools.descartes.librede.approach.", "")
+					+ ".librede";
+			store(spec, librede, name);
 		}
 
 	}
 
+	/**
+	 * Stores the given {@link LibredeConfiguration}, but removes its
+	 * {@link EstimationSpecification} with the given one.
+	 * 
+	 * @param result
+	 *            The {@link EstimationException} to use
+	 * @param conf
+	 *            The {@link LibredeConfiguration} as skeleton
+	 * @param file
+	 *            The path to be used as output
+	 * @throws RuntimeException
+	 *             If the storing fails for some reason
+	 */
 	private void store(EstimationSpecification result,
-			LibredeConfiguration conf, int runcall, String approach) {
+			LibredeConfiguration conf, String file) {
 		ResourceSet rs = new ResourceSetImpl();
-		URI uri = URI.createFileURI(new File(OUTPUT).toString()
-				+ File.separator + "Optimized_RunCall" + runcall + "_"
-				+ approach + ".librede");
+		URI uri = URI.createFileURI(file);
 		Resource resource = rs.createResource(uri);
 		LibredeConfiguration output = EcoreUtil.copy(conf);
 		output.setEstimation(result);
 		resource.getContents().add(output);
-		saveResource(resource);
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static void saveResource(Resource resource) {
-		Map saveOptions = ((XMLResource) resource).getDefaultSaveOptions();
+		Map<Object, Object> saveOptions = ((XMLResource) resource)
+				.getDefaultSaveOptions();
 		saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
 		saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE,
-				new ArrayList());
+				new ArrayList<Object>());
 		try {
 			resource.save(saveOptions);
 		} catch (IOException e) {
@@ -270,6 +323,15 @@ public class Plugin implements IApplication {
 	// return nums;
 	// }
 
+	/**
+	 * Concurrently executes the given {@link RunCall}s and returns a map with
+	 * the corresponding results.
+	 * 
+	 * @param calls
+	 *            A Collection of {@link RunCall}s to execute
+	 * @return A Map, assigning each {@link RunCall} its result as an
+	 *         {@link EstimationSpecification}
+	 */
 	public HashMap<RunCall, EstimationSpecification> collectResults(
 			Collection<RunCall> calls) {
 		// Run each RunCall separately and concurrently
@@ -329,6 +391,16 @@ public class Plugin implements IApplication {
 		return res;
 	}
 
+	/**
+	 * Loads the given path as a {@link OptimizationConfiguration}
+	 * configuration, if one is found.
+	 * 
+	 * @param path
+	 *            The Path to the configuration file
+	 * @return The specified {@link OptimizationConfiguration}
+	 * @throws Exception
+	 *             If something in the loading process fails
+	 */
 	public static OptimizationConfiguration loadConfiguration(Path path) {
 		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
@@ -341,6 +413,9 @@ public class Plugin implements IApplication {
 		return (OptimizationConfiguration) resource.getContents().get(0);
 	}
 
+	/**
+	 * Initializes the logging for better readability.
+	 */
 	public void initLogging() {
 		Librede.initLogging();
 		LogManager.getRootLogger().setLevel(loglevel);
@@ -353,6 +428,13 @@ public class Plugin implements IApplication {
 
 	}
 
+	/**
+	 * Internal class, that executes a {@link RunCall} and implements the
+	 * {@link Callable} interface.
+	 * 
+	 * @author JS
+	 *
+	 */
 	private class RunCallExecutor implements Callable<EstimationSpecification> {
 
 		private RunCall call;
