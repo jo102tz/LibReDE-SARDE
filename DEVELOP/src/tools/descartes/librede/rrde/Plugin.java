@@ -454,9 +454,10 @@ public class Plugin implements IApplication {
 		 */
 		@Override
 		public EstimationSpecification call() throws Exception {
-			// TODO retrieve right algo
 			log.trace("Executing Call: " + call.toString());
-			IConfigurationOptimizer algo = new ExportAlgorithm();
+			IConfigurationOptimizer algo = (IConfigurationOptimizer) Class
+					.forName(call.getAlgorithm().getAlgorithmName())
+					.newInstance();
 			algo.optimizeConfiguration(call.getEstimationSpecification(),
 					call.getTrainingData(), call.getSettings(),
 					call.getAlgorithm());
