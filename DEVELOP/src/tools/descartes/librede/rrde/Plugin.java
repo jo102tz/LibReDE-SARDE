@@ -28,7 +28,6 @@ package tools.descartes.librede.rrde;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -65,7 +64,6 @@ import tools.descartes.librede.rrde.optimization.IConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
-import tools.descartes.librede.rrde.optimization.impl.ExportAlgorithm;
 
 /**
  * The main class of this Plug-In. Here, the configuration files are read, and

@@ -23,3 +23,4 @@ Require-Bundle: tools.descartes.librede.bayesplusplus.java;bundle-version="1.1.0
  tools.descartes.librede.rrde.model.tests;bundle-version="1.0.0",
  org.apache.log4j;bundle-version="1.2.15",
  org.apache.commons.math3;bundle-version="3.2.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
