@@ -719,13 +719,22 @@ public interface OptimizationPackage extends EPackage {
 	int DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Step Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_EXPORT_SPECIFIER__STEP_SIZE = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Multidimensional</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+	int DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Split Configurations</b></em>' attribute.
@@ -734,16 +743,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Step Size</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_EXPORT_SPECIFIER__STEP_SIZE = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
+	int DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Data Export Specifier</em>' class.

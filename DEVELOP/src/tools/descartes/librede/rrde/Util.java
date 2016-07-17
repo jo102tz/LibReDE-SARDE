@@ -121,6 +121,8 @@ public class Util {
 			}
 		}
 		if (oneSet != true) {
+			log.warn("The generic parameter " + param.getParameter().getName()
+					+ " could not be set.");
 			if (!checkForMissingParameterValues(librede, param, value)) {
 				log.warn("No algorithm specification supports a parameter with key "
 						+ param.getParameter().getName()
@@ -173,14 +175,13 @@ public class Util {
 									+ "This could be due to a missing value caused by default initialization.");
 							log.info("A new parameter was therefore created an added.");
 
-							if (alg.getParameters() != null
-									|| alg.getParameters() == null)
+							if (alg.getParameters() != null)
 								alg.getParameters().add(
 										EcoreUtil.copy(param.getParameter()));
 							else {
-								
+								log.warn("The parameter list was null. "
+										+ "Adding surpressed as no other parameters where available.");
 							}
-
 							ret = true;
 						}
 					}

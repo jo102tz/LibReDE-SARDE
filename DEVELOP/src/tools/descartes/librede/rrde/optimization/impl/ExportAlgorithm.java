@@ -43,6 +43,7 @@ import org.eclipse.emf.common.util.URI;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
+import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 
@@ -225,7 +226,11 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 *            the parameter to export
 	 */
 	private void exportSingleParameter(IOptimizableParameter param) {
-		BufferedWriter s = initFile(getSimpleApproachName() + "_" + param.getClass().getSimpleName() + ".csv");
+		String paramname = param.getClass().getSimpleName();
+		if(param instanceof GenericParameter){
+			paramname = ((GenericParameter) param).getParameter().getName();
+		}
+		BufferedWriter s = initFile(getSimpleApproachName() + "_" + paramname + ".csv");
 		if (!settings().isSplitConfigurations()) {
 			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
 				writeDouble(s, i);

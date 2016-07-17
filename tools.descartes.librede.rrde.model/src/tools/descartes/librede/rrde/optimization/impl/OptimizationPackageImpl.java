@@ -512,15 +512,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * @generated
 	 */
 	public EAttribute getDataExportSpecifier_Multidimensional() {
-		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getDataExportSpecifier_SplitConfigurations() {
 		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -529,8 +520,17 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDataExportSpecifier_StepSize() {
+	public EAttribute getDataExportSpecifier_SplitConfigurations() {
 		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDataExportSpecifier_StepSize() {
+		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -607,9 +607,9 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		dataExportSpecifierEClass = createEClass(DATA_EXPORT_SPECIFIER);
 		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY);
+		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__STEP_SIZE);
 		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL);
 		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS);
-		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__STEP_SIZE);
 	}
 
 	/**
@@ -699,9 +699,9 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		initEClass(dataExportSpecifierEClass, DataExportSpecifier.class, "DataExportSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataExportSpecifier_OutputDirectory(), theXMLTypePackage.getString(), "OutputDirectory", "\"\"", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataExportSpecifier_StepSize(), theXMLTypePackage.getDouble(), "stepSize", "1.0", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataExportSpecifier_Multidimensional(), theXMLTypePackage.getBoolean(), "multidimensional", "false", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataExportSpecifier_SplitConfigurations(), theXMLTypePackage.getBoolean(), "splitConfigurations", "false", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataExportSpecifier_StepSize(), theXMLTypePackage.getDouble(), "stepSize", "1.0", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

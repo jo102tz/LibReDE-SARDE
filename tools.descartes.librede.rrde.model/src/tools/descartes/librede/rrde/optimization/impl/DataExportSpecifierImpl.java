@@ -22,9 +22,9 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getTimeOut <em>Time Out</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getOutputDirectory <em>Output Directory</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getStepSize <em>Step Size</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#isMultidimensional <em>Multidimensional</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#isSplitConfigurations <em>Split Configurations</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getStepSize <em>Step Size</em>}</li>
  * </ul>
  * </p>
  *
@@ -92,6 +92,26 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	protected String outputDirectory = OUTPUT_DIRECTORY_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getStepSize() <em>Step Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double STEP_SIZE_EDEFAULT = 1.0;
+
+	/**
+	 * The cached value of the '{@link #getStepSize() <em>Step Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStepSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected double stepSize = STEP_SIZE_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #isMultidimensional() <em>Multidimensional</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -130,26 +150,6 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	 * @ordered
 	 */
 	protected boolean splitConfigurations = SPLIT_CONFIGURATIONS_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getStepSize() <em>Step Size</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStepSize()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double STEP_SIZE_EDEFAULT = 1.0;
-
-	/**
-	 * The cached value of the '{@link #getStepSize() <em>Step Size</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStepSize()
-	 * @generated
-	 * @ordered
-	 */
-	protected double stepSize = STEP_SIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -310,12 +310,12 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 				return getAlgorithmName();
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY:
 				return getOutputDirectory();
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
+				return getStepSize();
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL:
 				return isMultidimensional();
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				return isSplitConfigurations();
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
-				return getStepSize();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -337,14 +337,14 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY:
 				setOutputDirectory((String)newValue);
 				return;
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
+				setStepSize((Double)newValue);
+				return;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL:
 				setMultidimensional((Boolean)newValue);
 				return;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				setSplitConfigurations((Boolean)newValue);
-				return;
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
-				setStepSize((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -367,14 +367,14 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY:
 				setOutputDirectory(OUTPUT_DIRECTORY_EDEFAULT);
 				return;
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
+				setStepSize(STEP_SIZE_EDEFAULT);
+				return;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL:
 				setMultidimensional(MULTIDIMENSIONAL_EDEFAULT);
 				return;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				setSplitConfigurations(SPLIT_CONFIGURATIONS_EDEFAULT);
-				return;
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
-				setStepSize(STEP_SIZE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -394,12 +394,12 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 				return ALGORITHM_NAME_EDEFAULT == null ? algorithmName != null : !ALGORITHM_NAME_EDEFAULT.equals(algorithmName);
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY:
 				return OUTPUT_DIRECTORY_EDEFAULT == null ? outputDirectory != null : !OUTPUT_DIRECTORY_EDEFAULT.equals(outputDirectory);
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
+				return stepSize != STEP_SIZE_EDEFAULT;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL:
 				return multidimensional != MULTIDIMENSIONAL_EDEFAULT;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				return splitConfigurations != SPLIT_CONFIGURATIONS_EDEFAULT;
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
-				return stepSize != STEP_SIZE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -420,12 +420,12 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 		result.append(algorithmName);
 		result.append(", OutputDirectory: ");
 		result.append(outputDirectory);
+		result.append(", stepSize: ");
+		result.append(stepSize);
 		result.append(", multidimensional: ");
 		result.append(multidimensional);
 		result.append(", splitConfigurations: ");
 		result.append(splitConfigurations);
-		result.append(", stepSize: ");
-		result.append(stepSize);
 		result.append(')');
 		return result.toString();
 	}

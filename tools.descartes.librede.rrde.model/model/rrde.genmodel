@@ -12,21 +12,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//OptimizationConfiguration/containsOf"/>
     </genClasses>
     <genClasses image="false" ecoreClass="rrde.ecore#//IConfigurationOptimizationAlgorithmSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//IConfigurationOptimizationAlgorithmSpecifier/algorithmName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//IConfigurationOptimizationAlgorithmSpecifier/timeOut"/>
-      <genOperations ecoreOperation="rrde.ecore#//IConfigurationOptimizationAlgorithmSpecifier/runOptimization">
-        <genParameters ecoreParameter="rrde.ecore#//IConfigurationOptimizationAlgorithmSpecifier/runOptimization/input"/>
-        <genParameters ecoreParameter="rrde.ecore#//IConfigurationOptimizationAlgorithmSpecifier/runOptimization/settings"/>
-        <genParameters ecoreParameter="rrde.ecore#//IConfigurationOptimizationAlgorithmSpecifier/runOptimization/estimation"/>
-      </genOperations>
-      <genOperations ecoreOperation="rrde.ecore#//IConfigurationOptimizationAlgorithmSpecifier/configure">
-        <genParameters ecoreParameter="rrde.ecore#//IConfigurationOptimizationAlgorithmSpecifier/configure/parameter"/>
-        <genParameters ecoreParameter="rrde.ecore#//IConfigurationOptimizationAlgorithmSpecifier/configure/value"/>
-      </genOperations>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//LocalSearchSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//LocalSearchSpecifier/stepSize"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//LocalSearchSpecifier/tolerance"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//LocalSearchSpecifier/maximumNumberOfSteps"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//LocalSearchSpecifier/stepSize"/>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//RunCall">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//RunCall/algorithm"/>
@@ -40,9 +32,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//InputData/rootFolder"/>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//OptimizationSettings">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//OptimizationSettings/IgnoreApproaches"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//OptimizationSettings/validator"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//OptimizationSettings/parametersToOptimize"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rrde.ecore#//OptimizationSettings/validator"/>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//IterativeParameterOptimizerSpecifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//IterativeParameterOptimizerSpecifier/numberOfSplits"/>
@@ -55,9 +46,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//IOptimizableParameter/startValue"/>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//GenericParameter">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//GenericParameter/key"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rrde.ecore#//GenericParameter/parameter"/>
     </genClasses>
     <genClasses ecoreClass="rrde.ecore#//StepSize"/>
     <genClasses ecoreClass="rrde.ecore#//WindowSize"/>
+    <genClasses ecoreClass="rrde.ecore#//DataExportSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//DataExportSpecifier/OutputDirectory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//DataExportSpecifier/stepSize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//DataExportSpecifier/multidimensional"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rrde.ecore#//DataExportSpecifier/splitConfigurations"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -63,9 +63,9 @@ public class DataExportSpecifierItemProvider
 			addTimeOutPropertyDescriptor(object);
 			addAlgorithmNamePropertyDescriptor(object);
 			addOutputDirectoryPropertyDescriptor(object);
+			addStepSizePropertyDescriptor(object);
 			addMultidimensionalPropertyDescriptor(object);
 			addSplitConfigurationsPropertyDescriptor(object);
-			addStepSizePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -243,9 +243,9 @@ public class DataExportSpecifierItemProvider
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__TIME_OUT:
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__ALGORITHM_NAME:
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY:
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL:
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

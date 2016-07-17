@@ -12,9 +12,9 @@ package tools.descartes.librede.rrde.optimization;
  * The following features are supported:
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getOutputDirectory <em>Output Directory</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize <em>Step Size</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isMultidimensional <em>Multidimensional</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isSplitConfigurations <em>Split Configurations</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize <em>Step Size</em>}</li>
  * </ul>
  * </p>
  *
