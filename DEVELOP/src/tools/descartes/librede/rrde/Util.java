@@ -26,19 +26,22 @@
  */
 package tools.descartes.librede.rrde;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.Map;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import tools.descartes.librede.LibredeResults;
+import tools.descartes.librede.algorithm.IEstimationAlgorithm;
 import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationAlgorithmConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
-import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.Parameter;
 import tools.descartes.librede.linalg.Matrix;
+import tools.descartes.librede.registry.ParameterDefinition;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.StepSize;
@@ -85,6 +88,9 @@ public class Util {
 		} else if (eClass.equals(GenericParameter.class.getName())) {
 			setGenericParameter(librede, (GenericParameter) param,
 					Double.toString(value));
+			log.trace("Set "
+					+ ((GenericParameter) param).getParameter().getName()
+					+ " to " + value);
 		} else {
 			log.error("No handling adapter of setting Optimizable Parameter "
 					+ eClass);
@@ -103,27 +109,88 @@ public class Util {
 	 */
 	public static void setGenericParameter(EstimationSpecification librede,
 			GenericParameter param, String value) {
+		// it is usually enough to find one parameter with the given name
+		// multiple parameters will be set anyhow
+		boolean oneSet = false;
 		for (EstimationAlgorithmConfiguration alg : librede.getAlgorithms()) {
-			boolean set = false;
 			for (Parameter par : alg.getParameters()) {
-				if (par.getName().equals(param.getKey())) {
-					// TODO 
+				if (par.getName().equals(param.getParameter().getName())) {
 					par.setValue(value);
-					set = true;
+					oneSet = true;
 				}
-			}
-			if(alg.getParameters()==null){
-				for(Object obj : alg.eContents()){
-					System.out.println(obj);
-				}
-			}
-			if (set != true) {
-				log.warn("The Algorithm specification " + alg.getType()
-						+ " does not support a parameter with key "
-						+ param.getKey() + ". Ignoring requested change to "
-						+ value + ".");
 			}
 		}
+		if (oneSet != true) {
+			if (!checkForMissingParameterValues(librede, param, value)) {
+				log.warn("No algorithm specification supports a parameter with key "
+						+ param.getParameter().getName()
+						+ ". Ignoring requested change to " + value + ".");
+			}
+		}
+	}
+
+	/**
+	 * Checks if the fields with {@link Annotation} in all
+	 * {@link IEstimationAlgorithm}s should actually support the given
+	 * {@link GenericParameter}. If so, it is tried to add it as a new
+	 * parameter.
+	 * 
+	 * @param librede
+	 *            The LibReDE Configuration to modify
+	 * @param value
+	 *            The String value to set
+	 * @param param
+	 *            The {@link GenericParameter} to set
+	 * @return True, if the parameter is actually present, false if not
+	 */
+	private static boolean checkForMissingParameterValues(
+			EstimationSpecification librede, GenericParameter param,
+			String value) {
+		boolean ret = false;
+		for (EstimationAlgorithmConfiguration alg : librede.getAlgorithms()) {
+			// check if this class actually should support this parameter
+			try {
+
+				@SuppressWarnings("unchecked")
+				Class<? extends IEstimationAlgorithm> c = (Class<? extends IEstimationAlgorithm>) Class
+						.forName(alg.getType());
+
+				for (Field field : c.getDeclaredFields()) {
+					if (field
+							.isAnnotationPresent(tools.descartes.librede.registry.ParameterDefinition.class)) {
+						ParameterDefinition anno = field
+								.getAnnotation(tools.descartes.librede.registry.ParameterDefinition.class);
+						if (anno.label().equals(param.getParameter().getName())) {
+							log.info("The annotation "
+									+ anno.label()
+									+ " should be present in class "
+									+ c.getSimpleName()
+									+ ". The setting of "
+									+ param.getParameter().getName()
+									+ " to "
+									+ value
+									+ " failed however. "
+									+ "This could be due to a missing value caused by default initialization.");
+							log.info("A new parameter was therefore created an added.");
+
+							if (alg.getParameters() != null
+									|| alg.getParameters() == null)
+								alg.getParameters().add(
+										EcoreUtil.copy(param.getParameter()));
+							else {
+								
+							}
+
+							ret = true;
+						}
+					}
+				}
+
+			} catch (ClassNotFoundException | ClassCastException e) {
+				log.error("Could not find class " + alg.getType(), e);
+			}
+		}
+		return ret;
 	}
 
 	/**
@@ -140,15 +207,12 @@ public class Util {
 			GenericParameter param) {
 		for (EstimationAlgorithmConfiguration alg : librede.getAlgorithms()) {
 			for (Parameter par : alg.getParameters()) {
-				if (par.getName().equals(param.getKey())) {
+				if (par.getName().equals(param.getParameter().getName())) {
 					return par.getValue();
 				}
 			}
-			log.warn("The Algorithm specification " + alg.getType()
-					+ " does not support a parameter with key "
-					+ param.getKey() + ".");
 		}
-		log.warn("No key " + param.getKey() + "found.");
+		log.warn("No key " + param.getParameter().getName() + "found.");
 		return null;
 	}
 
@@ -175,14 +239,14 @@ public class Util {
 						(GenericParameter) param));
 			} catch (NumberFormatException e) {
 				log.error("The generic parameter with key "
-						+ ((GenericParameter) param).getKey()
+						+ ((GenericParameter) param).getParameter().getName()
 						+ " has value "
 						+ getGenericParameter(librede, (GenericParameter) param)
 						+ " which is not numeric.");
 				return -1;
 			} catch (NullPointerException e) {
 				log.warn("The generic parameter with key "
-						+ ((GenericParameter) param).getKey()
+						+ ((GenericParameter) param).getParameter().getName()
 						+ " has a null value. Returning 0 instead.");
 				return 0;
 			}

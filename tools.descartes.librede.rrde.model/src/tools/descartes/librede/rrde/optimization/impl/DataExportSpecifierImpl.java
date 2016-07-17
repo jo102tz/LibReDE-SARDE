@@ -18,7 +18,6 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getTimeOut <em>Time Out</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
@@ -27,6 +26,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#isSplitConfigurations <em>Split Configurations</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getStepSize <em>Step Size</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -139,7 +139,7 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int STEP_SIZE_EDEFAULT = 1;
+	protected static final double STEP_SIZE_EDEFAULT = 1.0;
 
 	/**
 	 * The cached value of the '{@link #getStepSize() <em>Step Size</em>}' attribute.
@@ -149,7 +149,7 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	 * @generated
 	 * @ordered
 	 */
-	protected int stepSize = STEP_SIZE_EDEFAULT;
+	protected double stepSize = STEP_SIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -280,7 +280,7 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getStepSize() {
+	public double getStepSize() {
 		return stepSize;
 	}
 
@@ -289,8 +289,8 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStepSize(int newStepSize) {
-		int oldStepSize = stepSize;
+	public void setStepSize(double newStepSize) {
+		double oldStepSize = stepSize;
 		stepSize = newStepSize;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE, oldStepSize, stepSize));
@@ -344,7 +344,7 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 				setSplitConfigurations((Boolean)newValue);
 				return;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
-				setStepSize((Integer)newValue);
+				setStepSize((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

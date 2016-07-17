@@ -26,10 +26,10 @@ import tools.descartes.librede.rrde.optimization.RunCall;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.OptimizationConfigurationImpl#getContainsOf <em>Contains Of</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

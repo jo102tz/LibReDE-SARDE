@@ -73,7 +73,7 @@ import tools.descartes.librede.rrde.optimization.impl.ExportAlgorithm;
  */
 public class Plugin implements IApplication {
 
-	private static final Level loglevel = Level.WARN;
+	private static final Level loglevel = Level.INFO;
 
 	private static final Logger log = Logger.getLogger(Plugin.class);
 
@@ -142,10 +142,6 @@ public class Plugin implements IApplication {
 		// right now, since e.g. StepSize applies for all approaches at once
 		ArrayList<RunCall> newRunCalls = new ArrayList<RunCall>();
 		for (RunCall call : conf.getContainsOf()) {
-			// set estimation specification to the one of the given librede
-			// configuration since it is to be optimized
-			call.setEstimationSpecification(librede.getEstimation());
-
 			if (call.getEstimationSpecification().getApproaches().size() > 1) {
 				// split up
 				for (EstimationApproachConfiguration approach : call

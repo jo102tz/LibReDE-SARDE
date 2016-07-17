@@ -544,13 +544,13 @@ public interface OptimizationPackage extends EPackage {
 	int GENERIC_PARAMETER__START_VALUE = IOPTIMIZABLE_PARAMETER__START_VALUE;
 
 	/**
-	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * The feature id for the '<em><b>Parameter</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GENERIC_PARAMETER__KEY = IOPTIMIZABLE_PARAMETER_FEATURE_COUNT + 0;
+	int GENERIC_PARAMETER__PARAMETER = IOPTIMIZABLE_PARAMETER_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Generic Parameter</em>' class.
@@ -1085,15 +1085,15 @@ public interface OptimizationPackage extends EPackage {
 	EClass getGenericParameter();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.GenericParameter#getKey <em>Key</em>}'.
+	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.optimization.GenericParameter#getParameter <em>Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Key</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.GenericParameter#getKey()
+	 * @return the meta object for the reference '<em>Parameter</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.GenericParameter#getParameter()
 	 * @see #getGenericParameter()
 	 * @generated
 	 */
-	EAttribute getGenericParameter_Key();
+	EReference getGenericParameter_Parameter();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.StepSize <em>Step Size</em>}'.
@@ -1451,12 +1451,12 @@ public interface OptimizationPackage extends EPackage {
 		EClass GENERIC_PARAMETER = eINSTANCE.getGenericParameter();
 
 		/**
-		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Parameter</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute GENERIC_PARAMETER__KEY = eINSTANCE.getGenericParameter_Key();
+		EReference GENERIC_PARAMETER__PARAMETER = eINSTANCE.getGenericParameter_Parameter();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.StepSizeImpl <em>Step Size</em>}' class.

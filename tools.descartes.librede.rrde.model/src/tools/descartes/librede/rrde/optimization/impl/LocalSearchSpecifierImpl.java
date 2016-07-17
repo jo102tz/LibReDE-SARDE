@@ -18,7 +18,6 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl#getTimeOut <em>Time Out</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
@@ -26,6 +25,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl#getMaximumNumberOfSteps <em>Maximum Number Of Steps</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl#getStepSize <em>Step Size</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

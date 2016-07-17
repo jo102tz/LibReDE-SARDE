@@ -466,8 +466,8 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenericParameter_Key() {
-		return (EAttribute)genericParameterEClass.getEStructuralFeatures().get(0);
+	public EReference getGenericParameter_Parameter() {
+		return (EReference)genericParameterEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -599,7 +599,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		createEAttribute(iOptimizableParameterEClass, IOPTIMIZABLE_PARAMETER__START_VALUE);
 
 		genericParameterEClass = createEClass(GENERIC_PARAMETER);
-		createEAttribute(genericParameterEClass, GENERIC_PARAMETER__KEY);
+		createEReference(genericParameterEClass, GENERIC_PARAMETER__PARAMETER);
 
 		stepSizeEClass = createEClass(STEP_SIZE);
 
@@ -686,12 +686,12 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEOperation(getIterativeParameterOptimizerSpecifier__Stop(), theXMLTypePackage.getBoolean(), "stop", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(iOptimizableParameterEClass, IOptimizableParameter.class, "IOptimizableParameter", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIOptimizableParameter_LowerBound(), theXMLTypePackage.getDouble(), "lowerBound", null, 0, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIOptimizableParameter_UpperBound(), theXMLTypePackage.getDouble(), "upperBound", null, 0, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIOptimizableParameter_StartValue(), theXMLTypePackage.getDouble(), "startValue", null, 0, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIOptimizableParameter_LowerBound(), theXMLTypePackage.getDouble(), "lowerBound", "0", 1, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIOptimizableParameter_UpperBound(), theXMLTypePackage.getDouble(), "upperBound", "1", 1, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIOptimizableParameter_StartValue(), theXMLTypePackage.getDouble(), "startValue", "0", 1, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genericParameterEClass, GenericParameter.class, "GenericParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenericParameter_Key(), theXMLTypePackage.getString(), "key", null, 1, 1, GenericParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenericParameter_Parameter(), theConfigurationPackage.getParameter(), null, "parameter", null, 1, 1, GenericParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stepSizeEClass, StepSize.class, "StepSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -701,7 +701,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEAttribute(getDataExportSpecifier_OutputDirectory(), theXMLTypePackage.getString(), "OutputDirectory", "\"\"", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataExportSpecifier_Multidimensional(), theXMLTypePackage.getBoolean(), "multidimensional", "false", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataExportSpecifier_SplitConfigurations(), theXMLTypePackage.getBoolean(), "splitConfigurations", "false", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataExportSpecifier_StepSize(), theXMLTypePackage.getInt(), "stepSize", "1", 0, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataExportSpecifier_StepSize(), theXMLTypePackage.getDouble(), "stepSize", "1.0", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -10,13 +10,13 @@ package tools.descartes.librede.rrde.optimization;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getOutputDirectory <em>Output Directory</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isMultidimensional <em>Multidimensional</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isSplitConfigurations <em>Split Configurations</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize <em>Step Size</em>}</li>
  * </ul>
+ * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getDataExportSpecifier()
  * @model
@@ -106,7 +106,7 @@ public interface DataExportSpecifier extends IConfigurationOptimizationAlgorithm
 
 	/**
 	 * Returns the value of the '<em><b>Step Size</b></em>' attribute.
-	 * The default value is <code>"1"</code>.
+	 * The default value is <code>"1.0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Step Size</em>' attribute isn't clear,
@@ -114,12 +114,12 @@ public interface DataExportSpecifier extends IConfigurationOptimizationAlgorithm
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Step Size</em>' attribute.
-	 * @see #setStepSize(int)
+	 * @see #setStepSize(double)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getDataExportSpecifier_StepSize()
-	 * @model default="1" dataType="org.eclipse.emf.ecore.xml.type.Int"
+	 * @model default="1.0" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
-	int getStepSize();
+	double getStepSize();
 
 	/**
 	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize <em>Step Size</em>}' attribute.
@@ -129,6 +129,6 @@ public interface DataExportSpecifier extends IConfigurationOptimizationAlgorithm
 	 * @see #getStepSize()
 	 * @generated
 	 */
-	void setStepSize(int value);
+	void setStepSize(double value);
 
 } // DataExportSpecifier

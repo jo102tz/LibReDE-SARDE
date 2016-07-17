@@ -6,9 +6,11 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import tools.descartes.librede.configuration.Parameter;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 
@@ -18,13 +20,13 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl#getLowerBound <em>Lower Bound</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl#getUpperBound <em>Upper Bound</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl#getStartValue <em>Start Value</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl#getKey <em>Key</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.GenericParameterImpl#getParameter <em>Parameter</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -57,7 +59,7 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double UPPER_BOUND_EDEFAULT = 0.0;
+	protected static final double UPPER_BOUND_EDEFAULT = 1.0;
 
 	/**
 	 * The cached value of the '{@link #getUpperBound() <em>Upper Bound</em>}' attribute.
@@ -90,24 +92,14 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	protected double startValue = START_VALUE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getKey() <em>Key</em>}' attribute.
+	 * The cached value of the '{@link #getParameter() <em>Parameter</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getKey()
+	 * @see #getParameter()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String KEY_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getKey() <em>Key</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getKey()
-	 * @generated
-	 * @ordered
-	 */
-	protected String key = KEY_EDEFAULT;
+	protected Parameter parameter;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -196,8 +188,16 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getKey() {
-		return key;
+	public Parameter getParameter() {
+		if (parameter != null && parameter.eIsProxy()) {
+			InternalEObject oldParameter = (InternalEObject)parameter;
+			parameter = (Parameter)eResolveProxy(oldParameter);
+			if (parameter != oldParameter) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, OptimizationPackage.GENERIC_PARAMETER__PARAMETER, oldParameter, parameter));
+			}
+		}
+		return parameter;
 	}
 
 	/**
@@ -205,11 +205,20 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setKey(String newKey) {
-		String oldKey = key;
-		key = newKey;
+	public Parameter basicGetParameter() {
+		return parameter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setParameter(Parameter newParameter) {
+		Parameter oldParameter = parameter;
+		parameter = newParameter;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.GENERIC_PARAMETER__KEY, oldKey, key));
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.GENERIC_PARAMETER__PARAMETER, oldParameter, parameter));
 	}
 
 	/**
@@ -226,8 +235,9 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 				return getUpperBound();
 			case OptimizationPackage.GENERIC_PARAMETER__START_VALUE:
 				return getStartValue();
-			case OptimizationPackage.GENERIC_PARAMETER__KEY:
-				return getKey();
+			case OptimizationPackage.GENERIC_PARAMETER__PARAMETER:
+				if (resolve) return getParameter();
+				return basicGetParameter();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -249,8 +259,8 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 			case OptimizationPackage.GENERIC_PARAMETER__START_VALUE:
 				setStartValue((Double)newValue);
 				return;
-			case OptimizationPackage.GENERIC_PARAMETER__KEY:
-				setKey((String)newValue);
+			case OptimizationPackage.GENERIC_PARAMETER__PARAMETER:
+				setParameter((Parameter)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -273,8 +283,8 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 			case OptimizationPackage.GENERIC_PARAMETER__START_VALUE:
 				setStartValue(START_VALUE_EDEFAULT);
 				return;
-			case OptimizationPackage.GENERIC_PARAMETER__KEY:
-				setKey(KEY_EDEFAULT);
+			case OptimizationPackage.GENERIC_PARAMETER__PARAMETER:
+				setParameter((Parameter)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -294,8 +304,8 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 				return upperBound != UPPER_BOUND_EDEFAULT;
 			case OptimizationPackage.GENERIC_PARAMETER__START_VALUE:
 				return startValue != START_VALUE_EDEFAULT;
-			case OptimizationPackage.GENERIC_PARAMETER__KEY:
-				return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
+			case OptimizationPackage.GENERIC_PARAMETER__PARAMETER:
+				return parameter != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -316,8 +326,6 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 		result.append(upperBound);
 		result.append(", startValue: ");
 		result.append(startValue);
-		result.append(", key: ");
-		result.append(key);
 		result.append(')');
 		return result.toString();
 	}

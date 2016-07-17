@@ -23,11 +23,11 @@ import tools.descartes.librede.rrde.optimization.OptimizationSettings;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl#getValidator <em>Validator</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl#getParametersToOptimize <em>Parameters To Optimize</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

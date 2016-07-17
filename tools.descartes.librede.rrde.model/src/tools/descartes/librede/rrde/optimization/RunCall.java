@@ -19,13 +19,13 @@ import tools.descartes.librede.configuration.EstimationSpecification;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.RunCall#getAlgorithm <em>Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.RunCall#getTrainingData <em>Training Data</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.RunCall#getSettings <em>Settings</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.RunCall#getEstimationSpecification <em>Estimation Specification</em>}</li>
  * </ul>
+ * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getRunCall()
  * @model

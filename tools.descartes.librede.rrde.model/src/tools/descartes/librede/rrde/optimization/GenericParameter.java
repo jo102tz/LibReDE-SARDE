@@ -2,6 +2,8 @@
  */
 package tools.descartes.librede.rrde.optimization;
 
+import tools.descartes.librede.configuration.Parameter;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -10,10 +12,10 @@ package tools.descartes.librede.rrde.optimization;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.optimization.GenericParameter#getKey <em>Key</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.GenericParameter#getParameter <em>Parameter</em>}</li>
  * </ul>
+ * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getGenericParameter()
  * @model
@@ -21,29 +23,29 @@ package tools.descartes.librede.rrde.optimization;
  */
 public interface GenericParameter extends IOptimizableParameter {
 	/**
-	 * Returns the value of the '<em><b>Key</b></em>' attribute.
+	 * Returns the value of the '<em><b>Parameter</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Key</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Parameter</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Key</em>' attribute.
-	 * @see #setKey(String)
-	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getGenericParameter_Key()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+	 * @return the value of the '<em>Parameter</em>' reference.
+	 * @see #setParameter(Parameter)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getGenericParameter_Parameter()
+	 * @model required="true"
 	 * @generated
 	 */
-	String getKey();
+	Parameter getParameter();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.GenericParameter#getKey <em>Key</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.GenericParameter#getParameter <em>Parameter</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Key</em>' attribute.
-	 * @see #getKey()
+	 * @param value the new value of the '<em>Parameter</em>' reference.
+	 * @see #getParameter()
 	 * @generated
 	 */
-	void setKey(String value);
+	void setParameter(Parameter value);
 
 } // GenericParameter

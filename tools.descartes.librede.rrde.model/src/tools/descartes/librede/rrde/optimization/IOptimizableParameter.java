@@ -15,12 +15,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter#getLowerBound <em>Lower Bound</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter#getUpperBound <em>Upper Bound</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter#getStartValue <em>Start Value</em>}</li>
  * </ul>
+ * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIOptimizableParameter()
  * @model interface="true" abstract="true"
@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface IOptimizableParameter extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Lower Bound</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Lower Bound</em>' attribute isn't clear,
@@ -38,7 +39,7 @@ public interface IOptimizableParameter extends EObject {
 	 * @return the value of the '<em>Lower Bound</em>' attribute.
 	 * @see #setLowerBound(double)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIOptimizableParameter_LowerBound()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double"
+	 * @model default="0" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getLowerBound();
@@ -55,6 +56,7 @@ public interface IOptimizableParameter extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Upper Bound</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Upper Bound</em>' attribute isn't clear,
@@ -64,7 +66,7 @@ public interface IOptimizableParameter extends EObject {
 	 * @return the value of the '<em>Upper Bound</em>' attribute.
 	 * @see #setUpperBound(double)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIOptimizableParameter_UpperBound()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double"
+	 * @model default="1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getUpperBound();
@@ -81,6 +83,7 @@ public interface IOptimizableParameter extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Start Value</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Start Value</em>' attribute isn't clear,
@@ -90,7 +93,7 @@ public interface IOptimizableParameter extends EObject {
 	 * @return the value of the '<em>Start Value</em>' attribute.
 	 * @see #setStartValue(double)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIOptimizableParameter_StartValue()
-	 * @model id="true" dataType="org.eclipse.emf.ecore.xml.type.Double"
+	 * @model default="0" id="true" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getStartValue();

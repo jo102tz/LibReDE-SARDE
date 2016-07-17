@@ -63,7 +63,7 @@ public class GenericParameterItemProvider
 			addLowerBoundPropertyDescriptor(object);
 			addUpperBoundPropertyDescriptor(object);
 			addStartValuePropertyDescriptor(object);
-			addKeyPropertyDescriptor(object);
+			addParameterPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -135,23 +135,23 @@ public class GenericParameterItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Key feature.
+	 * This adds a property descriptor for the Parameter feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addKeyPropertyDescriptor(Object object) {
+	protected void addParameterPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenericParameter_key_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenericParameter_key_feature", "_UI_GenericParameter_type"),
-				 OptimizationPackage.Literals.GENERIC_PARAMETER__KEY,
+				 getString("_UI_GenericParameter_parameter_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenericParameter_parameter_feature", "_UI_GenericParameter_type"),
+				 OptimizationPackage.Literals.GENERIC_PARAMETER__PARAMETER,
 				 true,
 				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
@@ -195,7 +195,6 @@ public class GenericParameterItemProvider
 			case OptimizationPackage.GENERIC_PARAMETER__LOWER_BOUND:
 			case OptimizationPackage.GENERIC_PARAMETER__UPPER_BOUND:
 			case OptimizationPackage.GENERIC_PARAMETER__START_VALUE:
-			case OptimizationPackage.GENERIC_PARAMETER__KEY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
