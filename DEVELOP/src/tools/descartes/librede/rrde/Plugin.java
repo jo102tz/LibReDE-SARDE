@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.equinox.app.IApplication;
@@ -141,12 +142,17 @@ public class Plugin implements IApplication {
 		// right now, since e.g. StepSize applies for all approaches at once
 		ArrayList<RunCall> newRunCalls = new ArrayList<RunCall>();
 		for (RunCall call : conf.getContainsOf()) {
+			// set estimation specification to the one of the given librede
+			// configuration since it is to be optimized
+			call.setEstimationSpecification(librede.getEstimation());
+
 			if (call.getEstimationSpecification().getApproaches().size() > 1) {
 				// split up
 				for (EstimationApproachConfiguration approach : call
 						.getEstimationSpecification().getApproaches()) {
 					// deep copy
 					RunCall newCall = EcoreUtil.copy(call);
+
 					newCall.setEstimationSpecification(EcoreUtil.copy(call
 							.getEstimationSpecification()));
 
@@ -275,7 +281,8 @@ public class Plugin implements IApplication {
 		ExecutorService fixedpool = Executors.newFixedThreadPool(1);
 		HashMap<RunCall, Future<EstimationSpecification>> results = new HashMap<RunCall, Future<EstimationSpecification>>();
 		for (RunCall call : calls) {
-			// catch optimization as they do not run concurrently and execute them
+			// catch optimization as they do not run concurrently and execute
+			// them
 			// sequentially
 			if (call.getEstimationSpecification()
 					.getApproaches()

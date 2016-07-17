@@ -30,6 +30,7 @@ import java.util.Map;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.approach.IEstimationApproach;
@@ -106,8 +107,14 @@ public class Util {
 			boolean set = false;
 			for (Parameter par : alg.getParameters()) {
 				if (par.getName().equals(param.getKey())) {
+					// TODO 
 					par.setValue(value);
 					set = true;
+				}
+			}
+			if(alg.getParameters()==null){
+				for(Object obj : alg.eContents()){
+					System.out.println(obj);
 				}
 			}
 			if (set != true) {
