@@ -27,6 +27,7 @@
 package tools.descartes.librede.rrde.optimization.impl;
 
 import java.io.BufferedWriter;
+import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 
@@ -66,7 +67,7 @@ public class StepWindowExportAlgorithm extends ExportAlgorithm {
 				}
 				log.info("Adapting StepSize according to total value of "
 						+ TOTAL_VALUE + " to " + newVal + ".");
-				setTargetValue(StepSizeImpl.class.newInstance(), newVal);
+				setTargetValue(getParam(StepSize.class), newVal);
 			} else if (param instanceof StepSize) {
 				newVal = (int) newVal;
 				if (newVal < 1) {
@@ -75,11 +76,32 @@ public class StepWindowExportAlgorithm extends ExportAlgorithm {
 				}
 				log.info("Adapting Window Size according to total value of "
 						+ TOTAL_VALUE + " to " + newVal + ".");
-				setTargetValue(WindowSizeImpl.class.newInstance(), newVal);
+				setTargetValue(getParam(WindowSize.class), newVal);
 			}
 		} catch (Exception e) {
-			log.error("Adapting the window size/step size could not be done.");
+			log.error("Adapting the window size/step size could not be done.",
+					e);
 		}
+	}
+
+	/**
+	 * Returns the instance of the given class in the available List of
+	 * {@link IOptimizableParameter}
+	 * 
+	 * @param clazz
+	 *            The class of the instance
+	 * @return The object of the available list
+	 */
+	private IOptimizableParameter getParam(Class<? extends IOptimizableParameter> clazz) {
+		
+		for (IOptimizableParameter par : getSettings()
+				.getParametersToOptimize()) {
+			if (clazz.isInstance(par))
+				return par;
+		}
+		log.error("Parameter of class " + clazz.getName()
+				+ " is not available in the given list.");
+		return null;
 	}
 
 	@Override
