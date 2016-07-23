@@ -289,7 +289,7 @@ public abstract class AbstractConfigurationOptimizer implements
 		DescriptiveStatistics stat = new DescriptiveStatistics();
 		for (LibredeConfiguration single : confs) {
 			totalruns++;
-			getLog().trace("Starting execution of " + single.toString());
+			getLog().info("Starting execution of " + single.toString());
 			LibredeResults results = Wrapper.executeLibrede(single);
 			if (results == null || results.getApproaches() == null) {
 				getLog().error("The execution resulted an non-trackable error.");
@@ -336,7 +336,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	 *            The target value of the optimizing function
 	 */
 	protected void setTargetValue(IOptimizableParameter param, double value) {
-		getLog().info(
+		getLog().trace(
 				"Set value of " + param.toString() + " for Approach "
 						+ getSimpleApproachName() + " to " + value);
 		for (LibredeConfiguration conf : confs) {

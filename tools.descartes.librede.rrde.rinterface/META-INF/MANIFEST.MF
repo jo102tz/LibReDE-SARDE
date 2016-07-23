@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rinterface
+Bundle-SymbolicName: tools.descartes.librede.rrde.rinterface
+Bundle-Version: 1.0.0.qualifier
+Export-Package: .,
+ tools.descartes.librede.rrde.rinterface
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.apache.log4j;bundle-version="1.2.15"
+Bundle-ClassPath: lib/JRI.jar,
+ lib/JRIEngine.jar,
+ lib/REngine.jar,
+ .

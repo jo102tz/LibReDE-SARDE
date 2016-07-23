@@ -41,7 +41,7 @@ import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
  *
  */
 public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
-
+	
 	private static final Logger log = Logger
 			.getLogger(HillClimbingAlgorithm.class);
 
@@ -116,8 +116,9 @@ public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
 
 	/**
 	 * Starts a hillclimbing routine
-	 *
-	 * @return
+	 * 
+	 * @param param
+	 *            The parameter to modify the search
 	 */
 	protected void hillclimbing(IOptimizableParameter param) {
 
