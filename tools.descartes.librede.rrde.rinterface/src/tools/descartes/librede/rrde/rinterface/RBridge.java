@@ -26,7 +26,10 @@
  */
 package tools.descartes.librede.rrde.rinterface;
 
+import java.io.File;
+
 import org.apache.log4j.Logger;
+import org.rosuda.JRI.RMainLoopCallbacks;
 import org.rosuda.JRI.Rengine;
 
 /**
@@ -35,12 +38,17 @@ import org.rosuda.JRI.Rengine;
  * @author JS
  *
  */
-public class RBridge {
+public class RBridge implements RMainLoopCallbacks {
 
 	/**
 	 * The log used for logging.
 	 */
 	private static final Logger log = Logger.getLogger(RBridge.class);
+
+	/**
+	 * The location of the script
+	 */
+	private static final String script = "tools.descartes.librede.rrde.rinterface/scripts/IPO.r";
 
 	/**
 	 * The engine to run R commands
@@ -49,6 +57,21 @@ public class RBridge {
 
 	public RBridge() {
 		re = createRengine();
+		loadScript();
+	}
+
+	/**
+	 * Locates and loads the R script.
+	 */
+	public void loadScript() {
+		// get absolute location
+		String path = new File("").getAbsolutePath();
+		// get parent directory
+		File f = new File(path.substring(0, path.lastIndexOf("\\") + 1));
+		// replace slashes
+		path = f.getAbsolutePath().replace("\\", "/");
+		log.debug("Script location to be executed: " + path + "/" + script);
+		re.eval("source('" + path + "/" + script + "')");
 	}
 
 	/**
@@ -70,7 +93,7 @@ public class RBridge {
 		args[1] = "--no-restore"; // Don't restore anything
 		args[2] = "--no-save";// Don't save workspace at the end of the session
 		// generate new R engine
-		Rengine re = new Rengine(args, false, null);
+		Rengine re = new Rengine(args, false, this);
 		log.info("JRI R-Engine created, waiting for R...");
 		// wait until thread to create R is ready
 		if (!re.waitForR()) {
@@ -88,4 +111,114 @@ public class RBridge {
 		return re;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.rosuda.JRI.RMainLoopCallbacks#rBusy(org.rosuda.JRI.Rengine, int)
+	 */
+	@Override
+	public void rBusy(Rengine arg0, int arg1) {
+		if (arg1 == 1) {
+			log.trace("R: calculating...");
+		} else {
+			log.trace("R: done.");
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.rosuda.JRI.RMainLoopCallbacks#rChooseFile(org.rosuda.JRI.Rengine,
+	 * int)
+	 */
+	@Override
+	public String rChooseFile(Rengine arg0, int arg1) {
+		log.error("Not prepared for file-choosing.");
+		return script;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.rosuda.JRI.RMainLoopCallbacks#rFlushConsole(org.rosuda.JRI.Rengine)
+	 */
+	@Override
+	public void rFlushConsole(Rengine arg0) {
+		// to nothing
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.rosuda.JRI.RMainLoopCallbacks#rLoadHistory(org.rosuda.JRI.Rengine,
+	 * java.lang.String)
+	 */
+	@Override
+	public void rLoadHistory(Rengine arg0, String arg1) {
+		log.error("No history to load.");
+		// do nothing
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.rosuda.JRI.RMainLoopCallbacks#rReadConsole(org.rosuda.JRI.Rengine,
+	 * java.lang.String, int)
+	 */
+	@Override
+	public String rReadConsole(Rengine arg0, String arg1, int arg2) {
+		log.warn("R: " + arg1);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			log.error("Error while waiting.", e);
+		}
+		return "null";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.rosuda.JRI.RMainLoopCallbacks#rSaveHistory(org.rosuda.JRI.Rengine,
+	 * java.lang.String)
+	 */
+	@Override
+	public void rSaveHistory(Rengine arg0, String arg1) {
+		// do nothing
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.rosuda.JRI.RMainLoopCallbacks#rShowMessage(org.rosuda.JRI.Rengine,
+	 * java.lang.String)
+	 */
+	@Override
+	public void rShowMessage(Rengine arg0, String arg1) {
+		log.warn("R: " + arg1);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.rosuda.JRI.RMainLoopCallbacks#rWriteConsole(org.rosuda.JRI.Rengine,
+	 * java.lang.String, int)
+	 */
+	@Override
+	public void rWriteConsole(Rengine arg0, String arg1, int arg2) {
+		if (arg2 == 0) {
+			// normal
+			log.info(arg1);
+		} else {
+			// error
+			log.warn(arg1);
+		}
+	}
 }
