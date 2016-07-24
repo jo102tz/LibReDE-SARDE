@@ -4,7 +4,6 @@ package tools.descartes.librede.rrde.optimization;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -425,22 +424,22 @@ public interface OptimizationPackage extends EPackage {
 	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Number Of Iterations</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Iterative Parameter Optimizer Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
-
-	/**
-	 * The operation id for the '<em>Stop</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___STOP = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Iterative Parameter Optimizer Specifier</em>' class.
@@ -449,7 +448,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER_OPERATION_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 1;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER_OPERATION_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter <em>IOptimizable Parameter</em>}' class.
@@ -1022,14 +1021,15 @@ public interface OptimizationPackage extends EPackage {
 	EAttribute getIterativeParameterOptimizerSpecifier_NumberOfExplorations();
 
 	/**
-	 * Returns the meta object for the '{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#stop() <em>Stop</em>}' operation.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfIterations <em>Number Of Iterations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the '<em>Stop</em>' operation.
-	 * @see tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#stop()
+	 * @return the meta object for the attribute '<em>Number Of Iterations</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfIterations()
+	 * @see #getIterativeParameterOptimizerSpecifier()
 	 * @generated
 	 */
-	EOperation getIterativeParameterOptimizerSpecifier__Stop();
+	EAttribute getIterativeParameterOptimizerSpecifier_NumberOfIterations();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter <em>IOptimizable Parameter</em>}'.
@@ -1399,12 +1399,12 @@ public interface OptimizationPackage extends EPackage {
 		EAttribute ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS = eINSTANCE.getIterativeParameterOptimizerSpecifier_NumberOfExplorations();
 
 		/**
-		 * The meta object literal for the '<em><b>Stop</b></em>' operation.
+		 * The meta object literal for the '<em><b>Number Of Iterations</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EOperation ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___STOP = eINSTANCE.getIterativeParameterOptimizerSpecifier__Stop();
+		EAttribute ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS = eINSTANCE.getIterativeParameterOptimizerSpecifier_NumberOfIterations();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter <em>IOptimizable Parameter</em>}' class.

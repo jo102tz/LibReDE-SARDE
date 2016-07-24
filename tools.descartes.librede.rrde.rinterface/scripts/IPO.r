@@ -11,10 +11,17 @@
 # ACM/SPEC International Conference on Performance Engineering, Prague, 
 # Czech Republic, ICPE 13, pages 283-294, New York, NY, USA. ACM. 2013.
 # Default values for techniques
+#
+# This script was adapted by Johanes Grohmann to use it in the Java LibReDE tool, 2016.
 
+#importing is done by the Java interface beforehand
+#install.packages("rJava")
+#install.packages("data.table")
+#library(rJava)
+#library(data.table)
 
-optimizeTechniques<-function(ranges=NA, nSplits, nExplorations,
-                             trace=0, nIterations=15) {
+optimizeParams<-function(java, ranges, nSplits=10, nExplorations=50,
+                             nIterations=15,trace=0) {
   # This method optimizes the parameters 
   
   
@@ -33,7 +40,7 @@ optimizeTechniques<-function(ranges=NA, nSplits, nExplorations,
   d("E1_Params is")
   d(E1_Params)
   
-  E1_Value = evaluate(method, formula, data, trControl, E1_Params)
+  E1_Value = evaluate(java, E1_Params)
   d("E1_Value is")
   d(E1_Value)
   
@@ -101,7 +108,7 @@ optimizeTechniques<-function(ranges=NA, nSplits, nExplorations,
              is.na(Ej[SexpRow]$quality)) {
           d("Row is not in E")
           
-          res = evaluate(method, formula, data, trControl, SexpRow)
+          res = evaluate(java, SexpRow)
           d(paste("Results is ", res))
           
           Ej <<- rbind(Ej, cbind(SexpRow, quality=res, iterationNo=iterNo))
@@ -144,11 +151,11 @@ optimizeTechniques<-function(ranges=NA, nSplits, nExplorations,
 }
 
 # Evaluate for a given thechnique the model with the given parameters
-evaluate<-function(method, formula, data, trainControl, params) {
+evaluate<-function(java, params) {
   #todo
 }
 
 # Enforce for each parameter of a method that the value is valid
-makeValueValid<-function(method, param, value) {
+makeValueValid<-function(java, value) {
   return(value)
 }

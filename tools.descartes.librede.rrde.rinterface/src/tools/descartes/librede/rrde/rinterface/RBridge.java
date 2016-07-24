@@ -28,6 +28,7 @@ package tools.descartes.librede.rrde.rinterface;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -53,7 +54,12 @@ public class RBridge implements RMainLoopCallbacks {
 	/**
 	 * The location of the script
 	 */
-	private static final String script = "tools.descartes.librede.rrde.rinterface/scripts/IPO.r";
+	private static final String SCRIPT = "tools.descartes.librede.rrde.rinterface/scripts/IPO.r";
+
+	/**
+	 * The location of the required libraries
+	 */
+	private static final String LIB = "tools.descartes.librede.rrde.rinterface/R/win-library/3.3";
 
 	/**
 	 * The engine to run R commands
@@ -75,24 +81,59 @@ public class RBridge implements RMainLoopCallbacks {
 		File f = new File(path.substring(0, path.lastIndexOf("\\") + 1));
 		// replace slashes
 		path = f.getAbsolutePath().replace("\\", "/");
-		log.debug("Script location to be executed: " + path + "/" + script);
-		re.eval("source('" + path + "/" + script + "')");
+		log.debug("Script location to be executed: " + path + "/" + SCRIPT);
+
+		// adding libraries
+		String libloc = path + "/" + LIB;
+		re.eval("library('rJava', lib.loc='" + libloc + "')");
+		re.eval("library('data.table', lib.loc='" + libloc + "')");
+
+		// load functions
+		re.eval("source('" + path + "/" + SCRIPT + "')");
 	}
 
 	/**
 	 * Runs the script for the given parameters and uses the given
-	 * {@link CallbackEvaluator} as evaluation.
+	 * {@link CallbackEvaluator} as evaluation. Since it should be thread safe,
+	 * it blocks until execution is completed.
 	 * 
 	 * @param params
 	 *            The List of {@link IOptimizableParameter}s to optimize
 	 * @param eval
 	 *            The evaluator resolving evaluation calls
+	 * @param nSplits
+	 *            The number of splits per iteration
+	 * @param nExplorations
+	 *            The maximum number of explorations
+	 * @param nIterations
+	 *            The number of iterations a.k.a. the stopping criterion
 	 * @return A Mapping of an optimal value for each parameter
 	 */
-	public Map<IOptimizableParameter, Double> runOptimization(
-			Collection<IOptimizableParameter> params, CallbackEvaluator eval) {
+	public synchronized Map<IOptimizableParameter, Double> runOptimization(
+			Collection<IOptimizableParameter> params, CallbackEvaluator eval,
+			int nSplits, int nExplorations, int nIterations) {
+		log.trace("Entering blocked R mode.");
+		// setting parameters
+		re.eval("java <- " + eval);
+		runParamsStatement(params);
+		re.eval("nSplits <- " + nSplits);
+		re.eval("nExplorations <- " + nExplorations);
+		re.eval("nIterations <- " + nIterations);
+		re.eval("trace <- 1");
+		re.eval("opts <- optimizeParams(java, params, nSplits, nExplorations, nIterations, trace)");
 		// TODO
-		return null;
+		log.trace("Leaving blocked R mode.");
+		return new HashMap<IOptimizableParameter, Double>();
+	}
+
+	/**
+	 * @param params
+	 */
+	private void runParamsStatement(Collection<IOptimizableParameter> params) {
+		// TODO Auto-generated method stub
+		String s = "params <- list
+		
+		re.eval("params <- " + params);
 	}
 
 	/**
@@ -157,7 +198,7 @@ public class RBridge implements RMainLoopCallbacks {
 	@Override
 	public String rChooseFile(Rengine arg0, int arg1) {
 		log.error("Not prepared for file-choosing.");
-		return script;
+		return SCRIPT;
 	}
 
 	/*

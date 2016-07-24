@@ -64,6 +64,7 @@ public class IterativeParameterOptimizerSpecifierItemProvider
 			addAlgorithmNamePropertyDescriptor(object);
 			addNumberOfSplitsPropertyDescriptor(object);
 			addNumberOfExplorationsPropertyDescriptor(object);
+			addNumberOfIterationsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -157,6 +158,28 @@ public class IterativeParameterOptimizerSpecifierItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Number Of Iterations feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNumberOfIterationsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_IterativeParameterOptimizerSpecifier_numberOfIterations_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_IterativeParameterOptimizerSpecifier_numberOfIterations_feature", "_UI_IterativeParameterOptimizerSpecifier_type"),
+				 OptimizationPackage.Literals.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns IterativeParameterOptimizerSpecifier.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -198,6 +221,7 @@ public class IterativeParameterOptimizerSpecifierItemProvider
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__ALGORITHM_NAME:
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS:
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS:
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

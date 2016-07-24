@@ -13,6 +13,7 @@ package tools.descartes.librede.rrde.optimization;
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfSplits <em>Number Of Splits</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfExplorations <em>Number Of Explorations</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfIterations <em>Number Of Iterations</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,7 +34,7 @@ public interface IterativeParameterOptimizerSpecifier extends IConfigurationOpti
 	 * @return the value of the '<em>Number Of Splits</em>' attribute.
 	 * @see #setNumberOfSplits(int)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIterativeParameterOptimizerSpecifier_NumberOfSplits()
-	 * @model default="10" dataType="org.eclipse.emf.ecore.xml.type.Int" required="true"
+	 * @model default="10" required="true"
 	 * @generated
 	 */
 	int getNumberOfSplits();
@@ -60,7 +61,7 @@ public interface IterativeParameterOptimizerSpecifier extends IConfigurationOpti
 	 * @return the value of the '<em>Number Of Explorations</em>' attribute.
 	 * @see #setNumberOfExplorations(int)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIterativeParameterOptimizerSpecifier_NumberOfExplorations()
-	 * @model default="50" dataType="org.eclipse.emf.ecore.xml.type.Int" required="true"
+	 * @model default="50" required="true"
 	 * @generated
 	 */
 	int getNumberOfExplorations();
@@ -76,11 +77,30 @@ public interface IterativeParameterOptimizerSpecifier extends IConfigurationOpti
 	void setNumberOfExplorations(int value);
 
 	/**
+	 * Returns the value of the '<em><b>Number Of Iterations</b></em>' attribute.
+	 * The default value is <code>"50"</code>.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Number Of Iterations</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+	 * @return the value of the '<em>Number Of Iterations</em>' attribute.
+	 * @see #setNumberOfIterations(int)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIterativeParameterOptimizerSpecifier_NumberOfIterations()
+	 * @model default="50" required="true"
 	 * @generated
 	 */
-	boolean stop();
+	int getNumberOfIterations();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfIterations <em>Number Of Iterations</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Number Of Iterations</em>' attribute.
+	 * @see #getNumberOfIterations()
+	 * @generated
+	 */
+	void setNumberOfIterations(int value);
 
 } // IterativeParameterOptimizerSpecifier

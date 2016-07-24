@@ -31,7 +31,6 @@ public class OptimizationTests extends TestSuite {
 	 */
 	public static Test suite() {
 		TestSuite suite = new OptimizationTests("optimization Tests");
-		suite.addTestSuite(IterativeParameterOptimizerSpecifierTest.class);
 		return suite;
 	}
 

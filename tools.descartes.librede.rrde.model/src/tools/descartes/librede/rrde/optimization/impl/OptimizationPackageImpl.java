@@ -4,18 +4,12 @@ package tools.descartes.librede.rrde.optimization.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import tools.descartes.librede.configuration.ConfigurationPackage;
-
 import tools.descartes.librede.metrics.MetricsPackage;
-
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
@@ -30,7 +24,6 @@ import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.StepSize;
 import tools.descartes.librede.rrde.optimization.WindowSize;
-
 import tools.descartes.librede.units.UnitsPackage;
 
 /**
@@ -412,8 +405,8 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EOperation getIterativeParameterOptimizerSpecifier__Stop() {
-		return iterativeParameterOptimizerSpecifierEClass.getEOperations().get(0);
+	public EAttribute getIterativeParameterOptimizerSpecifier_NumberOfIterations() {
+		return (EAttribute)iterativeParameterOptimizerSpecifierEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -591,7 +584,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		iterativeParameterOptimizerSpecifierEClass = createEClass(ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER);
 		createEAttribute(iterativeParameterOptimizerSpecifierEClass, ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS);
 		createEAttribute(iterativeParameterOptimizerSpecifierEClass, ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS);
-		createEOperation(iterativeParameterOptimizerSpecifierEClass, ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___STOP);
+		createEAttribute(iterativeParameterOptimizerSpecifierEClass, ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS);
 
 		iOptimizableParameterEClass = createEClass(IOPTIMIZABLE_PARAMETER);
 		createEAttribute(iOptimizableParameterEClass, IOPTIMIZABLE_PARAMETER__LOWER_BOUND);
@@ -680,10 +673,9 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEReference(getOptimizationSettings_ParametersToOptimize(), this.getIOptimizableParameter(), null, "parametersToOptimize", null, 0, -1, OptimizationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(iterativeParameterOptimizerSpecifierEClass, IterativeParameterOptimizerSpecifier.class, "IterativeParameterOptimizerSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIterativeParameterOptimizerSpecifier_NumberOfSplits(), theXMLTypePackage.getInt(), "numberOfSplits", "10", 1, 1, IterativeParameterOptimizerSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIterativeParameterOptimizerSpecifier_NumberOfExplorations(), theXMLTypePackage.getInt(), "numberOfExplorations", "50", 1, 1, IterativeParameterOptimizerSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEOperation(getIterativeParameterOptimizerSpecifier__Stop(), theXMLTypePackage.getBoolean(), "stop", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEAttribute(getIterativeParameterOptimizerSpecifier_NumberOfSplits(), ecorePackage.getEInt(), "numberOfSplits", "10", 1, 1, IterativeParameterOptimizerSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIterativeParameterOptimizerSpecifier_NumberOfExplorations(), ecorePackage.getEInt(), "numberOfExplorations", "50", 1, 1, IterativeParameterOptimizerSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIterativeParameterOptimizerSpecifier_NumberOfIterations(), ecorePackage.getEInt(), "numberOfIterations", "50", 1, 1, IterativeParameterOptimizerSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(iOptimizableParameterEClass, IOptimizableParameter.class, "IOptimizableParameter", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIOptimizableParameter_LowerBound(), theXMLTypePackage.getDouble(), "lowerBound", "0", 1, 1, IOptimizableParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

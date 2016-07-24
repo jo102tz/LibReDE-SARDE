@@ -2,17 +2,10 @@
  */
 package tools.descartes.librede.rrde.optimization.impl;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 
@@ -27,6 +20,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl#getNumberOfSplits <em>Number Of Splits</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl#getNumberOfExplorations <em>Number Of Explorations</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl#getNumberOfIterations <em>Number Of Iterations</em>}</li>
  * </ul>
  * </p>
  *
@@ -112,6 +106,26 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 	 * @ordered
 	 */
 	protected int numberOfExplorations = NUMBER_OF_EXPLORATIONS_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getNumberOfIterations() <em>Number Of Iterations</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNumberOfIterations()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int NUMBER_OF_ITERATIONS_EDEFAULT = 50;
+
+	/**
+	 * The cached value of the '{@link #getNumberOfIterations() <em>Number Of Iterations</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNumberOfIterations()
+	 * @generated
+	 * @ordered
+	 */
+	protected int numberOfIterations = NUMBER_OF_ITERATIONS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -221,10 +235,20 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean stop() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public int getNumberOfIterations() {
+		return numberOfIterations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNumberOfIterations(int newNumberOfIterations) {
+		int oldNumberOfIterations = numberOfIterations;
+		numberOfIterations = newNumberOfIterations;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS, oldNumberOfIterations, numberOfIterations));
 	}
 
 	/**
@@ -243,6 +267,8 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 				return getNumberOfSplits();
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS:
 				return getNumberOfExplorations();
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS:
+				return getNumberOfIterations();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -266,6 +292,9 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 				return;
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS:
 				setNumberOfExplorations((Integer)newValue);
+				return;
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS:
+				setNumberOfIterations((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -291,6 +320,9 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS:
 				setNumberOfExplorations(NUMBER_OF_EXPLORATIONS_EDEFAULT);
 				return;
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS:
+				setNumberOfIterations(NUMBER_OF_ITERATIONS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -311,22 +343,10 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 				return numberOfSplits != NUMBER_OF_SPLITS_EDEFAULT;
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS:
 				return numberOfExplorations != NUMBER_OF_EXPLORATIONS_EDEFAULT;
+			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS:
+				return numberOfIterations != NUMBER_OF_ITERATIONS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
-		switch (operationID) {
-			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER___STOP:
-				return stop();
-		}
-		return super.eInvoke(operationID, arguments);
 	}
 
 	/**
@@ -347,6 +367,8 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 		result.append(numberOfSplits);
 		result.append(", numberOfExplorations: ");
 		result.append(numberOfExplorations);
+		result.append(", numberOfIterations: ");
+		result.append(numberOfIterations);
 		result.append(')');
 		return result.toString();
 	}

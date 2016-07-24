@@ -102,6 +102,7 @@ public class IterativeParameterOptimizationAlgorithm
 	@Override
 	public void executeAlgorithm() {
 		RBridge r = new RBridge();
+		IterativeParameterOptimizerSpecifierImpl alg = (IterativeParameterOptimizerSpecifierImpl) getAlgorithm();
 		Map<IOptimizableParameter, Double> best = r.runOptimization(
 				getSettings().getParametersToOptimize(),
 				new CallbackEvaluator() {
@@ -114,7 +115,8 @@ public class IterativeParameterOptimizationAlgorithm
 						}
 						return runIteration();
 					}
-				});
+				}, alg.getNumberOfSplits(), alg.getNumberOfExplorations(),
+				alg.getNumberOfIterations());
 		for (Entry<IOptimizableParameter, Double> en : best.entrySet()) {
 			log.trace("Found parameter value of " + en.getValue()
 					+ " for parameter " + en.getKey());

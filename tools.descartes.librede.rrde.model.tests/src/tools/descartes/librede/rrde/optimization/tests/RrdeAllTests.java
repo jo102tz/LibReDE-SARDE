@@ -31,7 +31,6 @@ public class RrdeAllTests extends TestSuite {
 	 */
 	public static Test suite() {
 		TestSuite suite = new RrdeAllTests("Rrde Tests");
-		suite.addTest(OptimizationTests.suite());
 		return suite;
 	}
 
