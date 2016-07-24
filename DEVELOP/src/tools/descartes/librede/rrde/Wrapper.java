@@ -76,25 +76,28 @@ public class Wrapper {
 	 * @return The results returned by LibReDE
 	 */
 	public static LibredeResults executeLibrede(LibredeConfiguration conf) {
-		
-		// cache variables in order to avoid constant re-initialization and overflows
-		LibredeVariables var = null;
-		if(cache.get(conf)==null){
-			var = new LibredeVariables(conf);
-			Librede.initRepo(var);
-			cache.put(conf, var);
-		} else {
-			var = cache.get(conf);
-			for (IRepositoryCursor cursor : var.getCursors().values()) {
-				cursor.reset();
-			}
-		}
+
+		// used to increase performance but leads to memory overflow
+		// cache variables in order to avoid constant re-initialization and
+		// overflows
+		// LibredeVariables var = null;
+		// if(cache.get(conf)==null){
+		// var = new LibredeVariables(conf);
+		// Librede.initRepo(var);
+		// cache.put(conf, var);
+		// } else {
+		// var = cache.get(conf);
+		// for (IRepositoryCursor cursor : var.getCursors().values()) {
+		// cursor.reset();
+		// }
+		// }
 
 		try {
 			// return Librede.executeContinuous(var, new HashMap<String,
 			// IDataSource>());
 			// return Librede.execute(conf);
-			return Librede.runEstimationWithCrossValidation(var);
+			return Librede
+					.runEstimationWithCrossValidation(new LibredeVariables(conf));
 		} catch (Exception e) {
 			log.error("Error running estimation.", e);
 			return null;
