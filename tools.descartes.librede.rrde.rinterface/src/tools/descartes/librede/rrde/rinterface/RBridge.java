@@ -27,10 +27,14 @@
 package tools.descartes.librede.rrde.rinterface;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.rosuda.JRI.RMainLoopCallbacks;
 import org.rosuda.JRI.Rengine;
+
+import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 
 /**
  * A Bridge to manage calls from Java to R and vice versa.
@@ -38,6 +42,7 @@ import org.rosuda.JRI.Rengine;
  * @author JS
  *
  */
+// TODO singleton
 public class RBridge implements RMainLoopCallbacks {
 
 	/**
@@ -75,6 +80,22 @@ public class RBridge implements RMainLoopCallbacks {
 	}
 
 	/**
+	 * Runs the script for the given parameters and uses the given
+	 * {@link CallbackEvaluator} as evaluation.
+	 * 
+	 * @param params
+	 *            The List of {@link IOptimizableParameter}s to optimize
+	 * @param eval
+	 *            The evaluator resolving evaluation calls
+	 * @return A Mapping of an optimal value for each parameter
+	 */
+	public Map<IOptimizableParameter, Double> runOptimization(
+			Collection<IOptimizableParameter> params, CallbackEvaluator eval) {
+		// TODO
+		return null;
+	}
+
+	/**
 	 * Method to generate a R thread inside the java application.
 	 * 
 	 * @return Generated R engine.
@@ -101,11 +122,12 @@ public class RBridge implements RMainLoopCallbacks {
 			return null;
 		}
 		// print R engine arguments
-		log.info("JRI R-Engine call: ");
+		String s = "JRI R-Engine call: ";
 		for (int i = 0; i < args.length; i++) {
-			log.info(args[i] + " ");
+			s += args[i] + " ";
 		}
-		log.info("...done!");
+		s += "...done!";
+		log.info(s);
 		log.info("------------------------------");
 		// return the R engine
 		return re;

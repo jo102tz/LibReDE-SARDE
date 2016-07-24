@@ -26,9 +26,14 @@
  */
 package tools.descartes.librede.rrde.optimization.impl;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.rinterface.CallbackEvaluator;
 import tools.descartes.librede.rrde.rinterface.RBridge;
 
 /**
@@ -97,6 +102,24 @@ public class IterativeParameterOptimizationAlgorithm
 	@Override
 	public void executeAlgorithm() {
 		RBridge r = new RBridge();
+		Map<IOptimizableParameter, Double> best = r.runOptimization(
+				getSettings().getParametersToOptimize(),
+				new CallbackEvaluator() {
+					@Override
+					public double evaluate(
+							Map<IOptimizableParameter, Double> params) {
+						for (Entry<IOptimizableParameter, Double> en : params
+								.entrySet()) {
+							setTargetValue(en.getKey(), en.getValue());
+						}
+						return runIteration();
+					}
+				});
+		for (Entry<IOptimizableParameter, Double> en : best.entrySet()) {
+			log.trace("Found parameter value of " + en.getValue()
+					+ " for parameter " + en.getKey());
+			setTargetValue(en.getKey(), en.getValue());
+		}
 	}
 
 }
