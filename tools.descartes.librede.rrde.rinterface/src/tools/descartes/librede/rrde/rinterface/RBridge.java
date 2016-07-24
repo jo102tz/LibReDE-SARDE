@@ -278,10 +278,10 @@ public class RBridge implements RMainLoopCallbacks {
 	public void rWriteConsole(Rengine arg0, String arg1, int arg2) {
 		if (arg2 == 0) {
 			// normal
-			log.info(arg1);
+			log.info(arg1.replaceAll("\n", ""));
 		} else {
 			// error
-			log.warn(arg1);
+			log.warn(arg1.replaceAll("\n", ""));
 		}
 	}
 }

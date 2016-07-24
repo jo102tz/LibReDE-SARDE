@@ -81,10 +81,14 @@ public class Discovery {
 	private static final Logger log = Logger.getLogger(Discovery.class);
 
 	/**
-	 * TODO comments
+	 * This method creates a Map assigning a set of imput specifications to each
+	 * workload descriptions containted by a set of {@link InputData}.
 	 * 
 	 * @param input
-	 * @return
+	 *            A List of {@link InputData}, containing information about the
+	 *            folders to be searched in
+	 * @return A Map assigning {@link InputSpecification}s to
+	 *         {@link WorkloadDescription}s
 	 */
 	public static Map<WorkloadDescription, Set<InputSpecification>> discoverInputs(
 			EList<InputData> input) {
@@ -95,8 +99,28 @@ public class Discovery {
 		return map;
 	}
 
+	/**
+	 * Discovers and creates {@link LibredeConfiguration} files based on the
+	 * given skeleton data and the {@link InputData} specifications. Based on
+	 * the set of {@link InputData} specifications, different workload
+	 * specifications might be contained.
+	 * 
+	 * 
+	 * @param input
+	 *            A list of several {@link InputData}s specifying the root
+	 *            folders to start the discovery and the
+	 *            {@link WorkloadDescription} as well as the
+	 *            {@link InputSpecification} to look for
+	 * @param estimation
+	 *            The {@link EstimationSpecification} the new configurations
+	 *            should contain
+	 * @param validator
+	 *            The {@link ValidationSpecification} the new configurations
+	 *            should contain
+	 * @return A set of found valid {@link LibredeConfiguration}s
+	 */
 	public static Set<LibredeConfiguration> createConfigurations(
-			EstimationSpecification estimation, EList<InputData> input,
+			EList<InputData> input, EstimationSpecification estimation,
 			ValidationSpecification validator) {
 		Set<LibredeConfiguration> set = new HashSet<LibredeConfiguration>();
 
@@ -119,7 +143,8 @@ public class Discovery {
 				LibredeConfiguration additional = EcoreUtil.copy(conf);
 
 				// do not copy references
-				additional.setWorkloadDescription(EcoreUtil.copy(entry.getKey()));
+				additional
+						.setWorkloadDescription(EcoreUtil.copy(entry.getKey()));
 
 				additional.setInput(EcoreUtil.copy(spec));
 
@@ -147,7 +172,10 @@ public class Discovery {
 	}
 
 	/**
+	 * Fixes the mappings between traces and files for a given configuration.
+	 * 
 	 * @param additional
+	 *            The {@link LibredeConfiguration} to fix.
 	 */
 	private static void fixMapping(LibredeConfiguration additional) {
 		for (TraceConfiguration trace : additional.getInput().getObservations()) {
@@ -169,6 +197,13 @@ public class Discovery {
 
 	}
 
+	/**
+	 * Explores one {@link InputData} starting on the specified root folder.
+	 * 
+	 * @param input
+	 *            The specification for the discovery
+	 * @return All {@link InputSpecification}s found
+	 */
 	private static Set<InputSpecification> discoverOne(InputData input) {
 		HashSet<InputSpecification> set = new HashSet<InputSpecification>();
 		File folder = new File(input.getRootFolder());
@@ -184,6 +219,18 @@ public class Discovery {
 		return set;
 	}
 
+	/**
+	 * Creates a {@link LibredeConfiguration} file with the given skeleton
+	 * values.
+	 * 
+	 * @param estimation
+	 *            The {@link EstimationSpecification} the new configuration
+	 *            should contain
+	 * @param validator
+	 *            The {@link ValidationSpecification} the new configuration
+	 *            should contain
+	 * @return An new {@link LibredeConfiguration}
+	 */
 	private static LibredeConfiguration createConfigFile(
 			EstimationSpecification estimation,
 			ValidationSpecification validator) {
@@ -221,6 +268,18 @@ public class Discovery {
 		return copy;
 	}
 
+	/**
+	 * Iterate over all (sub)-directories of the given folder and search for
+	 * valid {@link InputSpecification} using the
+	 * {@link #checkThisFolder(Path, InputSpecification, Set)} method.
+	 * 
+	 * @param root
+	 *            The root directory to start from
+	 * @param main
+	 *            The main {@link InputSpecification} to copy from
+	 * @param set
+	 *            The set to add the new {@link InputSpecification}
+	 */
 	private static void iterateDirectories(Path root, InputSpecification main,
 			Set<InputSpecification> set) {
 		if (root.toFile().isDirectory()) {
@@ -246,6 +305,18 @@ public class Discovery {
 		}
 	}
 
+	/**
+	 * Checks if the specific folder contains a valid input
+	 * {@link InputSpecification} and adds a copy of the given main
+	 * specification to the given set if so.
+	 * 
+	 * @param root
+	 *            The folder to check
+	 * @param main
+	 *            The main {@link InputSpecification} to copy from
+	 * @param set
+	 *            The set to add the new {@link InputSpecification}
+	 */
 	private static void checkThisFolder(Path root, InputSpecification main,
 			Set<InputSpecification> set) {
 		DirectoryStream<Path> stream = null;
@@ -292,6 +363,13 @@ public class Discovery {
 		}
 	}
 
+	/**
+	 * Fix the timestamp of the given {@link LibredeConfiguration} to match the
+	 * first and last available measurement.
+	 * 
+	 * @param conf
+	 *            the {@link LibredeConfiguration} to fix
+	 */
 	private static void fixTimeStamp(LibredeConfiguration conf) {
 		Map<String, IDataSource> dataSources = new HashMap<String, IDataSource>();
 
@@ -379,6 +457,14 @@ public class Discovery {
 
 	}
 
+	/**
+	 * Tries to recover the used separators from the given
+	 * {@link DataSourceConfiguration}.
+	 * 
+	 * @param datasource
+	 *            The datasource to read
+	 * @return The separator strings
+	 */
 	private static String getSeparators(DataSourceConfiguration dataSource) {
 		for (Parameter p : dataSource.getParameters()) {
 			if (p.getName().equals("Separators")) {
@@ -389,6 +475,14 @@ public class Discovery {
 		return ",";
 	}
 
+	/**
+	 * Tries to recover the used {@link Time} from the given
+	 * {@link DataSourceConfiguration}.
+	 * 
+	 * @param datasource
+	 *            The datasource to read
+	 * @return The {@link Time} unit found
+	 */
 	@SuppressWarnings("unchecked")
 	private static Unit<Time> parseTimeUnit(DataSourceConfiguration datasource) {
 		String simpleDateFormat = null;
@@ -424,6 +518,17 @@ public class Discovery {
 		return dateUnit;
 	}
 
+	/**
+	 * Helper method to find the last time stamp in the file.
+	 * 
+	 * @param inputFile
+	 *            The file to search through
+	 * @param col
+	 *            The column to search through in the file
+	 * @param separator
+	 *            The separator between the columns
+	 * @return the last time stamp found as a double
+	 */
 	private static double loadLast(File inputFile, int col, String separator) {
 		double stamp = -1;
 		try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
@@ -453,6 +558,17 @@ public class Discovery {
 		return stamp;
 	}
 
+	/**
+	 * Helper method to find the first time stamp in the file.
+	 * 
+	 * @param inputFile
+	 *            The file to search through
+	 * @param col
+	 *            The column to search through in the file
+	 * @param separator
+	 *            The separator between the columns
+	 * @return the first time stamp found as a double
+	 */
 	private static double loadFirst(File inputFile, int col, String separator) {
 		double stamp = -1;
 		try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {

@@ -242,7 +242,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	 */
 	private void init() {
 		Wrapper.init();
-		confs = Discovery.createConfigurations(getSpecification(), getInput(),
+		confs = Discovery.createConfigurations(getInput(), getSpecification(),
 				getSettings().getValidator());
 		validateConfs();
 		getLog().info(
