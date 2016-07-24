@@ -131,7 +131,7 @@ public class RBridge implements RMainLoopCallbacks {
 	 */
 	private void runParamsStatement(Collection<IOptimizableParameter> params) {
 		// TODO Auto-generated method stub
-		String s = "params <- list
+		String s = "params <- list";
 		
 		re.eval("params <- " + params);
 	}
