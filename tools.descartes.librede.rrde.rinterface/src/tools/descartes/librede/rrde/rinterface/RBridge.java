@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 import org.rosuda.JRI.RMainLoopCallbacks;
 import org.rosuda.JRI.Rengine;
 
+import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 
 /**
@@ -62,6 +63,11 @@ public class RBridge implements RMainLoopCallbacks {
 	private static final String LIB = "tools.descartes.librede.rrde.rinterface/R/win-library/3.3";
 
 	/**
+	 * The location of the compiled binaries for rJava
+	 */
+	private static final String BINS = "tools.descartes.librede.rrde.rinterface/target/classes";
+
+	/**
 	 * The engine to run R commands
 	 */
 	private Rengine re;
@@ -69,6 +75,13 @@ public class RBridge implements RMainLoopCallbacks {
 	public RBridge() {
 		re = createRengine();
 		loadScript();
+	}
+
+	/**
+	 * @return the log
+	 */
+	public static Logger getLog() {
+		return log;
 	}
 
 	/**
@@ -90,6 +103,11 @@ public class RBridge implements RMainLoopCallbacks {
 
 		// load functions
 		re.eval("source('" + path + "/" + SCRIPT + "')");
+
+		// init and connect rJava to this JVM
+		re.eval("initialize('" + path + "/" + BINS + "')");
+		log.debug("Binary files in: " + path + "/" + SCRIPT);
+		log.info("Loaded R Script.");
 	}
 
 	/**
@@ -99,7 +117,7 @@ public class RBridge implements RMainLoopCallbacks {
 	 * 
 	 * @param params
 	 *            The List of {@link IOptimizableParameter}s to optimize
-	 * @param eval
+	 * @param evaluator
 	 *            The evaluator resolving evaluation calls
 	 * @param nSplits
 	 *            The number of splits per iteration
@@ -110,30 +128,49 @@ public class RBridge implements RMainLoopCallbacks {
 	 * @return A Mapping of an optimal value for each parameter
 	 */
 	public synchronized Map<IOptimizableParameter, Double> runOptimization(
-			Collection<IOptimizableParameter> params, CallbackEvaluator eval,
-			int nSplits, int nExplorations, int nIterations) {
+			Collection<IOptimizableParameter> params,
+			CallbackEvaluator evaluator, int nSplits, int nExplorations,
+			int nIterations) {
 		log.trace("Entering blocked R mode.");
+		CallbackHolder.setEvaluator(evaluator);
 		// setting parameters
-		re.eval("java <- " + eval);
 		runParamsStatement(params);
 		re.eval("nSplits <- " + nSplits);
 		re.eval("nExplorations <- " + nExplorations);
 		re.eval("nIterations <- " + nIterations);
 		re.eval("trace <- 1");
+		// run
 		re.eval("opts <- optimizeParams(java, params, nSplits, nExplorations, nIterations, trace)");
-		// TODO
 		log.trace("Leaving blocked R mode.");
 		return new HashMap<IOptimizableParameter, Double>();
 	}
 
 	/**
+	 * Feeds the parameters with minimum and maximum value into R. Should only
+	 * be called out of the synchronized block by
+	 * {@link #runOptimization(Collection, CallbackEvaluator, int, int, int)} to
+	 * be thread-safe.
+	 * 
 	 * @param params
+	 *            The parameters to feed.
 	 */
 	private void runParamsStatement(Collection<IOptimizableParameter> params) {
-		// TODO Auto-generated method stub
-		String s = "params <- list";
-		
-		re.eval("params <- " + params);
+		String s = "params <- list(";
+		for (IOptimizableParameter param : params) {
+			if (param instanceof GenericParameter) {
+				GenericParameter genparam = (GenericParameter) param;
+				s += genparam.getParameter().getName() + "=";
+			} else {
+				s += param.getClass().getSimpleName() + "=";
+			}
+			s += "c(" + param.getLowerBound() + "," + param.getUpperBound()
+					+ "),";
+		}
+		// delete last ","
+		s = s.substring(0, s.length() - 1);
+		s += ")";
+		log.trace("R params: " + s);
+		re.eval(s);
 	}
 
 	/**
@@ -264,7 +301,7 @@ public class RBridge implements RMainLoopCallbacks {
 	 */
 	@Override
 	public void rShowMessage(Rengine arg0, String arg1) {
-		log.warn("R: " + arg1);
+		log.info("R: " + arg1.replaceAll("\n", ""));
 	}
 
 	/*
@@ -278,10 +315,10 @@ public class RBridge implements RMainLoopCallbacks {
 	public void rWriteConsole(Rengine arg0, String arg1, int arg2) {
 		if (arg2 == 0) {
 			// normal
-			log.info(arg1.replaceAll("\n", ""));
+			log.debug(arg1.replaceAll("\n", ""));
 		} else {
 			// error
-			log.warn(arg1.replaceAll("\n", ""));
+			log.warn(arg1);
 		}
 	}
 }

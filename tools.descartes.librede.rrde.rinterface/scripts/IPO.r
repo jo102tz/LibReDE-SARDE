@@ -12,7 +12,7 @@
 # Czech Republic, ICPE 13, pages 283-294, New York, NY, USA. ACM. 2013.
 # Default values for techniques
 #
-# This script was adapted by Johanes Grohmann to use it in the Java LibReDE tool, 2016.
+# This script was adapted by Johanes Grohmann in order to use it in the Java LibReDE tool, 2016.
 
 #importing is done by the Java interface beforehand
 #install.packages("rJava")
@@ -20,13 +20,19 @@
 #library(rJava)
 #library(data.table)
 
+initialize<-function(path){
+  .jinit()
+  .jpackage(path)
+}
+
+
 optimizeParams<-function(java, ranges, nSplits=10, nExplorations=50,
                              nIterations=15,trace=0) {
   # This method optimizes the parameters 
   
   
   d<-function(x) {
-    if(trace>1) {
+    if(trace>0) {
       print(x)
     }
   }
@@ -66,8 +72,9 @@ optimizeParams<-function(java, ranges, nSplits=10, nExplorations=50,
       x = Mrow[,1:(length(Mrow)-2), with=FALSE] #all except last 2 column 2]
       d("x is")
       d(x)
-      #y = Mrow[length(Mrow)] #last column]
+      #y = Mrow[length(Mrow)] #last column
       
+      print("HALLO3")
       #For each parameter find lower and upper limits
       S = yapply(x, function(xv) {
         d(paste("Inspecting parameter",NAMES))
@@ -86,7 +93,7 @@ optimizeParams<-function(java, ranges, nSplits=10, nExplorations=50,
         
         
         
-        return(makeValueValid(method, NAMES,
+        return(makeValueValid(java, NAMES,
                               unique(seq(lowerBorder, upperBorder, length=nSplits+2))
         ))
       })
@@ -152,10 +159,38 @@ optimizeParams<-function(java, ranges, nSplits=10, nExplorations=50,
 
 # Evaluate for a given thechnique the model with the given parameters
 evaluate<-function(java, params) {
-  #todo
+  holder = .jnew("tools/descartes/librede/rrde/rinterface/CallbackHolder")
+  d = .jcall(holder, "D", "evaluate", params)
+  return(d)
+  #bridge = .jnew("java/util/Vector")
+  #return (runif(1))
 }
 
 # Enforce for each parameter of a method that the value is valid
-makeValueValid<-function(java, value) {
+makeValueValid<-function(java, param, value) {
+  print("HALLO")
+  print(value)
   return(value)
+}
+
+yapply <- function(X,FUN, ...) { 
+  # Drop in replacement for 'lapply'. See its documentation for details on use.
+  # This function adds two new parameters for the applied function which contain
+  # the names of the values in case of named lists.
+  # For further documentation see 'lapply'.
+  
+  index <- seq(length.out=length(X)) 
+  namesX <- names(X) 
+  if(is.null(namesX)) 
+    namesX <- rep(NA,length(X))
+  
+  FUN <- match.fun(FUN) 
+  fnames <- names(formals(FUN)) 
+  if( ! "INDEX" %in% fnames ){ 
+    formals(FUN) <- append( formals(FUN), alist(INDEX=) )   
+  } 
+  if( ! "NAMES" %in% fnames ){ 
+    formals(FUN) <- append( formals(FUN), alist(NAMES=) )   
+  } 
+  mapply(FUN,X,INDEX=index, NAMES=namesX,MoreArgs=list(...), SIMPLIFY = FALSE)
 }

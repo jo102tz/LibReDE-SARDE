@@ -109,6 +109,7 @@ public class IterativeParameterOptimizationAlgorithm
 					@Override
 					public double evaluate(
 							Map<IOptimizableParameter, Double> params) {
+						System.out.println("THIS CALL WAS MADE");
 						for (Entry<IOptimizableParameter, Double> en : params
 								.entrySet()) {
 							setTargetValue(en.getKey(), en.getValue());
