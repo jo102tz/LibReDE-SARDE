@@ -35,6 +35,7 @@ import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.bayesplusplus.BayesLibrary;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.datasource.IDataSource;
 import tools.descartes.librede.ipopt.java.IpoptLibrary;
 import tools.descartes.librede.nnls.NNLSLibrary;
 import tools.descartes.librede.repository.IRepositoryCursor;
@@ -81,7 +82,7 @@ public class Wrapper {
 		// cache variables in order to avoid constant re-initialization and
 		// overflows
 		// LibredeVariables var = null;
-		// if(cache.get(conf)==null){
+		// if (cache.get(conf) == null) {
 		// var = new LibredeVariables(conf);
 		// Librede.initRepo(var);
 		// cache.put(conf, var);
@@ -93,11 +94,9 @@ public class Wrapper {
 		// }
 
 		try {
-			// return Librede.executeContinuous(var, new HashMap<String,
-			// IDataSource>());
-			// return Librede.execute(conf);
-			return Librede
-					.runEstimationWithCrossValidation(new LibredeVariables(conf));
+			LibredeVariables var = new LibredeVariables(conf);
+			Librede.initRepo(var);
+			return Librede.runEstimationWithCrossValidation(var);
 		} catch (Exception e) {
 			log.error("Error running estimation.", e);
 			return null;
