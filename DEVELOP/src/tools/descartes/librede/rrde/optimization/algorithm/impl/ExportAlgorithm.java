@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.impl;
+package tools.descartes.librede.rrde.optimization.algorithm.impl;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -41,11 +41,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
 
 /**
  * Algorithm that simply tries out every combination and prints the result to a

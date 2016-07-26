@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.impl;
+package tools.descartes.librede.rrde.optimization.algorithm.impl;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -33,6 +33,7 @@ import org.apache.log4j.Logger;
 
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl;
 import tools.descartes.librede.rrde.rinterface.CallbackEvaluator;
 import tools.descartes.librede.rrde.rinterface.RBridge;
 
@@ -45,7 +46,7 @@ import tools.descartes.librede.rrde.rinterface.RBridge;
  */
 public class IterativeParameterOptimizationAlgorithm
 		extends
-		tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer {
+		tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer {
 
 	/**
 	 * The log used for logging.

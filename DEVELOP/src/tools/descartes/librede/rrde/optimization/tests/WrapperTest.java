@@ -24,9 +24,33 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
+package tools.descartes.librede.rrde.optimization.tests;
+
+import java.io.File;
+
+import org.junit.Test;
+
+import tools.descartes.librede.Librede;
+import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.optimization.Plugin;
+import tools.descartes.librede.rrde.optimization.Wrapper;
+
 /**
- * This package contains some implementations for {@link tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer}.
  * @author JS
  *
  */
-package tools.descartes.librede.rrde.optimization.impl;
+public class WrapperTest {
+
+	public final static String PATH = "resources/estimation.librede";
+
+	@Test
+	public void test() {
+		Plugin p = new Plugin();
+		p.initLogging();
+		Wrapper.init();
+		LibredeConfiguration configuration = Librede
+				.loadConfiguration(new File(PATH).toPath());
+		Librede.printSummary(Wrapper.executeLibrede(configuration));
+	}
+
+}

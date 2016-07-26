@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.impl;
+package tools.descartes.librede.rrde.optimization.algorithm.impl;
 
 import java.io.BufferedWriter;
 import java.util.Iterator;

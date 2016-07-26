@@ -25,7 +25,8 @@
  * in the United States and other countries.]
  */
 /**
+ * This package contains some implementations for {@link tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer}.
  * @author JS
- * This package contains functionality in order to optimize the execution of the LibReDE standard tool.
+ *
  */
-package tools.descartes.librede.rrde;
+package tools.descartes.librede.rrde.optimization.algorithm.impl;

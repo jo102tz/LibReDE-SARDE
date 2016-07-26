@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde;
+package tools.descartes.librede.rrde.optimization;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,10 +60,10 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.exceptions.EstimationException;
 import tools.descartes.librede.registry.Registry;
-import tools.descartes.librede.rrde.optimization.IConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
+import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
 
 /**
  * The main class of this Plug-In. Here, the configuration files are read, and
@@ -421,7 +421,7 @@ public class Plugin implements IApplication {
 				tools.descartes.librede.Librede.class.getPackage().getName())
 				.setLevel(Level.WARN);
 		Logger.getLogger(
-				tools.descartes.librede.rrde.Plugin.class.getPackage()
+				tools.descartes.librede.rrde.optimization.Plugin.class.getPackage()
 						.getName()).setLevel(loglevel);
 
 	}

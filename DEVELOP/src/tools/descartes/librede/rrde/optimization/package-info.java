@@ -25,11 +25,7 @@
  * in the United States and other countries.]
  */
 /**
- * This package contains functionality to optimize the parameter settings of a 
- * LibReDE configuration file in order to optimize quality and runtime of the 
- * estimators.
- * 
  * @author JS
- *
+ * This package contains functionality in order to optimize the execution of the LibReDE standard tool.
  */
 package tools.descartes.librede.rrde.optimization;

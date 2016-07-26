@@ -29,4 +29,4 @@
  * @author JS
  *
  */
-package tools.descartes.librede.rrde.tests;
+package tools.descartes.librede.rrde.optimization.tests;

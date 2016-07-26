@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization;
+package tools.descartes.librede.rrde.optimization.algorithm;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -36,8 +36,13 @@ import org.eclipse.emf.common.util.EList;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.Util;
-import tools.descartes.librede.rrde.Wrapper;
+import tools.descartes.librede.rrde.optimization.Discovery;
+import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.optimization.InputData;
+import tools.descartes.librede.rrde.optimization.OptimizationSettings;
+import tools.descartes.librede.rrde.optimization.Util;
+import tools.descartes.librede.rrde.optimization.Wrapper;
 
 /**
  * This class contains an abstract implementation of an

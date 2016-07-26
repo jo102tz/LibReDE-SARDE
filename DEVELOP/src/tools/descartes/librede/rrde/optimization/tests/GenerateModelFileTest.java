@@ -24,46 +24,38 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.tests;
+package tools.descartes.librede.rrde.optimization.tests;
 
 import java.io.File;
 
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.junit.Assert;
 import org.junit.Test;
 
 import tools.descartes.librede.Librede;
-import tools.descartes.librede.LibredeResults;
-import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.Plugin;
-import tools.descartes.librede.rrde.Util;
-import tools.descartes.librede.rrde.Wrapper;
+import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.optimization.Plugin;
+import tools.descartes.librede.rrde.optimization.Wrapper;
 
 /**
  * @author JS
  *
  */
-public class UtilTest {
+public class GenerateModelFileTest {
 
-	public final static String PATH = "resources/estimation.librede";
+	public final static String LIBREDE_PATH = "resources/estimation.librede";
+	public final static String CONFIG_PATH = "resources/conf.optimization";
 
+	@SuppressWarnings("unused")
 	@Test
-	public void test() {
+	public void loadModels() {
 		Plugin p = new Plugin();
 		p.initLogging();
 		Wrapper.init();
+		Librede.init();
 		LibredeConfiguration configuration = Librede
-				.loadConfiguration(new File(PATH).toPath());
-		LibredeResults res = Wrapper.executeLibrede(configuration);
-
-		DescriptiveStatistics stat = new DescriptiveStatistics();
-		for (Class<? extends IEstimationApproach> approach : res
-				.getApproaches()) {
-			stat.addValue(res.getApproachResults(approach).getMeanError());
-		}
-		Assert.assertEquals(stat.getMean(), Util.getMeanValidationError(res),
-				0.1);
+				.loadConfiguration(new File(LIBREDE_PATH).toPath());
+		OptimizationConfiguration optimization = Plugin
+				.loadConfiguration(new File(CONFIG_PATH).toPath());
 	}
 
 }

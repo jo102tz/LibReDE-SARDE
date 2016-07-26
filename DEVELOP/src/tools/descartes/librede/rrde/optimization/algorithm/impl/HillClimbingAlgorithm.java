@@ -24,14 +24,14 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.impl;
+package tools.descartes.librede.rrde.optimization.algorithm.impl;
 
 import org.apache.log4j.Logger;
 
-import tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
+import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
 
 /**
  * A general implementation of a Hill-climbing routine supporting a tolerance

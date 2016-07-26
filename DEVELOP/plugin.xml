@@ -9,7 +9,7 @@
             thread="main"
             visible="true">
          <run
-               class="tools.descartes.librede.rrde.Plugin">
+               class="tools.descartes.librede.rrde.optimization.Plugin">
          </run>
       </application>
    </extension>
