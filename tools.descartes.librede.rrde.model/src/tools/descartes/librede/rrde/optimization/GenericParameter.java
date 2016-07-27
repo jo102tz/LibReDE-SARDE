@@ -4,7 +4,6 @@ package tools.descartes.librede.rrde.optimization;
 
 import tools.descartes.librede.configuration.Parameter;
 
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Generic Parameter</b></em>'.

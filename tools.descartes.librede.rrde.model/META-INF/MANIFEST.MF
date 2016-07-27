@@ -9,7 +9,10 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: tools.descartes.librede.rrde.optimization,
  tools.descartes.librede.rrde.optimization.impl,
- tools.descartes.librede.rrde.optimization.util
+ tools.descartes.librede.rrde.optimization.util,
+ tools.descartes.librede.rrde.recommendation,
+ tools.descartes.librede.rrde.recommendation.impl,
+ tools.descartes.librede.rrde.recommendation.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  tools.descartes.librede.model;visibility:=reexport

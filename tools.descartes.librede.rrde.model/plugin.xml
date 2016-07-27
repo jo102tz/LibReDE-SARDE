@@ -14,4 +14,12 @@
             genModel="model/rrde.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated newrrde -->
+      <package
+            uri="http://tools/descartes/librede/rrde/recommendation"
+            class="tools.descartes.librede.rrde.recommendation.RecommendationPackage"
+            genModel="model/rrde.genmodel"/>
+   </extension>
+
 </plugin>

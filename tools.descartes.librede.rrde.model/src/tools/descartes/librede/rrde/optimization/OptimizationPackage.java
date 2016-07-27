@@ -679,7 +679,6 @@ public interface OptimizationPackage extends EPackage {
 	 */
 	int WINDOW_SIZE_OPERATION_COUNT = IOPTIMIZABLE_PARAMETER_OPERATION_COUNT + 0;
 
-
 	/**
 	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl <em>Data Export Specifier</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -1137,6 +1136,17 @@ public interface OptimizationPackage extends EPackage {
 	EAttribute getDataExportSpecifier_OutputDirectory();
 
 	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize <em>Step Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Step Size</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize()
+	 * @see #getDataExportSpecifier()
+	 * @generated
+	 */
+	EAttribute getDataExportSpecifier_StepSize();
+
+	/**
 	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isMultidimensional <em>Multidimensional</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1157,17 +1167,6 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDataExportSpecifier_SplitConfigurations();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize <em>Step Size</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Step Size</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize()
-	 * @see #getDataExportSpecifier()
-	 * @generated
-	 */
-	EAttribute getDataExportSpecifier_StepSize();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1497,6 +1496,14 @@ public interface OptimizationPackage extends EPackage {
 		EAttribute DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY = eINSTANCE.getDataExportSpecifier_OutputDirectory();
 
 		/**
+		 * The meta object literal for the '<em><b>Step Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_EXPORT_SPECIFIER__STEP_SIZE = eINSTANCE.getDataExportSpecifier_StepSize();
+
+		/**
 		 * The meta object literal for the '<em><b>Multidimensional</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1511,14 +1518,6 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS = eINSTANCE.getDataExportSpecifier_SplitConfigurations();
-
-		/**
-		 * The meta object literal for the '<em><b>Step Size</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DATA_EXPORT_SPECIFIER__STEP_SIZE = eINSTANCE.getDataExportSpecifier_StepSize();
 
 	}
 

@@ -6,88 +6,20 @@
 
 <plugin>
 
-   <extension
-         point="org.eclipse.core.runtime.applications"
-         id="RrdeEditorAdvisorApplication">
-      <!-- @generated rrde -->
-      <application>
-         <run class="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisor$Application"/>
-      </application>
-   </extension>
-
-   <extension point="org.eclipse.ui.perspectives">
-      <!-- @generated rrde -->
-      <perspective
-            name="%_UI_Perspective_label"
-            class="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisor$Perspective"
-            id="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisorPerspective">
-      </perspective>
-   </extension>
-
-   <extension point="org.eclipse.ui.commands">
-      <!-- @generated rrde -->
-      <command
-            name="%_UI_Menu_OpenURI_label"
-            description="%_UI_Menu_OpenURI_description"
-            categoryId="org.eclipse.ui.category.file"
-            id="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisorOpenURICommand"/>
-      <command
-            name="%_UI_Menu_Open_label"
-            description="%_UI_Menu_Open_description"
-            categoryId="org.eclipse.ui.category.file"
-            id="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisorOpenCommand"/>
-   </extension>
-
-   <extension point="org.eclipse.ui.bindings">
-      <!-- @generated rrde -->
-      <key
-            commandId="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisorOpenURICommand"
-            sequence="M1+U"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
-      <key
-            commandId="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisorOpenCommand"
-            sequence="M1+O"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
-   </extension>
-
-   <extension point="org.eclipse.ui.actionSets">
-      <!-- @generated rrde -->
-      <actionSet
-            label="%_UI_RrdeEditorAdvisor_ActionSet_label"
-            visible="true"
-            id="RrdeEditorAdvisorActionSet">
-         <action
-               label="%_UI_Menu_About_label"
-               class="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisor$AboutAction"
-               menubarPath="help/additions"
-               id="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisorAboutAction"/>
-         <action
-               label="%_UI_Menu_OpenURI_label"
-               definitionId="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisorOpenURICommand"
-               class="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisor$OpenURIAction"
-               menubarPath="file/additions"
-               id="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisorOpenURIAction"/>
-         <action
-               label="%_UI_Menu_Open_label"
-               definitionId="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisorOpenCommand"
-               class="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisor$OpenAction"
-               menubarPath="file/additions"
-               id="tools.descartes.librede.rrde.optimization.presentation.RrdeEditorAdvisorOpenAction"/>
-      </actionSet>
-   </extension>
-
-   <extension point="org.eclipse.ui.actionSets">
-      <!-- @generated rrde -->
-      <actionSet
-            label="%_UI_OptimizationModelWizard_ActionSet_label"
-            visible="true"
-            id="tools.descartes.librede.rrde.optimization.presentation.OptimizationActionBarContributorActionSet">
-         <action
-               label="%_UI_OptimizationModelWizard_label"
-               class="tools.descartes.librede.rrde.optimization.presentation.OptimizationActionBarContributor$NewAction"
-               menubarPath="file/new/additions"
-               id="tools.descartes.librede.rrde.optimization.presentation.OptimizationActionBarContributorNewAction"/>
-      </actionSet>
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated newrrde -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="tools.descartes.librede.rrde.optimization.presentation.OptimizationModelWizardID"
+            name="%_UI_OptimizationModelWizard_label"
+            class="tools.descartes.librede.rrde.optimization.presentation.OptimizationModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/OptimizationModelFile.gif">
+         <description>%_UI_OptimizationModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
    </extension>
 
    <extension point="org.eclipse.ui.editors">
@@ -99,6 +31,34 @@
             extensions="optimization"
             class="tools.descartes.librede.rrde.optimization.presentation.OptimizationEditor"
             contributorClass="tools.descartes.librede.rrde.optimization.presentation.OptimizationActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated newrrde -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="tools.descartes.librede.rrde.recommendation.presentation.RecommendationModelWizardID"
+            name="%_UI_RecommendationModelWizard_label"
+            class="tools.descartes.librede.rrde.recommendation.presentation.RecommendationModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/RecommendationModelFile.gif">
+         <description>%_UI_RecommendationModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated newrrde -->
+      <editor
+            id="tools.descartes.librede.rrde.recommendation.presentation.RecommendationEditorID"
+            name="%_UI_RecommendationEditor_label"
+            icon="icons/full/obj16/RecommendationModelFile.gif"
+            extensions="recommendation"
+            class="tools.descartes.librede.rrde.recommendation.presentation.RecommendationEditor"
+            contributorClass="tools.descartes.librede.rrde.recommendation.presentation.RecommendationActionBarContributor">
       </editor>
    </extension>
 

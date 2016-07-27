@@ -6,10 +6,15 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+
 import tools.descartes.librede.configuration.ConfigurationPackage;
+
 import tools.descartes.librede.metrics.MetricsPackage;
+
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
@@ -24,6 +29,11 @@ import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.StepSize;
 import tools.descartes.librede.rrde.optimization.WindowSize;
+
+import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
+
+import tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl;
+
 import tools.descartes.librede.units.UnitsPackage;
 
 /**
@@ -169,11 +179,16 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		UnitsPackage.eINSTANCE.eClass();
 		XMLTypePackage.eINSTANCE.eClass();
 
+		// Obtain or create and register interdependencies
+		RecommendationPackageImpl theRecommendationPackage = (RecommendationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RecommendationPackage.eNS_URI) instanceof RecommendationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RecommendationPackage.eNS_URI) : RecommendationPackage.eINSTANCE);
+
 		// Create package meta-data objects
 		theOptimizationPackage.createPackageContents();
+		theRecommendationPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theOptimizationPackage.initializePackageContents();
+		theRecommendationPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theOptimizationPackage.freeze();
@@ -504,6 +519,15 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getDataExportSpecifier_StepSize() {
+		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getDataExportSpecifier_Multidimensional() {
 		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(2);
 	}
@@ -515,15 +539,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 */
 	public EAttribute getDataExportSpecifier_SplitConfigurations() {
 		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getDataExportSpecifier_StepSize() {
-		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**

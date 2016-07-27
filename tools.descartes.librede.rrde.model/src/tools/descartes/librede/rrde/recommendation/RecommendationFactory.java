@@ -1,0 +1,78 @@
+/**
+ */
+package tools.descartes.librede.rrde.recommendation;
+
+import org.eclipse.emf.ecore.EFactory;
+
+/**
+ * <!-- begin-user-doc -->
+ * The <b>Factory</b> for the model.
+ * It provides a create method for each non-abstract class of the model.
+ * <!-- end-user-doc -->
+ * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage
+ * @generated
+ */
+public interface RecommendationFactory extends EFactory {
+	/**
+	 * The singleton instance of the factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	RecommendationFactory eINSTANCE = tools.descartes.librede.rrde.recommendation.impl.RecommendationFactoryImpl.init();
+
+	/**
+	 * Returns a new object of class '<em>Training Configuration</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Training Configuration</em>'.
+	 * @generated
+	 */
+	RecommendationTrainingConfiguration createRecommendationTrainingConfiguration();
+
+	/**
+	 * Returns a new object of class '<em>IRecommendation Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>IRecommendation Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	IRecommendationAlgorithmSpecifier createIRecommendationAlgorithmSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>Data Set</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Data Set</em>'.
+	 * @generated
+	 */
+	DataSet createDataSet();
+
+	/**
+	 * Returns a new object of class '<em>IFeature Extractor Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>IFeature Extractor Specifier</em>'.
+	 * @generated
+	 */
+	IFeatureExtractorSpecifier createIFeatureExtractorSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>Feature Vector</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Feature Vector</em>'.
+	 * @generated
+	 */
+	FeatureVector createFeatureVector();
+
+	/**
+	 * Returns the package supported by this factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the package supported by this factory.
+	 * @generated
+	 */
+	RecommendationPackage getRecommendationPackage();
+
+} //RecommendationFactory

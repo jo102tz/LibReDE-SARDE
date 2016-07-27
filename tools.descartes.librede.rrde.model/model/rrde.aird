@@ -8,7 +8,7 @@
   <models xmi:type="ecore:EPackage" href="recommendation.ecore#/"/>
   <models xmi:type="ecore:EPackage" href="optimization.ecore#/"/>
   <models xmi:type="ecore:EPackage" href="http://www.eclipse.org/emf/2003/XMLType#/"/>
-  <models xmi:type="genmodel:GenModel" href="newrrde.genmodel#/"/>
+  <models xmi:type="genmodel:GenModel" href="rrde.genmodel#/"/>
   <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_tlABEDIUEea35YLk5BYCnw" initialized="true">
     <ownedRepresentations xmi:type="table:DTable" xmi:id="_0B7oQDIUEea35YLk5BYCnw" name="optimization class table" headerColumnWidth="188">
       <target xmi:type="ecore:EPackage" href="rrde.ecore#/"/>

@@ -51,6 +51,33 @@ public interface DataExportSpecifier extends IConfigurationOptimizationAlgorithm
 	void setOutputDirectory(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Step Size</b></em>' attribute.
+	 * The default value is <code>"1.0"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Step Size</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Step Size</em>' attribute.
+	 * @see #setStepSize(double)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getDataExportSpecifier_StepSize()
+	 * @model default="1.0" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getStepSize();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize <em>Step Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Step Size</em>' attribute.
+	 * @see #getStepSize()
+	 * @generated
+	 */
+	void setStepSize(double value);
+
+	/**
 	 * Returns the value of the '<em><b>Multidimensional</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
@@ -103,32 +130,5 @@ public interface DataExportSpecifier extends IConfigurationOptimizationAlgorithm
 	 * @generated
 	 */
 	void setSplitConfigurations(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Step Size</b></em>' attribute.
-	 * The default value is <code>"1.0"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Step Size</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Step Size</em>' attribute.
-	 * @see #setStepSize(double)
-	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getDataExportSpecifier_StepSize()
-	 * @model default="1.0" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
-	 * @generated
-	 */
-	double getStepSize();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize <em>Step Size</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Step Size</em>' attribute.
-	 * @see #getStepSize()
-	 * @generated
-	 */
-	void setStepSize(double value);
 
 } // DataExportSpecifier

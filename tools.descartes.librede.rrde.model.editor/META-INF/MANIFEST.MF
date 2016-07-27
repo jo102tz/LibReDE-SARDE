@@ -8,10 +8,13 @@ Bundle-Activator: tools.descartes.librede.rrde.optimization.presentation.RrdeEdi
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: tools.descartes.librede.rrde.optimization.presentation
+Export-Package: tools.descartes.librede.rrde.optimization.presentation,
+ tools.descartes.librede.rrde.recommendation.presentation
 Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources;visibility:=reexport,
  tools.descartes.librede.rrde.model.edit;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.emf.edit.ui;visibility:=reexport,
+ org.eclipse.ui.ide;visibility:=reexport,
  tools.descartes.librede.model.edit;visibility:=reexport
 Bundle-ActivationPolicy: lazy

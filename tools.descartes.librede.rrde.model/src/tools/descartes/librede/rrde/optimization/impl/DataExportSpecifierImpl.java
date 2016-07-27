@@ -238,6 +238,27 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public double getStepSize() {
+		return stepSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStepSize(double newStepSize) {
+		double oldStepSize = stepSize;
+		stepSize = newStepSize;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE, oldStepSize, stepSize));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isMultidimensional() {
 		return multidimensional;
 	}
@@ -273,27 +294,6 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 		splitConfigurations = newSplitConfigurations;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS, oldSplitConfigurations, splitConfigurations));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public double getStepSize() {
-		return stepSize;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setStepSize(double newStepSize) {
-		double oldStepSize = stepSize;
-		stepSize = newStepSize;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE, oldStepSize, stepSize));
 	}
 
 	/**

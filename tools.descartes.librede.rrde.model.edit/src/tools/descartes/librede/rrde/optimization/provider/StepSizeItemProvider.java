@@ -153,7 +153,7 @@ public class StepSizeItemProvider
 	@Override
 	public String getText(Object object) {
 		StepSize stepSize = (StepSize)object;
-		return getString("_UI_StepSize_type") + " " + stepSize.getLowerBound();
+		return getString("_UI_StepSize_type") + " " + stepSize.getStartValue();
 	}
 	
 

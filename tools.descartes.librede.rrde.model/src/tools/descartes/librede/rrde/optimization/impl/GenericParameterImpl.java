@@ -5,12 +5,13 @@ package tools.descartes.librede.rrde.optimization.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import tools.descartes.librede.configuration.Parameter;
+
 import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 

@@ -153,7 +153,7 @@ public class WindowSizeItemProvider
 	@Override
 	public String getText(Object object) {
 		WindowSize windowSize = (WindowSize)object;
-		return getString("_UI_WindowSize_type") + " " + windowSize.getLowerBound();
+		return getString("_UI_WindowSize_type") + " " + windowSize.getStartValue();
 	}
 	
 
