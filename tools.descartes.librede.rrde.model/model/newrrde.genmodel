@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/tools.descartes.librede.rrde.model/src" modelPluginID="tools.descartes.librede.rrde.model"
+    modelName="Newrrde" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    usedGenPackages="../../tools.descartes.librede.model/model/librede.genmodel#//configuration ../../tools.descartes.librede.model/model/librede.genmodel#//metrics ../../tools.descartes.librede.model/model/librede.genmodel#//units"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>../../tools.descartes.librede.model/model/librede.ecore</foreignModel>
+  <foreignModel>../../tools.descartes.librede.model/model/metrics.ecore</foreignModel>
+  <foreignModel>../../tools.descartes.librede.model/model/units.ecore</foreignModel>
+  <foreignModel>optimization.ecore</foreignModel>
+  <foreignModel>recommendation.ecore</foreignModel>
+  <genPackages prefix="Optimization" disposableProviderFactory="true" ecorePackage="optimization.ecore#/">
+    <genClasses ecoreClass="optimization.ecore#//OptimizationConfiguration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference optimization.ecore#//OptimizationConfiguration/containsOf"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="optimization.ecore#//IConfigurationOptimizationAlgorithmSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IConfigurationOptimizationAlgorithmSpecifier/timeOut"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IConfigurationOptimizationAlgorithmSpecifier/algorithmName"/>
+    </genClasses>
+    <genClasses ecoreClass="optimization.ecore#//LocalSearchSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//LocalSearchSpecifier/tolerance"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//LocalSearchSpecifier/maximumNumberOfSteps"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//LocalSearchSpecifier/stepSize"/>
+    </genClasses>
+    <genClasses ecoreClass="optimization.ecore#//RunCall">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference optimization.ecore#//RunCall/algorithm"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference optimization.ecore#//RunCall/trainingData"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference optimization.ecore#//RunCall/settings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference optimization.ecore#//RunCall/estimationSpecification"/>
+    </genClasses>
+    <genClasses ecoreClass="optimization.ecore#//InputData">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference optimization.ecore#//InputData/inputSpecification"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference optimization.ecore#//InputData/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//InputData/rootFolder"/>
+    </genClasses>
+    <genClasses ecoreClass="optimization.ecore#//OptimizationSettings">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference optimization.ecore#//OptimizationSettings/validator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference optimization.ecore#//OptimizationSettings/parametersToOptimize"/>
+    </genClasses>
+    <genClasses ecoreClass="optimization.ecore#//IterativeParameterOptimizerSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IterativeParameterOptimizerSpecifier/numberOfSplits"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IterativeParameterOptimizerSpecifier/numberOfExplorations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IterativeParameterOptimizerSpecifier/numberOfIterations"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="optimization.ecore#//IOptimizableParameter"
+        labelFeature="#//optimization/IOptimizableParameter/startValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IOptimizableParameter/lowerBound"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IOptimizableParameter/upperBound"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IOptimizableParameter/startValue"/>
+    </genClasses>
+    <genClasses ecoreClass="optimization.ecore#//GenericParameter">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference optimization.ecore#//GenericParameter/parameter"/>
+    </genClasses>
+    <genClasses ecoreClass="optimization.ecore#//StepSize" labelFeature="#//optimization/IOptimizableParameter/startValue"/>
+    <genClasses ecoreClass="optimization.ecore#//WindowSize" labelFeature="#//optimization/IOptimizableParameter/startValue"/>
+    <genClasses ecoreClass="optimization.ecore#//DataExportSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//DataExportSpecifier/OutputDirectory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//DataExportSpecifier/stepSize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//DataExportSpecifier/multidimensional"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//DataExportSpecifier/splitConfigurations"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="Recommendation" disposableProviderFactory="true" ecorePackage="recommendation.ecore#/">
+    <genClasses ecoreClass="recommendation.ecore#//RecommendationTrainingConfiguration">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/trainingData"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/learningAlgorithm"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/featureAlgorithm"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/estimation"/>
+    </genClasses>
+    <genClasses ecoreClass="recommendation.ecore#//IRecommendationAlgorithmSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//IRecommendationAlgorithmSpecifier/algorithmName"/>
+    </genClasses>
+    <genClasses ecoreClass="recommendation.ecore#//DataSet">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//DataSet/configuration"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//DataSet/features"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//DataSet/targetValue"/>
+    </genClasses>
+    <genClasses ecoreClass="recommendation.ecore#//IFeatureExtractorSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//IFeatureExtractorSpecifier/featureExtractor"/>
+    </genClasses>
+    <genClasses ecoreClass="recommendation.ecore#//FeatureVector"/>
+  </genPackages>
+</genmodel:GenModel>

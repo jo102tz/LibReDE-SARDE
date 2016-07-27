@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <viewpoint:DAnalysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:table="http://www.eclipse.org/sirius/table/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/table/description/1.1.0 http://www.eclipse.org/sirius/table/1.1.0#//description http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style" xmi:id="_tcJnEDIUEea35YLk5BYCnw" selectedViews="_tlABEDIUEea35YLk5BYCnw _t1YmcDIUEea35YLk5BYCnw _t1iXcDIUEea35YLk5BYCnw _t3oCIDIUEea35YLk5BYCnw" version="8.1.1">
-  <models xmi:type="ecore:EPackage" href="rrde.ecore#/"/>
-  <models xmi:type="genmodel:GenModel" href="rrde.genmodel#/"/>
   <models xmi:type="ecore:EPackage" href="http://www.eclipse.org/emf/2002/Ecore#/"/>
   <models xmi:type="ecore:EPackage" href="platform:/resource/tools.descartes.librede.model/model/librede.ecore#/"/>
   <models xmi:type="ecore:EPackage" href="platform:/resource/tools.descartes.librede.model/model/metrics.ecore#/"/>
   <models xmi:type="ecore:EPackage" href="platform:/resource/tools.descartes.librede.model/model/units.ecore#/"/>
   <models xmi:type="genmodel:GenModel" href="platform:/resource/tools.descartes.librede.model/model/librede.genmodel#/"/>
+  <models xmi:type="ecore:EPackage" href="recommendation.ecore#/"/>
+  <models xmi:type="ecore:EPackage" href="optimization.ecore#/"/>
+  <models xmi:type="ecore:EPackage" href="http://www.eclipse.org/emf/2003/XMLType#/"/>
+  <models xmi:type="genmodel:GenModel" href="newrrde.genmodel#/"/>
   <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_tlABEDIUEea35YLk5BYCnw" initialized="true">
     <ownedRepresentations xmi:type="table:DTable" xmi:id="_0B7oQDIUEea35YLk5BYCnw" name="optimization class table" headerColumnWidth="188">
       <target xmi:type="ecore:EPackage" href="rrde.ecore#/"/>

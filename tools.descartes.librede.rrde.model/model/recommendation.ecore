@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="recommendation" nsURI="http://tools/descartes/librede/rrde/recommendation"
+    nsPrefix="librede-recommendation">
+  <eClassifiers xsi:type="ecore:EClass" name="RecommendationTrainingConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trainingData" lowerBound="1"
+        upperBound="-1" eType="ecore:EClass optimization.ecore#//InputData"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningAlgorithm" eType="#//IRecommendationAlgorithmSpecifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureAlgorithm" lowerBound="1"
+        eType="#//IFeatureExtractorSpecifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="estimation" lowerBound="1"
+        eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IRecommendationAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithmName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataSet">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="configuration" lowerBound="1"
+        eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//LibredeConfiguration"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="features" lowerBound="1"
+        eType="#//FeatureVector"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetValue" lowerBound="1"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IFeatureExtractorSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureExtractor" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureVector"/>
+</ecore:EPackage>
