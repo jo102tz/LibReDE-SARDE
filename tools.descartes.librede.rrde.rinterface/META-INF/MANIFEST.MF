@@ -11,4 +11,5 @@ Require-Bundle: org.apache.log4j;bundle-version="1.2.15",
 Bundle-ClassPath: lib/JRI.jar,
  lib/JRIEngine.jar,
  lib/REngine.jar,
+ lib/rJava.jar,
  .

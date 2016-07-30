@@ -5,7 +5,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="RecommendationTrainingConfiguration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="trainingData" lowerBound="1"
         upperBound="-1" eType="ecore:EClass optimization.ecore#//InputData"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="learningAlgorithm" eType="#//IRecommendationAlgorithmSpecifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningAlgorithm" lowerBound="1"
+        eType="#//IRecommendationAlgorithmSpecifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureAlgorithm" lowerBound="1"
         eType="#//IFeatureExtractorSpecifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="estimation" lowerBound="1"
@@ -15,6 +16,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithmName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IFeatureExtractorSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureExtractor" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataSet">
     <eStructuralFeatures xsi:type="ecore:EReference" name="configuration" lowerBound="1"
         eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//LibredeConfiguration"/>
@@ -22,10 +27,6 @@
         eType="#//FeatureVector"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetValue" lowerBound="1"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IFeatureExtractorSpecifier">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureExtractor" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureVector"/>
 </ecore:EPackage>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/rJava.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/JRI.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/JRIEngine.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/REngine.jar"/>
