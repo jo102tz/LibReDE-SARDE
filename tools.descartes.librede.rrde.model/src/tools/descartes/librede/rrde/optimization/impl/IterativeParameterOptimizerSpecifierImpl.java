@@ -78,7 +78,7 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int NUMBER_OF_SPLITS_EDEFAULT = 10;
+	protected static final int NUMBER_OF_SPLITS_EDEFAULT = 3;
 
 	/**
 	 * The cached value of the '{@link #getNumberOfSplits() <em>Number Of Splits</em>}' attribute.
@@ -98,7 +98,7 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int NUMBER_OF_EXPLORATIONS_EDEFAULT = 50;
+	protected static final int NUMBER_OF_EXPLORATIONS_EDEFAULT = 3;
 
 	/**
 	 * The cached value of the '{@link #getNumberOfExplorations() <em>Number Of Explorations</em>}' attribute.
@@ -118,7 +118,7 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int NUMBER_OF_ITERATIONS_EDEFAULT = 50;
+	protected static final int NUMBER_OF_ITERATIONS_EDEFAULT = 3;
 
 	/**
 	 * The cached value of the '{@link #getNumberOfIterations() <em>Number Of Iterations</em>}' attribute.

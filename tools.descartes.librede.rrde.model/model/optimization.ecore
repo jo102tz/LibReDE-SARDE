@@ -64,11 +64,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="IterativeParameterOptimizerSpecifier"
       eSuperTypes="#//IConfigurationOptimizationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfSplits" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="10"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="3"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfExplorations" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="50"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="3"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfIterations" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="50"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IOptimizableParameter" abstract="true"
       interface="true">

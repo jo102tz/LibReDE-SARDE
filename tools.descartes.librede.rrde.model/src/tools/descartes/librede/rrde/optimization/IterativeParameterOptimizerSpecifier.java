@@ -24,7 +24,7 @@ package tools.descartes.librede.rrde.optimization;
 public interface IterativeParameterOptimizerSpecifier extends IConfigurationOptimizationAlgorithmSpecifier {
 	/**
 	 * Returns the value of the '<em><b>Number Of Splits</b></em>' attribute.
-	 * The default value is <code>"10"</code>.
+	 * The default value is <code>"3"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Number Of Splits</em>' attribute isn't clear,
@@ -34,7 +34,7 @@ public interface IterativeParameterOptimizerSpecifier extends IConfigurationOpti
 	 * @return the value of the '<em>Number Of Splits</em>' attribute.
 	 * @see #setNumberOfSplits(int)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIterativeParameterOptimizerSpecifier_NumberOfSplits()
-	 * @model default="10" required="true"
+	 * @model default="3" required="true"
 	 * @generated
 	 */
 	int getNumberOfSplits();
@@ -51,7 +51,7 @@ public interface IterativeParameterOptimizerSpecifier extends IConfigurationOpti
 
 	/**
 	 * Returns the value of the '<em><b>Number Of Explorations</b></em>' attribute.
-	 * The default value is <code>"50"</code>.
+	 * The default value is <code>"3"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Number Of Explorations</em>' attribute isn't clear,
@@ -61,7 +61,7 @@ public interface IterativeParameterOptimizerSpecifier extends IConfigurationOpti
 	 * @return the value of the '<em>Number Of Explorations</em>' attribute.
 	 * @see #setNumberOfExplorations(int)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIterativeParameterOptimizerSpecifier_NumberOfExplorations()
-	 * @model default="50" required="true"
+	 * @model default="3" required="true"
 	 * @generated
 	 */
 	int getNumberOfExplorations();
@@ -78,7 +78,7 @@ public interface IterativeParameterOptimizerSpecifier extends IConfigurationOpti
 
 	/**
 	 * Returns the value of the '<em><b>Number Of Iterations</b></em>' attribute.
-	 * The default value is <code>"50"</code>.
+	 * The default value is <code>"3"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Number Of Iterations</em>' attribute isn't clear,
@@ -88,7 +88,7 @@ public interface IterativeParameterOptimizerSpecifier extends IConfigurationOpti
 	 * @return the value of the '<em>Number Of Iterations</em>' attribute.
 	 * @see #setNumberOfIterations(int)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIterativeParameterOptimizerSpecifier_NumberOfIterations()
-	 * @model default="50" required="true"
+	 * @model default="3" required="true"
 	 * @generated
 	 */
 	int getNumberOfIterations();
