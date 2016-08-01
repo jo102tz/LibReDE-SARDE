@@ -36,7 +36,7 @@ import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
  * @author JS
  *
  */
-public interface CallbackEvaluator {
+public interface ICallbackEvaluator {
 
 	/**
 	 * Calculates the value of the target function according to the given

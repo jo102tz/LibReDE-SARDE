@@ -34,7 +34,7 @@ import org.apache.log4j.Logger;
 import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl;
-import tools.descartes.librede.rrde.rinterface.CallbackEvaluator;
+import tools.descartes.librede.rrde.rinterface.ICallbackEvaluator;
 import tools.descartes.librede.rrde.rinterface.RBridge;
 
 /**
@@ -102,15 +102,14 @@ public class IterativeParameterOptimizationAlgorithm
 	 */
 	@Override
 	public void executeAlgorithm() {
-		RBridge r = new RBridge();
+		RBridge r = RBridge.getInstance();
 		IterativeParameterOptimizerSpecifierImpl alg = (IterativeParameterOptimizerSpecifierImpl) getAlgorithm();
 		Map<IOptimizableParameter, Double> best = r.runOptimization(
 				getSettings().getParametersToOptimize(),
-				new CallbackEvaluator() {
+				new ICallbackEvaluator() {
 					@Override
 					public double evaluate(
 							Map<IOptimizableParameter, Double> params) {
-						System.out.println("THIS CALL WAS MADE");
 						for (Entry<IOptimizableParameter, Double> en : params
 								.entrySet()) {
 							setTargetValue(en.getKey(), en.getValue());

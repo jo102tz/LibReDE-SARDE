@@ -21,8 +21,8 @@
 #library(data.table)
 
 initialize<-function(path){
-  .jinit()
-  .jpackage(path)
+  .jinit(path)
+  #.jpackage(path)
 }
 
 
@@ -159,8 +159,7 @@ optimizeParams<-function(java, ranges, nSplits=10, nExplorations=50,
 
 # Evaluate for a given thechnique the model with the given parameters
 evaluate<-function(java, params) {
-  holder = .jnew("tools/descartes/librede/rrde/rinterface/CallbackHolder")
-  d = .jcall(holder, "D", "evaluate", params)
+  d = .jcall(obj=java, returnSig = "D", method="evaluate", as.double(params))
   return(d)
   #bridge = .jnew("java/util/Vector")
   #return (runif(1))
@@ -168,7 +167,6 @@ evaluate<-function(java, params) {
 
 # Enforce for each parameter of a method that the value is valid
 makeValueValid<-function(java, param, value) {
-  print("HALLO")
   print(value)
   return(value)
 }

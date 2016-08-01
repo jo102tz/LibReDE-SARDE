@@ -77,7 +77,7 @@ public class Plugin implements IApplication {
 	/**
 	 * The logging level for all classes of this package
 	 */
-	private static final Level loglevel = Level.TRACE;
+	private static final Level loglevel = Level.DEBUG;
 
 	/**
 	 * The logger used for logging
@@ -423,7 +423,9 @@ public class Plugin implements IApplication {
 		Logger.getLogger(
 				tools.descartes.librede.rrde.optimization.Plugin.class.getPackage()
 						.getName()).setLevel(loglevel);
-
+		Logger.getLogger(
+				tools.descartes.librede.rrde.rinterface.RBridge.class.getPackage()
+						.getName()).setLevel(loglevel);
 	}
 
 	/**
