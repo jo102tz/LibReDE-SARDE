@@ -96,7 +96,11 @@ public class Wrapper {
 		try {
 			LibredeVariables var = new LibredeVariables(conf);
 			Librede.initRepo(var);
-			return Librede.runEstimationWithCrossValidation(var);
+			if (var.getConf().getValidation().getValidationFolds() <= 1) {
+				return Librede.runEstimationWithValidation(var);
+			} else {
+				return Librede.runEstimationWithCrossValidation(var);
+			}
 		} catch (Exception e) {
 			log.error("Error running estimation.", e);
 			return null;

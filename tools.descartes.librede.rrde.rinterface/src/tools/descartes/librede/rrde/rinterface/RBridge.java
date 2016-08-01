@@ -27,13 +27,14 @@
 package tools.descartes.librede.rrde.rinterface;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.rosuda.JRI.REXP;
+import org.rosuda.JRI.RList;
 import org.rosuda.JRI.RMainLoopCallbacks;
 import org.rosuda.JRI.Rengine;
 
@@ -72,7 +73,7 @@ public class RBridge implements RMainLoopCallbacks {
 	 * The engine to run R commands
 	 */
 	private Rengine re;
-	
+
 	/**
 	 * An instance store for the singleton.
 	 */
@@ -82,9 +83,9 @@ public class RBridge implements RMainLoopCallbacks {
 		re = createRengine();
 		loadScript();
 	}
-	
-	public static RBridge getInstance(){
-		if(instance==null){
+
+	public static RBridge getInstance() {
+		if (instance == null) {
 			instance = new RBridge();
 		}
 		return instance;
@@ -141,13 +142,13 @@ public class RBridge implements RMainLoopCallbacks {
 	 * @return A Mapping of an optimal value for each parameter
 	 */
 	public synchronized Map<IOptimizableParameter, Double> runOptimization(
-			List<IOptimizableParameter> params,
-			ICallbackEvaluator evaluator, int nSplits, int nExplorations,
-			int nIterations) {
+			List<IOptimizableParameter> params, ICallbackEvaluator evaluator,
+			int nSplits, int nExplorations, int nIterations) {
 		log.trace("Entering blocked R mode.");
 
 		// setting evaluator
-		REXP eval = re.createRJavaRef(new CallbackWrapper(params, evaluator));
+		CallbackWrapper wrapper = new CallbackWrapper(params, evaluator);
+		REXP eval = re.createRJavaRef(wrapper);
 		boolean flag = re.assign("java", eval);
 		if (!flag) {
 			log.error("Assignment of evaluator failed.");
@@ -157,21 +158,22 @@ public class RBridge implements RMainLoopCallbacks {
 		re.eval("nSplits <- " + nSplits);
 		re.eval("nExplorations <- " + nExplorations);
 		re.eval("nIterations <- " + nIterations);
-		re.eval("trace <- 1");
+		re.eval("trace <- 0");
 
 		// run
 		re.eval("opts <- optimizeParams(java, params, nSplits, nExplorations, nIterations, trace)");
-		log.trace("Leaving blocked R mode.");
 		REXP ret = re.eval("opts");
-		// TODO return
-		return new HashMap<IOptimizableParameter, Double>();
+		double[] lastline = ret.asDoubleArray();
+		double[] results = Arrays.copyOf(lastline, lastline.length - 2);
+		log.trace("Leaving blocked R mode.");
+		return wrapper.mapToParameters(results);
 	}
 
 	/**
 	 * Feeds the parameters with minimum and maximum value into R. Should only
 	 * be called out of the synchronized block by
-	 * {@link #runOptimization(Collection, ICallbackEvaluator, int, int, int)} to
-	 * be thread-safe.
+	 * {@link #runOptimization(Collection, ICallbackEvaluator, int, int, int)}
+	 * to be thread-safe.
 	 * 
 	 * @param params
 	 *            The parameters to feed.
