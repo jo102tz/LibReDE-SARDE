@@ -12,7 +12,7 @@
 # Czech Republic, ICPE 13, pages 283-294, New York, NY, USA. ACM. 2013.
 # Default values for techniques
 #
-# This script was adapted by Johanes Grohmann in order to use it in the Java LibReDE tool, 2016.
+# This script was adapted by Johannes Grohmann in order to use it in the Java LibReDE tool, 2016.
 
 #importing is done by the Java interface beforehand
 #install.packages("rJava")
@@ -74,7 +74,6 @@ optimizeParams<-function(java, ranges, nSplits=10, nExplorations=50,
       d(x)
       #y = Mrow[length(Mrow)] #last column
       
-      print("HALLO3")
       #For each parameter find lower and upper limits
       S = yapply(x, function(xv) {
         d(paste("Inspecting parameter",NAMES))
@@ -154,20 +153,20 @@ optimizeParams<-function(java, ranges, nSplits=10, nExplorations=50,
     iterNo = iterNo+1
   }
   
-  return(E[order(quality), ])
+  #original return
+  #return(E[order(quality), ])
+  return(as.double(M[1,]))
 }
 
 # Evaluate for a given thechnique the model with the given parameters
 evaluate<-function(java, params) {
   d = .jcall(obj=java, returnSig = "D", method="evaluate", as.double(params))
   return(d)
-  #bridge = .jnew("java/util/Vector")
-  #return (runif(1))
 }
 
 # Enforce for each parameter of a method that the value is valid
 makeValueValid<-function(java, param, value) {
-  print(value)
+  #print(value)
   return(value)
 }
 
