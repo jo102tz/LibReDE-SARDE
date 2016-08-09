@@ -29,6 +29,7 @@ package tools.descartes.librede.rrde.rinterface;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -162,7 +163,15 @@ public class RBridge implements RMainLoopCallbacks {
 		// run
 		re.eval("opts <- optimizeParams(java, params, nSplits, nExplorations, nIterations, trace)");
 		REXP ret = re.eval("opts");
+		if(ret==null){
+			log.error("No result could be obtained. Execution failed.");
+			return Collections.emptyMap();
+		}
 		double[] lastline = ret.asDoubleArray();
+		if(lastline==null || lastline.length < 3){
+			log.error("The result could not be read. Execution failed.");
+			return Collections.emptyMap();
+		}
 		double[] results = Arrays.copyOf(lastline, lastline.length - 2);
 		log.trace("Leaving blocked R mode.");
 		return wrapper.mapToParameters(results);

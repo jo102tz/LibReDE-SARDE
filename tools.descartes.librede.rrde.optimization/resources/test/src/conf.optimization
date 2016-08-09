@@ -52,12 +52,15 @@
       </description>
     </trainingData>
     <settings>
-      <validator validationFolds="5" validateEstimates="true">
+      <validator validateEstimates="true">
         <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
         <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
       </validator>
-      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="0.1" parameter="//@containsOf.0/@estimationSpecification/@algorithms.0/@parameters.0"/>
-      <parametersToOptimize xsi:type="librede-optimization:StepSize" lowerBound="20.0" upperBound="100.0" startValue="60.0"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.1" upperBound="2.0" startValue="1.0" parameter="//@containsOf.0/@estimationSpecification/@algorithms.0/@parameters.0"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.1" upperBound="1.5" startValue="0.9" parameter="//@containsOf.0/@estimationSpecification/@algorithms.0/@parameters.1"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.1" upperBound="2.0" startValue="1.0" parameter="//@containsOf.0/@estimationSpecification/@algorithms.0/@parameters.3"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="1.0E-5" parameter="//@containsOf.0/@estimationSpecification/@algorithms.0/@parameters.2"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="1.0E-4" parameter="//@containsOf.0/@estimationSpecification/@algorithms.0/@parameters.4"/>
     </settings>
     <estimationSpecification window="60">
       <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>

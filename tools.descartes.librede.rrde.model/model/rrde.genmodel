@@ -50,7 +50,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IOptimizableParameter/upperBound"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IOptimizableParameter/startValue"/>
     </genClasses>
-    <genClasses ecoreClass="optimization.ecore#//GenericParameter">
+    <genClasses ecoreClass="optimization.ecore#//GenericParameter" labelFeature="#//optimization/IOptimizableParameter/startValue">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference optimization.ecore#//GenericParameter/parameter"/>
     </genClasses>
     <genClasses ecoreClass="optimization.ecore#//StepSize" labelFeature="#//optimization/IOptimizableParameter/startValue"/>
@@ -73,13 +73,13 @@
     <genClasses ecoreClass="recommendation.ecore#//IRecommendationAlgorithmSpecifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//IRecommendationAlgorithmSpecifier/algorithmName"/>
     </genClasses>
+    <genClasses ecoreClass="recommendation.ecore#//IFeatureExtractorSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//IFeatureExtractorSpecifier/featureExtractor"/>
+    </genClasses>
     <genClasses ecoreClass="recommendation.ecore#//DataSet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//DataSet/configuration"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//DataSet/features"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//DataSet/targetValue"/>
-    </genClasses>
-    <genClasses ecoreClass="recommendation.ecore#//IFeatureExtractorSpecifier">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//IFeatureExtractorSpecifier/featureExtractor"/>
     </genClasses>
     <genClasses ecoreClass="recommendation.ecore#//FeatureVector"/>
   </genPackages>
