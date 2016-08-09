@@ -29,6 +29,7 @@ package tools.descartes.librede.rrde.optimization.algorithm;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
@@ -104,6 +105,11 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * The value of the last error.
 	 */
 	private double lastError;
+
+	/**
+	 * The value of the error before the optimization process.
+	 */
+	private double firstError;
 
 	/**
 	 * Constructor preparing and initializing execution
@@ -232,13 +238,24 @@ public abstract class AbstractConfigurationOptimizer implements
 		time = System.currentTimeMillis();
 		init();
 		executeAlgorithm();
+		double newError = runIteration();
 		finished = true;
 		getLog().info(
 				"Successfully ran optimization of configuration file "
 						+ getSpecification().toString());
 		getLog().info("Number of iterations:" + iterationcounter);
 		getLog().info("Number of total executions:" + totalruns);
-		getLog().info("Time: " + (System.currentTimeMillis() - time) + " ms");
+		getLog().info(
+				"Elapsed Time: "
+						+ DurationFormatUtils.formatDurationWords(
+								(System.currentTimeMillis() - time), true, true)
+						+ ".");
+		double improvementPercent = ((firstError - newError) * 100)
+				/ (firstError);
+		getLog().info(
+				"The optimized configurations have an error of " + newError
+						+ ". This is an improvement of around "
+						+ improvementPercent + "%.");
 		return true;
 	}
 
@@ -253,6 +270,14 @@ public abstract class AbstractConfigurationOptimizer implements
 		getLog().info(
 				"Finished initialization. Available Training-Configurations: "
 						+ confs.size());
+		long thistime = System.currentTimeMillis();
+		firstError = runIteration();
+		String timestamp = DurationFormatUtils.formatDuration(
+				(System.currentTimeMillis() - thistime), "ss.SSS", false);
+		getLog().info(
+				"The starting configurations have an error of " + firstError
+						+ ". Time elapsed for the first iteration: "
+						+ timestamp + "s.");
 	}
 
 	/**

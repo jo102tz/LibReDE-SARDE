@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: DEVELOP
 Bundle-SymbolicName: tools.descartes.librede.rrde.optimization;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: DEVELOP.jar
 Export-Package: tools.descartes.librede.rrde.optimization,
  tools.descartes.librede.rrde.optimization.algorithm
 Require-Bundle: tools.descartes.librede.estimation;bundle-version="1.1.0",

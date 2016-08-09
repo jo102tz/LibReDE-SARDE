@@ -120,12 +120,12 @@ public class IterativeParameterOptimizationAlgorithm
 					}
 				}, alg.getNumberOfSplits(), alg.getNumberOfExplorations(), alg
 						.getNumberOfIterations());
-		getLog().info("Finished execution of IPA script!");
 		for (Entry<IOptimizableParameter, Double> en : best.entrySet()) {
 			log.info("Found parameter value of " + en.getValue()
 					+ " for parameter " + Util.getParameterString(en.getKey()));
 			setTargetValue(en.getKey(), en.getValue());
 		}
+		getLog().info("Finished execution of IPA script!");
 	}
 
 }
