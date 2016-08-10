@@ -321,7 +321,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRunCall_EstimationSpecification() {
+	public EReference getRunCall_Estimation() {
 		return (EReference)runCallEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -339,7 +339,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInputData_InputSpecification() {
+	public EReference getInputData_Input() {
 		return (EReference)inputDataEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -348,7 +348,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInputData_Description() {
+	public EReference getInputData_WorkloadDescription() {
 		return (EReference)inputDataEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -585,11 +585,11 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		createEReference(runCallEClass, RUN_CALL__ALGORITHM);
 		createEReference(runCallEClass, RUN_CALL__TRAINING_DATA);
 		createEReference(runCallEClass, RUN_CALL__SETTINGS);
-		createEReference(runCallEClass, RUN_CALL__ESTIMATION_SPECIFICATION);
+		createEReference(runCallEClass, RUN_CALL__ESTIMATION);
 
 		inputDataEClass = createEClass(INPUT_DATA);
-		createEReference(inputDataEClass, INPUT_DATA__INPUT_SPECIFICATION);
-		createEReference(inputDataEClass, INPUT_DATA__DESCRIPTION);
+		createEReference(inputDataEClass, INPUT_DATA__INPUT);
+		createEReference(inputDataEClass, INPUT_DATA__WORKLOAD_DESCRIPTION);
 		createEAttribute(inputDataEClass, INPUT_DATA__ROOT_FOLDER);
 
 		optimizationSettingsEClass = createEClass(OPTIMIZATION_SETTINGS);
@@ -676,11 +676,11 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEReference(getRunCall_Algorithm(), this.getIConfigurationOptimizationAlgorithmSpecifier(), null, "algorithm", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRunCall_TrainingData(), this.getInputData(), null, "trainingData", null, 1, -1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRunCall_Settings(), this.getOptimizationSettings(), null, "settings", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRunCall_EstimationSpecification(), theConfigurationPackage.getEstimationSpecification(), null, "estimationSpecification", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRunCall_Estimation(), theConfigurationPackage.getEstimationSpecification(), null, "estimation", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(inputDataEClass, InputData.class, "InputData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getInputData_InputSpecification(), theConfigurationPackage.getInputSpecification(), null, "inputSpecification", null, 1, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getInputData_Description(), theConfigurationPackage.getWorkloadDescription(), null, "description", null, 1, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInputData_Input(), theConfigurationPackage.getInputSpecification(), null, "input", null, 1, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInputData_WorkloadDescription(), theConfigurationPackage.getWorkloadDescription(), null, "workloadDescription", null, 1, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInputData_RootFolder(), theXMLTypePackage.getString(), "rootFolder", null, 1, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(optimizationSettingsEClass, OptimizationSettings.class, "OptimizationSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -708,7 +708,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEAttribute(getDataExportSpecifier_OutputDirectory(), theXMLTypePackage.getString(), "OutputDirectory", "\"\"", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataExportSpecifier_StepSize(), theXMLTypePackage.getDouble(), "stepSize", "1.0", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataExportSpecifier_Multidimensional(), theXMLTypePackage.getBoolean(), "multidimensional", "false", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataExportSpecifier_SplitConfigurations(), theXMLTypePackage.getBoolean(), "splitConfigurations", "false", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataExportSpecifier_SplitConfigurations(), theXMLTypePackage.getBoolean(), "splitConfigurations", "true", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

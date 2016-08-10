@@ -23,7 +23,7 @@ import tools.descartes.librede.configuration.EstimationSpecification;
  *   <li>{@link tools.descartes.librede.rrde.optimization.RunCall#getAlgorithm <em>Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.RunCall#getTrainingData <em>Training Data</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.RunCall#getSettings <em>Settings</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.RunCall#getEstimationSpecification <em>Estimation Specification</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.RunCall#getEstimation <em>Estimation</em>}</li>
  * </ul>
  * </p>
  *
@@ -101,29 +101,29 @@ public interface RunCall extends EObject {
 	void setSettings(OptimizationSettings value);
 
 	/**
-	 * Returns the value of the '<em><b>Estimation Specification</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Estimation</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Estimation Specification</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Estimation</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Estimation Specification</em>' containment reference.
-	 * @see #setEstimationSpecification(EstimationSpecification)
-	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getRunCall_EstimationSpecification()
+	 * @return the value of the '<em>Estimation</em>' containment reference.
+	 * @see #setEstimation(EstimationSpecification)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getRunCall_Estimation()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	EstimationSpecification getEstimationSpecification();
+	EstimationSpecification getEstimation();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.RunCall#getEstimationSpecification <em>Estimation Specification</em>}' containment reference.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.RunCall#getEstimation <em>Estimation</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Estimation Specification</em>' containment reference.
-	 * @see #getEstimationSpecification()
+	 * @param value the new value of the '<em>Estimation</em>' containment reference.
+	 * @see #getEstimation()
 	 * @generated
 	 */
-	void setEstimationSpecification(EstimationSpecification value);
+	void setEstimation(EstimationSpecification value);
 
 } // RunCall

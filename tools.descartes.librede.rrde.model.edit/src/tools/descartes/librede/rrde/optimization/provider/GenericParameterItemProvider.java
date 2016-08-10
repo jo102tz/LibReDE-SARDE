@@ -176,7 +176,7 @@ public class GenericParameterItemProvider
 	@Override
 	public String getText(Object object) {
 		GenericParameter genericParameter = (GenericParameter)object;
-		return getString("_UI_GenericParameter_type") + " " + genericParameter.getLowerBound();
+		return getString("_UI_GenericParameter_type") + " " + genericParameter.getStartValue();
 	}
 	
 

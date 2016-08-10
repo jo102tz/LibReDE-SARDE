@@ -139,7 +139,7 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean SPLIT_CONFIGURATIONS_EDEFAULT = false;
+	protected static final boolean SPLIT_CONFIGURATIONS_EDEFAULT = true;
 
 	/**
 	 * The cached value of the '{@link #isSplitConfigurations() <em>Split Configurations</em>}' attribute.

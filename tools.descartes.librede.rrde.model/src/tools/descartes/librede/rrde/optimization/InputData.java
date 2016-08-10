@@ -15,8 +15,8 @@ import tools.descartes.librede.configuration.WorkloadDescription;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getInputSpecification <em>Input Specification</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getDescription <em>Description</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getInput <em>Input</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getWorkloadDescription <em>Workload Description</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getRootFolder <em>Root Folder</em>}</li>
  * </ul>
  * </p>
@@ -27,56 +27,56 @@ import tools.descartes.librede.configuration.WorkloadDescription;
  */
 public interface InputData extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Input Specification</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Input</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Input Specification</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Input</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Input Specification</em>' containment reference.
-	 * @see #setInputSpecification(InputSpecification)
-	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getInputData_InputSpecification()
+	 * @return the value of the '<em>Input</em>' containment reference.
+	 * @see #setInput(InputSpecification)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getInputData_Input()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	InputSpecification getInputSpecification();
+	InputSpecification getInput();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.InputData#getInputSpecification <em>Input Specification</em>}' containment reference.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.InputData#getInput <em>Input</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Input Specification</em>' containment reference.
-	 * @see #getInputSpecification()
+	 * @param value the new value of the '<em>Input</em>' containment reference.
+	 * @see #getInput()
 	 * @generated
 	 */
-	void setInputSpecification(InputSpecification value);
+	void setInput(InputSpecification value);
 
 	/**
-	 * Returns the value of the '<em><b>Description</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Workload Description</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Description</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Workload Description</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Description</em>' containment reference.
-	 * @see #setDescription(WorkloadDescription)
-	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getInputData_Description()
+	 * @return the value of the '<em>Workload Description</em>' containment reference.
+	 * @see #setWorkloadDescription(WorkloadDescription)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getInputData_WorkloadDescription()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	WorkloadDescription getDescription();
+	WorkloadDescription getWorkloadDescription();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.InputData#getDescription <em>Description</em>}' containment reference.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.InputData#getWorkloadDescription <em>Workload Description</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Description</em>' containment reference.
-	 * @see #getDescription()
+	 * @param value the new value of the '<em>Workload Description</em>' containment reference.
+	 * @see #getWorkloadDescription()
 	 * @generated
 	 */
-	void setDescription(WorkloadDescription value);
+	void setWorkloadDescription(WorkloadDescription value);
 
 	/**
 	 * Returns the value of the '<em><b>Root Folder</b></em>' attribute.

@@ -94,7 +94,7 @@ public class Discovery {
 	public static Map<WorkloadDescription, Set<InputSpecification>> discoverInputs(EList<InputData> input) {
 		HashMap<WorkloadDescription, Set<InputSpecification>> map = new HashMap<WorkloadDescription, Set<InputSpecification>>();
 		for (InputData data : input) {
-			map.put(data.getDescription(), discoverOne(data));
+			map.put(data.getWorkloadDescription(), discoverOne(data));
 		}
 		return map;
 	}
@@ -212,7 +212,7 @@ public class Discovery {
 			log.warn(folder.toString() + " is not a directory.");
 			return set;
 		}
-		iterateDirectories(folder.toPath(), input.getInputSpecification(), set);
+		iterateDirectories(folder.toPath(), input.getInput(), set);
 		return set;
 	}
 

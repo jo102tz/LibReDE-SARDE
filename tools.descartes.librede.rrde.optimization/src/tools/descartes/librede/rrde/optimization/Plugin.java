@@ -117,7 +117,7 @@ public class Plugin implements IApplication {
 			// librede.
 			for (RunCall call : conf.getContainsOf()) {
 				for (InputData spec : call.getTrainingData()) {
-					spec.getInputSpecification()
+					spec.getInput()
 							.getDataSources()
 							.get(0)
 							.getParameters()
@@ -179,19 +179,19 @@ public class Plugin implements IApplication {
 		// right now, since e.g. StepSize applies for all approaches at once
 		ArrayList<RunCall> newRunCalls = new ArrayList<RunCall>();
 		for (RunCall call : conf.getContainsOf()) {
-			if (call.getEstimationSpecification().getApproaches().size() > 1) {
+			if (call.getEstimation().getApproaches().size() > 1) {
 				// split up
 				for (EstimationApproachConfiguration approach : call
-						.getEstimationSpecification().getApproaches()) {
+						.getEstimation().getApproaches()) {
 					// deep copy
 					RunCall newCall = EcoreUtil.copy(call);
 
-					newCall.setEstimationSpecification(EcoreUtil.copy(call
-							.getEstimationSpecification()));
+					newCall.setEstimation(EcoreUtil.copy(call
+							.getEstimation()));
 
-					newCall.getEstimationSpecification().getApproaches()
+					newCall.getEstimation().getApproaches()
 							.clear();
-					newCall.getEstimationSpecification().getApproaches()
+					newCall.getEstimation().getApproaches()
 							.add(EcoreUtil.copy(approach));
 
 					newRunCalls.add(newCall);
@@ -340,12 +340,12 @@ public class Plugin implements IApplication {
 			// catch optimization as they do not run concurrently and execute
 			// them
 			// sequentially
-			if (call.getEstimationSpecification()
+			if (call.getEstimation()
 					.getApproaches()
 					.get(0)
 					.getType()
 					.equals("tools.descartes.librede.approach.LiuOptimizationApproach")
-					|| call.getEstimationSpecification()
+					|| call.getEstimation()
 							.getApproaches()
 							.get(0)
 							.getType()
@@ -458,7 +458,7 @@ public class Plugin implements IApplication {
 			IConfigurationOptimizer algo = (IConfigurationOptimizer) Class
 					.forName(call.getAlgorithm().getAlgorithmName())
 					.newInstance();
-			algo.optimizeConfiguration(call.getEstimationSpecification(),
+			algo.optimizeConfiguration(call.getEstimation(),
 					call.getTrainingData(), call.getSettings(),
 					call.getAlgorithm());
 			return algo.getResult();

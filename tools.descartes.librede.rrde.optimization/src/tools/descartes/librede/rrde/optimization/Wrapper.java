@@ -26,8 +26,6 @@
  */
 package tools.descartes.librede.rrde.optimization;
 
-import java.util.HashMap;
-
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.Librede;
@@ -35,10 +33,8 @@ import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.bayesplusplus.BayesLibrary;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.datasource.IDataSource;
 import tools.descartes.librede.ipopt.java.IpoptLibrary;
 import tools.descartes.librede.nnls.NNLSLibrary;
-import tools.descartes.librede.repository.IRepositoryCursor;
 
 /**
  * This class provides some interface functionality and serves as a wrapper
@@ -55,7 +51,7 @@ public class Wrapper {
 	 */
 	private static final Logger log = Logger.getLogger(Wrapper.class);
 
-	private static HashMap<LibredeConfiguration, LibredeVariables> cache = new HashMap<LibredeConfiguration, LibredeVariables>();
+//	private static HashMap<LibredeConfiguration, LibredeVariables> cache = new HashMap<LibredeConfiguration, LibredeVariables>();
 
 	/**
 	 * Initialize the connection and set up the target, in this case LibReDE
@@ -66,7 +62,7 @@ public class Wrapper {
 		IpoptLibrary.init();
 		NNLSLibrary.init();
 		BayesLibrary.init();
-		cache = new HashMap<LibredeConfiguration, LibredeVariables>();
+//		cache = new HashMap<LibredeConfiguration, LibredeVariables>();
 	}
 
 	/**
