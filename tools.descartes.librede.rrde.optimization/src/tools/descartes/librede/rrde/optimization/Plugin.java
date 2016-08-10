@@ -115,16 +115,16 @@ public class Plugin implements IApplication {
 
 			// This is a fixup to replace the data sources with ones from
 			// librede.
-			for (RunCall call : conf.getContainsOf()) {
-				for (InputData spec : call.getTrainingData()) {
-					spec.getInput()
-							.getDataSources()
-							.get(0)
-							.getParameters()
-							.addAll(librede.getInput().getDataSources().get(0)
-									.getParameters());
-				}
-			}
+//			for (RunCall call : conf.getContainsOf()) {
+//				for (InputData spec : call.getTrainingData()) {
+//					spec.getInput()
+//							.getDataSources()
+//							.get(0)
+//							.getParameters()
+//							.addAll(librede.getInput().getDataSources().get(0)
+//									.getParameters());
+//				}
+//			}
 
 			// run optimization
 			runConfigurationOptimization(librede, conf, OUTPUT);
