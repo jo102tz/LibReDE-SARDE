@@ -60,9 +60,6 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.exceptions.EstimationException;
 import tools.descartes.librede.registry.Registry;
-import tools.descartes.librede.rrde.optimization.InputData;
-import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
-import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
 
 /**
@@ -77,7 +74,7 @@ public class Plugin implements IApplication {
 	/**
 	 * The logging level for all classes of this package
 	 */
-	private static final Level loglevel = Level.INFO;
+	private static final Level loglevel = Level.TRACE;
 
 	/**
 	 * The logger used for logging
@@ -88,14 +85,14 @@ public class Plugin implements IApplication {
 	 * The path to the default {@link LibredeConfiguration}
 	 */
 	public final static String LIB_PATH = "resources" + File.separator
-			+ "estimation.librede";
+			+ "specj.librede";
 
 	/**
 	 * The path to the default {@link OptimizationConfiguration}
 	 */
 	public final static String CONF_PATH = "resources" + File.separator
 			+ "test" + File.separator + "src" + File.separator
-			+ "conf.optimization";
+			+ "specj.optimization";
 
 	/**
 	 * The output path, where all output files are stored.
