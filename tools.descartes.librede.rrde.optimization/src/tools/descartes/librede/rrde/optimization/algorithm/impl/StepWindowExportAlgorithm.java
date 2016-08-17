@@ -54,7 +54,7 @@ public class StepWindowExportAlgorithm extends ExportAlgorithm {
 	 * The value that should be achieved at all times. Usually its considered to
 	 * be seconds, but the unit depends on the value of the step size quantity.
 	 */
-	private static final int TOTAL_VALUE = 3000;
+	private static final int TOTAL_VALUE = 10000;
 
 	@Override
 	protected void adaptOtherValues(IOptimizableParameter param, double i) {
