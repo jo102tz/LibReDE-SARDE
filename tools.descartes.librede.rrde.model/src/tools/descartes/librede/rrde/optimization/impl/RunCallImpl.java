@@ -36,7 +36,7 @@ import tools.descartes.librede.rrde.optimization.RunCall;
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl#getAlgorithm <em>Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl#getTrainingData <em>Training Data</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl#getSettings <em>Settings</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl#getEstimationSpecification <em>Estimation Specification</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl#getEstimation <em>Estimation</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,14 +74,14 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	protected OptimizationSettings settings;
 
 	/**
-	 * The cached value of the '{@link #getEstimationSpecification() <em>Estimation Specification</em>}' containment reference.
+	 * The cached value of the '{@link #getEstimation() <em>Estimation</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEstimationSpecification()
+	 * @see #getEstimation()
 	 * @generated
 	 * @ordered
 	 */
-	protected EstimationSpecification estimationSpecification;
+	protected EstimationSpecification estimation;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -205,8 +205,8 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EstimationSpecification getEstimationSpecification() {
-		return estimationSpecification;
+	public EstimationSpecification getEstimation() {
+		return estimation;
 	}
 
 	/**
@@ -214,11 +214,11 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetEstimationSpecification(EstimationSpecification newEstimationSpecification, NotificationChain msgs) {
-		EstimationSpecification oldEstimationSpecification = estimationSpecification;
-		estimationSpecification = newEstimationSpecification;
+	public NotificationChain basicSetEstimation(EstimationSpecification newEstimation, NotificationChain msgs) {
+		EstimationSpecification oldEstimation = estimation;
+		estimation = newEstimation;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OptimizationPackage.RUN_CALL__ESTIMATION_SPECIFICATION, oldEstimationSpecification, newEstimationSpecification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OptimizationPackage.RUN_CALL__ESTIMATION, oldEstimation, newEstimation);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -229,18 +229,18 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setEstimationSpecification(EstimationSpecification newEstimationSpecification) {
-		if (newEstimationSpecification != estimationSpecification) {
+	public void setEstimation(EstimationSpecification newEstimation) {
+		if (newEstimation != estimation) {
 			NotificationChain msgs = null;
-			if (estimationSpecification != null)
-				msgs = ((InternalEObject)estimationSpecification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.RUN_CALL__ESTIMATION_SPECIFICATION, null, msgs);
-			if (newEstimationSpecification != null)
-				msgs = ((InternalEObject)newEstimationSpecification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.RUN_CALL__ESTIMATION_SPECIFICATION, null, msgs);
-			msgs = basicSetEstimationSpecification(newEstimationSpecification, msgs);
+			if (estimation != null)
+				msgs = ((InternalEObject)estimation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.RUN_CALL__ESTIMATION, null, msgs);
+			if (newEstimation != null)
+				msgs = ((InternalEObject)newEstimation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.RUN_CALL__ESTIMATION, null, msgs);
+			msgs = basicSetEstimation(newEstimation, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.RUN_CALL__ESTIMATION_SPECIFICATION, newEstimationSpecification, newEstimationSpecification));
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.RUN_CALL__ESTIMATION, newEstimation, newEstimation));
 	}
 
 	/**
@@ -257,8 +257,8 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 				return ((InternalEList<?>)getTrainingData()).basicRemove(otherEnd, msgs);
 			case OptimizationPackage.RUN_CALL__SETTINGS:
 				return basicSetSettings(null, msgs);
-			case OptimizationPackage.RUN_CALL__ESTIMATION_SPECIFICATION:
-				return basicSetEstimationSpecification(null, msgs);
+			case OptimizationPackage.RUN_CALL__ESTIMATION:
+				return basicSetEstimation(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -277,8 +277,8 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 				return getTrainingData();
 			case OptimizationPackage.RUN_CALL__SETTINGS:
 				return getSettings();
-			case OptimizationPackage.RUN_CALL__ESTIMATION_SPECIFICATION:
-				return getEstimationSpecification();
+			case OptimizationPackage.RUN_CALL__ESTIMATION:
+				return getEstimation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -302,8 +302,8 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 			case OptimizationPackage.RUN_CALL__SETTINGS:
 				setSettings((OptimizationSettings)newValue);
 				return;
-			case OptimizationPackage.RUN_CALL__ESTIMATION_SPECIFICATION:
-				setEstimationSpecification((EstimationSpecification)newValue);
+			case OptimizationPackage.RUN_CALL__ESTIMATION:
+				setEstimation((EstimationSpecification)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -326,8 +326,8 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 			case OptimizationPackage.RUN_CALL__SETTINGS:
 				setSettings((OptimizationSettings)null);
 				return;
-			case OptimizationPackage.RUN_CALL__ESTIMATION_SPECIFICATION:
-				setEstimationSpecification((EstimationSpecification)null);
+			case OptimizationPackage.RUN_CALL__ESTIMATION:
+				setEstimation((EstimationSpecification)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -347,8 +347,8 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 				return trainingData != null && !trainingData.isEmpty();
 			case OptimizationPackage.RUN_CALL__SETTINGS:
 				return settings != null;
-			case OptimizationPackage.RUN_CALL__ESTIMATION_SPECIFICATION:
-				return estimationSpecification != null;
+			case OptimizationPackage.RUN_CALL__ESTIMATION:
+				return estimation != null;
 		}
 		return super.eIsSet(featureID);
 	}

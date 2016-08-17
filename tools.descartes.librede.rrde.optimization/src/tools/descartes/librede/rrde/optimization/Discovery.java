@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -91,10 +92,11 @@ public class Discovery {
 	 * @return A Map assigning {@link InputSpecification}s to
 	 *         {@link WorkloadDescription}s
 	 */
-	public static Map<WorkloadDescription, Set<InputSpecification>> discoverInputs(EList<InputData> input) {
+	public static Map<WorkloadDescription, Set<InputSpecification>> discoverInputs(
+			EList<InputData> input) {
 		HashMap<WorkloadDescription, Set<InputSpecification>> map = new HashMap<WorkloadDescription, Set<InputSpecification>>();
 		for (InputData data : input) {
-			map.put(data.getDescription(), discoverOne(data));
+			map.put(data.getWorkloadDescription(), discoverOne(data));
 		}
 		return map;
 	}
@@ -119,8 +121,9 @@ public class Discovery {
 	 *            should contain
 	 * @return A set of found valid {@link LibredeConfiguration}s
 	 */
-	public static Set<LibredeConfiguration> createConfigurations(EList<InputData> input,
-			EstimationSpecification estimation, ValidationSpecification validator) {
+	public static Set<LibredeConfiguration> createConfigurations(
+			EList<InputData> input, EstimationSpecification estimation,
+			ValidationSpecification validator) {
 		Set<LibredeConfiguration> set = new HashSet<LibredeConfiguration>();
 
 		// change important settings of base file
@@ -128,7 +131,8 @@ public class Discovery {
 
 		// explore inputs and create as many configurations
 		Map<WorkloadDescription, Set<InputSpecification>> map = discoverInputs(input);
-		for (Entry<WorkloadDescription, Set<InputSpecification>> entry : map.entrySet()) {
+		for (Entry<WorkloadDescription, Set<InputSpecification>> entry : map
+				.entrySet()) {
 
 			ArrayList<Resource> reslist = new ArrayList<Resource>();
 			reslist.addAll(entry.getKey().getResources());
@@ -141,7 +145,8 @@ public class Discovery {
 				LibredeConfiguration additional = EcoreUtil.copy(conf);
 
 				// do not copy references
-				additional.setWorkloadDescription(EcoreUtil.copy(entry.getKey()));
+				additional
+						.setWorkloadDescription(EcoreUtil.copy(entry.getKey()));
 
 				additional.setInput(EcoreUtil.copy(spec));
 
@@ -159,7 +164,7 @@ public class Discovery {
 
 				// adapt time stamps
 				// fix mapping references
-				if(fixTimeStamp(additional) & fixMapping(additional)){
+				if (fixTimeStamp(additional) & fixMapping(additional)) {
 					set.add(additional);
 				} else {
 					log.warn("No valid configuration could be created.");
@@ -179,12 +184,14 @@ public class Discovery {
 	private static boolean fixMapping(LibredeConfiguration additional) {
 		for (TraceConfiguration trace : additional.getInput().getObservations()) {
 			for (TraceToEntityMapping mapping : trace.getMappings()) {
-				for (Resource res : additional.getWorkloadDescription().getResources()) {
+				for (Resource res : additional.getWorkloadDescription()
+						.getResources()) {
 					if (mapping.getEntity().getName().equals(res.getName())) {
 						mapping.setEntity(res);
 					}
 				}
-				for (Service ser : additional.getWorkloadDescription().getServices()) {
+				for (Service ser : additional.getWorkloadDescription()
+						.getServices()) {
 					if (mapping.getEntity().getName().equals(ser.getName())) {
 						mapping.setEntity(ser);
 					}
@@ -212,7 +219,7 @@ public class Discovery {
 			log.warn(folder.toString() + " is not a directory.");
 			return set;
 		}
-		iterateDirectories(folder.toPath(), input.getInputSpecification(), set);
+		iterateDirectories(folder.toPath(), input.getInput(), set);
 		return set;
 	}
 
@@ -228,9 +235,11 @@ public class Discovery {
 	 *            should contain
 	 * @return An new {@link LibredeConfiguration}
 	 */
-	private static LibredeConfiguration createConfigFile(EstimationSpecification estimation,
+	private static LibredeConfiguration createConfigFile(
+			EstimationSpecification estimation,
 			ValidationSpecification validator) {
-		LibredeConfiguration copy = ConfigurationFactory.eINSTANCE.createLibredeConfiguration();
+		LibredeConfiguration copy = ConfigurationFactory.eINSTANCE
+				.createLibredeConfiguration();
 
 		// set values to the one of the runcall
 		copy.setEstimation(EcoreUtil.copy(estimation));
@@ -238,10 +247,12 @@ public class Discovery {
 
 		// set other fields to empty values
 		copy.setInput(ConfigurationFactory.eINSTANCE.createInputSpecification());
-		copy.setWorkloadDescription(ConfigurationFactory.eINSTANCE.createWorkloadDescription());
+		copy.setWorkloadDescription(ConfigurationFactory.eINSTANCE
+				.createWorkloadDescription());
 
 		// configure output
-		copy.setOutput(ConfigurationFactory.eINSTANCE.createOutputSpecification());
+		copy.setOutput(ConfigurationFactory.eINSTANCE
+				.createOutputSpecification());
 		// copy.getOutput()
 		// .getExporters()
 		// .add(ConfigurationFactory.eINSTANCE
@@ -273,7 +284,8 @@ public class Discovery {
 	 * @param set
 	 *            The set to add the new {@link InputSpecification}
 	 */
-	private static void iterateDirectories(Path root, InputSpecification main, Set<InputSpecification> set) {
+	private static void iterateDirectories(Path root, InputSpecification main,
+			Set<InputSpecification> set) {
 		if (root.toFile().isDirectory()) {
 			DirectoryStream<Path> stream = null;
 			try {
@@ -309,45 +321,58 @@ public class Discovery {
 	 * @param set
 	 *            The set to add the new {@link InputSpecification}
 	 */
-	private static void checkThisFolder(Path root, InputSpecification main, Set<InputSpecification> set) {
-		DirectoryStream<Path> stream = null;
-		try {
-			stream = Files.newDirectoryStream(root);
-		} catch (IOException e) {
-			log.error("IOError occurred.", e);
+	private static void checkThisFolder(Path root, InputSpecification main,
+			Set<InputSpecification> set) {
+
+		// first collect all possible paths and subpaths of this folder
+		// this behaviour is quite inefficient (especially since all directories
+		// are iterated anyway) and could be optimized
+		Set<Path> allSubpaths = new HashSet<Path>();
+		LinkedList<Path> toIterate = new LinkedList<Path>();
+		toIterate.add(root);
+		while (!toIterate.isEmpty()) {
+			Path current = toIterate.remove();
+			try (DirectoryStream<Path> stream = Files
+					.newDirectoryStream(current)) {
+				Iterator<Path> iter = stream.iterator();
+				while (iter.hasNext()) {
+					Path filepath = iter.next();
+					// add to list of paths
+					allSubpaths.add(filepath);
+					if (Files.isDirectory(filepath)) {
+						// if this is a directory add to the list
+						toIterate.addLast(filepath);
+					}
+				}
+			} catch (IOException e) {
+				log.error("IOError occurred.", e);
+			}
 		}
-		Iterator<Path> iter = stream.iterator();
-		// Specification is copied for every iteration check, this could maybe
-		// be optimized
+
+		// now check for every observation if there is one path matching it
 		InputSpecification copy = EcoreUtil.copy(main);
-		while (iter.hasNext()) {
-			Path filepath = iter.next();
-			for (TraceConfiguration source : copy.getObservations()) {
-				if (filepath.toString().contains(((FileTraceConfiguration) source).getFile())) {
+		for (TraceConfiguration trace : copy.getObservations()) {
+			boolean found = false;
+			// try to find a file with the given name
+			for (Path p : allSubpaths) {
+				if (p.endsWith(((FileTraceConfiguration) trace).getFile())) {
 					// the filepath contains the file ending
-					((FileTraceConfiguration) source).setFile(filepath.toAbsolutePath().toString());
+					// -> set the file
+					((FileTraceConfiguration) trace).setFile(p.toAbsolutePath()
+							.toString());
+					found = true;
 				}
 			}
-		}
-		boolean equal = false;
-		// check if all source files have been found and edited,i.e. if the new
-		// specification is valid
-		for (TraceConfiguration after : copy.getObservations()) {
-			for (TraceConfiguration before : main.getObservations()) {
-				// if any of the configuration is like the one in the main file
-				// -> fail
-				if (((FileTraceConfiguration) before).getFile().equals(((FileTraceConfiguration) after).getFile()))
-					equal = true;
-
+			if (!found) {
+				// if no match was found for this observation -> abort
+				log.debug("No valid configuration files found in " + root
+						+ " folder.");
+				return;
 			}
 		}
-		// only if no equalities were found
-		if (!equal) {
-			set.add(copy);
-			log.info("Found valid configuration in " + root + " folder.");
-		} else {
-			log.debug("No valid configuration files found in " + root + " folder.");
-		}
+		// if we reach here, all traces have been set
+		set.add(copy);
+		log.info("Found valid configuration in " + root + " folder.");
 	}
 
 	/**
@@ -371,14 +396,19 @@ public class Discovery {
 				FileTraceConfiguration fileTrace = (FileTraceConfiguration) trace;
 				File inputFile = new File(fileTrace.getFile());
 				if (inputFile.exists()) {
-					DataSourceConfiguration dataSourceConf = fileTrace.getDataSource();
+					DataSourceConfiguration dataSourceConf = fileTrace
+							.getDataSource();
 					if (dataSourceConf != null) {
-						IDataSource ds = dataSources.get(dataSourceConf.getType());
+						IDataSource ds = dataSources.get(dataSourceConf
+								.getType());
 
 						if (ds == null) {
 							try {
-								Class<?> cl = Registry.INSTANCE.getInstanceClass(dataSourceConf.getType());
-								ds = (IDataSource) Instantiator.newInstance(cl, dataSourceConf.getParameters());
+								Class<?> cl = Registry.INSTANCE
+										.getInstanceClass(dataSourceConf
+												.getType());
+								ds = (IDataSource) Instantiator.newInstance(cl,
+										dataSourceConf.getParameters());
 								dataSources.put(dataSourceConf.getType(), ds);
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -396,9 +426,14 @@ public class Discovery {
 									// column
 									// 0, this should be changed?
 									maxStart = Math.max(
-											loadFirst(inputFile, 0, getSeparators(fileTrace.getDataSource())),
+											loadFirst(inputFile, 0,
+													getSeparators(fileTrace
+															.getDataSource())),
 											maxStart);
-									minEnd = Math.min(loadLast(inputFile, 0, getSeparators(fileTrace.getDataSource())),
+									minEnd = Math.min(
+											loadLast(inputFile, 0,
+													getSeparators(fileTrace
+															.getDataSource())),
 											minEnd);
 								} catch (Exception e) {
 									log.error("Error occurred", e);
@@ -478,8 +513,10 @@ public class Discovery {
 		// default
 		Unit<Time> dateUnit = Time.MILLISECONDS;
 		if (simpleDateFormat != null && !simpleDateFormat.isEmpty()) {
-			if (simpleDateFormat.startsWith("[") && simpleDateFormat.endsWith("]")) {
-				String unit = simpleDateFormat.substring(1, simpleDateFormat.length() - 1);
+			if (simpleDateFormat.startsWith("[")
+					&& simpleDateFormat.endsWith("]")) {
+				String unit = simpleDateFormat.substring(1,
+						simpleDateFormat.length() - 1);
 				for (Unit<?> u : Time.INSTANCE.getUnits()) {
 					if (u.getSymbol().equalsIgnoreCase(unit)) {
 						dateUnit = (Unit<Time>) u;

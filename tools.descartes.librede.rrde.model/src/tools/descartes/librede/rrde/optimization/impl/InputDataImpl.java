@@ -24,8 +24,8 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getInputSpecification <em>Input Specification</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getInput <em>Input</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getWorkloadDescription <em>Workload Description</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getRootFolder <em>Root Folder</em>}</li>
  * </ul>
  * </p>
@@ -34,24 +34,24 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  */
 public class InputDataImpl extends MinimalEObjectImpl.Container implements InputData {
 	/**
-	 * The cached value of the '{@link #getInputSpecification() <em>Input Specification</em>}' containment reference.
+	 * The cached value of the '{@link #getInput() <em>Input</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInputSpecification()
+	 * @see #getInput()
 	 * @generated
 	 * @ordered
 	 */
-	protected InputSpecification inputSpecification;
+	protected InputSpecification input;
 
 	/**
-	 * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
+	 * The cached value of the '{@link #getWorkloadDescription() <em>Workload Description</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDescription()
+	 * @see #getWorkloadDescription()
 	 * @generated
 	 * @ordered
 	 */
-	protected WorkloadDescription description;
+	protected WorkloadDescription workloadDescription;
 
 	/**
 	 * The default value of the '{@link #getRootFolder() <em>Root Folder</em>}' attribute.
@@ -97,8 +97,8 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InputSpecification getInputSpecification() {
-		return inputSpecification;
+	public InputSpecification getInput() {
+		return input;
 	}
 
 	/**
@@ -106,11 +106,11 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetInputSpecification(InputSpecification newInputSpecification, NotificationChain msgs) {
-		InputSpecification oldInputSpecification = inputSpecification;
-		inputSpecification = newInputSpecification;
+	public NotificationChain basicSetInput(InputSpecification newInput, NotificationChain msgs) {
+		InputSpecification oldInput = input;
+		input = newInput;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION, oldInputSpecification, newInputSpecification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OptimizationPackage.INPUT_DATA__INPUT, oldInput, newInput);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -121,18 +121,18 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInputSpecification(InputSpecification newInputSpecification) {
-		if (newInputSpecification != inputSpecification) {
+	public void setInput(InputSpecification newInput) {
+		if (newInput != input) {
 			NotificationChain msgs = null;
-			if (inputSpecification != null)
-				msgs = ((InternalEObject)inputSpecification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION, null, msgs);
-			if (newInputSpecification != null)
-				msgs = ((InternalEObject)newInputSpecification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION, null, msgs);
-			msgs = basicSetInputSpecification(newInputSpecification, msgs);
+			if (input != null)
+				msgs = ((InternalEObject)input).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.INPUT_DATA__INPUT, null, msgs);
+			if (newInput != null)
+				msgs = ((InternalEObject)newInput).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.INPUT_DATA__INPUT, null, msgs);
+			msgs = basicSetInput(newInput, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION, newInputSpecification, newInputSpecification));
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.INPUT_DATA__INPUT, newInput, newInput));
 	}
 
 	/**
@@ -140,8 +140,8 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public WorkloadDescription getDescription() {
-		return description;
+	public WorkloadDescription getWorkloadDescription() {
+		return workloadDescription;
 	}
 
 	/**
@@ -149,11 +149,11 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetDescription(WorkloadDescription newDescription, NotificationChain msgs) {
-		WorkloadDescription oldDescription = description;
-		description = newDescription;
+	public NotificationChain basicSetWorkloadDescription(WorkloadDescription newWorkloadDescription, NotificationChain msgs) {
+		WorkloadDescription oldWorkloadDescription = workloadDescription;
+		workloadDescription = newWorkloadDescription;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OptimizationPackage.INPUT_DATA__DESCRIPTION, oldDescription, newDescription);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OptimizationPackage.INPUT_DATA__WORKLOAD_DESCRIPTION, oldWorkloadDescription, newWorkloadDescription);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -164,18 +164,18 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDescription(WorkloadDescription newDescription) {
-		if (newDescription != description) {
+	public void setWorkloadDescription(WorkloadDescription newWorkloadDescription) {
+		if (newWorkloadDescription != workloadDescription) {
 			NotificationChain msgs = null;
-			if (description != null)
-				msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.INPUT_DATA__DESCRIPTION, null, msgs);
-			if (newDescription != null)
-				msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.INPUT_DATA__DESCRIPTION, null, msgs);
-			msgs = basicSetDescription(newDescription, msgs);
+			if (workloadDescription != null)
+				msgs = ((InternalEObject)workloadDescription).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.INPUT_DATA__WORKLOAD_DESCRIPTION, null, msgs);
+			if (newWorkloadDescription != null)
+				msgs = ((InternalEObject)newWorkloadDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - OptimizationPackage.INPUT_DATA__WORKLOAD_DESCRIPTION, null, msgs);
+			msgs = basicSetWorkloadDescription(newWorkloadDescription, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.INPUT_DATA__DESCRIPTION, newDescription, newDescription));
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.INPUT_DATA__WORKLOAD_DESCRIPTION, newWorkloadDescription, newWorkloadDescription));
 	}
 
 	/**
@@ -207,10 +207,10 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION:
-				return basicSetInputSpecification(null, msgs);
-			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
-				return basicSetDescription(null, msgs);
+			case OptimizationPackage.INPUT_DATA__INPUT:
+				return basicSetInput(null, msgs);
+			case OptimizationPackage.INPUT_DATA__WORKLOAD_DESCRIPTION:
+				return basicSetWorkloadDescription(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -223,10 +223,10 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION:
-				return getInputSpecification();
-			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
-				return getDescription();
+			case OptimizationPackage.INPUT_DATA__INPUT:
+				return getInput();
+			case OptimizationPackage.INPUT_DATA__WORKLOAD_DESCRIPTION:
+				return getWorkloadDescription();
 			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
 				return getRootFolder();
 		}
@@ -241,11 +241,11 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION:
-				setInputSpecification((InputSpecification)newValue);
+			case OptimizationPackage.INPUT_DATA__INPUT:
+				setInput((InputSpecification)newValue);
 				return;
-			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
-				setDescription((WorkloadDescription)newValue);
+			case OptimizationPackage.INPUT_DATA__WORKLOAD_DESCRIPTION:
+				setWorkloadDescription((WorkloadDescription)newValue);
 				return;
 			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
 				setRootFolder((String)newValue);
@@ -262,11 +262,11 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION:
-				setInputSpecification((InputSpecification)null);
+			case OptimizationPackage.INPUT_DATA__INPUT:
+				setInput((InputSpecification)null);
 				return;
-			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
-				setDescription((WorkloadDescription)null);
+			case OptimizationPackage.INPUT_DATA__WORKLOAD_DESCRIPTION:
+				setWorkloadDescription((WorkloadDescription)null);
 				return;
 			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
 				setRootFolder(ROOT_FOLDER_EDEFAULT);
@@ -283,10 +283,10 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION:
-				return inputSpecification != null;
-			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
-				return description != null;
+			case OptimizationPackage.INPUT_DATA__INPUT:
+				return input != null;
+			case OptimizationPackage.INPUT_DATA__WORKLOAD_DESCRIPTION:
+				return workloadDescription != null;
 			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
 				return ROOT_FOLDER_EDEFAULT == null ? rootFolder != null : !ROOT_FOLDER_EDEFAULT.equals(rootFolder);
 		}

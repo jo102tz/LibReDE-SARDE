@@ -250,13 +250,13 @@ public interface OptimizationPackage extends EPackage {
 	int RUN_CALL__SETTINGS = 2;
 
 	/**
-	 * The feature id for the '<em><b>Estimation Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Estimation</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RUN_CALL__ESTIMATION_SPECIFICATION = 3;
+	int RUN_CALL__ESTIMATION = 3;
 
 	/**
 	 * The number of structural features of the '<em>Run Call</em>' class.
@@ -287,22 +287,22 @@ public interface OptimizationPackage extends EPackage {
 	int INPUT_DATA = 4;
 
 	/**
-	 * The feature id for the '<em><b>Input Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_DATA__INPUT_SPECIFICATION = 0;
+	int INPUT_DATA__INPUT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Description</b></em>' containment reference.
+	 * The feature id for the '<em><b>Workload Description</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_DATA__DESCRIPTION = 1;
+	int INPUT_DATA__WORKLOAD_DESCRIPTION = 1;
 
 	/**
 	 * The feature id for the '<em><b>Root Folder</b></em>' attribute.
@@ -902,15 +902,15 @@ public interface OptimizationPackage extends EPackage {
 	EReference getRunCall_Settings();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.RunCall#getEstimationSpecification <em>Estimation Specification</em>}'.
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.RunCall#getEstimation <em>Estimation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Estimation Specification</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.RunCall#getEstimationSpecification()
+	 * @return the meta object for the containment reference '<em>Estimation</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.RunCall#getEstimation()
 	 * @see #getRunCall()
 	 * @generated
 	 */
-	EReference getRunCall_EstimationSpecification();
+	EReference getRunCall_Estimation();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.InputData <em>Input Data</em>}'.
@@ -923,26 +923,26 @@ public interface OptimizationPackage extends EPackage {
 	EClass getInputData();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.InputData#getInputSpecification <em>Input Specification</em>}'.
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.InputData#getInput <em>Input</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Input Specification</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.InputData#getInputSpecification()
+	 * @return the meta object for the containment reference '<em>Input</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.InputData#getInput()
 	 * @see #getInputData()
 	 * @generated
 	 */
-	EReference getInputData_InputSpecification();
+	EReference getInputData_Input();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.InputData#getDescription <em>Description</em>}'.
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.optimization.InputData#getWorkloadDescription <em>Workload Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Description</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.InputData#getDescription()
+	 * @return the meta object for the containment reference '<em>Workload Description</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.InputData#getWorkloadDescription()
 	 * @see #getInputData()
 	 * @generated
 	 */
-	EReference getInputData_Description();
+	EReference getInputData_WorkloadDescription();
 
 	/**
 	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.InputData#getRootFolder <em>Root Folder</em>}'.
@@ -1304,12 +1304,12 @@ public interface OptimizationPackage extends EPackage {
 		EReference RUN_CALL__SETTINGS = eINSTANCE.getRunCall_Settings();
 
 		/**
-		 * The meta object literal for the '<em><b>Estimation Specification</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Estimation</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RUN_CALL__ESTIMATION_SPECIFICATION = eINSTANCE.getRunCall_EstimationSpecification();
+		EReference RUN_CALL__ESTIMATION = eINSTANCE.getRunCall_Estimation();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl <em>Input Data</em>}' class.
@@ -1322,20 +1322,20 @@ public interface OptimizationPackage extends EPackage {
 		EClass INPUT_DATA = eINSTANCE.getInputData();
 
 		/**
-		 * The meta object literal for the '<em><b>Input Specification</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Input</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference INPUT_DATA__INPUT_SPECIFICATION = eINSTANCE.getInputData_InputSpecification();
+		EReference INPUT_DATA__INPUT = eINSTANCE.getInputData_Input();
 
 		/**
-		 * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Workload Description</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference INPUT_DATA__DESCRIPTION = eINSTANCE.getInputData_Description();
+		EReference INPUT_DATA__WORKLOAD_DESCRIPTION = eINSTANCE.getInputData_WorkloadDescription();
 
 		/**
 		 * The meta object literal for the '<em><b>Root Folder</b></em>' attribute feature.

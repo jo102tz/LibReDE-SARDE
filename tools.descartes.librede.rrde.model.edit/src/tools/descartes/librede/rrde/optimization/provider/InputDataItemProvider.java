@@ -103,8 +103,8 @@ public class InputDataItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(OptimizationPackage.Literals.INPUT_DATA__INPUT_SPECIFICATION);
-			childrenFeatures.add(OptimizationPackage.Literals.INPUT_DATA__DESCRIPTION);
+			childrenFeatures.add(OptimizationPackage.Literals.INPUT_DATA__INPUT);
+			childrenFeatures.add(OptimizationPackage.Literals.INPUT_DATA__WORKLOAD_DESCRIPTION);
 		}
 		return childrenFeatures;
 	}
@@ -163,8 +163,8 @@ public class InputDataItemProvider
 			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case OptimizationPackage.INPUT_DATA__INPUT_SPECIFICATION:
-			case OptimizationPackage.INPUT_DATA__DESCRIPTION:
+			case OptimizationPackage.INPUT_DATA__INPUT:
+			case OptimizationPackage.INPUT_DATA__WORKLOAD_DESCRIPTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -184,12 +184,12 @@ public class InputDataItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(OptimizationPackage.Literals.INPUT_DATA__INPUT_SPECIFICATION,
+				(OptimizationPackage.Literals.INPUT_DATA__INPUT,
 				 ConfigurationFactory.eINSTANCE.createInputSpecification()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(OptimizationPackage.Literals.INPUT_DATA__DESCRIPTION,
+				(OptimizationPackage.Literals.INPUT_DATA__WORKLOAD_DESCRIPTION,
 				 ConfigurationFactory.eINSTANCE.createWorkloadDescription()));
 	}
 

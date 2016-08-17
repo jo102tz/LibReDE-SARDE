@@ -82,7 +82,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	private int iterationcounter;
 
 	/**
-	 * A counter storing the total number of executed librede configurations
+	 * A counter storing the total number of executed LibReDE configurations
 	 */
 	private int totalruns;
 
@@ -248,7 +248,7 @@ public abstract class AbstractConfigurationOptimizer implements
 		getLog().info(
 				"Elapsed Time: "
 						+ DurationFormatUtils.formatDurationWords(
-								(System.currentTimeMillis() - time), true, true)
+								(System.currentTimeMillis() - time), false, false)
 						+ ".");
 		double improvementPercent = ((firstError - newError) * 100)
 				/ (firstError);

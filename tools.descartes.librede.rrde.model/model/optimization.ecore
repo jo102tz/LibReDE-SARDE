@@ -37,15 +37,14 @@
         upperBound="-1" eType="#//InputData" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="settings" lowerBound="1"
         eType="#//OptimizationSettings" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="estimationSpecification"
-        lowerBound="1" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="estimation" lowerBound="1"
+        eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InputData">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inputSpecification" lowerBound="1"
-        eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//InputSpecification"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="input" lowerBound="1" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//InputSpecification"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="description" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="workloadDescription" lowerBound="1"
         eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//WorkloadDescription"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rootFolder" lowerBound="1"

@@ -106,7 +106,7 @@ public interface DataExportSpecifier extends IConfigurationOptimizationAlgorithm
 
 	/**
 	 * Returns the value of the '<em><b>Split Configurations</b></em>' attribute.
-	 * The default value is <code>"false"</code>.
+	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Split Configurations</em>' attribute isn't clear,
@@ -116,7 +116,7 @@ public interface DataExportSpecifier extends IConfigurationOptimizationAlgorithm
 	 * @return the value of the '<em>Split Configurations</em>' attribute.
 	 * @see #setSplitConfigurations(boolean)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getDataExportSpecifier_SplitConfigurations()
-	 * @model default="false" dataType="org.eclipse.emf.ecore.xml.type.Boolean" required="true"
+	 * @model default="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" required="true"
 	 * @generated
 	 */
 	boolean isSplitConfigurations();

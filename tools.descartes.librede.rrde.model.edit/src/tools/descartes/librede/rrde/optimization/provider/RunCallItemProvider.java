@@ -82,7 +82,7 @@ public class RunCallItemProvider
 			childrenFeatures.add(OptimizationPackage.Literals.RUN_CALL__ALGORITHM);
 			childrenFeatures.add(OptimizationPackage.Literals.RUN_CALL__TRAINING_DATA);
 			childrenFeatures.add(OptimizationPackage.Literals.RUN_CALL__SETTINGS);
-			childrenFeatures.add(OptimizationPackage.Literals.RUN_CALL__ESTIMATION_SPECIFICATION);
+			childrenFeatures.add(OptimizationPackage.Literals.RUN_CALL__ESTIMATION);
 		}
 		return childrenFeatures;
 	}
@@ -138,7 +138,7 @@ public class RunCallItemProvider
 			case OptimizationPackage.RUN_CALL__ALGORITHM:
 			case OptimizationPackage.RUN_CALL__TRAINING_DATA:
 			case OptimizationPackage.RUN_CALL__SETTINGS:
-			case OptimizationPackage.RUN_CALL__ESTIMATION_SPECIFICATION:
+			case OptimizationPackage.RUN_CALL__ESTIMATION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -183,7 +183,7 @@ public class RunCallItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(OptimizationPackage.Literals.RUN_CALL__ESTIMATION_SPECIFICATION,
+				(OptimizationPackage.Literals.RUN_CALL__ESTIMATION,
 				 ConfigurationFactory.eINSTANCE.createEstimationSpecification()));
 	}
 

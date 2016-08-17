@@ -60,9 +60,6 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.exceptions.EstimationException;
 import tools.descartes.librede.registry.Registry;
-import tools.descartes.librede.rrde.optimization.InputData;
-import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
-import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
 
 /**
@@ -77,7 +74,7 @@ public class Plugin implements IApplication {
 	/**
 	 * The logging level for all classes of this package
 	 */
-	private static final Level loglevel = Level.INFO;
+	private static final Level loglevel = Level.TRACE;
 
 	/**
 	 * The logger used for logging
@@ -88,14 +85,14 @@ public class Plugin implements IApplication {
 	 * The path to the default {@link LibredeConfiguration}
 	 */
 	public final static String LIB_PATH = "resources" + File.separator
-			+ "estimation.librede";
+			+ "specj.librede";
 
 	/**
 	 * The path to the default {@link OptimizationConfiguration}
 	 */
 	public final static String CONF_PATH = "resources" + File.separator
 			+ "test" + File.separator + "src" + File.separator
-			+ "conf.optimization";
+			+ "specj.optimization";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -115,16 +112,16 @@ public class Plugin implements IApplication {
 
 			// This is a fixup to replace the data sources with ones from
 			// librede.
-			for (RunCall call : conf.getContainsOf()) {
-				for (InputData spec : call.getTrainingData()) {
-					spec.getInputSpecification()
-							.getDataSources()
-							.get(0)
-							.getParameters()
-							.addAll(librede.getInput().getDataSources().get(0)
-									.getParameters());
-				}
-			}
+//			for (RunCall call : conf.getContainsOf()) {
+//				for (InputData spec : call.getTrainingData()) {
+//					spec.getInput()
+//							.getDataSources()
+//							.get(0)
+//							.getParameters()
+//							.addAll(librede.getInput().getDataSources().get(0)
+//									.getParameters());
+//				}
+//			}
 
 			// run optimization
 			runConfigurationOptimization(librede, conf, OUTPUT);
@@ -179,19 +176,19 @@ public class Plugin implements IApplication {
 		// right now, since e.g. StepSize applies for all approaches at once
 		ArrayList<RunCall> newRunCalls = new ArrayList<RunCall>();
 		for (RunCall call : conf.getContainsOf()) {
-			if (call.getEstimationSpecification().getApproaches().size() > 1) {
+			if (call.getEstimation().getApproaches().size() > 1) {
 				// split up
 				for (EstimationApproachConfiguration approach : call
-						.getEstimationSpecification().getApproaches()) {
+						.getEstimation().getApproaches()) {
 					// deep copy
 					RunCall newCall = EcoreUtil.copy(call);
 
-					newCall.setEstimationSpecification(EcoreUtil.copy(call
-							.getEstimationSpecification()));
+					newCall.setEstimation(EcoreUtil.copy(call
+							.getEstimation()));
 
-					newCall.getEstimationSpecification().getApproaches()
+					newCall.getEstimation().getApproaches()
 							.clear();
-					newCall.getEstimationSpecification().getApproaches()
+					newCall.getEstimation().getApproaches()
 							.add(EcoreUtil.copy(approach));
 
 					newRunCalls.add(newCall);
@@ -340,12 +337,12 @@ public class Plugin implements IApplication {
 			// catch optimization as they do not run concurrently and execute
 			// them
 			// sequentially
-			if (call.getEstimationSpecification()
+			if (call.getEstimation()
 					.getApproaches()
 					.get(0)
 					.getType()
 					.equals("tools.descartes.librede.approach.LiuOptimizationApproach")
-					|| call.getEstimationSpecification()
+					|| call.getEstimation()
 							.getApproaches()
 							.get(0)
 							.getType()
@@ -458,7 +455,7 @@ public class Plugin implements IApplication {
 			IConfigurationOptimizer algo = (IConfigurationOptimizer) Class
 					.forName(call.getAlgorithm().getAlgorithmName())
 					.newInstance();
-			algo.optimizeConfiguration(call.getEstimationSpecification(),
+			algo.optimizeConfiguration(call.getEstimation(),
 					call.getTrainingData(), call.getSettings(),
 					call.getAlgorithm());
 			return algo.getResult();
