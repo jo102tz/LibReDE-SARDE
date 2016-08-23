@@ -95,29 +95,6 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.ConfigurationResult} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ConfigurationResultItemProvider configurationResultItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.ConfigurationResult}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createConfigurationResultAdapter() {
-		if (configurationResultItemProvider == null) {
-			configurationResultItemProvider = new ConfigurationResultItemProvider(this);
-		}
-
-		return configurationResultItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -332,7 +309,6 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 	 */
 	public void dispose() {
 		if (recommendationTrainingConfigurationItemProvider != null) recommendationTrainingConfigurationItemProvider.dispose();
-		if (configurationResultItemProvider != null) configurationResultItemProvider.dispose();
 		if (recommendationAlgorithmSpecifierItemProvider != null) recommendationAlgorithmSpecifierItemProvider.dispose();
 		if (featureExtractorSpecifierItemProvider != null) featureExtractorSpecifierItemProvider.dispose();
 		if (dataSetItemProvider != null) dataSetItemProvider.dispose();

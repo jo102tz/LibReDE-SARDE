@@ -228,7 +228,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConfigurationResult_TargetValue() {
+	public EAttribute getConfigurationResult_ErrorValue() {
 		return (EAttribute)configurationResultEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -502,7 +502,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 
 		configurationResultEClass = createEClass(CONFIGURATION_RESULT);
 		createEReference(configurationResultEClass, CONFIGURATION_RESULT__CONFIGURATION);
-		createEAttribute(configurationResultEClass, CONFIGURATION_RESULT__TARGET_VALUE);
+		createEAttribute(configurationResultEClass, CONFIGURATION_RESULT__ERROR_VALUE);
 
 		recommendationAlgorithmSpecifierEClass = createEClass(RECOMMENDATION_ALGORITHM_SPECIFIER);
 		createEAttribute(recommendationAlgorithmSpecifierEClass, RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME);
@@ -581,7 +581,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 
 		initEClass(configurationResultEClass, ConfigurationResult.class, "ConfigurationResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConfigurationResult_Configuration(), theConfigurationPackage.getEstimationSpecification(), null, "configuration", null, 1, 1, ConfigurationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConfigurationResult_TargetValue(), theXMLTypePackage.getDouble(), "targetValue", "-1", 1, 1, ConfigurationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConfigurationResult_ErrorValue(), theXMLTypePackage.getDouble(), "errorValue", "-1", 1, 1, ConfigurationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(recommendationAlgorithmSpecifierEClass, RecommendationAlgorithmSpecifier.class, "RecommendationAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRecommendationAlgorithmSpecifier_AlgorithmName(), ecorePackage.getEString(), "algorithmName", null, 1, 1, RecommendationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -78,7 +78,7 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected InputDataImpl() {
+	public InputDataImpl() {
 		super();
 	}
 

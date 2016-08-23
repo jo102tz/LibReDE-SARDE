@@ -64,7 +64,7 @@ public class OptimizationSettingsImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OptimizationSettingsImpl() {
+	public OptimizationSettingsImpl() {
 		super();
 	}
 

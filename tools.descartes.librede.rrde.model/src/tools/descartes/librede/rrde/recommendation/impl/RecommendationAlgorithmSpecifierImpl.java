@@ -51,7 +51,7 @@ public class RecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RecommendationAlgorithmSpecifierImpl() {
+	public RecommendationAlgorithmSpecifierImpl() {
 		super();
 	}
 

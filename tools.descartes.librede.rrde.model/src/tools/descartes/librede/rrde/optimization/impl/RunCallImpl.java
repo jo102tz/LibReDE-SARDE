@@ -88,7 +88,7 @@ public class RunCallImpl extends MinimalEObjectImpl.Container implements RunCall
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RunCallImpl() {
+	public RunCallImpl() {
 		super();
 	}
 

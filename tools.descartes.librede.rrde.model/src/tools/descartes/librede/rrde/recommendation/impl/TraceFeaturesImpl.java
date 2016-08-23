@@ -229,7 +229,7 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TraceFeaturesImpl() {
+	public TraceFeaturesImpl() {
 		super();
 	}
 

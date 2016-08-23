@@ -15,7 +15,7 @@ import tools.descartes.librede.configuration.EstimationSpecification;
  * The following features are supported:
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.ConfigurationResult#getConfiguration <em>Configuration</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.ConfigurationResult#getTargetValue <em>Target Value</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.ConfigurationResult#getErrorValue <em>Error Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,30 +51,30 @@ public interface ConfigurationResult extends EObject {
 	void setConfiguration(EstimationSpecification value);
 
 	/**
-	 * Returns the value of the '<em><b>Target Value</b></em>' attribute.
+	 * Returns the value of the '<em><b>Error Value</b></em>' attribute.
 	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Target Value</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Error Value</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target Value</em>' attribute.
-	 * @see #setTargetValue(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getConfigurationResult_TargetValue()
+	 * @return the value of the '<em>Error Value</em>' attribute.
+	 * @see #setErrorValue(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getConfigurationResult_ErrorValue()
 	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
-	double getTargetValue();
+	double getErrorValue();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.ConfigurationResult#getTargetValue <em>Target Value</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.ConfigurationResult#getErrorValue <em>Error Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target Value</em>' attribute.
-	 * @see #getTargetValue()
+	 * @param value the new value of the '<em>Error Value</em>' attribute.
+	 * @see #getErrorValue()
 	 * @generated
 	 */
-	void setTargetValue(double value);
+	void setErrorValue(double value);
 
 } // ConfigurationResult

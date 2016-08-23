@@ -51,7 +51,7 @@ public class FeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FeatureExtractorSpecifierImpl() {
+	public FeatureExtractorSpecifierImpl() {
 		super();
 	}
 

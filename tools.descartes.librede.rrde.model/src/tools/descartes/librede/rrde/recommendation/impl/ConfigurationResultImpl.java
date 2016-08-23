@@ -23,7 +23,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.ConfigurationResultImpl#getConfiguration <em>Configuration</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.ConfigurationResultImpl#getTargetValue <em>Target Value</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.ConfigurationResultImpl#getErrorValue <em>Error Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -41,31 +41,31 @@ public class ConfigurationResultImpl extends MinimalEObjectImpl.Container implem
 	protected EstimationSpecification configuration;
 
 	/**
-	 * The default value of the '{@link #getTargetValue() <em>Target Value</em>}' attribute.
+	 * The default value of the '{@link #getErrorValue() <em>Error Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTargetValue()
+	 * @see #getErrorValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double TARGET_VALUE_EDEFAULT = -1.0;
+	protected static final double ERROR_VALUE_EDEFAULT = -1.0;
 
 	/**
-	 * The cached value of the '{@link #getTargetValue() <em>Target Value</em>}' attribute.
+	 * The cached value of the '{@link #getErrorValue() <em>Error Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTargetValue()
+	 * @see #getErrorValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected double targetValue = TARGET_VALUE_EDEFAULT;
+	protected double errorValue = ERROR_VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ConfigurationResultImpl() {
+	public ConfigurationResultImpl() {
 		super();
 	}
 
@@ -122,8 +122,8 @@ public class ConfigurationResultImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getTargetValue() {
-		return targetValue;
+	public double getErrorValue() {
+		return errorValue;
 	}
 
 	/**
@@ -131,11 +131,11 @@ public class ConfigurationResultImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTargetValue(double newTargetValue) {
-		double oldTargetValue = targetValue;
-		targetValue = newTargetValue;
+	public void setErrorValue(double newErrorValue) {
+		double oldErrorValue = errorValue;
+		errorValue = newErrorValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.CONFIGURATION_RESULT__TARGET_VALUE, oldTargetValue, targetValue));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.CONFIGURATION_RESULT__ERROR_VALUE, oldErrorValue, errorValue));
 	}
 
 	/**
@@ -149,8 +149,8 @@ public class ConfigurationResultImpl extends MinimalEObjectImpl.Container implem
 			case RecommendationPackage.CONFIGURATION_RESULT__CONFIGURATION:
 				if (resolve) return getConfiguration();
 				return basicGetConfiguration();
-			case RecommendationPackage.CONFIGURATION_RESULT__TARGET_VALUE:
-				return getTargetValue();
+			case RecommendationPackage.CONFIGURATION_RESULT__ERROR_VALUE:
+				return getErrorValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -166,8 +166,8 @@ public class ConfigurationResultImpl extends MinimalEObjectImpl.Container implem
 			case RecommendationPackage.CONFIGURATION_RESULT__CONFIGURATION:
 				setConfiguration((EstimationSpecification)newValue);
 				return;
-			case RecommendationPackage.CONFIGURATION_RESULT__TARGET_VALUE:
-				setTargetValue((Double)newValue);
+			case RecommendationPackage.CONFIGURATION_RESULT__ERROR_VALUE:
+				setErrorValue((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -184,8 +184,8 @@ public class ConfigurationResultImpl extends MinimalEObjectImpl.Container implem
 			case RecommendationPackage.CONFIGURATION_RESULT__CONFIGURATION:
 				setConfiguration((EstimationSpecification)null);
 				return;
-			case RecommendationPackage.CONFIGURATION_RESULT__TARGET_VALUE:
-				setTargetValue(TARGET_VALUE_EDEFAULT);
+			case RecommendationPackage.CONFIGURATION_RESULT__ERROR_VALUE:
+				setErrorValue(ERROR_VALUE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -201,8 +201,8 @@ public class ConfigurationResultImpl extends MinimalEObjectImpl.Container implem
 		switch (featureID) {
 			case RecommendationPackage.CONFIGURATION_RESULT__CONFIGURATION:
 				return configuration != null;
-			case RecommendationPackage.CONFIGURATION_RESULT__TARGET_VALUE:
-				return targetValue != TARGET_VALUE_EDEFAULT;
+			case RecommendationPackage.CONFIGURATION_RESULT__ERROR_VALUE:
+				return errorValue != ERROR_VALUE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -217,8 +217,8 @@ public class ConfigurationResultImpl extends MinimalEObjectImpl.Container implem
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (targetValue: ");
-		result.append(targetValue);
+		result.append(" (errorValue: ");
+		result.append(errorValue);
 		result.append(')');
 		return result.toString();
 	}

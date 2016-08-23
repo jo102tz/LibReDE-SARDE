@@ -153,7 +153,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FeatureVectorImpl() {
+	public FeatureVectorImpl() {
 		super();
 	}
 

@@ -87,7 +87,7 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RecommendationTrainingConfigurationImpl() {
+	public RecommendationTrainingConfigurationImpl() {
 		super();
 	}
 

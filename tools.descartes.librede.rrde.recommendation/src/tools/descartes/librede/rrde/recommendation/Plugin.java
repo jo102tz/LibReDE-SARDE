@@ -31,16 +31,21 @@ import java.io.File;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import tools.descartes.librede.Librede;
+import tools.descartes.librede.configuration.EstimationSpecification;
+import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.Wrapper;
-import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
+import tools.descartes.librede.rrde.recommendation.impl.ConfigurationResultImpl;
 
 /**
  * The main class of this Plugin.
@@ -99,7 +104,7 @@ public class Plugin implements IApplication {
 							.toPath());
 
 			// train algorithm
-			IRecomendationAlgorithm alg = trainAlgorithm(conf);
+			loadAndTrainAlgorithm(conf);
 
 		} catch (Exception e) {
 			log.error("Error occurred", e);
@@ -121,13 +126,105 @@ public class Plugin implements IApplication {
 	 *            The configuration file
 	 * @return The {@link IRecomendationAlgorithm}
 	 */
-	public IRecomendationAlgorithm trainAlgorithm(
+	public IRecomendationAlgorithm loadAndTrainAlgorithm(
 			RecommendationTrainingConfiguration conf) throws Exception {
 		IRecomendationAlgorithm alg = loadAlgorithm(conf.getLearningAlgorithm());
 		if (alg == null) {
+			log.error("Algorithm could not be loaded. Failing...");
 			return null;
 		}
+		IFeatureExtractor extractor = loadFeatureExtractor(conf
+				.getFeatureAlgorithm());
+		if (extractor == null) {
+			log.error("Feature Extractor could not be loaded. Failing...");
+			return null;
+		}
+		if (conf.getConfigurations() == null
+				|| conf.getConfigurations().isEmpty()) {
+			log.error("Target configuration set is null or empty.");
+			return null;
+		}
+		if (conf.getTrainingData() == null || conf.getTrainingData().isEmpty()) {
+			log.error("Training data set is null or empty.");
+			return null;
+		}
+		if (!trainAlgorithm(alg, extractor, conf.getConfigurations(),
+				conf.getTrainingData())) {
+			log.error("Training failed. Returning algorithm anyway...");
+		}
 		return alg;
+	}
+
+	/**
+	 * Trains the given algorithm with the specified estimators on the specified
+	 * inputs using the specified extractor.
+	 * 
+	 * @param alg
+	 *            The algorithm to train
+	 * @param extractor
+	 *            The {@link IFeatureExtractor} to extract features for the
+	 *            inputs
+	 * @param estimators
+	 *            The estimators given as {@link EstimationSpecification}s
+	 * @param inputs
+	 *            The training data given as {@link InputData}s
+	 * @return True if the training was successful, false otherwise
+	 */
+	public boolean trainAlgorithm(IRecomendationAlgorithm alg,
+			IFeatureExtractor extractor,
+			EList<EstimationSpecification> estimators, EList<InputData> inputs) {
+		boolean res = true;
+		for (InputData inputData : inputs) {
+			// create configuration file
+			// TODO
+			LibredeConfiguration conf = null;
+			try {
+				boolean result = trainOneConfiguration(alg, extractor,
+						estimators, conf);
+				if (!result) {
+					log.warn("Training configuration " + conf
+							+ " was not successful.");
+				}
+			} catch (Exception e) {
+				log.warn("Training with configuration " + conf
+						+ " threw an error.");
+				res = false;
+			}
+		}
+		return res;
+	}
+
+	/**
+	 * Executes one configuration with the estimators and adds the training set
+	 * to the given {@link IRecomendationAlgorithm}.
+	 * 
+	 * @param alg
+	 *            The {@link IRecomendationAlgorithm} to train
+	 * @param extractor
+	 *            The {@link IFeatureExtractor} to extract feature information
+	 * @param estimators
+	 *            The estimator set to use
+	 * @param conf
+	 *            The {@link LibredeConfiguration} to use as a basis for the
+	 *            estimators
+	 */
+	private boolean trainOneConfiguration(IRecomendationAlgorithm alg,
+			IFeatureExtractor extractor,
+			EList<EstimationSpecification> estimators, LibredeConfiguration conf) {
+		for (EstimationSpecification spec : estimators) {
+			conf.setEstimation(spec);
+			EList<ConfigurationResult> stringList = new BasicEList<ConfigurationResult>();
+			try {
+				ConfigurationResult result = ConfigurationResultImpl.class.newInstance();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				System.out.println("War klar.");
+			}
+			Wrapper.executeLibrede(conf);
+		}
+		return true;
 	}
 
 	/**
@@ -171,7 +268,7 @@ public class Plugin implements IApplication {
 	 *             If the specifications or any of the required fields are
 	 *             <code>null</code>
 	 */
-	public IFeatureExtractor loadAlgorithm(FeatureExtractorSpecifier spec)
+	public IFeatureExtractor loadFeatureExtractor(FeatureExtractorSpecifier spec)
 			throws NullPointerException {
 		if (spec == null || spec.getFeatureExtractor() == null) {
 			throw new NullPointerException("Specifier is null.");
@@ -182,7 +279,7 @@ public class Plugin implements IApplication {
 			return algo;
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException e) {
-			log.error("The algorithm " + spec.getFeatureExtractor()
+			log.error("The feature extractor " + spec.getFeatureExtractor()
 					+ " could not be loaded.", e);
 			return null;
 		}

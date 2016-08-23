@@ -67,7 +67,7 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected DataSetImpl() {
+	public DataSetImpl() {
 		super();
 	}
 

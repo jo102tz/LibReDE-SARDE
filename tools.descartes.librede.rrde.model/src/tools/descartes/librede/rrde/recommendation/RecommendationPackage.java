@@ -140,13 +140,13 @@ public interface RecommendationPackage extends EPackage {
 	int CONFIGURATION_RESULT__CONFIGURATION = 0;
 
 	/**
-	 * The feature id for the '<em><b>Target Value</b></em>' attribute.
+	 * The feature id for the '<em><b>Error Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIGURATION_RESULT__TARGET_VALUE = 1;
+	int CONFIGURATION_RESULT__ERROR_VALUE = 1;
 
 	/**
 	 * The number of structural features of the '<em>Configuration Result</em>' class.
@@ -572,15 +572,15 @@ public interface RecommendationPackage extends EPackage {
 	EReference getConfigurationResult_Configuration();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.ConfigurationResult#getTargetValue <em>Target Value</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.ConfigurationResult#getErrorValue <em>Error Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Target Value</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.ConfigurationResult#getTargetValue()
+	 * @return the meta object for the attribute '<em>Error Value</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.ConfigurationResult#getErrorValue()
 	 * @see #getConfigurationResult()
 	 * @generated
 	 */
-	EAttribute getConfigurationResult_TargetValue();
+	EAttribute getConfigurationResult_ErrorValue();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier <em>Algorithm Specifier</em>}'.
@@ -947,12 +947,12 @@ public interface RecommendationPackage extends EPackage {
 		EReference CONFIGURATION_RESULT__CONFIGURATION = eINSTANCE.getConfigurationResult_Configuration();
 
 		/**
-		 * The meta object literal for the '<em><b>Target Value</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Error Value</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONFIGURATION_RESULT__TARGET_VALUE = eINSTANCE.getConfigurationResult_TargetValue();
+		EAttribute CONFIGURATION_RESULT__ERROR_VALUE = eINSTANCE.getConfigurationResult_ErrorValue();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationAlgorithmSpecifierImpl <em>Algorithm Specifier</em>}' class.

@@ -93,7 +93,7 @@ public class StepSizeImpl extends MinimalEObjectImpl.Container implements StepSi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected StepSizeImpl() {
+	public StepSizeImpl() {
 		super();
 	}
 

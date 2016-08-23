@@ -156,7 +156,7 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected DataExportSpecifierImpl() {
+	public DataExportSpecifierImpl() {
 		super();
 	}
 

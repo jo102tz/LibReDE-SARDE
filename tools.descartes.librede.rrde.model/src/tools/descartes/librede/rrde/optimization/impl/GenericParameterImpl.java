@@ -107,7 +107,7 @@ public class GenericParameterImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GenericParameterImpl() {
+	public GenericParameterImpl() {
 		super();
 	}
 
