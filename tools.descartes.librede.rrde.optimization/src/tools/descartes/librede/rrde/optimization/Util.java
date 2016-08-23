@@ -31,6 +31,7 @@ import java.lang.reflect.Field;
 import java.util.Map;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -254,7 +255,7 @@ public class Util {
 	 */
 	public static double getMeanValidationError(LibredeResults result) {
 		// equally averaging over all validators and all approaches
-		DescriptiveStatistics values = new DescriptiveStatistics();
+		SummaryStatistics values = new SummaryStatistics();
 		Map<Class<? extends IEstimationApproach>, Matrix> errorMap = result
 				.getValidationErrors();
 		for (Class<? extends IEstimationApproach> approach : result
@@ -272,13 +273,19 @@ public class Util {
 
 			for (int i = 0; i < appError.columns(); i++)
 				for (int j = 0; j < appError.rows(); j++)
-					values.addValue(appError.get(j, i));
-
+					if (!Double.isNaN(appError.get(j, i))) {
+						values.addValue(appError.get(j, i));
+					} else {
+						log.warn("Validator returned NaN.");
+					}
 			if (values.getN() < 1) {
 				log.warn("No validation results for approach "
 						+ result.getApproaches().iterator().next());
-				return 0;
+				return Double.MAX_VALUE;
 			}
+		}
+		if (Double.isNaN(values.getMean())) {
+			return Double.MAX_VALUE;
 		}
 		return values.getMean();
 	}

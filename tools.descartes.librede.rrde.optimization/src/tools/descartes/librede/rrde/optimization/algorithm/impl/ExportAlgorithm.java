@@ -332,15 +332,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		if (s == null)
 			return;
 		try {
-			try{
-				Double.parseDouble(simpleName);
-			} catch(Exception e){
-				if(!simpleName.equals("NA"))
-				System.out.println("Yeah!");
-			}
-			if (simpleName.equals("?")) {
-				System.out.println("Hallo");
-			}
 			s.write(simpleName);
 			s.write(BREAK);
 		} catch (IOException e) {

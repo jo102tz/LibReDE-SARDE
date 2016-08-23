@@ -331,7 +331,9 @@
     </services>
   </workloadDescription>
   <input>
-    <dataSources name="CSV DataSource" type="tools.descartes.librede.datasource.csv.CsvDataSource"/>
+    <dataSources name="CSV DataSource" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+      <parameters name="TimestampFormat" value="[s]"/>
+    </dataSources>
     <observations xsi:type="librede:FileTraceConfiguration" aggregation="CUMULATIVE_SUM" dataSource="//@input/@dataSources.0" file="C:/Users/JS/Desktop/Train/data/slave-10_0_1_151_10_0_1_151/specj-webtier/specj-webtier/app/http_/org_spec_jent_servlet_SpecAppServlet/org_spec_jent_servlet_SpecAppServlet#shoppingcart-RESIDENCE_TIME-CUMULATIVE_SUM.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#SECONDS"/>
@@ -3151,9 +3153,9 @@
     </endTimestamp>
   </estimation>
   <output>
-    <exporters name="DML Export" type="tools.descartes.librede.connector.dml.DmlExport">
-      <parameters name="ModelPath" value="/home/user/git/prisma-core/tools.descartes.prisma.parameterization/output/2016-06-23T055313202"/>
-      <parameters name="ModelName" value="specj"/>
+    <exporters name="New Exporter" type="tools.descartes.librede.export.csv.CsvExporter">
+      <parameters name="OutputDirectory" value="C:\Users\JS\Desktop"/>
+      <parameters name="FileName" value="DELETE"/>
     </exporters>
   </output>
   <validation validateEstimates="true">
