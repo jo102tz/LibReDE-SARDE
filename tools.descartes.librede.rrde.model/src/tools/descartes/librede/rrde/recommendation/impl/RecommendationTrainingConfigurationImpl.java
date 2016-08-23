@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -18,6 +19,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 
+import tools.descartes.librede.configuration.ValidationSpecification;
 import tools.descartes.librede.rrde.optimization.InputData;
 
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
@@ -36,6 +38,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfigu
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getLearningAlgorithm <em>Learning Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getFeatureAlgorithm <em>Feature Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getConfigurations <em>Configurations</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getValidator <em>Validator</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,6 +84,16 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * @ordered
 	 */
 	protected EList<EstimationSpecification> configurations;
+
+	/**
+	 * The cached value of the '{@link #getValidator() <em>Validator</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidator()
+	 * @generated
+	 * @ordered
+	 */
+	protected ValidationSpecification validator;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -206,6 +219,63 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ValidationSpecification getValidator() {
+		return validator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetValidator(ValidationSpecification newValidator, NotificationChain msgs) {
+		ValidationSpecification oldValidator = validator;
+		validator = newValidator;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, oldValidator, newValidator);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValidator(ValidationSpecification newValidator) {
+		if (newValidator != validator) {
+			NotificationChain msgs = null;
+			if (validator != null)
+				msgs = ((InternalEObject)validator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, null, msgs);
+			if (newValidator != null)
+				msgs = ((InternalEObject)newValidator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, null, msgs);
+			msgs = basicSetValidator(newValidator, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, newValidator, newValidator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR:
+				return basicSetValidator(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -219,6 +289,8 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 				return basicGetFeatureAlgorithm();
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS:
 				return getConfigurations();
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR:
+				return getValidator();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -246,6 +318,9 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 				getConfigurations().clear();
 				getConfigurations().addAll((Collection<? extends EstimationSpecification>)newValue);
 				return;
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR:
+				setValidator((ValidationSpecification)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -270,6 +345,9 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS:
 				getConfigurations().clear();
 				return;
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR:
+				setValidator((ValidationSpecification)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -290,6 +368,8 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 				return featureAlgorithm != null;
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS:
 				return configurations != null && !configurations.isEmpty();
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR:
+				return validator != null;
 		}
 		return super.eIsSet(featureID);
 	}

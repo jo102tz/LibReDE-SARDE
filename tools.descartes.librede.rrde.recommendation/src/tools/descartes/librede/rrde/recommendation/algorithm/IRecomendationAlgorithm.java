@@ -40,6 +40,13 @@ import tools.descartes.librede.rrde.recommendation.FeatureVector;
 public interface IRecomendationAlgorithm {
 
 	/**
+	 * Returns the name of the algorithm.
+	 * 
+	 * @return A human-readable name
+	 */
+	public String getName();
+
+	/**
 	 * Initializes the algorithm. If called twice, it resets the algorithm.
 	 */
 	public void initialize();

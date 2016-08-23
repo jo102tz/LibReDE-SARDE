@@ -11,6 +11,9 @@
         eType="#//FeatureExtractorSpecifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="configurations" lowerBound="1"
         upperBound="-1" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validator" lowerBound="1"
+        eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//ValidationSpecification"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RecommendationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithmName" lowerBound="1"

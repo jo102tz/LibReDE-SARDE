@@ -202,6 +202,15 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getRecommendationTrainingConfiguration_Validator() {
+		return (EReference)recommendationTrainingConfigurationEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRecommendationAlgorithmSpecifier() {
 		return recommendationAlgorithmSpecifierEClass;
 	}
@@ -464,6 +473,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		createEReference(recommendationTrainingConfigurationEClass, RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM);
 		createEReference(recommendationTrainingConfigurationEClass, RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM);
 		createEReference(recommendationTrainingConfigurationEClass, RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS);
+		createEReference(recommendationTrainingConfigurationEClass, RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR);
 
 		recommendationAlgorithmSpecifierEClass = createEClass(RECOMMENDATION_ALGORITHM_SPECIFIER);
 		createEAttribute(recommendationAlgorithmSpecifierEClass, RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME);
@@ -539,6 +549,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEReference(getRecommendationTrainingConfiguration_LearningAlgorithm(), this.getRecommendationAlgorithmSpecifier(), null, "learningAlgorithm", null, 1, 1, RecommendationTrainingConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRecommendationTrainingConfiguration_FeatureAlgorithm(), this.getFeatureExtractorSpecifier(), null, "featureAlgorithm", null, 1, 1, RecommendationTrainingConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRecommendationTrainingConfiguration_Configurations(), theConfigurationPackage.getEstimationSpecification(), null, "configurations", null, 1, -1, RecommendationTrainingConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRecommendationTrainingConfiguration_Validator(), theConfigurationPackage.getValidationSpecification(), null, "validator", null, 1, 1, RecommendationTrainingConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(recommendationAlgorithmSpecifierEClass, RecommendationAlgorithmSpecifier.class, "RecommendationAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRecommendationAlgorithmSpecifier_AlgorithmName(), ecorePackage.getEString(), "algorithmName", null, 1, 1, RecommendationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

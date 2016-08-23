@@ -27,6 +27,7 @@
 package tools.descartes.librede.rrde.recommendation;
 
 import java.io.File;
+import java.util.Set;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
@@ -40,6 +41,8 @@ import org.eclipse.equinox.app.IApplicationContext;
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.configuration.ValidationSpecification;
+import tools.descartes.librede.rrde.optimization.Discovery;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.Util;
@@ -144,20 +147,27 @@ public class Plugin implements IApplication {
 			log.error("Target configuration set is null or empty.");
 			return null;
 		}
+		if (conf.getValidator() == null
+				|| conf.getValidator().getValidators().isEmpty()) {
+			log.error("Validator set is null or empty.");
+			return null;
+		}
 		if (conf.getTrainingData() == null || conf.getTrainingData().isEmpty()) {
 			log.error("Training data set is null or empty.");
 			return null;
 		}
 		if (!trainAlgorithm(alg, extractor, conf.getConfigurations(),
-				conf.getTrainingData())) {
+				conf.getValidator(), conf.getTrainingData())) {
 			log.error("Training failed. Returning algorithm anyway...");
 		}
 		return alg;
 	}
 
 	/**
-	 * Trains the given algorithm with the specified estimators on the specified
-	 * inputs using the specified extractor.
+	 * Trains the given {@link IRecomendationAlgorithm} with the specified
+	 * {@link EstimationSpecification}s validated by the specified
+	 * {@link ValidationSpecification} on the specified list of
+	 * {@link InputData}s using the specified {@link IFeatureExtractor}.
 	 * 
 	 * @param alg
 	 *            The algorithm to train
@@ -166,18 +176,22 @@ public class Plugin implements IApplication {
 	 *            inputs
 	 * @param estimators
 	 *            The estimators given as {@link EstimationSpecification}s
+	 * @param validationSpecification
+	 *            The validator to use in order to create the error values
 	 * @param inputs
 	 *            The training data given as {@link InputData}s
 	 * @return True if the training was successful, false otherwise
 	 */
 	public boolean trainAlgorithm(IRecomendationAlgorithm alg,
 			IFeatureExtractor extractor,
-			EList<EstimationSpecification> estimators, EList<InputData> inputs) {
+			EList<EstimationSpecification> estimators,
+			ValidationSpecification validationSpecification,
+			EList<InputData> inputs) {
+		log.info("Start training of algorithm " + alg.getName() + "...");
 		boolean res = true;
-		for (InputData inputData : inputs) {
-			// create configuration file
-			// TODO
-			LibredeConfiguration conf = null;
+		Set<LibredeConfiguration> set = Discovery.createConfigurations(inputs,
+				estimators.get(0), validationSpecification);
+		for (LibredeConfiguration conf : set) {
 			try {
 				boolean result = trainOneConfiguration(alg, extractor,
 						estimators, conf);
@@ -191,6 +205,7 @@ public class Plugin implements IApplication {
 				res = false;
 			}
 		}
+		log.info("Finished training of algorithm " + alg.getName() + "!");
 		return res;
 	}
 
@@ -211,11 +226,15 @@ public class Plugin implements IApplication {
 	private boolean trainOneConfiguration(IRecomendationAlgorithm alg,
 			IFeatureExtractor extractor,
 			EList<EstimationSpecification> estimators, LibredeConfiguration conf) {
+		EMap<EstimationSpecification, Double> results = new BasicEMap<EstimationSpecification, Double>();
 		for (EstimationSpecification spec : estimators) {
+			// calculate error values for all estimators
 			conf.setEstimation(spec);
-			EMap<EstimationSpecification, Double> results = new BasicEMap<EstimationSpecification, Double>();
-			Wrapper.executeLibrede(conf);
+			results.put(spec,
+					Util.getMeanValidationError(Wrapper.executeLibrede(conf)));
 		}
+		alg.trainSet(results, extractor.extractFeatures(conf));
+		log.info("Inserted training set for configuration " + conf + ".");
 		return true;
 	}
 

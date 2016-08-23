@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 
+import tools.descartes.librede.configuration.ValidationSpecification;
 import tools.descartes.librede.rrde.optimization.InputData;
 
 /**
@@ -22,6 +23,7 @@ import tools.descartes.librede.rrde.optimization.InputData;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getLearningAlgorithm <em>Learning Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getFeatureAlgorithm <em>Feature Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getConfigurations <em>Configurations</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getValidator <em>Validator</em>}</li>
  * </ul>
  * </p>
  *
@@ -113,5 +115,31 @@ public interface RecommendationTrainingConfiguration extends EObject {
 	 * @generated
 	 */
 	EList<EstimationSpecification> getConfigurations();
+
+	/**
+	 * Returns the value of the '<em><b>Validator</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Validator</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Validator</em>' containment reference.
+	 * @see #setValidator(ValidationSpecification)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationTrainingConfiguration_Validator()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	ValidationSpecification getValidator();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getValidator <em>Validator</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Validator</em>' containment reference.
+	 * @see #getValidator()
+	 * @generated
+	 */
+	void setValidator(ValidationSpecification value);
 
 } // RecommendationTrainingConfiguration

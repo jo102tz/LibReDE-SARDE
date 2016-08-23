@@ -103,13 +103,22 @@ public interface RecommendationPackage extends EPackage {
 	int RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS = 3;
 
 	/**
+	 * The feature id for the '<em><b>Validator</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR = 4;
+
+	/**
 	 * The number of structural features of the '<em>Training Configuration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECOMMENDATION_TRAINING_CONFIGURATION_FEATURE_COUNT = 4;
+	int RECOMMENDATION_TRAINING_CONFIGURATION_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Training Configuration</em>' class.
@@ -505,6 +514,17 @@ public interface RecommendationPackage extends EPackage {
 	EReference getRecommendationTrainingConfiguration_Configurations();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getValidator <em>Validator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Validator</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getValidator()
+	 * @see #getRecommendationTrainingConfiguration()
+	 * @generated
+	 */
+	EReference getRecommendationTrainingConfiguration_Validator();
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier <em>Algorithm Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -849,6 +869,14 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS = eINSTANCE.getRecommendationTrainingConfiguration_Configurations();
+
+		/**
+		 * The meta object literal for the '<em><b>Validator</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR = eINSTANCE.getRecommendationTrainingConfiguration_Validator();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationAlgorithmSpecifierImpl <em>Algorithm Specifier</em>}' class.
