@@ -72,16 +72,16 @@ public class OptimizationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case OptimizationPackage.ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER: {
-				IConfigurationOptimizationAlgorithmSpecifier iConfigurationOptimizationAlgorithmSpecifier = (IConfigurationOptimizationAlgorithmSpecifier)theEObject;
-				T result = caseIConfigurationOptimizationAlgorithmSpecifier(iConfigurationOptimizationAlgorithmSpecifier);
+			case OptimizationPackage.CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER: {
+				ConfigurationOptimizationAlgorithmSpecifier configurationOptimizationAlgorithmSpecifier = (ConfigurationOptimizationAlgorithmSpecifier)theEObject;
+				T result = caseConfigurationOptimizationAlgorithmSpecifier(configurationOptimizationAlgorithmSpecifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER: {
 				LocalSearchSpecifier localSearchSpecifier = (LocalSearchSpecifier)theEObject;
 				T result = caseLocalSearchSpecifier(localSearchSpecifier);
-				if (result == null) result = caseIConfigurationOptimizationAlgorithmSpecifier(localSearchSpecifier);
+				if (result == null) result = caseConfigurationOptimizationAlgorithmSpecifier(localSearchSpecifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -106,7 +106,7 @@ public class OptimizationSwitch<T> extends Switch<T> {
 			case OptimizationPackage.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER: {
 				IterativeParameterOptimizerSpecifier iterativeParameterOptimizerSpecifier = (IterativeParameterOptimizerSpecifier)theEObject;
 				T result = caseIterativeParameterOptimizerSpecifier(iterativeParameterOptimizerSpecifier);
-				if (result == null) result = caseIConfigurationOptimizationAlgorithmSpecifier(iterativeParameterOptimizerSpecifier);
+				if (result == null) result = caseConfigurationOptimizationAlgorithmSpecifier(iterativeParameterOptimizerSpecifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -140,7 +140,7 @@ public class OptimizationSwitch<T> extends Switch<T> {
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER: {
 				DataExportSpecifier dataExportSpecifier = (DataExportSpecifier)theEObject;
 				T result = caseDataExportSpecifier(dataExportSpecifier);
-				if (result == null) result = caseIConfigurationOptimizationAlgorithmSpecifier(dataExportSpecifier);
+				if (result == null) result = caseConfigurationOptimizationAlgorithmSpecifier(dataExportSpecifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -164,17 +164,17 @@ public class OptimizationSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>IConfiguration Optimization Algorithm Specifier</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Configuration Optimization Algorithm Specifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>IConfiguration Optimization Algorithm Specifier</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Configuration Optimization Algorithm Specifier</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseIConfigurationOptimizationAlgorithmSpecifier(IConfigurationOptimizationAlgorithmSpecifier object) {
+	public T caseConfigurationOptimizationAlgorithmSpecifier(ConfigurationOptimizationAlgorithmSpecifier object) {
 		return null;
 	}
 

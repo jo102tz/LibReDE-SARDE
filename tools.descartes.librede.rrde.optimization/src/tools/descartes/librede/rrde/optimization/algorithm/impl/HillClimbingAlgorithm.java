@@ -28,7 +28,7 @@ package tools.descartes.librede.rrde.optimization.algorithm.impl;
 
 import org.apache.log4j.Logger;
 
-import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
@@ -41,7 +41,7 @@ import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfiguration
  *
  */
 public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
-	
+
 	private static final Logger log = Logger
 			.getLogger(HillClimbingAlgorithm.class);
 
@@ -67,7 +67,7 @@ public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
 	 */
 	@Override
 	public boolean isSpecifierSupported(
-			IConfigurationOptimizationAlgorithmSpecifier specifier) {
+			ConfigurationOptimizationAlgorithmSpecifier specifier) {
 		if (specifier == null)
 			return false;
 		if (specifier instanceof LocalSearchSpecifier) {

@@ -5,6 +5,7 @@ package tools.descartes.librede.rrde.recommendation.provider;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -18,10 +19,13 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import tools.descartes.librede.rrde.optimization.provider.RrdeEditPlugin;
 
+import tools.descartes.librede.rrde.recommendation.DataSet;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 
 /**
@@ -61,7 +65,7 @@ public class DataSetItemProvider
 
 			addConfigurationPropertyDescriptor(object);
 			addFeaturesPropertyDescriptor(object);
-			addConfigurationValuesPropertyDescriptor(object);
+			addEstimationErrorsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -111,23 +115,23 @@ public class DataSetItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Configuration Values feature.
+	 * This adds a property descriptor for the Estimation Errors feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addConfigurationValuesPropertyDescriptor(Object object) {
+	protected void addEstimationErrorsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_DataSet_configurationValues_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_DataSet_configurationValues_feature", "_UI_DataSet_type"),
-				 RecommendationPackage.Literals.DATA_SET__CONFIGURATION_VALUES,
+				 getString("_UI_DataSet_estimationErrors_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_DataSet_estimationErrors_feature", "_UI_DataSet_type"),
+				 RecommendationPackage.Literals.DATA_SET__ESTIMATION_ERRORS,
 				 true,
 				 false,
-				 true,
-				 null,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -151,7 +155,11 @@ public class DataSetItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_DataSet_type");
+		Map labelValue = ((DataSet)object).getEstimationErrors();
+		String label = labelValue == null ? null : labelValue.toString();
+		return label == null || label.length() == 0 ?
+			getString("_UI_DataSet_type") :
+			getString("_UI_DataSet_type") + " " + label;
 	}
 	
 
@@ -165,6 +173,12 @@ public class DataSetItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(DataSet.class)) {
+			case RecommendationPackage.DATA_SET__ESTIMATION_ERRORS:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

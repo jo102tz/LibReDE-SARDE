@@ -12,12 +12,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="configurations" lowerBound="1"
         upperBound="-1" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConfigurationResult">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="configuration" lowerBound="1"
-        eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="errorValue" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RecommendationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithmName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -31,8 +25,13 @@
         eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//LibredeConfiguration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="features" lowerBound="1"
         eType="#//FeatureVector"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="configurationValues" lowerBound="1"
-        upperBound="-1" eType="#//ConfigurationResult"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="estimationErrors" lowerBound="1"
+        transient="true">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+        <eTypeArguments eClassifier="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationAlgorithmConfiguration"/>
+        <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//DoubleObject"/>
+      </eGenericType>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureVector">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfRessources" lowerBound="1"

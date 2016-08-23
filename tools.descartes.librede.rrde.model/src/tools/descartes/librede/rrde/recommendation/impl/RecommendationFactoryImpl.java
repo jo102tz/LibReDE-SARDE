@@ -57,7 +57,6 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION: return createRecommendationTrainingConfiguration();
-			case RecommendationPackage.CONFIGURATION_RESULT: return createConfigurationResult();
 			case RecommendationPackage.RECOMMENDATION_ALGORITHM_SPECIFIER: return createRecommendationAlgorithmSpecifier();
 			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER: return createFeatureExtractorSpecifier();
 			case RecommendationPackage.DATA_SET: return createDataSet();
@@ -76,16 +75,6 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 	public RecommendationTrainingConfiguration createRecommendationTrainingConfiguration() {
 		RecommendationTrainingConfigurationImpl recommendationTrainingConfiguration = new RecommendationTrainingConfigurationImpl();
 		return recommendationTrainingConfiguration;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ConfigurationResult createConfigurationResult() {
-		ConfigurationResultImpl configurationResult = new ConfigurationResultImpl();
-		return configurationResult;
 	}
 
 	/**

@@ -2,16 +2,19 @@
  */
 package tools.descartes.librede.rrde.recommendation.impl;
 
-import java.util.Collection;
+import java.util.Map;
+
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import tools.descartes.librede.configuration.EstimationAlgorithmConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.recommendation.ConfigurationResult;
+
 import tools.descartes.librede.rrde.recommendation.DataSet;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
@@ -25,7 +28,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl#getConfiguration <em>Configuration</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl#getFeatures <em>Features</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl#getConfigurationValues <em>Configuration Values</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl#getEstimationErrors <em>Estimation Errors</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,14 +56,14 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 	protected FeatureVector features;
 
 	/**
-	 * The cached value of the '{@link #getConfigurationValues() <em>Configuration Values</em>}' reference list.
+	 * The cached value of the '{@link #getEstimationErrors() <em>Estimation Errors</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getConfigurationValues()
+	 * @see #getEstimationErrors()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ConfigurationResult> configurationValues;
+	protected Map<EstimationAlgorithmConfiguration, Double> estimationErrors;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -162,11 +165,20 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ConfigurationResult> getConfigurationValues() {
-		if (configurationValues == null) {
-			configurationValues = new EObjectResolvingEList<ConfigurationResult>(ConfigurationResult.class, this, RecommendationPackage.DATA_SET__CONFIGURATION_VALUES);
-		}
-		return configurationValues;
+	public Map<EstimationAlgorithmConfiguration, Double> getEstimationErrors() {
+		return estimationErrors;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEstimationErrors(Map<EstimationAlgorithmConfiguration, Double> newEstimationErrors) {
+		Map<EstimationAlgorithmConfiguration, Double> oldEstimationErrors = estimationErrors;
+		estimationErrors = newEstimationErrors;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.DATA_SET__ESTIMATION_ERRORS, oldEstimationErrors, estimationErrors));
 	}
 
 	/**
@@ -183,8 +195,8 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 			case RecommendationPackage.DATA_SET__FEATURES:
 				if (resolve) return getFeatures();
 				return basicGetFeatures();
-			case RecommendationPackage.DATA_SET__CONFIGURATION_VALUES:
-				return getConfigurationValues();
+			case RecommendationPackage.DATA_SET__ESTIMATION_ERRORS:
+				return getEstimationErrors();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -204,9 +216,8 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 			case RecommendationPackage.DATA_SET__FEATURES:
 				setFeatures((FeatureVector)newValue);
 				return;
-			case RecommendationPackage.DATA_SET__CONFIGURATION_VALUES:
-				getConfigurationValues().clear();
-				getConfigurationValues().addAll((Collection<? extends ConfigurationResult>)newValue);
+			case RecommendationPackage.DATA_SET__ESTIMATION_ERRORS:
+				setEstimationErrors((Map<EstimationAlgorithmConfiguration, Double>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -226,8 +237,8 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 			case RecommendationPackage.DATA_SET__FEATURES:
 				setFeatures((FeatureVector)null);
 				return;
-			case RecommendationPackage.DATA_SET__CONFIGURATION_VALUES:
-				getConfigurationValues().clear();
+			case RecommendationPackage.DATA_SET__ESTIMATION_ERRORS:
+				setEstimationErrors((Map<EstimationAlgorithmConfiguration, Double>)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -245,10 +256,26 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 				return configuration != null;
 			case RecommendationPackage.DATA_SET__FEATURES:
 				return features != null;
-			case RecommendationPackage.DATA_SET__CONFIGURATION_VALUES:
-				return configurationValues != null && !configurationValues.isEmpty();
+			case RecommendationPackage.DATA_SET__ESTIMATION_ERRORS:
+				return estimationErrors != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (estimationErrors: ");
+		result.append(estimationErrors);
+		result.append(')');
+		return result.toString();
 	}
 
 } //DataSetImpl

@@ -37,8 +37,8 @@ import org.eclipse.emf.common.util.EList;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.Discovery;
-import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
@@ -74,7 +74,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	/**
 	 * Parameters modifying the behavior of the algorithm
 	 */
-	private IConfigurationOptimizationAlgorithmSpecifier algorithm;
+	private ConfigurationOptimizationAlgorithmSpecifier algorithm;
 
 	/**
 	 * A counter storing the number of executed iterations for debugging
@@ -168,7 +168,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	/**
 	 * @return the algorithm
 	 */
-	public IConfigurationOptimizationAlgorithmSpecifier getAlgorithm() {
+	public ConfigurationOptimizationAlgorithmSpecifier getAlgorithm() {
 		return algorithm;
 	}
 
@@ -177,7 +177,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	 *            the algorithm to set
 	 */
 	public void setAlgorithm(
-			IConfigurationOptimizationAlgorithmSpecifier algorithm) {
+			ConfigurationOptimizationAlgorithmSpecifier algorithm) {
 		this.algorithm = algorithm;
 	}
 
@@ -216,7 +216,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	@Override
 	public boolean optimizeConfiguration(EstimationSpecification estimation,
 			EList<InputData> input, OptimizationSettings settings,
-			IConfigurationOptimizationAlgorithmSpecifier specifier)
+			ConfigurationOptimizationAlgorithmSpecifier specifier)
 			throws IllegalArgumentException {
 		if (!isSpecifierSupported(specifier)) {
 			throw new IllegalArgumentException(

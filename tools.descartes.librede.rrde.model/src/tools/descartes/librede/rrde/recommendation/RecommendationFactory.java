@@ -31,15 +31,6 @@ public interface RecommendationFactory extends EFactory {
 	RecommendationTrainingConfiguration createRecommendationTrainingConfiguration();
 
 	/**
-	 * Returns a new object of class '<em>Configuration Result</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Configuration Result</em>'.
-	 * @generated
-	 */
-	ConfigurationResult createConfigurationResult();
-
-	/**
 	 * Returns a new object of class '<em>Algorithm Specifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

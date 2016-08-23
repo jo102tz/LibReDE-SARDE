@@ -41,9 +41,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
-import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
 
@@ -75,7 +75,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * This value will be used to replace MAX_DOUBLE values.
 	 */
 	private static final String MAX_DOUBLE_REPLACE = "NA";
-	
+
 	/**
 	 * This value will be used to replace NaN values.
 	 */
@@ -89,7 +89,8 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	/**
 	 * The character to skip to the next line
 	 */
-	private static final String BREAKLINE = System.getProperty("line.separator");
+	private static final String BREAKLINE = System
+			.getProperty("line.separator");
 
 	/**
 	 * @return the settings
@@ -117,7 +118,8 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * IConfigurationOptimizationAlgorithmSpecifier)
 	 */
 	@Override
-	public boolean isSpecifierSupported(IConfigurationOptimizationAlgorithmSpecifier specifier) {
+	public boolean isSpecifierSupported(
+			ConfigurationOptimizationAlgorithmSpecifier specifier) {
 		if (specifier == null)
 			return false;
 		if (specifier instanceof DataExportSpecifier) {
@@ -152,22 +154,32 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		df.setMaximumFractionDigits(8);
 
 		settings = (DataExportSpecifier) getAlgorithm();
-		if (settings().isMultidimensional() && settings().isSplitConfigurations()) {
+		if (settings().isMultidimensional()
+				&& settings().isSplitConfigurations()) {
 			getLog().error(
 					"It is not possible to export multiple parameters and with configurations values. Only choose one of the options.");
 		}
 		if (!settings.isMultidimensional()) {
 			getLog().info("Separate outputs for each parameter.");
-			for (IOptimizableParameter param : getSettings().getParametersToOptimize()) {
-				getLog().info("Now exporting " + param.toString() + " of approach "
-						+ getSpecification().getApproaches().get(0).getType());
+			for (IOptimizableParameter param : getSettings()
+					.getParametersToOptimize()) {
+				getLog().info(
+						"Now exporting "
+								+ param.toString()
+								+ " of approach "
+								+ getSpecification().getApproaches().get(0)
+										.getType());
 				exportSingleParameter(param);
 			}
 		} else {
-			getLog().info("Exporting all parameters of " + getSpecification().getApproaches().get(0).getType());
+			getLog().info(
+					"Exporting all parameters of "
+							+ getSpecification().getApproaches().get(0)
+									.getType());
 			exportAllParameters(getSettings().getParametersToOptimize());
 		}
-		getLog().info("Done exporting to " + settings().getOutputDirectory() + " .");
+		getLog().info(
+				"Done exporting to " + settings().getOutputDirectory() + " .");
 	}
 
 	/**
@@ -177,9 +189,11 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * @param parametersToOptimize
 	 *            the parameters to export
 	 */
-	private void exportAllParameters(EList<IOptimizableParameter> parametersToOptimize) {
+	private void exportAllParameters(
+			EList<IOptimizableParameter> parametersToOptimize) {
 		if (parametersToOptimize.size() != 2) {
-			getLog().error("Output with other than two parameters is not supported yet.");
+			getLog().error(
+					"Output with other than two parameters is not supported yet.");
 			return;
 		} else if (parametersToOptimize.size() <= 0) {
 			getLog().warn("No parameters specified.");
@@ -192,19 +206,19 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 
 		// write headerline
 		writeString(s, parametersToOptimize.get(1).getClass().getSimpleName());
-		for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize.get(1)
-				.getUpperBound(); j += settings().getStepSize()) {
+		for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize
+				.get(1).getUpperBound(); j += settings().getStepSize()) {
 			writeDouble(s, j);
 		}
 		newLine(s);
 
 		// write matrix
-		for (double i = parametersToOptimize.get(0).getLowerBound(); i <= parametersToOptimize.get(0)
-				.getUpperBound(); i += settings().getStepSize()) {
+		for (double i = parametersToOptimize.get(0).getLowerBound(); i <= parametersToOptimize
+				.get(0).getUpperBound(); i += settings().getStepSize()) {
 			writeDouble(s, i);
 			setTargetValue(parametersToOptimize.get(0), i);
-			for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize.get(1)
-					.getUpperBound(); j += settings().getStepSize()) {
+			for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize
+					.get(1).getUpperBound(); j += settings().getStepSize()) {
 				setTargetValue(parametersToOptimize.get(1), j);
 				runIteration();
 				writeError(s, getLastError());
@@ -214,8 +228,10 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		writeString(s, parametersToOptimize.get(0).getClass().getSimpleName());
 
 		// set to default again
-		setTargetValue(parametersToOptimize.get(0), parametersToOptimize.get(0).getStartValue());
-		setTargetValue(parametersToOptimize.get(1), parametersToOptimize.get(1).getStartValue());
+		setTargetValue(parametersToOptimize.get(0), parametersToOptimize.get(0)
+				.getStartValue());
+		setTargetValue(parametersToOptimize.get(1), parametersToOptimize.get(1)
+				.getStartValue());
 		try {
 			s.close();
 		} catch (IOException e) {
@@ -235,9 +251,11 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		if (param instanceof GenericParameter) {
 			paramname = ((GenericParameter) param).getParameter().getName();
 		}
-		BufferedWriter s = initFile(getSimpleApproachName() + "_" + paramname + ".csv");
+		BufferedWriter s = initFile(getSimpleApproachName() + "_" + paramname
+				+ ".csv");
 		if (!settings().isSplitConfigurations()) {
-			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
+			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings()
+					.getStepSize()) {
 				writeDouble(s, i);
 				setTargetValue(param, i);
 				adaptOtherValues(param, i);
@@ -246,9 +264,11 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 				newLine(s);
 			}
 		} else {
-			Set<LibredeConfiguration> original = new HashSet<LibredeConfiguration>(getConfs());
+			Set<LibredeConfiguration> original = new HashSet<LibredeConfiguration>(
+					getConfs());
 			// write header
-			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
+			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings()
+					.getStepSize()) {
 				writeDouble(s, i);
 			}
 			newLine(s);
@@ -256,7 +276,8 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 			for (LibredeConfiguration conf : original) {
 				getConfs().clear();
 				getConfs().add(conf);
-				for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
+				for (double i = param.getLowerBound(); i <= param
+						.getUpperBound(); i += settings().getStepSize()) {
 					setTargetValue(param, i);
 					adaptOtherValues(param, i);
 					runIteration();
@@ -298,8 +319,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * 
 	 * @param s
 	 *            the writer
-	 * @param double
-	 *            the error to write
+	 * @param double the error to write
 	 */
 	private void writeError(BufferedWriter s, double d) {
 		if (d == Double.MAX_VALUE) {
@@ -307,7 +327,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 			writeString(s, MAX_DOUBLE_REPLACE);
 			return;
 		}
-		if(Double.isNaN(d)){
+		if (Double.isNaN(d)) {
 			getLog().warn("Error is NaN.");
 			writeString(s, NaN_REPLACE);
 			return;
@@ -344,8 +364,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * 
 	 * @param s
 	 *            the writer
-	 * @param double
-	 *            the double to write
+	 * @param double the double to write
 	 */
 	private void writeDouble(BufferedWriter s, double d) {
 		writeString(s, df.format(d));
@@ -356,8 +375,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * 
 	 * @param s
 	 *            the writer
-	 * @param double
-	 *            the double to write
+	 * @param double the double to write
 	 */
 	private void newLine(BufferedWriter s) {
 		if (s == null)
@@ -380,16 +398,21 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	protected BufferedWriter initFile(String suffix) {
 		URI uri = null;
 		try {
-			uri = URI.createFileURI(new File(settings().getOutputDirectory()).toString() + File.separator + suffix);
+			uri = URI.createFileURI(new File(settings().getOutputDirectory())
+					.toString() + File.separator + suffix);
 		} catch (Exception e) {
 			getLog().error(
-					"The given direction was not found." + settings().getOutputDirectory() + File.separator + suffix);
+					"The given direction was not found."
+							+ settings().getOutputDirectory() + File.separator
+							+ suffix);
 			return null;
 		}
 
 		if (uri == null) {
 			getLog().error(
-					"The given direction was not found." + settings().getOutputDirectory() + File.separator + suffix);
+					"The given direction was not found."
+							+ settings().getOutputDirectory() + File.separator
+							+ suffix);
 			return null;
 		}
 		try {

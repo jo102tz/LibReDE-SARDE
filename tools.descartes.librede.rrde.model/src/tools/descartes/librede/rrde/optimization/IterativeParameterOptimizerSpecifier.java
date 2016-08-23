@@ -21,7 +21,7 @@ package tools.descartes.librede.rrde.optimization;
  * @model
  * @generated
  */
-public interface IterativeParameterOptimizerSpecifier extends IConfigurationOptimizationAlgorithmSpecifier {
+public interface IterativeParameterOptimizerSpecifier extends ConfigurationOptimizationAlgorithmSpecifier {
 	/**
 	 * Returns the value of the '<em><b>Number Of Splits</b></em>' attribute.
 	 * The default value is <code>"3"</code>.

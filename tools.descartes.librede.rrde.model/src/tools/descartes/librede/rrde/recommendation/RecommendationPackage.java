@@ -121,52 +121,6 @@ public interface RecommendationPackage extends EPackage {
 	int RECOMMENDATION_TRAINING_CONFIGURATION_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.ConfigurationResultImpl <em>Configuration Result</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see tools.descartes.librede.rrde.recommendation.impl.ConfigurationResultImpl
-	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getConfigurationResult()
-	 * @generated
-	 */
-	int CONFIGURATION_RESULT = 1;
-
-	/**
-	 * The feature id for the '<em><b>Configuration</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONFIGURATION_RESULT__CONFIGURATION = 0;
-
-	/**
-	 * The feature id for the '<em><b>Error Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONFIGURATION_RESULT__ERROR_VALUE = 1;
-
-	/**
-	 * The number of structural features of the '<em>Configuration Result</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONFIGURATION_RESULT_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Configuration Result</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONFIGURATION_RESULT_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationAlgorithmSpecifierImpl <em>Algorithm Specifier</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -174,7 +128,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getRecommendationAlgorithmSpecifier()
 	 * @generated
 	 */
-	int RECOMMENDATION_ALGORITHM_SPECIFIER = 2;
+	int RECOMMENDATION_ALGORITHM_SPECIFIER = 1;
 
 	/**
 	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
@@ -211,7 +165,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getFeatureExtractorSpecifier()
 	 * @generated
 	 */
-	int FEATURE_EXTRACTOR_SPECIFIER = 3;
+	int FEATURE_EXTRACTOR_SPECIFIER = 2;
 
 	/**
 	 * The feature id for the '<em><b>Feature Extractor</b></em>' attribute.
@@ -248,7 +202,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getDataSet()
 	 * @generated
 	 */
-	int DATA_SET = 4;
+	int DATA_SET = 3;
 
 	/**
 	 * The feature id for the '<em><b>Configuration</b></em>' reference.
@@ -269,13 +223,13 @@ public interface RecommendationPackage extends EPackage {
 	int DATA_SET__FEATURES = 1;
 
 	/**
-	 * The feature id for the '<em><b>Configuration Values</b></em>' reference list.
+	 * The feature id for the '<em><b>Estimation Errors</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_SET__CONFIGURATION_VALUES = 2;
+	int DATA_SET__ESTIMATION_ERRORS = 2;
 
 	/**
 	 * The number of structural features of the '<em>Data Set</em>' class.
@@ -303,7 +257,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getFeatureVector()
 	 * @generated
 	 */
-	int FEATURE_VECTOR = 5;
+	int FEATURE_VECTOR = 4;
 
 	/**
 	 * The feature id for the '<em><b>Number Of Ressources</b></em>' attribute.
@@ -385,7 +339,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getTraceFeatures()
 	 * @generated
 	 */
-	int TRACE_FEATURES = 6;
+	int TRACE_FEATURES = 5;
 
 	/**
 	 * The feature id for the '<em><b>Arithmetic Mean</b></em>' attribute.
@@ -551,38 +505,6 @@ public interface RecommendationPackage extends EPackage {
 	EReference getRecommendationTrainingConfiguration_Configurations();
 
 	/**
-	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.ConfigurationResult <em>Configuration Result</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Configuration Result</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.ConfigurationResult
-	 * @generated
-	 */
-	EClass getConfigurationResult();
-
-	/**
-	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.recommendation.ConfigurationResult#getConfiguration <em>Configuration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Configuration</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.ConfigurationResult#getConfiguration()
-	 * @see #getConfigurationResult()
-	 * @generated
-	 */
-	EReference getConfigurationResult_Configuration();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.ConfigurationResult#getErrorValue <em>Error Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Error Value</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.ConfigurationResult#getErrorValue()
-	 * @see #getConfigurationResult()
-	 * @generated
-	 */
-	EAttribute getConfigurationResult_ErrorValue();
-
-	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier <em>Algorithm Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -657,15 +579,15 @@ public interface RecommendationPackage extends EPackage {
 	EReference getDataSet_Features();
 
 	/**
-	 * Returns the meta object for the reference list '{@link tools.descartes.librede.rrde.recommendation.DataSet#getConfigurationValues <em>Configuration Values</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.DataSet#getEstimationErrors <em>Estimation Errors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Configuration Values</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.DataSet#getConfigurationValues()
+	 * @return the meta object for the attribute '<em>Estimation Errors</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.DataSet#getEstimationErrors()
 	 * @see #getDataSet()
 	 * @generated
 	 */
-	EReference getDataSet_ConfigurationValues();
+	EAttribute getDataSet_EstimationErrors();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.FeatureVector <em>Feature Vector</em>}'.
@@ -929,32 +851,6 @@ public interface RecommendationPackage extends EPackage {
 		EReference RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS = eINSTANCE.getRecommendationTrainingConfiguration_Configurations();
 
 		/**
-		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.ConfigurationResultImpl <em>Configuration Result</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see tools.descartes.librede.rrde.recommendation.impl.ConfigurationResultImpl
-		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getConfigurationResult()
-		 * @generated
-		 */
-		EClass CONFIGURATION_RESULT = eINSTANCE.getConfigurationResult();
-
-		/**
-		 * The meta object literal for the '<em><b>Configuration</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CONFIGURATION_RESULT__CONFIGURATION = eINSTANCE.getConfigurationResult_Configuration();
-
-		/**
-		 * The meta object literal for the '<em><b>Error Value</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONFIGURATION_RESULT__ERROR_VALUE = eINSTANCE.getConfigurationResult_ErrorValue();
-
-		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationAlgorithmSpecifierImpl <em>Algorithm Specifier</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1017,12 +913,12 @@ public interface RecommendationPackage extends EPackage {
 		EReference DATA_SET__FEATURES = eINSTANCE.getDataSet_Features();
 
 		/**
-		 * The meta object literal for the '<em><b>Configuration Values</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Estimation Errors</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DATA_SET__CONFIGURATION_VALUES = eINSTANCE.getDataSet_ConfigurationValues();
+		EAttribute DATA_SET__ESTIMATION_ERRORS = eINSTANCE.getDataSet_EstimationErrors();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl <em>Feature Vector</em>}' class.

@@ -20,7 +20,6 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 
 import tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl;
 
-import tools.descartes.librede.rrde.recommendation.ConfigurationResult;
 import tools.descartes.librede.rrde.recommendation.DataSet;
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
@@ -45,13 +44,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * @generated
 	 */
 	private EClass recommendationTrainingConfigurationEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass configurationResultEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -210,33 +202,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getConfigurationResult() {
-		return configurationResultEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getConfigurationResult_Configuration() {
-		return (EReference)configurationResultEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getConfigurationResult_ErrorValue() {
-		return (EAttribute)configurationResultEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getRecommendationAlgorithmSpecifier() {
 		return recommendationAlgorithmSpecifierEClass;
 	}
@@ -300,8 +265,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDataSet_ConfigurationValues() {
-		return (EReference)dataSetEClass.getEStructuralFeatures().get(2);
+	public EAttribute getDataSet_EstimationErrors() {
+		return (EAttribute)dataSetEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -500,10 +465,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		createEReference(recommendationTrainingConfigurationEClass, RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM);
 		createEReference(recommendationTrainingConfigurationEClass, RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS);
 
-		configurationResultEClass = createEClass(CONFIGURATION_RESULT);
-		createEReference(configurationResultEClass, CONFIGURATION_RESULT__CONFIGURATION);
-		createEAttribute(configurationResultEClass, CONFIGURATION_RESULT__ERROR_VALUE);
-
 		recommendationAlgorithmSpecifierEClass = createEClass(RECOMMENDATION_ALGORITHM_SPECIFIER);
 		createEAttribute(recommendationAlgorithmSpecifierEClass, RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME);
 
@@ -513,7 +474,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		dataSetEClass = createEClass(DATA_SET);
 		createEReference(dataSetEClass, DATA_SET__CONFIGURATION);
 		createEReference(dataSetEClass, DATA_SET__FEATURES);
-		createEReference(dataSetEClass, DATA_SET__CONFIGURATION_VALUES);
+		createEAttribute(dataSetEClass, DATA_SET__ESTIMATION_ERRORS);
 
 		featureVectorEClass = createEClass(FEATURE_VECTOR);
 		createEAttribute(featureVectorEClass, FEATURE_VECTOR__NUMBER_OF_RESSOURCES);
@@ -579,10 +540,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEReference(getRecommendationTrainingConfiguration_FeatureAlgorithm(), this.getFeatureExtractorSpecifier(), null, "featureAlgorithm", null, 1, 1, RecommendationTrainingConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRecommendationTrainingConfiguration_Configurations(), theConfigurationPackage.getEstimationSpecification(), null, "configurations", null, 1, -1, RecommendationTrainingConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(configurationResultEClass, ConfigurationResult.class, "ConfigurationResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConfigurationResult_Configuration(), theConfigurationPackage.getEstimationSpecification(), null, "configuration", null, 1, 1, ConfigurationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConfigurationResult_ErrorValue(), theXMLTypePackage.getDouble(), "errorValue", "-1", 1, 1, ConfigurationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(recommendationAlgorithmSpecifierEClass, RecommendationAlgorithmSpecifier.class, "RecommendationAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRecommendationAlgorithmSpecifier_AlgorithmName(), ecorePackage.getEString(), "algorithmName", null, 1, 1, RecommendationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -592,7 +549,12 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEClass(dataSetEClass, DataSet.class, "DataSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataSet_Configuration(), theConfigurationPackage.getLibredeConfiguration(), null, "configuration", null, 1, 1, DataSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDataSet_Features(), this.getFeatureVector(), null, "features", null, 1, 1, DataSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDataSet_ConfigurationValues(), this.getConfigurationResult(), null, "configurationValues", null, 1, -1, DataSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		EGenericType g1 = createEGenericType(ecorePackage.getEMap());
+		EGenericType g2 = createEGenericType(theConfigurationPackage.getEstimationAlgorithmConfiguration());
+		g1.getETypeArguments().add(g2);
+		g2 = createEGenericType(theXMLTypePackage.getDoubleObject());
+		g1.getETypeArguments().add(g2);
+		initEAttribute(getDataSet_EstimationErrors(), g1, "estimationErrors", null, 1, 1, DataSet.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureVectorEClass, FeatureVector.class, "FeatureVector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeatureVector_NumberOfRessources(), theXMLTypePackage.getInt(), "numberOfRessources", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -609,8 +571,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEAttribute(getTraceFeatures_Maximum(), theXMLTypePackage.getDouble(), "maximum", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTraceFeatures_NumberOfSamples(), theXMLTypePackage.getInt(), "numberOfSamples", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTraceFeatures_AggregationType(), theMetricsPackage.getAggregation(), "aggregationType", "NONE", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		EGenericType g1 = createEGenericType(theUnitsPackage.getQuantity());
-		EGenericType g2 = createEGenericType(theUnitsPackage.getTime());
+		g1 = createEGenericType(theUnitsPackage.getQuantity());
+		g2 = createEGenericType(theUnitsPackage.getTime());
 		g1.getETypeArguments().add(g2);
 		initEReference(getTraceFeatures_AggregationInterval(), g1, null, "aggregationInterval", null, 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTraceFeatures_AutoCorrelation(), theXMLTypePackage.getDouble(), "autoCorrelation", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

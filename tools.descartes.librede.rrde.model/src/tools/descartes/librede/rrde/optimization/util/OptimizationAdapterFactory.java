@@ -72,8 +72,8 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 				return createOptimizationConfigurationAdapter();
 			}
 			@Override
-			public Adapter caseIConfigurationOptimizationAlgorithmSpecifier(IConfigurationOptimizationAlgorithmSpecifier object) {
-				return createIConfigurationOptimizationAlgorithmSpecifierAdapter();
+			public Adapter caseConfigurationOptimizationAlgorithmSpecifier(ConfigurationOptimizationAlgorithmSpecifier object) {
+				return createConfigurationOptimizationAlgorithmSpecifierAdapter();
 			}
 			@Override
 			public Adapter caseLocalSearchSpecifier(LocalSearchSpecifier object) {
@@ -150,16 +150,16 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier <em>IConfiguration Optimization Algorithm Specifier</em>}'.
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier <em>Configuration Optimization Algorithm Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier
+	 * @see tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier
 	 * @generated
 	 */
-	public Adapter createIConfigurationOptimizationAlgorithmSpecifierAdapter() {
+	public Adapter createConfigurationOptimizationAlgorithmSpecifierAdapter() {
 		return null;
 	}
 

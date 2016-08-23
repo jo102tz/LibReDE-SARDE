@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <librede-optimization:OptimizationConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization">
   <containsOf>
-    <algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm" numberOfSplits="2" numberOfExplorations="2" numberOfIterations="2"/>
+    <algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm"/>
     <trainingData rootFolder="C:\Users\JS\Desktop\Train">
       <input>
         <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
           <parameters name="SkipFirstLine" value="on"/>
-      		<parameters name="Separators" value=";"/>
-      		<parameters name="TimestampFormat" value="[ms]"/>
+          <parameters name="Separators" value=";"/>
+          <parameters name="TimestampFormat" value="[ms]"/>
         </dataSources>
-        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@input/@dataSources.0" location="" file="WC0_RESPONSE_TIME.csv">
+        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@input/@dataSources.0" location="" file="experiment1_WC0_RESPONSE_TIME.csv">
           <metric href="librede:metrics#RESPONSE_TIME"/>
           <unit href="librede:units#SECONDS"/>
           <interval>
@@ -17,7 +17,7 @@
           </interval>
           <mappings entity="//@containsOf.0/@trainingData.0/@workloadDescription/@services.0"/>
         </observations>
-        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@input/@dataSources.0" location="" file="WC1_RESPONSE_TIME.csv">
+        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@input/@dataSources.0" location="" file="experiment1_WC1_RESPONSE_TIME.csv">
           <metric href="librede:metrics#RESPONSE_TIME"/>
           <unit href="librede:units#SECONDS"/>
           <interval>
@@ -25,7 +25,7 @@
           </interval>
           <mappings entity="//@containsOf.0/@trainingData.0/@workloadDescription/@services.1"/>
         </observations>
-        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@input/@dataSources.0" location="" file="WC2_RESPONSE_TIME.csv">
+        <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@containsOf.0/@trainingData.0/@input/@dataSources.0" location="" file="experiment1_WC2_RESPONSE_TIME.csv">
           <metric href="librede:metrics#RESPONSE_TIME"/>
           <unit href="librede:units#SECONDS"/>
           <interval>
@@ -60,11 +60,8 @@
         <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
         <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
       </validator>
-      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.1" upperBound="2.0" startValue="1.0" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.0"/>
-      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.1" upperBound="1.5" startValue="0.9" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.1"/>
-      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.1" upperBound="2.0" startValue="1.0" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.3"/>
-      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="1.0E-5" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.2"/>
-      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="1.0E-4" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.4"/>
+      <parametersToOptimize xsi:type="librede-optimization:StepSize" lowerBound="30.0" upperBound="15000.0" startValue="60.0"/>
+      <parametersToOptimize xsi:type="librede-optimization:WindowSize" lowerBound="30.0" upperBound="15000.0" startValue="60.0"/>
     </settings>
     <estimation window="60">
       <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>

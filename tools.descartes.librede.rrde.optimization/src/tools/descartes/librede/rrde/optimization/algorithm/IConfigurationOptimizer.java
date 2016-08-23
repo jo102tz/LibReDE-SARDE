@@ -30,7 +30,7 @@ import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 
@@ -73,7 +73,7 @@ public interface IConfigurationOptimizer {
 	 */
 	public boolean optimizeConfiguration(EstimationSpecification estimation,
 			EList<InputData> input, OptimizationSettings settings,
-			IConfigurationOptimizationAlgorithmSpecifier specifier)
+			ConfigurationOptimizationAlgorithmSpecifier specifier)
 			throws IllegalArgumentException;
 
 	/**
@@ -112,5 +112,5 @@ public interface IConfigurationOptimizer {
 	 *         otherwise.
 	 */
 	public boolean isSpecifierSupported(
-			IConfigurationOptimizationAlgorithmSpecifier specifier);
+			ConfigurationOptimizationAlgorithmSpecifier specifier);
 }

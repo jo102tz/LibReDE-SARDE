@@ -9,7 +9,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="containsOf" upperBound="-1"
         eType="#//RunCall" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IConfigurationOptimizationAlgorithmSpecifier"
+  <eClassifiers xsi:type="ecore:EClass" name="ConfigurationOptimizationAlgorithmSpecifier"
       abstract="true" interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="This is a basic interface for configurations of algorithms optimizing LibReDE configurations of estimation approaches."/>
@@ -19,7 +19,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithmName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LocalSearchSpecifier" eSuperTypes="#//IConfigurationOptimizationAlgorithmSpecifier">
+  <eClassifiers xsi:type="ecore:EClass" name="LocalSearchSpecifier" eSuperTypes="#//ConfigurationOptimizationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tolerance" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="0.05"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximumNumberOfSteps" lowerBound="1"
@@ -32,7 +32,7 @@
       <details key="documentation" value="One iteration of optimization specified by input or training data, a set of OptimizationSettings, an EstimationSpecification to optimize and one instance of an IConfigurationOptimizationAlgorithmSpecifier"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="algorithm" lowerBound="1"
-        eType="#//IConfigurationOptimizationAlgorithmSpecifier" containment="true"/>
+        eType="#//ConfigurationOptimizationAlgorithmSpecifier" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="trainingData" lowerBound="1"
         upperBound="-1" eType="#//InputData" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="settings" lowerBound="1"
@@ -61,7 +61,7 @@
         eType="#//IOptimizableParameter" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IterativeParameterOptimizerSpecifier"
-      eSuperTypes="#//IConfigurationOptimizationAlgorithmSpecifier">
+      eSuperTypes="#//ConfigurationOptimizationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfSplits" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="3"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfExplorations" lowerBound="1"
@@ -88,7 +88,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StepSize" eSuperTypes="#//IOptimizableParameter"/>
   <eClassifiers xsi:type="ecore:EClass" name="WindowSize" eSuperTypes="#//IOptimizableParameter"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DataExportSpecifier" eSuperTypes="#//IConfigurationOptimizationAlgorithmSpecifier">
+  <eClassifiers xsi:type="ecore:EClass" name="DataExportSpecifier" eSuperTypes="#//ConfigurationOptimizationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="OutputDirectory" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String" defaultValueLiteral="&quot;&quot;"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepSize" lowerBound="1"

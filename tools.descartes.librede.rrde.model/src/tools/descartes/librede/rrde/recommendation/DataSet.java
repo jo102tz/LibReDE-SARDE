@@ -2,10 +2,11 @@
  */
 package tools.descartes.librede.rrde.recommendation;
 
-import org.eclipse.emf.common.util.EList;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 
+import tools.descartes.librede.configuration.EstimationAlgorithmConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 
 /**
@@ -18,7 +19,7 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getConfiguration <em>Configuration</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getConfigurationValues <em>Configuration Values</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getEstimationErrors <em>Estimation Errors</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,19 +81,29 @@ public interface DataSet extends EObject {
 	void setFeatures(FeatureVector value);
 
 	/**
-	 * Returns the value of the '<em><b>Configuration Values</b></em>' reference list.
-	 * The list contents are of type {@link tools.descartes.librede.rrde.recommendation.ConfigurationResult}.
+	 * Returns the value of the '<em><b>Estimation Errors</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Configuration Values</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Estimation Errors</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Configuration Values</em>' reference list.
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getDataSet_ConfigurationValues()
-	 * @model required="true"
+	 * @return the value of the '<em>Estimation Errors</em>' attribute.
+	 * @see #setEstimationErrors(Map)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getDataSet_EstimationErrors()
+	 * @model required="true" transient="true"
 	 * @generated
 	 */
-	EList<ConfigurationResult> getConfigurationValues();
+	Map<EstimationAlgorithmConfiguration, Double> getEstimationErrors();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.DataSet#getEstimationErrors <em>Estimation Errors</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Estimation Errors</em>' attribute.
+	 * @see #getEstimationErrors()
+	 * @generated
+	 */
+	void setEstimationErrors(Map<EstimationAlgorithmConfiguration, Double> value);
 
 } // DataSet

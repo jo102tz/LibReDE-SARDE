@@ -15,9 +15,9 @@ import tools.descartes.librede.configuration.ConfigurationPackage;
 
 import tools.descartes.librede.metrics.MetricsPackage;
 
+import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
-import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier;
@@ -55,7 +55,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass iConfigurationOptimizationAlgorithmSpecifierEClass = null;
+	private EClass configurationOptimizationAlgorithmSpecifierEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -222,8 +222,8 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getIConfigurationOptimizationAlgorithmSpecifier() {
-		return iConfigurationOptimizationAlgorithmSpecifierEClass;
+	public EClass getConfigurationOptimizationAlgorithmSpecifier() {
+		return configurationOptimizationAlgorithmSpecifierEClass;
 	}
 
 	/**
@@ -231,8 +231,8 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getIConfigurationOptimizationAlgorithmSpecifier_TimeOut() {
-		return (EAttribute)iConfigurationOptimizationAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
+	public EAttribute getConfigurationOptimizationAlgorithmSpecifier_TimeOut() {
+		return (EAttribute)configurationOptimizationAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -240,8 +240,8 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName() {
-		return (EAttribute)iConfigurationOptimizationAlgorithmSpecifierEClass.getEStructuralFeatures().get(1);
+	public EAttribute getConfigurationOptimizationAlgorithmSpecifier_AlgorithmName() {
+		return (EAttribute)configurationOptimizationAlgorithmSpecifierEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -572,9 +572,9 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		optimizationConfigurationEClass = createEClass(OPTIMIZATION_CONFIGURATION);
 		createEReference(optimizationConfigurationEClass, OPTIMIZATION_CONFIGURATION__CONTAINS_OF);
 
-		iConfigurationOptimizationAlgorithmSpecifierEClass = createEClass(ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER);
-		createEAttribute(iConfigurationOptimizationAlgorithmSpecifierEClass, ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT);
-		createEAttribute(iConfigurationOptimizationAlgorithmSpecifierEClass, ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME);
+		configurationOptimizationAlgorithmSpecifierEClass = createEClass(CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER);
+		createEAttribute(configurationOptimizationAlgorithmSpecifierEClass, CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT);
+		createEAttribute(configurationOptimizationAlgorithmSpecifierEClass, CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME);
 
 		localSearchSpecifierEClass = createEClass(LOCAL_SEARCH_SPECIFIER);
 		createEAttribute(localSearchSpecifierEClass, LOCAL_SEARCH_SPECIFIER__TOLERANCE);
@@ -652,20 +652,20 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		localSearchSpecifierEClass.getESuperTypes().add(this.getIConfigurationOptimizationAlgorithmSpecifier());
-		iterativeParameterOptimizerSpecifierEClass.getESuperTypes().add(this.getIConfigurationOptimizationAlgorithmSpecifier());
+		localSearchSpecifierEClass.getESuperTypes().add(this.getConfigurationOptimizationAlgorithmSpecifier());
+		iterativeParameterOptimizerSpecifierEClass.getESuperTypes().add(this.getConfigurationOptimizationAlgorithmSpecifier());
 		genericParameterEClass.getESuperTypes().add(this.getIOptimizableParameter());
 		stepSizeEClass.getESuperTypes().add(this.getIOptimizableParameter());
 		windowSizeEClass.getESuperTypes().add(this.getIOptimizableParameter());
-		dataExportSpecifierEClass.getESuperTypes().add(this.getIConfigurationOptimizationAlgorithmSpecifier());
+		dataExportSpecifierEClass.getESuperTypes().add(this.getConfigurationOptimizationAlgorithmSpecifier());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(optimizationConfigurationEClass, OptimizationConfiguration.class, "OptimizationConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOptimizationConfiguration_ContainsOf(), this.getRunCall(), null, "containsOf", null, 0, -1, OptimizationConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(iConfigurationOptimizationAlgorithmSpecifierEClass, IConfigurationOptimizationAlgorithmSpecifier.class, "IConfigurationOptimizationAlgorithmSpecifier", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIConfigurationOptimizationAlgorithmSpecifier_TimeOut(), ecorePackage.getELong(), "timeOut", "-1", 1, 1, IConfigurationOptimizationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName(), theXMLTypePackage.getString(), "algorithmName", null, 1, 1, IConfigurationOptimizationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(configurationOptimizationAlgorithmSpecifierEClass, ConfigurationOptimizationAlgorithmSpecifier.class, "ConfigurationOptimizationAlgorithmSpecifier", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getConfigurationOptimizationAlgorithmSpecifier_TimeOut(), ecorePackage.getELong(), "timeOut", "-1", 1, 1, ConfigurationOptimizationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConfigurationOptimizationAlgorithmSpecifier_AlgorithmName(), theXMLTypePackage.getString(), "algorithmName", null, 1, 1, ConfigurationOptimizationAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(localSearchSpecifierEClass, LocalSearchSpecifier.class, "LocalSearchSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLocalSearchSpecifier_Tolerance(), ecorePackage.getEDouble(), "tolerance", "0.05", 1, 1, LocalSearchSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -673,7 +673,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEAttribute(getLocalSearchSpecifier_StepSize(), ecorePackage.getEDouble(), "stepSize", "1", 1, 1, LocalSearchSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(runCallEClass, RunCall.class, "RunCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRunCall_Algorithm(), this.getIConfigurationOptimizationAlgorithmSpecifier(), null, "algorithm", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRunCall_Algorithm(), this.getConfigurationOptimizationAlgorithmSpecifier(), null, "algorithm", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRunCall_TrainingData(), this.getInputData(), null, "trainingData", null, 1, -1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRunCall_Settings(), this.getOptimizationSettings(), null, "settings", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRunCall_Estimation(), theConfigurationPackage.getEstimationSpecification(), null, "estimation", null, 1, 1, RunCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

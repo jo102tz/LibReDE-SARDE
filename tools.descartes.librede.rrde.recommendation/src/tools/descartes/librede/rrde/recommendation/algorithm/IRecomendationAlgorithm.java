@@ -26,10 +26,9 @@
  */
 package tools.descartes.librede.rrde.recommendation.algorithm;
 
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
-import tools.descartes.librede.rrde.recommendation.ConfigurationResult;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 
 /**
@@ -63,9 +62,8 @@ public interface IRecomendationAlgorithm {
 	 * {@link #recommendEstimation(FeatureVector)}.
 	 * 
 	 * @param errors
-	 *            A list of {@link ConfigurationResult}s containing an
-	 *            {@link EstimationSpecification} and its performance on the
-	 *            described feature set by an error value.
+	 *            A mapping of {@link EstimationSpecification} to its
+	 *            performance on the described feature set by an error value.
 	 * @param features
 	 *            The {@link FeatureVector} to the corresponding targetValue
 	 * @return True if the example was successfully included, false otherwise.
@@ -74,7 +72,7 @@ public interface IRecomendationAlgorithm {
 	 *             training phase was completed by a call of
 	 *             {@link #endTrainingPhase()}.
 	 */
-	public boolean trainSet(EList<ConfigurationResult> errors,
+	public boolean trainSet(EMap<EstimationSpecification, Double> errors,
 			FeatureVector features) throws IllegalStateException;
 
 	/**

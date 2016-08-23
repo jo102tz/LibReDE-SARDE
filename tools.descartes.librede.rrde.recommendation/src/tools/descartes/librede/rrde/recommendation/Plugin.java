@@ -31,8 +31,9 @@ import java.io.File;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
@@ -45,7 +46,6 @@ import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.Wrapper;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
-import tools.descartes.librede.rrde.recommendation.impl.ConfigurationResultImpl;
 
 /**
  * The main class of this Plugin.
@@ -213,15 +213,7 @@ public class Plugin implements IApplication {
 			EList<EstimationSpecification> estimators, LibredeConfiguration conf) {
 		for (EstimationSpecification spec : estimators) {
 			conf.setEstimation(spec);
-			EList<ConfigurationResult> stringList = new BasicEList<ConfigurationResult>();
-			try {
-				ConfigurationResult result = ConfigurationResultImpl.class.newInstance();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				System.out.println("War klar.");
-			}
+			EMap<EstimationSpecification, Double> results = new BasicEMap<EstimationSpecification, Double>();
 			Wrapper.executeLibrede(conf);
 		}
 		return true;
