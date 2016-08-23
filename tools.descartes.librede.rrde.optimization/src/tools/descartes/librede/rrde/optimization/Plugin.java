@@ -112,16 +112,16 @@ public class Plugin implements IApplication {
 
 			// This is a fixup to replace the data sources with ones from
 			// librede.
-//			for (RunCall call : conf.getContainsOf()) {
-//				for (InputData spec : call.getTrainingData()) {
-//					spec.getInput()
-//							.getDataSources()
-//							.get(0)
-//							.getParameters()
-//							.addAll(librede.getInput().getDataSources().get(0)
-//									.getParameters());
-//				}
-//			}
+			// for (RunCall call : conf.getContainsOf()) {
+			// for (InputData spec : call.getTrainingData()) {
+			// spec.getInput()
+			// .getDataSources()
+			// .get(0)
+			// .getParameters()
+			// .addAll(librede.getInput().getDataSources().get(0)
+			// .getParameters());
+			// }
+			// }
 
 			// run optimization
 			runConfigurationOptimization(librede, conf, OUTPUT);
@@ -183,11 +183,9 @@ public class Plugin implements IApplication {
 					// deep copy
 					RunCall newCall = EcoreUtil.copy(call);
 
-					newCall.setEstimation(EcoreUtil.copy(call
-							.getEstimation()));
+					newCall.setEstimation(EcoreUtil.copy(call.getEstimation()));
 
-					newCall.getEstimation().getApproaches()
-							.clear();
+					newCall.getEstimation().getApproaches().clear();
 					newCall.getEstimation().getApproaches()
 							.add(EcoreUtil.copy(approach));
 
@@ -417,12 +415,11 @@ public class Plugin implements IApplication {
 		Logger.getLogger(
 				tools.descartes.librede.Librede.class.getPackage().getName())
 				.setLevel(Level.WARN);
+		Logger.getLogger(this.getClass().getPackage().getName()).setLevel(
+				loglevel);
 		Logger.getLogger(
-				tools.descartes.librede.rrde.optimization.Plugin.class.getPackage()
-						.getName()).setLevel(loglevel);
-		Logger.getLogger(
-				tools.descartes.librede.rrde.rinterface.RBridge.class.getPackage()
-						.getName()).setLevel(loglevel);
+				tools.descartes.librede.rrde.rinterface.RBridge.class
+						.getPackage().getName()).setLevel(loglevel);
 	}
 
 	/**

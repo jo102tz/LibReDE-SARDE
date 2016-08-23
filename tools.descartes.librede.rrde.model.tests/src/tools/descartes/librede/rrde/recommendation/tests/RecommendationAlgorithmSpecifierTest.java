@@ -6,24 +6,24 @@ import junit.framework.TestCase;
 
 import junit.textui.TestRunner;
 
-import tools.descartes.librede.rrde.recommendation.IFeatureExtractorSpecifier;
+import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationFactory;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>IFeature Extractor Specifier</b></em>'.
+ * A test case for the model object '<em><b>Algorithm Specifier</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class IFeatureExtractorSpecifierTest extends TestCase {
+public class RecommendationAlgorithmSpecifierTest extends TestCase {
 
 	/**
-	 * The fixture for this IFeature Extractor Specifier test case.
+	 * The fixture for this Algorithm Specifier test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IFeatureExtractorSpecifier fixture = null;
+	protected RecommendationAlgorithmSpecifier fixture = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -31,36 +31,36 @@ public class IFeatureExtractorSpecifierTest extends TestCase {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(IFeatureExtractorSpecifierTest.class);
+		TestRunner.run(RecommendationAlgorithmSpecifierTest.class);
 	}
 
 	/**
-	 * Constructs a new IFeature Extractor Specifier test case with the given name.
+	 * Constructs a new Algorithm Specifier test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IFeatureExtractorSpecifierTest(String name) {
+	public RecommendationAlgorithmSpecifierTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Sets the fixture for this IFeature Extractor Specifier test case.
+	 * Sets the fixture for this Algorithm Specifier test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void setFixture(IFeatureExtractorSpecifier fixture) {
+	protected void setFixture(RecommendationAlgorithmSpecifier fixture) {
 		this.fixture = fixture;
 	}
 
 	/**
-	 * Returns the fixture for this IFeature Extractor Specifier test case.
+	 * Returns the fixture for this Algorithm Specifier test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IFeatureExtractorSpecifier getFixture() {
+	protected RecommendationAlgorithmSpecifier getFixture() {
 		return fixture;
 	}
 
@@ -72,7 +72,7 @@ public class IFeatureExtractorSpecifierTest extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(RecommendationFactory.eINSTANCE.createIFeatureExtractorSpecifier());
+		setFixture(RecommendationFactory.eINSTANCE.createRecommendationAlgorithmSpecifier());
 	}
 
 	/**
@@ -86,4 +86,4 @@ public class IFeatureExtractorSpecifierTest extends TestCase {
 		setFixture(null);
 	}
 
-} //IFeatureExtractorSpecifierTest
+} //RecommendationAlgorithmSpecifierTest

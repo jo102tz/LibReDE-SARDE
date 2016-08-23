@@ -31,13 +31,22 @@ public interface RecommendationFactory extends EFactory {
 	RecommendationTrainingConfiguration createRecommendationTrainingConfiguration();
 
 	/**
-	 * Returns a new object of class '<em>IRecommendation Algorithm Specifier</em>'.
+	 * Returns a new object of class '<em>Algorithm Specifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>IRecommendation Algorithm Specifier</em>'.
+	 * @return a new object of class '<em>Algorithm Specifier</em>'.
 	 * @generated
 	 */
-	IRecommendationAlgorithmSpecifier createIRecommendationAlgorithmSpecifier();
+	RecommendationAlgorithmSpecifier createRecommendationAlgorithmSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>Feature Extractor Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Feature Extractor Specifier</em>'.
+	 * @generated
+	 */
+	FeatureExtractorSpecifier createFeatureExtractorSpecifier();
 
 	/**
 	 * Returns a new object of class '<em>Data Set</em>'.
@@ -49,15 +58,6 @@ public interface RecommendationFactory extends EFactory {
 	DataSet createDataSet();
 
 	/**
-	 * Returns a new object of class '<em>IFeature Extractor Specifier</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>IFeature Extractor Specifier</em>'.
-	 * @generated
-	 */
-	IFeatureExtractorSpecifier createIFeatureExtractorSpecifier();
-
-	/**
 	 * Returns a new object of class '<em>Feature Vector</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -65,6 +65,15 @@ public interface RecommendationFactory extends EFactory {
 	 * @generated
 	 */
 	FeatureVector createFeatureVector();
+
+	/**
+	 * Returns a new object of class '<em>Trace Features</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Trace Features</em>'.
+	 * @generated
+	 */
+	TraceFeatures createTraceFeatures();
 
 	/**
 	 * Returns the package supported by this factory.

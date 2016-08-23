@@ -9,23 +9,23 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import tools.descartes.librede.rrde.recommendation.IFeatureExtractorSpecifier;
+import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>IFeature Extractor Specifier</b></em>'.
+ * An implementation of the model object '<em><b>Feature Extractor Specifier</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.IFeatureExtractorSpecifierImpl#getFeatureExtractor <em>Feature Extractor</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureExtractorSpecifierImpl#getFeatureExtractor <em>Feature Extractor</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class IFeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container implements IFeatureExtractorSpecifier {
+public class FeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container implements FeatureExtractorSpecifier {
 	/**
 	 * The default value of the '{@link #getFeatureExtractor() <em>Feature Extractor</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -51,7 +51,7 @@ public class IFeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IFeatureExtractorSpecifierImpl() {
+	protected FeatureExtractorSpecifierImpl() {
 		super();
 	}
 
@@ -62,7 +62,7 @@ public class IFeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return RecommendationPackage.Literals.IFEATURE_EXTRACTOR_SPECIFIER;
+		return RecommendationPackage.Literals.FEATURE_EXTRACTOR_SPECIFIER;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class IFeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container
 		String oldFeatureExtractor = featureExtractor;
 		featureExtractor = newFeatureExtractor;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.IFEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR, oldFeatureExtractor, featureExtractor));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR, oldFeatureExtractor, featureExtractor));
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class IFeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case RecommendationPackage.IFEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
 				return getFeatureExtractor();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -108,7 +108,7 @@ public class IFeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case RecommendationPackage.IFEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
 				setFeatureExtractor((String)newValue);
 				return;
 		}
@@ -123,7 +123,7 @@ public class IFeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case RecommendationPackage.IFEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
 				setFeatureExtractor(FEATURE_EXTRACTOR_EDEFAULT);
 				return;
 		}
@@ -138,7 +138,7 @@ public class IFeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case RecommendationPackage.IFEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
 				return FEATURE_EXTRACTOR_EDEFAULT == null ? featureExtractor != null : !FEATURE_EXTRACTOR_EDEFAULT.equals(featureExtractor);
 		}
 		return super.eIsSet(featureID);
@@ -160,4 +160,4 @@ public class IFeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container
 		return result.toString();
 	}
 
-} //IFeatureExtractorSpecifierImpl
+} //FeatureExtractorSpecifierImpl

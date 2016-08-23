@@ -9,23 +9,23 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import tools.descartes.librede.rrde.recommendation.IRecommendationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>IRecommendation Algorithm Specifier</b></em>'.
+ * An implementation of the model object '<em><b>Algorithm Specifier</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.IRecommendationAlgorithmSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationAlgorithmSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Container implements IRecommendationAlgorithmSpecifier {
+public class RecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Container implements RecommendationAlgorithmSpecifier {
 	/**
 	 * The default value of the '{@link #getAlgorithmName() <em>Algorithm Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -51,7 +51,7 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IRecommendationAlgorithmSpecifierImpl() {
+	protected RecommendationAlgorithmSpecifierImpl() {
 		super();
 	}
 
@@ -62,7 +62,7 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return RecommendationPackage.Literals.IRECOMMENDATION_ALGORITHM_SPECIFIER;
+		return RecommendationPackage.Literals.RECOMMENDATION_ALGORITHM_SPECIFIER;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 		String oldAlgorithmName = algorithmName;
 		algorithmName = newAlgorithmName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME, oldAlgorithmName, algorithmName));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME, oldAlgorithmName, algorithmName));
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
+			case RecommendationPackage.RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
 				return getAlgorithmName();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -108,7 +108,7 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
+			case RecommendationPackage.RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
 				setAlgorithmName((String)newValue);
 				return;
 		}
@@ -123,7 +123,7 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
+			case RecommendationPackage.RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
 				setAlgorithmName(ALGORITHM_NAME_EDEFAULT);
 				return;
 		}
@@ -138,7 +138,7 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
+			case RecommendationPackage.RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
 				return ALGORITHM_NAME_EDEFAULT == null ? algorithmName != null : !ALGORITHM_NAME_EDEFAULT.equals(algorithmName);
 		}
 		return super.eIsSet(featureID);
@@ -160,4 +160,4 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 		return result.toString();
 	}
 
-} //IRecommendationAlgorithmSpecifierImpl
+} //RecommendationAlgorithmSpecifierImpl

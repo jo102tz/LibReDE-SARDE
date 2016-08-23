@@ -137,6 +137,28 @@ public class DataExportSpecifierItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Step Size feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStepSizePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_DataExportSpecifier_stepSize_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_DataExportSpecifier_stepSize_feature", "_UI_DataExportSpecifier_type"),
+				 OptimizationPackage.Literals.DATA_EXPORT_SPECIFIER__STEP_SIZE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Multidimensional feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -176,28 +198,6 @@ public class DataExportSpecifierItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Step Size feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addStepSizePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_DataExportSpecifier_stepSize_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_DataExportSpecifier_stepSize_feature", "_UI_DataExportSpecifier_type"),
-				 OptimizationPackage.Literals.DATA_EXPORT_SPECIFIER__STEP_SIZE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}

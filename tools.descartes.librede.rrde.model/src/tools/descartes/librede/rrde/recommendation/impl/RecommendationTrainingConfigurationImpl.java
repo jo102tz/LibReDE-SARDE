@@ -20,8 +20,8 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 
 import tools.descartes.librede.rrde.optimization.InputData;
 
-import tools.descartes.librede.rrde.recommendation.IFeatureExtractorSpecifier;
-import tools.descartes.librede.rrde.recommendation.IRecommendationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
+import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 
@@ -60,7 +60,7 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * @generated
 	 * @ordered
 	 */
-	protected IRecommendationAlgorithmSpecifier learningAlgorithm;
+	protected RecommendationAlgorithmSpecifier learningAlgorithm;
 
 	/**
 	 * The cached value of the '{@link #getFeatureAlgorithm() <em>Feature Algorithm</em>}' reference.
@@ -70,7 +70,7 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * @generated
 	 * @ordered
 	 */
-	protected IFeatureExtractorSpecifier featureAlgorithm;
+	protected FeatureExtractorSpecifier featureAlgorithm;
 
 	/**
 	 * The cached value of the '{@link #getEstimation() <em>Estimation</em>}' reference.
@@ -118,10 +118,10 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IRecommendationAlgorithmSpecifier getLearningAlgorithm() {
+	public RecommendationAlgorithmSpecifier getLearningAlgorithm() {
 		if (learningAlgorithm != null && learningAlgorithm.eIsProxy()) {
 			InternalEObject oldLearningAlgorithm = (InternalEObject)learningAlgorithm;
-			learningAlgorithm = (IRecommendationAlgorithmSpecifier)eResolveProxy(oldLearningAlgorithm);
+			learningAlgorithm = (RecommendationAlgorithmSpecifier)eResolveProxy(oldLearningAlgorithm);
 			if (learningAlgorithm != oldLearningAlgorithm) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM, oldLearningAlgorithm, learningAlgorithm));
@@ -135,7 +135,7 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IRecommendationAlgorithmSpecifier basicGetLearningAlgorithm() {
+	public RecommendationAlgorithmSpecifier basicGetLearningAlgorithm() {
 		return learningAlgorithm;
 	}
 
@@ -144,8 +144,8 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setLearningAlgorithm(IRecommendationAlgorithmSpecifier newLearningAlgorithm) {
-		IRecommendationAlgorithmSpecifier oldLearningAlgorithm = learningAlgorithm;
+	public void setLearningAlgorithm(RecommendationAlgorithmSpecifier newLearningAlgorithm) {
+		RecommendationAlgorithmSpecifier oldLearningAlgorithm = learningAlgorithm;
 		learningAlgorithm = newLearningAlgorithm;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM, oldLearningAlgorithm, learningAlgorithm));
@@ -156,10 +156,10 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IFeatureExtractorSpecifier getFeatureAlgorithm() {
+	public FeatureExtractorSpecifier getFeatureAlgorithm() {
 		if (featureAlgorithm != null && featureAlgorithm.eIsProxy()) {
 			InternalEObject oldFeatureAlgorithm = (InternalEObject)featureAlgorithm;
-			featureAlgorithm = (IFeatureExtractorSpecifier)eResolveProxy(oldFeatureAlgorithm);
+			featureAlgorithm = (FeatureExtractorSpecifier)eResolveProxy(oldFeatureAlgorithm);
 			if (featureAlgorithm != oldFeatureAlgorithm) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM, oldFeatureAlgorithm, featureAlgorithm));
@@ -173,7 +173,7 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IFeatureExtractorSpecifier basicGetFeatureAlgorithm() {
+	public FeatureExtractorSpecifier basicGetFeatureAlgorithm() {
 		return featureAlgorithm;
 	}
 
@@ -182,8 +182,8 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFeatureAlgorithm(IFeatureExtractorSpecifier newFeatureAlgorithm) {
-		IFeatureExtractorSpecifier oldFeatureAlgorithm = featureAlgorithm;
+	public void setFeatureAlgorithm(FeatureExtractorSpecifier newFeatureAlgorithm) {
+		FeatureExtractorSpecifier oldFeatureAlgorithm = featureAlgorithm;
 		featureAlgorithm = newFeatureAlgorithm;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM, oldFeatureAlgorithm, featureAlgorithm));
@@ -264,10 +264,10 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 				getTrainingData().addAll((Collection<? extends InputData>)newValue);
 				return;
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM:
-				setLearningAlgorithm((IRecommendationAlgorithmSpecifier)newValue);
+				setLearningAlgorithm((RecommendationAlgorithmSpecifier)newValue);
 				return;
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM:
-				setFeatureAlgorithm((IFeatureExtractorSpecifier)newValue);
+				setFeatureAlgorithm((FeatureExtractorSpecifier)newValue);
 				return;
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATION:
 				setEstimation((EstimationSpecification)newValue);
@@ -288,10 +288,10 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 				getTrainingData().clear();
 				return;
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM:
-				setLearningAlgorithm((IRecommendationAlgorithmSpecifier)null);
+				setLearningAlgorithm((RecommendationAlgorithmSpecifier)null);
 				return;
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM:
-				setFeatureAlgorithm((IFeatureExtractorSpecifier)null);
+				setFeatureAlgorithm((FeatureExtractorSpecifier)null);
 				return;
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATION:
 				setEstimation((EstimationSpecification)null);

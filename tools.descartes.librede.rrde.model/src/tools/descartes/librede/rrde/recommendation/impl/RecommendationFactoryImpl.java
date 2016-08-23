@@ -57,10 +57,11 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION: return createRecommendationTrainingConfiguration();
-			case RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER: return createIRecommendationAlgorithmSpecifier();
+			case RecommendationPackage.RECOMMENDATION_ALGORITHM_SPECIFIER: return createRecommendationAlgorithmSpecifier();
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER: return createFeatureExtractorSpecifier();
 			case RecommendationPackage.DATA_SET: return createDataSet();
-			case RecommendationPackage.IFEATURE_EXTRACTOR_SPECIFIER: return createIFeatureExtractorSpecifier();
 			case RecommendationPackage.FEATURE_VECTOR: return createFeatureVector();
+			case RecommendationPackage.TRACE_FEATURES: return createTraceFeatures();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -81,9 +82,19 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IRecommendationAlgorithmSpecifier createIRecommendationAlgorithmSpecifier() {
-		IRecommendationAlgorithmSpecifierImpl iRecommendationAlgorithmSpecifier = new IRecommendationAlgorithmSpecifierImpl();
-		return iRecommendationAlgorithmSpecifier;
+	public RecommendationAlgorithmSpecifier createRecommendationAlgorithmSpecifier() {
+		RecommendationAlgorithmSpecifierImpl recommendationAlgorithmSpecifier = new RecommendationAlgorithmSpecifierImpl();
+		return recommendationAlgorithmSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureExtractorSpecifier createFeatureExtractorSpecifier() {
+		FeatureExtractorSpecifierImpl featureExtractorSpecifier = new FeatureExtractorSpecifierImpl();
+		return featureExtractorSpecifier;
 	}
 
 	/**
@@ -101,9 +112,9 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IFeatureExtractorSpecifier createIFeatureExtractorSpecifier() {
-		IFeatureExtractorSpecifierImpl iFeatureExtractorSpecifier = new IFeatureExtractorSpecifierImpl();
-		return iFeatureExtractorSpecifier;
+	public FeatureVector createFeatureVector() {
+		FeatureVectorImpl featureVector = new FeatureVectorImpl();
+		return featureVector;
 	}
 
 	/**
@@ -111,9 +122,9 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureVector createFeatureVector() {
-		FeatureVectorImpl featureVector = new FeatureVectorImpl();
-		return featureVector;
+	public TraceFeatures createTraceFeatures() {
+		TraceFeaturesImpl traceFeatures = new TraceFeaturesImpl();
+		return traceFeatures;
 	}
 
 	/**

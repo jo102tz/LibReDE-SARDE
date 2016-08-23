@@ -95,26 +95,49 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.IRecommendationAlgorithmSpecifier} instances.
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IRecommendationAlgorithmSpecifierItemProvider iRecommendationAlgorithmSpecifierItemProvider;
+	protected RecommendationAlgorithmSpecifierItemProvider recommendationAlgorithmSpecifierItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.IRecommendationAlgorithmSpecifier}.
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createIRecommendationAlgorithmSpecifierAdapter() {
-		if (iRecommendationAlgorithmSpecifierItemProvider == null) {
-			iRecommendationAlgorithmSpecifierItemProvider = new IRecommendationAlgorithmSpecifierItemProvider(this);
+	public Adapter createRecommendationAlgorithmSpecifierAdapter() {
+		if (recommendationAlgorithmSpecifierItemProvider == null) {
+			recommendationAlgorithmSpecifierItemProvider = new RecommendationAlgorithmSpecifierItemProvider(this);
 		}
 
-		return iRecommendationAlgorithmSpecifierItemProvider;
+		return recommendationAlgorithmSpecifierItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureExtractorSpecifierItemProvider featureExtractorSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFeatureExtractorSpecifierAdapter() {
+		if (featureExtractorSpecifierItemProvider == null) {
+			featureExtractorSpecifierItemProvider = new FeatureExtractorSpecifierItemProvider(this);
+		}
+
+		return featureExtractorSpecifierItemProvider;
 	}
 
 	/**
@@ -141,29 +164,6 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.IFeatureExtractorSpecifier} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected IFeatureExtractorSpecifierItemProvider iFeatureExtractorSpecifierItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.IFeatureExtractorSpecifier}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createIFeatureExtractorSpecifierAdapter() {
-		if (iFeatureExtractorSpecifierItemProvider == null) {
-			iFeatureExtractorSpecifierItemProvider = new IFeatureExtractorSpecifierItemProvider(this);
-		}
-
-		return iFeatureExtractorSpecifierItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.FeatureVector} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -184,6 +184,29 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 		}
 
 		return featureVectorItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.TraceFeatures} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TraceFeaturesItemProvider traceFeaturesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.TraceFeatures}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTraceFeaturesAdapter() {
+		if (traceFeaturesItemProvider == null) {
+			traceFeaturesItemProvider = new TraceFeaturesItemProvider(this);
+		}
+
+		return traceFeaturesItemProvider;
 	}
 
 	/**
@@ -286,10 +309,11 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 	 */
 	public void dispose() {
 		if (recommendationTrainingConfigurationItemProvider != null) recommendationTrainingConfigurationItemProvider.dispose();
-		if (iRecommendationAlgorithmSpecifierItemProvider != null) iRecommendationAlgorithmSpecifierItemProvider.dispose();
+		if (recommendationAlgorithmSpecifierItemProvider != null) recommendationAlgorithmSpecifierItemProvider.dispose();
+		if (featureExtractorSpecifierItemProvider != null) featureExtractorSpecifierItemProvider.dispose();
 		if (dataSetItemProvider != null) dataSetItemProvider.dispose();
-		if (iFeatureExtractorSpecifierItemProvider != null) iFeatureExtractorSpecifierItemProvider.dispose();
 		if (featureVectorItemProvider != null) featureVectorItemProvider.dispose();
+		if (traceFeaturesItemProvider != null) traceFeaturesItemProvider.dispose();
 	}
 
 }

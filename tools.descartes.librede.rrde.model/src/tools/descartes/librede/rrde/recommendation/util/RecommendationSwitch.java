@@ -72,9 +72,15 @@ public class RecommendationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER: {
-				IRecommendationAlgorithmSpecifier iRecommendationAlgorithmSpecifier = (IRecommendationAlgorithmSpecifier)theEObject;
-				T result = caseIRecommendationAlgorithmSpecifier(iRecommendationAlgorithmSpecifier);
+			case RecommendationPackage.RECOMMENDATION_ALGORITHM_SPECIFIER: {
+				RecommendationAlgorithmSpecifier recommendationAlgorithmSpecifier = (RecommendationAlgorithmSpecifier)theEObject;
+				T result = caseRecommendationAlgorithmSpecifier(recommendationAlgorithmSpecifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER: {
+				FeatureExtractorSpecifier featureExtractorSpecifier = (FeatureExtractorSpecifier)theEObject;
+				T result = caseFeatureExtractorSpecifier(featureExtractorSpecifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -84,15 +90,15 @@ public class RecommendationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case RecommendationPackage.IFEATURE_EXTRACTOR_SPECIFIER: {
-				IFeatureExtractorSpecifier iFeatureExtractorSpecifier = (IFeatureExtractorSpecifier)theEObject;
-				T result = caseIFeatureExtractorSpecifier(iFeatureExtractorSpecifier);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case RecommendationPackage.FEATURE_VECTOR: {
 				FeatureVector featureVector = (FeatureVector)theEObject;
 				T result = caseFeatureVector(featureVector);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RecommendationPackage.TRACE_FEATURES: {
+				TraceFeatures traceFeatures = (TraceFeatures)theEObject;
+				T result = caseTraceFeatures(traceFeatures);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -116,17 +122,32 @@ public class RecommendationSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>IRecommendation Algorithm Specifier</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Algorithm Specifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>IRecommendation Algorithm Specifier</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Algorithm Specifier</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseIRecommendationAlgorithmSpecifier(IRecommendationAlgorithmSpecifier object) {
+	public T caseRecommendationAlgorithmSpecifier(RecommendationAlgorithmSpecifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Extractor Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Extractor Specifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFeatureExtractorSpecifier(FeatureExtractorSpecifier object) {
 		return null;
 	}
 
@@ -146,21 +167,6 @@ public class RecommendationSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>IFeature Extractor Specifier</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>IFeature Extractor Specifier</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseIFeatureExtractorSpecifier(IFeatureExtractorSpecifier object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Feature Vector</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -172,6 +178,21 @@ public class RecommendationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFeatureVector(FeatureVector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Trace Features</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Trace Features</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTraceFeatures(TraceFeatures object) {
 		return null;
 	}
 

@@ -5,9 +5,12 @@ package tools.descartes.librede.rrde.recommendation.provider;
 
 import java.util.Collection;
 import java.util.List;
+
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -18,17 +21,19 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import tools.descartes.librede.rrde.optimization.provider.RrdeEditPlugin;
-import tools.descartes.librede.rrde.recommendation.IFeatureExtractorSpecifier;
+
+import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 
 /**
- * This is the item provider adapter for a {@link tools.descartes.librede.rrde.recommendation.IFeatureExtractorSpecifier} object.
+ * This is the item provider adapter for a {@link tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class IFeatureExtractorSpecifierItemProvider 
+public class RecommendationAlgorithmSpecifierItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -42,7 +47,7 @@ public class IFeatureExtractorSpecifierItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IFeatureExtractorSpecifierItemProvider(AdapterFactory adapterFactory) {
+	public RecommendationAlgorithmSpecifierItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -57,25 +62,25 @@ public class IFeatureExtractorSpecifierItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addFeatureExtractorPropertyDescriptor(object);
+			addAlgorithmNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Feature Extractor feature.
+	 * This adds a property descriptor for the Algorithm Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addFeatureExtractorPropertyDescriptor(Object object) {
+	protected void addAlgorithmNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_IFeatureExtractorSpecifier_featureExtractor_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_IFeatureExtractorSpecifier_featureExtractor_feature", "_UI_IFeatureExtractorSpecifier_type"),
-				 RecommendationPackage.Literals.IFEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR,
+				 getString("_UI_RecommendationAlgorithmSpecifier_algorithmName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RecommendationAlgorithmSpecifier_algorithmName_feature", "_UI_RecommendationAlgorithmSpecifier_type"),
+				 RecommendationPackage.Literals.RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME,
 				 true,
 				 false,
 				 false,
@@ -85,14 +90,14 @@ public class IFeatureExtractorSpecifierItemProvider
 	}
 
 	/**
-	 * This returns IFeatureExtractorSpecifier.gif.
+	 * This returns RecommendationAlgorithmSpecifier.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/IFeatureExtractorSpecifier"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/RecommendationAlgorithmSpecifier"));
 	}
 
 	/**
@@ -103,10 +108,10 @@ public class IFeatureExtractorSpecifierItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((IFeatureExtractorSpecifier)object).getFeatureExtractor();
+		String label = ((RecommendationAlgorithmSpecifier)object).getAlgorithmName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_IFeatureExtractorSpecifier_type") :
-			getString("_UI_IFeatureExtractorSpecifier_type") + " " + label;
+			getString("_UI_RecommendationAlgorithmSpecifier_type") :
+			getString("_UI_RecommendationAlgorithmSpecifier_type") + " " + label;
 	}
 	
 
@@ -121,8 +126,8 @@ public class IFeatureExtractorSpecifierItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(IFeatureExtractorSpecifier.class)) {
-			case RecommendationPackage.IFEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
+		switch (notification.getFeatureID(RecommendationAlgorithmSpecifier.class)) {
+			case RecommendationPackage.RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

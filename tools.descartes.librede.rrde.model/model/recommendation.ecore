@@ -6,17 +6,17 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="trainingData" lowerBound="1"
         upperBound="-1" eType="ecore:EClass optimization.ecore#//InputData"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="learningAlgorithm" lowerBound="1"
-        eType="#//IRecommendationAlgorithmSpecifier"/>
+        eType="#//RecommendationAlgorithmSpecifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureAlgorithm" lowerBound="1"
-        eType="#//IFeatureExtractorSpecifier"/>
+        eType="#//FeatureExtractorSpecifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="estimation" lowerBound="1"
         eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IRecommendationAlgorithmSpecifier">
+  <eClassifiers xsi:type="ecore:EClass" name="RecommendationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithmName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IFeatureExtractorSpecifier">
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureExtractorSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureExtractor" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -28,5 +28,53 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetValue" lowerBound="1"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureVector"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureVector">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfRessources" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfWorkloadClasses"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"
+        defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="utilizationMean" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="utilizationVariance" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="traces" upperBound="-1"
+        eType="#//TraceFeatures"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="varianceInflationFactor"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
+        defaultValueLiteral="-1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TraceFeatures">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="arithmeticMean" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="standardDeviation" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimum" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximum" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfSamples" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggregationType" lowerBound="1"
+        eType="ecore:EEnum ../../tools.descartes.librede.model/model/metrics.ecore#//Aggregation"
+        defaultValueLiteral="NONE"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationInterval" lowerBound="1"
+        containment="true">
+      <eGenericType eClassifier="ecore:EClass ../../tools.descartes.librede.model/model/units.ecore#//Quantity">
+        <eTypeArguments eClassifier="ecore:EClass ../../tools.descartes.librede.model/model/units.ecore#//Time"/>
+      </eGenericType>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoCorrelation" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metric" lowerBound="1">
+      <eGenericType eClassifier="ecore:EClass ../../tools.descartes.librede.model/model/metrics.ecore#//Metric">
+        <eTypeArguments>
+          <eUpperBound eClassifier="ecore:EClass ../../tools.descartes.librede.model/model/units.ecore#//Dimension"/>
+        </eTypeArguments>
+      </eGenericType>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="originalInput" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
+  </eClassifiers>
 </ecore:EPackage>

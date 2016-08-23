@@ -55,12 +55,12 @@ public interface RecommendationTrainingConfiguration extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Learning Algorithm</em>' reference.
-	 * @see #setLearningAlgorithm(IRecommendationAlgorithmSpecifier)
+	 * @see #setLearningAlgorithm(RecommendationAlgorithmSpecifier)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationTrainingConfiguration_LearningAlgorithm()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
-	IRecommendationAlgorithmSpecifier getLearningAlgorithm();
+	RecommendationAlgorithmSpecifier getLearningAlgorithm();
 
 	/**
 	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getLearningAlgorithm <em>Learning Algorithm</em>}' reference.
@@ -70,7 +70,7 @@ public interface RecommendationTrainingConfiguration extends EObject {
 	 * @see #getLearningAlgorithm()
 	 * @generated
 	 */
-	void setLearningAlgorithm(IRecommendationAlgorithmSpecifier value);
+	void setLearningAlgorithm(RecommendationAlgorithmSpecifier value);
 
 	/**
 	 * Returns the value of the '<em><b>Feature Algorithm</b></em>' reference.
@@ -81,12 +81,12 @@ public interface RecommendationTrainingConfiguration extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Feature Algorithm</em>' reference.
-	 * @see #setFeatureAlgorithm(IFeatureExtractorSpecifier)
+	 * @see #setFeatureAlgorithm(FeatureExtractorSpecifier)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationTrainingConfiguration_FeatureAlgorithm()
 	 * @model required="true"
 	 * @generated
 	 */
-	IFeatureExtractorSpecifier getFeatureAlgorithm();
+	FeatureExtractorSpecifier getFeatureAlgorithm();
 
 	/**
 	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getFeatureAlgorithm <em>Feature Algorithm</em>}' reference.
@@ -96,7 +96,7 @@ public interface RecommendationTrainingConfiguration extends EObject {
 	 * @see #getFeatureAlgorithm()
 	 * @generated
 	 */
-	void setFeatureAlgorithm(IFeatureExtractorSpecifier value);
+	void setFeatureAlgorithm(FeatureExtractorSpecifier value);
 
 	/**
 	 * Returns the value of the '<em><b>Estimation</b></em>' reference.
