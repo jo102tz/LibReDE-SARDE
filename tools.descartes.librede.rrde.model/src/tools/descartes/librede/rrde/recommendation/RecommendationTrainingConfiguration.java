@@ -21,7 +21,7 @@ import tools.descartes.librede.rrde.optimization.InputData;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getTrainingData <em>Training Data</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getLearningAlgorithm <em>Learning Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getFeatureAlgorithm <em>Feature Algorithm</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getEstimation <em>Estimation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getConfigurations <em>Configurations</em>}</li>
  * </ul>
  * </p>
  *
@@ -99,29 +99,19 @@ public interface RecommendationTrainingConfiguration extends EObject {
 	void setFeatureAlgorithm(FeatureExtractorSpecifier value);
 
 	/**
-	 * Returns the value of the '<em><b>Estimation</b></em>' reference.
+	 * Returns the value of the '<em><b>Configurations</b></em>' reference list.
+	 * The list contents are of type {@link tools.descartes.librede.configuration.EstimationSpecification}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Estimation</em>' reference isn't clear,
+	 * If the meaning of the '<em>Configurations</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Estimation</em>' reference.
-	 * @see #setEstimation(EstimationSpecification)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationTrainingConfiguration_Estimation()
+	 * @return the value of the '<em>Configurations</em>' reference list.
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationTrainingConfiguration_Configurations()
 	 * @model required="true"
 	 * @generated
 	 */
-	EstimationSpecification getEstimation();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getEstimation <em>Estimation</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Estimation</em>' reference.
-	 * @see #getEstimation()
-	 * @generated
-	 */
-	void setEstimation(EstimationSpecification value);
+	EList<EstimationSpecification> getConfigurations();
 
 } // RecommendationTrainingConfiguration

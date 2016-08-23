@@ -107,7 +107,7 @@ public class Plugin implements IApplication {
 			// load config files
 			LibredeConfiguration librede = Librede.loadConfiguration(new File(
 					LIB_PATH).toPath());
-			OptimizationConfiguration conf = loadConfiguration(new File(
+			OptimizationConfiguration conf = Util.loadOptimizationConfiguration(new File(
 					CONF_PATH).toPath());
 
 			// This is a fixup to replace the data sources with ones from
@@ -260,62 +260,6 @@ public class Plugin implements IApplication {
 		}
 	}
 
-	// private void mergeNumericParameter(LibredeConfiguration librede,
-	// HashMap<RunCall, EstimationSpecification> results, String eClass)
-	// throws InstantiationException, IllegalAccessException {
-	// HashMap<RunCall, EstimationSpecification> tmp = new HashMap<RunCall,
-	// EstimationSpecification>();
-	// for (RunCall result : results.keySet()) {
-	// // look through all results with given parameter
-	// for (IOptimizableParameter para : result.getSettings()
-	// .getParametersToOptimize()) {
-	// if (para.getClass().getInterfaces()[0].getName().equals(eClass)) {
-	// tmp.put(result, results.get(result));
-	// }
-	// }
-	// }
-	// // retrieve results
-	// HashSet<Double> nums = retrieveNumerics(tmp, eClass);
-	// if (nums.isEmpty()) {
-	// log.warn("No numeric results for merging " + eClass + ".");
-	// return;
-	// } else if (nums.size() > 1) {
-	// // multiple values
-	// DescriptiveStatistics stat = new DescriptiveStatistics();
-	// for (Double d : nums)
-	// stat.addValue(d);
-	// log.warn("There were multiple results for the single parameter "
-	// + eClass + ". Using the average of " + stat.getMean()
-	// + " as final result.");
-	// Util.setValue(librede, stat.getMean(), eClass);
-	// } else {
-	// // there is exactly one value
-	// Util.setValue(librede, nums.iterator().next(), eClass);
-	// }
-	// }
-	//
-	// private HashSet<Double> retrieveNumerics(
-	// HashMap<RunCall, EstimationSpecification> results, String eClass)
-	// throws InstantiationException, IllegalAccessException {
-	// HashSet<Double> nums = new HashSet<Double>();
-	//
-	// for (EstimationSpecification result : results.values()) {
-	// // switch all known types of optimization
-	// if (eClass.equals(StepSize.class.getName())) {
-	// nums.add(result.getStepSize().getValue());
-	// } else if (eClass.equals(WindowSize.class.getName())) {
-	// nums.add(new Double(result.getWindow()));
-	// } else if (eClass.equals(GenericParameter.class.getName())) {
-	// log.warn("The merging of GenericParameter is not supported and will be ignored.");
-	// } else {
-	// log.error("No handling adapter of merging OptimizableParameter "
-	// + eClass);
-	// }
-	// }
-	//
-	// return nums;
-	// }
-
 	/**
 	 * Concurrently executes the given {@link RunCall}s and returns a map with
 	 * the corresponding results.
@@ -382,28 +326,6 @@ public class Plugin implements IApplication {
 		}
 
 		return res;
-	}
-
-	/**
-	 * Loads the given path as a {@link OptimizationConfiguration}
-	 * configuration, if one is found.
-	 * 
-	 * @param path
-	 *            The Path to the configuration file
-	 * @return The specified {@link OptimizationConfiguration}
-	 * @throws Exception
-	 *             If something in the loading process fails
-	 */
-	public static OptimizationConfiguration loadConfiguration(Path path) {
-		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put("optimization", new XMIResourceFactoryImpl());
-		File configFile = new File(path.toString());
-		URI fileURI = URI.createFileURI(configFile.getAbsolutePath());
-		org.eclipse.emf.ecore.resource.Resource resource = resourceSet
-				.getResource(fileURI, true);
-		EcoreUtil.resolveAll(resource);
-		return (OptimizationConfiguration) resource.getContents().get(0);
 	}
 
 	/**

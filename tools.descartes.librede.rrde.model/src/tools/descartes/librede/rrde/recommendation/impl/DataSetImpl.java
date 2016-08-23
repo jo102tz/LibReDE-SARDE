@@ -3,21 +3,15 @@
 package tools.descartes.librede.rrde.recommendation.impl;
 
 import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
-
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-
+import tools.descartes.librede.rrde.recommendation.ConfigurationResult;
 import tools.descartes.librede.rrde.recommendation.DataSet;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
@@ -31,7 +25,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl#getConfiguration <em>Configuration</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl#getFeatures <em>Features</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl#getTargetValue <em>Target Value</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl#getConfigurationValues <em>Configuration Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,14 +53,14 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 	protected FeatureVector features;
 
 	/**
-	 * The cached value of the '{@link #getTargetValue() <em>Target Value</em>}' attribute list.
+	 * The cached value of the '{@link #getConfigurationValues() <em>Configuration Values</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTargetValue()
+	 * @see #getConfigurationValues()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Double> targetValue;
+	protected EList<ConfigurationResult> configurationValues;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -168,11 +162,11 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Double> getTargetValue() {
-		if (targetValue == null) {
-			targetValue = new EDataTypeUniqueEList<Double>(Double.class, this, RecommendationPackage.DATA_SET__TARGET_VALUE);
+	public EList<ConfigurationResult> getConfigurationValues() {
+		if (configurationValues == null) {
+			configurationValues = new EObjectResolvingEList<ConfigurationResult>(ConfigurationResult.class, this, RecommendationPackage.DATA_SET__CONFIGURATION_VALUES);
 		}
-		return targetValue;
+		return configurationValues;
 	}
 
 	/**
@@ -189,8 +183,8 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 			case RecommendationPackage.DATA_SET__FEATURES:
 				if (resolve) return getFeatures();
 				return basicGetFeatures();
-			case RecommendationPackage.DATA_SET__TARGET_VALUE:
-				return getTargetValue();
+			case RecommendationPackage.DATA_SET__CONFIGURATION_VALUES:
+				return getConfigurationValues();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -210,9 +204,9 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 			case RecommendationPackage.DATA_SET__FEATURES:
 				setFeatures((FeatureVector)newValue);
 				return;
-			case RecommendationPackage.DATA_SET__TARGET_VALUE:
-				getTargetValue().clear();
-				getTargetValue().addAll((Collection<? extends Double>)newValue);
+			case RecommendationPackage.DATA_SET__CONFIGURATION_VALUES:
+				getConfigurationValues().clear();
+				getConfigurationValues().addAll((Collection<? extends ConfigurationResult>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -232,8 +226,8 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 			case RecommendationPackage.DATA_SET__FEATURES:
 				setFeatures((FeatureVector)null);
 				return;
-			case RecommendationPackage.DATA_SET__TARGET_VALUE:
-				getTargetValue().clear();
+			case RecommendationPackage.DATA_SET__CONFIGURATION_VALUES:
+				getConfigurationValues().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -251,26 +245,10 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 				return configuration != null;
 			case RecommendationPackage.DATA_SET__FEATURES:
 				return features != null;
-			case RecommendationPackage.DATA_SET__TARGET_VALUE:
-				return targetValue != null && !targetValue.isEmpty();
+			case RecommendationPackage.DATA_SET__CONFIGURATION_VALUES:
+				return configurationValues != null && !configurationValues.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (targetValue: ");
-		result.append(targetValue);
-		result.append(')');
-		return result.toString();
 	}
 
 } //DataSetImpl

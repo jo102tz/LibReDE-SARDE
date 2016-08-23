@@ -26,16 +26,20 @@
  */
 package tools.descartes.librede.rrde.optimization;
 
+import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.nio.file.Path;
 import java.util.Map;
 
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.algorithm.IEstimationAlgorithm;
@@ -45,6 +49,10 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.Parameter;
 import tools.descartes.librede.linalg.Matrix;
 import tools.descartes.librede.registry.ParameterDefinition;
+import tools.descartes.librede.registry.Registry;
+import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
+import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 
 /**
  * This class contains some useful utilities.
@@ -302,6 +310,53 @@ public class Util {
 			return ((GenericParameter) param).getParameter().getName();
 		}
 		return param.toString();
+	}
+
+	/**
+	 * Loads the given path as a {@link OptimizationConfiguration}
+	 * configuration, if one is found.
+	 * 
+	 * @param path
+	 *            The Path to the configuration file
+	 * @return The specified {@link OptimizationConfiguration}
+	 * @throws Exception
+	 *             If something in the loading process fails
+	 */
+	public static OptimizationConfiguration loadOptimizationConfiguration(
+			Path path) {
+		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
+				.put("optimization", new XMIResourceFactoryImpl());
+		File configFile = new File(path.toString());
+		URI fileURI = URI.createFileURI(configFile.getAbsolutePath());
+		org.eclipse.emf.ecore.resource.Resource resource = resourceSet
+				.getResource(fileURI, true);
+		EcoreUtil.resolveAll(resource);
+		return (OptimizationConfiguration) resource.getContents().get(0);
+	}
+
+	/**
+	 * Loads the given path as a {@link RecommendationTrainingConfiguration}
+	 * configuration, if one is found.
+	 * 
+	 * @param path
+	 *            The Path to the configuration file
+	 * @return The specified {@link RecommendationTrainingConfiguration}
+	 * @throws Exception
+	 *             If something in the loading process fails
+	 */
+	public static RecommendationTrainingConfiguration loadRecommendationConfiguration(
+			Path path) {
+		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
+				.put("optimization", new XMIResourceFactoryImpl());
+		File configFile = new File(path.toString());
+		URI fileURI = URI.createFileURI(configFile.getAbsolutePath());
+		org.eclipse.emf.ecore.resource.Resource resource = resourceSet
+				.getResource(fileURI, true);
+		EcoreUtil.resolveAll(resource);
+		return (RecommendationTrainingConfiguration) resource.getContents()
+				.get(0);
 	}
 
 }

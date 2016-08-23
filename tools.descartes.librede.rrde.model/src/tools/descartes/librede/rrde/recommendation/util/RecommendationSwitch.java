@@ -72,6 +72,12 @@ public class RecommendationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case RecommendationPackage.CONFIGURATION_RESULT: {
+				ConfigurationResult configurationResult = (ConfigurationResult)theEObject;
+				T result = caseConfigurationResult(configurationResult);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case RecommendationPackage.RECOMMENDATION_ALGORITHM_SPECIFIER: {
 				RecommendationAlgorithmSpecifier recommendationAlgorithmSpecifier = (RecommendationAlgorithmSpecifier)theEObject;
 				T result = caseRecommendationAlgorithmSpecifier(recommendationAlgorithmSpecifier);
@@ -118,6 +124,21 @@ public class RecommendationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseRecommendationTrainingConfiguration(RecommendationTrainingConfiguration object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Configuration Result</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Configuration Result</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConfigurationResult(ConfigurationResult object) {
 		return null;
 	}
 

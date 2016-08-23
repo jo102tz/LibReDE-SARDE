@@ -35,7 +35,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfigu
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getTrainingData <em>Training Data</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getLearningAlgorithm <em>Learning Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getFeatureAlgorithm <em>Feature Algorithm</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getEstimation <em>Estimation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getConfigurations <em>Configurations</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,14 +73,14 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	protected FeatureExtractorSpecifier featureAlgorithm;
 
 	/**
-	 * The cached value of the '{@link #getEstimation() <em>Estimation</em>}' reference.
+	 * The cached value of the '{@link #getConfigurations() <em>Configurations</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEstimation()
+	 * @see #getConfigurations()
 	 * @generated
 	 * @ordered
 	 */
-	protected EstimationSpecification estimation;
+	protected EList<EstimationSpecification> configurations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -194,37 +194,11 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EstimationSpecification getEstimation() {
-		if (estimation != null && estimation.eIsProxy()) {
-			InternalEObject oldEstimation = (InternalEObject)estimation;
-			estimation = (EstimationSpecification)eResolveProxy(oldEstimation);
-			if (estimation != oldEstimation) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATION, oldEstimation, estimation));
-			}
+	public EList<EstimationSpecification> getConfigurations() {
+		if (configurations == null) {
+			configurations = new EObjectResolvingEList<EstimationSpecification>(EstimationSpecification.class, this, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS);
 		}
-		return estimation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EstimationSpecification basicGetEstimation() {
-		return estimation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEstimation(EstimationSpecification newEstimation) {
-		EstimationSpecification oldEstimation = estimation;
-		estimation = newEstimation;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATION, oldEstimation, estimation));
+		return configurations;
 	}
 
 	/**
@@ -243,9 +217,8 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM:
 				if (resolve) return getFeatureAlgorithm();
 				return basicGetFeatureAlgorithm();
-			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATION:
-				if (resolve) return getEstimation();
-				return basicGetEstimation();
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS:
+				return getConfigurations();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -269,8 +242,9 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM:
 				setFeatureAlgorithm((FeatureExtractorSpecifier)newValue);
 				return;
-			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATION:
-				setEstimation((EstimationSpecification)newValue);
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS:
+				getConfigurations().clear();
+				getConfigurations().addAll((Collection<? extends EstimationSpecification>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -293,8 +267,8 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM:
 				setFeatureAlgorithm((FeatureExtractorSpecifier)null);
 				return;
-			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATION:
-				setEstimation((EstimationSpecification)null);
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS:
+				getConfigurations().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -314,8 +288,8 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 				return learningAlgorithm != null;
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM:
 				return featureAlgorithm != null;
-			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATION:
-				return estimation != null;
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS:
+				return configurations != null && !configurations.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
