@@ -49,6 +49,9 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rootFolder" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="multiFolderStructures"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OptimizationSettings">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

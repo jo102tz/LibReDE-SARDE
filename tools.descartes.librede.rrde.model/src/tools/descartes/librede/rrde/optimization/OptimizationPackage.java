@@ -314,13 +314,22 @@ public interface OptimizationPackage extends EPackage {
 	int INPUT_DATA__ROOT_FOLDER = 2;
 
 	/**
+	 * The feature id for the '<em><b>Multi Folder Structures</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT_DATA__MULTI_FOLDER_STRUCTURES = 3;
+
+	/**
 	 * The number of structural features of the '<em>Input Data</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_DATA_FEATURE_COUNT = 3;
+	int INPUT_DATA_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Input Data</em>' class.
@@ -956,6 +965,17 @@ public interface OptimizationPackage extends EPackage {
 	EAttribute getInputData_RootFolder();
 
 	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.InputData#isMultiFolderStructures <em>Multi Folder Structures</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Multi Folder Structures</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.InputData#isMultiFolderStructures()
+	 * @see #getInputData()
+	 * @generated
+	 */
+	EAttribute getInputData_MultiFolderStructures();
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings <em>Settings</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1344,6 +1364,14 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INPUT_DATA__ROOT_FOLDER = eINSTANCE.getInputData_RootFolder();
+
+		/**
+		 * The meta object literal for the '<em><b>Multi Folder Structures</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INPUT_DATA__MULTI_FOLDER_STRUCTURES = eINSTANCE.getInputData_MultiFolderStructures();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl <em>Settings</em>}' class.

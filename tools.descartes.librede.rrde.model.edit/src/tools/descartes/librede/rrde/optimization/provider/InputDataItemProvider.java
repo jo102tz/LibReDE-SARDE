@@ -65,6 +65,7 @@ public class InputDataItemProvider
 			super.getPropertyDescriptors(object);
 
 			addRootFolderPropertyDescriptor(object);
+			addMultiFolderStructuresPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,6 +88,28 @@ public class InputDataItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Multi Folder Structures feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMultiFolderStructuresPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_InputData_multiFolderStructures_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_InputData_multiFolderStructures_feature", "_UI_InputData_type"),
+				 OptimizationPackage.Literals.INPUT_DATA__MULTI_FOLDER_STRUCTURES,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -161,6 +184,7 @@ public class InputDataItemProvider
 
 		switch (notification.getFeatureID(InputData.class)) {
 			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
+			case OptimizationPackage.INPUT_DATA__MULTI_FOLDER_STRUCTURES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case OptimizationPackage.INPUT_DATA__INPUT:

@@ -50,12 +50,7 @@ import tools.descartes.librede.units.Unit;
  */
 public class BasicFeatureExtractor implements IFeatureExtractor {
 
-	public Unit<? extends Time> basicTime;
-
-	public BasicFeatureExtractor(Unit<? extends Time> basicUnit) {
-
-		this.basicTime = basicUnit;
-	}
+	public Unit<? extends Time> basicTime = Time.MILLISECONDS;
 
 	/*
 	 * (non-Javadoc)

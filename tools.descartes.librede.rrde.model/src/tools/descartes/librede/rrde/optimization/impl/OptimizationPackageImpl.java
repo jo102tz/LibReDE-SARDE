@@ -366,6 +366,15 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getInputData_MultiFolderStructures() {
+		return (EAttribute)inputDataEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOptimizationSettings() {
 		return optimizationSettingsEClass;
 	}
@@ -591,6 +600,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		createEReference(inputDataEClass, INPUT_DATA__INPUT);
 		createEReference(inputDataEClass, INPUT_DATA__WORKLOAD_DESCRIPTION);
 		createEAttribute(inputDataEClass, INPUT_DATA__ROOT_FOLDER);
+		createEAttribute(inputDataEClass, INPUT_DATA__MULTI_FOLDER_STRUCTURES);
 
 		optimizationSettingsEClass = createEClass(OPTIMIZATION_SETTINGS);
 		createEReference(optimizationSettingsEClass, OPTIMIZATION_SETTINGS__VALIDATOR);
@@ -682,6 +692,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEReference(getInputData_Input(), theConfigurationPackage.getInputSpecification(), null, "input", null, 1, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInputData_WorkloadDescription(), theConfigurationPackage.getWorkloadDescription(), null, "workloadDescription", null, 1, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInputData_RootFolder(), theXMLTypePackage.getString(), "rootFolder", null, 1, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInputData_MultiFolderStructures(), theXMLTypePackage.getBoolean(), "multiFolderStructures", "false", 0, 1, InputData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(optimizationSettingsEClass, OptimizationSettings.class, "OptimizationSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOptimizationSettings_Validator(), theConfigurationPackage.getValidationSpecification(), null, "validator", null, 1, 1, OptimizationSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

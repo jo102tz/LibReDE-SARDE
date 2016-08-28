@@ -171,7 +171,34 @@ public class Discovery {
 				}
 			}
 		}
+		validateConfs(set);
 		return set;
+	}
+
+	/**
+	 * Validate all configurations and deletes the ones that do not suffice.
+	 */
+	private static void validateConfs(Set<LibredeConfiguration> confs) {
+		HashSet<LibredeConfiguration> remove = new HashSet<LibredeConfiguration>();
+		for (LibredeConfiguration single : confs) {
+			if (single.getWorkloadDescription() == null
+					|| single.getEstimation() == null
+					|| single.getInput() == null || single.getOutput() == null
+					|| single.getValidation() == null) {
+				log.warn("Malformed Configuration. (Null-values) Ignoring "
+						+ single.toString() + ".");
+
+			} else if (single.getWorkloadDescription().getResources().isEmpty()
+					|| single.getWorkloadDescription().getServices().isEmpty()) {
+				log.warn("Malformed Configuration. Resources or Services are empty. Ignoring "
+						+ single.toString() + ".");
+				remove.add(single);
+			}
+		}
+		confs.removeAll(remove);
+		if (confs.isEmpty()) {
+			log.error("There are no valid configurations as training data.");
+		}
 	}
 
 	/**
@@ -219,7 +246,8 @@ public class Discovery {
 			log.warn(folder.toString() + " is not a directory.");
 			return set;
 		}
-		iterateDirectories(folder.toPath(), input.getInput(), set);
+		iterateDirectories(folder.toPath(), input.getInput(), set,
+				input.isMultiFolderStructures());
 		return set;
 	}
 
@@ -285,7 +313,7 @@ public class Discovery {
 	 *            The set to add the new {@link InputSpecification}
 	 */
 	private static void iterateDirectories(Path root, InputSpecification main,
-			Set<InputSpecification> set) {
+			Set<InputSpecification> set, boolean multiFolderStructures) {
 		if (root.toFile().isDirectory()) {
 			DirectoryStream<Path> stream = null;
 			try {
@@ -296,9 +324,10 @@ public class Discovery {
 			Iterator<Path> iter = stream.iterator();
 			// call recursively
 			while (iter.hasNext()) {
-				iterateDirectories(iter.next(), main, set);
+				iterateDirectories(iter.next(), main, set,
+						multiFolderStructures);
 			}
-			checkThisFolder(root, main, set);
+			checkThisFolder(root, main, set, multiFolderStructures);
 		} else if (!root.toFile().exists()) {
 			// stop
 			return;
@@ -322,7 +351,7 @@ public class Discovery {
 	 *            The set to add the new {@link InputSpecification}
 	 */
 	private static void checkThisFolder(Path root, InputSpecification main,
-			Set<InputSpecification> set) {
+			Set<InputSpecification> set, boolean multiFolderStructures) {
 
 		// first collect all possible paths and subpaths of this folder
 		// this behaviour is quite inefficient (especially since all directories
@@ -371,6 +400,29 @@ public class Discovery {
 			}
 		}
 		// if we reach here, all traces have been set
+		if (!multiFolderStructures) {
+			// TODO should be restructured. A check like this might exclude
+			// possible correct folders with multiple correct file
+			// configurations (as found in root folders)
+
+			// if multi-folder strucutres are not allowed
+			// we have to make sure all files are in the same folder
+			Path folder = new File(((FileTraceConfiguration) copy
+					.getObservations().get(0)).getFile()).toPath().getParent();
+			for (TraceConfiguration trace : copy.getObservations()) {
+				FileTraceConfiguration filetrace = (FileTraceConfiguration) trace;
+				if (!new File(filetrace.getFile()).toPath().getParent()
+						.equals(folder)) {
+					// this one is not in the same parent as the first one
+					log.info("Configuration of "
+							+ root
+							+ " was excluded, because not all files were in the same folder.");
+					return;
+				}
+			}
+		}
+
+		// if we reach here, no problems occured and we are done
 		set.add(copy);
 		log.info("Found valid configuration in " + root + " folder.");
 	}

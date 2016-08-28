@@ -26,7 +26,6 @@
  */
 package tools.descartes.librede.rrde.optimization.algorithm;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
@@ -266,7 +265,6 @@ public abstract class AbstractConfigurationOptimizer implements
 		Wrapper.init();
 		confs = Discovery.createConfigurations(getInput(), getSpecification(),
 				getSettings().getValidator());
-		validateConfs();
 		getLog().info(
 				"Finished initialization. Available Training-Configurations: "
 						+ confs.size());
@@ -278,35 +276,6 @@ public abstract class AbstractConfigurationOptimizer implements
 				"The starting configurations have an error of " + firstError
 						+ ". Time elapsed for the first iteration: "
 						+ timestamp + "s.");
-	}
-
-	/**
-	 * Validate all configurations and deletes the ones that do not suffice.
-	 */
-	private void validateConfs() {
-		HashSet<LibredeConfiguration> remove = new HashSet<LibredeConfiguration>();
-		for (LibredeConfiguration single : confs) {
-			if (single.getWorkloadDescription() == null
-					|| single.getEstimation() == null
-					|| single.getInput() == null || single.getOutput() == null
-					|| single.getValidation() == null) {
-				getLog().warn(
-						"Malformed Configuration. (Null-values) Ignoring "
-								+ single.toString() + ".");
-
-			} else if (single.getWorkloadDescription().getResources().isEmpty()
-					|| single.getWorkloadDescription().getServices().isEmpty()) {
-				getLog().warn(
-						"Malformed Configuration. Resources or Services are empty. Ignoring "
-								+ single.toString() + ".");
-				remove.add(single);
-			}
-		}
-		confs.removeAll(remove);
-		if (confs.isEmpty()) {
-			getLog().error(
-					"There are no valid configurations as training data.");
-		}
 	}
 
 	/**

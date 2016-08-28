@@ -61,7 +61,7 @@ public class Plugin implements IApplication {
 	/**
 	 * The logging level for all classes of this package
 	 */
-	private static final Level loglevel = Level.INFO;
+	private static final Level loglevel = Level.DEBUG;
 
 	/**
 	 * The logger used for logging
@@ -73,7 +73,7 @@ public class Plugin implements IApplication {
 	 */
 	public final static String CONF_PATH = "resources" + File.separator
 			+ "test" + File.separator + "src" + File.separator
-			+ "specj.optimization";
+			+ "My.recommendation";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -93,6 +93,9 @@ public class Plugin implements IApplication {
 				loglevel);
 		Logger.getLogger(
 				tools.descartes.librede.rrde.rinterface.RBridge.class
+						.getPackage().getName()).setLevel(loglevel);
+		Logger.getLogger(
+				tools.descartes.librede.rrde.optimization.Discovery.class
 						.getPackage().getName()).setLevel(loglevel);
 	}
 
@@ -142,8 +145,7 @@ public class Plugin implements IApplication {
 			log.error("Feature Extractor could not be loaded. Failing...");
 			return null;
 		}
-		if (conf.getEstimators() == null
-				|| conf.getEstimators().isEmpty()) {
+		if (conf.getEstimators() == null || conf.getEstimators().isEmpty()) {
 			log.error("Target configuration set is null or empty.");
 			return null;
 		}
@@ -191,6 +193,7 @@ public class Plugin implements IApplication {
 		boolean res = true;
 		Set<LibredeConfiguration> set = Discovery.createConfigurations(inputs,
 				estimators.get(0), validationSpecification);
+		log.info("Available Training-Configurations: " + set.size());
 		for (LibredeConfiguration conf : set) {
 			try {
 				boolean result = trainOneConfiguration(alg, extractor,
@@ -201,7 +204,7 @@ public class Plugin implements IApplication {
 				}
 			} catch (Exception e) {
 				log.warn("Training with configuration " + conf
-						+ " threw an error.");
+						+ " threw an error.", e);
 				res = false;
 			}
 		}
