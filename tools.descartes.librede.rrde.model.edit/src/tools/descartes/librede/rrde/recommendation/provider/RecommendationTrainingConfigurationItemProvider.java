@@ -23,8 +23,10 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import tools.descartes.librede.configuration.ConfigurationFactory;
+import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 import tools.descartes.librede.rrde.optimization.provider.RrdeEditPlugin;
 
+import tools.descartes.librede.rrde.recommendation.RecommendationFactory;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 
@@ -171,6 +173,10 @@ public class RecommendationTrainingConfigurationItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS);
 			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR);
 		}
 		return childrenFeatures;
@@ -224,6 +230,10 @@ public class RecommendationTrainingConfigurationItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(RecommendationTrainingConfiguration.class)) {
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA:
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM:
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM:
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS:
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -241,6 +251,26 @@ public class RecommendationTrainingConfigurationItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA,
+				 OptimizationFactory.eINSTANCE.createInputData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createRecommendationAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createFeatureExtractorSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS,
+				 ConfigurationFactory.eINSTANCE.createEstimationSpecification()));
 
 		newChildDescriptors.add
 			(createChildParameter

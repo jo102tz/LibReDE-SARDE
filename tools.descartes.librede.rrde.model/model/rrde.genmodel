@@ -15,9 +15,9 @@
     <genClasses ecoreClass="optimization.ecore#//OptimizationConfiguration">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference optimization.ecore#//OptimizationConfiguration/containsOf"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="optimization.ecore#//IConfigurationOptimizationAlgorithmSpecifier">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IConfigurationOptimizationAlgorithmSpecifier/timeOut"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//IConfigurationOptimizationAlgorithmSpecifier/algorithmName"/>
+    <genClasses image="false" ecoreClass="optimization.ecore#//ConfigurationOptimizationAlgorithmSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//ConfigurationOptimizationAlgorithmSpecifier/timeOut"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//ConfigurationOptimizationAlgorithmSpecifier/algorithmName"/>
     </genClasses>
     <genClasses ecoreClass="optimization.ecore#//LocalSearchSpecifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//LocalSearchSpecifier/tolerance"/>
@@ -65,14 +65,11 @@
   <genPackages prefix="Recommendation" basePackage="tools.descartes.librede.rrde"
       disposableProviderFactory="true" ecorePackage="recommendation.ecore#/">
     <genClasses ecoreClass="recommendation.ecore#//RecommendationTrainingConfiguration">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/trainingData"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/learningAlgorithm"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/featureAlgorithm"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/configurations"/>
-    </genClasses>
-    <genClasses provider="None" ecoreClass="recommendation.ecore#//ConfigurationResult">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//ConfigurationResult/configuration"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//ConfigurationResult/errorValue"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/trainingData"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/learningAlgorithm"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/featureAlgorithm"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/configurations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/validator"/>
     </genClasses>
     <genClasses ecoreClass="recommendation.ecore#//RecommendationAlgorithmSpecifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//RecommendationAlgorithmSpecifier/algorithmName"/>
@@ -83,7 +80,7 @@
     <genClasses ecoreClass="recommendation.ecore#//DataSet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//DataSet/configuration"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//DataSet/features"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//DataSet/configurationValues"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//DataSet/estimationErrors"/>
     </genClasses>
     <genClasses ecoreClass="recommendation.ecore#//FeatureVector">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/numberOfRessources"/>
