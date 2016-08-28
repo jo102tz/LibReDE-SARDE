@@ -5,14 +5,10 @@ package tools.descartes.librede.rrde.recommendation.provider;
 
 import java.util.Collection;
 import java.util.List;
-
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -20,12 +16,10 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import tools.descartes.librede.configuration.ConfigurationFactory;
 import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 import tools.descartes.librede.rrde.optimization.provider.RrdeEditPlugin;
-
 import tools.descartes.librede.rrde.recommendation.RecommendationFactory;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
@@ -65,100 +59,8 @@ public class RecommendationTrainingConfigurationItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addTrainingDataPropertyDescriptor(object);
-			addLearningAlgorithmPropertyDescriptor(object);
-			addFeatureAlgorithmPropertyDescriptor(object);
-			addConfigurationsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Training Data feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTrainingDataPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_RecommendationTrainingConfiguration_trainingData_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RecommendationTrainingConfiguration_trainingData_feature", "_UI_RecommendationTrainingConfiguration_type"),
-				 RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Learning Algorithm feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLearningAlgorithmPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_RecommendationTrainingConfiguration_learningAlgorithm_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RecommendationTrainingConfiguration_learningAlgorithm_feature", "_UI_RecommendationTrainingConfiguration_type"),
-				 RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Feature Algorithm feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFeatureAlgorithmPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_RecommendationTrainingConfiguration_featureAlgorithm_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RecommendationTrainingConfiguration_featureAlgorithm_feature", "_UI_RecommendationTrainingConfiguration_type"),
-				 RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Configurations feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addConfigurationsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_RecommendationTrainingConfiguration_configurations_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RecommendationTrainingConfiguration_configurations_feature", "_UI_RecommendationTrainingConfiguration_type"),
-				 RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**

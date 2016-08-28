@@ -65,10 +65,11 @@
   <genPackages prefix="Recommendation" basePackage="tools.descartes.librede.rrde"
       disposableProviderFactory="true" ecorePackage="recommendation.ecore#/">
     <genClasses ecoreClass="recommendation.ecore#//RecommendationTrainingConfiguration">
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/trainingData"/>
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/learningAlgorithm"/>
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/featureAlgorithm"/>
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/configurations"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory=""
+          propertyDescription="" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/trainingData"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/learningAlgorithm"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/featureAlgorithm"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/configurations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/validator"/>
     </genClasses>
     <genClasses ecoreClass="recommendation.ecore#//RecommendationAlgorithmSpecifier">
