@@ -18,8 +18,8 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
  * The following features are supported:
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getConfiguration <em>Configuration</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getEstimationErrors <em>Estimation Errors</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,26 +55,26 @@ public interface DataSet extends EObject {
 	void setConfiguration(LibredeConfiguration value);
 
 	/**
-	 * Returns the value of the '<em><b>Features</b></em>' reference.
+	 * Returns the value of the '<em><b>Features</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Features</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Features</em>' reference.
+	 * @return the value of the '<em>Features</em>' containment reference.
 	 * @see #setFeatures(FeatureVector)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getDataSet_Features()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	FeatureVector getFeatures();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}' reference.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Features</em>' reference.
+	 * @param value the new value of the '<em>Features</em>' containment reference.
 	 * @see #getFeatures()
 	 * @generated
 	 */

@@ -75,11 +75,11 @@ public class RecommendationTrainingConfigurationItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA);
-			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM);
-			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM);
-			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS);
 			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS);
 		}
 		return childrenFeatures;
 	}
@@ -132,11 +132,11 @@ public class RecommendationTrainingConfigurationItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(RecommendationTrainingConfiguration.class)) {
-			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA:
-			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM:
-			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM:
-			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS:
 			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR:
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA:
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM:
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM:
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -156,13 +156,13 @@ public class RecommendationTrainingConfigurationItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA,
-				 OptimizationFactory.eINSTANCE.createInputData()));
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR,
+				 ConfigurationFactory.eINSTANCE.createValidationSpecification()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
-				 RecommendationFactory.eINSTANCE.createRecommendationAlgorithmSpecifier()));
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA,
+				 OptimizationFactory.eINSTANCE.createInputData()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -171,13 +171,13 @@ public class RecommendationTrainingConfigurationItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__CONFIGURATIONS,
-				 ConfigurationFactory.eINSTANCE.createEstimationSpecification()));
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createRecommendationAlgorithmSpecifier()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR,
-				 ConfigurationFactory.eINSTANCE.createValidationSpecification()));
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS,
+				 ConfigurationFactory.eINSTANCE.createEstimationSpecification()));
 	}
 
 	/**

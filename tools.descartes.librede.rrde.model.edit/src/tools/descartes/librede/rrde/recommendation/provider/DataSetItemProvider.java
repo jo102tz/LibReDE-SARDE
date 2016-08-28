@@ -64,8 +64,8 @@ public class DataSetItemProvider
 			super.getPropertyDescriptors(object);
 
 			addConfigurationPropertyDescriptor(object);
-			addFeaturesPropertyDescriptor(object);
 			addEstimationErrorsPropertyDescriptor(object);
+			addFeaturesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}

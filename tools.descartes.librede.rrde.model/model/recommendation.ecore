@@ -3,16 +3,17 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="recommendation" nsURI="http://tools/descartes/librede/rrde/recommendation"
     nsPrefix="librede-recommendation">
   <eClassifiers xsi:type="ecore:EClass" name="RecommendationTrainingConfiguration">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="trainingData" lowerBound="1"
-        upperBound="-1" eType="ecore:EClass optimization.ecore#//InputData"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="learningAlgorithm" lowerBound="1"
-        eType="#//RecommendationAlgorithmSpecifier"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="featureAlgorithm" lowerBound="1"
-        eType="#//FeatureExtractorSpecifier"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="configurations" lowerBound="1"
-        upperBound="-1" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="validator" lowerBound="1"
         eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//ValidationSpecification"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trainingData" upperBound="-1"
+        eType="ecore:EClass optimization.ecore#//InputData" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureAlgorithm" lowerBound="1"
+        eType="#//FeatureExtractorSpecifier" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningAlgorithm" lowerBound="1"
+        eType="#//RecommendationAlgorithmSpecifier" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="estimators" lowerBound="1"
+        upperBound="-1" eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//EstimationSpecification"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RecommendationAlgorithmSpecifier">
@@ -26,8 +27,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="DataSet">
     <eStructuralFeatures xsi:type="ecore:EReference" name="configuration" lowerBound="1"
         eType="ecore:EClass ../../tools.descartes.librede.model/model/librede.ecore#//LibredeConfiguration"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="features" lowerBound="1"
-        eType="#//FeatureVector"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="estimationErrors" lowerBound="1"
         transient="true">
       <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
@@ -35,6 +34,8 @@
         <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//DoubleObject"/>
       </eGenericType>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="features" lowerBound="1"
+        eType="#//FeatureVector" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureVector">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfRessources" lowerBound="1"

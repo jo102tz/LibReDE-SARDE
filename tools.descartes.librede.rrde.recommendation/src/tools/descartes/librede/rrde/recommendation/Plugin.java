@@ -142,8 +142,8 @@ public class Plugin implements IApplication {
 			log.error("Feature Extractor could not be loaded. Failing...");
 			return null;
 		}
-		if (conf.getConfigurations() == null
-				|| conf.getConfigurations().isEmpty()) {
+		if (conf.getEstimators() == null
+				|| conf.getEstimators().isEmpty()) {
 			log.error("Target configuration set is null or empty.");
 			return null;
 		}
@@ -156,7 +156,7 @@ public class Plugin implements IApplication {
 			log.error("Training data set is null or empty.");
 			return null;
 		}
-		if (!trainAlgorithm(alg, extractor, conf.getConfigurations(),
+		if (!trainAlgorithm(alg, extractor, conf.getEstimators(),
 				conf.getValidator(), conf.getTrainingData())) {
 			log.error("Training failed. Returning algorithm anyway...");
 		}
