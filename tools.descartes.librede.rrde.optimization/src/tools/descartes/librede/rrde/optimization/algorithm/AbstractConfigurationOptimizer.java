@@ -26,6 +26,8 @@
  */
 package tools.descartes.librede.rrde.optimization.algorithm;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
@@ -101,6 +103,11 @@ public abstract class AbstractConfigurationOptimizer implements
 	private Set<LibredeConfiguration> confs;
 
 	/**
+	 * A storage of the individual results of the last run for further analyzes.
+	 */
+	private Map<LibredeConfiguration, LibredeResults> lastResults;
+
+	/**
 	 * The value of the last error.
 	 */
 	private double lastError;
@@ -111,12 +118,19 @@ public abstract class AbstractConfigurationOptimizer implements
 	private double firstError;
 
 	/**
+	 * A statistics object for storing and analyzing.
+	 */
+	private DescriptiveStatistics stat;
+
+	/**
 	 * Constructor preparing and initializing execution
 	 */
 	public AbstractConfigurationOptimizer() {
 		super();
 		iterationcounter = 0;
 		totalruns = 0;
+		lastResults = new HashMap<LibredeConfiguration, LibredeResults>();
+		stat = new DescriptiveStatistics();
 	}
 
 	/**
@@ -247,8 +261,8 @@ public abstract class AbstractConfigurationOptimizer implements
 		getLog().info(
 				"Elapsed Time: "
 						+ DurationFormatUtils.formatDurationWords(
-								(System.currentTimeMillis() - time), false, false)
-						+ ".");
+								(System.currentTimeMillis() - time), false,
+								false) + ".");
 		double improvementPercent = ((firstError - newError) * 100)
 				/ (firstError);
 		getLog().info(
@@ -285,11 +299,13 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * @return The error value of this iteration.
 	 */
 	protected double runIteration() {
-		DescriptiveStatistics stat = new DescriptiveStatistics();
+		stat.clear();
+		lastResults.clear();
 		for (LibredeConfiguration single : confs) {
 			totalruns++;
 			getLog().trace("Starting execution of " + single.toString());
 			LibredeResults results = Wrapper.executeLibrede(single);
+			lastResults.put(single, results);
 			if (results == null || results.getApproaches() == null) {
 				getLog().error("The execution resulted an non-trackable error.");
 				lastError = Double.MAX_VALUE;
@@ -316,6 +332,17 @@ public abstract class AbstractConfigurationOptimizer implements
 					"The optimization is still ongoing.");
 		}
 		return getSpecification();
+	}
+
+	/**
+	 * Returns a map of the last results assigned to their configuration which
+	 * can be used for deeper analysis.
+	 * 
+	 * @return The results of the last call of {@link #runIteration()} or and
+	 *         empty map if the results are not available yet or right now.
+	 */
+	public Map<LibredeConfiguration, LibredeResults> getLastResults() {
+		return lastResults;
 	}
 
 	/**
