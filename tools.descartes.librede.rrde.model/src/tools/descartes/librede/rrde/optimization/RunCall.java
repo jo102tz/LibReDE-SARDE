@@ -41,12 +41,12 @@ public interface RunCall extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Algorithm</em>' containment reference.
-	 * @see #setAlgorithm(IConfigurationOptimizationAlgorithmSpecifier)
+	 * @see #setAlgorithm(ConfigurationOptimizationAlgorithmSpecifier)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getRunCall_Algorithm()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	IConfigurationOptimizationAlgorithmSpecifier getAlgorithm();
+	ConfigurationOptimizationAlgorithmSpecifier getAlgorithm();
 
 	/**
 	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.RunCall#getAlgorithm <em>Algorithm</em>}' containment reference.
@@ -56,7 +56,7 @@ public interface RunCall extends EObject {
 	 * @see #getAlgorithm()
 	 * @generated
 	 */
-	void setAlgorithm(IConfigurationOptimizationAlgorithmSpecifier value);
+	void setAlgorithm(ConfigurationOptimizationAlgorithmSpecifier value);
 
 	/**
 	 * Returns the value of the '<em><b>Training Data</b></em>' containment reference list.

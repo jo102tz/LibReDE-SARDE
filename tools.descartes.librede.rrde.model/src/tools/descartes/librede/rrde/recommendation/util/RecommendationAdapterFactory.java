@@ -72,20 +72,24 @@ public class RecommendationAdapterFactory extends AdapterFactoryImpl {
 				return createRecommendationTrainingConfigurationAdapter();
 			}
 			@Override
-			public Adapter caseIRecommendationAlgorithmSpecifier(IRecommendationAlgorithmSpecifier object) {
-				return createIRecommendationAlgorithmSpecifierAdapter();
+			public Adapter caseRecommendationAlgorithmSpecifier(RecommendationAlgorithmSpecifier object) {
+				return createRecommendationAlgorithmSpecifierAdapter();
+			}
+			@Override
+			public Adapter caseFeatureExtractorSpecifier(FeatureExtractorSpecifier object) {
+				return createFeatureExtractorSpecifierAdapter();
 			}
 			@Override
 			public Adapter caseDataSet(DataSet object) {
 				return createDataSetAdapter();
 			}
 			@Override
-			public Adapter caseIFeatureExtractorSpecifier(IFeatureExtractorSpecifier object) {
-				return createIFeatureExtractorSpecifierAdapter();
-			}
-			@Override
 			public Adapter caseFeatureVector(FeatureVector object) {
 				return createFeatureVectorAdapter();
+			}
+			@Override
+			public Adapter caseTraceFeatures(TraceFeatures object) {
+				return createTraceFeaturesAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -122,16 +126,30 @@ public class RecommendationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.IRecommendationAlgorithmSpecifier <em>IRecommendation Algorithm Specifier</em>}'.
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier <em>Algorithm Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see tools.descartes.librede.rrde.recommendation.IRecommendationAlgorithmSpecifier
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier
 	 * @generated
 	 */
-	public Adapter createIRecommendationAlgorithmSpecifierAdapter() {
+	public Adapter createRecommendationAlgorithmSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier <em>Feature Extractor Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier
+	 * @generated
+	 */
+	public Adapter createFeatureExtractorSpecifierAdapter() {
 		return null;
 	}
 
@@ -150,20 +168,6 @@ public class RecommendationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.IFeatureExtractorSpecifier <em>IFeature Extractor Specifier</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see tools.descartes.librede.rrde.recommendation.IFeatureExtractorSpecifier
-	 * @generated
-	 */
-	public Adapter createIFeatureExtractorSpecifierAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.FeatureVector <em>Feature Vector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -174,6 +178,20 @@ public class RecommendationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFeatureVectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures <em>Trace Features</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures
+	 * @generated
+	 */
+	public Adapter createTraceFeaturesAdapter() {
 		return null;
 	}
 

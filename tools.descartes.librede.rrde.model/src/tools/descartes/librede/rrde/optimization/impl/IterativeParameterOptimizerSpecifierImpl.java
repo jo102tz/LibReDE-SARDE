@@ -135,7 +135,7 @@ public class IterativeParameterOptimizerSpecifierImpl extends MinimalEObjectImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IterativeParameterOptimizerSpecifierImpl() {
+	public IterativeParameterOptimizerSpecifierImpl() {
 		super();
 	}
 

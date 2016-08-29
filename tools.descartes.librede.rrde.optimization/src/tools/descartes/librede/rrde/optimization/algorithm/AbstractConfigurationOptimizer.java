@@ -26,7 +26,8 @@
  */
 package tools.descartes.librede.rrde.optimization.algorithm;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
@@ -37,8 +38,8 @@ import org.eclipse.emf.common.util.EList;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.Discovery;
-import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
@@ -74,7 +75,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	/**
 	 * Parameters modifying the behavior of the algorithm
 	 */
-	private IConfigurationOptimizationAlgorithmSpecifier algorithm;
+	private ConfigurationOptimizationAlgorithmSpecifier algorithm;
 
 	/**
 	 * A counter storing the number of executed iterations for debugging
@@ -102,6 +103,11 @@ public abstract class AbstractConfigurationOptimizer implements
 	private Set<LibredeConfiguration> confs;
 
 	/**
+	 * A storage of the individual results of the last run for further analyzes.
+	 */
+	private Map<LibredeConfiguration, LibredeResults> lastResults;
+
+	/**
 	 * The value of the last error.
 	 */
 	private double lastError;
@@ -112,12 +118,19 @@ public abstract class AbstractConfigurationOptimizer implements
 	private double firstError;
 
 	/**
+	 * A statistics object for storing and analyzing.
+	 */
+	private DescriptiveStatistics stat;
+
+	/**
 	 * Constructor preparing and initializing execution
 	 */
 	public AbstractConfigurationOptimizer() {
 		super();
 		iterationcounter = 0;
 		totalruns = 0;
+		lastResults = new HashMap<LibredeConfiguration, LibredeResults>();
+		stat = new DescriptiveStatistics();
 	}
 
 	/**
@@ -168,7 +181,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	/**
 	 * @return the algorithm
 	 */
-	public IConfigurationOptimizationAlgorithmSpecifier getAlgorithm() {
+	public ConfigurationOptimizationAlgorithmSpecifier getAlgorithm() {
 		return algorithm;
 	}
 
@@ -177,7 +190,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	 *            the algorithm to set
 	 */
 	public void setAlgorithm(
-			IConfigurationOptimizationAlgorithmSpecifier algorithm) {
+			ConfigurationOptimizationAlgorithmSpecifier algorithm) {
 		this.algorithm = algorithm;
 	}
 
@@ -216,7 +229,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	@Override
 	public boolean optimizeConfiguration(EstimationSpecification estimation,
 			EList<InputData> input, OptimizationSettings settings,
-			IConfigurationOptimizationAlgorithmSpecifier specifier)
+			ConfigurationOptimizationAlgorithmSpecifier specifier)
 			throws IllegalArgumentException {
 		if (!isSpecifierSupported(specifier)) {
 			throw new IllegalArgumentException(
@@ -248,8 +261,8 @@ public abstract class AbstractConfigurationOptimizer implements
 		getLog().info(
 				"Elapsed Time: "
 						+ DurationFormatUtils.formatDurationWords(
-								(System.currentTimeMillis() - time), false, false)
-						+ ".");
+								(System.currentTimeMillis() - time), false,
+								false) + ".");
 		double improvementPercent = ((firstError - newError) * 100)
 				/ (firstError);
 		getLog().info(
@@ -266,7 +279,6 @@ public abstract class AbstractConfigurationOptimizer implements
 		Wrapper.init();
 		confs = Discovery.createConfigurations(getInput(), getSpecification(),
 				getSettings().getValidator());
-		validateConfs();
 		getLog().info(
 				"Finished initialization. Available Training-Configurations: "
 						+ confs.size());
@@ -281,46 +293,19 @@ public abstract class AbstractConfigurationOptimizer implements
 	}
 
 	/**
-	 * Validate all configurations and deletes the ones that do not suffice.
-	 */
-	private void validateConfs() {
-		HashSet<LibredeConfiguration> remove = new HashSet<LibredeConfiguration>();
-		for (LibredeConfiguration single : confs) {
-			if (single.getWorkloadDescription() == null
-					|| single.getEstimation() == null
-					|| single.getInput() == null || single.getOutput() == null
-					|| single.getValidation() == null) {
-				getLog().warn(
-						"Malformed Configuration. (Null-values) Ignoring "
-								+ single.toString() + ".");
-
-			} else if (single.getWorkloadDescription().getResources().isEmpty()
-					|| single.getWorkloadDescription().getServices().isEmpty()) {
-				getLog().warn(
-						"Malformed Configuration. Resources or Services are empty. Ignoring "
-								+ single.toString() + ".");
-				remove.add(single);
-			}
-		}
-		confs.removeAll(remove);
-		if (confs.isEmpty()) {
-			getLog().error(
-					"There are no valid configurations as training data.");
-		}
-	}
-
-	/**
 	 * Runs one iteration of the current configurations and returns the
 	 * equal-weighted mean of the mean validation error of all approaches.
 	 * 
 	 * @return The error value of this iteration.
 	 */
 	protected double runIteration() {
-		DescriptiveStatistics stat = new DescriptiveStatistics();
+		stat.clear();
+		lastResults.clear();
 		for (LibredeConfiguration single : confs) {
 			totalruns++;
 			getLog().trace("Starting execution of " + single.toString());
 			LibredeResults results = Wrapper.executeLibrede(single);
+			lastResults.put(single, results);
 			if (results == null || results.getApproaches() == null) {
 				getLog().error("The execution resulted an non-trackable error.");
 				lastError = Double.MAX_VALUE;
@@ -347,6 +332,17 @@ public abstract class AbstractConfigurationOptimizer implements
 					"The optimization is still ongoing.");
 		}
 		return getSpecification();
+	}
+
+	/**
+	 * Returns a map of the last results assigned to their configuration which
+	 * can be used for deeper analysis.
+	 * 
+	 * @return The results of the last call of {@link #runIteration()} or and
+	 *         empty map if the results are not available yet or right now.
+	 */
+	public Map<LibredeConfiguration, LibredeResults> getLastResults() {
+		return lastResults;
 	}
 
 	/**

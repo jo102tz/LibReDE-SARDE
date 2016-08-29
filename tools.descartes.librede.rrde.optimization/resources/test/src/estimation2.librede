@@ -13,7 +13,11 @@
     </services>
   </workloadDescription>
   <input>
-    <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource"/>
+    <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+      <parameters name="SkipFirstLine" value="on"/>
+      <parameters name="Separators" value=";"/>
+      <parameters name="TimestampFormat" value="[ms]"/>
+    </dataSources>
     <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Veronika\Desktop\example1\experiment1_WC0_RESPONSE_TIME.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#SECONDS"/>
@@ -75,7 +79,7 @@
       <parameters name="FileName" value="estimates"/>
     </exporters>
   </output>
-  <validation validateEstimates="true">
+  <validation validationFolds="3" validateEstimates="true">
     <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
     <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
   </validation>

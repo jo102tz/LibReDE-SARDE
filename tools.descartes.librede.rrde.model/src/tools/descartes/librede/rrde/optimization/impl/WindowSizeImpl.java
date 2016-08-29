@@ -93,7 +93,7 @@ public class WindowSizeImpl extends MinimalEObjectImpl.Container implements Wind
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected WindowSizeImpl() {
+	public WindowSizeImpl() {
 		super();
 	}
 

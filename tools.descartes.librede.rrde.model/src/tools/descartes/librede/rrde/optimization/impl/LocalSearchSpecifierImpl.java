@@ -135,7 +135,7 @@ public class LocalSearchSpecifierImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected LocalSearchSpecifierImpl() {
+	public LocalSearchSpecifierImpl() {
 		super();
 	}
 

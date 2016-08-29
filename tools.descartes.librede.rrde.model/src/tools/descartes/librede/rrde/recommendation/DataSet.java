@@ -2,10 +2,11 @@
  */
 package tools.descartes.librede.rrde.recommendation;
 
-import org.eclipse.emf.common.util.EList;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 
+import tools.descartes.librede.configuration.EstimationAlgorithmConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 
 /**
@@ -17,8 +18,8 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
  * The following features are supported:
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getConfiguration <em>Configuration</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getEstimationErrors <em>Estimation Errors</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getTargetValue <em>Target Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,45 +55,55 @@ public interface DataSet extends EObject {
 	void setConfiguration(LibredeConfiguration value);
 
 	/**
-	 * Returns the value of the '<em><b>Features</b></em>' reference.
+	 * Returns the value of the '<em><b>Features</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Features</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Features</em>' reference.
+	 * @return the value of the '<em>Features</em>' containment reference.
 	 * @see #setFeatures(FeatureVector)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getDataSet_Features()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	FeatureVector getFeatures();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}' reference.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Features</em>' reference.
+	 * @param value the new value of the '<em>Features</em>' containment reference.
 	 * @see #getFeatures()
 	 * @generated
 	 */
 	void setFeatures(FeatureVector value);
 
 	/**
-	 * Returns the value of the '<em><b>Target Value</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.Double}.
+	 * Returns the value of the '<em><b>Estimation Errors</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Target Value</em>' attribute list isn't clear,
+	 * If the meaning of the '<em>Estimation Errors</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target Value</em>' attribute list.
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getDataSet_TargetValue()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @return the value of the '<em>Estimation Errors</em>' attribute.
+	 * @see #setEstimationErrors(Map)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getDataSet_EstimationErrors()
+	 * @model required="true" transient="true"
 	 * @generated
 	 */
-	EList<Double> getTargetValue();
+	Map<EstimationAlgorithmConfiguration, Double> getEstimationErrors();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.DataSet#getEstimationErrors <em>Estimation Errors</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Estimation Errors</em>' attribute.
+	 * @see #getEstimationErrors()
+	 * @generated
+	 */
+	void setEstimationErrors(Map<EstimationAlgorithmConfiguration, Double> value);
 
 } // DataSet

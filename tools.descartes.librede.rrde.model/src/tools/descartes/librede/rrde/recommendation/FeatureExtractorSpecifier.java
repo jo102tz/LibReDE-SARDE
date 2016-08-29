@@ -6,21 +6,21 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>IFeature Extractor Specifier</b></em>'.
+ * A representation of the model object '<em><b>Feature Extractor Specifier</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.IFeatureExtractorSpecifier#getFeatureExtractor <em>Feature Extractor</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getFeatureExtractor <em>Feature Extractor</em>}</li>
  * </ul>
  * </p>
  *
- * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getIFeatureExtractorSpecifier()
+ * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureExtractorSpecifier()
  * @model
  * @generated
  */
-public interface IFeatureExtractorSpecifier extends EObject {
+public interface FeatureExtractorSpecifier extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Feature Extractor</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -31,14 +31,14 @@ public interface IFeatureExtractorSpecifier extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Feature Extractor</em>' attribute.
 	 * @see #setFeatureExtractor(String)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getIFeatureExtractorSpecifier_FeatureExtractor()
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureExtractorSpecifier_FeatureExtractor()
 	 * @model required="true"
 	 * @generated
 	 */
 	String getFeatureExtractor();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.IFeatureExtractorSpecifier#getFeatureExtractor <em>Feature Extractor</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getFeatureExtractor <em>Feature Extractor</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Feature Extractor</em>' attribute.
@@ -47,4 +47,4 @@ public interface IFeatureExtractorSpecifier extends EObject {
 	 */
 	void setFeatureExtractor(String value);
 
-} // IFeatureExtractorSpecifier
+} // FeatureExtractorSpecifier

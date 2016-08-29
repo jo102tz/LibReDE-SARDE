@@ -34,6 +34,7 @@ import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.Plugin;
+import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.Wrapper;
 
 /**
@@ -54,8 +55,8 @@ public class GenerateModelFileTest {
 		Librede.init();
 		LibredeConfiguration configuration = Librede
 				.loadConfiguration(new File(LIBREDE_PATH).toPath());
-		OptimizationConfiguration optimization = Plugin
-				.loadConfiguration(new File(CONFIG_PATH).toPath());
+		OptimizationConfiguration optimization = Util
+				.loadOptimizationConfiguration(new File(CONFIG_PATH).toPath());
 	}
 
 }

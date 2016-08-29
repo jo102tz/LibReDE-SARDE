@@ -21,7 +21,7 @@ package tools.descartes.librede.rrde.optimization;
  * @model
  * @generated
  */
-public interface LocalSearchSpecifier extends IConfigurationOptimizationAlgorithmSpecifier {
+public interface LocalSearchSpecifier extends ConfigurationOptimizationAlgorithmSpecifier {
 	/**
 	 * Returns the value of the '<em><b>Tolerance</b></em>' attribute.
 	 * The default value is <code>"0.05"</code>.

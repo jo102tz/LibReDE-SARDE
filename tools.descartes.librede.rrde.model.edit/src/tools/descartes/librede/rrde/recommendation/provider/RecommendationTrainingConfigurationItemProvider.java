@@ -8,7 +8,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -16,8 +16,13 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
+import tools.descartes.librede.configuration.ConfigurationFactory;
+import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 import tools.descartes.librede.rrde.optimization.provider.RrdeEditPlugin;
+import tools.descartes.librede.rrde.recommendation.RecommendationFactory;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
+import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 
 /**
  * This is the item provider adapter for a {@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration} object.
@@ -54,100 +59,42 @@ public class RecommendationTrainingConfigurationItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addTrainingDataPropertyDescriptor(object);
-			addLearningAlgorithmPropertyDescriptor(object);
-			addFeatureAlgorithmPropertyDescriptor(object);
-			addEstimationPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Training Data feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addTrainingDataPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_RecommendationTrainingConfiguration_trainingData_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RecommendationTrainingConfiguration_trainingData_feature", "_UI_RecommendationTrainingConfiguration_type"),
-				 RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM);
+			childrenFeatures.add(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS);
+		}
+		return childrenFeatures;
 	}
 
 	/**
-	 * This adds a property descriptor for the Learning Algorithm feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addLearningAlgorithmPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_RecommendationTrainingConfiguration_learningAlgorithm_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RecommendationTrainingConfiguration_learningAlgorithm_feature", "_UI_RecommendationTrainingConfiguration_type"),
-				 RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
 
-	/**
-	 * This adds a property descriptor for the Feature Algorithm feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFeatureAlgorithmPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_RecommendationTrainingConfiguration_featureAlgorithm_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RecommendationTrainingConfiguration_featureAlgorithm_feature", "_UI_RecommendationTrainingConfiguration_type"),
-				 RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Estimation feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEstimationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_RecommendationTrainingConfiguration_estimation_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RecommendationTrainingConfiguration_estimation_feature", "_UI_RecommendationTrainingConfiguration_type"),
-				 RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATION,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -183,6 +130,16 @@ public class RecommendationTrainingConfigurationItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(RecommendationTrainingConfiguration.class)) {
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR:
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA:
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM:
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM:
+			case RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 
@@ -196,6 +153,31 @@ public class RecommendationTrainingConfigurationItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR,
+				 ConfigurationFactory.eINSTANCE.createValidationSpecification()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA,
+				 OptimizationFactory.eINSTANCE.createInputData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createFeatureExtractorSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createRecommendationAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS,
+				 ConfigurationFactory.eINSTANCE.createEstimationSpecification()));
 	}
 
 	/**

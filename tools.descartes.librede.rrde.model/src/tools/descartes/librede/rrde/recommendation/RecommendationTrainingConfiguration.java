@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 
+import tools.descartes.librede.configuration.ValidationSpecification;
 import tools.descartes.librede.rrde.optimization.InputData;
 
 /**
@@ -18,10 +19,11 @@ import tools.descartes.librede.rrde.optimization.InputData;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getValidator <em>Validator</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getTrainingData <em>Training Data</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getLearningAlgorithm <em>Learning Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getFeatureAlgorithm <em>Feature Algorithm</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getEstimation <em>Estimation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getLearningAlgorithm <em>Learning Algorithm</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getEstimators <em>Estimators</em>}</li>
  * </ul>
  * </p>
  *
@@ -31,7 +33,7 @@ import tools.descartes.librede.rrde.optimization.InputData;
  */
 public interface RecommendationTrainingConfiguration extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Training Data</b></em>' reference list.
+	 * Returns the value of the '<em><b>Training Data</b></em>' containment reference list.
 	 * The list contents are of type {@link tools.descartes.librede.rrde.optimization.InputData}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -39,89 +41,105 @@ public interface RecommendationTrainingConfiguration extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Training Data</em>' reference list.
+	 * @return the value of the '<em>Training Data</em>' containment reference list.
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationTrainingConfiguration_TrainingData()
-	 * @model required="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<InputData> getTrainingData();
 
 	/**
-	 * Returns the value of the '<em><b>Learning Algorithm</b></em>' reference.
+	 * Returns the value of the '<em><b>Learning Algorithm</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Learning Algorithm</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Learning Algorithm</em>' reference.
-	 * @see #setLearningAlgorithm(IRecommendationAlgorithmSpecifier)
+	 * @return the value of the '<em>Learning Algorithm</em>' containment reference.
+	 * @see #setLearningAlgorithm(RecommendationAlgorithmSpecifier)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationTrainingConfiguration_LearningAlgorithm()
-	 * @model
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	IRecommendationAlgorithmSpecifier getLearningAlgorithm();
+	RecommendationAlgorithmSpecifier getLearningAlgorithm();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getLearningAlgorithm <em>Learning Algorithm</em>}' reference.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getLearningAlgorithm <em>Learning Algorithm</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Learning Algorithm</em>' reference.
+	 * @param value the new value of the '<em>Learning Algorithm</em>' containment reference.
 	 * @see #getLearningAlgorithm()
 	 * @generated
 	 */
-	void setLearningAlgorithm(IRecommendationAlgorithmSpecifier value);
+	void setLearningAlgorithm(RecommendationAlgorithmSpecifier value);
 
 	/**
-	 * Returns the value of the '<em><b>Feature Algorithm</b></em>' reference.
+	 * Returns the value of the '<em><b>Estimators</b></em>' containment reference list.
+	 * The list contents are of type {@link tools.descartes.librede.configuration.EstimationSpecification}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Estimators</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Estimators</em>' containment reference list.
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationTrainingConfiguration_Estimators()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	EList<EstimationSpecification> getEstimators();
+
+	/**
+	 * Returns the value of the '<em><b>Feature Algorithm</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Feature Algorithm</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Feature Algorithm</em>' reference.
-	 * @see #setFeatureAlgorithm(IFeatureExtractorSpecifier)
+	 * @return the value of the '<em>Feature Algorithm</em>' containment reference.
+	 * @see #setFeatureAlgorithm(FeatureExtractorSpecifier)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationTrainingConfiguration_FeatureAlgorithm()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	IFeatureExtractorSpecifier getFeatureAlgorithm();
+	FeatureExtractorSpecifier getFeatureAlgorithm();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getFeatureAlgorithm <em>Feature Algorithm</em>}' reference.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getFeatureAlgorithm <em>Feature Algorithm</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Feature Algorithm</em>' reference.
+	 * @param value the new value of the '<em>Feature Algorithm</em>' containment reference.
 	 * @see #getFeatureAlgorithm()
 	 * @generated
 	 */
-	void setFeatureAlgorithm(IFeatureExtractorSpecifier value);
+	void setFeatureAlgorithm(FeatureExtractorSpecifier value);
 
 	/**
-	 * Returns the value of the '<em><b>Estimation</b></em>' reference.
+	 * Returns the value of the '<em><b>Validator</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Estimation</em>' reference isn't clear,
+	 * If the meaning of the '<em>Validator</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Estimation</em>' reference.
-	 * @see #setEstimation(EstimationSpecification)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationTrainingConfiguration_Estimation()
-	 * @model required="true"
+	 * @return the value of the '<em>Validator</em>' containment reference.
+	 * @see #setValidator(ValidationSpecification)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationTrainingConfiguration_Validator()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	EstimationSpecification getEstimation();
+	ValidationSpecification getValidator();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getEstimation <em>Estimation</em>}' reference.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getValidator <em>Validator</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Estimation</em>' reference.
-	 * @see #getEstimation()
+	 * @param value the new value of the '<em>Validator</em>' containment reference.
+	 * @see #getValidator()
 	 * @generated
 	 */
-	void setEstimation(EstimationSpecification value);
+	void setValidator(ValidationSpecification value);
 
 } // RecommendationTrainingConfiguration

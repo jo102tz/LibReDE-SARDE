@@ -81,9 +81,9 @@ public class DataExportSpecifierItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_IConfigurationOptimizationAlgorithmSpecifier_timeOut_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_IConfigurationOptimizationAlgorithmSpecifier_timeOut_feature", "_UI_IConfigurationOptimizationAlgorithmSpecifier_type"),
-				 OptimizationPackage.Literals.ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT,
+				 getString("_UI_ConfigurationOptimizationAlgorithmSpecifier_timeOut_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ConfigurationOptimizationAlgorithmSpecifier_timeOut_feature", "_UI_ConfigurationOptimizationAlgorithmSpecifier_type"),
+				 OptimizationPackage.Literals.CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT,
 				 true,
 				 false,
 				 false,
@@ -103,9 +103,9 @@ public class DataExportSpecifierItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_IConfigurationOptimizationAlgorithmSpecifier_algorithmName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_IConfigurationOptimizationAlgorithmSpecifier_algorithmName_feature", "_UI_IConfigurationOptimizationAlgorithmSpecifier_type"),
-				 OptimizationPackage.Literals.ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME,
+				 getString("_UI_ConfigurationOptimizationAlgorithmSpecifier_algorithmName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ConfigurationOptimizationAlgorithmSpecifier_algorithmName_feature", "_UI_ConfigurationOptimizationAlgorithmSpecifier_type"),
+				 OptimizationPackage.Literals.CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME,
 				 true,
 				 false,
 				 false,
@@ -132,6 +132,28 @@ public class DataExportSpecifierItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Step Size feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStepSizePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_DataExportSpecifier_stepSize_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_DataExportSpecifier_stepSize_feature", "_UI_DataExportSpecifier_type"),
+				 OptimizationPackage.Literals.DATA_EXPORT_SPECIFIER__STEP_SIZE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -176,28 +198,6 @@ public class DataExportSpecifierItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Step Size feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addStepSizePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_DataExportSpecifier_stepSize_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_DataExportSpecifier_stepSize_feature", "_UI_DataExportSpecifier_type"),
-				 OptimizationPackage.Literals.DATA_EXPORT_SPECIFIER__STEP_SIZE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}

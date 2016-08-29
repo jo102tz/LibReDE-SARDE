@@ -22,7 +22,7 @@ package tools.descartes.librede.rrde.optimization;
  * @model
  * @generated
  */
-public interface DataExportSpecifier extends IConfigurationOptimizationAlgorithmSpecifier {
+public interface DataExportSpecifier extends ConfigurationOptimizationAlgorithmSpecifier {
 	/**
 	 * Returns the value of the '<em><b>Output Directory</b></em>' attribute.
 	 * The default value is <code>"\"\""</code>.

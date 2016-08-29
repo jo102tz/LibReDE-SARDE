@@ -94,14 +94,14 @@ public interface OptimizationPackage extends EPackage {
 	int OPTIMIZATION_CONFIGURATION_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier <em>IConfiguration Optimization Algorithm Specifier</em>}' class.
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier <em>Configuration Optimization Algorithm Specifier</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier
-	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getIConfigurationOptimizationAlgorithmSpecifier()
+	 * @see tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier
+	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getConfigurationOptimizationAlgorithmSpecifier()
 	 * @generated
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER = 1;
+	int CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER = 1;
 
 	/**
 	 * The feature id for the '<em><b>Time Out</b></em>' attribute.
@@ -110,7 +110,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT = 0;
+	int CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
@@ -119,25 +119,25 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME = 1;
+	int CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME = 1;
 
 	/**
-	 * The number of structural features of the '<em>IConfiguration Optimization Algorithm Specifier</em>' class.
+	 * The number of structural features of the '<em>Configuration Optimization Algorithm Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT = 2;
+	int CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT = 2;
 
 	/**
-	 * The number of operations of the '<em>IConfiguration Optimization Algorithm Specifier</em>' class.
+	 * The number of operations of the '<em>Configuration Optimization Algorithm Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT = 0;
+	int CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl <em>Local Search Specifier</em>}' class.
@@ -156,7 +156,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_SEARCH_SPECIFIER__TIME_OUT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
+	int LOCAL_SEARCH_SPECIFIER__TIME_OUT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
 
 	/**
 	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
@@ -165,7 +165,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_SEARCH_SPECIFIER__ALGORITHM_NAME = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+	int LOCAL_SEARCH_SPECIFIER__ALGORITHM_NAME = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Tolerance</b></em>' attribute.
@@ -174,7 +174,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_SEARCH_SPECIFIER__TOLERANCE = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+	int LOCAL_SEARCH_SPECIFIER__TOLERANCE = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Number Of Steps</b></em>' attribute.
@@ -183,7 +183,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_SEARCH_SPECIFIER__MAXIMUM_NUMBER_OF_STEPS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+	int LOCAL_SEARCH_SPECIFIER__MAXIMUM_NUMBER_OF_STEPS = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Step Size</b></em>' attribute.
@@ -192,7 +192,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_SEARCH_SPECIFIER__STEP_SIZE = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
+	int LOCAL_SEARCH_SPECIFIER__STEP_SIZE = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Local Search Specifier</em>' class.
@@ -201,7 +201,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_SEARCH_SPECIFIER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
+	int LOCAL_SEARCH_SPECIFIER_FEATURE_COUNT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Local Search Specifier</em>' class.
@@ -210,7 +210,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_SEARCH_SPECIFIER_OPERATION_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+	int LOCAL_SEARCH_SPECIFIER_OPERATION_COUNT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl <em>Run Call</em>}' class.
@@ -314,13 +314,22 @@ public interface OptimizationPackage extends EPackage {
 	int INPUT_DATA__ROOT_FOLDER = 2;
 
 	/**
+	 * The feature id for the '<em><b>Multi Folder Structures</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT_DATA__MULTI_FOLDER_STRUCTURES = 3;
+
+	/**
 	 * The number of structural features of the '<em>Input Data</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_DATA_FEATURE_COUNT = 3;
+	int INPUT_DATA_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Input Data</em>' class.
@@ -394,7 +403,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__TIME_OUT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__TIME_OUT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
 
 	/**
 	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
@@ -403,7 +412,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__ALGORITHM_NAME = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__ALGORITHM_NAME = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Number Of Splits</b></em>' attribute.
@@ -412,7 +421,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_SPLITS = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Number Of Explorations</b></em>' attribute.
@@ -421,7 +430,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_EXPLORATIONS = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Number Of Iterations</b></em>' attribute.
@@ -430,7 +439,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER__NUMBER_OF_ITERATIONS = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Iterative Parameter Optimizer Specifier</em>' class.
@@ -439,7 +448,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER_FEATURE_COUNT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Iterative Parameter Optimizer Specifier</em>' class.
@@ -448,7 +457,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER_OPERATION_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+	int ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER_OPERATION_COUNT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.IOptimizableParameter <em>IOptimizable Parameter</em>}' class.
@@ -696,7 +705,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_EXPORT_SPECIFIER__TIME_OUT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
+	int DATA_EXPORT_SPECIFIER__TIME_OUT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
 
 	/**
 	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
@@ -705,7 +714,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_EXPORT_SPECIFIER__ALGORITHM_NAME = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+	int DATA_EXPORT_SPECIFIER__ALGORITHM_NAME = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Output Directory</b></em>' attribute.
@@ -714,7 +723,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+	int DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Step Size</b></em>' attribute.
@@ -723,7 +732,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_EXPORT_SPECIFIER__STEP_SIZE = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+	int DATA_EXPORT_SPECIFIER__STEP_SIZE = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Multidimensional</b></em>' attribute.
@@ -732,7 +741,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
+	int DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Split Configurations</b></em>' attribute.
@@ -741,7 +750,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
+	int DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Data Export Specifier</em>' class.
@@ -750,7 +759,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_EXPORT_SPECIFIER_FEATURE_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 4;
+	int DATA_EXPORT_SPECIFIER_FEATURE_COUNT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Data Export Specifier</em>' class.
@@ -759,7 +768,7 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_EXPORT_SPECIFIER_OPERATION_COUNT = ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+	int DATA_EXPORT_SPECIFIER_OPERATION_COUNT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
 
 
 	/**
@@ -784,36 +793,36 @@ public interface OptimizationPackage extends EPackage {
 	EReference getOptimizationConfiguration_ContainsOf();
 
 	/**
-	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier <em>IConfiguration Optimization Algorithm Specifier</em>}'.
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier <em>Configuration Optimization Algorithm Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>IConfiguration Optimization Algorithm Specifier</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier
+	 * @return the meta object for class '<em>Configuration Optimization Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier
 	 * @generated
 	 */
-	EClass getIConfigurationOptimizationAlgorithmSpecifier();
+	EClass getConfigurationOptimizationAlgorithmSpecifier();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#getTimeOut <em>Time Out</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier#getTimeOut <em>Time Out</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Time Out</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#getTimeOut()
-	 * @see #getIConfigurationOptimizationAlgorithmSpecifier()
+	 * @see tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier#getTimeOut()
+	 * @see #getConfigurationOptimizationAlgorithmSpecifier()
 	 * @generated
 	 */
-	EAttribute getIConfigurationOptimizationAlgorithmSpecifier_TimeOut();
+	EAttribute getConfigurationOptimizationAlgorithmSpecifier_TimeOut();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#getAlgorithmName <em>Algorithm Name</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier#getAlgorithmName <em>Algorithm Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Algorithm Name</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier#getAlgorithmName()
-	 * @see #getIConfigurationOptimizationAlgorithmSpecifier()
+	 * @see tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier#getAlgorithmName()
+	 * @see #getConfigurationOptimizationAlgorithmSpecifier()
 	 * @generated
 	 */
-	EAttribute getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName();
+	EAttribute getConfigurationOptimizationAlgorithmSpecifier_AlgorithmName();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier <em>Local Search Specifier</em>}'.
@@ -954,6 +963,17 @@ public interface OptimizationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getInputData_RootFolder();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.InputData#isMultiFolderStructures <em>Multi Folder Structures</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Multi Folder Structures</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.InputData#isMultiFolderStructures()
+	 * @see #getInputData()
+	 * @generated
+	 */
+	EAttribute getInputData_MultiFolderStructures();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.OptimizationSettings <em>Settings</em>}'.
@@ -1210,14 +1230,14 @@ public interface OptimizationPackage extends EPackage {
 		EReference OPTIMIZATION_CONFIGURATION__CONTAINS_OF = eINSTANCE.getOptimizationConfiguration_ContainsOf();
 
 		/**
-		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier <em>IConfiguration Optimization Algorithm Specifier</em>}' class.
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier <em>Configuration Optimization Algorithm Specifier</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier
-		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getIConfigurationOptimizationAlgorithmSpecifier()
+		 * @see tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier
+		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getConfigurationOptimizationAlgorithmSpecifier()
 		 * @generated
 		 */
-		EClass ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier();
+		EClass CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER = eINSTANCE.getConfigurationOptimizationAlgorithmSpecifier();
 
 		/**
 		 * The meta object literal for the '<em><b>Time Out</b></em>' attribute feature.
@@ -1225,7 +1245,7 @@ public interface OptimizationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier_TimeOut();
+		EAttribute CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT = eINSTANCE.getConfigurationOptimizationAlgorithmSpecifier_TimeOut();
 
 		/**
 		 * The meta object literal for the '<em><b>Algorithm Name</b></em>' attribute feature.
@@ -1233,7 +1253,7 @@ public interface OptimizationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ICONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME = eINSTANCE.getIConfigurationOptimizationAlgorithmSpecifier_AlgorithmName();
+		EAttribute CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME = eINSTANCE.getConfigurationOptimizationAlgorithmSpecifier_AlgorithmName();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl <em>Local Search Specifier</em>}' class.
@@ -1344,6 +1364,14 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INPUT_DATA__ROOT_FOLDER = eINSTANCE.getInputData_RootFolder();
+
+		/**
+		 * The meta object literal for the '<em><b>Multi Folder Structures</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INPUT_DATA__MULTI_FOLDER_STRUCTURES = eINSTANCE.getInputData_MultiFolderStructures();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.OptimizationSettingsImpl <em>Settings</em>}' class.

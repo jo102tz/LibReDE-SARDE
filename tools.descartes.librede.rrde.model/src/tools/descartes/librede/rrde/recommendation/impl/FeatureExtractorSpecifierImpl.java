@@ -9,49 +9,49 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import tools.descartes.librede.rrde.recommendation.IRecommendationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>IRecommendation Algorithm Specifier</b></em>'.
+ * An implementation of the model object '<em><b>Feature Extractor Specifier</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.IRecommendationAlgorithmSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureExtractorSpecifierImpl#getFeatureExtractor <em>Feature Extractor</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Container implements IRecommendationAlgorithmSpecifier {
+public class FeatureExtractorSpecifierImpl extends MinimalEObjectImpl.Container implements FeatureExtractorSpecifier {
 	/**
-	 * The default value of the '{@link #getAlgorithmName() <em>Algorithm Name</em>}' attribute.
+	 * The default value of the '{@link #getFeatureExtractor() <em>Feature Extractor</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAlgorithmName()
+	 * @see #getFeatureExtractor()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String ALGORITHM_NAME_EDEFAULT = null;
+	protected static final String FEATURE_EXTRACTOR_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getAlgorithmName() <em>Algorithm Name</em>}' attribute.
+	 * The cached value of the '{@link #getFeatureExtractor() <em>Feature Extractor</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAlgorithmName()
+	 * @see #getFeatureExtractor()
 	 * @generated
 	 * @ordered
 	 */
-	protected String algorithmName = ALGORITHM_NAME_EDEFAULT;
+	protected String featureExtractor = FEATURE_EXTRACTOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IRecommendationAlgorithmSpecifierImpl() {
+	public FeatureExtractorSpecifierImpl() {
 		super();
 	}
 
@@ -62,7 +62,7 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return RecommendationPackage.Literals.IRECOMMENDATION_ALGORITHM_SPECIFIER;
+		return RecommendationPackage.Literals.FEATURE_EXTRACTOR_SPECIFIER;
 	}
 
 	/**
@@ -70,8 +70,8 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getAlgorithmName() {
-		return algorithmName;
+	public String getFeatureExtractor() {
+		return featureExtractor;
 	}
 
 	/**
@@ -79,11 +79,11 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAlgorithmName(String newAlgorithmName) {
-		String oldAlgorithmName = algorithmName;
-		algorithmName = newAlgorithmName;
+	public void setFeatureExtractor(String newFeatureExtractor) {
+		String oldFeatureExtractor = featureExtractor;
+		featureExtractor = newFeatureExtractor;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME, oldAlgorithmName, algorithmName));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR, oldFeatureExtractor, featureExtractor));
 	}
 
 	/**
@@ -94,8 +94,8 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
-				return getAlgorithmName();
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
+				return getFeatureExtractor();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -108,8 +108,8 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
-				setAlgorithmName((String)newValue);
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
+				setFeatureExtractor((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -123,8 +123,8 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
-				setAlgorithmName(ALGORITHM_NAME_EDEFAULT);
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
+				setFeatureExtractor(FEATURE_EXTRACTOR_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -138,8 +138,8 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case RecommendationPackage.IRECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME:
-				return ALGORITHM_NAME_EDEFAULT == null ? algorithmName != null : !ALGORITHM_NAME_EDEFAULT.equals(algorithmName);
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
+				return FEATURE_EXTRACTOR_EDEFAULT == null ? featureExtractor != null : !FEATURE_EXTRACTOR_EDEFAULT.equals(featureExtractor);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -154,10 +154,10 @@ public class IRecommendationAlgorithmSpecifierImpl extends MinimalEObjectImpl.Co
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (algorithmName: ");
-		result.append(algorithmName);
+		result.append(" (featureExtractor: ");
+		result.append(featureExtractor);
 		result.append(')');
 		return result.toString();
 	}
 
-} //IRecommendationAlgorithmSpecifierImpl
+} //FeatureExtractorSpecifierImpl

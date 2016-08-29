@@ -27,6 +27,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getInput <em>Input</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getWorkloadDescription <em>Workload Description</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getRootFolder <em>Root Folder</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#isMultiFolderStructures <em>Multi Folder Structures</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,11 +75,31 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	protected String rootFolder = ROOT_FOLDER_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isMultiFolderStructures() <em>Multi Folder Structures</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isMultiFolderStructures()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean MULTI_FOLDER_STRUCTURES_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isMultiFolderStructures() <em>Multi Folder Structures</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isMultiFolderStructures()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean multiFolderStructures = MULTI_FOLDER_STRUCTURES_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected InputDataImpl() {
+	public InputDataImpl() {
 		super();
 	}
 
@@ -204,6 +225,27 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isMultiFolderStructures() {
+		return multiFolderStructures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMultiFolderStructures(boolean newMultiFolderStructures) {
+		boolean oldMultiFolderStructures = multiFolderStructures;
+		multiFolderStructures = newMultiFolderStructures;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.INPUT_DATA__MULTI_FOLDER_STRUCTURES, oldMultiFolderStructures, multiFolderStructures));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -229,6 +271,8 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 				return getWorkloadDescription();
 			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
 				return getRootFolder();
+			case OptimizationPackage.INPUT_DATA__MULTI_FOLDER_STRUCTURES:
+				return isMultiFolderStructures();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -249,6 +293,9 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 				return;
 			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
 				setRootFolder((String)newValue);
+				return;
+			case OptimizationPackage.INPUT_DATA__MULTI_FOLDER_STRUCTURES:
+				setMultiFolderStructures((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -271,6 +318,9 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
 				setRootFolder(ROOT_FOLDER_EDEFAULT);
 				return;
+			case OptimizationPackage.INPUT_DATA__MULTI_FOLDER_STRUCTURES:
+				setMultiFolderStructures(MULTI_FOLDER_STRUCTURES_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -289,6 +339,8 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 				return workloadDescription != null;
 			case OptimizationPackage.INPUT_DATA__ROOT_FOLDER:
 				return ROOT_FOLDER_EDEFAULT == null ? rootFolder != null : !ROOT_FOLDER_EDEFAULT.equals(rootFolder);
+			case OptimizationPackage.INPUT_DATA__MULTI_FOLDER_STRUCTURES:
+				return multiFolderStructures != MULTI_FOLDER_STRUCTURES_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -305,6 +357,8 @@ public class InputDataImpl extends MinimalEObjectImpl.Container implements Input
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (rootFolder: ");
 		result.append(rootFolder);
+		result.append(", multiFolderStructures: ");
+		result.append(multiFolderStructures);
 		result.append(')');
 		return result.toString();
 	}

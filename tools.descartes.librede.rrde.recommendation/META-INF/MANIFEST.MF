@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Recommendation
+Bundle-SymbolicName: tools.descartes.librede.rrde.recommendation;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: tools.descartes.librede.rrde.optimization;bundle-version="1.0.0",
+ org.apache.log4j;bundle-version="1.2.15",
+ tools.descartes.librede.model;bundle-version="1.1.0",
+ tools.descartes.librede.rrde.model;bundle-version="1.0.0",
+ tools.descartes.librede.estimation,
+ tools.descartes.librede.rrde.rinterface;bundle-version="1.0.0",
+ org.eclipse.equinox.app,
+ org.eclipse.emf.ecore.xmi,
+ org.apache.commons.math3;bundle-version="3.2.0",
+ tools.descartes.librede.linalg;bundle-version="1.1.0"

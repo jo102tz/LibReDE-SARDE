@@ -28,7 +28,6 @@ package tools.descartes.librede.rrde.optimization;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -49,7 +48,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
@@ -59,7 +57,6 @@ import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.exceptions.EstimationException;
-import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
 
 /**
@@ -74,7 +71,7 @@ public class Plugin implements IApplication {
 	/**
 	 * The logging level for all classes of this package
 	 */
-	private static final Level loglevel = Level.TRACE;
+	private static final Level loglevel = Level.INFO;
 
 	/**
 	 * The logger used for logging
@@ -85,14 +82,14 @@ public class Plugin implements IApplication {
 	 * The path to the default {@link LibredeConfiguration}
 	 */
 	public final static String LIB_PATH = "resources" + File.separator
-			+ "specj.librede";
+			+ "estimation.librede";
 
 	/**
 	 * The path to the default {@link OptimizationConfiguration}
 	 */
 	public final static String CONF_PATH = "resources" + File.separator
 			+ "test" + File.separator + "src" + File.separator
-			+ "specj.optimization";
+			+ "conf.optimization";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -107,21 +104,21 @@ public class Plugin implements IApplication {
 			// load config files
 			LibredeConfiguration librede = Librede.loadConfiguration(new File(
 					LIB_PATH).toPath());
-			OptimizationConfiguration conf = loadConfiguration(new File(
+			OptimizationConfiguration conf = Util.loadOptimizationConfiguration(new File(
 					CONF_PATH).toPath());
 
 			// This is a fixup to replace the data sources with ones from
 			// librede.
-//			for (RunCall call : conf.getContainsOf()) {
-//				for (InputData spec : call.getTrainingData()) {
-//					spec.getInput()
-//							.getDataSources()
-//							.get(0)
-//							.getParameters()
-//							.addAll(librede.getInput().getDataSources().get(0)
-//									.getParameters());
-//				}
-//			}
+			// for (RunCall call : conf.getContainsOf()) {
+			// for (InputData spec : call.getTrainingData()) {
+			// spec.getInput()
+			// .getDataSources()
+			// .get(0)
+			// .getParameters()
+			// .addAll(librede.getInput().getDataSources().get(0)
+			// .getParameters());
+			// }
+			// }
 
 			// run optimization
 			runConfigurationOptimization(librede, conf, OUTPUT);
@@ -183,11 +180,9 @@ public class Plugin implements IApplication {
 					// deep copy
 					RunCall newCall = EcoreUtil.copy(call);
 
-					newCall.setEstimation(EcoreUtil.copy(call
-							.getEstimation()));
+					newCall.setEstimation(EcoreUtil.copy(call.getEstimation()));
 
-					newCall.getEstimation().getApproaches()
-							.clear();
+					newCall.getEstimation().getApproaches().clear();
 					newCall.getEstimation().getApproaches()
 							.add(EcoreUtil.copy(approach));
 
@@ -262,62 +257,6 @@ public class Plugin implements IApplication {
 		}
 	}
 
-	// private void mergeNumericParameter(LibredeConfiguration librede,
-	// HashMap<RunCall, EstimationSpecification> results, String eClass)
-	// throws InstantiationException, IllegalAccessException {
-	// HashMap<RunCall, EstimationSpecification> tmp = new HashMap<RunCall,
-	// EstimationSpecification>();
-	// for (RunCall result : results.keySet()) {
-	// // look through all results with given parameter
-	// for (IOptimizableParameter para : result.getSettings()
-	// .getParametersToOptimize()) {
-	// if (para.getClass().getInterfaces()[0].getName().equals(eClass)) {
-	// tmp.put(result, results.get(result));
-	// }
-	// }
-	// }
-	// // retrieve results
-	// HashSet<Double> nums = retrieveNumerics(tmp, eClass);
-	// if (nums.isEmpty()) {
-	// log.warn("No numeric results for merging " + eClass + ".");
-	// return;
-	// } else if (nums.size() > 1) {
-	// // multiple values
-	// DescriptiveStatistics stat = new DescriptiveStatistics();
-	// for (Double d : nums)
-	// stat.addValue(d);
-	// log.warn("There were multiple results for the single parameter "
-	// + eClass + ". Using the average of " + stat.getMean()
-	// + " as final result.");
-	// Util.setValue(librede, stat.getMean(), eClass);
-	// } else {
-	// // there is exactly one value
-	// Util.setValue(librede, nums.iterator().next(), eClass);
-	// }
-	// }
-	//
-	// private HashSet<Double> retrieveNumerics(
-	// HashMap<RunCall, EstimationSpecification> results, String eClass)
-	// throws InstantiationException, IllegalAccessException {
-	// HashSet<Double> nums = new HashSet<Double>();
-	//
-	// for (EstimationSpecification result : results.values()) {
-	// // switch all known types of optimization
-	// if (eClass.equals(StepSize.class.getName())) {
-	// nums.add(result.getStepSize().getValue());
-	// } else if (eClass.equals(WindowSize.class.getName())) {
-	// nums.add(new Double(result.getWindow()));
-	// } else if (eClass.equals(GenericParameter.class.getName())) {
-	// log.warn("The merging of GenericParameter is not supported and will be ignored.");
-	// } else {
-	// log.error("No handling adapter of merging OptimizableParameter "
-	// + eClass);
-	// }
-	// }
-	//
-	// return nums;
-	// }
-
 	/**
 	 * Concurrently executes the given {@link RunCall}s and returns a map with
 	 * the corresponding results.
@@ -387,28 +326,6 @@ public class Plugin implements IApplication {
 	}
 
 	/**
-	 * Loads the given path as a {@link OptimizationConfiguration}
-	 * configuration, if one is found.
-	 * 
-	 * @param path
-	 *            The Path to the configuration file
-	 * @return The specified {@link OptimizationConfiguration}
-	 * @throws Exception
-	 *             If something in the loading process fails
-	 */
-	public static OptimizationConfiguration loadConfiguration(Path path) {
-		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put("optimization", new XMIResourceFactoryImpl());
-		File configFile = new File(path.toString());
-		URI fileURI = URI.createFileURI(configFile.getAbsolutePath());
-		org.eclipse.emf.ecore.resource.Resource resource = resourceSet
-				.getResource(fileURI, true);
-		EcoreUtil.resolveAll(resource);
-		return (OptimizationConfiguration) resource.getContents().get(0);
-	}
-
-	/**
 	 * Initializes the logging for better readability.
 	 */
 	public void initLogging() {
@@ -417,12 +334,11 @@ public class Plugin implements IApplication {
 		Logger.getLogger(
 				tools.descartes.librede.Librede.class.getPackage().getName())
 				.setLevel(Level.WARN);
+		Logger.getLogger(this.getClass().getPackage().getName()).setLevel(
+				loglevel);
 		Logger.getLogger(
-				tools.descartes.librede.rrde.optimization.Plugin.class.getPackage()
-						.getName()).setLevel(loglevel);
-		Logger.getLogger(
-				tools.descartes.librede.rrde.rinterface.RBridge.class.getPackage()
-						.getName()).setLevel(loglevel);
+				tools.descartes.librede.rrde.rinterface.RBridge.class
+						.getPackage().getName()).setLevel(loglevel);
 	}
 
 	/**

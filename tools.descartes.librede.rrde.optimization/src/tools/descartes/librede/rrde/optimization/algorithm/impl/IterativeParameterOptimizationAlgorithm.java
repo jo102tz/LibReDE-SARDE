@@ -31,7 +31,7 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
-import tools.descartes.librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
@@ -75,7 +75,7 @@ public class IterativeParameterOptimizationAlgorithm
 	 */
 	@Override
 	public boolean isSpecifierSupported(
-			IConfigurationOptimizationAlgorithmSpecifier specifier) {
+			ConfigurationOptimizationAlgorithmSpecifier specifier) {
 		if (specifier instanceof IterativeParameterOptimizerSpecifierImpl) {
 			return true;
 		}

@@ -18,6 +18,7 @@ import tools.descartes.librede.configuration.WorkloadDescription;
  *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getInput <em>Input</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getWorkloadDescription <em>Workload Description</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getRootFolder <em>Root Folder</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#isMultiFolderStructures <em>Multi Folder Structures</em>}</li>
  * </ul>
  * </p>
  *
@@ -103,5 +104,32 @@ public interface InputData extends EObject {
 	 * @generated
 	 */
 	void setRootFolder(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Multi Folder Structures</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Multi Folder Structures</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Multi Folder Structures</em>' attribute.
+	 * @see #setMultiFolderStructures(boolean)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getInputData_MultiFolderStructures()
+	 * @model default="false" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+	 * @generated
+	 */
+	boolean isMultiFolderStructures();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.InputData#isMultiFolderStructures <em>Multi Folder Structures</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Multi Folder Structures</em>' attribute.
+	 * @see #isMultiFolderStructures()
+	 * @generated
+	 */
+	void setMultiFolderStructures(boolean value);
 
 } // InputData

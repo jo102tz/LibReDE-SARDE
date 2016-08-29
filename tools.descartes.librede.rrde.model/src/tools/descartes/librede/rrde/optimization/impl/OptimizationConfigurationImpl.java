@@ -49,7 +49,7 @@ public class OptimizationConfigurationImpl extends MinimalEObjectImpl.Container 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OptimizationConfigurationImpl() {
+	public OptimizationConfigurationImpl() {
 		super();
 	}
 
