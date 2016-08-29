@@ -57,15 +57,24 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 	/**
 	 * The log used for logging.
 	 */
-	private static final Logger log = Logger
-			.getLogger(EstimateExportAlgorithm.class);
+	private static final Logger log = Logger.getLogger(EstimateExportAlgorithm.class);
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer
+	 * #getLog()
+	 */
+	@Override
+	protected Logger getLog() {
+		return this.log;
+	}
 
 	@Override
-	protected void exportAllParameters(
-			EList<IOptimizableParameter> parametersToOptimize) {
-		throw new UnsupportedOperationException("The "
-				+ this.getClass().getSimpleName()
-				+ " does not support mulit-parameter resolution.");
+	protected void exportAllParameters(EList<IOptimizableParameter> parametersToOptimize) {
+		throw new UnsupportedOperationException(
+				"The " + this.getClass().getSimpleName() + " does not support mulit-parameter resolution.");
 	}
 
 	/**
@@ -82,8 +91,7 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 		Class<? extends IEstimationApproach> approach = null;
 		try {
 			approach = (Class<? extends IEstimationApproach>) Class
-					.forName(getSpecification().getApproaches().get(0)
-							.getType());
+					.forName(getSpecification().getApproaches().get(0).getType());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -94,15 +102,13 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 		}
 
 		List<BufferedWriter> writers = new ArrayList<BufferedWriter>();
-		for (ModelEntity res : results.get(getConfs().iterator().next())
-				.getValidatedEntities().get(ResponseTimeValidator.class)) {
-			writers.add(initFile(getSimpleApproachName() + "_" + paramname
-					+ "_" + res.getName() + "_estimates.csv"));
+		for (ModelEntity res : results.get(getConfs().iterator().next()).getValidatedEntities()
+				.get(ResponseTimeValidator.class)) {
+			writers.add(initFile(getSimpleApproachName() + "_" + paramname + "_" + res.getName() + "_estimates.csv"));
 		}
 
 		if (!settings().isSplitConfigurations()) {
-			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings()
-					.getStepSize()) {
+			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
 				setTargetValue(param, i);
 				adaptOtherValues(param, i);
 				runIteration();
@@ -112,9 +118,8 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 					// aggregate over all configurations for average
 					DescriptiveStatistics stat = new DescriptiveStatistics();
 					for (LibredeConfiguration conf : getConfs()) {
-						stat.addValue(getLastResults().get(conf)
-								.getApproachResults(approach)
-								.getMeanEstimates().get(j, 0));
+						stat.addValue(
+								getLastResults().get(conf).getApproachResults(approach).getMeanEstimates().get(j, 0));
 						j++;
 					}
 					writeDouble(s, stat.getMean());
@@ -122,11 +127,9 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 				}
 			}
 		} else {
-			Set<LibredeConfiguration> original = new HashSet<LibredeConfiguration>(
-					getConfs());
+			Set<LibredeConfiguration> original = new HashSet<LibredeConfiguration>(getConfs());
 			// write header
-			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings()
-					.getStepSize()) {
+			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
 				for (BufferedWriter s : writers) {
 					writeDouble(s, i);
 				}
@@ -138,16 +141,14 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 			for (LibredeConfiguration conf : original) {
 				getConfs().clear();
 				getConfs().add(conf);
-				for (double i = param.getLowerBound(); i <= param
-						.getUpperBound(); i += settings().getStepSize()) {
+				for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
 					setTargetValue(param, i);
 					adaptOtherValues(param, i);
 					runIteration();
 					int j = 0;
 					for (BufferedWriter s : writers) {
-						writeDouble(s, getLastResults().get(conf)
-								.getApproachResults(approach)
-								.getMeanEstimates().get(j, 0));
+						writeDouble(s,
+								getLastResults().get(conf).getApproachResults(approach).getMeanEstimates().get(j, 0));
 						j++;
 					}
 				}

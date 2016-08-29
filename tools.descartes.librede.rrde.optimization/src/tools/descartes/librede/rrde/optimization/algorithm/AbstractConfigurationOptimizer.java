@@ -250,6 +250,11 @@ public abstract class AbstractConfigurationOptimizer implements
 						+ getSpecification().toString());
 		time = System.currentTimeMillis();
 		init();
+		if(confs.size()==0){
+			getLog().error("Execution stopped due to lack of training data.");
+			finished=true;
+			return false;
+		}
 		executeAlgorithm();
 		double newError = runIteration();
 		finished = true;

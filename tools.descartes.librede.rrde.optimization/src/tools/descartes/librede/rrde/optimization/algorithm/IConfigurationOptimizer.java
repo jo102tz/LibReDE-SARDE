@@ -64,7 +64,7 @@ public interface IConfigurationOptimizer {
 	 *            specific parameters of the concretely used algorithm.
 	 * 
 	 * @return True, if the executed finished successfully, false if the
-	 *         execution was interrupted or otherwise not finish as planned.
+	 *         execution was interrupted or did not finish as planned.
 	 * @throws IllegalArgumentException
 	 *             If the instance of
 	 *             {@link IConfigurationOptimizationAlgorithmSpecifier} is not
