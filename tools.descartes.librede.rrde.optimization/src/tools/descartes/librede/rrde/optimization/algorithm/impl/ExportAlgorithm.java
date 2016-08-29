@@ -75,19 +75,24 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * This value will be used to replace MAX_DOUBLE values.
 	 */
 	private static final String MAX_DOUBLE_REPLACE = "NA";
-	
+
 	/**
 	 * This value will be used to replace NaN values.
 	 */
 	private static final String NaN_REPLACE = "NA";
 
 	/**
-	 * The character to differentiate between to elements in the file
+	 * The character to differentiate between to elements in the file.
 	 */
 	private static final String BREAK = ";";
 
 	/**
-	 * The character to skip to the next line
+	 * The maximum error to print.
+	 */
+	private static final double MAX_ERROR_THRESHOLD = 5;
+
+	/**
+	 * The character to skip to the next line.
 	 */
 	private static final String BREAKLINE = System.getProperty("line.separator");
 
@@ -307,7 +312,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 			writeString(s, MAX_DOUBLE_REPLACE);
 			return;
 		}
-		if(Double.isNaN(d)){
+		if (Double.isNaN(d)) {
 			getLog().warn("Error is NaN.");
 			writeString(s, NaN_REPLACE);
 			return;
@@ -315,6 +320,11 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		if (d < 0) {
 			getLog().warn("Error is negative.");
 			writeDouble(s, 0);
+			return;
+		}
+		if (d > MAX_ERROR_THRESHOLD) {
+			getLog().warn("Error is greater than the defined maximum error of " + MAX_ERROR_THRESHOLD + ".");
+			writeDouble(s, MAX_ERROR_THRESHOLD);
 			return;
 		}
 		writeDouble(s, d);
@@ -332,15 +342,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		if (s == null)
 			return;
 		try {
-			try{
-				Double.parseDouble(simpleName);
-			} catch(Exception e){
-				if(!simpleName.equals("NA"))
-				System.out.println("Yeah!");
-			}
-			if (simpleName.equals("?")) {
-				System.out.println("Hallo");
-			}
 			s.write(simpleName);
 			s.write(BREAK);
 		} catch (IOException e) {
