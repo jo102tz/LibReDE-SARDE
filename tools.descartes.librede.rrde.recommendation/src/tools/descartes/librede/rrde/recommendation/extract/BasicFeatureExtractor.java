@@ -27,12 +27,12 @@
 package tools.descartes.librede.rrde.recommendation.extract;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.log4j.Logger;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.Resource;
-import tools.descartes.librede.linalg.Matrix;
 import tools.descartes.librede.metrics.Aggregation;
 import tools.descartes.librede.metrics.StandardMetrics;
 import tools.descartes.librede.repository.TimeSeries;
@@ -50,6 +50,15 @@ import tools.descartes.librede.units.Unit;
  */
 public class BasicFeatureExtractor implements IFeatureExtractor {
 
+	/**
+	 * The logger used for logging.
+	 */
+	private static final Logger log = Logger
+			.getLogger(BasicFeatureExtractor.class);
+
+	/**
+	 * The standard time unit for all features.
+	 */
 	public Unit<? extends Time> basicTime = Time.MILLISECONDS;
 
 	/*
@@ -105,11 +114,20 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		for (Resource res : var.getRepo().getWorkload().getResources()) {
 			TimeSeries series = var.getRepo().select(
 					StandardMetrics.UTILIZATION, Ratio.PERCENTAGE, res,
-					Aggregation.NONE);
-			Matrix data = series.getData();
-			stat.addValue(data.get(0, 0));
+					Aggregation.AVERAGE);
+			// time series should only contain one dimension
+			if (series.getData().columns() > 1) {
+				log.warn("The time series " + series
+						+ " has more than one column. ");
+			} else if (series.getData().columns() == 0 || series.isEmpty()) {
+				log.warn("The time series " + series + " is empty.");
+			}
+			addSeriesToStats(stat, series);
 		}
-		// TODO
+		vector.setUtilizationMean(stat.getMean());
+		vector.setUtilizationVariance(stat.getVariance());
+		vector.setUtilizationMax(stat.getMax());
+		vector.setUtilizationMin(stat.getMin());
 	}
 
 	/**
@@ -125,6 +143,14 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 			LibredeVariables var) {
 		// TODO Auto-generated method stub
 
+	}
+
+	private void addSeriesToStats(DescriptiveStatistics stat, TimeSeries series) {
+		for (int i = 0; i < series.getData().columns(); i++) {
+			for (int j = 0; j < series.getData(i).rows(); j++) {
+				stat.addValue(series.getData().get(j, i));
+			}
+		}
 	}
 
 }

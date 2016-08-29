@@ -323,13 +323,31 @@ public interface RecommendationPackage extends EPackage {
 	int FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR = 5;
 
 	/**
+	 * The feature id for the '<em><b>Utilization Min</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_VECTOR__UTILIZATION_MIN = 6;
+
+	/**
+	 * The feature id for the '<em><b>Utilization Max</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_VECTOR__UTILIZATION_MAX = 7;
+
+	/**
 	 * The number of structural features of the '<em>Feature Vector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR_FEATURE_COUNT = 6;
+	int FEATURE_VECTOR_FEATURE_COUNT = 8;
 
 	/**
 	 * The number of operations of the '<em>Feature Vector</em>' class.
@@ -686,6 +704,28 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getFeatureVector_VarianceInflationFactor();
 
 	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMin <em>Utilization Min</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Utilization Min</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMin()
+	 * @see #getFeatureVector()
+	 * @generated
+	 */
+	EAttribute getFeatureVector_UtilizationMin();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMax <em>Utilization Max</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Utilization Max</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMax()
+	 * @see #getFeatureVector()
+	 * @generated
+	 */
+	EAttribute getFeatureVector_UtilizationMax();
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures <em>Trace Features</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1005,6 +1045,22 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR = eINSTANCE.getFeatureVector_VarianceInflationFactor();
+
+		/**
+		 * The meta object literal for the '<em><b>Utilization Min</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FEATURE_VECTOR__UTILIZATION_MIN = eINSTANCE.getFeatureVector_UtilizationMin();
+
+		/**
+		 * The meta object literal for the '<em><b>Utilization Max</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FEATURE_VECTOR__UTILIZATION_MAX = eINSTANCE.getFeatureVector_UtilizationMax();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl <em>Trace Features</em>}' class.

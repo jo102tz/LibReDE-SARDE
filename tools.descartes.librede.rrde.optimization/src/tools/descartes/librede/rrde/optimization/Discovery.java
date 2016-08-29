@@ -414,7 +414,7 @@ public class Discovery {
 				if (!new File(filetrace.getFile()).toPath().getParent()
 						.equals(folder)) {
 					// this one is not in the same parent as the first one
-					log.info("Configuration of "
+					log.debug("Configuration of "
 							+ root
 							+ " was excluded, because not all files were in the same folder.");
 					return;

@@ -76,6 +76,9 @@
       <parameters name="LowerBoundsInfValue" value="-1e19"/>
     </algorithms>
     <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+       <unit href="librede:units#SECONDS"/>
+    </stepSize>
     <startTimestamp value="1.370160271015E12">
       <unit href="librede:units#MILLISECONDS"/>
     </startTimestamp>

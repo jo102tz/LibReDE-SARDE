@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
@@ -232,7 +233,7 @@ public class Plugin implements IApplication {
 		EMap<EstimationSpecification, Double> results = new BasicEMap<EstimationSpecification, Double>();
 		for (EstimationSpecification spec : estimators) {
 			// calculate error values for all estimators
-			conf.setEstimation(spec);
+			conf.setEstimation(EcoreUtil.copy(spec));
 			results.put(spec,
 					Util.getMeanValidationError(Wrapper.executeLibrede(conf)));
 		}

@@ -346,6 +346,24 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFeatureVector_UtilizationMin() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_UtilizationMax() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTraceFeatures() {
 		return traceFeaturesEClass;
 	}
@@ -493,6 +511,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_VARIANCE);
 		createEReference(featureVectorEClass, FEATURE_VECTOR__TRACES);
 		createEAttribute(featureVectorEClass, FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_MIN);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_MAX);
 
 		traceFeaturesEClass = createEClass(TRACE_FEATURES);
 		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__ARITHMETIC_MEAN);
@@ -574,6 +594,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEAttribute(getFeatureVector_UtilizationVariance(), theXMLTypePackage.getDouble(), "utilizationVariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureVector_Traces(), this.getTraceFeatures(), null, "traces", null, 0, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureVector_VarianceInflationFactor(), theXMLTypePackage.getDouble(), "varianceInflationFactor", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationMin(), theXMLTypePackage.getDouble(), "utilizationMin", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationMax(), theXMLTypePackage.getDouble(), "utilizationMax", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(traceFeaturesEClass, TraceFeatures.class, "TraceFeatures", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTraceFeatures_ArithmeticMean(), theXMLTypePackage.getDouble(), "arithmeticMean", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

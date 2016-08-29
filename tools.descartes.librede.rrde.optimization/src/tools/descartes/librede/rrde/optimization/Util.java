@@ -50,8 +50,6 @@ import tools.descartes.librede.configuration.Parameter;
 import tools.descartes.librede.linalg.Matrix;
 import tools.descartes.librede.registry.ParameterDefinition;
 import tools.descartes.librede.registry.Registry;
-import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
-import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 
 /**

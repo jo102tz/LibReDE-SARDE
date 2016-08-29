@@ -32,6 +32,8 @@ import tools.descartes.librede.rrde.recommendation.TraceFeatures;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getUtilizationVariance <em>Utilization Variance</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getTraces <em>Traces</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getVarianceInflationFactor <em>Variance Inflation Factor</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getUtilizationMin <em>Utilization Min</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getUtilizationMax <em>Utilization Max</em>}</li>
  * </ul>
  * </p>
  *
@@ -147,6 +149,46 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @ordered
 	 */
 	protected double varianceInflationFactor = VARIANCE_INFLATION_FACTOR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getUtilizationMin() <em>Utilization Min</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUtilizationMin()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double UTILIZATION_MIN_EDEFAULT = -1.0;
+
+	/**
+	 * The cached value of the '{@link #getUtilizationMin() <em>Utilization Min</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUtilizationMin()
+	 * @generated
+	 * @ordered
+	 */
+	protected double utilizationMin = UTILIZATION_MIN_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getUtilizationMax() <em>Utilization Max</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUtilizationMax()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double UTILIZATION_MAX_EDEFAULT = -1.0;
+
+	/**
+	 * The cached value of the '{@link #getUtilizationMax() <em>Utilization Max</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUtilizationMax()
+	 * @generated
+	 * @ordered
+	 */
+	protected double utilizationMax = UTILIZATION_MAX_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -289,6 +331,48 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public double getUtilizationMin() {
+		return utilizationMin;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUtilizationMin(double newUtilizationMin) {
+		double oldUtilizationMin = utilizationMin;
+		utilizationMin = newUtilizationMin;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MIN, oldUtilizationMin, utilizationMin));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public double getUtilizationMax() {
+		return utilizationMax;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUtilizationMax(double newUtilizationMax) {
+		double oldUtilizationMax = utilizationMax;
+		utilizationMax = newUtilizationMax;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MAX, oldUtilizationMax, utilizationMax));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -304,6 +388,10 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 				return getTraces();
 			case RecommendationPackage.FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR:
 				return getVarianceInflationFactor();
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MIN:
+				return getUtilizationMin();
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MAX:
+				return getUtilizationMax();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -336,6 +424,12 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 			case RecommendationPackage.FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR:
 				setVarianceInflationFactor((Double)newValue);
 				return;
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MIN:
+				setUtilizationMin((Double)newValue);
+				return;
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MAX:
+				setUtilizationMax((Double)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -366,6 +460,12 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 			case RecommendationPackage.FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR:
 				setVarianceInflationFactor(VARIANCE_INFLATION_FACTOR_EDEFAULT);
 				return;
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MIN:
+				setUtilizationMin(UTILIZATION_MIN_EDEFAULT);
+				return;
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MAX:
+				setUtilizationMax(UTILIZATION_MAX_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -390,6 +490,10 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 				return traces != null && !traces.isEmpty();
 			case RecommendationPackage.FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR:
 				return varianceInflationFactor != VARIANCE_INFLATION_FACTOR_EDEFAULT;
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MIN:
+				return utilizationMin != UTILIZATION_MIN_EDEFAULT;
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MAX:
+				return utilizationMax != UTILIZATION_MAX_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -414,6 +518,10 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 		result.append(utilizationVariance);
 		result.append(", varianceInflationFactor: ");
 		result.append(varianceInflationFactor);
+		result.append(", utilizationMin: ");
+		result.append(utilizationMin);
+		result.append(", utilizationMax: ");
+		result.append(utilizationMax);
 		result.append(')');
 		return result.toString();
 	}

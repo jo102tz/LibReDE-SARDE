@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationVariance <em>Utilization Variance</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getTraces <em>Traces</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getVarianceInflationFactor <em>Variance Inflation Factor</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMin <em>Utilization Min</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMax <em>Utilization Max</em>}</li>
  * </ul>
  * </p>
  *
@@ -178,5 +180,59 @@ public interface FeatureVector extends EObject {
 	 * @generated
 	 */
 	void setVarianceInflationFactor(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Utilization Min</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Utilization Min</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Utilization Min</em>' attribute.
+	 * @see #setUtilizationMin(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationMin()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getUtilizationMin();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMin <em>Utilization Min</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Utilization Min</em>' attribute.
+	 * @see #getUtilizationMin()
+	 * @generated
+	 */
+	void setUtilizationMin(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Utilization Max</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Utilization Max</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Utilization Max</em>' attribute.
+	 * @see #setUtilizationMax(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationMax()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getUtilizationMax();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMax <em>Utilization Max</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Utilization Max</em>' attribute.
+	 * @see #getUtilizationMax()
+	 * @generated
+	 */
+	void setUtilizationMax(double value);
 
 } // FeatureVector

@@ -68,6 +68,8 @@ public class FeatureVectorItemProvider
 			addUtilizationVariancePropertyDescriptor(object);
 			addTracesPropertyDescriptor(object);
 			addVarianceInflationFactorPropertyDescriptor(object);
+			addUtilizationMinPropertyDescriptor(object);
+			addUtilizationMaxPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -205,6 +207,50 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Utilization Min feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUtilizationMinPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_utilizationMin_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationMin_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_MIN,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Utilization Max feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUtilizationMaxPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_utilizationMax_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationMax_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_MAX,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns FeatureVector.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -245,6 +291,8 @@ public class FeatureVectorItemProvider
 			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MEAN:
 			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_VARIANCE:
 			case RecommendationPackage.FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR:
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MIN:
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MAX:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

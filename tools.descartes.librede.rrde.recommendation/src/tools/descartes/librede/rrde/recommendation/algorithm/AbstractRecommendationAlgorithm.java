@@ -26,9 +26,6 @@
  */
 package tools.descartes.librede.rrde.recommendation.algorithm;
 
-import java.util.Map;
-
-import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EMap;
 
@@ -36,25 +33,33 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 
 /**
- * Basic recommendation algorithm based on the apache.commons.math3 package
- * functionality.
+ * Abstract class providing simple functionality for the
+ * {@link IRecomendationAlgorithm} interface.
  * 
  * @author JS
  *
  */
-public class BasicRecommendationAlgorithm extends
-		AbstractRecommendationAlgorithm {
+public abstract class AbstractRecommendationAlgorithm implements
+		IRecomendationAlgorithm {
 
 	/**
-	 * The logger used for logging.
+	 * Returns the log instance, to provide proper visible logging.
+	 * 
+	 * @return the logger of the implementing class
 	 */
-	private static final Logger log = Logger
-			.getLogger(BasicRecommendationAlgorithm.class);
+	protected abstract Logger getLog();
 
-	/**
-	 * The regression instance.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
+	 * #getName()
 	 */
-	private OLSMultipleLinearRegression regression;
+	@Override
+	public String getName() {
+		return this.getClass().getSimpleName();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -65,7 +70,8 @@ public class BasicRecommendationAlgorithm extends
 	 */
 	@Override
 	public void initialize() {
-		regression = new OLSMultipleLinearRegression();
+		// TODO Auto-generated method stub
+
 	}
 
 	/*
@@ -94,7 +100,7 @@ public class BasicRecommendationAlgorithm extends
 	@Override
 	public boolean trainSet(EMap<EstimationSpecification, Double> errors,
 			FeatureVector features) throws IllegalStateException {
-		// TODO
+		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -107,19 +113,8 @@ public class BasicRecommendationAlgorithm extends
 	 */
 	@Override
 	public boolean endTrainingPhase() {
-		// TODO
+		// TODO Auto-generated method stub
 		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tools.descartes.librede.rrde.recommendation.algorithm.
-	 * AbstractRecommendationAlgorithm#getLog()
-	 */
-	@Override
-	protected Logger getLog() {
-		return log;
 	}
 
 }
