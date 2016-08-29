@@ -2,7 +2,7 @@
 <librede-optimization:OptimizationConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization">
   <containsOf>
     <algorithm xsi:type="librede-optimization:DataExportSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm" OutputDirectory="output" stepSize="10.0"/>
-    <trainingData rootFolder="C:\Users\JS\Desktop\Train\data">
+    <trainingData rootFolder="C:\Users\JS\Desktop\Train\data" multiFolderStructures="true">
       <input>
         <dataSources name="CSV Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
           <parameters name="SkipFirstLine" value="off"/>
