@@ -59,7 +59,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	/**
 	 * The log used for logging.
 	 */
-	private static final Logger log = Logger.getLogger(ExportAlgorithm.class);
+	private final Logger log = Logger.getLogger(ExportAlgorithm.class);
 
 	/**
 	 * The settings used by this algorithm
@@ -137,7 +137,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 */
 	@Override
 	protected Logger getLog() {
-		return log;
+		return this.log;
 	}
 
 	/*
@@ -189,7 +189,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * @param parametersToOptimize
 	 *            the parameters to export
 	 */
-	private void exportAllParameters(
+	protected void exportAllParameters(
 			EList<IOptimizableParameter> parametersToOptimize) {
 		if (parametersToOptimize.size() != 2) {
 			getLog().error(
@@ -246,7 +246,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * @param param
 	 *            the parameter to export
 	 */
-	private void exportSingleParameter(IOptimizableParameter param) {
+	protected void exportSingleParameter(IOptimizableParameter param) {
 		String paramname = param.getClass().getSimpleName();
 		if (param instanceof GenericParameter) {
 			paramname = ((GenericParameter) param).getParameter().getName();
@@ -321,7 +321,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 *            the writer
 	 * @param double the error to write
 	 */
-	private void writeError(BufferedWriter s, double d) {
+	protected void writeError(BufferedWriter s, double d) {
 		if (d == Double.MAX_VALUE) {
 			getLog().warn("Error is Double.MAX_VALUE.");
 			writeString(s, MAX_DOUBLE_REPLACE);
@@ -348,7 +348,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * @param simpleName
 	 *            the string to write
 	 */
-	private void writeString(BufferedWriter s, String simpleName) {
+	protected void writeString(BufferedWriter s, String simpleName) {
 		if (s == null)
 			return;
 		try {
@@ -366,7 +366,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 *            the writer
 	 * @param double the double to write
 	 */
-	private void writeDouble(BufferedWriter s, double d) {
+	protected void writeDouble(BufferedWriter s, double d) {
 		writeString(s, df.format(d));
 	}
 
@@ -377,7 +377,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 *            the writer
 	 * @param double the double to write
 	 */
-	private void newLine(BufferedWriter s) {
+	protected void newLine(BufferedWriter s) {
 		if (s == null)
 			return;
 		try {

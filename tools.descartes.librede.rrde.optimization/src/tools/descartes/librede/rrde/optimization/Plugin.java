@@ -82,14 +82,14 @@ public class Plugin implements IApplication {
 	 * The path to the default {@link LibredeConfiguration}
 	 */
 	public final static String LIB_PATH = "resources" + File.separator
-			+ "specj.librede";
+			+ "estimation.librede";
 
 	/**
 	 * The path to the default {@link OptimizationConfiguration}
 	 */
 	public final static String CONF_PATH = "resources" + File.separator
 			+ "test" + File.separator + "src" + File.separator
-			+ "specj.optimization";
+			+ "conf.optimization";
 
 	/**
 	 * The output path, where all output files are stored.

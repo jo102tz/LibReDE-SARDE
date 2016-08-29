@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <librede-optimization:OptimizationConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization">
   <containsOf>
-    <algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm"/>
+    <algorithm xsi:type="librede-optimization:DataExportSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.EstimateExportAlgorithm" OutputDirectory="output" stepSize="10.0"/>
     <trainingData rootFolder="C:\Users\JS\Desktop\Train">
       <input>
         <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
@@ -60,11 +60,11 @@
         <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
         <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
       </validator>
-      <parametersToOptimize xsi:type="librede-optimization:StepSize" lowerBound="30.0" upperBound="15000.0" startValue="60.0"/>
-      <parametersToOptimize xsi:type="librede-optimization:WindowSize" lowerBound="30.0" upperBound="15000.0" startValue="60.0"/>
+      <parametersToOptimize xsi:type="librede-optimization:StepSize" lowerBound="20.0" upperBound="500.0" startValue="60.0"/>
+      <parametersToOptimize xsi:type="librede-optimization:WindowSize" lowerBound="20.0" upperBound="500.0" startValue="60.0"/>
     </settings>
     <estimation window="60">
-      <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>
+      <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
       <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter">
         <parameters name="ObserveNoiseCovariance" value="0.1"/>
         <parameters name="BoundsFactor" value="0.8"/>
