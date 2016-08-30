@@ -27,6 +27,7 @@
 package tools.descartes.librede.rrde.recommendation.extract;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.Librede;
@@ -35,12 +36,16 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.Resource;
 import tools.descartes.librede.metrics.Aggregation;
 import tools.descartes.librede.metrics.StandardMetrics;
+import tools.descartes.librede.repository.IRepositoryCursor;
 import tools.descartes.librede.repository.TimeSeries;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl;
+import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Ratio;
 import tools.descartes.librede.units.Time;
 import tools.descartes.librede.units.Unit;
+import tools.descartes.librede.units.UnitsFactory;
+import tools.descartes.librede.units.impl.QuantityImpl;
 
 /**
  * Basic class extracting the {@link FeatureVector}s.
@@ -59,7 +64,21 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	/**
 	 * The standard time unit for all features.
 	 */
-	public Unit<? extends Time> basicTime = Time.MILLISECONDS;
+	public Unit<Time> basicTime = Time.MILLISECONDS;
+
+	/**
+	 * The standard step size for feature extraction used by the cursors.
+	 */
+	public Quantity<Time> basicStepSize = UnitsFactory.eINSTANCE
+			.createQuantity();
+
+	/**
+	 * Standard constructor setting basic values for all constants.
+	 */
+	public BasicFeatureExtractor() {
+		basicStepSize.setUnit(basicTime);
+		basicStepSize.setValue(10000);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -141,8 +160,18 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	 */
 	protected void extractRegressionAnalyzisInformation(FeatureVector vector,
 			LibredeVariables var) {
-		// TODO Auto-generated method stub
+		// create regression instance
+		OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
+		// fill data
+		IRepositoryCursor cursor = var.getRepo().getCursor(
+				var.getRepo().getCurrentTime(), basicStepSize);
+		// TODO keinen plan
 
+		
+		// export Rsquared and calculate VIF
+		double rsquared = regression.calculateRSquared();
+		double vif = (1.0) / (1.0 - rsquared);
+		vector.setVarianceInflationFactor(vif);
 	}
 
 	private void addSeriesToStats(DescriptiveStatistics stat, TimeSeries series) {
