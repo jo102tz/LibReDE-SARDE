@@ -66,13 +66,9 @@ public class TraceFeaturesItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addArithmeticMeanPropertyDescriptor(object);
-			addStandardDeviationPropertyDescriptor(object);
-			addMinimumPropertyDescriptor(object);
-			addMaximumPropertyDescriptor(object);
+			addStatisticalFeaturesPropertyDescriptor(object);
 			addNumberOfSamplesPropertyDescriptor(object);
 			addAggregationTypePropertyDescriptor(object);
-			addAutoCorrelationPropertyDescriptor(object);
 			addMetricPropertyDescriptor(object);
 			addOriginalInputPropertyDescriptor(object);
 		}
@@ -80,89 +76,23 @@ public class TraceFeaturesItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Arithmetic Mean feature.
+	 * This adds a property descriptor for the Statistical Features feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addArithmeticMeanPropertyDescriptor(Object object) {
+	protected void addStatisticalFeaturesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_TraceFeatures_arithmeticMean_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TraceFeatures_arithmeticMean_feature", "_UI_TraceFeatures_type"),
-				 RecommendationPackage.Literals.TRACE_FEATURES__ARITHMETIC_MEAN,
+				 getString("_UI_TraceFeatures_statisticalFeatures_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TraceFeatures_statisticalFeatures_feature", "_UI_TraceFeatures_type"),
+				 RecommendationPackage.Literals.TRACE_FEATURES__STATISTICAL_FEATURES,
 				 true,
 				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 true,
 				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Standard Deviation feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addStandardDeviationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TraceFeatures_standardDeviation_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TraceFeatures_standardDeviation_feature", "_UI_TraceFeatures_type"),
-				 RecommendationPackage.Literals.TRACE_FEATURES__STANDARD_DEVIATION,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Minimum feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMinimumPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TraceFeatures_minimum_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TraceFeatures_minimum_feature", "_UI_TraceFeatures_type"),
-				 RecommendationPackage.Literals.TRACE_FEATURES__MINIMUM,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Maximum feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMaximumPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TraceFeatures_maximum_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TraceFeatures_maximum_feature", "_UI_TraceFeatures_type"),
-				 RecommendationPackage.Literals.TRACE_FEATURES__MAXIMUM,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -207,28 +137,6 @@ public class TraceFeaturesItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Auto Correlation feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAutoCorrelationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TraceFeatures_autoCorrelation_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TraceFeatures_autoCorrelation_feature", "_UI_TraceFeatures_type"),
-				 RecommendationPackage.Literals.TRACE_FEATURES__AUTO_CORRELATION,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -327,7 +235,7 @@ public class TraceFeaturesItemProvider
 	@Override
 	public String getText(Object object) {
 		TraceFeatures traceFeatures = (TraceFeatures)object;
-		return getString("_UI_TraceFeatures_type") + " " + traceFeatures.getArithmeticMean();
+		return getString("_UI_TraceFeatures_type") + " " + traceFeatures.getNumberOfSamples();
 	}
 	
 
@@ -343,13 +251,8 @@ public class TraceFeaturesItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(TraceFeatures.class)) {
-			case RecommendationPackage.TRACE_FEATURES__ARITHMETIC_MEAN:
-			case RecommendationPackage.TRACE_FEATURES__STANDARD_DEVIATION:
-			case RecommendationPackage.TRACE_FEATURES__MINIMUM:
-			case RecommendationPackage.TRACE_FEATURES__MAXIMUM:
 			case RecommendationPackage.TRACE_FEATURES__NUMBER_OF_SAMPLES:
 			case RecommendationPackage.TRACE_FEATURES__AGGREGATION_TYPE:
-			case RecommendationPackage.TRACE_FEATURES__AUTO_CORRELATION:
 			case RecommendationPackage.TRACE_FEATURES__ORIGINAL_INPUT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

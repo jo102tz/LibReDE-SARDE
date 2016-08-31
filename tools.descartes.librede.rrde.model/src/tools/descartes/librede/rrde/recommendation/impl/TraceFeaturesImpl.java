@@ -15,6 +15,7 @@ import tools.descartes.librede.metrics.Aggregation;
 import tools.descartes.librede.metrics.Metric;
 
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
+import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
 import tools.descartes.librede.rrde.recommendation.TraceFeatures;
 
 import tools.descartes.librede.units.Dimension;
@@ -28,14 +29,10 @@ import tools.descartes.librede.units.Time;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getArithmeticMean <em>Arithmetic Mean</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getStandardDeviation <em>Standard Deviation</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getMinimum <em>Minimum</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getMaximum <em>Maximum</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getStatisticalFeatures <em>Statistical Features</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getNumberOfSamples <em>Number Of Samples</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getAggregationType <em>Aggregation Type</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getAggregationInterval <em>Aggregation Interval</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getAutoCorrelation <em>Auto Correlation</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getMetric <em>Metric</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#isOriginalInput <em>Original Input</em>}</li>
  * </ul>
@@ -45,84 +42,14 @@ import tools.descartes.librede.units.Time;
  */
 public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements TraceFeatures {
 	/**
-	 * The default value of the '{@link #getArithmeticMean() <em>Arithmetic Mean</em>}' attribute.
+	 * The cached value of the '{@link #getStatisticalFeatures() <em>Statistical Features</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getArithmeticMean()
+	 * @see #getStatisticalFeatures()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double ARITHMETIC_MEAN_EDEFAULT = -1.0;
-
-	/**
-	 * The cached value of the '{@link #getArithmeticMean() <em>Arithmetic Mean</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getArithmeticMean()
-	 * @generated
-	 * @ordered
-	 */
-	protected double arithmeticMean = ARITHMETIC_MEAN_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getStandardDeviation() <em>Standard Deviation</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStandardDeviation()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double STANDARD_DEVIATION_EDEFAULT = -1.0;
-
-	/**
-	 * The cached value of the '{@link #getStandardDeviation() <em>Standard Deviation</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStandardDeviation()
-	 * @generated
-	 * @ordered
-	 */
-	protected double standardDeviation = STANDARD_DEVIATION_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getMinimum() <em>Minimum</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMinimum()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double MINIMUM_EDEFAULT = -1.0;
-
-	/**
-	 * The cached value of the '{@link #getMinimum() <em>Minimum</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMinimum()
-	 * @generated
-	 * @ordered
-	 */
-	protected double minimum = MINIMUM_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getMaximum() <em>Maximum</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMaximum()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double MAXIMUM_EDEFAULT = -1.0;
-
-	/**
-	 * The cached value of the '{@link #getMaximum() <em>Maximum</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMaximum()
-	 * @generated
-	 * @ordered
-	 */
-	protected double maximum = MAXIMUM_EDEFAULT;
+	protected StatisticalFeatures statisticalFeatures;
 
 	/**
 	 * The default value of the '{@link #getNumberOfSamples() <em>Number Of Samples</em>}' attribute.
@@ -173,26 +100,6 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	 * @ordered
 	 */
 	protected Quantity<Time> aggregationInterval;
-
-	/**
-	 * The default value of the '{@link #getAutoCorrelation() <em>Auto Correlation</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAutoCorrelation()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double AUTO_CORRELATION_EDEFAULT = -1.0;
-
-	/**
-	 * The cached value of the '{@link #getAutoCorrelation() <em>Auto Correlation</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAutoCorrelation()
-	 * @generated
-	 * @ordered
-	 */
-	protected double autoCorrelation = AUTO_CORRELATION_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getMetric() <em>Metric</em>}' reference.
@@ -248,8 +155,16 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getArithmeticMean() {
-		return arithmeticMean;
+	public StatisticalFeatures getStatisticalFeatures() {
+		if (statisticalFeatures != null && statisticalFeatures.eIsProxy()) {
+			InternalEObject oldStatisticalFeatures = (InternalEObject)statisticalFeatures;
+			statisticalFeatures = (StatisticalFeatures)eResolveProxy(oldStatisticalFeatures);
+			if (statisticalFeatures != oldStatisticalFeatures) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES, oldStatisticalFeatures, statisticalFeatures));
+			}
+		}
+		return statisticalFeatures;
 	}
 
 	/**
@@ -257,74 +172,20 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setArithmeticMean(double newArithmeticMean) {
-		double oldArithmeticMean = arithmeticMean;
-		arithmeticMean = newArithmeticMean;
+	public StatisticalFeatures basicGetStatisticalFeatures() {
+		return statisticalFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStatisticalFeatures(StatisticalFeatures newStatisticalFeatures) {
+		StatisticalFeatures oldStatisticalFeatures = statisticalFeatures;
+		statisticalFeatures = newStatisticalFeatures;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.TRACE_FEATURES__ARITHMETIC_MEAN, oldArithmeticMean, arithmeticMean));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public double getStandardDeviation() {
-		return standardDeviation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setStandardDeviation(double newStandardDeviation) {
-		double oldStandardDeviation = standardDeviation;
-		standardDeviation = newStandardDeviation;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.TRACE_FEATURES__STANDARD_DEVIATION, oldStandardDeviation, standardDeviation));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public double getMinimum() {
-		return minimum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setMinimum(double newMinimum) {
-		double oldMinimum = minimum;
-		minimum = newMinimum;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.TRACE_FEATURES__MINIMUM, oldMinimum, minimum));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public double getMaximum() {
-		return maximum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setMaximum(double newMaximum) {
-		double oldMaximum = maximum;
-		maximum = newMaximum;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.TRACE_FEATURES__MAXIMUM, oldMaximum, maximum));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES, oldStatisticalFeatures, statisticalFeatures));
 	}
 
 	/**
@@ -417,27 +278,6 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getAutoCorrelation() {
-		return autoCorrelation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAutoCorrelation(double newAutoCorrelation) {
-		double oldAutoCorrelation = autoCorrelation;
-		autoCorrelation = newAutoCorrelation;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.TRACE_FEATURES__AUTO_CORRELATION, oldAutoCorrelation, autoCorrelation));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@SuppressWarnings("unchecked")
 	public Metric<? extends Dimension> getMetric() {
 		if (metric != null && metric.eIsProxy()) {
@@ -515,22 +355,15 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case RecommendationPackage.TRACE_FEATURES__ARITHMETIC_MEAN:
-				return getArithmeticMean();
-			case RecommendationPackage.TRACE_FEATURES__STANDARD_DEVIATION:
-				return getStandardDeviation();
-			case RecommendationPackage.TRACE_FEATURES__MINIMUM:
-				return getMinimum();
-			case RecommendationPackage.TRACE_FEATURES__MAXIMUM:
-				return getMaximum();
+			case RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES:
+				if (resolve) return getStatisticalFeatures();
+				return basicGetStatisticalFeatures();
 			case RecommendationPackage.TRACE_FEATURES__NUMBER_OF_SAMPLES:
 				return getNumberOfSamples();
 			case RecommendationPackage.TRACE_FEATURES__AGGREGATION_TYPE:
 				return getAggregationType();
 			case RecommendationPackage.TRACE_FEATURES__AGGREGATION_INTERVAL:
 				return getAggregationInterval();
-			case RecommendationPackage.TRACE_FEATURES__AUTO_CORRELATION:
-				return getAutoCorrelation();
 			case RecommendationPackage.TRACE_FEATURES__METRIC:
 				if (resolve) return getMetric();
 				return basicGetMetric();
@@ -549,17 +382,8 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case RecommendationPackage.TRACE_FEATURES__ARITHMETIC_MEAN:
-				setArithmeticMean((Double)newValue);
-				return;
-			case RecommendationPackage.TRACE_FEATURES__STANDARD_DEVIATION:
-				setStandardDeviation((Double)newValue);
-				return;
-			case RecommendationPackage.TRACE_FEATURES__MINIMUM:
-				setMinimum((Double)newValue);
-				return;
-			case RecommendationPackage.TRACE_FEATURES__MAXIMUM:
-				setMaximum((Double)newValue);
+			case RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES:
+				setStatisticalFeatures((StatisticalFeatures)newValue);
 				return;
 			case RecommendationPackage.TRACE_FEATURES__NUMBER_OF_SAMPLES:
 				setNumberOfSamples((Integer)newValue);
@@ -569,9 +393,6 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 				return;
 			case RecommendationPackage.TRACE_FEATURES__AGGREGATION_INTERVAL:
 				setAggregationInterval((Quantity<Time>)newValue);
-				return;
-			case RecommendationPackage.TRACE_FEATURES__AUTO_CORRELATION:
-				setAutoCorrelation((Double)newValue);
 				return;
 			case RecommendationPackage.TRACE_FEATURES__METRIC:
 				setMetric((Metric<? extends Dimension>)newValue);
@@ -591,17 +412,8 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case RecommendationPackage.TRACE_FEATURES__ARITHMETIC_MEAN:
-				setArithmeticMean(ARITHMETIC_MEAN_EDEFAULT);
-				return;
-			case RecommendationPackage.TRACE_FEATURES__STANDARD_DEVIATION:
-				setStandardDeviation(STANDARD_DEVIATION_EDEFAULT);
-				return;
-			case RecommendationPackage.TRACE_FEATURES__MINIMUM:
-				setMinimum(MINIMUM_EDEFAULT);
-				return;
-			case RecommendationPackage.TRACE_FEATURES__MAXIMUM:
-				setMaximum(MAXIMUM_EDEFAULT);
+			case RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES:
+				setStatisticalFeatures((StatisticalFeatures)null);
 				return;
 			case RecommendationPackage.TRACE_FEATURES__NUMBER_OF_SAMPLES:
 				setNumberOfSamples(NUMBER_OF_SAMPLES_EDEFAULT);
@@ -611,9 +423,6 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 				return;
 			case RecommendationPackage.TRACE_FEATURES__AGGREGATION_INTERVAL:
 				setAggregationInterval((Quantity<Time>)null);
-				return;
-			case RecommendationPackage.TRACE_FEATURES__AUTO_CORRELATION:
-				setAutoCorrelation(AUTO_CORRELATION_EDEFAULT);
 				return;
 			case RecommendationPackage.TRACE_FEATURES__METRIC:
 				setMetric((Metric<? extends Dimension>)null);
@@ -633,22 +442,14 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case RecommendationPackage.TRACE_FEATURES__ARITHMETIC_MEAN:
-				return arithmeticMean != ARITHMETIC_MEAN_EDEFAULT;
-			case RecommendationPackage.TRACE_FEATURES__STANDARD_DEVIATION:
-				return standardDeviation != STANDARD_DEVIATION_EDEFAULT;
-			case RecommendationPackage.TRACE_FEATURES__MINIMUM:
-				return minimum != MINIMUM_EDEFAULT;
-			case RecommendationPackage.TRACE_FEATURES__MAXIMUM:
-				return maximum != MAXIMUM_EDEFAULT;
+			case RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES:
+				return statisticalFeatures != null;
 			case RecommendationPackage.TRACE_FEATURES__NUMBER_OF_SAMPLES:
 				return numberOfSamples != NUMBER_OF_SAMPLES_EDEFAULT;
 			case RecommendationPackage.TRACE_FEATURES__AGGREGATION_TYPE:
 				return aggregationType != AGGREGATION_TYPE_EDEFAULT;
 			case RecommendationPackage.TRACE_FEATURES__AGGREGATION_INTERVAL:
 				return aggregationInterval != null;
-			case RecommendationPackage.TRACE_FEATURES__AUTO_CORRELATION:
-				return autoCorrelation != AUTO_CORRELATION_EDEFAULT;
 			case RecommendationPackage.TRACE_FEATURES__METRIC:
 				return metric != null;
 			case RecommendationPackage.TRACE_FEATURES__ORIGINAL_INPUT:
@@ -667,20 +468,10 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (arithmeticMean: ");
-		result.append(arithmeticMean);
-		result.append(", standardDeviation: ");
-		result.append(standardDeviation);
-		result.append(", minimum: ");
-		result.append(minimum);
-		result.append(", maximum: ");
-		result.append(maximum);
-		result.append(", numberOfSamples: ");
+		result.append(" (numberOfSamples: ");
 		result.append(numberOfSamples);
 		result.append(", aggregationType: ");
 		result.append(aggregationType);
-		result.append(", autoCorrelation: ");
-		result.append(autoCorrelation);
 		result.append(", originalInput: ");
 		result.append(originalInput);
 		result.append(')');

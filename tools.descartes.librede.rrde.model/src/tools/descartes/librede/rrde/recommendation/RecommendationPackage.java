@@ -287,58 +287,40 @@ public interface RecommendationPackage extends EPackage {
 	int FEATURE_VECTOR__NUMBER_OF_WORKLOAD_CLASSES = 1;
 
 	/**
-	 * The feature id for the '<em><b>Utilization Mean</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_VECTOR__UTILIZATION_MEAN = 2;
-
-	/**
-	 * The feature id for the '<em><b>Utilization Variance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_VECTOR__UTILIZATION_VARIANCE = 3;
-
-	/**
-	 * The feature id for the '<em><b>Traces</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_VECTOR__TRACES = 4;
-
-	/**
 	 * The feature id for the '<em><b>Variance Inflation Factor</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR = 5;
+	int FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR = 2;
 
 	/**
-	 * The feature id for the '<em><b>Utilization Min</b></em>' attribute.
+	 * The feature id for the '<em><b>Utilization Features</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR__UTILIZATION_MIN = 6;
+	int FEATURE_VECTOR__UTILIZATION_FEATURES = 3;
 
 	/**
-	 * The feature id for the '<em><b>Utilization Max</b></em>' attribute.
+	 * The feature id for the '<em><b>Response Time Features</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR__UTILIZATION_MAX = 7;
+	int FEATURE_VECTOR__RESPONSE_TIME_FEATURES = 4;
+
+	/**
+	 * The feature id for the '<em><b>Arrival Time Features</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_VECTOR__ARRIVAL_TIME_FEATURES = 5;
 
 	/**
 	 * The number of structural features of the '<em>Feature Vector</em>' class.
@@ -347,7 +329,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR_FEATURE_COUNT = 8;
+	int FEATURE_VECTOR_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Feature Vector</em>' class.
@@ -359,14 +341,14 @@ public interface RecommendationPackage extends EPackage {
 	int FEATURE_VECTOR_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl <em>Trace Features</em>}' class.
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl <em>Statistical Features</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl
-	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getTraceFeatures()
+	 * @see tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getStatisticalFeatures()
 	 * @generated
 	 */
-	int TRACE_FEATURES = 5;
+	int STATISTICAL_FEATURES = 5;
 
 	/**
 	 * The feature id for the '<em><b>Arithmetic Mean</b></em>' attribute.
@@ -375,7 +357,16 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE_FEATURES__ARITHMETIC_MEAN = 0;
+	int STATISTICAL_FEATURES__ARITHMETIC_MEAN = 0;
+
+	/**
+	 * The feature id for the '<em><b>Geometric Mean</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATISTICAL_FEATURES__GEOMETRIC_MEAN = 1;
 
 	/**
 	 * The feature id for the '<em><b>Standard Deviation</b></em>' attribute.
@@ -384,7 +375,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE_FEATURES__STANDARD_DEVIATION = 1;
+	int STATISTICAL_FEATURES__STANDARD_DEVIATION = 2;
 
 	/**
 	 * The feature id for the '<em><b>Minimum</b></em>' attribute.
@@ -393,7 +384,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE_FEATURES__MINIMUM = 2;
+	int STATISTICAL_FEATURES__MINIMUM = 3;
 
 	/**
 	 * The feature id for the '<em><b>Maximum</b></em>' attribute.
@@ -402,34 +393,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE_FEATURES__MAXIMUM = 3;
-
-	/**
-	 * The feature id for the '<em><b>Number Of Samples</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRACE_FEATURES__NUMBER_OF_SAMPLES = 4;
-
-	/**
-	 * The feature id for the '<em><b>Aggregation Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRACE_FEATURES__AGGREGATION_TYPE = 5;
-
-	/**
-	 * The feature id for the '<em><b>Aggregation Interval</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRACE_FEATURES__AGGREGATION_INTERVAL = 6;
+	int STATISTICAL_FEATURES__MAXIMUM = 4;
 
 	/**
 	 * The feature id for the '<em><b>Auto Correlation</b></em>' attribute.
@@ -438,7 +402,89 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE_FEATURES__AUTO_CORRELATION = 7;
+	int STATISTICAL_FEATURES__AUTO_CORRELATION = 5;
+
+	/**
+	 * The feature id for the '<em><b>Kurtosis</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATISTICAL_FEATURES__KURTOSIS = 6;
+
+	/**
+	 * The feature id for the '<em><b>Skewness</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATISTICAL_FEATURES__SKEWNESS = 7;
+
+	/**
+	 * The number of structural features of the '<em>Statistical Features</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATISTICAL_FEATURES_FEATURE_COUNT = 8;
+
+	/**
+	 * The number of operations of the '<em>Statistical Features</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATISTICAL_FEATURES_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl <em>Trace Features</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getTraceFeatures()
+	 * @generated
+	 */
+	int TRACE_FEATURES = 6;
+
+	/**
+	 * The feature id for the '<em><b>Statistical Features</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRACE_FEATURES__STATISTICAL_FEATURES = 0;
+
+	/**
+	 * The feature id for the '<em><b>Number Of Samples</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRACE_FEATURES__NUMBER_OF_SAMPLES = 1;
+
+	/**
+	 * The feature id for the '<em><b>Aggregation Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRACE_FEATURES__AGGREGATION_TYPE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Aggregation Interval</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRACE_FEATURES__AGGREGATION_INTERVAL = 3;
 
 	/**
 	 * The feature id for the '<em><b>Metric</b></em>' reference.
@@ -447,7 +493,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE_FEATURES__METRIC = 8;
+	int TRACE_FEATURES__METRIC = 4;
 
 	/**
 	 * The feature id for the '<em><b>Original Input</b></em>' attribute.
@@ -456,7 +502,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE_FEATURES__ORIGINAL_INPUT = 9;
+	int TRACE_FEATURES__ORIGINAL_INPUT = 5;
 
 	/**
 	 * The number of structural features of the '<em>Trace Features</em>' class.
@@ -465,7 +511,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE_FEATURES_FEATURE_COUNT = 10;
+	int TRACE_FEATURES_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Trace Features</em>' class.
@@ -660,39 +706,6 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getFeatureVector_NumberOfWorkloadClasses();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMean <em>Utilization Mean</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Utilization Mean</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMean()
-	 * @see #getFeatureVector()
-	 * @generated
-	 */
-	EAttribute getFeatureVector_UtilizationMean();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationVariance <em>Utilization Variance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Utilization Variance</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationVariance()
-	 * @see #getFeatureVector()
-	 * @generated
-	 */
-	EAttribute getFeatureVector_UtilizationVariance();
-
-	/**
-	 * Returns the meta object for the reference list '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getTraces <em>Traces</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Traces</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getTraces()
-	 * @see #getFeatureVector()
-	 * @generated
-	 */
-	EReference getFeatureVector_Traces();
-
-	/**
 	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getVarianceInflationFactor <em>Variance Inflation Factor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -704,26 +717,135 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getFeatureVector_VarianceInflationFactor();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMin <em>Utilization Min</em>}'.
+	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationFeatures <em>Utilization Features</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Utilization Min</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMin()
+	 * @return the meta object for the reference '<em>Utilization Features</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationFeatures()
 	 * @see #getFeatureVector()
 	 * @generated
 	 */
-	EAttribute getFeatureVector_UtilizationMin();
+	EReference getFeatureVector_UtilizationFeatures();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMax <em>Utilization Max</em>}'.
+	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getResponseTimeFeatures <em>Response Time Features</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Utilization Max</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMax()
+	 * @return the meta object for the reference '<em>Response Time Features</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getResponseTimeFeatures()
 	 * @see #getFeatureVector()
 	 * @generated
 	 */
-	EAttribute getFeatureVector_UtilizationMax();
+	EReference getFeatureVector_ResponseTimeFeatures();
+
+	/**
+	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getArrivalTimeFeatures <em>Arrival Time Features</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Arrival Time Features</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getArrivalTimeFeatures()
+	 * @see #getFeatureVector()
+	 * @generated
+	 */
+	EReference getFeatureVector_ArrivalTimeFeatures();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures <em>Statistical Features</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Statistical Features</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures
+	 * @generated
+	 */
+	EClass getStatisticalFeatures();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getArithmeticMean <em>Arithmetic Mean</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Arithmetic Mean</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getArithmeticMean()
+	 * @see #getStatisticalFeatures()
+	 * @generated
+	 */
+	EAttribute getStatisticalFeatures_ArithmeticMean();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getGeometricMean <em>Geometric Mean</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Geometric Mean</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getGeometricMean()
+	 * @see #getStatisticalFeatures()
+	 * @generated
+	 */
+	EAttribute getStatisticalFeatures_GeometricMean();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getStandardDeviation <em>Standard Deviation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Standard Deviation</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getStandardDeviation()
+	 * @see #getStatisticalFeatures()
+	 * @generated
+	 */
+	EAttribute getStatisticalFeatures_StandardDeviation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getMinimum <em>Minimum</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Minimum</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getMinimum()
+	 * @see #getStatisticalFeatures()
+	 * @generated
+	 */
+	EAttribute getStatisticalFeatures_Minimum();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getMaximum <em>Maximum</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Maximum</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getMaximum()
+	 * @see #getStatisticalFeatures()
+	 * @generated
+	 */
+	EAttribute getStatisticalFeatures_Maximum();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getAutoCorrelation <em>Auto Correlation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Auto Correlation</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getAutoCorrelation()
+	 * @see #getStatisticalFeatures()
+	 * @generated
+	 */
+	EAttribute getStatisticalFeatures_AutoCorrelation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getKurtosis <em>Kurtosis</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Kurtosis</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getKurtosis()
+	 * @see #getStatisticalFeatures()
+	 * @generated
+	 */
+	EAttribute getStatisticalFeatures_Kurtosis();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getSkewness <em>Skewness</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Skewness</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getSkewness()
+	 * @see #getStatisticalFeatures()
+	 * @generated
+	 */
+	EAttribute getStatisticalFeatures_Skewness();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures <em>Trace Features</em>}'.
@@ -736,48 +858,15 @@ public interface RecommendationPackage extends EPackage {
 	EClass getTraceFeatures();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getArithmeticMean <em>Arithmetic Mean</em>}'.
+	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getStatisticalFeatures <em>Statistical Features</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Arithmetic Mean</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures#getArithmeticMean()
+	 * @return the meta object for the reference '<em>Statistical Features</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures#getStatisticalFeatures()
 	 * @see #getTraceFeatures()
 	 * @generated
 	 */
-	EAttribute getTraceFeatures_ArithmeticMean();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getStandardDeviation <em>Standard Deviation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Standard Deviation</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures#getStandardDeviation()
-	 * @see #getTraceFeatures()
-	 * @generated
-	 */
-	EAttribute getTraceFeatures_StandardDeviation();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getMinimum <em>Minimum</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Minimum</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures#getMinimum()
-	 * @see #getTraceFeatures()
-	 * @generated
-	 */
-	EAttribute getTraceFeatures_Minimum();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getMaximum <em>Maximum</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Maximum</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures#getMaximum()
-	 * @see #getTraceFeatures()
-	 * @generated
-	 */
-	EAttribute getTraceFeatures_Maximum();
+	EReference getTraceFeatures_StatisticalFeatures();
 
 	/**
 	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getNumberOfSamples <em>Number Of Samples</em>}'.
@@ -811,17 +900,6 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTraceFeatures_AggregationInterval();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getAutoCorrelation <em>Auto Correlation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Auto Correlation</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures#getAutoCorrelation()
-	 * @see #getTraceFeatures()
-	 * @generated
-	 */
-	EAttribute getTraceFeatures_AutoCorrelation();
 
 	/**
 	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getMetric <em>Metric</em>}'.
@@ -1015,30 +1093,6 @@ public interface RecommendationPackage extends EPackage {
 		EAttribute FEATURE_VECTOR__NUMBER_OF_WORKLOAD_CLASSES = eINSTANCE.getFeatureVector_NumberOfWorkloadClasses();
 
 		/**
-		 * The meta object literal for the '<em><b>Utilization Mean</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FEATURE_VECTOR__UTILIZATION_MEAN = eINSTANCE.getFeatureVector_UtilizationMean();
-
-		/**
-		 * The meta object literal for the '<em><b>Utilization Variance</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FEATURE_VECTOR__UTILIZATION_VARIANCE = eINSTANCE.getFeatureVector_UtilizationVariance();
-
-		/**
-		 * The meta object literal for the '<em><b>Traces</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FEATURE_VECTOR__TRACES = eINSTANCE.getFeatureVector_Traces();
-
-		/**
 		 * The meta object literal for the '<em><b>Variance Inflation Factor</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1047,20 +1101,102 @@ public interface RecommendationPackage extends EPackage {
 		EAttribute FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR = eINSTANCE.getFeatureVector_VarianceInflationFactor();
 
 		/**
-		 * The meta object literal for the '<em><b>Utilization Min</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Utilization Features</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_VECTOR__UTILIZATION_MIN = eINSTANCE.getFeatureVector_UtilizationMin();
+		EReference FEATURE_VECTOR__UTILIZATION_FEATURES = eINSTANCE.getFeatureVector_UtilizationFeatures();
 
 		/**
-		 * The meta object literal for the '<em><b>Utilization Max</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Response Time Features</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_VECTOR__UTILIZATION_MAX = eINSTANCE.getFeatureVector_UtilizationMax();
+		EReference FEATURE_VECTOR__RESPONSE_TIME_FEATURES = eINSTANCE.getFeatureVector_ResponseTimeFeatures();
+
+		/**
+		 * The meta object literal for the '<em><b>Arrival Time Features</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FEATURE_VECTOR__ARRIVAL_TIME_FEATURES = eINSTANCE.getFeatureVector_ArrivalTimeFeatures();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl <em>Statistical Features</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getStatisticalFeatures()
+		 * @generated
+		 */
+		EClass STATISTICAL_FEATURES = eINSTANCE.getStatisticalFeatures();
+
+		/**
+		 * The meta object literal for the '<em><b>Arithmetic Mean</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_FEATURES__ARITHMETIC_MEAN = eINSTANCE.getStatisticalFeatures_ArithmeticMean();
+
+		/**
+		 * The meta object literal for the '<em><b>Geometric Mean</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_FEATURES__GEOMETRIC_MEAN = eINSTANCE.getStatisticalFeatures_GeometricMean();
+
+		/**
+		 * The meta object literal for the '<em><b>Standard Deviation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_FEATURES__STANDARD_DEVIATION = eINSTANCE.getStatisticalFeatures_StandardDeviation();
+
+		/**
+		 * The meta object literal for the '<em><b>Minimum</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_FEATURES__MINIMUM = eINSTANCE.getStatisticalFeatures_Minimum();
+
+		/**
+		 * The meta object literal for the '<em><b>Maximum</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_FEATURES__MAXIMUM = eINSTANCE.getStatisticalFeatures_Maximum();
+
+		/**
+		 * The meta object literal for the '<em><b>Auto Correlation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_FEATURES__AUTO_CORRELATION = eINSTANCE.getStatisticalFeatures_AutoCorrelation();
+
+		/**
+		 * The meta object literal for the '<em><b>Kurtosis</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_FEATURES__KURTOSIS = eINSTANCE.getStatisticalFeatures_Kurtosis();
+
+		/**
+		 * The meta object literal for the '<em><b>Skewness</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_FEATURES__SKEWNESS = eINSTANCE.getStatisticalFeatures_Skewness();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl <em>Trace Features</em>}' class.
@@ -1073,36 +1209,12 @@ public interface RecommendationPackage extends EPackage {
 		EClass TRACE_FEATURES = eINSTANCE.getTraceFeatures();
 
 		/**
-		 * The meta object literal for the '<em><b>Arithmetic Mean</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Statistical Features</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TRACE_FEATURES__ARITHMETIC_MEAN = eINSTANCE.getTraceFeatures_ArithmeticMean();
-
-		/**
-		 * The meta object literal for the '<em><b>Standard Deviation</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TRACE_FEATURES__STANDARD_DEVIATION = eINSTANCE.getTraceFeatures_StandardDeviation();
-
-		/**
-		 * The meta object literal for the '<em><b>Minimum</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TRACE_FEATURES__MINIMUM = eINSTANCE.getTraceFeatures_Minimum();
-
-		/**
-		 * The meta object literal for the '<em><b>Maximum</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TRACE_FEATURES__MAXIMUM = eINSTANCE.getTraceFeatures_Maximum();
+		EReference TRACE_FEATURES__STATISTICAL_FEATURES = eINSTANCE.getTraceFeatures_StatisticalFeatures();
 
 		/**
 		 * The meta object literal for the '<em><b>Number Of Samples</b></em>' attribute feature.
@@ -1127,14 +1239,6 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TRACE_FEATURES__AGGREGATION_INTERVAL = eINSTANCE.getTraceFeatures_AggregationInterval();
-
-		/**
-		 * The meta object literal for the '<em><b>Auto Correlation</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TRACE_FEATURES__AUTO_CORRELATION = eINSTANCE.getTraceFeatures_AutoCorrelation();
 
 		/**
 		 * The meta object literal for the '<em><b>Metric</b></em>' reference feature.

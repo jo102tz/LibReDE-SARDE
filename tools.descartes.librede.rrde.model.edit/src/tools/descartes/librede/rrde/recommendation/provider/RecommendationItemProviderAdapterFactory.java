@@ -187,6 +187,29 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StatisticalFeaturesItemProvider statisticalFeaturesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createStatisticalFeaturesAdapter() {
+		if (statisticalFeaturesItemProvider == null) {
+			statisticalFeaturesItemProvider = new StatisticalFeaturesItemProvider(this);
+		}
+
+		return statisticalFeaturesItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.TraceFeatures} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -313,6 +336,7 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 		if (featureExtractorSpecifierItemProvider != null) featureExtractorSpecifierItemProvider.dispose();
 		if (dataSetItemProvider != null) dataSetItemProvider.dispose();
 		if (featureVectorItemProvider != null) featureVectorItemProvider.dispose();
+		if (statisticalFeaturesItemProvider != null) statisticalFeaturesItemProvider.dispose();
 		if (traceFeaturesItemProvider != null) traceFeaturesItemProvider.dispose();
 	}
 

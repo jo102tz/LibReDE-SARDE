@@ -19,14 +19,10 @@ import tools.descartes.librede.units.Time;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getArithmeticMean <em>Arithmetic Mean</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getStandardDeviation <em>Standard Deviation</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getMinimum <em>Minimum</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getMaximum <em>Maximum</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getStatisticalFeatures <em>Statistical Features</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getNumberOfSamples <em>Number Of Samples</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getAggregationType <em>Aggregation Type</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getAggregationInterval <em>Aggregation Interval</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getAutoCorrelation <em>Auto Correlation</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getMetric <em>Metric</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#isOriginalInput <em>Original Input</em>}</li>
  * </ul>
@@ -38,112 +34,30 @@ import tools.descartes.librede.units.Time;
  */
 public interface TraceFeatures extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Arithmetic Mean</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * Returns the value of the '<em><b>Statistical Features</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Arithmetic Mean</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Statistical Features</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Arithmetic Mean</em>' attribute.
-	 * @see #setArithmeticMean(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getTraceFeatures_ArithmeticMean()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @return the value of the '<em>Statistical Features</em>' reference.
+	 * @see #setStatisticalFeatures(StatisticalFeatures)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getTraceFeatures_StatisticalFeatures()
+	 * @model
 	 * @generated
 	 */
-	double getArithmeticMean();
+	StatisticalFeatures getStatisticalFeatures();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getArithmeticMean <em>Arithmetic Mean</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getStatisticalFeatures <em>Statistical Features</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Arithmetic Mean</em>' attribute.
-	 * @see #getArithmeticMean()
+	 * @param value the new value of the '<em>Statistical Features</em>' reference.
+	 * @see #getStatisticalFeatures()
 	 * @generated
 	 */
-	void setArithmeticMean(double value);
-
-	/**
-	 * Returns the value of the '<em><b>Standard Deviation</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Standard Deviation</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Standard Deviation</em>' attribute.
-	 * @see #setStandardDeviation(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getTraceFeatures_StandardDeviation()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
-	 * @generated
-	 */
-	double getStandardDeviation();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getStandardDeviation <em>Standard Deviation</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Standard Deviation</em>' attribute.
-	 * @see #getStandardDeviation()
-	 * @generated
-	 */
-	void setStandardDeviation(double value);
-
-	/**
-	 * Returns the value of the '<em><b>Minimum</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Minimum</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Minimum</em>' attribute.
-	 * @see #setMinimum(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getTraceFeatures_Minimum()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
-	 * @generated
-	 */
-	double getMinimum();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getMinimum <em>Minimum</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Minimum</em>' attribute.
-	 * @see #getMinimum()
-	 * @generated
-	 */
-	void setMinimum(double value);
-
-	/**
-	 * Returns the value of the '<em><b>Maximum</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Maximum</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Maximum</em>' attribute.
-	 * @see #setMaximum(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getTraceFeatures_Maximum()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
-	 * @generated
-	 */
-	double getMaximum();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getMaximum <em>Maximum</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Maximum</em>' attribute.
-	 * @see #getMaximum()
-	 * @generated
-	 */
-	void setMaximum(double value);
+	void setStatisticalFeatures(StatisticalFeatures value);
 
 	/**
 	 * Returns the value of the '<em><b>Number Of Samples</b></em>' attribute.
@@ -227,33 +141,6 @@ public interface TraceFeatures extends EObject {
 	 * @generated
 	 */
 	void setAggregationInterval(Quantity<Time> value);
-
-	/**
-	 * Returns the value of the '<em><b>Auto Correlation</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Auto Correlation</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Auto Correlation</em>' attribute.
-	 * @see #setAutoCorrelation(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getTraceFeatures_AutoCorrelation()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
-	 * @generated
-	 */
-	double getAutoCorrelation();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getAutoCorrelation <em>Auto Correlation</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Auto Correlation</em>' attribute.
-	 * @see #getAutoCorrelation()
-	 * @generated
-	 */
-	void setAutoCorrelation(double value);
 
 	/**
 	 * Returns the value of the '<em><b>Metric</b></em>' reference.

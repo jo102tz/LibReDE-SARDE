@@ -96,6 +96,12 @@ public class RecommendationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case RecommendationPackage.STATISTICAL_FEATURES: {
+				StatisticalFeatures statisticalFeatures = (StatisticalFeatures)theEObject;
+				T result = caseStatisticalFeatures(statisticalFeatures);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case RecommendationPackage.TRACE_FEATURES: {
 				TraceFeatures traceFeatures = (TraceFeatures)theEObject;
 				T result = caseTraceFeatures(traceFeatures);
@@ -178,6 +184,21 @@ public class RecommendationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFeatureVector(FeatureVector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Statistical Features</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Statistical Features</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStatisticalFeatures(StatisticalFeatures object) {
 		return null;
 	}
 

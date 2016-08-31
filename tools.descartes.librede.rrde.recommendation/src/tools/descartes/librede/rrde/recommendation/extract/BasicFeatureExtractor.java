@@ -143,10 +143,10 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 			}
 			addSeriesToStats(stat, series);
 		}
-		vector.setUtilizationMean(stat.getMean());
-		vector.setUtilizationVariance(stat.getVariance());
-		vector.setUtilizationMax(stat.getMax());
-		vector.setUtilizationMin(stat.getMin());
+//		vector.setUtilizationMean(stat.getMean());
+//		vector.setUtilizationVariance(stat.getVariance());
+//		vector.setUtilizationMax(stat.getMax());
+//		vector.setUtilizationMin(stat.getMin());
 	}
 
 	/**

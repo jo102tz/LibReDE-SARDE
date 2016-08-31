@@ -67,6 +67,15 @@ public interface RecommendationFactory extends EFactory {
 	FeatureVector createFeatureVector();
 
 	/**
+	 * Returns a new object of class '<em>Statistical Features</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Statistical Features</em>'.
+	 * @generated
+	 */
+	StatisticalFeatures createStatisticalFeatures();
+
+	/**
 	 * Returns a new object of class '<em>Trace Features</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

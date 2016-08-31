@@ -43,22 +43,20 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfWorkloadClasses"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"
         defaultValueLiteral="1"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="utilizationMean" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="utilizationVariance" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="traces" upperBound="-1"
-        eType="#//TraceFeatures"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="varianceInflationFactor"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
         defaultValueLiteral="-1"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="utilizationMin" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="utilizationMax" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="utilizationFeatures" lowerBound="1"
+        eType="#//TraceFeatures"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="responseTimeFeatures" lowerBound="1"
+        eType="#//TraceFeatures"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arrivalTimeFeatures" lowerBound="1"
+        eType="#//TraceFeatures"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TraceFeatures">
+  <eClassifiers xsi:type="ecore:EClass" name="StatisticalFeatures">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="arithmeticMean" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="geometricMean" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="standardDeviation" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
@@ -66,6 +64,15 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximum" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoCorrelation" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kurtosis" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="skewness" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TraceFeatures">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statisticalFeatures" eType="#//StatisticalFeatures"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfSamples" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggregationType" lowerBound="1"
@@ -77,8 +84,6 @@
         <eTypeArguments eClassifier="ecore:EClass ../../tools.descartes.librede.model/model/units.ecore#//Time"/>
       </eGenericType>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoCorrelation" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metric" lowerBound="1">
       <eGenericType eClassifier="ecore:EClass ../../tools.descartes.librede.model/model/metrics.ecore#//Metric">
         <eTypeArguments>

@@ -2,8 +2,6 @@
  */
 package tools.descartes.librede.rrde.recommendation;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -16,12 +14,10 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getNumberOfRessources <em>Number Of Ressources</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getNumberOfWorkloadClasses <em>Number Of Workload Classes</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMean <em>Utilization Mean</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationVariance <em>Utilization Variance</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getTraces <em>Traces</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getVarianceInflationFactor <em>Variance Inflation Factor</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMin <em>Utilization Min</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMax <em>Utilization Max</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationFeatures <em>Utilization Features</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getResponseTimeFeatures <em>Response Time Features</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getArrivalTimeFeatures <em>Arrival Time Features</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,76 +81,6 @@ public interface FeatureVector extends EObject {
 	void setNumberOfWorkloadClasses(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Utilization Mean</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Utilization Mean</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Utilization Mean</em>' attribute.
-	 * @see #setUtilizationMean(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationMean()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
-	 * @generated
-	 */
-	double getUtilizationMean();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMean <em>Utilization Mean</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Utilization Mean</em>' attribute.
-	 * @see #getUtilizationMean()
-	 * @generated
-	 */
-	void setUtilizationMean(double value);
-
-	/**
-	 * Returns the value of the '<em><b>Utilization Variance</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Utilization Variance</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Utilization Variance</em>' attribute.
-	 * @see #setUtilizationVariance(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationVariance()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
-	 * @generated
-	 */
-	double getUtilizationVariance();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationVariance <em>Utilization Variance</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Utilization Variance</em>' attribute.
-	 * @see #getUtilizationVariance()
-	 * @generated
-	 */
-	void setUtilizationVariance(double value);
-
-	/**
-	 * Returns the value of the '<em><b>Traces</b></em>' reference list.
-	 * The list contents are of type {@link tools.descartes.librede.rrde.recommendation.TraceFeatures}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Traces</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Traces</em>' reference list.
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_Traces()
-	 * @model
-	 * @generated
-	 */
-	EList<TraceFeatures> getTraces();
-
-	/**
 	 * Returns the value of the '<em><b>Variance Inflation Factor</b></em>' attribute.
 	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
@@ -182,57 +108,81 @@ public interface FeatureVector extends EObject {
 	void setVarianceInflationFactor(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Utilization Min</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * Returns the value of the '<em><b>Utilization Features</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Utilization Min</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Utilization Features</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Utilization Min</em>' attribute.
-	 * @see #setUtilizationMin(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationMin()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @return the value of the '<em>Utilization Features</em>' reference.
+	 * @see #setUtilizationFeatures(TraceFeatures)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationFeatures()
+	 * @model required="true"
 	 * @generated
 	 */
-	double getUtilizationMin();
+	TraceFeatures getUtilizationFeatures();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMin <em>Utilization Min</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationFeatures <em>Utilization Features</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Utilization Min</em>' attribute.
-	 * @see #getUtilizationMin()
+	 * @param value the new value of the '<em>Utilization Features</em>' reference.
+	 * @see #getUtilizationFeatures()
 	 * @generated
 	 */
-	void setUtilizationMin(double value);
+	void setUtilizationFeatures(TraceFeatures value);
 
 	/**
-	 * Returns the value of the '<em><b>Utilization Max</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * Returns the value of the '<em><b>Response Time Features</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Utilization Max</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Response Time Features</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Utilization Max</em>' attribute.
-	 * @see #setUtilizationMax(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationMax()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @return the value of the '<em>Response Time Features</em>' reference.
+	 * @see #setResponseTimeFeatures(TraceFeatures)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_ResponseTimeFeatures()
+	 * @model required="true"
 	 * @generated
 	 */
-	double getUtilizationMax();
+	TraceFeatures getResponseTimeFeatures();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationMax <em>Utilization Max</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getResponseTimeFeatures <em>Response Time Features</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Utilization Max</em>' attribute.
-	 * @see #getUtilizationMax()
+	 * @param value the new value of the '<em>Response Time Features</em>' reference.
+	 * @see #getResponseTimeFeatures()
 	 * @generated
 	 */
-	void setUtilizationMax(double value);
+	void setResponseTimeFeatures(TraceFeatures value);
+
+	/**
+	 * Returns the value of the '<em><b>Arrival Time Features</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Arrival Time Features</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Arrival Time Features</em>' reference.
+	 * @see #setArrivalTimeFeatures(TraceFeatures)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_ArrivalTimeFeatures()
+	 * @model required="true"
+	 * @generated
+	 */
+	TraceFeatures getArrivalTimeFeatures();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getArrivalTimeFeatures <em>Arrival Time Features</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Arrival Time Features</em>' reference.
+	 * @see #getArrivalTimeFeatures()
+	 * @generated
+	 */
+	void setArrivalTimeFeatures(TraceFeatures value);
 
 } // FeatureVector

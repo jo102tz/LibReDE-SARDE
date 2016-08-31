@@ -88,6 +88,10 @@ public class RecommendationAdapterFactory extends AdapterFactoryImpl {
 				return createFeatureVectorAdapter();
 			}
 			@Override
+			public Adapter caseStatisticalFeatures(StatisticalFeatures object) {
+				return createStatisticalFeaturesAdapter();
+			}
+			@Override
 			public Adapter caseTraceFeatures(TraceFeatures object) {
 				return createTraceFeaturesAdapter();
 			}
@@ -178,6 +182,20 @@ public class RecommendationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFeatureVectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures <em>Statistical Features</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures
+	 * @generated
+	 */
+	public Adapter createStatisticalFeaturesAdapter() {
 		return null;
 	}
 

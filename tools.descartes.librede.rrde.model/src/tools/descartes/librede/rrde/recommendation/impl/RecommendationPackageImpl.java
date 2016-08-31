@@ -27,6 +27,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecif
 import tools.descartes.librede.rrde.recommendation.RecommendationFactory;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
 import tools.descartes.librede.rrde.recommendation.TraceFeatures;
 
 import tools.descartes.librede.units.UnitsPackage;
@@ -72,6 +73,13 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * @generated
 	 */
 	private EClass featureVectorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass statisticalFeaturesEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -310,7 +318,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureVector_UtilizationMean() {
+	public EAttribute getFeatureVector_VarianceInflationFactor() {
 		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -319,8 +327,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureVector_UtilizationVariance() {
-		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(3);
+	public EReference getFeatureVector_UtilizationFeatures() {
+		return (EReference)featureVectorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -328,7 +336,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFeatureVector_Traces() {
+	public EReference getFeatureVector_ResponseTimeFeatures() {
 		return (EReference)featureVectorEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -337,8 +345,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureVector_VarianceInflationFactor() {
-		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(5);
+	public EReference getFeatureVector_ArrivalTimeFeatures() {
+		return (EReference)featureVectorEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -346,8 +354,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureVector_UtilizationMin() {
-		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(6);
+	public EClass getStatisticalFeatures() {
+		return statisticalFeaturesEClass;
 	}
 
 	/**
@@ -355,8 +363,71 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureVector_UtilizationMax() {
-		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(7);
+	public EAttribute getStatisticalFeatures_ArithmeticMean() {
+		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStatisticalFeatures_GeometricMean() {
+		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStatisticalFeatures_StandardDeviation() {
+		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStatisticalFeatures_Minimum() {
+		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStatisticalFeatures_Maximum() {
+		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStatisticalFeatures_AutoCorrelation() {
+		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStatisticalFeatures_Kurtosis() {
+		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStatisticalFeatures_Skewness() {
+		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -373,35 +444,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTraceFeatures_ArithmeticMean() {
-		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTraceFeatures_StandardDeviation() {
-		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTraceFeatures_Minimum() {
-		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTraceFeatures_Maximum() {
-		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(3);
+	public EReference getTraceFeatures_StatisticalFeatures() {
+		return (EReference)traceFeaturesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -410,7 +454,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * @generated
 	 */
 	public EAttribute getTraceFeatures_NumberOfSamples() {
-		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -419,7 +463,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * @generated
 	 */
 	public EAttribute getTraceFeatures_AggregationType() {
-		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -428,16 +472,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * @generated
 	 */
 	public EReference getTraceFeatures_AggregationInterval() {
-		return (EReference)traceFeaturesEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTraceFeatures_AutoCorrelation() {
-		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(7);
+		return (EReference)traceFeaturesEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -446,7 +481,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * @generated
 	 */
 	public EReference getTraceFeatures_Metric() {
-		return (EReference)traceFeaturesEClass.getEStructuralFeatures().get(8);
+		return (EReference)traceFeaturesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -455,7 +490,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * @generated
 	 */
 	public EAttribute getTraceFeatures_OriginalInput() {
-		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(9);
+		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -507,22 +542,26 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		featureVectorEClass = createEClass(FEATURE_VECTOR);
 		createEAttribute(featureVectorEClass, FEATURE_VECTOR__NUMBER_OF_RESSOURCES);
 		createEAttribute(featureVectorEClass, FEATURE_VECTOR__NUMBER_OF_WORKLOAD_CLASSES);
-		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_MEAN);
-		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_VARIANCE);
-		createEReference(featureVectorEClass, FEATURE_VECTOR__TRACES);
 		createEAttribute(featureVectorEClass, FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR);
-		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_MIN);
-		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_MAX);
+		createEReference(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_FEATURES);
+		createEReference(featureVectorEClass, FEATURE_VECTOR__RESPONSE_TIME_FEATURES);
+		createEReference(featureVectorEClass, FEATURE_VECTOR__ARRIVAL_TIME_FEATURES);
+
+		statisticalFeaturesEClass = createEClass(STATISTICAL_FEATURES);
+		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__ARITHMETIC_MEAN);
+		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__GEOMETRIC_MEAN);
+		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__STANDARD_DEVIATION);
+		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__MINIMUM);
+		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__MAXIMUM);
+		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__AUTO_CORRELATION);
+		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__KURTOSIS);
+		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__SKEWNESS);
 
 		traceFeaturesEClass = createEClass(TRACE_FEATURES);
-		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__ARITHMETIC_MEAN);
-		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__STANDARD_DEVIATION);
-		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__MINIMUM);
-		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__MAXIMUM);
+		createEReference(traceFeaturesEClass, TRACE_FEATURES__STATISTICAL_FEATURES);
 		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__NUMBER_OF_SAMPLES);
 		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__AGGREGATION_TYPE);
 		createEReference(traceFeaturesEClass, TRACE_FEATURES__AGGREGATION_INTERVAL);
-		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__AUTO_CORRELATION);
 		createEReference(traceFeaturesEClass, TRACE_FEATURES__METRIC);
 		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__ORIGINAL_INPUT);
 	}
@@ -590,25 +629,29 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEClass(featureVectorEClass, FeatureVector.class, "FeatureVector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeatureVector_NumberOfRessources(), theXMLTypePackage.getInt(), "numberOfRessources", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureVector_NumberOfWorkloadClasses(), theXMLTypePackage.getInt(), "numberOfWorkloadClasses", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationMean(), theXMLTypePackage.getDouble(), "utilizationMean", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationVariance(), theXMLTypePackage.getDouble(), "utilizationVariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureVector_Traces(), this.getTraceFeatures(), null, "traces", null, 0, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureVector_VarianceInflationFactor(), theXMLTypePackage.getDouble(), "varianceInflationFactor", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationMin(), theXMLTypePackage.getDouble(), "utilizationMin", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationMax(), theXMLTypePackage.getDouble(), "utilizationMax", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureVector_UtilizationFeatures(), this.getTraceFeatures(), null, "utilizationFeatures", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureVector_ResponseTimeFeatures(), this.getTraceFeatures(), null, "responseTimeFeatures", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureVector_ArrivalTimeFeatures(), this.getTraceFeatures(), null, "arrivalTimeFeatures", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(statisticalFeaturesEClass, StatisticalFeatures.class, "StatisticalFeatures", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStatisticalFeatures_ArithmeticMean(), theXMLTypePackage.getDouble(), "arithmeticMean", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStatisticalFeatures_GeometricMean(), theXMLTypePackage.getDouble(), "geometricMean", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStatisticalFeatures_StandardDeviation(), theXMLTypePackage.getDouble(), "standardDeviation", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStatisticalFeatures_Minimum(), theXMLTypePackage.getDouble(), "minimum", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStatisticalFeatures_Maximum(), theXMLTypePackage.getDouble(), "maximum", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStatisticalFeatures_AutoCorrelation(), theXMLTypePackage.getDouble(), "autoCorrelation", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStatisticalFeatures_Kurtosis(), theXMLTypePackage.getDouble(), "kurtosis", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStatisticalFeatures_Skewness(), theXMLTypePackage.getDouble(), "skewness", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(traceFeaturesEClass, TraceFeatures.class, "TraceFeatures", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTraceFeatures_ArithmeticMean(), theXMLTypePackage.getDouble(), "arithmeticMean", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTraceFeatures_StandardDeviation(), theXMLTypePackage.getDouble(), "standardDeviation", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTraceFeatures_Minimum(), theXMLTypePackage.getDouble(), "minimum", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTraceFeatures_Maximum(), theXMLTypePackage.getDouble(), "maximum", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTraceFeatures_StatisticalFeatures(), this.getStatisticalFeatures(), null, "statisticalFeatures", null, 0, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTraceFeatures_NumberOfSamples(), theXMLTypePackage.getInt(), "numberOfSamples", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTraceFeatures_AggregationType(), theMetricsPackage.getAggregation(), "aggregationType", "NONE", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		g1 = createEGenericType(theUnitsPackage.getQuantity());
 		g2 = createEGenericType(theUnitsPackage.getTime());
 		g1.getETypeArguments().add(g2);
 		initEReference(getTraceFeatures_AggregationInterval(), g1, null, "aggregationInterval", null, 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTraceFeatures_AutoCorrelation(), theXMLTypePackage.getDouble(), "autoCorrelation", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		g1 = createEGenericType(theMetricsPackage.getMetric());
 		g2 = createEGenericType();
 		g1.getETypeArguments().add(g2);

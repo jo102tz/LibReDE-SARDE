@@ -64,12 +64,10 @@ public class FeatureVectorItemProvider
 
 			addNumberOfRessourcesPropertyDescriptor(object);
 			addNumberOfWorkloadClassesPropertyDescriptor(object);
-			addUtilizationMeanPropertyDescriptor(object);
-			addUtilizationVariancePropertyDescriptor(object);
-			addTracesPropertyDescriptor(object);
 			addVarianceInflationFactorPropertyDescriptor(object);
-			addUtilizationMinPropertyDescriptor(object);
-			addUtilizationMaxPropertyDescriptor(object);
+			addUtilizationFeaturesPropertyDescriptor(object);
+			addResponseTimeFeaturesPropertyDescriptor(object);
+			addArrivalTimeFeaturesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -119,72 +117,6 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Utilization Mean feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addUtilizationMeanPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FeatureVector_utilizationMean_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationMean_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_MEAN,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Utilization Variance feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addUtilizationVariancePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FeatureVector_utilizationVariance_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationVariance_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_VARIANCE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Traces feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTracesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FeatureVector_traces_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_traces_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__TRACES,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Variance Inflation Factor feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -207,45 +139,67 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Utilization Min feature.
+	 * This adds a property descriptor for the Utilization Features feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addUtilizationMinPropertyDescriptor(Object object) {
+	protected void addUtilizationFeaturesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_utilizationMin_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationMin_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_MIN,
+				 getString("_UI_FeatureVector_utilizationFeatures_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationFeatures_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_FEATURES,
 				 true,
 				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Utilization Max feature.
+	 * This adds a property descriptor for the Response Time Features feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addUtilizationMaxPropertyDescriptor(Object object) {
+	protected void addResponseTimeFeaturesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_utilizationMax_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationMax_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_MAX,
+				 getString("_UI_FeatureVector_responseTimeFeatures_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_responseTimeFeatures_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__RESPONSE_TIME_FEATURES,
 				 true,
 				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Arrival Time Features feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addArrivalTimeFeaturesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_arrivalTimeFeatures_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_arrivalTimeFeatures_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__ARRIVAL_TIME_FEATURES,
+				 true,
 				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
@@ -288,11 +242,7 @@ public class FeatureVectorItemProvider
 		switch (notification.getFeatureID(FeatureVector.class)) {
 			case RecommendationPackage.FEATURE_VECTOR__NUMBER_OF_RESSOURCES:
 			case RecommendationPackage.FEATURE_VECTOR__NUMBER_OF_WORKLOAD_CLASSES:
-			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MEAN:
-			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_VARIANCE:
 			case RecommendationPackage.FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR:
-			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MIN:
-			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_MAX:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
