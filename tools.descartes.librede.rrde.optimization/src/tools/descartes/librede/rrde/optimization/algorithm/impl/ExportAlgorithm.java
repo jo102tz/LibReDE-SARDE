@@ -157,6 +157,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		// define output format
 		df = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
 		df.setMaximumFractionDigits(8);
+		df.setGroupingUsed(false);
 
 		settings = (DataExportSpecifier) getAlgorithm();
 		if (settings().isMultidimensional()
