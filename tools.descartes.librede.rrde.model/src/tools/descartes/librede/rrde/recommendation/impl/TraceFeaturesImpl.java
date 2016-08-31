@@ -4,20 +4,14 @@ package tools.descartes.librede.rrde.recommendation.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import tools.descartes.librede.metrics.Aggregation;
 import tools.descartes.librede.metrics.Metric;
-
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
-import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
 import tools.descartes.librede.rrde.recommendation.TraceFeatures;
-
 import tools.descartes.librede.units.Dimension;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;
@@ -29,7 +23,6 @@ import tools.descartes.librede.units.Time;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getStatisticalFeatures <em>Statistical Features</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getNumberOfSamples <em>Number Of Samples</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getAggregationType <em>Aggregation Type</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl#getAggregationInterval <em>Aggregation Interval</em>}</li>
@@ -41,16 +34,6 @@ import tools.descartes.librede.units.Time;
  * @generated
  */
 public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements TraceFeatures {
-	/**
-	 * The cached value of the '{@link #getStatisticalFeatures() <em>Statistical Features</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getStatisticalFeatures()
-	 * @generated
-	 * @ordered
-	 */
-	protected StatisticalFeatures statisticalFeatures;
-
 	/**
 	 * The default value of the '{@link #getNumberOfSamples() <em>Number Of Samples</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -148,44 +131,6 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	@Override
 	protected EClass eStaticClass() {
 		return RecommendationPackage.Literals.TRACE_FEATURES;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public StatisticalFeatures getStatisticalFeatures() {
-		if (statisticalFeatures != null && statisticalFeatures.eIsProxy()) {
-			InternalEObject oldStatisticalFeatures = (InternalEObject)statisticalFeatures;
-			statisticalFeatures = (StatisticalFeatures)eResolveProxy(oldStatisticalFeatures);
-			if (statisticalFeatures != oldStatisticalFeatures) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES, oldStatisticalFeatures, statisticalFeatures));
-			}
-		}
-		return statisticalFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public StatisticalFeatures basicGetStatisticalFeatures() {
-		return statisticalFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setStatisticalFeatures(StatisticalFeatures newStatisticalFeatures) {
-		StatisticalFeatures oldStatisticalFeatures = statisticalFeatures;
-		statisticalFeatures = newStatisticalFeatures;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES, oldStatisticalFeatures, statisticalFeatures));
 	}
 
 	/**
@@ -355,9 +300,6 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES:
-				if (resolve) return getStatisticalFeatures();
-				return basicGetStatisticalFeatures();
 			case RecommendationPackage.TRACE_FEATURES__NUMBER_OF_SAMPLES:
 				return getNumberOfSamples();
 			case RecommendationPackage.TRACE_FEATURES__AGGREGATION_TYPE:
@@ -382,9 +324,6 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES:
-				setStatisticalFeatures((StatisticalFeatures)newValue);
-				return;
 			case RecommendationPackage.TRACE_FEATURES__NUMBER_OF_SAMPLES:
 				setNumberOfSamples((Integer)newValue);
 				return;
@@ -412,9 +351,6 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES:
-				setStatisticalFeatures((StatisticalFeatures)null);
-				return;
 			case RecommendationPackage.TRACE_FEATURES__NUMBER_OF_SAMPLES:
 				setNumberOfSamples(NUMBER_OF_SAMPLES_EDEFAULT);
 				return;
@@ -442,8 +378,6 @@ public class TraceFeaturesImpl extends MinimalEObjectImpl.Container implements T
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case RecommendationPackage.TRACE_FEATURES__STATISTICAL_FEATURES:
-				return statisticalFeatures != null;
 			case RecommendationPackage.TRACE_FEATURES__NUMBER_OF_SAMPLES:
 				return numberOfSamples != NUMBER_OF_SAMPLES_EDEFAULT;
 			case RecommendationPackage.TRACE_FEATURES__AGGREGATION_TYPE:

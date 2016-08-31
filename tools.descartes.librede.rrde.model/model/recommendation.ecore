@@ -46,33 +46,51 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="varianceInflationFactor"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
         defaultValueLiteral="-1"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="utilizationFeatures" lowerBound="1"
-        eType="#//TraceFeatures"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="responseTimeFeatures" lowerBound="1"
-        eType="#//TraceFeatures"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="arrivalTimeFeatures" lowerBound="1"
-        eType="#//TraceFeatures"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="utilizationStatistics"
+        lowerBound="1" eType="#//StatisticalFeatures"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="responseTimeStatistics"
+        lowerBound="1" eType="#//StatisticalFeatures"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arrivalTimeStatistics"
+        lowerBound="1" eType="#//StatisticalFeatures"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="traces" lowerBound="1"
+        upperBound="-1" eType="#//TraceFeatures"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StatisticalFeatures">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="N" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
+        defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="arithmeticMean" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="geometricMean" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="standardDeviation" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="quadraticMean" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimum" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximum" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoCorrelation" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kurtosis" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="skewness" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tenthpercentile" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ninetiethpercentile" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pearsonCorrelationMatrixNorm"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="spearmanCorrelationMatrixNorm"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kendallCorrelationMatrixNorm"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="covarianceMatrixNorm" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TraceFeatures">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statisticalFeatures" eType="#//StatisticalFeatures"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfSamples" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggregationType" lowerBound="1"

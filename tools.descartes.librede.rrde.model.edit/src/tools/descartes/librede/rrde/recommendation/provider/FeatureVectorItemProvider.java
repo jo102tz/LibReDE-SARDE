@@ -65,9 +65,10 @@ public class FeatureVectorItemProvider
 			addNumberOfRessourcesPropertyDescriptor(object);
 			addNumberOfWorkloadClassesPropertyDescriptor(object);
 			addVarianceInflationFactorPropertyDescriptor(object);
-			addUtilizationFeaturesPropertyDescriptor(object);
-			addResponseTimeFeaturesPropertyDescriptor(object);
-			addArrivalTimeFeaturesPropertyDescriptor(object);
+			addUtilizationStatisticsPropertyDescriptor(object);
+			addResponseTimeStatisticsPropertyDescriptor(object);
+			addArrivalTimeStatisticsPropertyDescriptor(object);
+			addTracesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -139,19 +140,19 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Utilization Features feature.
+	 * This adds a property descriptor for the Utilization Statistics feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addUtilizationFeaturesPropertyDescriptor(Object object) {
+	protected void addUtilizationStatisticsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_utilizationFeatures_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationFeatures_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_FEATURES,
+				 getString("_UI_FeatureVector_utilizationStatistics_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationStatistics_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_STATISTICS,
 				 true,
 				 false,
 				 true,
@@ -161,19 +162,19 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Response Time Features feature.
+	 * This adds a property descriptor for the Response Time Statistics feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addResponseTimeFeaturesPropertyDescriptor(Object object) {
+	protected void addResponseTimeStatisticsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_responseTimeFeatures_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_responseTimeFeatures_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__RESPONSE_TIME_FEATURES,
+				 getString("_UI_FeatureVector_responseTimeStatistics_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_responseTimeStatistics_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__RESPONSE_TIME_STATISTICS,
 				 true,
 				 false,
 				 true,
@@ -183,19 +184,41 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Arrival Time Features feature.
+	 * This adds a property descriptor for the Arrival Time Statistics feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addArrivalTimeFeaturesPropertyDescriptor(Object object) {
+	protected void addArrivalTimeStatisticsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_arrivalTimeFeatures_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_arrivalTimeFeatures_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__ARRIVAL_TIME_FEATURES,
+				 getString("_UI_FeatureVector_arrivalTimeStatistics_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_arrivalTimeStatistics_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Traces feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTracesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_traces_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_traces_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__TRACES,
 				 true,
 				 false,
 				 true,

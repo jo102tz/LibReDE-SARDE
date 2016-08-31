@@ -26,26 +26,37 @@
  */
 package tools.descartes.librede.rrde.recommendation.extract;
 
+import org.apache.commons.math3.stat.correlation.Covariance;
+import org.apache.commons.math3.stat.correlation.KendallsCorrelation;
+import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
+import org.apache.commons.math3.stat.correlation.SpearmansCorrelation;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.configuration.ModelEntity;
 import tools.descartes.librede.configuration.Resource;
 import tools.descartes.librede.metrics.Aggregation;
+import tools.descartes.librede.metrics.Metric;
 import tools.descartes.librede.metrics.StandardMetrics;
 import tools.descartes.librede.repository.IRepositoryCursor;
 import tools.descartes.librede.repository.TimeSeries;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
+import tools.descartes.librede.rrde.recommendation.TraceFeatures;
 import tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl;
+import tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl;
+import tools.descartes.librede.units.Dimension;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Ratio;
 import tools.descartes.librede.units.Time;
 import tools.descartes.librede.units.Unit;
 import tools.descartes.librede.units.UnitsFactory;
-import tools.descartes.librede.units.impl.QuantityImpl;
 
 /**
  * Basic class extracting the {@link FeatureVector}s.
@@ -71,6 +82,25 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	 */
 	public Quantity<Time> basicStepSize = UnitsFactory.eINSTANCE
 			.createQuantity();
+	/**
+	 * {@link PearsonsCorrelation} object for correlation calculations.
+	 */
+	PearsonsCorrelation pear = new PearsonsCorrelation();
+
+	/**
+	 * {@link SpearmansCorrelation} object for correlation calculations.
+	 */
+	SpearmansCorrelation spear = new SpearmansCorrelation();
+
+	/**
+	 * {@link KendallsCorrelation} object for correlation calculations.
+	 */
+	KendallsCorrelation kend = new KendallsCorrelation();
+
+	/**
+	 * {@link Covariance} object for covariance calculations.
+	 */
+	Covariance cov = new Covariance();
 
 	/**
 	 * Standard constructor setting basic values for all constants.
@@ -95,9 +125,32 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		Librede.initRepo(var);
 		FeatureVector vector = new FeatureVectorImpl();
 		extractWorkloadDescription(vector, var);
-		extractUtilizationInformation(vector, var);
-		extractRegressionAnalyzisInformation(vector, var);
+		// extractRegressionAnalyzisInformation(vector, var);
+		vector.setUtilizationStatistics(extractStatisticalFeatureVector(var,
+				var.getRepo().getWorkload().getResources(),
+				StandardMetrics.UTILIZATION, Ratio.PERCENTAGE,
+				Aggregation.AVERAGE));
+		vector.setResponseTimeStatistics(extractStatisticalFeatureVector(var,
+				var.getRepo().getWorkload().getServices(),
+				StandardMetrics.RESPONSE_TIME, basicTime, Aggregation.NONE));
+		vector.setArrivalTimeStatistics(extractStatisticalFeatureVector(var,
+				var.getRepo().getWorkload().getServices(),
+				StandardMetrics.RESPONSE_TIME, basicTime, Aggregation.NONE));
+		vector.getTraces().addAll(extractTraceFeatures(var));
 		return vector;
+	}
+
+	/**
+	 * Creates a list of {@link TraceFeatures} for all traces available.
+	 * 
+	 * @param var
+	 *            The {@link LibredeVariables} to extract from.
+	 * @return An {@link EList} of {@link TraceFeatures} containing trace
+	 *         specific information
+	 */
+	protected EList<TraceFeatures> extractTraceFeatures(LibredeVariables var) {
+		// TODO add
+		return new BasicEList<TraceFeatures>();
 	}
 
 	/**
@@ -118,22 +171,32 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	}
 
 	/**
-	 * Extracts and adds the information about utilization into the given
-	 * {@link FeatureVector}.
+	 * Creates a new {@link StatisticalFeatures} object filling the features
+	 * with statistical data of the given {@link LibredeVariables}.
 	 * 
-	 * @param vector
-	 *            The vector to modify
 	 * @param var
-	 *            The {@link LibredeVariables} to analyze
+	 *            The {@link LibredeVariables} to extract from.
+	 * @param entities
+	 *            The list of {@link ModelEntity}s to aggregate.
+	 * @param metric
+	 *            The {@link Metric} to be used.
+	 * @param unit
+	 *            The {@link Unit} matching the given metric.
+	 * @param aggregation
+	 *            The {@link Aggregation} of the corresponding metric and unit.
+	 * @return An object of type {@link StatisticalFeatures} filled with all
+	 *         accessible data.
 	 */
-	protected void extractUtilizationInformation(FeatureVector vector,
-			LibredeVariables var) {
+	protected <D extends Dimension> StatisticalFeatures extractStatisticalFeatureVector(
+			LibredeVariables var, EList<? extends ModelEntity> entities,
+			Metric<D> metric, Unit<D> unit, Aggregation aggregation) {
 		DescriptiveStatistics stat = new DescriptiveStatistics();
-		// collect information for all resources
-		for (Resource res : var.getRepo().getWorkload().getResources()) {
-			TimeSeries series = var.getRepo().select(
-					StandardMetrics.UTILIZATION, Ratio.PERCENTAGE, res,
-					Aggregation.AVERAGE);
+		// collect information for all entities
+		double[][] table = new double[entities.size()][];
+		int i = 0;
+		for (ModelEntity res : entities) {
+			TimeSeries series = var.getRepo().select(metric, unit, res,
+					aggregation);
 			// time series should only contain one dimension
 			if (series.getData().columns() > 1) {
 				log.warn("The time series " + series
@@ -141,12 +204,38 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 			} else if (series.getData().columns() == 0 || series.isEmpty()) {
 				log.warn("The time series " + series + " is empty.");
 			}
-			addSeriesToStats(stat, series);
+			double[] data = series.getData().toArray1D();
+			table[i] = data;
+
+			// add to stat
+			for (int j = 0; j < data.length; j++) {
+				stat.addValue(data[j]);
+			}
+			i++;
 		}
-//		vector.setUtilizationMean(stat.getMean());
-//		vector.setUtilizationVariance(stat.getVariance());
-//		vector.setUtilizationMax(stat.getMax());
-//		vector.setUtilizationMin(stat.getMin());
+
+		// collect statistical features
+		StatisticalFeatures vector = new StatisticalFeaturesImpl();
+		vector.setN(stat.getN());
+		vector.setGeometricMean(stat.getGeometricMean());
+		vector.setArithmeticMean(stat.getMean());
+		vector.setStandardDeviation(stat.getStandardDeviation());
+		vector.setQuadraticMean(stat.getQuadraticMean());
+		vector.setMaximum(stat.getMax());
+		vector.setMinimum(stat.getMin());
+		vector.setKurtosis(stat.getKurtosis());
+		vector.setSkewness(stat.getSkewness());
+		vector.setTenthpercentile(stat.getPercentile(10));
+		vector.setNinetiethpercentile(stat.getPercentile(90));
+		vector.setPearsonCorrelationMatrixNorm(pear.computeCorrelationMatrix(
+				table).getNorm());
+		vector.setSpearmanCorrelationMatrixNorm(spear.computeCorrelationMatrix(
+				table).getNorm());
+		vector.setKendallCorrelationMatrixNorm(kend.computeCorrelationMatrix(
+				table).getNorm());
+		vector.setCovarianceMatrixNorm(new Covariance(table)
+				.getCovarianceMatrix().getNorm());
+		return vector;
 	}
 
 	/**
@@ -167,19 +256,10 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 				var.getRepo().getCurrentTime(), basicStepSize);
 		// TODO keinen plan
 
-		
 		// export Rsquared and calculate VIF
 		double rsquared = regression.calculateRSquared();
 		double vif = (1.0) / (1.0 - rsquared);
 		vector.setVarianceInflationFactor(vif);
-	}
-
-	private void addSeriesToStats(DescriptiveStatistics stat, TimeSeries series) {
-		for (int i = 0; i < series.getData().columns(); i++) {
-			for (int j = 0; j < series.getData(i).rows(); j++) {
-				stat.addValue(series.getData().get(j, i));
-			}
-		}
 	}
 
 }

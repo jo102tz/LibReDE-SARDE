@@ -19,7 +19,6 @@ import tools.descartes.librede.units.Time;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getStatisticalFeatures <em>Statistical Features</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getNumberOfSamples <em>Number Of Samples</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getAggregationType <em>Aggregation Type</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getAggregationInterval <em>Aggregation Interval</em>}</li>
@@ -33,32 +32,6 @@ import tools.descartes.librede.units.Time;
  * @generated
  */
 public interface TraceFeatures extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Statistical Features</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Statistical Features</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Statistical Features</em>' reference.
-	 * @see #setStatisticalFeatures(StatisticalFeatures)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getTraceFeatures_StatisticalFeatures()
-	 * @model
-	 * @generated
-	 */
-	StatisticalFeatures getStatisticalFeatures();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getStatisticalFeatures <em>Statistical Features</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Statistical Features</em>' reference.
-	 * @see #getStatisticalFeatures()
-	 * @generated
-	 */
-	void setStatisticalFeatures(StatisticalFeatures value);
-
 	/**
 	 * Returns the value of the '<em><b>Number Of Samples</b></em>' attribute.
 	 * The default value is <code>"-1"</code>.

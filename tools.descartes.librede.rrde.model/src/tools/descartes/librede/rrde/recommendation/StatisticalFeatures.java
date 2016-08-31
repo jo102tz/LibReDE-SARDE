@@ -12,14 +12,21 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getN <em>N</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getArithmeticMean <em>Arithmetic Mean</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getGeometricMean <em>Geometric Mean</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getStandardDeviation <em>Standard Deviation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getQuadraticMean <em>Quadratic Mean</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getMinimum <em>Minimum</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getMaximum <em>Maximum</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getAutoCorrelation <em>Auto Correlation</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getKurtosis <em>Kurtosis</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getSkewness <em>Skewness</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getTenthpercentile <em>Tenthpercentile</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getNinetiethpercentile <em>Ninetiethpercentile</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getPearsonCorrelationMatrixNorm <em>Pearson Correlation Matrix Norm</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getSpearmanCorrelationMatrixNorm <em>Spearman Correlation Matrix Norm</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getKendallCorrelationMatrixNorm <em>Kendall Correlation Matrix Norm</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getCovarianceMatrixNorm <em>Covariance Matrix Norm</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,6 +35,33 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface StatisticalFeatures extends EObject {
+	/**
+	 * Returns the value of the '<em><b>N</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>N</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>N</em>' attribute.
+	 * @see #setN(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_N()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getN();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getN <em>N</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>N</em>' attribute.
+	 * @see #getN()
+	 * @generated
+	 */
+	void setN(double value);
+
 	/**
 	 * Returns the value of the '<em><b>Arithmetic Mean</b></em>' attribute.
 	 * The default value is <code>"-1"</code>.
@@ -110,6 +144,33 @@ public interface StatisticalFeatures extends EObject {
 	void setStandardDeviation(double value);
 
 	/**
+	 * Returns the value of the '<em><b>Quadratic Mean</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Quadratic Mean</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Quadratic Mean</em>' attribute.
+	 * @see #setQuadraticMean(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_QuadraticMean()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getQuadraticMean();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getQuadraticMean <em>Quadratic Mean</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Quadratic Mean</em>' attribute.
+	 * @see #getQuadraticMean()
+	 * @generated
+	 */
+	void setQuadraticMean(double value);
+
+	/**
 	 * Returns the value of the '<em><b>Minimum</b></em>' attribute.
 	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
@@ -164,33 +225,6 @@ public interface StatisticalFeatures extends EObject {
 	void setMaximum(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Auto Correlation</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Auto Correlation</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Auto Correlation</em>' attribute.
-	 * @see #setAutoCorrelation(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_AutoCorrelation()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
-	 * @generated
-	 */
-	double getAutoCorrelation();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getAutoCorrelation <em>Auto Correlation</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Auto Correlation</em>' attribute.
-	 * @see #getAutoCorrelation()
-	 * @generated
-	 */
-	void setAutoCorrelation(double value);
-
-	/**
 	 * Returns the value of the '<em><b>Kurtosis</b></em>' attribute.
 	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
@@ -243,5 +277,167 @@ public interface StatisticalFeatures extends EObject {
 	 * @generated
 	 */
 	void setSkewness(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Tenthpercentile</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Tenthpercentile</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Tenthpercentile</em>' attribute.
+	 * @see #setTenthpercentile(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_Tenthpercentile()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getTenthpercentile();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getTenthpercentile <em>Tenthpercentile</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Tenthpercentile</em>' attribute.
+	 * @see #getTenthpercentile()
+	 * @generated
+	 */
+	void setTenthpercentile(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Ninetiethpercentile</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ninetiethpercentile</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ninetiethpercentile</em>' attribute.
+	 * @see #setNinetiethpercentile(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_Ninetiethpercentile()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getNinetiethpercentile();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getNinetiethpercentile <em>Ninetiethpercentile</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Ninetiethpercentile</em>' attribute.
+	 * @see #getNinetiethpercentile()
+	 * @generated
+	 */
+	void setNinetiethpercentile(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Pearson Correlation Matrix Norm</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Pearson Correlation Matrix Norm</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Pearson Correlation Matrix Norm</em>' attribute.
+	 * @see #setPearsonCorrelationMatrixNorm(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_PearsonCorrelationMatrixNorm()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getPearsonCorrelationMatrixNorm();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getPearsonCorrelationMatrixNorm <em>Pearson Correlation Matrix Norm</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Pearson Correlation Matrix Norm</em>' attribute.
+	 * @see #getPearsonCorrelationMatrixNorm()
+	 * @generated
+	 */
+	void setPearsonCorrelationMatrixNorm(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Spearman Correlation Matrix Norm</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Spearman Correlation Matrix Norm</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Spearman Correlation Matrix Norm</em>' attribute.
+	 * @see #setSpearmanCorrelationMatrixNorm(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_SpearmanCorrelationMatrixNorm()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getSpearmanCorrelationMatrixNorm();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getSpearmanCorrelationMatrixNorm <em>Spearman Correlation Matrix Norm</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Spearman Correlation Matrix Norm</em>' attribute.
+	 * @see #getSpearmanCorrelationMatrixNorm()
+	 * @generated
+	 */
+	void setSpearmanCorrelationMatrixNorm(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Kendall Correlation Matrix Norm</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Kendall Correlation Matrix Norm</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Kendall Correlation Matrix Norm</em>' attribute.
+	 * @see #setKendallCorrelationMatrixNorm(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_KendallCorrelationMatrixNorm()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getKendallCorrelationMatrixNorm();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getKendallCorrelationMatrixNorm <em>Kendall Correlation Matrix Norm</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Kendall Correlation Matrix Norm</em>' attribute.
+	 * @see #getKendallCorrelationMatrixNorm()
+	 * @generated
+	 */
+	void setKendallCorrelationMatrixNorm(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Covariance Matrix Norm</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Covariance Matrix Norm</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Covariance Matrix Norm</em>' attribute.
+	 * @see #setCovarianceMatrixNorm(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_CovarianceMatrixNorm()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getCovarianceMatrixNorm();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getCovarianceMatrixNorm <em>Covariance Matrix Norm</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Covariance Matrix Norm</em>' attribute.
+	 * @see #getCovarianceMatrixNorm()
+	 * @generated
+	 */
+	void setCovarianceMatrixNorm(double value);
 
 } // StatisticalFeatures

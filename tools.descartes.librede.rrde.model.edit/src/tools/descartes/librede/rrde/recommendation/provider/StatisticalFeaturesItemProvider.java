@@ -62,16 +62,45 @@ public class StatisticalFeaturesItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addNPropertyDescriptor(object);
 			addArithmeticMeanPropertyDescriptor(object);
 			addGeometricMeanPropertyDescriptor(object);
 			addStandardDeviationPropertyDescriptor(object);
+			addQuadraticMeanPropertyDescriptor(object);
 			addMinimumPropertyDescriptor(object);
 			addMaximumPropertyDescriptor(object);
-			addAutoCorrelationPropertyDescriptor(object);
 			addKurtosisPropertyDescriptor(object);
 			addSkewnessPropertyDescriptor(object);
+			addTenthpercentilePropertyDescriptor(object);
+			addNinetiethpercentilePropertyDescriptor(object);
+			addPearsonCorrelationMatrixNormPropertyDescriptor(object);
+			addSpearmanCorrelationMatrixNormPropertyDescriptor(object);
+			addKendallCorrelationMatrixNormPropertyDescriptor(object);
+			addCovarianceMatrixNormPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the N feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StatisticalFeatures_N_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_N_feature", "_UI_StatisticalFeatures_type"),
+				 RecommendationPackage.Literals.STATISTICAL_FEATURES__N,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -141,6 +170,28 @@ public class StatisticalFeaturesItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Quadratic Mean feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addQuadraticMeanPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StatisticalFeatures_quadraticMean_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_quadraticMean_feature", "_UI_StatisticalFeatures_type"),
+				 RecommendationPackage.Literals.STATISTICAL_FEATURES__QUADRATIC_MEAN,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Minimum feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -176,28 +227,6 @@ public class StatisticalFeaturesItemProvider
 				 getString("_UI_StatisticalFeatures_maximum_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_maximum_feature", "_UI_StatisticalFeatures_type"),
 				 RecommendationPackage.Literals.STATISTICAL_FEATURES__MAXIMUM,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Auto Correlation feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAutoCorrelationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_StatisticalFeatures_autoCorrelation_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_autoCorrelation_feature", "_UI_StatisticalFeatures_type"),
-				 RecommendationPackage.Literals.STATISTICAL_FEATURES__AUTO_CORRELATION,
 				 true,
 				 false,
 				 false,
@@ -251,6 +280,138 @@ public class StatisticalFeaturesItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Tenthpercentile feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTenthpercentilePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StatisticalFeatures_tenthpercentile_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_tenthpercentile_feature", "_UI_StatisticalFeatures_type"),
+				 RecommendationPackage.Literals.STATISTICAL_FEATURES__TENTHPERCENTILE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Ninetiethpercentile feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNinetiethpercentilePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StatisticalFeatures_ninetiethpercentile_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_ninetiethpercentile_feature", "_UI_StatisticalFeatures_type"),
+				 RecommendationPackage.Literals.STATISTICAL_FEATURES__NINETIETHPERCENTILE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Pearson Correlation Matrix Norm feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPearsonCorrelationMatrixNormPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StatisticalFeatures_pearsonCorrelationMatrixNorm_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_pearsonCorrelationMatrixNorm_feature", "_UI_StatisticalFeatures_type"),
+				 RecommendationPackage.Literals.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Spearman Correlation Matrix Norm feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSpearmanCorrelationMatrixNormPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StatisticalFeatures_spearmanCorrelationMatrixNorm_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_spearmanCorrelationMatrixNorm_feature", "_UI_StatisticalFeatures_type"),
+				 RecommendationPackage.Literals.STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Kendall Correlation Matrix Norm feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addKendallCorrelationMatrixNormPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StatisticalFeatures_kendallCorrelationMatrixNorm_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_kendallCorrelationMatrixNorm_feature", "_UI_StatisticalFeatures_type"),
+				 RecommendationPackage.Literals.STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Covariance Matrix Norm feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCovarianceMatrixNormPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StatisticalFeatures_covarianceMatrixNorm_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_covarianceMatrixNorm_feature", "_UI_StatisticalFeatures_type"),
+				 RecommendationPackage.Literals.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns StatisticalFeatures.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -270,7 +431,7 @@ public class StatisticalFeaturesItemProvider
 	@Override
 	public String getText(Object object) {
 		StatisticalFeatures statisticalFeatures = (StatisticalFeatures)object;
-		return getString("_UI_StatisticalFeatures_type") + " " + statisticalFeatures.getArithmeticMean();
+		return getString("_UI_StatisticalFeatures_type") + " " + statisticalFeatures.getN();
 	}
 	
 
@@ -286,14 +447,21 @@ public class StatisticalFeaturesItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(StatisticalFeatures.class)) {
+			case RecommendationPackage.STATISTICAL_FEATURES__N:
 			case RecommendationPackage.STATISTICAL_FEATURES__ARITHMETIC_MEAN:
 			case RecommendationPackage.STATISTICAL_FEATURES__GEOMETRIC_MEAN:
 			case RecommendationPackage.STATISTICAL_FEATURES__STANDARD_DEVIATION:
+			case RecommendationPackage.STATISTICAL_FEATURES__QUADRATIC_MEAN:
 			case RecommendationPackage.STATISTICAL_FEATURES__MINIMUM:
 			case RecommendationPackage.STATISTICAL_FEATURES__MAXIMUM:
-			case RecommendationPackage.STATISTICAL_FEATURES__AUTO_CORRELATION:
 			case RecommendationPackage.STATISTICAL_FEATURES__KURTOSIS:
 			case RecommendationPackage.STATISTICAL_FEATURES__SKEWNESS:
+			case RecommendationPackage.STATISTICAL_FEATURES__TENTHPERCENTILE:
+			case RecommendationPackage.STATISTICAL_FEATURES__NINETIETHPERCENTILE:
+			case RecommendationPackage.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM:
+			case RecommendationPackage.STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM:
+			case RecommendationPackage.STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM:
+			case RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

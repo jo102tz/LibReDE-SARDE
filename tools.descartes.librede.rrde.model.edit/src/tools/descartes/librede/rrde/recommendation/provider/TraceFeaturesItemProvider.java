@@ -66,35 +66,12 @@ public class TraceFeaturesItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addStatisticalFeaturesPropertyDescriptor(object);
 			addNumberOfSamplesPropertyDescriptor(object);
 			addAggregationTypePropertyDescriptor(object);
 			addMetricPropertyDescriptor(object);
 			addOriginalInputPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Statistical Features feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addStatisticalFeaturesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TraceFeatures_statisticalFeatures_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TraceFeatures_statisticalFeatures_feature", "_UI_TraceFeatures_type"),
-				 RecommendationPackage.Literals.TRACE_FEATURES__STATISTICAL_FEATURES,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**

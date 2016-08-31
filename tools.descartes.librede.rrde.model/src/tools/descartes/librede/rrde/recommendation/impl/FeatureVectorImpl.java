@@ -2,13 +2,17 @@
  */
 package tools.descartes.librede.rrde.recommendation.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
+import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
 import tools.descartes.librede.rrde.recommendation.TraceFeatures;
 
 /**
@@ -21,9 +25,10 @@ import tools.descartes.librede.rrde.recommendation.TraceFeatures;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getNumberOfRessources <em>Number Of Ressources</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getNumberOfWorkloadClasses <em>Number Of Workload Classes</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getVarianceInflationFactor <em>Variance Inflation Factor</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getUtilizationFeatures <em>Utilization Features</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getResponseTimeFeatures <em>Response Time Features</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getArrivalTimeFeatures <em>Arrival Time Features</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getUtilizationStatistics <em>Utilization Statistics</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getResponseTimeStatistics <em>Response Time Statistics</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getArrivalTimeStatistics <em>Arrival Time Statistics</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getTraces <em>Traces</em>}</li>
  * </ul>
  * </p>
  *
@@ -91,34 +96,44 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	protected double varianceInflationFactor = VARIANCE_INFLATION_FACTOR_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getUtilizationFeatures() <em>Utilization Features</em>}' reference.
+	 * The cached value of the '{@link #getUtilizationStatistics() <em>Utilization Statistics</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUtilizationFeatures()
+	 * @see #getUtilizationStatistics()
 	 * @generated
 	 * @ordered
 	 */
-	protected TraceFeatures utilizationFeatures;
+	protected StatisticalFeatures utilizationStatistics;
 
 	/**
-	 * The cached value of the '{@link #getResponseTimeFeatures() <em>Response Time Features</em>}' reference.
+	 * The cached value of the '{@link #getResponseTimeStatistics() <em>Response Time Statistics</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResponseTimeFeatures()
+	 * @see #getResponseTimeStatistics()
 	 * @generated
 	 * @ordered
 	 */
-	protected TraceFeatures responseTimeFeatures;
+	protected StatisticalFeatures responseTimeStatistics;
 
 	/**
-	 * The cached value of the '{@link #getArrivalTimeFeatures() <em>Arrival Time Features</em>}' reference.
+	 * The cached value of the '{@link #getArrivalTimeStatistics() <em>Arrival Time Statistics</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getArrivalTimeFeatures()
+	 * @see #getArrivalTimeStatistics()
 	 * @generated
 	 * @ordered
 	 */
-	protected TraceFeatures arrivalTimeFeatures;
+	protected StatisticalFeatures arrivalTimeStatistics;
+
+	/**
+	 * The cached value of the '{@link #getTraces() <em>Traces</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTraces()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TraceFeatures> traces;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -207,16 +222,16 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TraceFeatures getUtilizationFeatures() {
-		if (utilizationFeatures != null && utilizationFeatures.eIsProxy()) {
-			InternalEObject oldUtilizationFeatures = (InternalEObject)utilizationFeatures;
-			utilizationFeatures = (TraceFeatures)eResolveProxy(oldUtilizationFeatures);
-			if (utilizationFeatures != oldUtilizationFeatures) {
+	public StatisticalFeatures getUtilizationStatistics() {
+		if (utilizationStatistics != null && utilizationStatistics.eIsProxy()) {
+			InternalEObject oldUtilizationStatistics = (InternalEObject)utilizationStatistics;
+			utilizationStatistics = (StatisticalFeatures)eResolveProxy(oldUtilizationStatistics);
+			if (utilizationStatistics != oldUtilizationStatistics) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, RecommendationPackage.FEATURE_VECTOR__UTILIZATION_FEATURES, oldUtilizationFeatures, utilizationFeatures));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, RecommendationPackage.FEATURE_VECTOR__UTILIZATION_STATISTICS, oldUtilizationStatistics, utilizationStatistics));
 			}
 		}
-		return utilizationFeatures;
+		return utilizationStatistics;
 	}
 
 	/**
@@ -224,8 +239,8 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TraceFeatures basicGetUtilizationFeatures() {
-		return utilizationFeatures;
+	public StatisticalFeatures basicGetUtilizationStatistics() {
+		return utilizationStatistics;
 	}
 
 	/**
@@ -233,11 +248,11 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setUtilizationFeatures(TraceFeatures newUtilizationFeatures) {
-		TraceFeatures oldUtilizationFeatures = utilizationFeatures;
-		utilizationFeatures = newUtilizationFeatures;
+	public void setUtilizationStatistics(StatisticalFeatures newUtilizationStatistics) {
+		StatisticalFeatures oldUtilizationStatistics = utilizationStatistics;
+		utilizationStatistics = newUtilizationStatistics;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__UTILIZATION_FEATURES, oldUtilizationFeatures, utilizationFeatures));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__UTILIZATION_STATISTICS, oldUtilizationStatistics, utilizationStatistics));
 	}
 
 	/**
@@ -245,16 +260,16 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TraceFeatures getResponseTimeFeatures() {
-		if (responseTimeFeatures != null && responseTimeFeatures.eIsProxy()) {
-			InternalEObject oldResponseTimeFeatures = (InternalEObject)responseTimeFeatures;
-			responseTimeFeatures = (TraceFeatures)eResolveProxy(oldResponseTimeFeatures);
-			if (responseTimeFeatures != oldResponseTimeFeatures) {
+	public StatisticalFeatures getResponseTimeStatistics() {
+		if (responseTimeStatistics != null && responseTimeStatistics.eIsProxy()) {
+			InternalEObject oldResponseTimeStatistics = (InternalEObject)responseTimeStatistics;
+			responseTimeStatistics = (StatisticalFeatures)eResolveProxy(oldResponseTimeStatistics);
+			if (responseTimeStatistics != oldResponseTimeStatistics) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_FEATURES, oldResponseTimeFeatures, responseTimeFeatures));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_STATISTICS, oldResponseTimeStatistics, responseTimeStatistics));
 			}
 		}
-		return responseTimeFeatures;
+		return responseTimeStatistics;
 	}
 
 	/**
@@ -262,8 +277,8 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TraceFeatures basicGetResponseTimeFeatures() {
-		return responseTimeFeatures;
+	public StatisticalFeatures basicGetResponseTimeStatistics() {
+		return responseTimeStatistics;
 	}
 
 	/**
@@ -271,11 +286,11 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setResponseTimeFeatures(TraceFeatures newResponseTimeFeatures) {
-		TraceFeatures oldResponseTimeFeatures = responseTimeFeatures;
-		responseTimeFeatures = newResponseTimeFeatures;
+	public void setResponseTimeStatistics(StatisticalFeatures newResponseTimeStatistics) {
+		StatisticalFeatures oldResponseTimeStatistics = responseTimeStatistics;
+		responseTimeStatistics = newResponseTimeStatistics;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_FEATURES, oldResponseTimeFeatures, responseTimeFeatures));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_STATISTICS, oldResponseTimeStatistics, responseTimeStatistics));
 	}
 
 	/**
@@ -283,16 +298,16 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TraceFeatures getArrivalTimeFeatures() {
-		if (arrivalTimeFeatures != null && arrivalTimeFeatures.eIsProxy()) {
-			InternalEObject oldArrivalTimeFeatures = (InternalEObject)arrivalTimeFeatures;
-			arrivalTimeFeatures = (TraceFeatures)eResolveProxy(oldArrivalTimeFeatures);
-			if (arrivalTimeFeatures != oldArrivalTimeFeatures) {
+	public StatisticalFeatures getArrivalTimeStatistics() {
+		if (arrivalTimeStatistics != null && arrivalTimeStatistics.eIsProxy()) {
+			InternalEObject oldArrivalTimeStatistics = (InternalEObject)arrivalTimeStatistics;
+			arrivalTimeStatistics = (StatisticalFeatures)eResolveProxy(oldArrivalTimeStatistics);
+			if (arrivalTimeStatistics != oldArrivalTimeStatistics) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_FEATURES, oldArrivalTimeFeatures, arrivalTimeFeatures));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS, oldArrivalTimeStatistics, arrivalTimeStatistics));
 			}
 		}
-		return arrivalTimeFeatures;
+		return arrivalTimeStatistics;
 	}
 
 	/**
@@ -300,8 +315,8 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TraceFeatures basicGetArrivalTimeFeatures() {
-		return arrivalTimeFeatures;
+	public StatisticalFeatures basicGetArrivalTimeStatistics() {
+		return arrivalTimeStatistics;
 	}
 
 	/**
@@ -309,11 +324,23 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setArrivalTimeFeatures(TraceFeatures newArrivalTimeFeatures) {
-		TraceFeatures oldArrivalTimeFeatures = arrivalTimeFeatures;
-		arrivalTimeFeatures = newArrivalTimeFeatures;
+	public void setArrivalTimeStatistics(StatisticalFeatures newArrivalTimeStatistics) {
+		StatisticalFeatures oldArrivalTimeStatistics = arrivalTimeStatistics;
+		arrivalTimeStatistics = newArrivalTimeStatistics;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_FEATURES, oldArrivalTimeFeatures, arrivalTimeFeatures));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS, oldArrivalTimeStatistics, arrivalTimeStatistics));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<TraceFeatures> getTraces() {
+		if (traces == null) {
+			traces = new EObjectResolvingEList<TraceFeatures>(TraceFeatures.class, this, RecommendationPackage.FEATURE_VECTOR__TRACES);
+		}
+		return traces;
 	}
 
 	/**
@@ -330,15 +357,17 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 				return getNumberOfWorkloadClasses();
 			case RecommendationPackage.FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR:
 				return getVarianceInflationFactor();
-			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_FEATURES:
-				if (resolve) return getUtilizationFeatures();
-				return basicGetUtilizationFeatures();
-			case RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_FEATURES:
-				if (resolve) return getResponseTimeFeatures();
-				return basicGetResponseTimeFeatures();
-			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_FEATURES:
-				if (resolve) return getArrivalTimeFeatures();
-				return basicGetArrivalTimeFeatures();
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_STATISTICS:
+				if (resolve) return getUtilizationStatistics();
+				return basicGetUtilizationStatistics();
+			case RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_STATISTICS:
+				if (resolve) return getResponseTimeStatistics();
+				return basicGetResponseTimeStatistics();
+			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS:
+				if (resolve) return getArrivalTimeStatistics();
+				return basicGetArrivalTimeStatistics();
+			case RecommendationPackage.FEATURE_VECTOR__TRACES:
+				return getTraces();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -361,14 +390,18 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 			case RecommendationPackage.FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR:
 				setVarianceInflationFactor((Double)newValue);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_FEATURES:
-				setUtilizationFeatures((TraceFeatures)newValue);
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_STATISTICS:
+				setUtilizationStatistics((StatisticalFeatures)newValue);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_FEATURES:
-				setResponseTimeFeatures((TraceFeatures)newValue);
+			case RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_STATISTICS:
+				setResponseTimeStatistics((StatisticalFeatures)newValue);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_FEATURES:
-				setArrivalTimeFeatures((TraceFeatures)newValue);
+			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS:
+				setArrivalTimeStatistics((StatisticalFeatures)newValue);
+				return;
+			case RecommendationPackage.FEATURE_VECTOR__TRACES:
+				getTraces().clear();
+				getTraces().addAll((Collection<? extends TraceFeatures>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -391,14 +424,17 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 			case RecommendationPackage.FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR:
 				setVarianceInflationFactor(VARIANCE_INFLATION_FACTOR_EDEFAULT);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_FEATURES:
-				setUtilizationFeatures((TraceFeatures)null);
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_STATISTICS:
+				setUtilizationStatistics((StatisticalFeatures)null);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_FEATURES:
-				setResponseTimeFeatures((TraceFeatures)null);
+			case RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_STATISTICS:
+				setResponseTimeStatistics((StatisticalFeatures)null);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_FEATURES:
-				setArrivalTimeFeatures((TraceFeatures)null);
+			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS:
+				setArrivalTimeStatistics((StatisticalFeatures)null);
+				return;
+			case RecommendationPackage.FEATURE_VECTOR__TRACES:
+				getTraces().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -418,12 +454,14 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 				return numberOfWorkloadClasses != NUMBER_OF_WORKLOAD_CLASSES_EDEFAULT;
 			case RecommendationPackage.FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR:
 				return varianceInflationFactor != VARIANCE_INFLATION_FACTOR_EDEFAULT;
-			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_FEATURES:
-				return utilizationFeatures != null;
-			case RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_FEATURES:
-				return responseTimeFeatures != null;
-			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_FEATURES:
-				return arrivalTimeFeatures != null;
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_STATISTICS:
+				return utilizationStatistics != null;
+			case RecommendationPackage.FEATURE_VECTOR__RESPONSE_TIME_STATISTICS:
+				return responseTimeStatistics != null;
+			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS:
+				return arrivalTimeStatistics != null;
+			case RecommendationPackage.FEATURE_VECTOR__TRACES:
+				return traces != null && !traces.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
