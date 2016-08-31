@@ -98,11 +98,6 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	KendallsCorrelation kend = new KendallsCorrelation();
 
 	/**
-	 * {@link Covariance} object for covariance calculations.
-	 */
-	Covariance cov = new Covariance();
-
-	/**
 	 * Standard constructor setting basic values for all constants.
 	 */
 	public BasicFeatureExtractor() {
