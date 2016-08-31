@@ -3,8 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: DEVELOP
 Bundle-SymbolicName: tools.descartes.librede.rrde.optimization;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Export-Package: org.apache.commons.math3,
- tools.descartes.librede.rrde.optimization,
+Export-Package: tools.descartes.librede.rrde.optimization,
  tools.descartes.librede.rrde.optimization.algorithm
 Require-Bundle: tools.descartes.librede.estimation;bundle-version="1.1.0",
  tools.descartes.librede.model;bundle-version="1.1.0",
@@ -18,7 +17,7 @@ Require-Bundle: tools.descartes.librede.estimation;bundle-version="1.1.0",
  tools.descartes.librede.nnls.java,
  tools.descartes.librede.bayesplusplus.java,
  org.eclipse.emf.ecore.xmi;bundle-version="2.10.2",
- tools.descartes.librede.model.edit;bundle-version="1.1.0"
+ tools.descartes.librede.model.edit;bundle-version="1.1.0",
+ org.apache.commons.math3;bundle-version="3.2.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-ClassPath: lib/commons-lang3-3.4.jar,
- lib/commons-math3-3.6.1.jar
+Bundle-ClassPath: lib/commons-lang3-3.4.jar
