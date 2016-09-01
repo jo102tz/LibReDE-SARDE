@@ -11,13 +11,12 @@ Require-Bundle: tools.descartes.librede.estimation;bundle-version="1.1.0",
  org.junit,
  tools.descartes.librede.rrde.model;bundle-version="0.1.0",
  org.apache.log4j;bundle-version="1.2.15",
+ org.apache.commons.math3;bundle-version="3.2.0",
  tools.descartes.librede.rrde.rinterface;bundle-version="1.0.0",
  tools.descartes.librede.linalg;bundle-version="1.1.0",
  tools.descartes.librede.ipopt.java,
  tools.descartes.librede.nnls.java,
  tools.descartes.librede.bayesplusplus.java,
  org.eclipse.emf.ecore.xmi;bundle-version="2.10.2",
- tools.descartes.librede.model.edit;bundle-version="1.1.0",
- org.apache.commons.math3;bundle-version="3.2.0"
+ tools.descartes.librede.model.edit;bundle-version="1.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-ClassPath: lib/commons-lang3-3.4.jar
