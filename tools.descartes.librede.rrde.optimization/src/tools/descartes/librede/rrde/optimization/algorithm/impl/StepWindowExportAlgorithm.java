@@ -27,7 +27,6 @@
 package tools.descartes.librede.rrde.optimization.algorithm.impl;
 
 import java.io.BufferedWriter;
-import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 

@@ -87,11 +87,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	private static final String BREAK = ";";
 
 	/**
-	 * The maximum error to print.
-	 */
-	private static final double MAX_ERROR_THRESHOLD = 5;
-
-	/**
 	 * The character to skip to the next line.
 	 */
 	private static final String BREAKLINE = System
@@ -341,11 +336,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		if (d < 0) {
 			getLog().warn("Error is negative.");
 			writeDouble(s, 0);
-			return;
-		}
-		if (d > MAX_ERROR_THRESHOLD) {
-			getLog().warn("Error is greater than the defined maximum error of " + MAX_ERROR_THRESHOLD + ".");
-			writeDouble(s, MAX_ERROR_THRESHOLD);
 			return;
 		}
 		writeDouble(s, d);
