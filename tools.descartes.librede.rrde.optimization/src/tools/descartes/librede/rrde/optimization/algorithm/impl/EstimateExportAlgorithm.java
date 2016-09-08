@@ -68,7 +68,7 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 	 */
 	@Override
 	protected Logger getLog() {
-		return this.log;
+		return log;
 	}
 
 	@Override
