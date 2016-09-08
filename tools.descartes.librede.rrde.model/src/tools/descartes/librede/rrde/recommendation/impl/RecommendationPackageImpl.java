@@ -480,7 +480,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getStatisticalFeatures_SpearmanCorrelationMatrixNorm() {
+	public EAttribute getStatisticalFeatures_CovarianceMatrixNorm() {
 		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -489,17 +489,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getStatisticalFeatures_KendallCorrelationMatrixNorm() {
+	public EAttribute getStatisticalFeatures_Autocorrelation() {
 		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(13);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStatisticalFeatures_CovarianceMatrixNorm() {
-		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -624,9 +615,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__TENTHPERCENTILE);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__NINETIETHPERCENTILE);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM);
-		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM);
-		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM);
+		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__AUTOCORRELATION);
 
 		traceFeaturesEClass = createEClass(TRACE_FEATURES);
 		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__NUMBER_OF_SAMPLES);
@@ -718,9 +708,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEAttribute(getStatisticalFeatures_Tenthpercentile(), theXMLTypePackage.getDouble(), "tenthpercentile", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalFeatures_Ninetiethpercentile(), theXMLTypePackage.getDouble(), "ninetiethpercentile", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalFeatures_PearsonCorrelationMatrixNorm(), theXMLTypePackage.getDouble(), "pearsonCorrelationMatrixNorm", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getStatisticalFeatures_SpearmanCorrelationMatrixNorm(), theXMLTypePackage.getDouble(), "spearmanCorrelationMatrixNorm", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getStatisticalFeatures_KendallCorrelationMatrixNorm(), theXMLTypePackage.getDouble(), "kendallCorrelationMatrixNorm", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalFeatures_CovarianceMatrixNorm(), theXMLTypePackage.getDouble(), "covarianceMatrixNorm", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStatisticalFeatures_Autocorrelation(), theXMLTypePackage.getDouble(), "autocorrelation", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(traceFeaturesEClass, TraceFeatures.class, "TraceFeatures", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTraceFeatures_NumberOfSamples(), theXMLTypePackage.getInt(), "numberOfSamples", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

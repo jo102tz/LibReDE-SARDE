@@ -94,7 +94,8 @@ public class BasicRecommendationAlgorithm extends
 	@Override
 	public boolean trainSet(EMap<EstimationSpecification, Double> errors,
 			FeatureVector features) throws IllegalStateException {
-		// TODO
+		super.trainSet(errors, features);
+		// TODO 
 		return false;
 	}
 
@@ -107,7 +108,7 @@ public class BasicRecommendationAlgorithm extends
 	 */
 	@Override
 	public boolean endTrainingPhase() {
-		// TODO
+		super.endTrainingPhase();
 		return false;
 	}
 

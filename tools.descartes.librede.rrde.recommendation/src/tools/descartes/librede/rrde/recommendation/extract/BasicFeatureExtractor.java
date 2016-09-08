@@ -85,17 +85,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	/**
 	 * {@link PearsonsCorrelation} object for correlation calculations.
 	 */
-	PearsonsCorrelation pear = new PearsonsCorrelation();
-
-	/**
-	 * {@link SpearmansCorrelation} object for correlation calculations.
-	 */
-	SpearmansCorrelation spear = new SpearmansCorrelation();
-
-	/**
-	 * {@link KendallsCorrelation} object for correlation calculations.
-	 */
-	KendallsCorrelation kend = new KendallsCorrelation();
+	private PearsonsCorrelation pear = new PearsonsCorrelation();
 
 	/**
 	 * Standard constructor setting basic values for all constants.
@@ -224,12 +214,10 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		vector.setNinetiethpercentile(stat.getPercentile(90));
 		vector.setPearsonCorrelationMatrixNorm(pear.computeCorrelationMatrix(
 				table).getNorm());
-		vector.setSpearmanCorrelationMatrixNorm(spear.computeCorrelationMatrix(
-				table).getNorm());
-		vector.setKendallCorrelationMatrixNorm(kend.computeCorrelationMatrix(
-				table).getNorm());
 		vector.setCovarianceMatrixNorm(new Covariance(table)
 				.getCovarianceMatrix().getNorm());
+		// TODO autocorrelation
+		
 		return vector;
 	}
 

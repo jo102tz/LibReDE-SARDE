@@ -250,9 +250,9 @@ public abstract class AbstractConfigurationOptimizer implements
 						+ getSpecification().toString());
 		time = System.currentTimeMillis();
 		init();
-		if(confs.size()==0){
+		if (confs.size() == 0) {
 			getLog().error("Execution stopped due to lack of training data.");
-			finished=true;
+			finished = true;
 			return false;
 		}
 		executeAlgorithm();
@@ -281,7 +281,6 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * Initializes all resources required for execution.
 	 */
 	private void init() {
-		Wrapper.init();
 		confs = Discovery.createConfigurations(getInput(), getSpecification(),
 				getSettings().getValidator());
 		getLog().info(
@@ -402,4 +401,9 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * Executes the essential algorithm.
 	 */
 	public abstract void executeAlgorithm();
+
+	@Override
+	public String getSimpleName() {
+		return this.getClass().getSimpleName();
+	}
 }

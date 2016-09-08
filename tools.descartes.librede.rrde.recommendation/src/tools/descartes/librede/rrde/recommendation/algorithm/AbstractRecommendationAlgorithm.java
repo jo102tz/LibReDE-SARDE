@@ -42,6 +42,8 @@ import tools.descartes.librede.rrde.recommendation.FeatureVector;
 public abstract class AbstractRecommendationAlgorithm implements
 		IRecomendationAlgorithm {
 
+	private boolean isTrainingPhase = true;
+
 	/**
 	 * Returns the log instance, to provide proper visible logging.
 	 * 
@@ -66,41 +68,16 @@ public abstract class AbstractRecommendationAlgorithm implements
 	 * 
 	 * @see
 	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
-	 * #initialize()
-	 */
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
-	 * #
-	 * recommendEstimation(tools.descartes.librede.rrde.recommendation.FeatureVector
-	 * )
-	 */
-	@Override
-	public EstimationSpecification recommendEstimation(FeatureVector features) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
 	 * #trainSet(org.eclipse.emf.common.util.EMap,
 	 * tools.descartes.librede.rrde.recommendation.FeatureVector)
 	 */
 	@Override
 	public boolean trainSet(EMap<EstimationSpecification, Double> errors,
 			FeatureVector features) throws IllegalStateException {
-		// TODO Auto-generated method stub
+		if (!isInTrainingPhase()) {
+			throw new IllegalStateException(
+					"Training phase is already finished.");
+		}
 		return false;
 	}
 
@@ -113,8 +90,20 @@ public abstract class AbstractRecommendationAlgorithm implements
 	 */
 	@Override
 	public boolean endTrainingPhase() {
-		// TODO Auto-generated method stub
+		isTrainingPhase = false;
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
+	 * #isInTrainingPhase()
+	 */
+	@Override
+	public boolean isInTrainingPhase() {
+		return isTrainingPhase;
 	}
 
 }

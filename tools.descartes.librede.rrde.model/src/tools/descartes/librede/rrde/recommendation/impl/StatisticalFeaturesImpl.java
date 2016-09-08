@@ -31,9 +31,8 @@ import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getTenthpercentile <em>Tenthpercentile</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getNinetiethpercentile <em>Ninetiethpercentile</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getPearsonCorrelationMatrixNorm <em>Pearson Correlation Matrix Norm</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getSpearmanCorrelationMatrixNorm <em>Spearman Correlation Matrix Norm</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getKendallCorrelationMatrixNorm <em>Kendall Correlation Matrix Norm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getCovarianceMatrixNorm <em>Covariance Matrix Norm</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getAutocorrelation <em>Autocorrelation</em>}</li>
  * </ul>
  * </p>
  *
@@ -281,46 +280,6 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 	protected double pearsonCorrelationMatrixNorm = PEARSON_CORRELATION_MATRIX_NORM_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getSpearmanCorrelationMatrixNorm() <em>Spearman Correlation Matrix Norm</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSpearmanCorrelationMatrixNorm()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double SPEARMAN_CORRELATION_MATRIX_NORM_EDEFAULT = -1.0;
-
-	/**
-	 * The cached value of the '{@link #getSpearmanCorrelationMatrixNorm() <em>Spearman Correlation Matrix Norm</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSpearmanCorrelationMatrixNorm()
-	 * @generated
-	 * @ordered
-	 */
-	protected double spearmanCorrelationMatrixNorm = SPEARMAN_CORRELATION_MATRIX_NORM_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getKendallCorrelationMatrixNorm() <em>Kendall Correlation Matrix Norm</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getKendallCorrelationMatrixNorm()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double KENDALL_CORRELATION_MATRIX_NORM_EDEFAULT = -1.0;
-
-	/**
-	 * The cached value of the '{@link #getKendallCorrelationMatrixNorm() <em>Kendall Correlation Matrix Norm</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getKendallCorrelationMatrixNorm()
-	 * @generated
-	 * @ordered
-	 */
-	protected double kendallCorrelationMatrixNorm = KENDALL_CORRELATION_MATRIX_NORM_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getCovarianceMatrixNorm() <em>Covariance Matrix Norm</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -339,6 +298,26 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 	 * @ordered
 	 */
 	protected double covarianceMatrixNorm = COVARIANCE_MATRIX_NORM_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getAutocorrelation() <em>Autocorrelation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAutocorrelation()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double AUTOCORRELATION_EDEFAULT = -1.0;
+
+	/**
+	 * The cached value of the '{@link #getAutocorrelation() <em>Autocorrelation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAutocorrelation()
+	 * @generated
+	 * @ordered
+	 */
+	protected double autocorrelation = AUTOCORRELATION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -616,48 +595,6 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getSpearmanCorrelationMatrixNorm() {
-		return spearmanCorrelationMatrixNorm;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSpearmanCorrelationMatrixNorm(double newSpearmanCorrelationMatrixNorm) {
-		double oldSpearmanCorrelationMatrixNorm = spearmanCorrelationMatrixNorm;
-		spearmanCorrelationMatrixNorm = newSpearmanCorrelationMatrixNorm;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM, oldSpearmanCorrelationMatrixNorm, spearmanCorrelationMatrixNorm));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public double getKendallCorrelationMatrixNorm() {
-		return kendallCorrelationMatrixNorm;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setKendallCorrelationMatrixNorm(double newKendallCorrelationMatrixNorm) {
-		double oldKendallCorrelationMatrixNorm = kendallCorrelationMatrixNorm;
-		kendallCorrelationMatrixNorm = newKendallCorrelationMatrixNorm;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM, oldKendallCorrelationMatrixNorm, kendallCorrelationMatrixNorm));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public double getCovarianceMatrixNorm() {
 		return covarianceMatrixNorm;
 	}
@@ -672,6 +609,27 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 		covarianceMatrixNorm = newCovarianceMatrixNorm;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM, oldCovarianceMatrixNorm, covarianceMatrixNorm));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public double getAutocorrelation() {
+		return autocorrelation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAutocorrelation(double newAutocorrelation) {
+		double oldAutocorrelation = autocorrelation;
+		autocorrelation = newAutocorrelation;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION, oldAutocorrelation, autocorrelation));
 	}
 
 	/**
@@ -706,12 +664,10 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 				return getNinetiethpercentile();
 			case RecommendationPackage.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM:
 				return getPearsonCorrelationMatrixNorm();
-			case RecommendationPackage.STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM:
-				return getSpearmanCorrelationMatrixNorm();
-			case RecommendationPackage.STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM:
-				return getKendallCorrelationMatrixNorm();
 			case RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM:
 				return getCovarianceMatrixNorm();
+			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
+				return getAutocorrelation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -760,14 +716,11 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 			case RecommendationPackage.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM:
 				setPearsonCorrelationMatrixNorm((Double)newValue);
 				return;
-			case RecommendationPackage.STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM:
-				setSpearmanCorrelationMatrixNorm((Double)newValue);
-				return;
-			case RecommendationPackage.STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM:
-				setKendallCorrelationMatrixNorm((Double)newValue);
-				return;
 			case RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM:
 				setCovarianceMatrixNorm((Double)newValue);
+				return;
+			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
+				setAutocorrelation((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -817,14 +770,11 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 			case RecommendationPackage.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM:
 				setPearsonCorrelationMatrixNorm(PEARSON_CORRELATION_MATRIX_NORM_EDEFAULT);
 				return;
-			case RecommendationPackage.STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM:
-				setSpearmanCorrelationMatrixNorm(SPEARMAN_CORRELATION_MATRIX_NORM_EDEFAULT);
-				return;
-			case RecommendationPackage.STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM:
-				setKendallCorrelationMatrixNorm(KENDALL_CORRELATION_MATRIX_NORM_EDEFAULT);
-				return;
 			case RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM:
 				setCovarianceMatrixNorm(COVARIANCE_MATRIX_NORM_EDEFAULT);
+				return;
+			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
+				setAutocorrelation(AUTOCORRELATION_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -862,12 +812,10 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 				return ninetiethpercentile != NINETIETHPERCENTILE_EDEFAULT;
 			case RecommendationPackage.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM:
 				return pearsonCorrelationMatrixNorm != PEARSON_CORRELATION_MATRIX_NORM_EDEFAULT;
-			case RecommendationPackage.STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM:
-				return spearmanCorrelationMatrixNorm != SPEARMAN_CORRELATION_MATRIX_NORM_EDEFAULT;
-			case RecommendationPackage.STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM:
-				return kendallCorrelationMatrixNorm != KENDALL_CORRELATION_MATRIX_NORM_EDEFAULT;
 			case RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM:
 				return covarianceMatrixNorm != COVARIANCE_MATRIX_NORM_EDEFAULT;
+			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
+				return autocorrelation != AUTOCORRELATION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -906,12 +854,10 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 		result.append(ninetiethpercentile);
 		result.append(", pearsonCorrelationMatrixNorm: ");
 		result.append(pearsonCorrelationMatrixNorm);
-		result.append(", spearmanCorrelationMatrixNorm: ");
-		result.append(spearmanCorrelationMatrixNorm);
-		result.append(", kendallCorrelationMatrixNorm: ");
-		result.append(kendallCorrelationMatrixNorm);
 		result.append(", covarianceMatrixNorm: ");
 		result.append(covarianceMatrixNorm);
+		result.append(", autocorrelation: ");
+		result.append(autocorrelation);
 		result.append(')');
 		return result.toString();
 	}

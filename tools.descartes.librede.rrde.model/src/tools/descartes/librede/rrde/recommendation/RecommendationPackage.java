@@ -468,31 +468,22 @@ public interface RecommendationPackage extends EPackage {
 	int STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM = 11;
 
 	/**
-	 * The feature id for the '<em><b>Spearman Correlation Matrix Norm</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM = 12;
-
-	/**
-	 * The feature id for the '<em><b>Kendall Correlation Matrix Norm</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM = 13;
-
-	/**
 	 * The feature id for the '<em><b>Covariance Matrix Norm</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM = 14;
+	int STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM = 12;
+
+	/**
+	 * The feature id for the '<em><b>Autocorrelation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATISTICAL_FEATURES__AUTOCORRELATION = 13;
 
 	/**
 	 * The number of structural features of the '<em>Statistical Features</em>' class.
@@ -501,7 +492,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATISTICAL_FEATURES_FEATURE_COUNT = 15;
+	int STATISTICAL_FEATURES_FEATURE_COUNT = 14;
 
 	/**
 	 * The number of operations of the '<em>Statistical Features</em>' class.
@@ -966,28 +957,6 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getStatisticalFeatures_PearsonCorrelationMatrixNorm();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getSpearmanCorrelationMatrixNorm <em>Spearman Correlation Matrix Norm</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Spearman Correlation Matrix Norm</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getSpearmanCorrelationMatrixNorm()
-	 * @see #getStatisticalFeatures()
-	 * @generated
-	 */
-	EAttribute getStatisticalFeatures_SpearmanCorrelationMatrixNorm();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getKendallCorrelationMatrixNorm <em>Kendall Correlation Matrix Norm</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Kendall Correlation Matrix Norm</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getKendallCorrelationMatrixNorm()
-	 * @see #getStatisticalFeatures()
-	 * @generated
-	 */
-	EAttribute getStatisticalFeatures_KendallCorrelationMatrixNorm();
-
-	/**
 	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getCovarianceMatrixNorm <em>Covariance Matrix Norm</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -997,6 +966,17 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getStatisticalFeatures_CovarianceMatrixNorm();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getAutocorrelation <em>Autocorrelation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Autocorrelation</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getAutocorrelation()
+	 * @see #getStatisticalFeatures()
+	 * @generated
+	 */
+	EAttribute getStatisticalFeatures_Autocorrelation();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures <em>Trace Features</em>}'.
@@ -1379,28 +1359,20 @@ public interface RecommendationPackage extends EPackage {
 		EAttribute STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM = eINSTANCE.getStatisticalFeatures_PearsonCorrelationMatrixNorm();
 
 		/**
-		 * The meta object literal for the '<em><b>Spearman Correlation Matrix Norm</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM = eINSTANCE.getStatisticalFeatures_SpearmanCorrelationMatrixNorm();
-
-		/**
-		 * The meta object literal for the '<em><b>Kendall Correlation Matrix Norm</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM = eINSTANCE.getStatisticalFeatures_KendallCorrelationMatrixNorm();
-
-		/**
 		 * The meta object literal for the '<em><b>Covariance Matrix Norm</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM = eINSTANCE.getStatisticalFeatures_CovarianceMatrixNorm();
+
+		/**
+		 * The meta object literal for the '<em><b>Autocorrelation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_FEATURES__AUTOCORRELATION = eINSTANCE.getStatisticalFeatures_Autocorrelation();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl <em>Trace Features</em>}' class.

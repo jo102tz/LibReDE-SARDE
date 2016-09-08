@@ -74,9 +74,8 @@ public class StatisticalFeaturesItemProvider
 			addTenthpercentilePropertyDescriptor(object);
 			addNinetiethpercentilePropertyDescriptor(object);
 			addPearsonCorrelationMatrixNormPropertyDescriptor(object);
-			addSpearmanCorrelationMatrixNormPropertyDescriptor(object);
-			addKendallCorrelationMatrixNormPropertyDescriptor(object);
 			addCovarianceMatrixNormPropertyDescriptor(object);
+			addAutocorrelationPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -346,50 +345,6 @@ public class StatisticalFeaturesItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Spearman Correlation Matrix Norm feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSpearmanCorrelationMatrixNormPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_StatisticalFeatures_spearmanCorrelationMatrixNorm_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_spearmanCorrelationMatrixNorm_feature", "_UI_StatisticalFeatures_type"),
-				 RecommendationPackage.Literals.STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Kendall Correlation Matrix Norm feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addKendallCorrelationMatrixNormPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_StatisticalFeatures_kendallCorrelationMatrixNorm_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_kendallCorrelationMatrixNorm_feature", "_UI_StatisticalFeatures_type"),
-				 RecommendationPackage.Literals.STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Covariance Matrix Norm feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -403,6 +358,28 @@ public class StatisticalFeaturesItemProvider
 				 getString("_UI_StatisticalFeatures_covarianceMatrixNorm_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_covarianceMatrixNorm_feature", "_UI_StatisticalFeatures_type"),
 				 RecommendationPackage.Literals.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Autocorrelation feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAutocorrelationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StatisticalFeatures_autocorrelation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_autocorrelation_feature", "_UI_StatisticalFeatures_type"),
+				 RecommendationPackage.Literals.STATISTICAL_FEATURES__AUTOCORRELATION,
 				 true,
 				 false,
 				 false,
@@ -459,9 +436,8 @@ public class StatisticalFeaturesItemProvider
 			case RecommendationPackage.STATISTICAL_FEATURES__TENTHPERCENTILE:
 			case RecommendationPackage.STATISTICAL_FEATURES__NINETIETHPERCENTILE:
 			case RecommendationPackage.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM:
-			case RecommendationPackage.STATISTICAL_FEATURES__SPEARMAN_CORRELATION_MATRIX_NORM:
-			case RecommendationPackage.STATISTICAL_FEATURES__KENDALL_CORRELATION_MATRIX_NORM:
 			case RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM:
+			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

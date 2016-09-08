@@ -104,8 +104,8 @@ public class Plugin implements IApplication {
 			// load config files
 			LibredeConfiguration librede = Librede.loadConfiguration(new File(
 					LIB_PATH).toPath());
-			OptimizationConfiguration conf = Util.loadOptimizationConfiguration(new File(
-					CONF_PATH).toPath());
+			OptimizationConfiguration conf = Util
+					.loadOptimizationConfiguration(new File(CONF_PATH).toPath());
 
 			// This is a fixup to replace the data sources with ones from
 			// librede.
@@ -127,7 +127,7 @@ public class Plugin implements IApplication {
 			log.error("Error occurred", e);
 		}
 		log.info("Finished optimization.");
-		return null;
+		return 0;
 	}
 
 	@Override
@@ -164,9 +164,14 @@ public class Plugin implements IApplication {
 	 * @param outputDir
 	 *            The String of the output directory used for modified
 	 *            {@link LibredeConfiguration} files.
+	 * @return The collection of the optimized {@link EstimationSpecification}s
+	 *         as read in the configurations file like they are stored in the
+	 *         output folder.
+	 * 
 	 */
-	public void runConfigurationOptimization(LibredeConfiguration librede,
-			OptimizationConfiguration conf, String outputDir) {
+	public Collection<EstimationSpecification> runConfigurationOptimization(
+			LibredeConfiguration librede, OptimizationConfiguration conf,
+			String outputDir) {
 
 		// split one RunCall with several approaches into multiple RunCalls with
 		// just one approach each, since the framework can not handle multiple
@@ -198,16 +203,7 @@ public class Plugin implements IApplication {
 		// execute Calls
 		HashMap<RunCall, EstimationSpecification> results = collectResults(conf
 				.getContainsOf());
-
-		// merge the obtained results into one EstimationSpecification
-		// no merging, storing as different files instead
-		// try {
-		// mergeNumericParameter(librede, results, StepSize.class.getName());
-		// mergeNumericParameter(librede, results, WindowSize.class.getName());
-		// } catch (InstantiationException | IllegalAccessException e) {
-		// log.error("Merging optimization results encountered an error.", e);
-		// }
-
+		
 		// store each specification in a different file
 		int i = 0;
 		for (EstimationSpecification spec : results.values()) {
@@ -221,6 +217,7 @@ public class Plugin implements IApplication {
 					+ ".librede";
 			store(spec, librede, name);
 		}
+		return results.values();
 
 	}
 

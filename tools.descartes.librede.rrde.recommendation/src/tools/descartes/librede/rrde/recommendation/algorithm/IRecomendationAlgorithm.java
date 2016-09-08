@@ -94,4 +94,14 @@ public interface IRecomendationAlgorithm {
 	 *         occurred.
 	 */
 	public boolean endTrainingPhase();
+
+	/**
+	 * Returns if the algorithm instance is still in training phase, i.e. if new
+	 * samples can be added or if
+	 * {@link IRecomendationAlgorithm#endTrainingPhase()} has been called yet.
+	 * 
+	 * @return True if the algorithm instance is still in training phase, false
+	 *         otherwise.
+	 */
+	public boolean isInTrainingPhase();
 }

@@ -45,7 +45,6 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ValidationSpecification;
 import tools.descartes.librede.rrde.optimization.Discovery;
 import tools.descartes.librede.rrde.optimization.InputData;
-import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.Wrapper;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
@@ -70,7 +69,7 @@ public class Plugin implements IApplication {
 	private static final Logger log = Logger.getLogger(Plugin.class);
 
 	/**
-	 * The path to the default {@link OptimizationConfiguration}
+	 * The path to the default {@link RecommendationTrainingConfiguration}
 	 */
 	public final static String CONF_PATH = "resources" + File.separator
 			+ "test" + File.separator + "src" + File.separator
@@ -134,7 +133,7 @@ public class Plugin implements IApplication {
 	 * @return The {@link IRecomendationAlgorithm}
 	 */
 	public IRecomendationAlgorithm loadAndTrainAlgorithm(
-			RecommendationTrainingConfiguration conf) throws Exception {
+			RecommendationTrainingConfiguration conf) {
 		IRecomendationAlgorithm alg = loadAlgorithm(conf.getLearningAlgorithm());
 		if (alg == null) {
 			log.error("Algorithm could not be loaded. Failing...");
@@ -254,7 +253,7 @@ public class Plugin implements IApplication {
 	 *             If the specifications or any of the required fields are
 	 *             <code>null</code>
 	 */
-	public IRecomendationAlgorithm loadAlgorithm(
+	public static IRecomendationAlgorithm loadAlgorithm(
 			RecommendationAlgorithmSpecifier spec) throws NullPointerException {
 		if (spec == null || spec.getAlgorithmName() == null) {
 			throw new NullPointerException("Specifier is null.");
@@ -283,7 +282,7 @@ public class Plugin implements IApplication {
 	 *             If the specifications or any of the required fields are
 	 *             <code>null</code>
 	 */
-	public IFeatureExtractor loadFeatureExtractor(FeatureExtractorSpecifier spec)
+	public static IFeatureExtractor loadFeatureExtractor(FeatureExtractorSpecifier spec)
 			throws NullPointerException {
 		if (spec == null || spec.getFeatureExtractor() == null) {
 			throw new NullPointerException("Specifier is null.");
