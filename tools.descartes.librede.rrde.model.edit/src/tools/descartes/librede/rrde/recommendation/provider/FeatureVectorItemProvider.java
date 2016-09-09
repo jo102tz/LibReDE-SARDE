@@ -68,7 +68,6 @@ public class FeatureVectorItemProvider
 			addUtilizationStatisticsPropertyDescriptor(object);
 			addResponseTimeStatisticsPropertyDescriptor(object);
 			addArrivalTimeStatisticsPropertyDescriptor(object);
-			addTracesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -197,28 +196,6 @@ public class FeatureVectorItemProvider
 				 getString("_UI_FeatureVector_arrivalTimeStatistics_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_arrivalTimeStatistics_feature", "_UI_FeatureVector_type"),
 				 RecommendationPackage.Literals.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Traces feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTracesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FeatureVector_traces_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_traces_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__TRACES,
 				 true,
 				 false,
 				 true,

@@ -323,22 +323,13 @@ public interface RecommendationPackage extends EPackage {
 	int FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS = 5;
 
 	/**
-	 * The feature id for the '<em><b>Traces</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_VECTOR__TRACES = 6;
-
-	/**
 	 * The number of structural features of the '<em>Feature Vector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR_FEATURE_COUNT = 7;
+	int FEATURE_VECTOR_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Feature Vector</em>' class.
@@ -804,17 +795,6 @@ public interface RecommendationPackage extends EPackage {
 	EReference getFeatureVector_ArrivalTimeStatistics();
 
 	/**
-	 * Returns the meta object for the reference list '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getTraces <em>Traces</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Traces</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getTraces()
-	 * @see #getFeatureVector()
-	 * @generated
-	 */
-	EReference getFeatureVector_Traces();
-
-	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures <em>Statistical Features</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1243,14 +1223,6 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS = eINSTANCE.getFeatureVector_ArrivalTimeStatistics();
-
-		/**
-		 * The meta object literal for the '<em><b>Traces</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FEATURE_VECTOR__TRACES = eINSTANCE.getFeatureVector_Traces();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl <em>Statistical Features</em>}' class.

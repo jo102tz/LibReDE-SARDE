@@ -354,15 +354,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFeatureVector_Traces() {
-		return (EReference)featureVectorEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getStatisticalFeatures() {
 		return statisticalFeaturesEClass;
 	}
@@ -600,7 +591,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		createEReference(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_STATISTICS);
 		createEReference(featureVectorEClass, FEATURE_VECTOR__RESPONSE_TIME_STATISTICS);
 		createEReference(featureVectorEClass, FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS);
-		createEReference(featureVectorEClass, FEATURE_VECTOR__TRACES);
 
 		statisticalFeaturesEClass = createEClass(STATISTICAL_FEATURES);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__N);
@@ -693,7 +683,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEReference(getFeatureVector_UtilizationStatistics(), this.getStatisticalFeatures(), null, "utilizationStatistics", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureVector_ResponseTimeStatistics(), this.getStatisticalFeatures(), null, "responseTimeStatistics", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureVector_ArrivalTimeStatistics(), this.getStatisticalFeatures(), null, "arrivalTimeStatistics", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureVector_Traces(), this.getTraceFeatures(), null, "traces", null, 1, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(statisticalFeaturesEClass, StatisticalFeatures.class, "StatisticalFeatures", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStatisticalFeatures_N(), theXMLTypePackage.getDouble(), "N", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -52,8 +52,6 @@
         lowerBound="1" eType="#//StatisticalFeatures"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="arrivalTimeStatistics"
         lowerBound="1" eType="#//StatisticalFeatures"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="traces" lowerBound="1"
-        upperBound="-1" eType="#//TraceFeatures"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StatisticalFeatures">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="N" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"

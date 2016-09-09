@@ -2,7 +2,6 @@
  */
 package tools.descartes.librede.rrde.recommendation;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -19,7 +18,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationStatistics <em>Utilization Statistics</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getResponseTimeStatistics <em>Response Time Statistics</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getArrivalTimeStatistics <em>Arrival Time Statistics</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getTraces <em>Traces</em>}</li>
  * </ul>
  * </p>
  *
@@ -186,21 +184,5 @@ public interface FeatureVector extends EObject {
 	 * @generated
 	 */
 	void setArrivalTimeStatistics(StatisticalFeatures value);
-
-	/**
-	 * Returns the value of the '<em><b>Traces</b></em>' reference list.
-	 * The list contents are of type {@link tools.descartes.librede.rrde.recommendation.TraceFeatures}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Traces</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Traces</em>' reference list.
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_Traces()
-	 * @model required="true"
-	 * @generated
-	 */
-	EList<TraceFeatures> getTraces();
 
 } // FeatureVector

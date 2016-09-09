@@ -121,21 +121,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		vector.setArrivalTimeStatistics(extractStatisticalFeatureVector(var,
 				var.getRepo().getWorkload().getServices(),
 				StandardMetrics.RESPONSE_TIME, basicTime, Aggregation.NONE));
-		vector.getTraces().addAll(extractTraceFeatures(var));
 		return vector;
-	}
-
-	/**
-	 * Creates a list of {@link TraceFeatures} for all traces available.
-	 * 
-	 * @param var
-	 *            The {@link LibredeVariables} to extract from.
-	 * @return An {@link EList} of {@link TraceFeatures} containing trace
-	 *         specific information
-	 */
-	protected EList<TraceFeatures> extractTraceFeatures(LibredeVariables var) {
-		// TODO add
-		return new BasicEList<TraceFeatures>();
 	}
 
 	/**

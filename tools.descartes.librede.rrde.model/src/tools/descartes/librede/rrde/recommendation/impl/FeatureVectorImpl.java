@@ -2,18 +2,14 @@
  */
 package tools.descartes.librede.rrde.recommendation.impl;
 
-import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
-import tools.descartes.librede.rrde.recommendation.TraceFeatures;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,7 +24,6 @@ import tools.descartes.librede.rrde.recommendation.TraceFeatures;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getUtilizationStatistics <em>Utilization Statistics</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getResponseTimeStatistics <em>Response Time Statistics</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getArrivalTimeStatistics <em>Arrival Time Statistics</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getTraces <em>Traces</em>}</li>
  * </ul>
  * </p>
  *
@@ -124,16 +119,6 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @ordered
 	 */
 	protected StatisticalFeatures arrivalTimeStatistics;
-
-	/**
-	 * The cached value of the '{@link #getTraces() <em>Traces</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTraces()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<TraceFeatures> traces;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -336,18 +321,6 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<TraceFeatures> getTraces() {
-		if (traces == null) {
-			traces = new EObjectResolvingEList<TraceFeatures>(TraceFeatures.class, this, RecommendationPackage.FEATURE_VECTOR__TRACES);
-		}
-		return traces;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -366,8 +339,6 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS:
 				if (resolve) return getArrivalTimeStatistics();
 				return basicGetArrivalTimeStatistics();
-			case RecommendationPackage.FEATURE_VECTOR__TRACES:
-				return getTraces();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -399,10 +370,6 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS:
 				setArrivalTimeStatistics((StatisticalFeatures)newValue);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__TRACES:
-				getTraces().clear();
-				getTraces().addAll((Collection<? extends TraceFeatures>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -433,9 +400,6 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS:
 				setArrivalTimeStatistics((StatisticalFeatures)null);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__TRACES:
-				getTraces().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -460,8 +424,6 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 				return responseTimeStatistics != null;
 			case RecommendationPackage.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS:
 				return arrivalTimeStatistics != null;
-			case RecommendationPackage.FEATURE_VECTOR__TRACES:
-				return traces != null && !traces.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
