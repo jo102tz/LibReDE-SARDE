@@ -84,7 +84,7 @@ public interface IRecomendationAlgorithm {
 
 	/**
 	 * Must be called, when the training phase is over. <br>
-	 * Before calling this method, implementations might not return confident
+	 * Before calling this method, implementations might not return reliable
 	 * results in {@link #recommendEstimation(FeatureVector)}. <br>
 	 * Implementations might refuse further calls of
 	 * {@link #train(EstimationSpecification, double, FeatureVector)} after this

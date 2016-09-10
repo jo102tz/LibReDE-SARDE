@@ -1,0 +1,236 @@
+/**
+ * ==============================================
+ *  LibReDE : Library for Resource Demand Estimation
+ * ==============================================
+ *
+ * (c) Copyright 2013-2014, by Simon Spinner and Contributors.
+ *
+ * Project Info:   http://www.descartes-research.net/
+ *
+ * All rights reserved. This software is made available under the terms of the
+ * Eclipse Public License (EPL) v1.0 as published by the Eclipse Foundation
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * This software is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License (EPL)
+ * for more details.
+ *
+ * You should have received a copy of the Eclipse Public License (EPL)
+ * along with this software; if not visit http://www.eclipse.org or write to
+ * Eclipse Foundation, Inc., 308 SW First Avenue, Suite 110, Portland, 97204 USA
+ * Email: license (at) eclipse.org
+ *
+ * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
+ * in the United States and other countries.]
+ */
+package tools.descartes.librede.rrde.recommendation.algorithm.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.eclipse.emf.common.util.EMap;
+
+import smile.classification.Classifier;
+import tools.descartes.librede.configuration.EstimationSpecification;
+import tools.descartes.librede.rrde.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.recommendation.algorithm.AbstractRecommendationAlgorithm;
+
+/**
+ * Abstract class simplifying the usage of algorithms using the Smile interface.
+ * 
+ * @author JS
+ *
+ */
+public abstract class AbstractSmileAlgorithm extends
+		AbstractRecommendationAlgorithm {
+
+	/**
+	 * The collected feature values in the same order than the
+	 * {@link #trainingfeatures}.
+	 */
+	private List<double[]> trainingfeatures;
+
+	/**
+	 * The corresponding target values in the same order than the
+	 * {@link #trainingfeatures}.
+	 */
+	private List<Double> targetvalues;
+
+	/**
+	 * The map inden
+	 */
+	private Map<EstimationSpecification, Double> map;
+
+	/**
+	 * The classifier that is trained by sub-classes.
+	 */
+	private Classifier<double[]> classifier;
+
+	/**
+	 * @return the classifier
+	 */
+	public Classifier<double[]> getClassifier() {
+		return classifier;
+	}
+
+	/**
+	 * @param classifier
+	 *            the classifier to set
+	 */
+	public void setClassifier(Classifier<double[]> classifier) {
+		this.classifier = classifier;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
+	 * #initialize()
+	 */
+	@Override
+	public void initialize() {
+		map = new HashMap<EstimationSpecification, Double>();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
+	 * #
+	 * recommendEstimation(tools.descartes.librede.rrde.recommendation.FeatureVector
+	 * )
+	 */
+	@Override
+	public EstimationSpecification recommendEstimation(FeatureVector features) {
+		double prediction = classifier.predict(parseToDoubles(features));
+		return getSpecification(prediction);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see tools.descartes.librede.rrde.recommendation.algorithm.
+	 * AbstractRecommendationAlgorithm
+	 * #addTrainingSet(org.eclipse.emf.common.util.EMap,
+	 * tools.descartes.librede.rrde.recommendation.FeatureVector)
+	 */
+	@Override
+	protected boolean addTrainingSet(
+			EMap<EstimationSpecification, Double> errors, FeatureVector features) {
+		EstimationSpecification spec = getBestEstimator(errors);
+		if (spec == null) {
+			getLog().warn("No best estimator could be calculated.");
+			return false;
+		}
+		if (targetvalues.size() != trainingfeatures.size()) {
+			getLog().error(
+					"The number of training examples and target values does not match.");
+			return false;
+		}
+		trainingfeatures.add(parseToDoubles(features));
+		targetvalues.add(new Double(getIndex(spec)));
+		return true;
+	}
+
+	/**
+	 * Returns the {@link EstimationSpecification} with the smallest error
+	 * function.
+	 * 
+	 * @param errors
+	 *            A {@link EMap} of {@link EstimationSpecification} with their
+	 *            corresponding errors as {@link Double}s.
+	 * @return The {@link EstimationSpecification} with the smallest error.
+	 */
+	private EstimationSpecification getBestEstimator(
+			EMap<EstimationSpecification, Double> errors) {
+		EstimationSpecification currentBest = null;
+		double currentMin = Double.MAX_VALUE;
+		for (Entry<EstimationSpecification, Double> entry : errors) {
+			if (entry.getValue().doubleValue() < currentMin) {
+				currentBest = entry.getKey();
+				currentMin = entry.getValue().doubleValue();
+			}
+		}
+		return currentBest;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see tools.descartes.librede.rrde.recommendation.algorithm.
+	 * AbstractRecommendationAlgorithm#flushTrainingExamples()
+	 */
+	@Override
+	protected boolean flushTrainingExamples() {
+		if (trainingfeatures.size() == 0) {
+			getLog().error("No training data available...");
+			return false;
+		}
+		if (targetvalues.size() != trainingfeatures.size()) {
+			getLog().error("The size of the arrays does not match.");
+			return false;
+		}
+		double[][] training = trainingfeatures.toArray(new double[0][0]);
+		int[] target = convertListInt(targetvalues.toArray(new Double[0]));
+		if (training == null || target == null) {
+			getLog().error("Training or target values are null.");
+			return false;
+		}
+		return train(training, target);
+	}
+
+	/**
+	 * Trains the algorithm with the given examples.
+	 * 
+	 * @param features
+	 *            The feature arrays
+	 * @param targets
+	 *            The target values
+	 * @return True if the training was successful, false otherwise
+	 */
+	protected abstract boolean train(double[][] features, int[] targets);
+
+	/**
+	 * Retrieves the corresponding index number and adds the
+	 * {@link EstimationSpecification} if it was not stored yet.
+	 * 
+	 * @param spec
+	 *            The specification to map
+	 * @return The index number of the given {@link EstimationSpecification}
+	 */
+	protected double getIndex(EstimationSpecification spec) {
+		Double d = map.get(spec);
+		if (d == null) {
+			// specification unknown
+			d = new Double(map.keySet().size());
+			map.put(spec, d);
+		}
+		return d.doubleValue();
+	}
+
+	/**
+	 * Returns the {@link EstimationSpecification} corresponding to the given
+	 * index;
+	 * 
+	 * @param index
+	 *            The index, that is requested
+	 * @return The {@link EstimationSpecification} corresponding to it.
+	 */
+	protected EstimationSpecification getSpecification(double index) {
+		for (Entry<EstimationSpecification, Double> entry : map.entrySet()) {
+			if (entry.getValue().doubleValue() == index) {
+				return entry.getKey();
+			}
+		}
+		getLog().warn(
+				"Index " + index + " not found in mapping. Size: "
+						+ map.entrySet().size());
+		return null;
+	}
+
+}

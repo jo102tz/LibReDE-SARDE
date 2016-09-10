@@ -58,7 +58,7 @@
     </workloadDescription>
   </trainingData>
   <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.recommendation.extract.BasicFeatureExtractor"/>
-  <learningAlgorithm algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.BasicRecommendationAlgorithm"/>
+  <learningAlgorithm algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree"/>
   <estimators window="60">
     <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter">
