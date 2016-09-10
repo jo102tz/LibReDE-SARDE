@@ -384,7 +384,8 @@ public class Discovery {
 			boolean found = false;
 			// try to find a file with the given name
 			for (Path p : allSubpaths) {
-				if (p.endsWith(((FileTraceConfiguration) trace).getFile())) {
+				if (p.endsWith(new File(((FileTraceConfiguration) trace)
+						.getFile()).getName())) {
 					// the filepath contains the file ending
 					// -> set the file
 					((FileTraceConfiguration) trace).setFile(p.toAbsolutePath()

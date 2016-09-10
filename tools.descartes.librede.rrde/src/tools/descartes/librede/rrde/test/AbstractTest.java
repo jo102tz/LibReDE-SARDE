@@ -45,30 +45,31 @@ public class AbstractTest {
 	/**
 	 * The path linking to the test folder.
 	 */
-	public static final String TESTPATH = "C:/Users/JS/Desktop/Test";
+	public static final String TESTPATH = "resources" + File.separator + "test"
+			+ File.separator + "junit";
 
 	/**
 	 * The path to the default {@link LibredeConfiguration}
 	 */
-	public final static String LIB_PATH = "resources" + File.separator
+	public final static String LIB_PATH = TESTPATH + File.separator
 			+ "estimation.librede";
 
 	/**
 	 * The path to the default {@link OptimizationConfiguration}
 	 */
-	public final static String OPT_PATH = "resources" + File.separator + "test"
-			+ File.separator + "src" + File.separator + "conf.optimization";
+	public final static String OPT_PATH = TESTPATH + File.separator
+			+ "conf.optimization";
 
 	/**
 	 * The path to the default {@link RecommendationTrainingConfiguration}
 	 */
-	public final static String REC_PATH = "resources" + File.separator + "test"
-			+ File.separator + "src" + File.separator + "My.recommendation";
+	public final static String REC_PATH = TESTPATH + File.separator
+			+ "conf.recommendation";
 
 	/**
 	 * The output path, where all output files are stored.
 	 */
-	public final static String OUTPUT = "output";
+	public final static String OUTPUT = TESTPATH + File.separator + "output";
 
 	static Plugin main;
 

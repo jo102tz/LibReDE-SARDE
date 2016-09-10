@@ -190,6 +190,7 @@ public class Plugin implements IApplication {
 			ValidationSpecification validationSpecification,
 			EList<InputData> inputs) {
 		log.info("Start training of algorithm " + alg.getName() + "...");
+		alg.initialize();
 		boolean res = true;
 		Set<LibredeConfiguration> set = Discovery.createConfigurations(inputs,
 				estimators.get(0), validationSpecification);
@@ -208,6 +209,7 @@ public class Plugin implements IApplication {
 				res = false;
 			}
 		}
+		alg.endTrainingPhase();
 		log.info("Finished training of algorithm " + alg.getName() + "!");
 		return res;
 	}

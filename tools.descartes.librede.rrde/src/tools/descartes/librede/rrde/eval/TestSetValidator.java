@@ -26,6 +26,7 @@
  */
 package tools.descartes.librede.rrde.eval;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -36,6 +37,8 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.LibredeResults;
+import tools.descartes.librede.configuration.DataSourceConfiguration;
+import tools.descartes.librede.configuration.FileTraceConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.optimization.Discovery;
@@ -65,6 +68,51 @@ public class TestSetValidator {
 
 	private Map<LibredeConfiguration, TestResult> after;
 
+	/**
+	 * @return the testset
+	 */
+	public Set<LibredeConfiguration> getTestset() {
+		return testset;
+	}
+
+	/**
+	 * @param testset
+	 *            the testset to set
+	 */
+	public void setTestset(Set<LibredeConfiguration> testset) {
+		this.testset = testset;
+	}
+
+	/**
+	 * @return the before
+	 */
+	public Map<LibredeConfiguration, TestResult> getBefore() {
+		return before;
+	}
+
+	/**
+	 * @param before
+	 *            the before to set
+	 */
+	public void setBefore(Map<LibredeConfiguration, TestResult> before) {
+		this.before = before;
+	}
+
+	/**
+	 * @return the after
+	 */
+	public Map<LibredeConfiguration, TestResult> getAfter() {
+		return after;
+	}
+
+	/**
+	 * @param after
+	 *            the after to set
+	 */
+	public void setAfter(Map<LibredeConfiguration, TestResult> after) {
+		this.after = after;
+	}
+
 	public Map<LibredeConfiguration, TestResult> calculateInitialErrors(
 			String testfolder, LibredeConfiguration conf) {
 		before = new HashMap<LibredeConfiguration, TestResult>();
@@ -72,7 +120,12 @@ public class TestSetValidator {
 		input.setRootFolder(testfolder);
 		input.setWorkloadDescription(conf.getWorkloadDescription());
 		input.setInput(conf.getInput());
+//		for (DataSourceConfiguration ds : input.getInput().getDataSources()) {
+//			FileTraceConfiguration ft = (FileTraceConfiguration) ds;
+//			(ft).setFile(new File(ft.getFile()).getName());
+//		}
 		EList<InputData> list = new BasicEList<InputData>();
+		list.add(input);
 		testset = Discovery.createConfigurations(list, conf.getEstimation(),
 				conf.getValidation());
 		if (testset.isEmpty()) {

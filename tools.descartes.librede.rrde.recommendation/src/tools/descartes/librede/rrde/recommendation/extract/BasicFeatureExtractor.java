@@ -198,13 +198,46 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		vector.setSkewness(stat.getSkewness());
 		vector.setTenthpercentile(stat.getPercentile(10));
 		vector.setNinetiethpercentile(stat.getPercentile(90));
-		vector.setPearsonCorrelationMatrixNorm(pear.computeCorrelationMatrix(
-				table).getNorm());
-		vector.setCovarianceMatrixNorm(new Covariance(table)
-				.getCovarianceMatrix().getNorm());
+		if (table.length > 1) {
+			if (aggregation.equals(Aggregation.NONE)) {
+				// if aggregation is NONE we have to deal with mismatched
+				// dimensions
+				table = cleanDimensions(table);
+			}
+			vector.setPearsonCorrelationMatrixNorm(pear
+					.computeCorrelationMatrix(table).getNorm());
+			vector.setCovarianceMatrixNorm(new Covariance(table)
+					.getCovarianceMatrix().getNorm());
+		} else {
+			// if no inter-correlation is available
+			vector.setPearsonCorrelationMatrixNorm(0);
+			vector.setCovarianceMatrixNorm(0);
+		}
+
 		// TODO autocorrelation
-		
+
 		return vector;
+	}
+
+	/**
+	 * Equalizes the dimensions of the table
+	 * 
+	 * @param table
+	 *            The table to equalize
+	 * @return the table with filled zeros
+	 */
+	private double[][] cleanDimensions(double[][] table) {
+		int maxlength = Integer.MIN_VALUE;
+		for (int i = 0; i < table.length; i++) {
+			maxlength = Math.max(maxlength, table[i].length);
+		}
+		double[][] newtable = new double[table.length][maxlength];
+		for (int i = 0; i < newtable.length; i++) {
+			for (int j = 0; j < table[i].length; j++) {
+				newtable[i][j] = table[i][j];
+			}
+		}
+		return newtable;
 	}
 
 	/**

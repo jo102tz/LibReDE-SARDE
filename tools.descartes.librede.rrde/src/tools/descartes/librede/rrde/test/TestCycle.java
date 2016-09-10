@@ -30,6 +30,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 
 import tools.descartes.librede.Librede;
@@ -54,7 +55,8 @@ public class TestCycle extends AbstractTest {
 	 */
 	private static final Logger log = Logger.getLogger(TestCycle.class);
 
-	private static final String testfolder = "C:/Users/JS/Desktop/test";
+	private static final String validationfolder = TESTPATH + File.separator
+			+ "validation";
 
 	@Test
 	public void test() {
@@ -66,8 +68,14 @@ public class TestCycle extends AbstractTest {
 				.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
 		RecommendationTrainingConfiguration recommendation = Util
 				.loadRecommendationConfiguration(new File(REC_PATH).toPath());
+		optimization.getContainsOf().get(0).getTrainingData().get(0)
+				.setRootFolder(TESTPATH + File.separator + "training");
+		recommendation.getTrainingData().get(0)
+				.setRootFolder(TESTPATH + File.separator + "training");
+		
 		TestSetValidator vali = new TestSetValidator();
-		vali.calculateInitialErrors(testfolder, librede);
+		vali.calculateInitialErrors(validationfolder, librede);
+		Assert.assertNotEquals(vali.getTestset().size(), 0);
 
 		log.info("Initialized! Starting optimization...");
 		long start = System.currentTimeMillis();

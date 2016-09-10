@@ -26,6 +26,7 @@
  */
 package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,7 +94,9 @@ public abstract class AbstractSmileAlgorithm extends
 	 */
 	@Override
 	public void initialize() {
-		map = new HashMap<EstimationSpecification, Double>();
+		map = new HashMap<>();
+		trainingfeatures = new ArrayList<>();
+		targetvalues = new ArrayList<>();
 	}
 
 	/*
