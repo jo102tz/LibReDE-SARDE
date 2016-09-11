@@ -84,7 +84,7 @@ public class Util {
 		} else if (eClass.equals(WindowSize.class.getName())) {
 			int integer = (int) Math.round(value);
 			if (integer != value) {
-				log.warn("The value "
+				log.debug("The value "
 						+ value
 						+ " is not an Integer and had to be rounded to fit as window size.");
 			}
