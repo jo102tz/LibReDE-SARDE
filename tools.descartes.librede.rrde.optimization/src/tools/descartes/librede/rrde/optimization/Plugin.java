@@ -81,20 +81,23 @@ public class Plugin implements IApplication {
 	/**
 	 * The path to the default {@link LibredeConfiguration}
 	 */
-	public final static String LIB_PATH = "resources" + File.separator
-			+ "estimation.librede";
+	public final static String LIB_PATH = ".." + File.separator
+			+ "tools.descartes.librede.rrde" + File.separator + "resources"
+			+ File.separator + "estimation.librede";
 
 	/**
 	 * The path to the default {@link OptimizationConfiguration}
 	 */
-	public final static String CONF_PATH = "resources" + File.separator
-			+ "test" + File.separator + "src" + File.separator
+	public final static String CONF_PATH = ".." + File.separator
+			+ "tools.descartes.librede.rrde" + File.separator + "resources"
+			+ File.separator + "test" + File.separator + "src" + File.separator
 			+ "conf.optimization";
 
 	/**
 	 * The output path, where all output files are stored.
 	 */
-	public final static String OUTPUT = "output";
+	public final static String OUTPUT = ".." + File.separator
+			+ "tools.descartes.librede.rrde" + File.separator + "output";
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
@@ -106,19 +109,6 @@ public class Plugin implements IApplication {
 					LIB_PATH).toPath());
 			OptimizationConfiguration conf = Util
 					.loadOptimizationConfiguration(new File(CONF_PATH).toPath());
-
-			// This is a fixup to replace the data sources with ones from
-			// librede.
-			// for (RunCall call : conf.getContainsOf()) {
-			// for (InputData spec : call.getTrainingData()) {
-			// spec.getInput()
-			// .getDataSources()
-			// .get(0)
-			// .getParameters()
-			// .addAll(librede.getInput().getDataSources().get(0)
-			// .getParameters());
-			// }
-			// }
 
 			// run optimization
 			runConfigurationOptimization(librede, conf, OUTPUT);
@@ -203,7 +193,7 @@ public class Plugin implements IApplication {
 		// execute Calls
 		HashMap<RunCall, EstimationSpecification> results = collectResults(conf
 				.getContainsOf());
-		
+
 		// store each specification in a different file
 		int i = 0;
 		for (EstimationSpecification spec : results.values()) {
