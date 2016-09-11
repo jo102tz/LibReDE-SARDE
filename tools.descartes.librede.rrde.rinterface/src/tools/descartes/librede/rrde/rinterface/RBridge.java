@@ -82,9 +82,10 @@ public class RBridge implements RMainLoopCallbacks {
 	private RBridge() {
 		re = createRengine();
 		loadScript();
+		instance = this;
 	}
 
-	public static RBridge getInstance() {
+	public synchronized static RBridge getInstance() {
 		if (instance == null) {
 			instance = new RBridge();
 		}
