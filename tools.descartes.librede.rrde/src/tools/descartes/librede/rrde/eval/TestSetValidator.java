@@ -26,19 +26,22 @@
  */
 package tools.descartes.librede.rrde.eval;
 
-import java.io.File;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import tools.descartes.librede.LibredeResults;
-import tools.descartes.librede.configuration.DataSourceConfiguration;
-import tools.descartes.librede.configuration.FileTraceConfiguration;
+import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.optimization.Discovery;
@@ -54,8 +57,6 @@ import tools.descartes.librede.rrde.optimization.impl.InputDataImpl;
  *
  */
 public class TestSetValidator {
-
-	// TODO comment
 
 	/**
 	 * The logger used for logging
@@ -113,17 +114,31 @@ public class TestSetValidator {
 		this.after = after;
 	}
 
+	/**
+	 * Creates a mapping of {@link LibredeConfiguration}s to their initial
+	 * corresponding {@link TestResult}s for later comparison.
+	 * 
+	 * @param testfolder
+	 *            The root folder, where to find and locate the
+	 *            {@link LibredeConfiguration}s
+	 * @param conf
+	 *            The base configuration
+	 * @return The mapping of created {@link LibredeConfiguration}s to their
+	 *         {@link TestResult}s
+	 */
 	public Map<LibredeConfiguration, TestResult> calculateInitialErrors(
 			String testfolder, LibredeConfiguration conf) {
 		before = new HashMap<LibredeConfiguration, TestResult>();
 		InputData input = new InputDataImpl();
 		input.setRootFolder(testfolder);
-		input.setWorkloadDescription(conf.getWorkloadDescription());
-		input.setInput(conf.getInput());
-//		for (DataSourceConfiguration ds : input.getInput().getDataSources()) {
-//			FileTraceConfiguration ft = (FileTraceConfiguration) ds;
-//			(ft).setFile(new File(ft.getFile()).getName());
-//		}
+		input.setWorkloadDescription(EcoreUtil.copy(conf
+				.getWorkloadDescription()));
+		input.setInput(EcoreUtil.copy(conf.getInput()));
+		// for (DataSourceConfiguration ds : input.getInput().getDataSources())
+		// {
+		// FileTraceConfiguration ft = (FileTraceConfiguration) ds;
+		// (ft).setFile(new File(ft.getFile()).getName());
+		// }
 		EList<InputData> list = new BasicEList<InputData>();
 		list.add(input);
 		testset = Discovery.createConfigurations(list, conf.getEstimation(),
@@ -142,6 +157,17 @@ public class TestSetValidator {
 		return before;
 	}
 
+	/**
+	 * Creates a mapping between all {@link LibredeConfiguration}s of the
+	 * initial compare set and their new {@link TestResult}s.
+	 * 
+	 * @param exec
+	 *            An {@link OptimizedLibredeExecutor} instance used for
+	 *            execution of the {@link LibredeConfiguration}s.
+	 * 
+	 * @return The resulting mapping of {@link LibredeConfiguration} to
+	 *         {@link TestResult}
+	 */
 	public Map<LibredeConfiguration, TestResult> compareOptimized(
 			OptimizedLibredeExecutor exec) {
 		after = new HashMap<LibredeConfiguration, TestResult>();
@@ -154,6 +180,20 @@ public class TestSetValidator {
 		return after;
 	}
 
+	/**
+	 * Compares the initial results with the improved ones an writes it into the
+	 * given log instance.
+	 * 
+	 * @param log
+	 *            The logger to use. If <code>null</code>, the default log of
+	 *            the {@link TestSetValidator} is used.
+	 * @param optimization
+	 *            The time spent for optimization in milliseconds for
+	 *            summarizing.
+	 * @param recommendation
+	 *            The time spent for recommendation in milliseconds for
+	 *            summarizing.
+	 */
 	public void printResults(Logger log, long optimization, long recommendation) {
 		if (log == null) {
 			log = TestSetValidator.log;
@@ -192,12 +232,12 @@ public class TestSetValidator {
 		log.info("----------------------------------------------------");
 		log.info("Numer of test configurations: " + testset.size());
 		log.info("Average Execution time before optimization: "
-				+ statbeforetime.getMean());
+				+ statbeforetime.getMean() + "ms");
 		log.info("Average Execution time after optimization: "
-				+ stataftertime.getMean());
+				+ stataftertime.getMean() + "ms");
 		log.info("This is an improvement of avg.: "
-				+ (statbeforetime.getMean() - stataftertime.getMean()));
-		log.info("\n");
+				+ (statbeforetime.getMean() - stataftertime.getMean() + "ms"));
+		
 		log.info("Average validation error before optimization: "
 				+ statbeforeerror.getMean());
 		log.info("Average validation error after optimization: "
@@ -212,6 +252,72 @@ public class TestSetValidator {
 					+ "ms for optimizations and " + recommendation
 					+ "ms for training resulting in a total training time of "
 					+ optimization + recommendation + "ms.");
+		} else if (optimization > 0) {
+			log.info("This took around " + optimization
+					+ "ms for optimizations. Recommendation was not done.");
+		} else if (recommendation > 0) {
+			log.info("This took around "
+					+ recommendation
+					+ "ms for recommendation training. Optimization was not done.");
 		}
+	}
+
+	/**
+	 * Creates a mapping between all {@link LibredeConfiguration}s of the
+	 * initial compare set and their new {@link TestResult}s.
+	 * 
+	 * @param estimations
+	 *            The {@link EstimationSpecification}s to consider at once. All
+	 *            of them are executed.
+	 * @param minimum
+	 *            If true, the {@link EstimationSpecification} with the minimum
+	 *            error in each run is chosen as representative. If false, the
+	 *            median is chosen instead.
+	 * @return The resulting mapping of {@link LibredeConfiguration} to
+	 *         {@link TestResult}
+	 */
+	public Map<LibredeConfiguration, TestResult> compareOptimized(
+			Collection<EstimationSpecification> estimations, boolean minimum) {
+		after = new HashMap<LibredeConfiguration, TestResult>();
+		for (LibredeConfiguration libredeConfiguration : testset) {
+			long starttime = System.currentTimeMillis();
+
+			LibredeResults finalres = null;
+			// create sorted set
+			SortedSet<LibredeResults> set = new TreeSet<>(
+					new Comparator<LibredeResults>() {
+						@Override
+						public int compare(LibredeResults one,
+								LibredeResults two) {
+							double errone = Util.getMeanValidationError(one);
+							double errtwo = Util.getMeanValidationError(two);
+							if (errone < errtwo) {
+								return -1;
+							} else if (errone == errtwo) {
+								return 0;
+							}
+							return 1;
+						}
+					});
+			// testing all approaches and choosing the minimum
+			for (EstimationSpecification estimationSpecification : estimations) {
+				libredeConfiguration.setEstimation(estimationSpecification);
+				// check timestamps
+				Discovery.fixTimeStamps(libredeConfiguration);
+				LibredeResults res = Wrapper
+						.executeLibrede(libredeConfiguration);
+				set.add(res);
+				if (minimum) {
+					finalres = set.first();
+				} else {
+					finalres = set.toArray(new LibredeResults[0])[set.size() / 2];
+				}
+
+			}
+
+			long finish = System.currentTimeMillis() - starttime;
+			after.put(libredeConfiguration, new TestResult(finalres, finish));
+		}
+		return after;
 	}
 }

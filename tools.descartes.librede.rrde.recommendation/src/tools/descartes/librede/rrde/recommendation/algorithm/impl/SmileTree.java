@@ -55,6 +55,7 @@ public class SmileTree extends AbstractSmileAlgorithm {
 	@Override
 	protected boolean train(double[][] features, int[] targets) {
 		try {
+			// TODO add other smile packages... :/ smile.mathj
 			setClassifier(new DecisionTree(features, targets,
 					MAX_NODES_CONSTANT));
 		} catch (Exception e) {

@@ -164,7 +164,7 @@ public class Discovery {
 
 				// adapt time stamps
 				// fix mapping references
-				if (fixTimeStamp(additional) & fixMapping(additional)) {
+				if (fixTimeStamps(additional) & fixMapping(additional)) {
 					set.add(additional);
 				} else {
 					log.warn("No valid configuration could be created.");
@@ -429,14 +429,14 @@ public class Discovery {
 	}
 
 	/**
-	 * Fix the timestamp of the given {@link LibredeConfiguration} to match the
+	 * Fixes the time stamps of the given {@link LibredeConfiguration} to match the
 	 * first and last available measurement.
 	 * 
 	 * @param conf
 	 *            the {@link LibredeConfiguration} to fix
 	 * @return True, if the operation was successful, false otherwise
 	 */
-	private static boolean fixTimeStamp(LibredeConfiguration conf) {
+	public static boolean fixTimeStamps(LibredeConfiguration conf) {
 		Map<String, IDataSource> dataSources = new HashMap<String, IDataSource>();
 
 		double maxStart = Double.MIN_VALUE;

@@ -84,7 +84,7 @@ public abstract class AbstractRecommendationAlgorithm implements
 			throw new IllegalStateException(
 					"Training phase is already finished.");
 		}
-		return false;
+		return addTrainingSet(errors, features);
 	}
 
 	/**

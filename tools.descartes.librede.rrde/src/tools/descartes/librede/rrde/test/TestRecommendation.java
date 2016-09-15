@@ -48,12 +48,12 @@ import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
  * @author JS
  *
  */
-public class TestOptimization extends AbstractTest {
+public class TestRecommendation extends AbstractTest {
 
 	/**
 	 * The logger used for logging
 	 */
-	private static final Logger log = Logger.getLogger(TestOptimization.class);
+	private static final Logger log = Logger.getLogger(TestRecommendation.class);
 
 	private static final String validationfolder = TESTPATH + File.separator
 			+ "validation";
@@ -64,26 +64,34 @@ public class TestOptimization extends AbstractTest {
 		// load config files
 		LibredeConfiguration librede = Librede.loadConfiguration(new File(
 				LIB_PATH).toPath());
-		OptimizationConfiguration optimization = Util
-				.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
-		optimization.getContainsOf().get(0).getTrainingData().get(0)
+
+		RecommendationTrainingConfiguration recommendation = Util
+				.loadRecommendationConfiguration(new File(REC_PATH).toPath());
+
+		recommendation.getTrainingData().get(0)
 				.setRootFolder(TESTPATH + File.separator + "training");
 		
 		TestSetValidator vali = new TestSetValidator();
 		vali.calculateInitialErrors(validationfolder, librede);
 		Assert.assertNotEquals(vali.getTestset().size(), 0);
 
-		log.info("Initialized! Starting optimization...");
-		long start = System.currentTimeMillis();
-		// run optimization
-		Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
-				.runConfigurationOptimization(librede, optimization, OUTPUT);
-		long opti = System.currentTimeMillis() - start;
-		log.info("Finished optimization! Done...");
+		log.info("Initialized! Starting training phase...");
 
+		// train algorithm
+		long start = System.currentTimeMillis();
+		IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
+				.loadAndTrainAlgorithm(recommendation);
+		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
+				.loadFeatureExtractor(recommendation.getFeatureAlgorithm());
+		long reco = System.currentTimeMillis() - start;
+		log.info("Finished training! Validating...");
+
+		// wrap into Executor
+		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor,
+				algorithm);
 		// print results
-		vali.compareOptimized(estimations, false);
-		vali.printResults(null, opti, 0);
+		vali.compareOptimized(exec);
+		vali.printResults(null, 0, reco);
 
 	}
 

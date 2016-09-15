@@ -110,6 +110,10 @@ public abstract class AbstractSmileAlgorithm extends
 	 */
 	@Override
 	public EstimationSpecification recommendEstimation(FeatureVector features) {
+		if(classifier==null){
+			getLog().error("The classifier is null.");
+			return null;
+		}
 		double prediction = classifier.predict(parseToDoubles(features));
 		return getSpecification(prediction);
 	}

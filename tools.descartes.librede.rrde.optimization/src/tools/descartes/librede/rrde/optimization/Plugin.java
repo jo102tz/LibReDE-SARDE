@@ -156,7 +156,10 @@ public class Plugin implements IApplication {
 	 *            {@link LibredeConfiguration} files.
 	 * @return The collection of the optimized {@link EstimationSpecification}s
 	 *         as read in the configurations file like they are stored in the
-	 *         output folder.
+	 *         output folder. Note that the timestamps for start and ending are
+	 *         not yet fixed so a call of
+	 *         {@link Discovery#fixTimeStamps(LibredeConfiguration)} is usually
+	 *         required.
 	 * 
 	 */
 	public Collection<EstimationSpecification> runConfigurationOptimization(
@@ -226,11 +229,17 @@ public class Plugin implements IApplication {
 	 */
 	private void store(EstimationSpecification result,
 			LibredeConfiguration conf, String file) {
+		// create configuration
+		LibredeConfiguration output = EcoreUtil.copy(conf);
+		output.setEstimation(result);
+		// fix timestamps for valid output
+		Discovery.fixTimeStamps(output);
+
+		// write to file
 		ResourceSet rs = new ResourceSetImpl();
 		URI uri = URI.createFileURI(file);
 		Resource resource = rs.createResource(uri);
-		LibredeConfiguration output = EcoreUtil.copy(conf);
-		output.setEstimation(result);
+
 		resource.getContents().add(output);
 		Map<Object, Object> saveOptions = ((XMLResource) resource)
 				.getDefaultSaveOptions();

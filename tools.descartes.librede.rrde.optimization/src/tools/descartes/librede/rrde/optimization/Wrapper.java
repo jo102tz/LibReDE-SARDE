@@ -74,21 +74,6 @@ public class Wrapper {
 	 */
 	public static LibredeResults executeLibrede(LibredeConfiguration conf) {
 
-		// used to increase performance but leads to memory overflow
-		// cache variables in order to avoid constant re-initialization and
-		// overflows
-		// LibredeVariables var = null;
-		// if (cache.get(conf) == null) {
-		// var = new LibredeVariables(conf);
-		// Librede.initRepo(var);
-		// cache.put(conf, var);
-		// } else {
-		// var = cache.get(conf);
-		// for (IRepositoryCursor cursor : var.getCursors().values()) {
-		// cursor.reset();
-		// }
-		// }
-
 		try {
 			LibredeVariables var = new LibredeVariables(conf);
 			Librede.initRepo(var);
