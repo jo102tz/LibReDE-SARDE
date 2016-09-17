@@ -237,7 +237,7 @@ public class TestSetValidator {
 				+ stataftertime.getMean() + "ms");
 		log.info("This is an improvement of avg.: "
 				+ (statbeforetime.getMean() - stataftertime.getMean() + "ms"));
-		
+
 		log.info("Average validation error before optimization: "
 				+ statbeforeerror.getMean());
 		log.info("Average validation error after optimization: "
@@ -307,12 +307,13 @@ public class TestSetValidator {
 				LibredeResults res = Wrapper
 						.executeLibrede(libredeConfiguration);
 				set.add(res);
-				if (minimum) {
-					finalres = set.first();
-				} else {
-					finalres = set.toArray(new LibredeResults[0])[set.size() / 2];
-				}
+			}
 
+			// choose final comparator
+			if (minimum) {
+				finalres = set.first();
+			} else {
+				finalres = set.toArray(new LibredeResults[0])[set.size() / 2];
 			}
 
 			long finish = System.currentTimeMillis() - starttime;

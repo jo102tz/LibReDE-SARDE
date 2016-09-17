@@ -27,18 +27,15 @@
 package tools.descartes.librede.rrde.test;
 
 import java.io.File;
-import java.util.Collection;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
 import tools.descartes.librede.Librede;
-import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.eval.TestSetValidator;
-import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;

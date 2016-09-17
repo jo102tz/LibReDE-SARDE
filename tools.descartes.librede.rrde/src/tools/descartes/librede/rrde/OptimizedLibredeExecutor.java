@@ -123,7 +123,11 @@ public class OptimizedLibredeExecutor {
 		try {
 			EstimationSpecification est = algo.recommendEstimation(extractor
 					.extractFeatures(conf));
-			conf.setEstimation(est);
+			if (est != null)
+				conf.setEstimation(est);
+			else {
+				log.warn("Recommendation failed. Returning standard result.");
+			}
 		} catch (Exception e) {
 			log.error(
 					"There was an unexpected Exception with recommending. Returning standard result.",
