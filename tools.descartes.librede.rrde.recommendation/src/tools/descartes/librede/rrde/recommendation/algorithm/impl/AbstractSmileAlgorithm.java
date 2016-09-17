@@ -61,7 +61,7 @@ public abstract class AbstractSmileAlgorithm extends
 	private List<Double> targetvalues;
 
 	/**
-	 * The map inden
+	 * The map to store the results.
 	 */
 	private Map<EstimationSpecification, Double> map;
 
@@ -110,7 +110,7 @@ public abstract class AbstractSmileAlgorithm extends
 	 */
 	@Override
 	public EstimationSpecification recommendEstimation(FeatureVector features) {
-		if(classifier==null){
+		if (classifier == null) {
 			getLog().error("The classifier is null.");
 			return null;
 		}
@@ -187,6 +187,20 @@ public abstract class AbstractSmileAlgorithm extends
 		if (training == null || target == null) {
 			getLog().error("Training or target values are null.");
 			return false;
+		}
+		// check if all train sets are the same target variable
+		boolean allequal = true;
+		for (int i = 0; i < target.length; i++) {
+			if (target[i] != target[(i + 1) % target.length]) {
+				allequal = false;
+				break;
+			}
+		}
+		if (allequal) {
+			// catch case if all train sets are equal
+			this.classifier = new DummyClasifier(target[0]);
+
+			return true;
 		}
 		return train(training, target);
 	}
