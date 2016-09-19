@@ -235,6 +235,7 @@ public class Plugin implements IApplication {
 		for (EstimationSpecification spec : estimators) {
 			// calculate error values for all estimators
 			conf.setEstimation(EcoreUtil.copy(spec));
+			Discovery.fixTimeStamps(conf);
 			results.put(spec,
 					Util.getMeanValidationError(Wrapper.executeLibrede(conf)));
 		}
