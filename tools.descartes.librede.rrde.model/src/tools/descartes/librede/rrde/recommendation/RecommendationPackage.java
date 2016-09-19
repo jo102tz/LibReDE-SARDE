@@ -612,80 +612,6 @@ public interface RecommendationPackage extends EPackage {
 	int STATISTICAL_FEATURES_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl <em>Trace Features</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl
-	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getTraceFeatures()
-	 * @generated
-	 */
-	int TRACE_FEATURES = 6;
-
-	/**
-	 * The feature id for the '<em><b>Number Of Samples</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRACE_FEATURES__NUMBER_OF_SAMPLES = 0;
-
-	/**
-	 * The feature id for the '<em><b>Aggregation Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRACE_FEATURES__AGGREGATION_TYPE = 1;
-
-	/**
-	 * The feature id for the '<em><b>Aggregation Interval</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRACE_FEATURES__AGGREGATION_INTERVAL = 2;
-
-	/**
-	 * The feature id for the '<em><b>Metric</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRACE_FEATURES__METRIC = 3;
-
-	/**
-	 * The feature id for the '<em><b>Original Input</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRACE_FEATURES__ORIGINAL_INPUT = 4;
-
-	/**
-	 * The number of structural features of the '<em>Trace Features</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRACE_FEATURES_FEATURE_COUNT = 5;
-
-	/**
-	 * The number of operations of the '<em>Trace Features</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRACE_FEATURES_OPERATION_COUNT = 0;
-
-
-	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration <em>Training Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1219,71 +1145,6 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getStatisticalFeatures_Autocorrelation();
 
 	/**
-	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures <em>Trace Features</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Trace Features</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures
-	 * @generated
-	 */
-	EClass getTraceFeatures();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getNumberOfSamples <em>Number Of Samples</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Number Of Samples</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures#getNumberOfSamples()
-	 * @see #getTraceFeatures()
-	 * @generated
-	 */
-	EAttribute getTraceFeatures_NumberOfSamples();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getAggregationType <em>Aggregation Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Aggregation Type</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures#getAggregationType()
-	 * @see #getTraceFeatures()
-	 * @generated
-	 */
-	EAttribute getTraceFeatures_AggregationType();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getAggregationInterval <em>Aggregation Interval</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Aggregation Interval</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures#getAggregationInterval()
-	 * @see #getTraceFeatures()
-	 * @generated
-	 */
-	EReference getTraceFeatures_AggregationInterval();
-
-	/**
-	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#getMetric <em>Metric</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Metric</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures#getMetric()
-	 * @see #getTraceFeatures()
-	 * @generated
-	 */
-	EReference getTraceFeatures_Metric();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.TraceFeatures#isOriginalInput <em>Original Input</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Original Input</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.TraceFeatures#isOriginalInput()
-	 * @see #getTraceFeatures()
-	 * @generated
-	 */
-	EAttribute getTraceFeatures_OriginalInput();
-
-	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1709,56 +1570,6 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute STATISTICAL_FEATURES__AUTOCORRELATION = eINSTANCE.getStatisticalFeatures_Autocorrelation();
-
-		/**
-		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl <em>Trace Features</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see tools.descartes.librede.rrde.recommendation.impl.TraceFeaturesImpl
-		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getTraceFeatures()
-		 * @generated
-		 */
-		EClass TRACE_FEATURES = eINSTANCE.getTraceFeatures();
-
-		/**
-		 * The meta object literal for the '<em><b>Number Of Samples</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TRACE_FEATURES__NUMBER_OF_SAMPLES = eINSTANCE.getTraceFeatures_NumberOfSamples();
-
-		/**
-		 * The meta object literal for the '<em><b>Aggregation Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TRACE_FEATURES__AGGREGATION_TYPE = eINSTANCE.getTraceFeatures_AggregationType();
-
-		/**
-		 * The meta object literal for the '<em><b>Aggregation Interval</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TRACE_FEATURES__AGGREGATION_INTERVAL = eINSTANCE.getTraceFeatures_AggregationInterval();
-
-		/**
-		 * The meta object literal for the '<em><b>Metric</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TRACE_FEATURES__METRIC = eINSTANCE.getTraceFeatures_Metric();
-
-		/**
-		 * The meta object literal for the '<em><b>Original Input</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TRACE_FEATURES__ORIGINAL_INPUT = eINSTANCE.getTraceFeatures_OriginalInput();
 
 	}
 

@@ -62,7 +62,6 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 			case RecommendationPackage.DATA_SET: return createDataSet();
 			case RecommendationPackage.FEATURE_VECTOR: return createFeatureVector();
 			case RecommendationPackage.STATISTICAL_FEATURES: return createStatisticalFeatures();
-			case RecommendationPackage.TRACE_FEATURES: return createTraceFeatures();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -126,16 +125,6 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 	public StatisticalFeatures createStatisticalFeatures() {
 		StatisticalFeaturesImpl statisticalFeatures = new StatisticalFeaturesImpl();
 		return statisticalFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TraceFeatures createTraceFeatures() {
-		TraceFeaturesImpl traceFeatures = new TraceFeaturesImpl();
-		return traceFeatures;
 	}
 
 	/**

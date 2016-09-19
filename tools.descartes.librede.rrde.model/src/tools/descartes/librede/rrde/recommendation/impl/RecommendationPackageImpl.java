@@ -7,19 +7,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import tools.descartes.librede.configuration.ConfigurationPackage;
-
 import tools.descartes.librede.metrics.MetricsPackage;
-
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
-
 import tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl;
-
 import tools.descartes.librede.rrde.recommendation.DataSet;
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
@@ -28,8 +21,6 @@ import tools.descartes.librede.rrde.recommendation.RecommendationFactory;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
-import tools.descartes.librede.rrde.recommendation.TraceFeatures;
-
 import tools.descartes.librede.units.UnitsPackage;
 
 /**
@@ -80,13 +71,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * @generated
 	 */
 	private EClass statisticalFeaturesEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass traceFeaturesEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -606,60 +590,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTraceFeatures() {
-		return traceFeaturesEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTraceFeatures_NumberOfSamples() {
-		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTraceFeatures_AggregationType() {
-		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTraceFeatures_AggregationInterval() {
-		return (EReference)traceFeaturesEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTraceFeatures_Metric() {
-		return (EReference)traceFeaturesEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTraceFeatures_OriginalInput() {
-		return (EAttribute)traceFeaturesEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public RecommendationFactory getRecommendationFactory() {
 		return (RecommendationFactory)getEFactoryInstance();
 	}
@@ -737,13 +667,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__TENTHPERCENTILE);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__NINETIETHPERCENTILE);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__AUTOCORRELATION);
-
-		traceFeaturesEClass = createEClass(TRACE_FEATURES);
-		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__NUMBER_OF_SAMPLES);
-		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__AGGREGATION_TYPE);
-		createEReference(traceFeaturesEClass, TRACE_FEATURES__AGGREGATION_INTERVAL);
-		createEReference(traceFeaturesEClass, TRACE_FEATURES__METRIC);
-		createEAttribute(traceFeaturesEClass, TRACE_FEATURES__ORIGINAL_INPUT);
 	}
 
 	/**
@@ -774,7 +697,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		OptimizationPackage theOptimizationPackage = (OptimizationPackage)EPackage.Registry.INSTANCE.getEPackage(OptimizationPackage.eNS_URI);
 		UnitsPackage theUnitsPackage = (UnitsPackage)EPackage.Registry.INSTANCE.getEPackage(UnitsPackage.eNS_URI);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
-		MetricsPackage theMetricsPackage = (MetricsPackage)EPackage.Registry.INSTANCE.getEPackage(MetricsPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -848,21 +770,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEAttribute(getStatisticalFeatures_Tenthpercentile(), theXMLTypePackage.getDouble(), "tenthpercentile", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalFeatures_Ninetiethpercentile(), theXMLTypePackage.getDouble(), "ninetiethpercentile", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalFeatures_Autocorrelation(), theXMLTypePackage.getDouble(), "autocorrelation", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(traceFeaturesEClass, TraceFeatures.class, "TraceFeatures", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTraceFeatures_NumberOfSamples(), theXMLTypePackage.getInt(), "numberOfSamples", "-1", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTraceFeatures_AggregationType(), theMetricsPackage.getAggregation(), "aggregationType", "NONE", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		g1 = createEGenericType(theUnitsPackage.getQuantity());
-		g2 = createEGenericType(theUnitsPackage.getTime());
-		g1.getETypeArguments().add(g2);
-		initEReference(getTraceFeatures_AggregationInterval(), g1, null, "aggregationInterval", null, 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		g1 = createEGenericType(theMetricsPackage.getMetric());
-		g2 = createEGenericType();
-		g1.getETypeArguments().add(g2);
-		EGenericType g3 = createEGenericType(theUnitsPackage.getDimension());
-		g2.setEUpperBound(g3);
-		initEReference(getTraceFeatures_Metric(), g1, null, "metric", null, 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTraceFeatures_OriginalInput(), theXMLTypePackage.getBoolean(), "originalInput", "true", 1, 1, TraceFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
