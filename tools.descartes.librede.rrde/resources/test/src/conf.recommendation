@@ -57,7 +57,10 @@
       </services>
     </workloadDescription>
   </trainingData>
-  <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.recommendation.extract.BasicFeatureExtractor"/>
+  <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.recommendation.extract.BasicFeatureExtractor" aggregationInterval="60000">
+    <timeUnit href="librede:units#MILLISECONDS"/>
+    <rateUnit href="librede:units#NONE"/>
+  </featureAlgorithm>
   <learningAlgorithm algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree"/>
   <estimators window="60">
     <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>
@@ -77,7 +80,7 @@
     </algorithms>
     <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
     <stepSize value="60.0">
-       <unit href="librede:units#SECONDS"/>
+      <unit href="librede:units#SECONDS"/>
     </stepSize>
     <startTimestamp value="1.370160271015E12">
       <unit href="librede:units#MILLISECONDS"/>

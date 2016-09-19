@@ -27,33 +27,28 @@
 package tools.descartes.librede.rrde.recommendation.extract;
 
 import org.apache.commons.math3.stat.correlation.Covariance;
-import org.apache.commons.math3.stat.correlation.KendallsCorrelation;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
-import org.apache.commons.math3.stat.correlation.SpearmansCorrelation;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ModelEntity;
-import tools.descartes.librede.configuration.Resource;
 import tools.descartes.librede.metrics.Aggregation;
 import tools.descartes.librede.metrics.Metric;
 import tools.descartes.librede.metrics.StandardMetrics;
 import tools.descartes.librede.repository.IRepositoryCursor;
-import tools.descartes.librede.repository.TimeSeries;
+import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
-import tools.descartes.librede.rrde.recommendation.TraceFeatures;
 import tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl;
 import tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl;
 import tools.descartes.librede.units.Dimension;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Ratio;
+import tools.descartes.librede.units.RequestRate;
 import tools.descartes.librede.units.Time;
 import tools.descartes.librede.units.Unit;
 import tools.descartes.librede.units.UnitsFactory;
@@ -75,24 +70,66 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	/**
 	 * The standard time unit for all features.
 	 */
-	public Unit<Time> basicTime = Time.MILLISECONDS;
+	public Unit<Time> standardTimeUnit;
 
 	/**
 	 * The standard step size for feature extraction used by the cursors.
 	 */
-	public Quantity<Time> basicStepSize = UnitsFactory.eINSTANCE
-			.createQuantity();
+	public Quantity<Time> basicStepSize;
+
+	/**
+	 * The standard rate for all exports
+	 */
+	public Unit<RequestRate> rateUnit;
+
 	/**
 	 * {@link PearsonsCorrelation} object for correlation calculations.
 	 */
 	private PearsonsCorrelation pear = new PearsonsCorrelation();
 
 	/**
+	 * {@link Covariance} object for covariance calculations.
+	 */
+	private Covariance cov = new Covariance();
+
+	/**
+	 * The {@link FeatureExtractorSpecifier} containing paramter values for
+	 * extraction.
+	 */
+	private FeatureExtractorSpecifier spec;
+
+	/**
 	 * Standard constructor setting basic values for all constants.
 	 */
-	public BasicFeatureExtractor() {
-		basicStepSize.setUnit(basicTime);
-		basicStepSize.setValue(10000);
+	@SuppressWarnings("unchecked")
+	public BasicFeatureExtractor(FeatureExtractorSpecifier specifier) {
+		this.spec = specifier;
+		if (spec == null || spec.getRateUnit() == null
+				|| spec.getTimeUnit() == null) {
+			log.warn("Specifier is null. Using default values...");
+			standardTimeUnit = Time.MILLISECONDS;
+			rateUnit = RequestRate.REQ_PER_MINUTE;
+		} else {
+			try {
+				standardTimeUnit = (Unit<Time>) spec.getTimeUnit();
+			} catch (Exception e) {
+				log.warn("Time unit could not be cast. Using default value...");
+				standardTimeUnit = Time.MILLISECONDS;
+			}
+			try {
+				rateUnit = (Unit<RequestRate>) spec.getRateUnit();
+			} catch (Exception e) {
+				log.warn("Request rate unit could not be cast. Using default value...");
+				rateUnit = RequestRate.REQ_PER_MINUTE;
+			}
+		}
+		basicStepSize = UnitsFactory.eINSTANCE.createQuantity();
+		basicStepSize.setUnit(standardTimeUnit);
+		if (spec.getAggregationInterval() <= 0) {
+			log.warn("Aggreation interval could not be read. Using default value...");
+			spec.setAggregationInterval(60000);
+		}
+		basicStepSize.setValue(spec.getAggregationInterval());
 	}
 
 	/*
@@ -111,17 +148,144 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		FeatureVector vector = new FeatureVectorImpl();
 		extractWorkloadDescription(vector, var);
 		// extractRegressionAnalyzisInformation(vector, var);
-		vector.setUtilizationStatistics(extractStatisticalFeatureVector(var,
-				var.getRepo().getWorkload().getResources(),
-				StandardMetrics.UTILIZATION, Ratio.PERCENTAGE,
-				Aggregation.AVERAGE));
-		vector.setResponseTimeStatistics(extractStatisticalFeatureVector(var,
-				var.getRepo().getWorkload().getServices(),
-				StandardMetrics.RESPONSE_TIME, basicTime, Aggregation.NONE));
-		vector.setArrivalTimeStatistics(extractStatisticalFeatureVector(var,
-				var.getRepo().getWorkload().getServices(),
-				StandardMetrics.RESPONSE_TIME, basicTime, Aggregation.NONE));
+
+		for (ModelEntity res : var.getRepo().getWorkload().getResources()) {
+			vector.getUtilizationStatistics().add(
+					extractStatisticalFeatureVector(
+							var.getCursor(var.getConf().getEstimation()
+									.getApproaches().get(0).getType()), res,
+							StandardMetrics.UTILIZATION, Ratio.PERCENTAGE,
+							Aggregation.AVERAGE));
+		}
+
+		for (ModelEntity ser : var.getRepo().getWorkload().getServices()) {
+			vector.getResponseTimeStatistics().add(
+					extractStatisticalFeatureVector(
+							var.getCursor(var.getConf().getEstimation()
+									.getApproaches().get(0).getType()), ser,
+							StandardMetrics.RESPONSE_TIME, standardTimeUnit,
+							Aggregation.NONE));
+			vector.getArrivalRateStatistics().add(
+					extractStatisticalFeatureVector(
+							var.getCursor(var.getConf().getEstimation()
+									.getApproaches().get(0).getType()), ser,
+							StandardMetrics.ARRIVAL_RATE, rateUnit,
+							Aggregation.NONE));
+		}
+
+		// extract correlation and covariance information
+		extractCorrelationAndCovarianceInformation(vector, var);
+
 		return vector;
+	}
+
+	/**
+	 * Extracts and adds correlation and covariane about the workload into the
+	 * given {@link FeatureVector}.
+	 * 
+	 * @param vector
+	 *            The vector to modify
+	 * @param var
+	 *            The {@link LibredeVariables} to analyze
+	 */
+	private void extractCorrelationAndCovarianceInformation(
+			FeatureVector vector, LibredeVariables var) {
+
+		double[][][] data = extractDoubleArray(var);
+
+		// inter entity correlation
+		vector.setInterUtilizationCorrelation(pear.computeCorrelationMatrix(
+				data[0]).getNorm());
+		vector.setInterUtilizationCovariance(new Covariance(data[0])
+				.getCovarianceMatrix().getNorm());
+		vector.setInterResponseTimeCorrelation(pear.computeCorrelationMatrix(
+				data[1]).getNorm());
+		vector.setInterResponseTimeCovariance(new Covariance(data[1])
+				.getCovarianceMatrix().getNorm());
+		vector.setInterArrivalRateCorrelation(pear.computeCorrelationMatrix(
+				data[2]).getNorm());
+		vector.setInterArrivalRateCovariance(new Covariance(data[2])
+				.getCovarianceMatrix().getNorm());
+
+		// combine arrays
+		double[][] averaged = new double[data.length][];
+
+		int k = 0;
+		for (double[][] entity : data) {
+			double[] avg = new double[entity[0].length];
+			for (int j = 0; j < avg.length; j++) {
+				for (int i = 0; i < entity.length; i++) {
+					avg[j] += entity[i][j];
+				}
+				avg[j] /= ((double) entity.length);
+			}
+
+			averaged[k++] = avg;
+		}
+
+		vector.setUtilizationResponseCorrelation(pear.correlation(averaged[0],
+				averaged[1]));
+		vector.setUtilizationArrivalCorrelation(pear.correlation(averaged[0],
+				averaged[2]));
+		vector.setResponseArrivalCorrelation(pear.correlation(averaged[1],
+				averaged[2]));
+		vector.setUtilizationArrivalCovariance(cov.covariance(averaged[0],
+				averaged[1]));
+		vector.setUtilizationResponseCovariance(cov.covariance(averaged[0],
+				averaged[2]));
+		vector.setResponseArrivalCovariance(cov.covariance(averaged[1],
+				averaged[2]));
+
+	}
+
+	/**
+	 * Extracts all data as aggregated values into a set of double arrays.
+	 * 
+	 * @param var
+	 *            The variables to extract
+	 * @return The double array
+	 */
+	private double[][][] extractDoubleArray(LibredeVariables var) {
+
+		// create cursor
+		IRepositoryCursor cursor = var.getCursor(var.getConf().getEstimation()
+				.getApproaches().get(0).getType());
+		cursor.reset();
+		int maxintervalNumber = 0;
+		while (cursor.next()) {
+			maxintervalNumber = cursor.getLastInterval();
+		}
+
+		// initializes array
+		double[][][] data = new double[3][][];
+		data[0] = new double[var.getRepo().getWorkload().getResources().size()][maxintervalNumber];
+		data[1] = new double[var.getRepo().getWorkload().getServices().size()][maxintervalNumber];
+		data[2] = new double[var.getRepo().getWorkload().getServices().size()][maxintervalNumber];
+
+		// extract all information and store it as doubles
+		// resources first
+		for (int intervalNo = 0; intervalNo < maxintervalNumber; intervalNo++) {
+			int line = 0;
+			// utilization of resources
+			for (ModelEntity res : var.getRepo().getWorkload().getResources()) {
+				data[0][line++][intervalNo] = cursor.getAggregatedValue(
+						intervalNo, StandardMetrics.UTILIZATION,
+						Ratio.PERCENTAGE, res, Aggregation.AVERAGE);
+			}
+
+			// of services
+			line = 0;
+			for (ModelEntity ser : var.getRepo().getWorkload().getServices()) {
+				// response times
+				data[1][line][intervalNo] = cursor.getAggregatedValue(
+						intervalNo, StandardMetrics.RESPONSE_TIME,
+						standardTimeUnit, ser, Aggregation.AVERAGE);
+				data[2][line++][intervalNo] = cursor.getAggregatedValue(
+						intervalNo, StandardMetrics.ARRIVAL_RATE, rateUnit,
+						ser, Aggregation.AVERAGE);
+			}
+		}
+		return data;
 	}
 
 	/**
@@ -143,12 +307,12 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 
 	/**
 	 * Creates a new {@link StatisticalFeatures} object filling the features
-	 * with statistical data of the given {@link LibredeVariables}.
+	 * with statistical data of the given {@link IRepositoryCursor}.
 	 * 
-	 * @param var
-	 *            The {@link LibredeVariables} to extract from.
-	 * @param entities
-	 *            The list of {@link ModelEntity}s to aggregate.
+	 * @param cursor
+	 *            The {@link IRepositoryCursor} to extract from.
+	 * @param entity
+	 *            The {@link ModelEntity} to extract.
 	 * @param metric
 	 *            The {@link Metric} to be used.
 	 * @param unit
@@ -159,30 +323,14 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	 *         accessible data.
 	 */
 	protected <D extends Dimension> StatisticalFeatures extractStatisticalFeatureVector(
-			LibredeVariables var, EList<? extends ModelEntity> entities,
-			Metric<D> metric, Unit<D> unit, Aggregation aggregation) {
+			IRepositoryCursor cursor, ModelEntity entity, Metric<D> metric,
+			Unit<D> unit, Aggregation aggregation) {
 		DescriptiveStatistics stat = new DescriptiveStatistics();
 		// collect information for all entities
-		double[][] table = new double[entities.size()][];
-		int i = 0;
-		for (ModelEntity res : entities) {
-			TimeSeries series = var.getRepo().select(metric, unit, res,
-					aggregation);
-			// time series should only contain one dimension
-			if (series.getData().columns() > 1) {
-				log.warn("The time series " + series
-						+ " has more than one column. ");
-			} else if (series.getData().columns() == 0 || series.isEmpty()) {
-				log.warn("The time series " + series + " is empty.");
-			}
-			double[] data = series.getData().toArray1D();
-			table[i] = data;
-
-			// add to stat
-			for (int j = 0; j < data.length; j++) {
-				stat.addValue(data[j]);
-			}
-			i++;
+		while (cursor.next()) {
+			double val = cursor.getAggregatedValue(cursor.getLastInterval(),
+					metric, unit, entity, aggregation);
+			stat.addValue(val);
 		}
 
 		// collect statistical features
@@ -198,46 +346,10 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		vector.setSkewness(stat.getSkewness());
 		vector.setTenthpercentile(stat.getPercentile(10));
 		vector.setNinetiethpercentile(stat.getPercentile(90));
-		if (table.length > 1) {
-			if (aggregation.equals(Aggregation.NONE)) {
-				// if aggregation is NONE we have to deal with mismatched
-				// dimensions
-				table = cleanDimensions(table);
-			}
-			vector.setPearsonCorrelationMatrixNorm(pear
-					.computeCorrelationMatrix(table).getNorm());
-			vector.setCovarianceMatrixNorm(new Covariance(table)
-					.getCovarianceMatrix().getNorm());
-		} else {
-			// if no inter-correlation is available
-			vector.setPearsonCorrelationMatrixNorm(0);
-			vector.setCovarianceMatrixNorm(0);
-		}
 
 		// TODO autocorrelation
 
 		return vector;
-	}
-
-	/**
-	 * Equalizes the dimensions of the table
-	 * 
-	 * @param table
-	 *            The table to equalize
-	 * @return the table with filled zeros
-	 */
-	private double[][] cleanDimensions(double[][] table) {
-		int maxlength = Integer.MIN_VALUE;
-		for (int i = 0; i < table.length; i++) {
-			maxlength = Math.max(maxlength, table[i].length);
-		}
-		double[][] newtable = new double[table.length][maxlength];
-		for (int i = 0; i < newtable.length; i++) {
-			for (int j = 0; j < table[i].length; j++) {
-				newtable[i][j] = table[i][j];
-			}
-		}
-		return newtable;
 	}
 
 	/**

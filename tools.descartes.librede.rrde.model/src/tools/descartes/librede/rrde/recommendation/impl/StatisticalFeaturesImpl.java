@@ -30,8 +30,6 @@ import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getSkewness <em>Skewness</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getTenthpercentile <em>Tenthpercentile</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getNinetiethpercentile <em>Ninetiethpercentile</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getPearsonCorrelationMatrixNorm <em>Pearson Correlation Matrix Norm</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getCovarianceMatrixNorm <em>Covariance Matrix Norm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getAutocorrelation <em>Autocorrelation</em>}</li>
  * </ul>
  * </p>
@@ -258,46 +256,6 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 	 * @ordered
 	 */
 	protected double ninetiethpercentile = NINETIETHPERCENTILE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getPearsonCorrelationMatrixNorm() <em>Pearson Correlation Matrix Norm</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPearsonCorrelationMatrixNorm()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double PEARSON_CORRELATION_MATRIX_NORM_EDEFAULT = -1.0;
-
-	/**
-	 * The cached value of the '{@link #getPearsonCorrelationMatrixNorm() <em>Pearson Correlation Matrix Norm</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPearsonCorrelationMatrixNorm()
-	 * @generated
-	 * @ordered
-	 */
-	protected double pearsonCorrelationMatrixNorm = PEARSON_CORRELATION_MATRIX_NORM_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getCovarianceMatrixNorm() <em>Covariance Matrix Norm</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCovarianceMatrixNorm()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final double COVARIANCE_MATRIX_NORM_EDEFAULT = -1.0;
-
-	/**
-	 * The cached value of the '{@link #getCovarianceMatrixNorm() <em>Covariance Matrix Norm</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCovarianceMatrixNorm()
-	 * @generated
-	 * @ordered
-	 */
-	protected double covarianceMatrixNorm = COVARIANCE_MATRIX_NORM_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getAutocorrelation() <em>Autocorrelation</em>}' attribute.
@@ -574,48 +532,6 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getPearsonCorrelationMatrixNorm() {
-		return pearsonCorrelationMatrixNorm;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPearsonCorrelationMatrixNorm(double newPearsonCorrelationMatrixNorm) {
-		double oldPearsonCorrelationMatrixNorm = pearsonCorrelationMatrixNorm;
-		pearsonCorrelationMatrixNorm = newPearsonCorrelationMatrixNorm;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM, oldPearsonCorrelationMatrixNorm, pearsonCorrelationMatrixNorm));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public double getCovarianceMatrixNorm() {
-		return covarianceMatrixNorm;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCovarianceMatrixNorm(double newCovarianceMatrixNorm) {
-		double oldCovarianceMatrixNorm = covarianceMatrixNorm;
-		covarianceMatrixNorm = newCovarianceMatrixNorm;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM, oldCovarianceMatrixNorm, covarianceMatrixNorm));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public double getAutocorrelation() {
 		return autocorrelation;
 	}
@@ -662,10 +578,6 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 				return getTenthpercentile();
 			case RecommendationPackage.STATISTICAL_FEATURES__NINETIETHPERCENTILE:
 				return getNinetiethpercentile();
-			case RecommendationPackage.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM:
-				return getPearsonCorrelationMatrixNorm();
-			case RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM:
-				return getCovarianceMatrixNorm();
 			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
 				return getAutocorrelation();
 		}
@@ -712,12 +624,6 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 				return;
 			case RecommendationPackage.STATISTICAL_FEATURES__NINETIETHPERCENTILE:
 				setNinetiethpercentile((Double)newValue);
-				return;
-			case RecommendationPackage.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM:
-				setPearsonCorrelationMatrixNorm((Double)newValue);
-				return;
-			case RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM:
-				setCovarianceMatrixNorm((Double)newValue);
 				return;
 			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
 				setAutocorrelation((Double)newValue);
@@ -767,12 +673,6 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 			case RecommendationPackage.STATISTICAL_FEATURES__NINETIETHPERCENTILE:
 				setNinetiethpercentile(NINETIETHPERCENTILE_EDEFAULT);
 				return;
-			case RecommendationPackage.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM:
-				setPearsonCorrelationMatrixNorm(PEARSON_CORRELATION_MATRIX_NORM_EDEFAULT);
-				return;
-			case RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM:
-				setCovarianceMatrixNorm(COVARIANCE_MATRIX_NORM_EDEFAULT);
-				return;
 			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
 				setAutocorrelation(AUTOCORRELATION_EDEFAULT);
 				return;
@@ -810,10 +710,6 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 				return tenthpercentile != TENTHPERCENTILE_EDEFAULT;
 			case RecommendationPackage.STATISTICAL_FEATURES__NINETIETHPERCENTILE:
 				return ninetiethpercentile != NINETIETHPERCENTILE_EDEFAULT;
-			case RecommendationPackage.STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM:
-				return pearsonCorrelationMatrixNorm != PEARSON_CORRELATION_MATRIX_NORM_EDEFAULT;
-			case RecommendationPackage.STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM:
-				return covarianceMatrixNorm != COVARIANCE_MATRIX_NORM_EDEFAULT;
 			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
 				return autocorrelation != AUTOCORRELATION_EDEFAULT;
 		}
@@ -852,10 +748,6 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 		result.append(tenthpercentile);
 		result.append(", ninetiethpercentile: ");
 		result.append(ninetiethpercentile);
-		result.append(", pearsonCorrelationMatrixNorm: ");
-		result.append(pearsonCorrelationMatrixNorm);
-		result.append(", covarianceMatrixNorm: ");
-		result.append(covarianceMatrixNorm);
 		result.append(", autocorrelation: ");
 		result.append(autocorrelation);
 		result.append(')');

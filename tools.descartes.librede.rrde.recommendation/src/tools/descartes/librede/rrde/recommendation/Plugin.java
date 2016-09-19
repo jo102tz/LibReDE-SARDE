@@ -27,6 +27,7 @@
 package tools.descartes.librede.rrde.recommendation;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 import org.apache.log4j.Level;
@@ -285,17 +286,20 @@ public class Plugin implements IApplication {
 	 *             If the specifications or any of the required fields are
 	 *             <code>null</code>
 	 */
-	public static IFeatureExtractor loadFeatureExtractor(FeatureExtractorSpecifier spec)
-			throws NullPointerException {
+	public static IFeatureExtractor loadFeatureExtractor(
+			FeatureExtractorSpecifier spec) throws NullPointerException {
 		if (spec == null || spec.getFeatureExtractor() == null) {
 			throw new NullPointerException("Specifier is null.");
 		}
 		try {
-			IFeatureExtractor algo = (IFeatureExtractor) Class.forName(
-					spec.getFeatureExtractor()).newInstance();
+			IFeatureExtractor algo = (IFeatureExtractor) Class
+					.forName(spec.getFeatureExtractor())
+					.getDeclaredConstructor(spec.getClass().getInterfaces()[0]).newInstance(spec);
 			return algo;
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
+				| ClassNotFoundException | IllegalArgumentException
+				| InvocationTargetException | NoSuchMethodException
+				| SecurityException e) {
 			log.error("The feature extractor " + spec.getFeatureExtractor()
 					+ " could not be loaded.", e);
 			return null;

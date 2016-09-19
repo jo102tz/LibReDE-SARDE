@@ -23,8 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getSkewness <em>Skewness</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getTenthpercentile <em>Tenthpercentile</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getNinetiethpercentile <em>Ninetiethpercentile</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getPearsonCorrelationMatrixNorm <em>Pearson Correlation Matrix Norm</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getCovarianceMatrixNorm <em>Covariance Matrix Norm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getAutocorrelation <em>Autocorrelation</em>}</li>
  * </ul>
  * </p>
@@ -330,60 +328,6 @@ public interface StatisticalFeatures extends EObject {
 	 * @generated
 	 */
 	void setNinetiethpercentile(double value);
-
-	/**
-	 * Returns the value of the '<em><b>Pearson Correlation Matrix Norm</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Pearson Correlation Matrix Norm</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Pearson Correlation Matrix Norm</em>' attribute.
-	 * @see #setPearsonCorrelationMatrixNorm(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_PearsonCorrelationMatrixNorm()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
-	 * @generated
-	 */
-	double getPearsonCorrelationMatrixNorm();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getPearsonCorrelationMatrixNorm <em>Pearson Correlation Matrix Norm</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Pearson Correlation Matrix Norm</em>' attribute.
-	 * @see #getPearsonCorrelationMatrixNorm()
-	 * @generated
-	 */
-	void setPearsonCorrelationMatrixNorm(double value);
-
-	/**
-	 * Returns the value of the '<em><b>Covariance Matrix Norm</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Covariance Matrix Norm</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Covariance Matrix Norm</em>' attribute.
-	 * @see #setCovarianceMatrixNorm(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_CovarianceMatrixNorm()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
-	 * @generated
-	 */
-	double getCovarianceMatrixNorm();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getCovarianceMatrixNorm <em>Covariance Matrix Norm</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Covariance Matrix Norm</em>' attribute.
-	 * @see #getCovarianceMatrixNorm()
-	 * @generated
-	 */
-	void setCovarianceMatrixNorm(double value);
 
 	/**
 	 * Returns the value of the '<em><b>Autocorrelation</b></em>' attribute.

@@ -67,7 +67,19 @@ public class FeatureVectorItemProvider
 			addVarianceInflationFactorPropertyDescriptor(object);
 			addUtilizationStatisticsPropertyDescriptor(object);
 			addResponseTimeStatisticsPropertyDescriptor(object);
-			addArrivalTimeStatisticsPropertyDescriptor(object);
+			addArrivalRateStatisticsPropertyDescriptor(object);
+			addResponseArrivalCorrelationPropertyDescriptor(object);
+			addResponseArrivalCovariancePropertyDescriptor(object);
+			addUtilizationResponseCorrelationPropertyDescriptor(object);
+			addUtilizationResponseCovariancePropertyDescriptor(object);
+			addUtilizationArrivalCorrelationPropertyDescriptor(object);
+			addUtilizationArrivalCovariancePropertyDescriptor(object);
+			addInterUtilizationCorrelationPropertyDescriptor(object);
+			addInterUtilizationCovariancePropertyDescriptor(object);
+			addInterResponseTimeCorrelationPropertyDescriptor(object);
+			addInterResponseTimeCovariancePropertyDescriptor(object);
+			addInterArrivalRateCorrelationPropertyDescriptor(object);
+			addInterArrivalRateCovariancePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -183,23 +195,287 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Arrival Time Statistics feature.
+	 * This adds a property descriptor for the Arrival Rate Statistics feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addArrivalTimeStatisticsPropertyDescriptor(Object object) {
+	protected void addArrivalRateStatisticsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_arrivalTimeStatistics_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_arrivalTimeStatistics_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS,
+				 getString("_UI_FeatureVector_arrivalRateStatistics_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_arrivalRateStatistics_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__ARRIVAL_RATE_STATISTICS,
 				 true,
 				 false,
 				 true,
 				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Response Arrival Correlation feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addResponseArrivalCorrelationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_responseArrivalCorrelation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_responseArrivalCorrelation_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__RESPONSE_ARRIVAL_CORRELATION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Response Arrival Covariance feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addResponseArrivalCovariancePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_responseArrivalCovariance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_responseArrivalCovariance_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__RESPONSE_ARRIVAL_COVARIANCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Utilization Response Correlation feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUtilizationResponseCorrelationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_utilizationResponseCorrelation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationResponseCorrelation_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_RESPONSE_CORRELATION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Utilization Response Covariance feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUtilizationResponseCovariancePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_utilizationResponseCovariance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationResponseCovariance_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_RESPONSE_COVARIANCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Utilization Arrival Correlation feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUtilizationArrivalCorrelationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_utilizationArrivalCorrelation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationArrivalCorrelation_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_ARRIVAL_CORRELATION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Utilization Arrival Covariance feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUtilizationArrivalCovariancePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_utilizationArrivalCovariance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_utilizationArrivalCovariance_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__UTILIZATION_ARRIVAL_COVARIANCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Inter Utilization Correlation feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInterUtilizationCorrelationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_interUtilizationCorrelation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interUtilizationCorrelation_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Inter Utilization Covariance feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInterUtilizationCovariancePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_interUtilizationCovariance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interUtilizationCovariance_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Inter Response Time Correlation feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInterResponseTimeCorrelationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_interResponseTimeCorrelation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interResponseTimeCorrelation_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Inter Response Time Covariance feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInterResponseTimeCovariancePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_interResponseTimeCovariance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interResponseTimeCovariance_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Inter Arrival Rate Correlation feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInterArrivalRateCorrelationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_interArrivalRateCorrelation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interArrivalRateCorrelation_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Inter Arrival Rate Covariance feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInterArrivalRateCovariancePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureVector_interArrivalRateCovariance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interArrivalRateCovariance_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -243,6 +519,18 @@ public class FeatureVectorItemProvider
 			case RecommendationPackage.FEATURE_VECTOR__NUMBER_OF_RESSOURCES:
 			case RecommendationPackage.FEATURE_VECTOR__NUMBER_OF_WORKLOAD_CLASSES:
 			case RecommendationPackage.FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR:
+			case RecommendationPackage.FEATURE_VECTOR__RESPONSE_ARRIVAL_CORRELATION:
+			case RecommendationPackage.FEATURE_VECTOR__RESPONSE_ARRIVAL_COVARIANCE:
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_RESPONSE_CORRELATION:
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_RESPONSE_COVARIANCE:
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_ARRIVAL_CORRELATION:
+			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_ARRIVAL_COVARIANCE:
+			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION:
+			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE:
+			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION:
+			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE:
+			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION:
+			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

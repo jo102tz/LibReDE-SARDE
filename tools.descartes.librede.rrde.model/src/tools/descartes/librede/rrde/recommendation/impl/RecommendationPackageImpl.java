@@ -255,6 +255,33 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFeatureExtractorSpecifier_TimeUnit() {
+		return (EReference)featureExtractorSpecifierEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureExtractorSpecifier_AggregationInterval() {
+		return (EAttribute)featureExtractorSpecifierEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFeatureExtractorSpecifier_RateUnit() {
+		return (EReference)featureExtractorSpecifierEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getDataSet() {
 		return dataSetEClass;
 	}
@@ -345,8 +372,116 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFeatureVector_ArrivalTimeStatistics() {
+	public EReference getFeatureVector_ArrivalRateStatistics() {
 		return (EReference)featureVectorEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_ResponseArrivalCorrelation() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_ResponseArrivalCovariance() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_UtilizationResponseCorrelation() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_UtilizationResponseCovariance() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_UtilizationArrivalCorrelation() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_UtilizationArrivalCovariance() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_InterUtilizationCorrelation() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_InterUtilizationCovariance() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_InterResponseTimeCorrelation() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_InterResponseTimeCovariance() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_InterArrivalRateCorrelation() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureVector_InterArrivalRateCovariance() {
+		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -462,26 +597,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getStatisticalFeatures_PearsonCorrelationMatrixNorm() {
-		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(11);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStatisticalFeatures_CovarianceMatrixNorm() {
-		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(12);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getStatisticalFeatures_Autocorrelation() {
-		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(13);
+		return (EAttribute)statisticalFeaturesEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -578,6 +695,9 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 
 		featureExtractorSpecifierEClass = createEClass(FEATURE_EXTRACTOR_SPECIFIER);
 		createEAttribute(featureExtractorSpecifierEClass, FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR);
+		createEReference(featureExtractorSpecifierEClass, FEATURE_EXTRACTOR_SPECIFIER__TIME_UNIT);
+		createEAttribute(featureExtractorSpecifierEClass, FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION_INTERVAL);
+		createEReference(featureExtractorSpecifierEClass, FEATURE_EXTRACTOR_SPECIFIER__RATE_UNIT);
 
 		dataSetEClass = createEClass(DATA_SET);
 		createEReference(dataSetEClass, DATA_SET__CONFIGURATION);
@@ -590,7 +710,19 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		createEAttribute(featureVectorEClass, FEATURE_VECTOR__VARIANCE_INFLATION_FACTOR);
 		createEReference(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_STATISTICS);
 		createEReference(featureVectorEClass, FEATURE_VECTOR__RESPONSE_TIME_STATISTICS);
-		createEReference(featureVectorEClass, FEATURE_VECTOR__ARRIVAL_TIME_STATISTICS);
+		createEReference(featureVectorEClass, FEATURE_VECTOR__ARRIVAL_RATE_STATISTICS);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__RESPONSE_ARRIVAL_CORRELATION);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__RESPONSE_ARRIVAL_COVARIANCE);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_RESPONSE_CORRELATION);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_RESPONSE_COVARIANCE);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_ARRIVAL_CORRELATION);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_ARRIVAL_COVARIANCE);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE);
 
 		statisticalFeaturesEClass = createEClass(STATISTICAL_FEATURES);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__N);
@@ -604,8 +736,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__SKEWNESS);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__TENTHPERCENTILE);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__NINETIETHPERCENTILE);
-		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__PEARSON_CORRELATION_MATRIX_NORM);
-		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__COVARIANCE_MATRIX_NORM);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__AUTOCORRELATION);
 
 		traceFeaturesEClass = createEClass(TRACE_FEATURES);
@@ -642,9 +772,9 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		// Obtain other dependent packages
 		ConfigurationPackage theConfigurationPackage = (ConfigurationPackage)EPackage.Registry.INSTANCE.getEPackage(ConfigurationPackage.eNS_URI);
 		OptimizationPackage theOptimizationPackage = (OptimizationPackage)EPackage.Registry.INSTANCE.getEPackage(OptimizationPackage.eNS_URI);
+		UnitsPackage theUnitsPackage = (UnitsPackage)EPackage.Registry.INSTANCE.getEPackage(UnitsPackage.eNS_URI);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 		MetricsPackage theMetricsPackage = (MetricsPackage)EPackage.Registry.INSTANCE.getEPackage(MetricsPackage.eNS_URI);
-		UnitsPackage theUnitsPackage = (UnitsPackage)EPackage.Registry.INSTANCE.getEPackage(UnitsPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -665,11 +795,20 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 
 		initEClass(featureExtractorSpecifierEClass, FeatureExtractorSpecifier.class, "FeatureExtractorSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeatureExtractorSpecifier_FeatureExtractor(), ecorePackage.getEString(), "featureExtractor", null, 1, 1, FeatureExtractorSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		EGenericType g1 = createEGenericType(theUnitsPackage.getUnit());
+		EGenericType g2 = createEGenericType();
+		g1.getETypeArguments().add(g2);
+		initEReference(getFeatureExtractorSpecifier_TimeUnit(), g1, null, "timeUnit", null, 1, 1, FeatureExtractorSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureExtractorSpecifier_AggregationInterval(), theXMLTypePackage.getInt(), "aggregationInterval", "60000", 1, 1, FeatureExtractorSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		g1 = createEGenericType(theUnitsPackage.getUnit());
+		g2 = createEGenericType();
+		g1.getETypeArguments().add(g2);
+		initEReference(getFeatureExtractorSpecifier_RateUnit(), g1, null, "rateUnit", null, 1, 1, FeatureExtractorSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataSetEClass, DataSet.class, "DataSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataSet_Configuration(), theConfigurationPackage.getLibredeConfiguration(), null, "configuration", null, 1, 1, DataSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		EGenericType g1 = createEGenericType(ecorePackage.getEMap());
-		EGenericType g2 = createEGenericType(theConfigurationPackage.getEstimationAlgorithmConfiguration());
+		g1 = createEGenericType(ecorePackage.getEMap());
+		g2 = createEGenericType(theConfigurationPackage.getEstimationAlgorithmConfiguration());
 		g1.getETypeArguments().add(g2);
 		g2 = createEGenericType(theXMLTypePackage.getDoubleObject());
 		g1.getETypeArguments().add(g2);
@@ -680,9 +819,21 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEAttribute(getFeatureVector_NumberOfRessources(), theXMLTypePackage.getInt(), "numberOfRessources", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureVector_NumberOfWorkloadClasses(), theXMLTypePackage.getInt(), "numberOfWorkloadClasses", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureVector_VarianceInflationFactor(), theXMLTypePackage.getDouble(), "varianceInflationFactor", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureVector_UtilizationStatistics(), this.getStatisticalFeatures(), null, "utilizationStatistics", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureVector_ResponseTimeStatistics(), this.getStatisticalFeatures(), null, "responseTimeStatistics", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureVector_ArrivalTimeStatistics(), this.getStatisticalFeatures(), null, "arrivalTimeStatistics", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureVector_UtilizationStatistics(), this.getStatisticalFeatures(), null, "utilizationStatistics", null, 1, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureVector_ResponseTimeStatistics(), this.getStatisticalFeatures(), null, "responseTimeStatistics", null, 1, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureVector_ArrivalRateStatistics(), this.getStatisticalFeatures(), null, "arrivalRateStatistics", null, 1, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_ResponseArrivalCorrelation(), theXMLTypePackage.getDouble(), "responseArrivalCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_ResponseArrivalCovariance(), theXMLTypePackage.getDouble(), "responseArrivalCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationResponseCorrelation(), theXMLTypePackage.getDouble(), "utilizationResponseCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationResponseCovariance(), theXMLTypePackage.getDouble(), "utilizationResponseCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationArrivalCorrelation(), theXMLTypePackage.getDouble(), "utilizationArrivalCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationArrivalCovariance(), theXMLTypePackage.getDouble(), "utilizationArrivalCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_InterUtilizationCorrelation(), theXMLTypePackage.getDouble(), "interUtilizationCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_InterUtilizationCovariance(), theXMLTypePackage.getDouble(), "interUtilizationCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_InterResponseTimeCorrelation(), theXMLTypePackage.getDouble(), "interResponseTimeCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_InterResponseTimeCovariance(), theXMLTypePackage.getDouble(), "interResponseTimeCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_InterArrivalRateCorrelation(), theXMLTypePackage.getDouble(), "interArrivalRateCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_InterArrivalRateCovariance(), theXMLTypePackage.getDouble(), "interArrivalRateCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(statisticalFeaturesEClass, StatisticalFeatures.class, "StatisticalFeatures", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStatisticalFeatures_N(), theXMLTypePackage.getDouble(), "N", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -696,8 +847,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEAttribute(getStatisticalFeatures_Skewness(), theXMLTypePackage.getDouble(), "skewness", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalFeatures_Tenthpercentile(), theXMLTypePackage.getDouble(), "tenthpercentile", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalFeatures_Ninetiethpercentile(), theXMLTypePackage.getDouble(), "ninetiethpercentile", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getStatisticalFeatures_PearsonCorrelationMatrixNorm(), theXMLTypePackage.getDouble(), "pearsonCorrelationMatrixNorm", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getStatisticalFeatures_CovarianceMatrixNorm(), theXMLTypePackage.getDouble(), "covarianceMatrixNorm", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalFeatures_Autocorrelation(), theXMLTypePackage.getDouble(), "autocorrelation", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(traceFeaturesEClass, TraceFeatures.class, "TraceFeatures", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

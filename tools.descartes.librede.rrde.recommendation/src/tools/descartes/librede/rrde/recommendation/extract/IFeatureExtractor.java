@@ -27,11 +27,12 @@
 package tools.descartes.librede.rrde.recommendation.extract;
 
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 
 /**
- * Interface that provides functionality to extract {@link FeatureVector}s for given
- * {@link LibredeConfiguration}s.
+ * Interface that provides functionality to extract {@link FeatureVector}s for
+ * given {@link LibredeConfiguration}s.
  * 
  * @author JS
  *
@@ -39,13 +40,12 @@ import tools.descartes.librede.rrde.recommendation.FeatureVector;
 public interface IFeatureExtractor {
 
 	/**
-	 * Creates a new {@link FeatureVector} containing extracted features about the
-	 * given {@link LibredeConfiguration}.
+	 * Creates a new {@link FeatureVector} containing extracted features about
+	 * the given {@link LibredeConfiguration}.
 	 * 
 	 * @param conf
 	 *            The configuration to extract
 	 * @return The extracted features.
 	 */
 	public FeatureVector extractFeatures(LibredeConfiguration conf);
-
 }

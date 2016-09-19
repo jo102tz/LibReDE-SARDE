@@ -63,6 +63,9 @@ public class FeatureExtractorSpecifierItemProvider
 			super.getPropertyDescriptors(object);
 
 			addFeatureExtractorPropertyDescriptor(object);
+			addTimeUnitPropertyDescriptor(object);
+			addAggregationIntervalPropertyDescriptor(object);
+			addRateUnitPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -85,6 +88,72 @@ public class FeatureExtractorSpecifierItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Time Unit feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTimeUnitPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureExtractorSpecifier_timeUnit_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureExtractorSpecifier_timeUnit_feature", "_UI_FeatureExtractorSpecifier_type"),
+				 RecommendationPackage.Literals.FEATURE_EXTRACTOR_SPECIFIER__TIME_UNIT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Aggregation Interval feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAggregationIntervalPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureExtractorSpecifier_aggregationInterval_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureExtractorSpecifier_aggregationInterval_feature", "_UI_FeatureExtractorSpecifier_type"),
+				 RecommendationPackage.Literals.FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION_INTERVAL,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Rate Unit feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRateUnitPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureExtractorSpecifier_rateUnit_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureExtractorSpecifier_rateUnit_feature", "_UI_FeatureExtractorSpecifier_type"),
+				 RecommendationPackage.Literals.FEATURE_EXTRACTOR_SPECIFIER__RATE_UNIT,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
@@ -128,6 +197,7 @@ public class FeatureExtractorSpecifierItemProvider
 
 		switch (notification.getFeatureID(FeatureExtractorSpecifier.class)) {
 			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION_INTERVAL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

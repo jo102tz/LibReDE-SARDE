@@ -155,9 +155,9 @@ public abstract class AbstractRecommendationAlgorithm implements
 		list.add(new Double(features.getNumberOfRessources()));
 
 		// add statistical traces
-		addStatisticals(list, features.getResponseTimeStatistics());
-		addStatisticals(list, features.getArrivalTimeStatistics());
-		addStatisticals(list, features.getUtilizationStatistics());
+//		addStatisticals(list, features.getUtilizationStatistics());
+//		addStatisticals(list, features.getResponseTimeStatistics());
+//		addStatisticals(list, features.getArrivalRateStatistics());
 
 		// convert list to double[]
 		Double[] array = list.toArray(new Double[1]);
@@ -189,9 +189,6 @@ public abstract class AbstractRecommendationAlgorithm implements
 
 		list.add(new Double(trace.getNinetiethpercentile()));
 		list.add(new Double(trace.getTenthpercentile()));
-
-		list.add(new Double(trace.getCovarianceMatrixNorm()));
-		list.add(new Double(trace.getPearsonCorrelationMatrixNorm()));
 
 		list.add(new Double(trace.getAutocorrelation()));
 	}
