@@ -3,7 +3,7 @@
 */target/*
 */output/*
 
-.metadata
+#.metadata
 bin/
 tmp/
 *.tmp
@@ -31,7 +31,7 @@ local.properties
 .cproject
 
 # JDT-specific (Eclipse Java Development Tools)
-.classpath
+#.classpath
 
 # Java annotation processor (APT)
 .factorypath
