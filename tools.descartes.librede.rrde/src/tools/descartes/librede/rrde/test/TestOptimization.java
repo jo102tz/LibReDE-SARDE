@@ -36,13 +36,9 @@ import org.junit.Test;
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.eval.TestSetValidator;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.Util;
-import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
-import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
-import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
 /**
  * @author JS
@@ -55,9 +51,6 @@ public class TestOptimization extends AbstractTest {
 	 */
 	private static final Logger log = Logger.getLogger(TestOptimization.class);
 
-	private static final String validationfolder = TESTPATH + File.separator
-			+ "validation";
-
 	@Test
 	public void test() {
 		log.info("Initialize test sets...");
@@ -68,7 +61,7 @@ public class TestOptimization extends AbstractTest {
 				.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
 		optimization.getContainsOf().get(0).getTrainingData().get(0)
 				.setRootFolder(TESTPATH + File.separator + "training");
-		
+
 		TestSetValidator vali = new TestSetValidator();
 		vali.calculateInitialErrors(validationfolder, librede);
 		Assert.assertNotEquals(vali.getTestset().size(), 0);

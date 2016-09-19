@@ -51,10 +51,6 @@ public class TestRecommendation extends AbstractTest {
 	 * The logger used for logging
 	 */
 	private static final Logger log = Logger.getLogger(TestRecommendation.class);
-
-	private static final String validationfolder = TESTPATH + File.separator
-			+ "validation";
-
 	@Test
 	public void test() {
 		log.info("Initialize test sets...");

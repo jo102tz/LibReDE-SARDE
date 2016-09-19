@@ -28,7 +28,6 @@ package tools.descartes.librede.rrde.test;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 
 import tools.descartes.librede.configuration.LibredeConfiguration;
@@ -65,7 +64,12 @@ public class AbstractTest {
 	 */
 	public final static String REC_PATH = TESTPATH + File.separator
 			+ "conf.recommendation";
-
+	/**
+	 * The path for validation
+	 */
+	public static final String validationfolder = TESTPATH + File.separator
+			+ "validation";
+	
 	/**
 	 * The output path, where all output files are stored.
 	 */

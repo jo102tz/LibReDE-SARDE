@@ -55,9 +55,6 @@ public class TestCycle extends AbstractTest {
 	 */
 	private static final Logger log = Logger.getLogger(TestCycle.class);
 
-	private static final String validationfolder = TESTPATH + File.separator
-			+ "validation";
-
 	@Test
 	public void test() {
 		log.info("Initialize test sets...");
