@@ -3,18 +3,26 @@
 package tools.descartes.librede.rrde.recommendation.impl;
 
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.ValidationSpecification;
+
 import tools.descartes.librede.rrde.optimization.InputData;
+
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
@@ -112,11 +120,97 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ValidationSpecification getValidator() {
+		return validator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetValidator(ValidationSpecification newValidator, NotificationChain msgs) {
+		ValidationSpecification oldValidator = validator;
+		validator = newValidator;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, oldValidator, newValidator);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValidator(ValidationSpecification newValidator) {
+		if (newValidator != validator) {
+			NotificationChain msgs = null;
+			if (validator != null)
+				msgs = ((InternalEObject)validator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, null, msgs);
+			if (newValidator != null)
+				msgs = ((InternalEObject)newValidator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, null, msgs);
+			msgs = basicSetValidator(newValidator, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, newValidator, newValidator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<InputData> getTrainingData() {
 		if (trainingData == null) {
 			trainingData = new EObjectContainmentEList<InputData>(InputData.class, this, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA);
 		}
 		return trainingData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureExtractorSpecifier getFeatureAlgorithm() {
+		return featureAlgorithm;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetFeatureAlgorithm(FeatureExtractorSpecifier newFeatureAlgorithm, NotificationChain msgs) {
+		FeatureExtractorSpecifier oldFeatureAlgorithm = featureAlgorithm;
+		featureAlgorithm = newFeatureAlgorithm;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM, oldFeatureAlgorithm, newFeatureAlgorithm);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFeatureAlgorithm(FeatureExtractorSpecifier newFeatureAlgorithm) {
+		if (newFeatureAlgorithm != featureAlgorithm) {
+			NotificationChain msgs = null;
+			if (featureAlgorithm != null)
+				msgs = ((InternalEObject)featureAlgorithm).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM, null, msgs);
+			if (newFeatureAlgorithm != null)
+				msgs = ((InternalEObject)newFeatureAlgorithm).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM, null, msgs);
+			msgs = basicSetFeatureAlgorithm(newFeatureAlgorithm, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM, newFeatureAlgorithm, newFeatureAlgorithm));
 	}
 
 	/**
@@ -172,92 +266,6 @@ public class RecommendationTrainingConfigurationImpl extends MinimalEObjectImpl.
 			estimators = new EObjectContainmentEList<EstimationSpecification>(EstimationSpecification.class, this, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS);
 		}
 		return estimators;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FeatureExtractorSpecifier getFeatureAlgorithm() {
-		return featureAlgorithm;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetFeatureAlgorithm(FeatureExtractorSpecifier newFeatureAlgorithm, NotificationChain msgs) {
-		FeatureExtractorSpecifier oldFeatureAlgorithm = featureAlgorithm;
-		featureAlgorithm = newFeatureAlgorithm;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM, oldFeatureAlgorithm, newFeatureAlgorithm);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setFeatureAlgorithm(FeatureExtractorSpecifier newFeatureAlgorithm) {
-		if (newFeatureAlgorithm != featureAlgorithm) {
-			NotificationChain msgs = null;
-			if (featureAlgorithm != null)
-				msgs = ((InternalEObject)featureAlgorithm).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM, null, msgs);
-			if (newFeatureAlgorithm != null)
-				msgs = ((InternalEObject)newFeatureAlgorithm).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM, null, msgs);
-			msgs = basicSetFeatureAlgorithm(newFeatureAlgorithm, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM, newFeatureAlgorithm, newFeatureAlgorithm));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ValidationSpecification getValidator() {
-		return validator;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetValidator(ValidationSpecification newValidator, NotificationChain msgs) {
-		ValidationSpecification oldValidator = validator;
-		validator = newValidator;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, oldValidator, newValidator);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setValidator(ValidationSpecification newValidator) {
-		if (newValidator != validator) {
-			NotificationChain msgs = null;
-			if (validator != null)
-				msgs = ((InternalEObject)validator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, null, msgs);
-			if (newValidator != null)
-				msgs = ((InternalEObject)newValidator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, null, msgs);
-			msgs = basicSetValidator(newValidator, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR, newValidator, newValidator));
 	}
 
 	/**

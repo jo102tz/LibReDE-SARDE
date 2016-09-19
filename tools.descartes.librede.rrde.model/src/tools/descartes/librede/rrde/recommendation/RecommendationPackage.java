@@ -611,6 +611,7 @@ public interface RecommendationPackage extends EPackage {
 	 */
 	int STATISTICAL_FEATURES_OPERATION_COUNT = 0;
 
+
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration <em>Training Configuration</em>}'.
 	 * <!-- begin-user-doc -->
@@ -622,6 +623,17 @@ public interface RecommendationPackage extends EPackage {
 	EClass getRecommendationTrainingConfiguration();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getValidator <em>Validator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Validator</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getValidator()
+	 * @see #getRecommendationTrainingConfiguration()
+	 * @generated
+	 */
+	EReference getRecommendationTrainingConfiguration_Validator();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getTrainingData <em>Training Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -631,6 +643,17 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getRecommendationTrainingConfiguration_TrainingData();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getFeatureAlgorithm <em>Feature Algorithm</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Feature Algorithm</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getFeatureAlgorithm()
+	 * @see #getRecommendationTrainingConfiguration()
+	 * @generated
+	 */
+	EReference getRecommendationTrainingConfiguration_FeatureAlgorithm();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getLearningAlgorithm <em>Learning Algorithm</em>}'.
@@ -653,28 +676,6 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getRecommendationTrainingConfiguration_Estimators();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getFeatureAlgorithm <em>Feature Algorithm</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Feature Algorithm</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getFeatureAlgorithm()
-	 * @see #getRecommendationTrainingConfiguration()
-	 * @generated
-	 */
-	EReference getRecommendationTrainingConfiguration_FeatureAlgorithm();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getValidator <em>Validator</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Validator</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration#getValidator()
-	 * @see #getRecommendationTrainingConfiguration()
-	 * @generated
-	 */
-	EReference getRecommendationTrainingConfiguration_Validator();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier <em>Algorithm Specifier</em>}'.
@@ -773,17 +774,6 @@ public interface RecommendationPackage extends EPackage {
 	EReference getDataSet_Configuration();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Features</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.DataSet#getFeatures()
-	 * @see #getDataSet()
-	 * @generated
-	 */
-	EReference getDataSet_Features();
-
-	/**
 	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.DataSet#getEstimationErrors <em>Estimation Errors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -793,6 +783,17 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDataSet_EstimationErrors();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Features</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.DataSet#getFeatures()
+	 * @see #getDataSet()
+	 * @generated
+	 */
+	EReference getDataSet_Features();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.FeatureVector <em>Feature Vector</em>}'.
@@ -1178,12 +1179,28 @@ public interface RecommendationPackage extends EPackage {
 		EClass RECOMMENDATION_TRAINING_CONFIGURATION = eINSTANCE.getRecommendationTrainingConfiguration();
 
 		/**
+		 * The meta object literal for the '<em><b>Validator</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR = eINSTANCE.getRecommendationTrainingConfiguration_Validator();
+
+		/**
 		 * The meta object literal for the '<em><b>Training Data</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA = eINSTANCE.getRecommendationTrainingConfiguration_TrainingData();
+
+		/**
+		 * The meta object literal for the '<em><b>Feature Algorithm</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM = eINSTANCE.getRecommendationTrainingConfiguration_FeatureAlgorithm();
 
 		/**
 		 * The meta object literal for the '<em><b>Learning Algorithm</b></em>' containment reference feature.
@@ -1200,22 +1217,6 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS = eINSTANCE.getRecommendationTrainingConfiguration_Estimators();
-
-		/**
-		 * The meta object literal for the '<em><b>Feature Algorithm</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RECOMMENDATION_TRAINING_CONFIGURATION__FEATURE_ALGORITHM = eINSTANCE.getRecommendationTrainingConfiguration_FeatureAlgorithm();
-
-		/**
-		 * The meta object literal for the '<em><b>Validator</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RECOMMENDATION_TRAINING_CONFIGURATION__VALIDATOR = eINSTANCE.getRecommendationTrainingConfiguration_Validator();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationAlgorithmSpecifierImpl <em>Algorithm Specifier</em>}' class.
@@ -1296,20 +1297,20 @@ public interface RecommendationPackage extends EPackage {
 		EReference DATA_SET__CONFIGURATION = eINSTANCE.getDataSet_Configuration();
 
 		/**
-		 * The meta object literal for the '<em><b>Features</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DATA_SET__FEATURES = eINSTANCE.getDataSet_Features();
-
-		/**
 		 * The meta object literal for the '<em><b>Estimation Errors</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute DATA_SET__ESTIMATION_ERRORS = eINSTANCE.getDataSet_EstimationErrors();
+
+		/**
+		 * The meta object literal for the '<em><b>Features</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DATA_SET__FEATURES = eINSTANCE.getDataSet_Features();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl <em>Feature Vector</em>}' class.

@@ -5,8 +5,8 @@ package tools.descartes.librede.rrde.recommendation.impl;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -128,6 +128,27 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Map<EstimationAlgorithmConfiguration, Double> getEstimationErrors() {
+		return estimationErrors;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEstimationErrors(Map<EstimationAlgorithmConfiguration, Double> newEstimationErrors) {
+		Map<EstimationAlgorithmConfiguration, Double> oldEstimationErrors = estimationErrors;
+		estimationErrors = newEstimationErrors;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.DATA_SET__ESTIMATION_ERRORS, oldEstimationErrors, estimationErrors));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public FeatureVector getFeatures() {
 		return features;
 	}
@@ -178,27 +199,6 @@ public class DataSetImpl extends MinimalEObjectImpl.Container implements DataSet
 				return basicSetFeatures(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Map<EstimationAlgorithmConfiguration, Double> getEstimationErrors() {
-		return estimationErrors;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEstimationErrors(Map<EstimationAlgorithmConfiguration, Double> newEstimationErrors) {
-		Map<EstimationAlgorithmConfiguration, Double> oldEstimationErrors = estimationErrors;
-		estimationErrors = newEstimationErrors;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.DATA_SET__ESTIMATION_ERRORS, oldEstimationErrors, estimationErrors));
 	}
 
 	/**

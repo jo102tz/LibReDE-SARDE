@@ -3,6 +3,7 @@
 package tools.descartes.librede.rrde.recommendation;
 
 import org.eclipse.emf.ecore.EObject;
+
 import tools.descartes.librede.units.Unit;
 
 /**

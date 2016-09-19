@@ -7,12 +7,19 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+
 import tools.descartes.librede.configuration.ConfigurationPackage;
+
 import tools.descartes.librede.metrics.MetricsPackage;
+
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
+
 import tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl;
+
 import tools.descartes.librede.rrde.recommendation.DataSet;
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
@@ -21,6 +28,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationFactory;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
+
 import tools.descartes.librede.units.UnitsPackage;
 
 /**
@@ -158,8 +166,26 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getRecommendationTrainingConfiguration_Validator() {
+		return (EReference)recommendationTrainingConfigurationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getRecommendationTrainingConfiguration_TrainingData() {
 		return (EReference)recommendationTrainingConfigurationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRecommendationTrainingConfiguration_FeatureAlgorithm() {
+		return (EReference)recommendationTrainingConfigurationEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -178,24 +204,6 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 */
 	public EReference getRecommendationTrainingConfiguration_Estimators() {
 		return (EReference)recommendationTrainingConfigurationEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getRecommendationTrainingConfiguration_FeatureAlgorithm() {
-		return (EReference)recommendationTrainingConfigurationEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getRecommendationTrainingConfiguration_Validator() {
-		return (EReference)recommendationTrainingConfigurationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -284,8 +292,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDataSet_Features() {
-		return (EReference)dataSetEClass.getEStructuralFeatures().get(2);
+	public EAttribute getDataSet_EstimationErrors() {
+		return (EAttribute)dataSetEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -293,8 +301,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDataSet_EstimationErrors() {
-		return (EAttribute)dataSetEClass.getEStructuralFeatures().get(1);
+	public EReference getDataSet_Features() {
+		return (EReference)dataSetEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**

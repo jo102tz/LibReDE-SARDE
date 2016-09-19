@@ -55,32 +55,6 @@ public interface DataSet extends EObject {
 	void setConfiguration(LibredeConfiguration value);
 
 	/**
-	 * Returns the value of the '<em><b>Features</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Features</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Features</em>' containment reference.
-	 * @see #setFeatures(FeatureVector)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getDataSet_Features()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
-	FeatureVector getFeatures();
-
-	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Features</em>' containment reference.
-	 * @see #getFeatures()
-	 * @generated
-	 */
-	void setFeatures(FeatureVector value);
-
-	/**
 	 * Returns the value of the '<em><b>Estimation Errors</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -105,5 +79,31 @@ public interface DataSet extends EObject {
 	 * @generated
 	 */
 	void setEstimationErrors(Map<EstimationAlgorithmConfiguration, Double> value);
+
+	/**
+	 * Returns the value of the '<em><b>Features</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Features</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Features</em>' containment reference.
+	 * @see #setFeatures(FeatureVector)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getDataSet_Features()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	FeatureVector getFeatures();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Features</em>' containment reference.
+	 * @see #getFeatures()
+	 * @generated
+	 */
+	void setFeatures(FeatureVector value);
 
 } // DataSet

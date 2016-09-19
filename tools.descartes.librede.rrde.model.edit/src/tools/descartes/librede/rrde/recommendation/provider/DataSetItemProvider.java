@@ -93,28 +93,6 @@ public class DataSetItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Features feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFeaturesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_DataSet_features_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_DataSet_features_feature", "_UI_DataSet_type"),
-				 RecommendationPackage.Literals.DATA_SET__FEATURES,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Estimation Errors feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -132,6 +110,28 @@ public class DataSetItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Features feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFeaturesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_DataSet_features_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_DataSet_features_feature", "_UI_DataSet_type"),
+				 RecommendationPackage.Literals.DATA_SET__FEATURES,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
