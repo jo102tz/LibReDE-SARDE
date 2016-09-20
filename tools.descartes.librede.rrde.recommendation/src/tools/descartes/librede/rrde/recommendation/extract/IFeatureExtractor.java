@@ -27,7 +27,6 @@
 package tools.descartes.librede.rrde.recommendation.extract;
 
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 
 /**

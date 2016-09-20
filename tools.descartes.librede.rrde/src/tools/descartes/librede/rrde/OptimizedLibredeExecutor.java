@@ -32,7 +32,9 @@ import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.optimization.Discovery;
 import tools.descartes.librede.rrde.optimization.Wrapper;
+import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
@@ -121,11 +123,11 @@ public class OptimizedLibredeExecutor {
 	 */
 	public LibredeResults executeLibrede(LibredeConfiguration conf) {
 		try {
-			EstimationSpecification est = algo.recommendEstimation(extractor
-					.extractFeatures(conf));
-			if (est != null)
+			FeatureVector features = extractor.extractFeatures(conf);
+			EstimationSpecification est = algo.recommendEstimation(features);
+			if (est != null) {
 				conf.setEstimation(est);
-			else {
+			} else {
 				log.warn("Recommendation failed. Returning standard result.");
 			}
 		} catch (Exception e) {
@@ -133,6 +135,7 @@ public class OptimizedLibredeExecutor {
 					"There was an unexpected Exception with recommending. Returning standard result.",
 					e);
 		}
+		Discovery.fixTimeStamps(conf);
 		return Wrapper.executeLibrede(conf);
 	}
 }

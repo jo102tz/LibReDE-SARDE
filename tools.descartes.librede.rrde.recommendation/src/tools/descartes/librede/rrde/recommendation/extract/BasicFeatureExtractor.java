@@ -373,6 +373,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		vector.setTenthpercentile(stat.getPercentile(10));
 		vector.setNinetiethpercentile(stat.getPercentile(90));
 
+		// TODO effective autocorrelation
 		vector.setAutocorrelation(computeAutocorrelation(stat.getValues()));
 
 		return vector;
