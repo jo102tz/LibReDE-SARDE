@@ -26,6 +26,8 @@
  */
 package tools.descartes.librede.rrde.recommendation.extract;
 
+import java.util.Arrays;
+
 import org.apache.commons.math3.stat.correlation.Covariance;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
@@ -160,7 +162,6 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		}
 
 		for (ModelEntity ser : var.getRepo().getWorkload().getServices()) {
-			// TODO sind zero und NAN
 			vector.getResponseTimeStatistics().add(
 					extractStatisticalFeatureVector(
 							var.getCursor(var.getConf().getEstimation()
@@ -372,9 +373,34 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		vector.setTenthpercentile(stat.getPercentile(10));
 		vector.setNinetiethpercentile(stat.getPercentile(90));
 
-		// TODO autocorrelation
+		vector.setAutocorrelation(computeAutocorrelation(stat.getValues()));
 
 		return vector;
+	}
+
+	/**
+	 * Computes the autocorrelation of the given double array.
+	 * 
+	 * @param values
+	 *            The array to check
+	 * @return The autocorrelation of the array
+	 */
+	private double computeAutocorrelation(double[] values) {
+		double[] copy = Arrays.copyOf(values, values.length);
+		double sumofcorrelations = 0;
+		// for all possible lag values
+		for (int lag = 0; lag < values.length; lag++) {
+			// cyclic shift copy array one to the left
+			double tmp = copy[0];
+			for (int i = 1; i < copy.length; i++) {
+				copy[i - 1] = copy[i];
+			}
+			copy[copy.length - 1] = tmp;
+			// add correlation value
+			sumofcorrelations += pear.correlation(values, copy);
+		}
+		// return average over all lags
+		return sumofcorrelations/values.length;
 	}
 
 	/**
