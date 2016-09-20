@@ -8,18 +8,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/smile/com.github.haifengl.smile-plot-1.2.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/smile/com.github.haifengl.smile-scala-1.2.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/smile/com.github.haifengl.smile-shell-1.2.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/smile/com.jhlabs.filters-2.0.235.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/smile/com.thoughtworks.xstream.xstream-1.4.8.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/smile/org.scala-lang.modules.scala-parser-combinators_2.11-1.0.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/smile/org.scala-lang.modules.scala-xml_2.11-1.0.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/smile/org.scala-lang.scala-compiler-2.11.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/smile/org.scala-lang.scala-library-2.11.8.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/smile/org.scala-lang.scala-reflect-2.11.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/smile/org.slf4j.slf4j-simple-1.7.21.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/smile/org.swinglabs.swing-worker-1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/smile/org.swinglabs.swingx-1.6.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/smile/xmlpull.xmlpull-1.1.3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/smile/xpp3.xpp3_min-1.1.4c.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/smile/com.github.haifengl.smile-benchmark-1.2.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/smile/org.slf4j.slf4j-api-1.7.21.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/smile/com.github.haifengl.smile-core-1.2.0.jar"/>
