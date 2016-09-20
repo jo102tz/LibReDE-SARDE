@@ -107,11 +107,11 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	@SuppressWarnings("unchecked")
 	public BasicFeatureExtractor(FeatureExtractorSpecifier specifier) {
 		this.spec = specifier;
+//		rateUnit = RequestRate.REQ_PER_MINUTE;
 		if (spec == null || spec.getRateUnit() == null
 				|| spec.getTimeUnit() == null) {
 			log.warn("Specifier is null. Using default values...");
 			standardTimeUnit = Time.MILLISECONDS;
-			rateUnit = RequestRate.REQ_PER_MINUTE;
 		} else {
 			try {
 				standardTimeUnit = (Unit<Time>) spec.getTimeUnit();

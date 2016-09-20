@@ -280,7 +280,6 @@ public class TestSetValidator {
 			Collection<EstimationSpecification> estimations, boolean minimum) {
 		after = new HashMap<LibredeConfiguration, TestResult>();
 		for (LibredeConfiguration libredeConfiguration : testset) {
-			long starttime = System.currentTimeMillis();
 
 			LibredeResults finalres = null;
 			// create sorted set
@@ -299,6 +298,7 @@ public class TestSetValidator {
 							return 1;
 						}
 					});
+			long starttime = System.currentTimeMillis();
 			// testing all approaches and choosing the minimum
 			for (EstimationSpecification estimationSpecification : estimations) {
 				libredeConfiguration.setEstimation(estimationSpecification);

@@ -57,36 +57,143 @@
       </services>
     </workloadDescription>
   </trainingData>
-  <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.recommendation.extract.BasicFeatureExtractor" aggregationInterval="60000">
+  <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.recommendation.extract.BasicFeatureExtractor">
     <timeUnit href="librede:units#MILLISECONDS"/>
     <rateUnit href="librede:units#NONE"/>
   </featureAlgorithm>
   <learningAlgorithm algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree"/>
   <estimators window="60">
-    <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>
-    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter">
-      <parameters name="ObserveNoiseCovariance" value="0.1"/>
-      <parameters name="BoundsFactor" value="0.8"/>
-      <parameters name="StateNoiseCovariance" value="2.0"/>
-      <parameters name="StateNoiseCoupling" value="2.0"/>
-      <parameters name="InitialBoundsDistance" value="1e-3"/>
-    </algorithms>
+    <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
     <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
-    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
-      <parameters name="PrintLevel" value="0"/>
-      <parameters name="SolutionTolerance" value="1e-7"/>
-      <parameters name="UpperBoundsInfValue" value="1e19"/>
-      <parameters name="LowerBoundsInfValue" value="-1e19"/>
-    </algorithms>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
     <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
     <stepSize value="60.0">
       <unit href="librede:units#SECONDS"/>
     </stepSize>
-    <startTimestamp value="1.370160271015E12">
-      <unit href="librede:units#MILLISECONDS"/>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
     </startTimestamp>
-    <endTimestamp value="1.370163842435E12">
-      <unit href="librede:units#MILLISECONDS"/>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.WangKalmanFilterApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.RoliaRegressionApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
+    <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
+    <approaches type="tools.descartes.librede.approach.WangKalmanFilterApproach"/>
+    <approaches type="tools.descartes.librede.approach.RoliaRegressionApproach"/>
+    <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>
+    <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
+    <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
     </endTimestamp>
   </estimators>
 </librede-recommendation:RecommendationTrainingConfiguration>

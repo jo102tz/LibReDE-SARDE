@@ -27,6 +27,7 @@
 package tools.descartes.librede.rrde;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
@@ -126,7 +127,7 @@ public class OptimizedLibredeExecutor {
 			FeatureVector features = extractor.extractFeatures(conf);
 			EstimationSpecification est = algo.recommendEstimation(features);
 			if (est != null) {
-				conf.setEstimation(est);
+				conf.setEstimation(EcoreUtil.copy(est));
 			} else {
 				log.warn("Recommendation failed. Returning standard result.");
 			}
