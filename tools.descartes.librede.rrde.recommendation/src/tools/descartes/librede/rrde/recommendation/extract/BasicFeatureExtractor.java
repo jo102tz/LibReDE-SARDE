@@ -40,6 +40,7 @@ import tools.descartes.librede.metrics.Aggregation;
 import tools.descartes.librede.metrics.Metric;
 import tools.descartes.librede.metrics.StandardMetrics;
 import tools.descartes.librede.repository.IRepositoryCursor;
+import tools.descartes.librede.repository.TimeSeries;
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
@@ -159,6 +160,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		}
 
 		for (ModelEntity ser : var.getRepo().getWorkload().getServices()) {
+			// TODO sind zero und NAN
 			vector.getResponseTimeStatistics().add(
 					extractStatisticalFeatureVector(
 							var.getCursor(var.getConf().getEstimation()
@@ -170,7 +172,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 							var.getCursor(var.getConf().getEstimation()
 									.getApproaches().get(0).getType()), ser,
 							StandardMetrics.ARRIVAL_RATE, rateUnit,
-							Aggregation.NONE));
+							Aggregation.AVERAGE));
 		}
 
 		// extract correlation and covariance information
@@ -194,18 +196,24 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		double[][][] data = extractDoubleArray(var);
 
 		// inter entity correlation
-		vector.setInterUtilizationCorrelation(pear.computeCorrelationMatrix(
-				data[0]).getNorm());
-		vector.setInterUtilizationCovariance(new Covariance(data[0])
-				.getCovarianceMatrix().getNorm());
-		vector.setInterResponseTimeCorrelation(pear.computeCorrelationMatrix(
-				data[1]).getNorm());
-		vector.setInterResponseTimeCovariance(new Covariance(data[1])
-				.getCovarianceMatrix().getNorm());
-		vector.setInterArrivalRateCorrelation(pear.computeCorrelationMatrix(
-				data[2]).getNorm());
-		vector.setInterArrivalRateCovariance(new Covariance(data[2])
-				.getCovarianceMatrix().getNorm());
+		if (var.getRepo().getWorkload().getResources().size() > 1) {
+			// only if there are more than one resources, else zero
+			vector.setInterUtilizationCorrelation(pear
+					.computeCorrelationMatrix(data[0]).getNorm());
+			vector.setInterUtilizationCovariance(new Covariance(data[0])
+					.getCovarianceMatrix().getNorm());
+		}
+		if (var.getRepo().getWorkload().getServices().size() > 1) {
+			// only if there are more than one service, else zero
+			vector.setInterResponseTimeCorrelation(pear
+					.computeCorrelationMatrix(data[1]).getNorm());
+			vector.setInterResponseTimeCovariance(new Covariance(data[1])
+					.getCovarianceMatrix().getNorm());
+			vector.setInterArrivalRateCorrelation(pear
+					.computeCorrelationMatrix(data[2]).getNorm());
+			vector.setInterArrivalRateCovariance(new Covariance(data[2])
+					.getCovarianceMatrix().getNorm());
+		}
 
 		// combine arrays
 		double[][] averaged = new double[data.length][];
@@ -327,10 +335,27 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 			Unit<D> unit, Aggregation aggregation) {
 		DescriptiveStatistics stat = new DescriptiveStatistics();
 		// collect information for all entities
+		cursor.reset();
 		while (cursor.next()) {
-			double val = cursor.getAggregatedValue(cursor.getLastInterval(),
-					metric, unit, entity, aggregation);
-			stat.addValue(val);
+			if (aggregation == Aggregation.NONE) {
+				TimeSeries series = (cursor.getValues(cursor.getLastInterval(),
+						metric, unit, entity));
+				// time series should only contain one dimension
+				if (series.getData().columns() > 1) {
+					log.warn("The time series " + series
+							+ " has more than one column. ");
+				} else if (series.getData().columns() == 0 || series.isEmpty()) {
+					log.warn("The time series " + series + " is empty.");
+				}
+				double[] data = series.getData().toArray1D();
+				for (int j = 0; j < data.length; j++) {
+					stat.addValue(data[j]);
+				}
+			} else {
+				stat.addValue(cursor.getAggregatedValue(
+						cursor.getLastInterval(), metric, unit, entity,
+						aggregation));
+			}
 		}
 
 		// collect statistical features
