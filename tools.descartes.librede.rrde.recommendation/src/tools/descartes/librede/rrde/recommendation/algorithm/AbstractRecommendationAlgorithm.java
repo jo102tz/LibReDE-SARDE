@@ -123,8 +123,8 @@ public abstract class AbstractRecommendationAlgorithm implements
 	public boolean endTrainingPhase() {
 		isTrainingPhase = false;
 		// calculate the number of supported resources and workload classes
-		int supportedResources = Integer.MIN_VALUE;
-		int supportedWorkloadClasses = Integer.MIN_VALUE;
+		supportedResources = Integer.MIN_VALUE;
+		supportedWorkloadClasses = Integer.MIN_VALUE;
 		for (FeatureVector feature : trainingMap.keySet()) {
 			supportedResources = Math.max(supportedResources,
 					feature.getNumberOfRessources());
@@ -240,14 +240,13 @@ public abstract class AbstractRecommendationAlgorithm implements
 	 *            The maximum number of elements for this trace list
 	 */
 	private void addStatisticals(ArrayList<Double> list,
-			EList<StatisticalFeatures> features, int maximum)
-			throws IllegalArgumentException {
-		// the number of zeros to fill for a missing trace (update if
+			EList<StatisticalFeatures> features, int maximum) {
+		// the number of zeros to fill for a missing trace (update if new
+		// features are added)
 		int NUMBEROFZEROS = 12;
 		for (int i = 0; i < maximum; i++) {
 			try {
 				StatisticalFeatures trace = features.get(i);
-				int size = trace.getClass().getDeclaredFields().length;
 				list.add(new Double(trace.getArithmeticMean()));
 				list.add(new Double(trace.getGeometricMean()));
 				list.add(new Double(trace.getQuadraticMean()));
