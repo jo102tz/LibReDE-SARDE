@@ -63,7 +63,7 @@ public abstract class AbstractSmileAlgorithm extends
 	/**
 	 * The map to store the results.
 	 */
-	private Map<EstimationSpecification, Double> map;
+	private Map<EstimationSpecification, Double> algorithmIndexMapping;
 
 	/**
 	 * The classifier that is trained by sub-classes.
@@ -94,7 +94,7 @@ public abstract class AbstractSmileAlgorithm extends
 	 */
 	@Override
 	public void initialize() {
-		map = new HashMap<>();
+		algorithmIndexMapping = new HashMap<>();
 		trainingfeatures = new ArrayList<>();
 		targetvalues = new ArrayList<>();
 	}
@@ -118,16 +118,19 @@ public abstract class AbstractSmileAlgorithm extends
 		return getSpecification(prediction);
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Is called by {@link #flushTrainingExamples()}and adds a new training
+	 * example to the training set.
 	 * 
-	 * @see tools.descartes.librede.rrde.recommendation.algorithm.
-	 * AbstractRecommendationAlgorithm
-	 * #addTrainingSet(org.eclipse.emf.common.util.EMap,
-	 * tools.descartes.librede.rrde.recommendation.FeatureVector)
+	 * @param errors
+	 *            A mapping of {@link EstimationSpecification} to its
+	 *            performance on the described feature set by an error value.
+	 * @param features
+	 *            The {@link FeatureVector} to the corresponding targetValue
+	 * @return True if the example was successfully included, false otherwise.
+	 * 
 	 */
-	@Override
-	protected boolean addTrainingSet(
+	protected boolean parseTrainingSet(
 			EMap<EstimationSpecification, Double> errors, FeatureVector features) {
 		EstimationSpecification spec = getBestEstimator(errors);
 		if (spec == null) {
@@ -174,6 +177,12 @@ public abstract class AbstractSmileAlgorithm extends
 	 */
 	@Override
 	protected boolean flushTrainingExamples() {
+		// parse all training examples into double arrays
+		for (Entry<FeatureVector, EMap<EstimationSpecification, Double>> entry : getTrainingMap()
+				.entrySet()) {
+			parseTrainingSet(entry.getValue(), entry.getKey());
+		}
+
 		if (trainingfeatures.size() == 0) {
 			getLog().error("No training data available...");
 			return false;
@@ -199,7 +208,6 @@ public abstract class AbstractSmileAlgorithm extends
 		if (allequal) {
 			// catch case if all train sets are equal
 			this.classifier = new DummyClasifier(target[0]);
-
 			return true;
 		}
 		return train(training, target);
@@ -225,11 +233,11 @@ public abstract class AbstractSmileAlgorithm extends
 	 * @return The index number of the given {@link EstimationSpecification}
 	 */
 	protected double getIndex(EstimationSpecification spec) {
-		Double d = map.get(spec);
+		Double d = algorithmIndexMapping.get(spec);
 		if (d == null) {
 			// specification unknown
-			d = new Double(map.keySet().size());
-			map.put(spec, d);
+			d = new Double(algorithmIndexMapping.keySet().size());
+			algorithmIndexMapping.put(spec, d);
 		}
 		return d.doubleValue();
 	}
@@ -243,14 +251,15 @@ public abstract class AbstractSmileAlgorithm extends
 	 * @return The {@link EstimationSpecification} corresponding to it.
 	 */
 	protected EstimationSpecification getSpecification(double index) {
-		for (Entry<EstimationSpecification, Double> entry : map.entrySet()) {
+		for (Entry<EstimationSpecification, Double> entry : algorithmIndexMapping
+				.entrySet()) {
 			if (entry.getValue().doubleValue() == index) {
 				return entry.getKey();
 			}
 		}
 		getLog().warn(
 				"Index " + index + " not found in mapping. Size: "
-						+ map.entrySet().size());
+						+ algorithmIndexMapping.entrySet().size());
 		return null;
 	}
 

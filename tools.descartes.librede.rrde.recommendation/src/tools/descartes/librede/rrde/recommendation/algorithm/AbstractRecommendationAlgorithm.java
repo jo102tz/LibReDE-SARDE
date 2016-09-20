@@ -27,8 +27,11 @@
 package tools.descartes.librede.rrde.recommendation.algorithm;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
@@ -57,6 +60,23 @@ public abstract class AbstractRecommendationAlgorithm implements
 	 */
 	protected abstract Logger getLog();
 
+	/**
+	 * The maximum number of supported workload classes. (Recommenders are
+	 * training with that amount.)
+	 */
+	private int supportedWorkloadClasses;
+
+	/**
+	 * The maximum number of supported resources. (Recommenders are training
+	 * with that amount.)
+	 */
+	private int supportedResources;
+
+	/**
+	 * A map to store all training examples.
+	 */
+	private Map<FeatureVector, EMap<EstimationSpecification, Double>> trainingMap;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -84,25 +104,13 @@ public abstract class AbstractRecommendationAlgorithm implements
 			throw new IllegalStateException(
 					"Training phase is already finished.");
 		}
-		return addTrainingSet(errors, features);
+		if (trainingMap == null) {
+			trainingMap = new HashMap<FeatureVector, EMap<EstimationSpecification, Double>>();
+		}
+		trainingMap.put(features, errors);
+		return true;
+		// return addTrainingSet(errors, features);
 	}
-
-	/**
-	 * Is called by
-	 * {@link AbstractRecommendationAlgorithm#trainSet(EMap, FeatureVector)} and
-	 * adds a new training example to the training set.
-	 * 
-	 * @param errors
-	 *            A mapping of {@link EstimationSpecification} to its
-	 *            performance on the described feature set by an error value.
-	 * @param features
-	 *            The {@link FeatureVector} to the corresponding targetValue
-	 * @return True if the example was successfully included, false otherwise.
-	 * 
-	 * @see AbstractRecommendationAlgorithm#trainSet(EMap, FeatureVector)
-	 */
-	protected abstract boolean addTrainingSet(
-			EMap<EstimationSpecification, Double> errors, FeatureVector features);
 
 	/*
 	 * (non-Javadoc)
@@ -114,7 +122,23 @@ public abstract class AbstractRecommendationAlgorithm implements
 	@Override
 	public boolean endTrainingPhase() {
 		isTrainingPhase = false;
-		return flushTrainingExamples();
+		// calculate the number of supported resources and workload classes
+		int supportedResources = Integer.MIN_VALUE;
+		int supportedWorkloadClasses = Integer.MIN_VALUE;
+		for (FeatureVector feature : trainingMap.keySet()) {
+			supportedResources = Math.max(supportedResources,
+					feature.getNumberOfRessources());
+			supportedWorkloadClasses = Math.max(supportedWorkloadClasses,
+					feature.getNumberOfWorkloadClasses());
+		}
+		getLog().info(
+				getName() + " supports " + supportedResources
+						+ " resources and " + supportedWorkloadClasses
+						+ " workload classes.");
+		boolean bool = flushTrainingExamples();
+		// clear training map to free the space
+		trainingMap.clear();
+		return bool;
 	}
 
 	/**
@@ -141,6 +165,38 @@ public abstract class AbstractRecommendationAlgorithm implements
 	}
 
 	/**
+	 * @return the supportedWorkloadClasses
+	 */
+	public int getSupportedWorkloadClasses() {
+		if (isInTrainingPhase()) {
+			getLog().warn(
+					"The number of supported workload classes can not be determined yet, since the training phase is not over yet.");
+		}
+		return supportedWorkloadClasses;
+	}
+
+	/**
+	 * @return the supportedResources
+	 */
+	public int getSupportedResources() {
+		if (isInTrainingPhase()) {
+			getLog().warn(
+					"The number of supported resources can not be determined yet, since the training phase is not over yet.");
+		}
+		return supportedResources;
+	}
+
+	/**
+	 * @return the trainingMap
+	 */
+	public Map<FeatureVector, EMap<EstimationSpecification, Double>> getTrainingMap() {
+		if (trainingMap == null) {
+			getLog().warn("No training examples have been added yet.");
+		}
+		return trainingMap;
+	}
+
+	/**
 	 * Parses and returns a double representation of the given
 	 * {@link FeatureVector}
 	 * 
@@ -152,12 +208,17 @@ public abstract class AbstractRecommendationAlgorithm implements
 		ArrayList<Double> list = new ArrayList<Double>();
 		// add descriptive trace data
 		list.add(new Double(features.getNumberOfRessources()));
-		list.add(new Double(features.getNumberOfRessources()));
+		list.add(new Double(features.getNumberOfWorkloadClasses()));
+
+		// add correlation trace data
 
 		// add statistical traces
-//		addStatisticals(list, features.getUtilizationStatistics());
-//		addStatisticals(list, features.getResponseTimeStatistics());
-//		addStatisticals(list, features.getArrivalRateStatistics());
+		addStatisticals(list, features.getUtilizationStatistics(),
+				getSupportedResources());
+		addStatisticals(list, features.getResponseTimeStatistics(),
+				getSupportedWorkloadClasses());
+		addStatisticals(list, features.getArrivalRateStatistics(),
+				getSupportedWorkloadClasses());
 
 		// convert list to double[]
 		Double[] array = list.toArray(new Double[1]);
@@ -165,32 +226,58 @@ public abstract class AbstractRecommendationAlgorithm implements
 	}
 
 	/**
-	 * Unwraps the statistical features from a {@link StatisticalFeatures}
-	 * instance and writes it into the given list.
+	 * Unwraps the statistical features from a {@link StatisticalFeatures} list
+	 * and writes it into the given list. The order of the elements in the list
+	 * has to be the same all the time. If the number of elements is lower than
+	 * the considered maximum zeros are added. If the number is higher than the
+	 * maximum, they are ignored.
 	 * 
 	 * @param list
 	 *            The list to add the features
-	 * @param trace
-	 *            The {@link StatisticalFeatures} instance to unwrap
+	 * @param features
+	 *            The {@link StatisticalFeatures} list to unwrap
+	 * @param maximum
+	 *            The maximum number of elements for this trace list
 	 */
 	private void addStatisticals(ArrayList<Double> list,
-			StatisticalFeatures trace) {
-		list.add(new Double(trace.getArithmeticMean()));
-		list.add(new Double(trace.getGeometricMean()));
-		list.add(new Double(trace.getQuadraticMean()));
-		list.add(new Double(trace.getStandardDeviation()));
+			EList<StatisticalFeatures> features, int maximum)
+			throws IllegalArgumentException {
+		// the number of zeros to fill for a missing trace (update if
+		int NUMBEROFZEROS = 12;
+		for (int i = 0; i < maximum; i++) {
+			try {
+				StatisticalFeatures trace = features.get(i);
+				int size = trace.getClass().getDeclaredFields().length;
+				list.add(new Double(trace.getArithmeticMean()));
+				list.add(new Double(trace.getGeometricMean()));
+				list.add(new Double(trace.getQuadraticMean()));
+				list.add(new Double(trace.getStandardDeviation()));
 
-		list.add(new Double(trace.getN()));
-		list.add(new Double(trace.getMaximum()));
-		list.add(new Double(trace.getMinimum()));
+				list.add(new Double(trace.getN()));
+				list.add(new Double(trace.getMaximum()));
+				list.add(new Double(trace.getMinimum()));
 
-		list.add(new Double(trace.getSkewness()));
-		list.add(new Double(trace.getKurtosis()));
+				list.add(new Double(trace.getSkewness()));
+				list.add(new Double(trace.getKurtosis()));
 
-		list.add(new Double(trace.getNinetiethpercentile()));
-		list.add(new Double(trace.getTenthpercentile()));
+				list.add(new Double(trace.getNinetiethpercentile()));
+				list.add(new Double(trace.getTenthpercentile()));
 
-		list.add(new Double(trace.getAutocorrelation()));
+				list.add(new Double(trace.getAutocorrelation()));
+
+			} catch (IndexOutOfBoundsException e) {
+				getLog().debug(
+						"The feature list "
+								+ features
+								+ " did contain less than "
+								+ maximum
+								+ " elements and was therefore filled with zeros.");
+				// fill with zeros
+				for (int j = 0; j < NUMBEROFZEROS; j++) {
+					list.add(new Double(0));
+				}
+			}
+		}
 	}
 
 	/**
