@@ -8,7 +8,8 @@
   <foreignModel>lifecycle.ecore</foreignModel>
   <foreignModel>optimization.ecore</foreignModel>
   <foreignModel>recommendation.ecore</foreignModel>
-  <genPackages prefix="Lifecycle" disposableProviderFactory="true" ecorePackage="lifecycle.ecore#/">
+  <genPackages prefix="Lifecycle" basePackage="tools.descartes.librede.rrde" disposableProviderFactory="true"
+      ecorePackage="lifecycle.ecore#/">
     <genClasses ecoreClass="lifecycle.ecore#//LifeCycleConfiguration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lifecycle.ecore#//LifeCycleConfiguration/recommendationLoopTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lifecycle.ecore#//LifeCycleConfiguration/optimizationLoopTime"/>
