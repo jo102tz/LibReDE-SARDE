@@ -7,6 +7,7 @@
   <models xmi:type="ecore:EPackage" href="http://www.eclipse.org/emf/2003/XMLType#/"/>
   <models xmi:type="ecore:EPackage" href="platform:/resource/tools.descartes.librede.model/model/metrics.ecore#/"/>
   <models xmi:type="ecore:EPackage" href="platform:/resource/tools.descartes.librede.model/model/units.ecore#/"/>
+  <models xmi:type="ecore:EPackage" href="model/lifecycle.ecore#/"/>
   <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_HGjeYG0eEeaHyOb7ZNOpGA" initialized="true">
     <ownedRepresentations xmi:type="diagram:DSemanticDiagram" xmi:id="_HLSNYG0eEeaHyOb7ZNOpGA" name="recommendation class diagram">
       <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_HLqn4G0eEeaHyOb7ZNOpGA" source="GMF_DIAGRAMS">

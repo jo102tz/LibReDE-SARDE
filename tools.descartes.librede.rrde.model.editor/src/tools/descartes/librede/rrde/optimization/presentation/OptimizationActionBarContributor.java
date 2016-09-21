@@ -39,6 +39,8 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 
+import tools.descartes.librede.rrde.lifecycle.presentation.RrdeEditorPlugin;
+
 /**
  * This is the action bar contributor for the Optimization model editor.
  * <!-- begin-user-doc -->

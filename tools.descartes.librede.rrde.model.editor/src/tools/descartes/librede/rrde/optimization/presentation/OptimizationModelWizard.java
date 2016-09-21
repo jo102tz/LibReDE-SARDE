@@ -71,7 +71,7 @@ import org.eclipse.ui.part.ISetSelectionTarget;
 
 import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
-import tools.descartes.librede.rrde.optimization.provider.RrdeEditPlugin;
+import tools.descartes.librede.rrde.lifecycle.provider.RrdeEditPlugin;
 
 
 import org.eclipse.core.runtime.Path;
@@ -83,6 +83,8 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
+
+import tools.descartes.librede.rrde.lifecycle.presentation.RrdeEditorPlugin;
 
 
 /**

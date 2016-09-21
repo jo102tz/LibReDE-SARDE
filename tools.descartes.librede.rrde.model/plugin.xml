@@ -9,6 +9,14 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated rrde -->
       <package
+            uri="http://tools/descartes/librede/rrde/lifecycle"
+            class="tools.descartes.librede.rrde.lifecycle.LifecyclePackage"
+            genModel="model/rrde.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated rrde -->
+      <package
             uri="http://tools/descartes/librede/rrde/optimization"
             class="tools.descartes.librede.rrde.optimization.OptimizationPackage"
             genModel="model/rrde.genmodel"/>

@@ -162,6 +162,10 @@ import tools.descartes.librede.configuration.provider.ConfigurationItemProviderA
 
 import tools.descartes.librede.metrics.provider.MetricsItemProviderAdapterFactory;
 
+import tools.descartes.librede.rrde.lifecycle.presentation.RrdeEditorPlugin;
+
+import tools.descartes.librede.rrde.lifecycle.provider.LifecycleItemProviderAdapterFactory;
+
 import tools.descartes.librede.rrde.recommendation.provider.RecommendationItemProviderAdapterFactory;
 
 import tools.descartes.librede.units.provider.UnitsItemProviderAdapterFactory;
@@ -709,6 +713,7 @@ public class OptimizationEditor
 		adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
 		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new LifecycleItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new OptimizationItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new RecommendationItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new ConfigurationItemProviderAdapterFactory());

@@ -22,6 +22,8 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import tools.descartes.librede.rrde.lifecycle.provider.RrdeEditPlugin;
+
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;

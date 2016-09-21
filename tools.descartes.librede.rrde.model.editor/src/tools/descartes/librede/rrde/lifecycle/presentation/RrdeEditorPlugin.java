@@ -1,28 +1,30 @@
 /**
  */
-package tools.descartes.librede.rrde.optimization.provider;
+package tools.descartes.librede.rrde.lifecycle.presentation;
 
 import org.eclipse.emf.common.EMFPlugin;
+
+import org.eclipse.emf.common.ui.EclipseUIPlugin;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import tools.descartes.librede.configuration.provider.LibredeEditPlugin;
 
 /**
- * This is the central singleton for the Rrde edit plugin.
+ * This is the central singleton for the Rrde editor plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public final class RrdeEditPlugin extends EMFPlugin {
+public final class RrdeEditorPlugin extends EMFPlugin {
 	/**
 	 * Keep track of the singleton.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final RrdeEditPlugin INSTANCE = new RrdeEditPlugin();
-
+	public static final RrdeEditorPlugin INSTANCE = new RrdeEditorPlugin();
+	
 	/**
 	 * Keep track of the singleton.
 	 * <!-- begin-user-doc -->
@@ -37,11 +39,11 @@ public final class RrdeEditPlugin extends EMFPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RrdeEditPlugin() {
+	public RrdeEditorPlugin() {
 		super
-		  (new ResourceLocator [] {
-		     LibredeEditPlugin.INSTANCE,
-		   });
+			(new ResourceLocator [] {
+				LibredeEditPlugin.INSTANCE,
+			});
 	}
 
 	/**
@@ -55,7 +57,7 @@ public final class RrdeEditPlugin extends EMFPlugin {
 	public ResourceLocator getPluginResourceLocator() {
 		return plugin;
 	}
-
+	
 	/**
 	 * Returns the singleton instance of the Eclipse plugin.
 	 * <!-- begin-user-doc -->
@@ -66,14 +68,14 @@ public final class RrdeEditPlugin extends EMFPlugin {
 	public static Implementation getPlugin() {
 		return plugin;
 	}
-
+	
 	/**
 	 * The actual implementation of the Eclipse <b>Plugin</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static class Implementation extends EclipsePlugin {
+	public static class Implementation extends EclipseUIPlugin {
 		/**
 		 * Creates an instance.
 		 * <!-- begin-user-doc -->
@@ -82,7 +84,7 @@ public final class RrdeEditPlugin extends EMFPlugin {
 		 */
 		public Implementation() {
 			super();
-
+	
 			// Remember the static instance.
 			//
 			plugin = this;

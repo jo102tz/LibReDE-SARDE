@@ -1,6 +1,6 @@
 /**
  */
-package tools.descartes.librede.rrde.optimization.tests;
+package tools.descartes.librede.rrde.lifecycle.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

@@ -7,6 +7,34 @@
 <plugin>
 
    <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated rrde -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="tools.descartes.librede.rrde.lifecycle.presentation.LifecycleModelWizardID"
+            name="%_UI_LifecycleModelWizard_label"
+            class="tools.descartes.librede.rrde.lifecycle.presentation.LifecycleModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/LifecycleModelFile.gif">
+         <description>%_UI_LifecycleModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated rrde -->
+      <editor
+            id="tools.descartes.librede.rrde.lifecycle.presentation.LifecycleEditorID"
+            name="%_UI_LifecycleEditor_label"
+            icon="icons/full/obj16/LifecycleModelFile.gif"
+            extensions="lifecycle"
+            class="tools.descartes.librede.rrde.lifecycle.presentation.LifecycleEditor"
+            contributorClass="tools.descartes.librede.rrde.lifecycle.presentation.LifecycleActionBarContributor">
+      </editor>
+   </extension>
+   <extension point="org.eclipse.ui.newWizards">
       <!-- @generated newrrde -->
       <category
             id="org.eclipse.emf.ecore.Wizard.category.ID"

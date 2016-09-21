@@ -26,6 +26,8 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import tools.descartes.librede.configuration.ConfigurationFactory;
 
+import tools.descartes.librede.rrde.lifecycle.provider.RrdeEditPlugin;
+
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 

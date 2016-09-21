@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="lifecycle" nsURI="http://tools/descartes/librede/rrde/lifecycle"
+    nsPrefix="librede-lifecycle">
+  <eClassifiers xsi:type="ecore:EClass" name="LifeCycleConfiguration">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="recommendationLoopTime"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="optimizationLoopTime" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="recommendationConfiguration"
+        eType="ecore:EClass recommendation.ecore#//RecommendationTrainingConfiguration"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="optimizationConfiguration"
+        eType="ecore:EClass optimization.ecore#//OptimizationConfiguration"/>
+  </eClassifiers>
+</ecore:EPackage>

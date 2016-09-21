@@ -15,6 +15,10 @@ import tools.descartes.librede.configuration.ConfigurationPackage;
 
 import tools.descartes.librede.metrics.MetricsPackage;
 
+import tools.descartes.librede.rrde.lifecycle.LifecyclePackage;
+
+import tools.descartes.librede.rrde.lifecycle.impl.LifecyclePackageImpl;
+
 import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
@@ -180,14 +184,17 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		XMLTypePackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
+		LifecyclePackageImpl theLifecyclePackage = (LifecyclePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(LifecyclePackage.eNS_URI) instanceof LifecyclePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(LifecyclePackage.eNS_URI) : LifecyclePackage.eINSTANCE);
 		RecommendationPackageImpl theRecommendationPackage = (RecommendationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RecommendationPackage.eNS_URI) instanceof RecommendationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RecommendationPackage.eNS_URI) : RecommendationPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theOptimizationPackage.createPackageContents();
+		theLifecyclePackage.createPackageContents();
 		theRecommendationPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theOptimizationPackage.initializePackageContents();
+		theLifecyclePackage.initializePackageContents();
 		theRecommendationPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed

@@ -7,7 +7,8 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: tools.descartes.librede.rrde.optimization.tests,
+Export-Package: tools.descartes.librede.rrde.lifecycle.tests,
+ tools.descartes.librede.rrde.optimization.tests,
  tools.descartes.librede.rrde.recommendation.tests
 Require-Bundle: org.eclipse.core.runtime,
  tools.descartes.librede.rrde.model;visibility:=reexport,

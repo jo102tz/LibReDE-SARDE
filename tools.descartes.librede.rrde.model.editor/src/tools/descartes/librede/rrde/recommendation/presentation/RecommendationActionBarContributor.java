@@ -39,7 +39,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 
-import tools.descartes.librede.rrde.optimization.presentation.RrdeEditorPlugin;
+import tools.descartes.librede.rrde.lifecycle.presentation.RrdeEditorPlugin;
 
 /**
  * This is the action bar contributor for the Recommendation model editor.

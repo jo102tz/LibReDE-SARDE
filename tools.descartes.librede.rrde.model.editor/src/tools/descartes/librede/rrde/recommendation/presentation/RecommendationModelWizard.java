@@ -71,7 +71,7 @@ import org.eclipse.ui.part.ISetSelectionTarget;
 
 import tools.descartes.librede.rrde.recommendation.RecommendationFactory;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
-import tools.descartes.librede.rrde.optimization.provider.RrdeEditPlugin;
+import tools.descartes.librede.rrde.lifecycle.provider.RrdeEditPlugin;
 
 
 import org.eclipse.core.runtime.Path;
@@ -84,7 +84,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 
-import tools.descartes.librede.rrde.optimization.presentation.RrdeEditorPlugin;
+import tools.descartes.librede.rrde.lifecycle.presentation.RrdeEditorPlugin;
 
 
 /**
