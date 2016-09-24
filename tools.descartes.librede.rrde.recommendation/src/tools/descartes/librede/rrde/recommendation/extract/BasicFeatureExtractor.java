@@ -54,7 +54,6 @@ import tools.descartes.librede.units.Ratio;
 import tools.descartes.librede.units.RequestRate;
 import tools.descartes.librede.units.Time;
 import tools.descartes.librede.units.Unit;
-import tools.descartes.librede.units.UnitsFactory;
 
 /**
  * Basic class extracting the {@link FeatureVector}s.
@@ -108,12 +107,12 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	public BasicFeatureExtractor(FeatureExtractorSpecifier specifier) {
 		this.spec = specifier;
 		if (spec == null || spec.getRateUnit() == null
-				|| spec.getTimeUnit() == null) {
+				|| spec.getAggregation() == null) {
 			log.warn("Specifier is null. Using default values...");
 			standardTimeUnit = Time.MILLISECONDS;
 		} else {
 			try {
-				standardTimeUnit = (Unit<Time>) spec.getTimeUnit();
+				standardTimeUnit = spec.getAggregation().getUnit();
 			} catch (Exception e) {
 				log.warn("Time unit could not be cast. Using default value...");
 				standardTimeUnit = Time.MILLISECONDS;
@@ -125,13 +124,11 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 				rateUnit = RequestRate.REQ_PER_MINUTE;
 			}
 		}
-		basicStepSize = UnitsFactory.eINSTANCE.createQuantity();
-		basicStepSize.setUnit(standardTimeUnit);
-		if (spec.getAggregationInterval() <= 0) {
+		if (spec.getAggregation().getValue() <= 0) {
 			log.warn("Aggreation interval could not be read. Using default value...");
-			spec.setAggregationInterval(60000);
+			spec.getAggregation().setValue(60000);
 		}
-		basicStepSize.setValue(spec.getAggregationInterval());
+		basicStepSize = spec.getAggregation();
 	}
 
 	/*
