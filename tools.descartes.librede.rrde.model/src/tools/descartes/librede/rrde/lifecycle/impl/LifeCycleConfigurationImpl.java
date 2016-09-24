@@ -26,6 +26,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfigu
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.impl.LifeCycleConfigurationImpl#getRecommendationLoopTime <em>Recommendation Loop Time</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.impl.LifeCycleConfigurationImpl#getOptimizationLoopTime <em>Optimization Loop Time</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.lifecycle.impl.LifeCycleConfigurationImpl#getSelectionLoopTime <em>Selection Loop Time</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.impl.LifeCycleConfigurationImpl#getRecommendationConfiguration <em>Recommendation Configuration</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.impl.LifeCycleConfigurationImpl#getOptimizationConfiguration <em>Optimization Configuration</em>}</li>
  * </ul>
@@ -73,6 +74,26 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	 * @ordered
 	 */
 	protected long optimizationLoopTime = OPTIMIZATION_LOOP_TIME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSelectionLoopTime() <em>Selection Loop Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSelectionLoopTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final long SELECTION_LOOP_TIME_EDEFAULT = -1L;
+
+	/**
+	 * The cached value of the '{@link #getSelectionLoopTime() <em>Selection Loop Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSelectionLoopTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected long selectionLoopTime = SELECTION_LOOP_TIME_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getRecommendationConfiguration() <em>Recommendation Configuration</em>}' reference.
@@ -153,6 +174,27 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 		optimizationLoopTime = newOptimizationLoopTime;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_LOOP_TIME, oldOptimizationLoopTime, optimizationLoopTime));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public long getSelectionLoopTime() {
+		return selectionLoopTime;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSelectionLoopTime(long newSelectionLoopTime) {
+		long oldSelectionLoopTime = selectionLoopTime;
+		selectionLoopTime = newSelectionLoopTime;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, LifecyclePackage.LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME, oldSelectionLoopTime, selectionLoopTime));
 	}
 
 	/**
@@ -243,6 +285,8 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 				return getRecommendationLoopTime();
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_LOOP_TIME:
 				return getOptimizationLoopTime();
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME:
+				return getSelectionLoopTime();
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION:
 				if (resolve) return getRecommendationConfiguration();
 				return basicGetRecommendationConfiguration();
@@ -266,6 +310,9 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 				return;
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_LOOP_TIME:
 				setOptimizationLoopTime((Long)newValue);
+				return;
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME:
+				setSelectionLoopTime((Long)newValue);
 				return;
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION:
 				setRecommendationConfiguration((RecommendationTrainingConfiguration)newValue);
@@ -291,6 +338,9 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_LOOP_TIME:
 				setOptimizationLoopTime(OPTIMIZATION_LOOP_TIME_EDEFAULT);
 				return;
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME:
+				setSelectionLoopTime(SELECTION_LOOP_TIME_EDEFAULT);
+				return;
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION:
 				setRecommendationConfiguration((RecommendationTrainingConfiguration)null);
 				return;
@@ -313,6 +363,8 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 				return recommendationLoopTime != RECOMMENDATION_LOOP_TIME_EDEFAULT;
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_LOOP_TIME:
 				return optimizationLoopTime != OPTIMIZATION_LOOP_TIME_EDEFAULT;
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME:
+				return selectionLoopTime != SELECTION_LOOP_TIME_EDEFAULT;
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION:
 				return recommendationConfiguration != null;
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION:
@@ -335,6 +387,8 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 		result.append(recommendationLoopTime);
 		result.append(", optimizationLoopTime: ");
 		result.append(optimizationLoopTime);
+		result.append(", selectionLoopTime: ");
+		result.append(selectionLoopTime);
 		result.append(')');
 		return result.toString();
 	}

@@ -31,6 +31,15 @@ public interface OptimizationFactory extends EFactory {
 	OptimizationConfiguration createOptimizationConfiguration();
 
 	/**
+	 * Returns a new object of class '<em>Configuration Optimization Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Configuration Optimization Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	ConfigurationOptimizationAlgorithmSpecifier createConfigurationOptimizationAlgorithmSpecifier();
+
+	/**
 	 * Returns a new object of class '<em>Local Search Specifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

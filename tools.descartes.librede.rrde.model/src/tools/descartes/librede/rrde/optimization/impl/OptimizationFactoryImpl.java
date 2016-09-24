@@ -57,6 +57,7 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case OptimizationPackage.OPTIMIZATION_CONFIGURATION: return createOptimizationConfiguration();
+			case OptimizationPackage.CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER: return createConfigurationOptimizationAlgorithmSpecifier();
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER: return createLocalSearchSpecifier();
 			case OptimizationPackage.RUN_CALL: return createRunCall();
 			case OptimizationPackage.INPUT_DATA: return createInputData();
@@ -79,6 +80,16 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 	public OptimizationConfiguration createOptimizationConfiguration() {
 		OptimizationConfigurationImpl optimizationConfiguration = new OptimizationConfigurationImpl();
 		return optimizationConfiguration;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConfigurationOptimizationAlgorithmSpecifier createConfigurationOptimizationAlgorithmSpecifier() {
+		ConfigurationOptimizationAlgorithmSpecifierImpl configurationOptimizationAlgorithmSpecifier = new ConfigurationOptimizationAlgorithmSpecifierImpl();
+		return configurationOptimizationAlgorithmSpecifier;
 	}
 
 	/**

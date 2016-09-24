@@ -2,10 +2,7 @@
  */
 package tools.descartes.librede.rrde.optimization.tests;
 
-import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
-
 import tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier;
 import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 
@@ -15,15 +12,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class IterativeParameterOptimizerSpecifierTest extends TestCase {
-
-	/**
-	 * The fixture for this Iterative Parameter Optimizer Specifier test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected IterativeParameterOptimizerSpecifier fixture = null;
+public class IterativeParameterOptimizerSpecifierTest extends ConfigurationOptimizationAlgorithmSpecifierTest {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -45,23 +34,14 @@ public class IterativeParameterOptimizerSpecifierTest extends TestCase {
 	}
 
 	/**
-	 * Sets the fixture for this Iterative Parameter Optimizer Specifier test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void setFixture(IterativeParameterOptimizerSpecifier fixture) {
-		this.fixture = fixture;
-	}
-
-	/**
 	 * Returns the fixture for this Iterative Parameter Optimizer Specifier test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected IterativeParameterOptimizerSpecifier getFixture() {
-		return fixture;
+		return (IterativeParameterOptimizerSpecifier)fixture;
 	}
 
 	/**

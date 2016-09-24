@@ -3,12 +3,8 @@
 package tools.descartes.librede.rrde.optimization.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 
@@ -19,8 +15,6 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl#getTimeOut <em>Time Out</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl#getTolerance <em>Tolerance</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl#getMaximumNumberOfSteps <em>Maximum Number Of Steps</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl#getStepSize <em>Step Size</em>}</li>
@@ -29,47 +23,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  *
  * @generated
  */
-public class LocalSearchSpecifierImpl extends MinimalEObjectImpl.Container implements LocalSearchSpecifier {
-	/**
-	 * The default value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTimeOut()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final long TIME_OUT_EDEFAULT = -1L;
-
-	/**
-	 * The cached value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTimeOut()
-	 * @generated
-	 * @ordered
-	 */
-	protected long timeOut = TIME_OUT_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getAlgorithmName() <em>Algorithm Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAlgorithmName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String ALGORITHM_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getAlgorithmName() <em>Algorithm Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAlgorithmName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String algorithmName = ALGORITHM_NAME_EDEFAULT;
-
+public class LocalSearchSpecifierImpl extends ConfigurationOptimizationAlgorithmSpecifierImpl implements LocalSearchSpecifier {
 	/**
 	 * The default value of the '{@link #getTolerance() <em>Tolerance</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -154,48 +108,6 @@ public class LocalSearchSpecifierImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public long getTimeOut() {
-		return timeOut;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTimeOut(long newTimeOut) {
-		long oldTimeOut = timeOut;
-		timeOut = newTimeOut;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.LOCAL_SEARCH_SPECIFIER__TIME_OUT, oldTimeOut, timeOut));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getAlgorithmName() {
-		return algorithmName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAlgorithmName(String newAlgorithmName) {
-		String oldAlgorithmName = algorithmName;
-		algorithmName = newAlgorithmName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.LOCAL_SEARCH_SPECIFIER__ALGORITHM_NAME, oldAlgorithmName, algorithmName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public double getTolerance() {
 		return tolerance;
 	}
@@ -262,10 +174,6 @@ public class LocalSearchSpecifierImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__TIME_OUT:
-				return getTimeOut();
-			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__ALGORITHM_NAME:
-				return getAlgorithmName();
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__TOLERANCE:
 				return getTolerance();
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__MAXIMUM_NUMBER_OF_STEPS:
@@ -284,12 +192,6 @@ public class LocalSearchSpecifierImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__TIME_OUT:
-				setTimeOut((Long)newValue);
-				return;
-			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__ALGORITHM_NAME:
-				setAlgorithmName((String)newValue);
-				return;
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__TOLERANCE:
 				setTolerance((Double)newValue);
 				return;
@@ -311,12 +213,6 @@ public class LocalSearchSpecifierImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__TIME_OUT:
-				setTimeOut(TIME_OUT_EDEFAULT);
-				return;
-			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__ALGORITHM_NAME:
-				setAlgorithmName(ALGORITHM_NAME_EDEFAULT);
-				return;
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__TOLERANCE:
 				setTolerance(TOLERANCE_EDEFAULT);
 				return;
@@ -338,10 +234,6 @@ public class LocalSearchSpecifierImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__TIME_OUT:
-				return timeOut != TIME_OUT_EDEFAULT;
-			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__ALGORITHM_NAME:
-				return ALGORITHM_NAME_EDEFAULT == null ? algorithmName != null : !ALGORITHM_NAME_EDEFAULT.equals(algorithmName);
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__TOLERANCE:
 				return tolerance != TOLERANCE_EDEFAULT;
 			case OptimizationPackage.LOCAL_SEARCH_SPECIFIER__MAXIMUM_NUMBER_OF_STEPS:
@@ -362,11 +254,7 @@ public class LocalSearchSpecifierImpl extends MinimalEObjectImpl.Container imple
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (timeOut: ");
-		result.append(timeOut);
-		result.append(", algorithmName: ");
-		result.append(algorithmName);
-		result.append(", tolerance: ");
+		result.append(" (tolerance: ");
 		result.append(tolerance);
 		result.append(", maximumNumberOfSteps: ");
 		result.append(maximumNumberOfSteps);

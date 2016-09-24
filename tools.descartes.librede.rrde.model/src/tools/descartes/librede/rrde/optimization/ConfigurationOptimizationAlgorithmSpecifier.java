@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getConfigurationOptimizationAlgorithmSpecifier()
- * @model interface="true" abstract="true"
+ * @model
  * @generated
  */
 public interface ConfigurationOptimizationAlgorithmSpecifier extends EObject {
@@ -38,7 +38,7 @@ public interface ConfigurationOptimizationAlgorithmSpecifier extends EObject {
 	 * @return the value of the '<em>Time Out</em>' attribute.
 	 * @see #setTimeOut(long)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getConfigurationOptimizationAlgorithmSpecifier_TimeOut()
-	 * @model default="-1" required="true"
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Long" required="true"
 	 * @generated
 	 */
 	long getTimeOut();

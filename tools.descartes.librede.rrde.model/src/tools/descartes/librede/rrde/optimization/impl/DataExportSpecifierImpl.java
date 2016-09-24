@@ -3,12 +3,8 @@
 package tools.descartes.librede.rrde.optimization.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 
@@ -19,8 +15,6 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getTimeOut <em>Time Out</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getOutputDirectory <em>Output Directory</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getStepSize <em>Step Size</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#isMultidimensional <em>Multidimensional</em>}</li>
@@ -30,47 +24,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  *
  * @generated
  */
-public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implements DataExportSpecifier {
-	/**
-	 * The default value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTimeOut()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final long TIME_OUT_EDEFAULT = -1L;
-
-	/**
-	 * The cached value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTimeOut()
-	 * @generated
-	 * @ordered
-	 */
-	protected long timeOut = TIME_OUT_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getAlgorithmName() <em>Algorithm Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAlgorithmName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String ALGORITHM_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getAlgorithmName() <em>Algorithm Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAlgorithmName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String algorithmName = ALGORITHM_NAME_EDEFAULT;
-
+public class DataExportSpecifierImpl extends ConfigurationOptimizationAlgorithmSpecifierImpl implements DataExportSpecifier {
 	/**
 	 * The default value of the '{@link #getOutputDirectory() <em>Output Directory</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -175,48 +129,6 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public long getTimeOut() {
-		return timeOut;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTimeOut(long newTimeOut) {
-		long oldTimeOut = timeOut;
-		timeOut = newTimeOut;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.DATA_EXPORT_SPECIFIER__TIME_OUT, oldTimeOut, timeOut));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getAlgorithmName() {
-		return algorithmName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAlgorithmName(String newAlgorithmName) {
-		String oldAlgorithmName = algorithmName;
-		algorithmName = newAlgorithmName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.DATA_EXPORT_SPECIFIER__ALGORITHM_NAME, oldAlgorithmName, algorithmName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getOutputDirectory() {
 		return outputDirectory;
 	}
@@ -304,10 +216,6 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__TIME_OUT:
-				return getTimeOut();
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__ALGORITHM_NAME:
-				return getAlgorithmName();
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY:
 				return getOutputDirectory();
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
@@ -328,12 +236,6 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__TIME_OUT:
-				setTimeOut((Long)newValue);
-				return;
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__ALGORITHM_NAME:
-				setAlgorithmName((String)newValue);
-				return;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY:
 				setOutputDirectory((String)newValue);
 				return;
@@ -358,12 +260,6 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__TIME_OUT:
-				setTimeOut(TIME_OUT_EDEFAULT);
-				return;
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__ALGORITHM_NAME:
-				setAlgorithmName(ALGORITHM_NAME_EDEFAULT);
-				return;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY:
 				setOutputDirectory(OUTPUT_DIRECTORY_EDEFAULT);
 				return;
@@ -388,10 +284,6 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__TIME_OUT:
-				return timeOut != TIME_OUT_EDEFAULT;
-			case OptimizationPackage.DATA_EXPORT_SPECIFIER__ALGORITHM_NAME:
-				return ALGORITHM_NAME_EDEFAULT == null ? algorithmName != null : !ALGORITHM_NAME_EDEFAULT.equals(algorithmName);
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY:
 				return OUTPUT_DIRECTORY_EDEFAULT == null ? outputDirectory != null : !OUTPUT_DIRECTORY_EDEFAULT.equals(outputDirectory);
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
@@ -414,11 +306,7 @@ public class DataExportSpecifierImpl extends MinimalEObjectImpl.Container implem
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (timeOut: ");
-		result.append(timeOut);
-		result.append(", algorithmName: ");
-		result.append(algorithmName);
-		result.append(", OutputDirectory: ");
+		result.append(" (OutputDirectory: ");
 		result.append(outputDirectory);
 		result.append(", stepSize: ");
 		result.append(stepSize);

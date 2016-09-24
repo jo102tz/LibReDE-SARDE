@@ -117,7 +117,7 @@ public interface InputData extends EObject {
 	 * @return the value of the '<em>Multi Folder Structures</em>' attribute.
 	 * @see #setMultiFolderStructures(boolean)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getInputData_MultiFolderStructures()
-	 * @model default="false" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+	 * @model default="false" dataType="org.eclipse.emf.ecore.xml.type.Boolean" required="true"
 	 * @generated
 	 */
 	boolean isMultiFolderStructures();

@@ -254,7 +254,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFeatureExtractorSpecifier_TimeUnit() {
+	public EReference getFeatureExtractorSpecifier_RateUnit() {
 		return (EReference)featureExtractorSpecifierEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -263,17 +263,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureExtractorSpecifier_AggregationInterval() {
-		return (EAttribute)featureExtractorSpecifierEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getFeatureExtractorSpecifier_RateUnit() {
-		return (EReference)featureExtractorSpecifierEClass.getEStructuralFeatures().get(3);
+	public EReference getFeatureExtractorSpecifier_Aggregation() {
+		return (EReference)featureExtractorSpecifierEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -640,9 +631,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 
 		featureExtractorSpecifierEClass = createEClass(FEATURE_EXTRACTOR_SPECIFIER);
 		createEAttribute(featureExtractorSpecifierEClass, FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR);
-		createEReference(featureExtractorSpecifierEClass, FEATURE_EXTRACTOR_SPECIFIER__TIME_UNIT);
-		createEAttribute(featureExtractorSpecifierEClass, FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION_INTERVAL);
 		createEReference(featureExtractorSpecifierEClass, FEATURE_EXTRACTOR_SPECIFIER__RATE_UNIT);
+		createEReference(featureExtractorSpecifierEClass, FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION);
 
 		dataSetEClass = createEClass(DATA_SET);
 		createEReference(dataSetEClass, DATA_SET__CONFIGURATION);
@@ -735,12 +725,11 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		EGenericType g1 = createEGenericType(theUnitsPackage.getUnit());
 		EGenericType g2 = createEGenericType();
 		g1.getETypeArguments().add(g2);
-		initEReference(getFeatureExtractorSpecifier_TimeUnit(), g1, null, "timeUnit", null, 1, 1, FeatureExtractorSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureExtractorSpecifier_AggregationInterval(), theXMLTypePackage.getInt(), "aggregationInterval", "60000", 1, 1, FeatureExtractorSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		g1 = createEGenericType(theUnitsPackage.getUnit());
-		g2 = createEGenericType();
-		g1.getETypeArguments().add(g2);
 		initEReference(getFeatureExtractorSpecifier_RateUnit(), g1, null, "rateUnit", null, 1, 1, FeatureExtractorSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		g1 = createEGenericType(theUnitsPackage.getQuantity());
+		g2 = createEGenericType(theUnitsPackage.getTime());
+		g1.getETypeArguments().add(g2);
+		initEReference(getFeatureExtractorSpecifier_Aggregation(), g1, null, "aggregation", null, 1, 1, FeatureExtractorSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataSetEClass, DataSet.class, "DataSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataSet_Configuration(), theConfigurationPackage.getLibredeConfiguration(), null, "configuration", null, 1, 1, DataSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

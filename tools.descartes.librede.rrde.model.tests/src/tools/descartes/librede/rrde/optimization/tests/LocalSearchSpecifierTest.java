@@ -2,10 +2,7 @@
  */
 package tools.descartes.librede.rrde.optimization.tests;
 
-import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
-
 import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 
@@ -15,15 +12,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class LocalSearchSpecifierTest extends TestCase {
-
-	/**
-	 * The fixture for this Local Search Specifier test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected LocalSearchSpecifier fixture = null;
+public class LocalSearchSpecifierTest extends ConfigurationOptimizationAlgorithmSpecifierTest {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -45,23 +34,14 @@ public class LocalSearchSpecifierTest extends TestCase {
 	}
 
 	/**
-	 * Sets the fixture for this Local Search Specifier test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void setFixture(LocalSearchSpecifier fixture) {
-		this.fixture = fixture;
-	}
-
-	/**
 	 * Returns the fixture for this Local Search Specifier test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected LocalSearchSpecifier getFixture() {
-		return fixture;
+		return (LocalSearchSpecifier)fixture;
 	}
 
 	/**

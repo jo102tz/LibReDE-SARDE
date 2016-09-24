@@ -95,6 +95,29 @@ public class OptimizationItemProviderAdapterFactory extends OptimizationAdapterF
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ConfigurationOptimizationAlgorithmSpecifierItemProvider configurationOptimizationAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createConfigurationOptimizationAlgorithmSpecifierAdapter() {
+		if (configurationOptimizationAlgorithmSpecifierItemProvider == null) {
+			configurationOptimizationAlgorithmSpecifierItemProvider = new ConfigurationOptimizationAlgorithmSpecifierItemProvider(this);
+		}
+
+		return configurationOptimizationAlgorithmSpecifierItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -401,6 +424,7 @@ public class OptimizationItemProviderAdapterFactory extends OptimizationAdapterF
 	 */
 	public void dispose() {
 		if (optimizationConfigurationItemProvider != null) optimizationConfigurationItemProvider.dispose();
+		if (configurationOptimizationAlgorithmSpecifierItemProvider != null) configurationOptimizationAlgorithmSpecifierItemProvider.dispose();
 		if (localSearchSpecifierItemProvider != null) localSearchSpecifierItemProvider.dispose();
 		if (runCallItemProvider != null) runCallItemProvider.dispose();
 		if (inputDataItemProvider != null) inputDataItemProvider.dispose();

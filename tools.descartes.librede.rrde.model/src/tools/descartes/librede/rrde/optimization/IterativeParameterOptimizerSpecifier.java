@@ -34,7 +34,7 @@ public interface IterativeParameterOptimizerSpecifier extends ConfigurationOptim
 	 * @return the value of the '<em>Number Of Splits</em>' attribute.
 	 * @see #setNumberOfSplits(int)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIterativeParameterOptimizerSpecifier_NumberOfSplits()
-	 * @model default="3" required="true"
+	 * @model default="3" dataType="org.eclipse.emf.ecore.xml.type.Int" required="true"
 	 * @generated
 	 */
 	int getNumberOfSplits();
@@ -61,7 +61,7 @@ public interface IterativeParameterOptimizerSpecifier extends ConfigurationOptim
 	 * @return the value of the '<em>Number Of Explorations</em>' attribute.
 	 * @see #setNumberOfExplorations(int)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIterativeParameterOptimizerSpecifier_NumberOfExplorations()
-	 * @model default="3" required="true"
+	 * @model default="3" dataType="org.eclipse.emf.ecore.xml.type.Int" required="true"
 	 * @generated
 	 */
 	int getNumberOfExplorations();
@@ -88,7 +88,7 @@ public interface IterativeParameterOptimizerSpecifier extends ConfigurationOptim
 	 * @return the value of the '<em>Number Of Iterations</em>' attribute.
 	 * @see #setNumberOfIterations(int)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIterativeParameterOptimizerSpecifier_NumberOfIterations()
-	 * @model default="3" required="true"
+	 * @model default="3" dataType="org.eclipse.emf.ecore.xml.type.Int" required="true"
 	 * @generated
 	 */
 	int getNumberOfIterations();

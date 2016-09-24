@@ -161,6 +161,11 @@ public class RunCallItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(OptimizationPackage.Literals.RUN_CALL__ALGORITHM,
+				 OptimizationFactory.eINSTANCE.createConfigurationOptimizationAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(OptimizationPackage.Literals.RUN_CALL__ALGORITHM,
 				 OptimizationFactory.eINSTANCE.createLocalSearchSpecifier()));
 
 		newChildDescriptors.add

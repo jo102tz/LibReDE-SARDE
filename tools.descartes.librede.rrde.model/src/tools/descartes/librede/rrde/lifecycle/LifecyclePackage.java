@@ -85,13 +85,22 @@ public interface LifecyclePackage extends EPackage {
 	int LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_LOOP_TIME = 1;
 
 	/**
+	 * The feature id for the '<em><b>Selection Loop Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME = 2;
+
+	/**
 	 * The feature id for the '<em><b>Recommendation Configuration</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION = 2;
+	int LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION = 3;
 
 	/**
 	 * The feature id for the '<em><b>Optimization Configuration</b></em>' reference.
@@ -100,7 +109,7 @@ public interface LifecyclePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION = 3;
+	int LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION = 4;
 
 	/**
 	 * The number of structural features of the '<em>Life Cycle Configuration</em>' class.
@@ -109,7 +118,7 @@ public interface LifecyclePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LIFE_CYCLE_CONFIGURATION_FEATURE_COUNT = 4;
+	int LIFE_CYCLE_CONFIGURATION_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Life Cycle Configuration</em>' class.
@@ -152,6 +161,17 @@ public interface LifecyclePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getLifeCycleConfiguration_OptimizationLoopTime();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getSelectionLoopTime <em>Selection Loop Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Selection Loop Time</em>'.
+	 * @see tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getSelectionLoopTime()
+	 * @see #getLifeCycleConfiguration()
+	 * @generated
+	 */
+	EAttribute getLifeCycleConfiguration_SelectionLoopTime();
 
 	/**
 	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getRecommendationConfiguration <em>Recommendation Configuration</em>}'.
@@ -223,6 +243,14 @@ public interface LifecyclePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_LOOP_TIME = eINSTANCE.getLifeCycleConfiguration_OptimizationLoopTime();
+
+		/**
+		 * The meta object literal for the '<em><b>Selection Loop Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME = eINSTANCE.getLifeCycleConfiguration_SelectionLoopTime();
 
 		/**
 		 * The meta object literal for the '<em><b>Recommendation Configuration</b></em>' reference feature.

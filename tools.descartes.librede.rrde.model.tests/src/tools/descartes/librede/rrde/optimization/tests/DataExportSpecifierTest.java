@@ -2,10 +2,7 @@
  */
 package tools.descartes.librede.rrde.optimization.tests;
 
-import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
-
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 
@@ -15,15 +12,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DataExportSpecifierTest extends TestCase {
-
-	/**
-	 * The fixture for this Data Export Specifier test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DataExportSpecifier fixture = null;
+public class DataExportSpecifierTest extends ConfigurationOptimizationAlgorithmSpecifierTest {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -45,23 +34,14 @@ public class DataExportSpecifierTest extends TestCase {
 	}
 
 	/**
-	 * Sets the fixture for this Data Export Specifier test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void setFixture(DataExportSpecifier fixture) {
-		this.fixture = fixture;
-	}
-
-	/**
 	 * Returns the fixture for this Data Export Specifier test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected DataExportSpecifier getFixture() {
-		return fixture;
+		return (DataExportSpecifier)fixture;
 	}
 
 	/**

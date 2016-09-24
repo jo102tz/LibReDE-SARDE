@@ -62,6 +62,7 @@ public class LifeCycleConfigurationItemProvider
 
 			addRecommendationLoopTimePropertyDescriptor(object);
 			addOptimizationLoopTimePropertyDescriptor(object);
+			addSelectionLoopTimePropertyDescriptor(object);
 			addRecommendationConfigurationPropertyDescriptor(object);
 			addOptimizationConfigurationPropertyDescriptor(object);
 		}
@@ -104,6 +105,28 @@ public class LifeCycleConfigurationItemProvider
 				 getString("_UI_LifeCycleConfiguration_optimizationLoopTime_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_LifeCycleConfiguration_optimizationLoopTime_feature", "_UI_LifeCycleConfiguration_type"),
 				 LifecyclePackage.Literals.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_LOOP_TIME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Selection Loop Time feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSelectionLoopTimePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_LifeCycleConfiguration_selectionLoopTime_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LifeCycleConfiguration_selectionLoopTime_feature", "_UI_LifeCycleConfiguration_type"),
+				 LifecyclePackage.Literals.LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME,
 				 true,
 				 false,
 				 false,
@@ -194,6 +217,7 @@ public class LifeCycleConfigurationItemProvider
 		switch (notification.getFeatureID(LifeCycleConfiguration.class)) {
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_LOOP_TIME:
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_LOOP_TIME:
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

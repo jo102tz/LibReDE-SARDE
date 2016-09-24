@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import tools.descartes.librede.configuration.ConfigurationPackage;
 
 import tools.descartes.librede.metrics.MetricsPackage;
@@ -91,6 +92,7 @@ public class LifecyclePackageImpl extends EPackageImpl implements LifecyclePacka
 		ConfigurationPackage.eINSTANCE.eClass();
 		MetricsPackage.eINSTANCE.eClass();
 		UnitsPackage.eINSTANCE.eClass();
+		XMLTypePackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
 		OptimizationPackageImpl theOptimizationPackage = (OptimizationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(OptimizationPackage.eNS_URI) instanceof OptimizationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(OptimizationPackage.eNS_URI) : OptimizationPackage.eINSTANCE);
@@ -147,8 +149,17 @@ public class LifecyclePackageImpl extends EPackageImpl implements LifecyclePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getLifeCycleConfiguration_SelectionLoopTime() {
+		return (EAttribute)lifeCycleConfigurationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getLifeCycleConfiguration_RecommendationConfiguration() {
-		return (EReference)lifeCycleConfigurationEClass.getEStructuralFeatures().get(2);
+		return (EReference)lifeCycleConfigurationEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -157,7 +168,7 @@ public class LifecyclePackageImpl extends EPackageImpl implements LifecyclePacka
 	 * @generated
 	 */
 	public EReference getLifeCycleConfiguration_OptimizationConfiguration() {
-		return (EReference)lifeCycleConfigurationEClass.getEStructuralFeatures().get(3);
+		return (EReference)lifeCycleConfigurationEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -191,6 +202,7 @@ public class LifecyclePackageImpl extends EPackageImpl implements LifecyclePacka
 		lifeCycleConfigurationEClass = createEClass(LIFE_CYCLE_CONFIGURATION);
 		createEAttribute(lifeCycleConfigurationEClass, LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_LOOP_TIME);
 		createEAttribute(lifeCycleConfigurationEClass, LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_LOOP_TIME);
+		createEAttribute(lifeCycleConfigurationEClass, LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME);
 		createEReference(lifeCycleConfigurationEClass, LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION);
 		createEReference(lifeCycleConfigurationEClass, LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION);
 	}
@@ -219,6 +231,7 @@ public class LifecyclePackageImpl extends EPackageImpl implements LifecyclePacka
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
+		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 		RecommendationPackage theRecommendationPackage = (RecommendationPackage)EPackage.Registry.INSTANCE.getEPackage(RecommendationPackage.eNS_URI);
 		OptimizationPackage theOptimizationPackage = (OptimizationPackage)EPackage.Registry.INSTANCE.getEPackage(OptimizationPackage.eNS_URI);
 
@@ -230,8 +243,9 @@ public class LifecyclePackageImpl extends EPackageImpl implements LifecyclePacka
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(lifeCycleConfigurationEClass, LifeCycleConfiguration.class, "LifeCycleConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLifeCycleConfiguration_RecommendationLoopTime(), ecorePackage.getELong(), "recommendationLoopTime", "-1", 1, 1, LifeCycleConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLifeCycleConfiguration_OptimizationLoopTime(), ecorePackage.getELong(), "optimizationLoopTime", "-1", 1, 1, LifeCycleConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLifeCycleConfiguration_RecommendationLoopTime(), theXMLTypePackage.getLong(), "recommendationLoopTime", "-1", 1, 1, LifeCycleConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLifeCycleConfiguration_OptimizationLoopTime(), theXMLTypePackage.getLong(), "optimizationLoopTime", "-1", 1, 1, LifeCycleConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLifeCycleConfiguration_SelectionLoopTime(), theXMLTypePackage.getLong(), "selectionLoopTime", "-1", 1, 1, LifeCycleConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLifeCycleConfiguration_RecommendationConfiguration(), theRecommendationPackage.getRecommendationTrainingConfiguration(), null, "recommendationConfiguration", null, 0, 1, LifeCycleConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLifeCycleConfiguration_OptimizationConfiguration(), theOptimizationPackage.getOptimizationConfiguration(), null, "optimizationConfiguration", null, 0, 1, LifeCycleConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

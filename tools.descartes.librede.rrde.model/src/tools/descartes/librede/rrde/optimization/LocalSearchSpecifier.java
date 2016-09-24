@@ -34,7 +34,7 @@ public interface LocalSearchSpecifier extends ConfigurationOptimizationAlgorithm
 	 * @return the value of the '<em>Tolerance</em>' attribute.
 	 * @see #setTolerance(double)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getLocalSearchSpecifier_Tolerance()
-	 * @model default="0.05" required="true"
+	 * @model default="0.05" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getTolerance();
@@ -61,7 +61,7 @@ public interface LocalSearchSpecifier extends ConfigurationOptimizationAlgorithm
 	 * @return the value of the '<em>Maximum Number Of Steps</em>' attribute.
 	 * @see #setMaximumNumberOfSteps(long)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getLocalSearchSpecifier_MaximumNumberOfSteps()
-	 * @model default="-1" required="true"
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Long" required="true"
 	 * @generated
 	 */
 	long getMaximumNumberOfSteps();
@@ -88,7 +88,7 @@ public interface LocalSearchSpecifier extends ConfigurationOptimizationAlgorithm
 	 * @return the value of the '<em>Step Size</em>' attribute.
 	 * @see #setStepSize(double)
 	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getLocalSearchSpecifier_StepSize()
-	 * @model default="1" required="true"
+	 * @model default="1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getStepSize();

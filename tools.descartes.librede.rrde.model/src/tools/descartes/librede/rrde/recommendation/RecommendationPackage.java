@@ -186,31 +186,22 @@ public interface RecommendationPackage extends EPackage {
 	int FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR = 0;
 
 	/**
-	 * The feature id for the '<em><b>Time Unit</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_EXTRACTOR_SPECIFIER__TIME_UNIT = 1;
-
-	/**
-	 * The feature id for the '<em><b>Aggregation Interval</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION_INTERVAL = 2;
-
-	/**
 	 * The feature id for the '<em><b>Rate Unit</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_EXTRACTOR_SPECIFIER__RATE_UNIT = 3;
+	int FEATURE_EXTRACTOR_SPECIFIER__RATE_UNIT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Aggregation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION = 2;
 
 	/**
 	 * The number of structural features of the '<em>Feature Extractor Specifier</em>' class.
@@ -219,7 +210,7 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_EXTRACTOR_SPECIFIER_FEATURE_COUNT = 4;
+	int FEATURE_EXTRACTOR_SPECIFIER_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Feature Extractor Specifier</em>' class.
@@ -720,28 +711,6 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getFeatureExtractorSpecifier_FeatureExtractor();
 
 	/**
-	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getTimeUnit <em>Time Unit</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Time Unit</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getTimeUnit()
-	 * @see #getFeatureExtractorSpecifier()
-	 * @generated
-	 */
-	EReference getFeatureExtractorSpecifier_TimeUnit();
-
-	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getAggregationInterval <em>Aggregation Interval</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Aggregation Interval</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getAggregationInterval()
-	 * @see #getFeatureExtractorSpecifier()
-	 * @generated
-	 */
-	EAttribute getFeatureExtractorSpecifier_AggregationInterval();
-
-	/**
 	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getRateUnit <em>Rate Unit</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -751,6 +720,17 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFeatureExtractorSpecifier_RateUnit();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getAggregation <em>Aggregation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Aggregation</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getAggregation()
+	 * @see #getFeatureExtractorSpecifier()
+	 * @generated
+	 */
+	EReference getFeatureExtractorSpecifier_Aggregation();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.DataSet <em>Data Set</em>}'.
@@ -1255,28 +1235,20 @@ public interface RecommendationPackage extends EPackage {
 		EAttribute FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR = eINSTANCE.getFeatureExtractorSpecifier_FeatureExtractor();
 
 		/**
-		 * The meta object literal for the '<em><b>Time Unit</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FEATURE_EXTRACTOR_SPECIFIER__TIME_UNIT = eINSTANCE.getFeatureExtractorSpecifier_TimeUnit();
-
-		/**
-		 * The meta object literal for the '<em><b>Aggregation Interval</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION_INTERVAL = eINSTANCE.getFeatureExtractorSpecifier_AggregationInterval();
-
-		/**
 		 * The meta object literal for the '<em><b>Rate Unit</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference FEATURE_EXTRACTOR_SPECIFIER__RATE_UNIT = eINSTANCE.getFeatureExtractorSpecifier_RateUnit();
+
+		/**
+		 * The meta object literal for the '<em><b>Aggregation</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION = eINSTANCE.getFeatureExtractorSpecifier_Aggregation();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl <em>Data Set</em>}' class.

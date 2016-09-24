@@ -4,7 +4,9 @@ package tools.descartes.librede.rrde.optimization.tests;
 
 import junit.framework.TestCase;
 
+import junit.textui.TestRunner;
 import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.optimization.OptimizationFactory;
 
 /**
  * <!-- begin-user-doc -->
@@ -12,7 +14,7 @@ import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgori
  * <!-- end-user-doc -->
  * @generated
  */
-public abstract class ConfigurationOptimizationAlgorithmSpecifierTest extends TestCase {
+public class ConfigurationOptimizationAlgorithmSpecifierTest extends TestCase {
 
 	/**
 	 * The fixture for this Configuration Optimization Algorithm Specifier test case.
@@ -21,6 +23,15 @@ public abstract class ConfigurationOptimizationAlgorithmSpecifierTest extends Te
 	 * @generated
 	 */
 	protected ConfigurationOptimizationAlgorithmSpecifier fixture = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static void main(String[] args) {
+		TestRunner.run(ConfigurationOptimizationAlgorithmSpecifierTest.class);
+	}
 
 	/**
 	 * Constructs a new Configuration Optimization Algorithm Specifier test case with the given name.
@@ -50,6 +61,28 @@ public abstract class ConfigurationOptimizationAlgorithmSpecifierTest extends Te
 	 */
 	protected ConfigurationOptimizationAlgorithmSpecifier getFixture() {
 		return fixture;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see junit.framework.TestCase#setUp()
+	 * @generated
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		setFixture(OptimizationFactory.eINSTANCE.createConfigurationOptimizationAlgorithmSpecifier());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see junit.framework.TestCase#tearDown()
+	 * @generated
+	 */
+	@Override
+	protected void tearDown() throws Exception {
+		setFixture(null);
 	}
 
 } //ConfigurationOptimizationAlgorithmSpecifierTest

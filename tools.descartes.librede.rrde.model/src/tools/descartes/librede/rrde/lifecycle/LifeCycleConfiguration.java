@@ -18,6 +18,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfigu
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getRecommendationLoopTime <em>Recommendation Loop Time</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getOptimizationLoopTime <em>Optimization Loop Time</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getSelectionLoopTime <em>Selection Loop Time</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getRecommendationConfiguration <em>Recommendation Configuration</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getOptimizationConfiguration <em>Optimization Configuration</em>}</li>
  * </ul>
@@ -40,7 +41,7 @@ public interface LifeCycleConfiguration extends EObject {
 	 * @return the value of the '<em>Recommendation Loop Time</em>' attribute.
 	 * @see #setRecommendationLoopTime(long)
 	 * @see tools.descartes.librede.rrde.lifecycle.LifecyclePackage#getLifeCycleConfiguration_RecommendationLoopTime()
-	 * @model default="-1" required="true"
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Long" required="true"
 	 * @generated
 	 */
 	long getRecommendationLoopTime();
@@ -67,7 +68,7 @@ public interface LifeCycleConfiguration extends EObject {
 	 * @return the value of the '<em>Optimization Loop Time</em>' attribute.
 	 * @see #setOptimizationLoopTime(long)
 	 * @see tools.descartes.librede.rrde.lifecycle.LifecyclePackage#getLifeCycleConfiguration_OptimizationLoopTime()
-	 * @model default="-1" required="true"
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Long" required="true"
 	 * @generated
 	 */
 	long getOptimizationLoopTime();
@@ -81,6 +82,33 @@ public interface LifeCycleConfiguration extends EObject {
 	 * @generated
 	 */
 	void setOptimizationLoopTime(long value);
+
+	/**
+	 * Returns the value of the '<em><b>Selection Loop Time</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Selection Loop Time</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Selection Loop Time</em>' attribute.
+	 * @see #setSelectionLoopTime(long)
+	 * @see tools.descartes.librede.rrde.lifecycle.LifecyclePackage#getLifeCycleConfiguration_SelectionLoopTime()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Long" required="true"
+	 * @generated
+	 */
+	long getSelectionLoopTime();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getSelectionLoopTime <em>Selection Loop Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Selection Loop Time</em>' attribute.
+	 * @see #getSelectionLoopTime()
+	 * @generated
+	 */
+	void setSelectionLoopTime(long value);
 
 	/**
 	 * Returns the value of the '<em><b>Recommendation Configuration</b></em>' reference.

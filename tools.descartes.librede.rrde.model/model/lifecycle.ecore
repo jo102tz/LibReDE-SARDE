@@ -4,10 +4,12 @@
     nsPrefix="librede-lifecycle">
   <eClassifiers xsi:type="ecore:EClass" name="LifeCycleConfiguration">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="recommendationLoopTime"
-        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Long"
         defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="optimizationLoopTime" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="-1"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Long" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="selectionLoopTime" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Long" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="recommendationConfiguration"
         eType="ecore:EClass recommendation.ecore#//RecommendationTrainingConfiguration"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="optimizationConfiguration"

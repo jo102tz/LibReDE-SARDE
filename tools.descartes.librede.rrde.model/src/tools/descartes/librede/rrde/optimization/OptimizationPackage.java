@@ -94,10 +94,10 @@ public interface OptimizationPackage extends EPackage {
 	int OPTIMIZATION_CONFIGURATION_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier <em>Configuration Optimization Algorithm Specifier</em>}' class.
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.ConfigurationOptimizationAlgorithmSpecifierImpl <em>Configuration Optimization Algorithm Specifier</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier
+	 * @see tools.descartes.librede.rrde.optimization.impl.ConfigurationOptimizationAlgorithmSpecifierImpl
 	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getConfigurationOptimizationAlgorithmSpecifier()
 	 * @generated
 	 */
@@ -1230,10 +1230,10 @@ public interface OptimizationPackage extends EPackage {
 		EReference OPTIMIZATION_CONFIGURATION__CONTAINS_OF = eINSTANCE.getOptimizationConfiguration_ContainsOf();
 
 		/**
-		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier <em>Configuration Optimization Algorithm Specifier</em>}' class.
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.ConfigurationOptimizationAlgorithmSpecifierImpl <em>Configuration Optimization Algorithm Specifier</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier
+		 * @see tools.descartes.librede.rrde.optimization.impl.ConfigurationOptimizationAlgorithmSpecifierImpl
 		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getConfigurationOptimizationAlgorithmSpecifier()
 		 * @generated
 		 */

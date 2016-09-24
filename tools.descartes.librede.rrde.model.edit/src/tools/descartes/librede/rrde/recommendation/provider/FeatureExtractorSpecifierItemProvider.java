@@ -11,6 +11,7 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -26,6 +27,7 @@ import tools.descartes.librede.rrde.lifecycle.provider.RrdeEditPlugin;
 
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
+import tools.descartes.librede.units.UnitsFactory;
 
 /**
  * This is the item provider adapter for a {@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier} object.
@@ -63,8 +65,6 @@ public class FeatureExtractorSpecifierItemProvider
 			super.getPropertyDescriptors(object);
 
 			addFeatureExtractorPropertyDescriptor(object);
-			addTimeUnitPropertyDescriptor(object);
-			addAggregationIntervalPropertyDescriptor(object);
 			addRateUnitPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -93,50 +93,6 @@ public class FeatureExtractorSpecifierItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Time Unit feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTimeUnitPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FeatureExtractorSpecifier_timeUnit_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureExtractorSpecifier_timeUnit_feature", "_UI_FeatureExtractorSpecifier_type"),
-				 RecommendationPackage.Literals.FEATURE_EXTRACTOR_SPECIFIER__TIME_UNIT,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Aggregation Interval feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAggregationIntervalPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FeatureExtractorSpecifier_aggregationInterval_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureExtractorSpecifier_aggregationInterval_feature", "_UI_FeatureExtractorSpecifier_type"),
-				 RecommendationPackage.Literals.FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION_INTERVAL,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Rate Unit feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -156,6 +112,36 @@ public class FeatureExtractorSpecifierItemProvider
 				 null,
 				 null,
 				 null));
+	}
+
+	/**
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(RecommendationPackage.Literals.FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION);
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -197,8 +183,10 @@ public class FeatureExtractorSpecifierItemProvider
 
 		switch (notification.getFeatureID(FeatureExtractorSpecifier.class)) {
 			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__FEATURE_EXTRACTOR:
-			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION_INTERVAL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case RecommendationPackage.FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -214,6 +202,11 @@ public class FeatureExtractorSpecifierItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.FEATURE_EXTRACTOR_SPECIFIER__AGGREGATION,
+				 UnitsFactory.eINSTANCE.createQuantity()));
 	}
 
 	/**
