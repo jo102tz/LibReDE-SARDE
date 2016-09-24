@@ -91,7 +91,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="StepSize" eSuperTypes="#//IOptimizableParameter"/>
   <eClassifiers xsi:type="ecore:EClass" name="WindowSize" eSuperTypes="#//IOptimizableParameter"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataExportSpecifier" eSuperTypes="#//ConfigurationOptimizationAlgorithmSpecifier">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="OutputDirectory" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="outputDirectory" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String" defaultValueLiteral="&quot;&quot;"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stepSize" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="1.0"/>
