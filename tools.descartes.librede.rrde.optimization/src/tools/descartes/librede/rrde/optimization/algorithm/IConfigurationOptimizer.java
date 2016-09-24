@@ -101,13 +101,13 @@ public interface IConfigurationOptimizer {
 
 	/**
 	 * Checks if the given instance of an
-	 * {@link IConfigurationOptimizationAlgorithmSpecifier} is supported by the
+	 * {@link ConfigurationOptimizationAlgorithmSpecifier} is supported by the
 	 * implementing type, i.e. if the contained settings can be interpreted by
 	 * the underlying algorithm.
 	 * 
 	 * @param specifier
 	 *            An instance of
-	 *            {@link IConfigurationOptimizationAlgorithmSpecifier}
+	 *            {@link ConfigurationOptimizationAlgorithmSpecifier}
 	 * @return True, if the implementing type supports the instance, false
 	 *         otherwise.
 	 */

@@ -29,6 +29,8 @@ package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 import org.apache.log4j.Logger;
 
 import smile.classification.DecisionTree;
+import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
+import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 
 /**
  * @author JS
@@ -41,11 +43,6 @@ public class SmileTree extends AbstractSmileAlgorithm {
 	 */
 	private static final Logger log = Logger.getLogger(SmileTree.class);
 
-	/**
-	 * The Max nodes.
-	 */
-	public static final int MAX_NODES_CONSTANT = 100;
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -56,7 +53,8 @@ public class SmileTree extends AbstractSmileAlgorithm {
 	protected boolean train(double[][] features, int[] targets) {
 		try {
 			setClassifier(new DecisionTree(features, targets,
-					MAX_NODES_CONSTANT));
+					((DecisionTreeAlgorithmSpecifier) getSpecifier())
+							.getMaximumNumberOfNodes()));
 		} catch (Exception e) {
 			log.error("The training did not finish successfully.", e);
 			return false;
@@ -73,6 +71,23 @@ public class SmileTree extends AbstractSmileAlgorithm {
 	@Override
 	protected Logger getLog() {
 		return log;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
+	 * #isSpecifierSupported(tools.descartes.librede.rrde.recommendation.
+	 * RecommendationAlgorithmSpecifier)
+	 */
+	@Override
+	public boolean isSpecifierSupported(
+			RecommendationAlgorithmSpecifier specifier) {
+		if (specifier instanceof DecisionTreeAlgorithmSpecifier) {
+			return true;
+		}
+		return false;
 	}
 
 }

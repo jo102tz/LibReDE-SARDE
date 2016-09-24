@@ -36,6 +36,7 @@ import org.eclipse.emf.common.util.EMap;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
 
 /**
@@ -73,9 +74,30 @@ public abstract class AbstractRecommendationAlgorithm implements
 	private int supportedResources;
 
 	/**
+	 * The specifier for algorithm parameters.
+	 */
+	private RecommendationAlgorithmSpecifier specifier;
+
+	/**
 	 * A map to store all training examples.
 	 */
 	private Map<FeatureVector, EMap<EstimationSpecification, Double>> trainingMap;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
+	 * #initialize(tools.descartes.librede.rrde.recommendation.
+	 * RecommendationAlgorithmSpecifier)
+	 */
+	@Override
+	public void initialize(RecommendationAlgorithmSpecifier specifier) {
+		if (!isSpecifierSupported(specifier))
+			throw new IllegalArgumentException(
+					"The given specifier does not apply for this algorithm.");
+		this.specifier = specifier;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -308,4 +330,20 @@ public abstract class AbstractRecommendationAlgorithm implements
 		}
 		return result;
 	}
+
+	/**
+	 * @return the specifier
+	 */
+	public RecommendationAlgorithmSpecifier getSpecifier() {
+		return specifier;
+	}
+
+	/**
+	 * @param specifier
+	 *            the specifier to set
+	 */
+	public void setSpecifier(RecommendationAlgorithmSpecifier specifier) {
+		this.specifier = specifier;
+	}
+
 }

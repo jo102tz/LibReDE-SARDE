@@ -604,6 +604,53 @@ public interface RecommendationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.DecisionTreeAlgorithmSpecifierImpl <em>Decision Tree Algorithm Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.DecisionTreeAlgorithmSpecifierImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getDecisionTreeAlgorithmSpecifier()
+	 * @generated
+	 */
+	int DECISION_TREE_ALGORITHM_SPECIFIER = 6;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECISION_TREE_ALGORITHM_SPECIFIER__ALGORITHM_NAME = RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Maximum Number Of Nodes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECISION_TREE_ALGORITHM_SPECIFIER__MAXIMUM_NUMBER_OF_NODES = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Decision Tree Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECISION_TREE_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Decision Tree Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECISION_TREE_ALGORITHM_SPECIFIER_OPERATION_COUNT = RECOMMENDATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration <em>Training Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1126,6 +1173,27 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getStatisticalFeatures_Autocorrelation();
 
 	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier <em>Decision Tree Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Decision Tree Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier
+	 * @generated
+	 */
+	EClass getDecisionTreeAlgorithmSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier#getMaximumNumberOfNodes <em>Maximum Number Of Nodes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Maximum Number Of Nodes</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier#getMaximumNumberOfNodes()
+	 * @see #getDecisionTreeAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getDecisionTreeAlgorithmSpecifier_MaximumNumberOfNodes();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1543,6 +1611,24 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute STATISTICAL_FEATURES__AUTOCORRELATION = eINSTANCE.getStatisticalFeatures_Autocorrelation();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.DecisionTreeAlgorithmSpecifierImpl <em>Decision Tree Algorithm Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.DecisionTreeAlgorithmSpecifierImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getDecisionTreeAlgorithmSpecifier()
+		 * @generated
+		 */
+		EClass DECISION_TREE_ALGORITHM_SPECIFIER = eINSTANCE.getDecisionTreeAlgorithmSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Maximum Number Of Nodes</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DECISION_TREE_ALGORITHM_SPECIFIER__MAXIMUM_NUMBER_OF_NODES = eINSTANCE.getDecisionTreeAlgorithmSpecifier_MaximumNumberOfNodes();
 
 	}
 

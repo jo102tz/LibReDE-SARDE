@@ -184,6 +184,11 @@ public class RecommendationTrainingConfigurationItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createDecisionTreeAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS,
 				 ConfigurationFactory.eINSTANCE.createEstimationSpecification()));
 	}

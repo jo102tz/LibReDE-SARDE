@@ -159,8 +159,9 @@ public class Plugin implements IApplication {
 			log.error("Training data set is null or empty.");
 			return null;
 		}
-		if (!trainAlgorithm(alg, extractor, conf.getEstimators(),
-				conf.getValidator(), conf.getTrainingData())) {
+		if (!trainAlgorithm(alg, conf.getLearningAlgorithm(), extractor,
+				conf.getEstimators(), conf.getValidator(),
+				conf.getTrainingData())) {
 			log.error("Training failed. Returning algorithm anyway...");
 		}
 		return alg;
@@ -174,6 +175,9 @@ public class Plugin implements IApplication {
 	 * 
 	 * @param alg
 	 *            The algorithm to train
+	 * @param specifier
+	 *            The {@link RecommendationAlgorithmSpecifier} defining
+	 *            additional parameters for the algorithm
 	 * @param extractor
 	 *            The {@link IFeatureExtractor} to extract features for the
 	 *            inputs
@@ -186,12 +190,13 @@ public class Plugin implements IApplication {
 	 * @return True if the training was successful, false otherwise
 	 */
 	public boolean trainAlgorithm(IRecomendationAlgorithm alg,
+			RecommendationAlgorithmSpecifier specifer,
 			IFeatureExtractor extractor,
 			EList<EstimationSpecification> estimators,
 			ValidationSpecification validationSpecification,
 			EList<InputData> inputs) {
 		log.info("Start training of algorithm " + alg.getName() + "...");
-		alg.initialize();
+		alg.initialize(specifer);
 		boolean res = true;
 		Set<LibredeConfiguration> set = Discovery.createConfigurations(inputs,
 				estimators.get(0), validationSpecification);
@@ -294,7 +299,8 @@ public class Plugin implements IApplication {
 		try {
 			IFeatureExtractor algo = (IFeatureExtractor) Class
 					.forName(spec.getFeatureExtractor())
-					.getDeclaredConstructor(spec.getClass().getInterfaces()[0]).newInstance(spec);
+					.getDeclaredConstructor(spec.getClass().getInterfaces()[0])
+					.newInstance(spec);
 			return algo;
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | IllegalArgumentException

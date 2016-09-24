@@ -25,6 +25,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 import tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl;
 
 import tools.descartes.librede.rrde.recommendation.DataSet;
+import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
@@ -83,6 +84,13 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * @generated
 	 */
 	private EClass statisticalFeaturesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass decisionTreeAlgorithmSpecifierEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -596,6 +604,24 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDecisionTreeAlgorithmSpecifier() {
+		return decisionTreeAlgorithmSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDecisionTreeAlgorithmSpecifier_MaximumNumberOfNodes() {
+		return (EAttribute)decisionTreeAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public RecommendationFactory getRecommendationFactory() {
 		return (RecommendationFactory)getEFactoryInstance();
 	}
@@ -672,6 +698,9 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__TENTHPERCENTILE);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__NINETIETHPERCENTILE);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__AUTOCORRELATION);
+
+		decisionTreeAlgorithmSpecifierEClass = createEClass(DECISION_TREE_ALGORITHM_SPECIFIER);
+		createEAttribute(decisionTreeAlgorithmSpecifierEClass, DECISION_TREE_ALGORITHM_SPECIFIER__MAXIMUM_NUMBER_OF_NODES);
 	}
 
 	/**
@@ -708,6 +737,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		decisionTreeAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationAlgorithmSpecifier());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(recommendationTrainingConfigurationEClass, RecommendationTrainingConfiguration.class, "RecommendationTrainingConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -774,6 +804,9 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEAttribute(getStatisticalFeatures_Tenthpercentile(), theXMLTypePackage.getDouble(), "tenthpercentile", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalFeatures_Ninetiethpercentile(), theXMLTypePackage.getDouble(), "ninetiethpercentile", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStatisticalFeatures_Autocorrelation(), theXMLTypePackage.getDouble(), "autocorrelation", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(decisionTreeAlgorithmSpecifierEClass, DecisionTreeAlgorithmSpecifier.class, "DecisionTreeAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDecisionTreeAlgorithmSpecifier_MaximumNumberOfNodes(), theXMLTypePackage.getInt(), "maximumNumberOfNodes", "100", 1, 1, DecisionTreeAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

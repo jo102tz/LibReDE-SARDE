@@ -63,7 +63,7 @@
       <unit href="librede:units#SECONDS"/>
     </aggregation>
   </featureAlgorithm>
-  <learningAlgorithm algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree"/>
+  <learningAlgorithm xsi:type="librede-recommendation:DecisionTreeAlgorithmSpecifier" algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree" maximumNumberOfNodes="100"/>
   <estimators window="60">
     <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>

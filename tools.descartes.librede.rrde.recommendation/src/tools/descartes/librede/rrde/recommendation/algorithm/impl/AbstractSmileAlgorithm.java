@@ -37,6 +37,7 @@ import org.eclipse.emf.common.util.EMap;
 import smile.classification.Classifier;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.AbstractRecommendationAlgorithm;
 
 /**
@@ -90,10 +91,12 @@ public abstract class AbstractSmileAlgorithm extends
 	 * 
 	 * @see
 	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
-	 * #initialize()
+	 * #initialize(tools.descartes.librede.rrde.recommendation.
+	 * RecommendationAlgorithmSpecifier)
 	 */
 	@Override
-	public void initialize() {
+	public void initialize(RecommendationAlgorithmSpecifier specifier) {
+		super.initialize(specifier);
 		algorithmIndexMapping = new HashMap<>();
 		trainingfeatures = new ArrayList<>();
 		targetvalues = new ArrayList<>();

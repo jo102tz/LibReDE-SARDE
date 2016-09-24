@@ -30,6 +30,7 @@ import org.eclipse.emf.common.util.EMap;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 
 /**
  * Interface for machine learning algorithms, that recommend an algorithm.
@@ -49,7 +50,12 @@ public interface IRecomendationAlgorithm {
 	/**
 	 * Initializes the algorithm. If called twice, it resets the algorithm.
 	 */
-	public void initialize();
+	/**
+	 * Initializes the algorithm. If called twice, it resets the algorithm.
+	 * 
+	 * @param specifier 
+	 */
+	public void initialize(RecommendationAlgorithmSpecifier specifier);
 
 	/**
 	 * Recommend a specific {@link EstimationSpecification} for the given
@@ -104,4 +110,18 @@ public interface IRecomendationAlgorithm {
 	 *         otherwise.
 	 */
 	public boolean isInTrainingPhase();
+
+	/**
+	 * Checks if the given instance of an
+	 * {@link RecommendationAlgorithmSpecifier} is supported by the implementing
+	 * type, i.e. if the contained settings can be interpreted by the underlying
+	 * algorithm.
+	 * 
+	 * @param specifier
+	 *            An instance of {@link RecommendationAlgorithmSpecifier}
+	 * @return True, if the implementing type supports the instance, false
+	 *         otherwise.
+	 */
+	public boolean isSpecifierSupported(
+			RecommendationAlgorithmSpecifier specifier);
 }

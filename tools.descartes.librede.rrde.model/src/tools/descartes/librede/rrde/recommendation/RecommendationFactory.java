@@ -76,6 +76,15 @@ public interface RecommendationFactory extends EFactory {
 	StatisticalFeatures createStatisticalFeatures();
 
 	/**
+	 * Returns a new object of class '<em>Decision Tree Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Decision Tree Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	DecisionTreeAlgorithmSpecifier createDecisionTreeAlgorithmSpecifier();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

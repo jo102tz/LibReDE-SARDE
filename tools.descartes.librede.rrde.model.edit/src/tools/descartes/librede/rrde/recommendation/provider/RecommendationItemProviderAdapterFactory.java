@@ -210,6 +210,29 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DecisionTreeAlgorithmSpecifierItemProvider decisionTreeAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDecisionTreeAlgorithmSpecifierAdapter() {
+		if (decisionTreeAlgorithmSpecifierItemProvider == null) {
+			decisionTreeAlgorithmSpecifierItemProvider = new DecisionTreeAlgorithmSpecifierItemProvider(this);
+		}
+
+		return decisionTreeAlgorithmSpecifierItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -314,6 +337,7 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 		if (dataSetItemProvider != null) dataSetItemProvider.dispose();
 		if (featureVectorItemProvider != null) featureVectorItemProvider.dispose();
 		if (statisticalFeaturesItemProvider != null) statisticalFeaturesItemProvider.dispose();
+		if (decisionTreeAlgorithmSpecifierItemProvider != null) decisionTreeAlgorithmSpecifierItemProvider.dispose();
 	}
 
 }

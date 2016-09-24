@@ -28,6 +28,7 @@ package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 
 import org.apache.log4j.Logger;
 
+import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 
 /**
@@ -60,6 +61,16 @@ public class SmileSVM extends AbstractSmileAlgorithm {
 	 */
 	@Override
 	protected boolean train(double[][] features, int[] targets) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm#isSpecifierSupported(tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier)
+	 */
+	@Override
+	public boolean isSpecifierSupported(
+			RecommendationAlgorithmSpecifier specifier) {
 		// TODO Auto-generated method stub
 		return false;
 	}
