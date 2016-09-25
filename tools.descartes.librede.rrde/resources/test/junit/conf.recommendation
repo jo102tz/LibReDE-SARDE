@@ -148,7 +148,9 @@
     <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
     <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
-    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
+        <parameters name="PrintLevel" value="0"/>
+      </algorithms>
     <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
     <stepSize value="60.0">
       <unit href="librede:units#SECONDS"/>
@@ -164,7 +166,9 @@
     <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
     <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
-    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
+        <parameters name="PrintLevel" value="0"/>
+      </algorithms>
     <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
     <stepSize value="60.0">
       <unit href="librede:units#SECONDS"/>
@@ -186,7 +190,9 @@
     <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
     <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
-    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
+        <parameters name="PrintLevel" value="0"/>
+      </algorithms>
     <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
     <stepSize value="60.0">
       <unit href="librede:units#SECONDS"/>
