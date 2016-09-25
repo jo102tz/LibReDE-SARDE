@@ -202,6 +202,8 @@ public class TestSetValidator {
 		DescriptiveStatistics stataftertime = new DescriptiveStatistics();
 		DescriptiveStatistics statbeforeerror = new DescriptiveStatistics();
 		DescriptiveStatistics stataftererror = new DescriptiveStatistics();
+		int beforeignored = 0;
+		int afterignored = 0;
 		log.info("Results:");
 		log.info("----------------------------------------------------");
 		log.info("Individual test results:");
@@ -218,12 +220,18 @@ public class TestSetValidator {
 					.addValue(after.get(libredeConfiguration).getRuntime());
 			double beforeerror = Util.getMeanValidationError(before.get(
 					libredeConfiguration).getResults());
+			if (beforeerror == Double.MAX_VALUE || beforeerror < 0)
+				beforeignored++;
+			else
+				statbeforeerror.addValue(beforeerror);
 			log.info("Validation error before optimization: " + beforeerror);
-			statbeforeerror.addValue(beforeerror);
 			double aftererror = Util.getMeanValidationError(after.get(
 					libredeConfiguration).getResults());
+			if (aftererror == Double.MAX_VALUE || aftererror < 0)
+				afterignored++;
+			else
+				stataftererror.addValue(beforeerror);
 			log.info("Validation error after optimization: " + aftererror);
-			stataftererror.addValue(aftererror);
 			log.info("Improvement: " + (beforeerror - aftererror) + " or "
 					+ ((beforeerror - aftererror) * 100) / beforeerror + " %.");
 		}
@@ -247,6 +255,13 @@ public class TestSetValidator {
 				+ " or "
 				+ ((statbeforeerror.getMean() - stataftererror.getMean()) * 100)
 				/ statbeforeerror.getMean() + " %.");
+		log.info("Due to invalid results " + beforeignored + " of total "
+				+ statbeforeerror.getN()
+				+ " approaches were ignored before testing started.");
+		log.info("After computation " + afterignored + " of total "
+				+ statbeforeerror.getN()
+				+ " approaches were ignored. That is an improvement of "
+				+ (beforeignored - afterignored) + ".");
 		if (optimization > 0 && recommendation > 0) {
 			log.info("This took around " + optimization
 					+ "ms for optimizations and " + recommendation
