@@ -230,7 +230,7 @@ public class TestSetValidator {
 			if (aftererror == Double.MAX_VALUE || aftererror < 0)
 				afterignored++;
 			else
-				stataftererror.addValue(beforeerror);
+				stataftererror.addValue(aftererror);
 			log.info("Validation error after optimization: " + aftererror);
 			log.info("Improvement: " + (beforeerror - aftererror) + " or "
 					+ ((beforeerror - aftererror) * 100) / beforeerror + " %.");
