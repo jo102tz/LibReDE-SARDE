@@ -85,6 +85,24 @@ public interface RecommendationFactory extends EFactory {
 	DecisionTreeAlgorithmSpecifier createDecisionTreeAlgorithmSpecifier();
 
 	/**
+	 * Returns a new object of class '<em>Neural Network Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Neural Network Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	NeuralNetworkAlgorithmSpecifier createNeuralNetworkAlgorithmSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>SVM Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>SVM Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	SVMAlgorithmSpecifier createSVMAlgorithmSpecifier();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

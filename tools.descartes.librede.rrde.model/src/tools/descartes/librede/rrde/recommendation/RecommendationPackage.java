@@ -651,6 +651,108 @@ public interface RecommendationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl <em>Neural Network Algorithm Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getNeuralNetworkAlgorithmSpecifier()
+	 * @generated
+	 */
+	int NEURAL_NETWORK_ALGORITHM_SPECIFIER = 7;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEURAL_NETWORK_ALGORITHM_SPECIFIER__ALGORITHM_NAME = RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Number Of Neurons</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEURAL_NETWORK_ALGORITHM_SPECIFIER__NUMBER_OF_NEURONS = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Neural Network Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEURAL_NETWORK_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Neural Network Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEURAL_NETWORK_ALGORITHM_SPECIFIER_OPERATION_COUNT = RECOMMENDATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.SVMAlgorithmSpecifierImpl <em>SVM Algorithm Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.SVMAlgorithmSpecifierImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getSVMAlgorithmSpecifier()
+	 * @generated
+	 */
+	int SVM_ALGORITHM_SPECIFIER = 8;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVM_ALGORITHM_SPECIFIER__ALGORITHM_NAME = RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Gaussian Sigma</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVM_ALGORITHM_SPECIFIER__GAUSSIAN_SIGMA = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Soft Margin Penalty</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVM_ALGORITHM_SPECIFIER__SOFT_MARGIN_PENALTY = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>SVM Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVM_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>SVM Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVM_ALGORITHM_SPECIFIER_OPERATION_COUNT = RECOMMENDATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration <em>Training Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1194,6 +1296,59 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getDecisionTreeAlgorithmSpecifier_MaximumNumberOfNodes();
 
 	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier <em>Neural Network Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Neural Network Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier
+	 * @generated
+	 */
+	EClass getNeuralNetworkAlgorithmSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier#getNumberOfNeurons <em>Number Of Neurons</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Number Of Neurons</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier#getNumberOfNeurons()
+	 * @see #getNeuralNetworkAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getNeuralNetworkAlgorithmSpecifier_NumberOfNeurons();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier <em>SVM Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>SVM Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier
+	 * @generated
+	 */
+	EClass getSVMAlgorithmSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier#getGaussianSigma <em>Gaussian Sigma</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Gaussian Sigma</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier#getGaussianSigma()
+	 * @see #getSVMAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getSVMAlgorithmSpecifier_GaussianSigma();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier#getSoftMarginPenalty <em>Soft Margin Penalty</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Soft Margin Penalty</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier#getSoftMarginPenalty()
+	 * @see #getSVMAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getSVMAlgorithmSpecifier_SoftMarginPenalty();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1629,6 +1784,50 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DECISION_TREE_ALGORITHM_SPECIFIER__MAXIMUM_NUMBER_OF_NODES = eINSTANCE.getDecisionTreeAlgorithmSpecifier_MaximumNumberOfNodes();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl <em>Neural Network Algorithm Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getNeuralNetworkAlgorithmSpecifier()
+		 * @generated
+		 */
+		EClass NEURAL_NETWORK_ALGORITHM_SPECIFIER = eINSTANCE.getNeuralNetworkAlgorithmSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Number Of Neurons</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NEURAL_NETWORK_ALGORITHM_SPECIFIER__NUMBER_OF_NEURONS = eINSTANCE.getNeuralNetworkAlgorithmSpecifier_NumberOfNeurons();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.SVMAlgorithmSpecifierImpl <em>SVM Algorithm Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.SVMAlgorithmSpecifierImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getSVMAlgorithmSpecifier()
+		 * @generated
+		 */
+		EClass SVM_ALGORITHM_SPECIFIER = eINSTANCE.getSVMAlgorithmSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Gaussian Sigma</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SVM_ALGORITHM_SPECIFIER__GAUSSIAN_SIGMA = eINSTANCE.getSVMAlgorithmSpecifier_GaussianSigma();
+
+		/**
+		 * The meta object literal for the '<em><b>Soft Margin Penalty</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SVM_ALGORITHM_SPECIFIER__SOFT_MARGIN_PENALTY = eINSTANCE.getSVMAlgorithmSpecifier_SoftMarginPenalty();
 
 	}
 

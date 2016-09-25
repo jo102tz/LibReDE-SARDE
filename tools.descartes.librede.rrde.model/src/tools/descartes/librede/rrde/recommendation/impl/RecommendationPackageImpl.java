@@ -28,10 +28,12 @@ import tools.descartes.librede.rrde.recommendation.DataSet;
 import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationFactory;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
 
 import tools.descartes.librede.units.UnitsPackage;
@@ -91,6 +93,20 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * @generated
 	 */
 	private EClass decisionTreeAlgorithmSpecifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass neuralNetworkAlgorithmSpecifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass svmAlgorithmSpecifierEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -622,6 +638,51 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getNeuralNetworkAlgorithmSpecifier() {
+		return neuralNetworkAlgorithmSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getNeuralNetworkAlgorithmSpecifier_NumberOfNeurons() {
+		return (EAttribute)neuralNetworkAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSVMAlgorithmSpecifier() {
+		return svmAlgorithmSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSVMAlgorithmSpecifier_GaussianSigma() {
+		return (EAttribute)svmAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSVMAlgorithmSpecifier_SoftMarginPenalty() {
+		return (EAttribute)svmAlgorithmSpecifierEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public RecommendationFactory getRecommendationFactory() {
 		return (RecommendationFactory)getEFactoryInstance();
 	}
@@ -701,6 +762,13 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 
 		decisionTreeAlgorithmSpecifierEClass = createEClass(DECISION_TREE_ALGORITHM_SPECIFIER);
 		createEAttribute(decisionTreeAlgorithmSpecifierEClass, DECISION_TREE_ALGORITHM_SPECIFIER__MAXIMUM_NUMBER_OF_NODES);
+
+		neuralNetworkAlgorithmSpecifierEClass = createEClass(NEURAL_NETWORK_ALGORITHM_SPECIFIER);
+		createEAttribute(neuralNetworkAlgorithmSpecifierEClass, NEURAL_NETWORK_ALGORITHM_SPECIFIER__NUMBER_OF_NEURONS);
+
+		svmAlgorithmSpecifierEClass = createEClass(SVM_ALGORITHM_SPECIFIER);
+		createEAttribute(svmAlgorithmSpecifierEClass, SVM_ALGORITHM_SPECIFIER__GAUSSIAN_SIGMA);
+		createEAttribute(svmAlgorithmSpecifierEClass, SVM_ALGORITHM_SPECIFIER__SOFT_MARGIN_PENALTY);
 	}
 
 	/**
@@ -738,6 +806,8 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 
 		// Add supertypes to classes
 		decisionTreeAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationAlgorithmSpecifier());
+		neuralNetworkAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationAlgorithmSpecifier());
+		svmAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationAlgorithmSpecifier());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(recommendationTrainingConfigurationEClass, RecommendationTrainingConfiguration.class, "RecommendationTrainingConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -807,6 +877,13 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 
 		initEClass(decisionTreeAlgorithmSpecifierEClass, DecisionTreeAlgorithmSpecifier.class, "DecisionTreeAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDecisionTreeAlgorithmSpecifier_MaximumNumberOfNodes(), theXMLTypePackage.getInt(), "maximumNumberOfNodes", "100", 1, 1, DecisionTreeAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(neuralNetworkAlgorithmSpecifierEClass, NeuralNetworkAlgorithmSpecifier.class, "NeuralNetworkAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getNeuralNetworkAlgorithmSpecifier_NumberOfNeurons(), theXMLTypePackage.getInt(), "numberOfNeurons", "100", 1, 1, NeuralNetworkAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(svmAlgorithmSpecifierEClass, SVMAlgorithmSpecifier.class, "SVMAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSVMAlgorithmSpecifier_GaussianSigma(), theXMLTypePackage.getDouble(), "gaussianSigma", "8.0", 1, 1, SVMAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSVMAlgorithmSpecifier_SoftMarginPenalty(), theXMLTypePackage.getDouble(), "softMarginPenalty", "5.0", 1, 1, SVMAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

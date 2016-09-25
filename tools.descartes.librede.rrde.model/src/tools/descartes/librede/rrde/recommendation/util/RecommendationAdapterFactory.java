@@ -96,6 +96,14 @@ public class RecommendationAdapterFactory extends AdapterFactoryImpl {
 				return createDecisionTreeAlgorithmSpecifierAdapter();
 			}
 			@Override
+			public Adapter caseNeuralNetworkAlgorithmSpecifier(NeuralNetworkAlgorithmSpecifier object) {
+				return createNeuralNetworkAlgorithmSpecifierAdapter();
+			}
+			@Override
+			public Adapter caseSVMAlgorithmSpecifier(SVMAlgorithmSpecifier object) {
+				return createSVMAlgorithmSpecifierAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -210,6 +218,34 @@ public class RecommendationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDecisionTreeAlgorithmSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier <em>Neural Network Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier
+	 * @generated
+	 */
+	public Adapter createNeuralNetworkAlgorithmSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier <em>SVM Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier
+	 * @generated
+	 */
+	public Adapter createSVMAlgorithmSpecifierAdapter() {
 		return null;
 	}
 

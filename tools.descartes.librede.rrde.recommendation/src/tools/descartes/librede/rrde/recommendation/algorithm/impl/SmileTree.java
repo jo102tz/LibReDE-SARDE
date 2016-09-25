@@ -56,7 +56,7 @@ public class SmileTree extends AbstractSmileAlgorithm {
 					((DecisionTreeAlgorithmSpecifier) getSpecifier())
 							.getMaximumNumberOfNodes()));
 		} catch (Exception e) {
-			log.error("The training did not finish successfully.", e);
+			log.error("The training of the Decision Tree did not finish successfully.", e);
 			return false;
 		}
 		return true;

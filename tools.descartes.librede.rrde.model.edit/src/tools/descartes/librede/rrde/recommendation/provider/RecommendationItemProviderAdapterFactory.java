@@ -233,6 +233,52 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NeuralNetworkAlgorithmSpecifierItemProvider neuralNetworkAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNeuralNetworkAlgorithmSpecifierAdapter() {
+		if (neuralNetworkAlgorithmSpecifierItemProvider == null) {
+			neuralNetworkAlgorithmSpecifierItemProvider = new NeuralNetworkAlgorithmSpecifierItemProvider(this);
+		}
+
+		return neuralNetworkAlgorithmSpecifierItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SVMAlgorithmSpecifierItemProvider svmAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSVMAlgorithmSpecifierAdapter() {
+		if (svmAlgorithmSpecifierItemProvider == null) {
+			svmAlgorithmSpecifierItemProvider = new SVMAlgorithmSpecifierItemProvider(this);
+		}
+
+		return svmAlgorithmSpecifierItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -338,6 +384,8 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 		if (featureVectorItemProvider != null) featureVectorItemProvider.dispose();
 		if (statisticalFeaturesItemProvider != null) statisticalFeaturesItemProvider.dispose();
 		if (decisionTreeAlgorithmSpecifierItemProvider != null) decisionTreeAlgorithmSpecifierItemProvider.dispose();
+		if (neuralNetworkAlgorithmSpecifierItemProvider != null) neuralNetworkAlgorithmSpecifierItemProvider.dispose();
+		if (svmAlgorithmSpecifierItemProvider != null) svmAlgorithmSpecifierItemProvider.dispose();
 	}
 
 }

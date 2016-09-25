@@ -118,4 +118,14 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximumNumberOfNodes" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="100"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NeuralNetworkAlgorithmSpecifier" eSuperTypes="#//RecommendationAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfNeurons" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="100"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SVMAlgorithmSpecifier" eSuperTypes="#//RecommendationAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="gaussianSigma" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="8.0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="softMarginPenalty" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="5.0"/>
+  </eClassifiers>
 </ecore:EPackage>

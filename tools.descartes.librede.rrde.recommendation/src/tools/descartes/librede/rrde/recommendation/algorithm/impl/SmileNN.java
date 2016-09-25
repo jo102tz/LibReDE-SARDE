@@ -28,26 +28,24 @@ package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 
 import org.apache.log4j.Logger;
 
-import smile.classification.SVM;
-import smile.math.kernel.GaussianKernel;
+import smile.classification.NeuralNetwork;
 import tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
-import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 
 /**
- * This is an implementation of {@link IRecomendationAlgorithm} using the SVM
- * algorithm from the Smile library.
+ * This is an implementation of {@link IRecomendationAlgorithm} using the Neural
+ * Network algorithm from the Smile library.
  * 
  * @author JS
  *
  */
-public class SmileSVM extends AbstractSmileAlgorithm {
+public class SmileNN extends AbstractSmileAlgorithm {
 
 	/**
 	 * The logger used for logging.
 	 */
-	private static final Logger log = Logger.getLogger(SmileSVM.class);
+	private static final Logger log = Logger.getLogger(SmileNN.class);
 
 	/*
 	 * (non-Javadoc)
@@ -69,20 +67,19 @@ public class SmileSVM extends AbstractSmileAlgorithm {
 	@Override
 	protected boolean train(double[][] features, int[] targets) {
 		try {
-			SVM<double[]> svm = new SVM<double[]>(
-					new GaussianKernel(
-							((SVMAlgorithmSpecifier) getSpecifier())
-									.getGaussianSigma()),
-					((SVMAlgorithmSpecifier) getSpecifier())
-							.getSoftMarginPenalty());
-			svm.learn(features, targets);
-			svm.finish();
-			setClassifier(svm);
+			NeuralNetwork nn = new NeuralNetwork(
+					NeuralNetwork.ErrorFunction.LEAST_MEAN_SQUARES,
+					((NeuralNetworkAlgorithmSpecifier) getSpecifier())
+							.getNumberOfNeurons());
+
+			setClassifier(nn);
+			return true;
 		} catch (Exception e) {
-			log.error("The training of the SVM did not finish successfully.", e);
+			log.error(
+					"The training of the neural network did not finish successfully.",
+					e);
 			return false;
 		}
-		return true;
 	}
 
 	/*
@@ -96,9 +93,8 @@ public class SmileSVM extends AbstractSmileAlgorithm {
 	@Override
 	public boolean isSpecifierSupported(
 			RecommendationAlgorithmSpecifier specifier) {
-		if (specifier instanceof SVMAlgorithmSpecifier) {
+		if (specifier instanceof NeuralNetworkAlgorithmSpecifier)
 			return true;
-		}
 		return false;
 	}
 }

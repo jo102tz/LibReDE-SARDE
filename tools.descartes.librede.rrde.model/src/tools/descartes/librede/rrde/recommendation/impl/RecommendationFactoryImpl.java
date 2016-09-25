@@ -63,6 +63,8 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 			case RecommendationPackage.FEATURE_VECTOR: return createFeatureVector();
 			case RecommendationPackage.STATISTICAL_FEATURES: return createStatisticalFeatures();
 			case RecommendationPackage.DECISION_TREE_ALGORITHM_SPECIFIER: return createDecisionTreeAlgorithmSpecifier();
+			case RecommendationPackage.NEURAL_NETWORK_ALGORITHM_SPECIFIER: return createNeuralNetworkAlgorithmSpecifier();
+			case RecommendationPackage.SVM_ALGORITHM_SPECIFIER: return createSVMAlgorithmSpecifier();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -136,6 +138,26 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 	public DecisionTreeAlgorithmSpecifier createDecisionTreeAlgorithmSpecifier() {
 		DecisionTreeAlgorithmSpecifierImpl decisionTreeAlgorithmSpecifier = new DecisionTreeAlgorithmSpecifierImpl();
 		return decisionTreeAlgorithmSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NeuralNetworkAlgorithmSpecifier createNeuralNetworkAlgorithmSpecifier() {
+		NeuralNetworkAlgorithmSpecifierImpl neuralNetworkAlgorithmSpecifier = new NeuralNetworkAlgorithmSpecifierImpl();
+		return neuralNetworkAlgorithmSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SVMAlgorithmSpecifier createSVMAlgorithmSpecifier() {
+		SVMAlgorithmSpecifierImpl svmAlgorithmSpecifier = new SVMAlgorithmSpecifierImpl();
+		return svmAlgorithmSpecifier;
 	}
 
 	/**

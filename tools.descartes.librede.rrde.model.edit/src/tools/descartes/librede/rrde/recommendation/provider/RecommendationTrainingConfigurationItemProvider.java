@@ -189,6 +189,16 @@ public class RecommendationTrainingConfigurationItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createNeuralNetworkAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createSVMAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS,
 				 ConfigurationFactory.eINSTANCE.createEstimationSpecification()));
 	}
