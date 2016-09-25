@@ -256,10 +256,10 @@ public class TestSetValidator {
 				+ ((statbeforeerror.getMean() - stataftererror.getMean()) * 100)
 				/ statbeforeerror.getMean() + " %.");
 		log.info("Due to invalid results " + beforeignored + " of total "
-				+ statbeforeerror.getN()
+				+ testset.size()
 				+ " approaches were ignored before testing started.");
 		log.info("After computation " + afterignored + " of total "
-				+ statbeforeerror.getN()
+				+ testset.size()
 				+ " approaches were ignored. That is an improvement of "
 				+ (beforeignored - afterignored) + ".");
 		if (optimization > 0 && recommendation > 0) {
