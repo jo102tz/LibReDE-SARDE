@@ -117,6 +117,14 @@ public abstract class AbstractSmileAlgorithm extends
 			getLog().error("The classifier is null.");
 			return null;
 		}
+		if (features.getNumberOfRessources() > getSupportedResources()) {
+			getLog().warn(
+					"The number of resources is higher than supported by the training set.");
+		}
+		if (features.getNumberOfWorkloadClasses() > getSupportedWorkloadClasses()) {
+			getLog().warn(
+					"The number of workload classes is higher than supported by the training set.");
+		}
 		double prediction = classifier.predict(parseToDoubles(features));
 		return getSpecification(prediction);
 	}

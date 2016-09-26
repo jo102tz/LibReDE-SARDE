@@ -38,7 +38,6 @@ import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.eval.TestSetValidator;
 import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
-import tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
