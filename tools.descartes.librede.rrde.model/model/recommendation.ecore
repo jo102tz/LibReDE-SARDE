@@ -18,7 +18,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RecommendationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithmName" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureExtractorSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="featureExtractor" lowerBound="1"
