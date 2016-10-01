@@ -27,12 +27,20 @@
 package tools.descartes.librede.rrde.test;
 
 import java.io.File;
+import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 
+import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.Plugin;
+import tools.descartes.librede.rrde.eval.TestSetValidator;
+import tools.descartes.librede.rrde.optimization.Discovery;
+import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.optimization.RunCall;
+import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 
 /**
@@ -69,11 +77,30 @@ public class AbstractTest {
 	 */
 	public static final String validationfolder = TESTPATH + File.separator
 			+ "validation";
-	
+
+	/**
+	 * The path for training
+	 */
+	public static final String trainingfolder = TESTPATH + File.separator
+			+ "training";
+
 	/**
 	 * The output path, where all output files are stored.
 	 */
 	public final static String OUTPUT = TESTPATH + File.separator + "output";
+
+	/**
+	 * The testset used for validation.
+	 */
+	static Set<LibredeConfiguration> configs;
+
+	static LibredeConfiguration librede;
+
+	static OptimizationConfiguration optimization;
+
+	static RecommendationTrainingConfiguration recommendation;
+
+	static TestSetValidator vali;
 
 	static Plugin main;
 
@@ -81,6 +108,42 @@ public class AbstractTest {
 	public static void init() {
 		main = new Plugin();
 		main.init();
+		// load config files
+		librede = Librede.loadConfiguration(new File(LIB_PATH).toPath());
+		optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH)
+				.toPath());
+		recommendation = Util
+				.loadRecommendationConfiguration(new File(REC_PATH).toPath());
+
+		// discover validation configurations
+		for (InputData data : recommendation.getTrainingData()) {
+			data.setRootFolder(validationfolder);
+		}
+
+		configs = Discovery.createConfigurations(
+				recommendation.getTrainingData(), librede.getEstimation(),
+				librede.getValidation());
+		Assert.assertEquals(new File(validationfolder).list().length,
+				configs.size());
+
+		// adapt configurations to be similar
+		for (InputData data : recommendation.getTrainingData()) {
+			data.setRootFolder(trainingfolder);
+		}
+		recommendation.setValidator(librede.getValidation());
+
+		// adapt configurations to be similar
+		for (RunCall call : optimization.getContainsOf()) {
+			for (InputData data : call.getTrainingData()) {
+				data.setRootFolder(trainingfolder);
+			}
+			call.getSettings().setValidator(librede.getValidation());
+		}
+
+		vali = new TestSetValidator(configs);
+		Assert.assertNotEquals(vali.getTestset().size(), 0);
+		vali.calculateInitialErrors();
+
 	}
 
 }

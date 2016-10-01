@@ -115,34 +115,26 @@ public class TestSetValidator {
 	}
 
 	/**
+	 * Creates a new {@link TestSetValidator} instance and sets the testset
+	 * accordingly.
+	 * 
+	 * @param testset
+	 *            A {@link Set} of {@link LibredeConfiguration} to use for
+	 *            validation.
+	 */
+	public TestSetValidator(Set<LibredeConfiguration> testset) {
+		this.testset = testset;
+	}
+
+	/**
 	 * Creates a mapping of {@link LibredeConfiguration}s to their initial
 	 * corresponding {@link TestResult}s for later comparison.
-	 * 
-	 * @param testfolder
-	 *            The root folder, where to find and locate the
-	 *            {@link LibredeConfiguration}s
-	 * @param conf
-	 *            The base configuration
+	 *
 	 * @return The mapping of created {@link LibredeConfiguration}s to their
 	 *         {@link TestResult}s
 	 */
-	public Map<LibredeConfiguration, TestResult> calculateInitialErrors(
-			String testfolder, LibredeConfiguration conf) {
+	public Map<LibredeConfiguration, TestResult> calculateInitialErrors() {
 		before = new HashMap<LibredeConfiguration, TestResult>();
-		InputData input = new InputDataImpl();
-		input.setRootFolder(testfolder);
-		input.setWorkloadDescription(EcoreUtil.copy(conf
-				.getWorkloadDescription()));
-		input.setInput(EcoreUtil.copy(conf.getInput()));
-		// for (DataSourceConfiguration ds : input.getInput().getDataSources())
-		// {
-		// FileTraceConfiguration ft = (FileTraceConfiguration) ds;
-		// (ft).setFile(new File(ft.getFile()).getName());
-		// }
-		EList<InputData> list = new BasicEList<InputData>();
-		list.add(input);
-		testset = Discovery.createConfigurations(list, conf.getEstimation(),
-				conf.getValidation());
 		if (testset.isEmpty()) {
 			log.warn("Testset is empty. No tests can be done.");
 		} else {

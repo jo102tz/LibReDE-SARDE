@@ -27,6 +27,7 @@
 package tools.descartes.librede.rrde.test;
 
 import java.io.File;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -36,6 +37,8 @@ import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.eval.TestSetValidator;
+import tools.descartes.librede.rrde.optimization.Discovery;
+import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
@@ -60,20 +63,7 @@ public class TestRecommendation extends AbstractTest {
 
 	@Test
 	public void test() {
-		log.info("Initialize test sets...");
-		// load config files
-		LibredeConfiguration librede = Librede.loadConfiguration(new File(
-				LIB_PATH).toPath());
 
-		RecommendationTrainingConfiguration recommendation = Util
-				.loadRecommendationConfiguration(new File(REC_PATH).toPath());
-
-		recommendation.getTrainingData().get(0)
-				.setRootFolder(TESTPATH + File.separator + "training");
-
-		TestSetValidator vali = new TestSetValidator();
-		vali.calculateInitialErrors(validationfolder, librede);
-		Assert.assertNotEquals(vali.getTestset().size(), 0);
 
 		log.info("Initialized! Starting training phase with Decision Tree...");
 		DecisionTreeAlgorithmSpecifier tree = new DecisionTreeAlgorithmSpecifierImpl();

@@ -53,18 +53,6 @@ public class TestOptimization extends AbstractTest {
 
 	@Test
 	public void test() {
-		log.info("Initialize test sets...");
-		// load config files
-		LibredeConfiguration librede = Librede.loadConfiguration(new File(
-				LIB_PATH).toPath());
-		OptimizationConfiguration optimization = Util
-				.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
-		optimization.getContainsOf().get(0).getTrainingData().get(0)
-				.setRootFolder(TESTPATH + File.separator + "training");
-
-		TestSetValidator vali = new TestSetValidator();
-		vali.calculateInitialErrors(validationfolder, librede);
-		Assert.assertNotEquals(vali.getTestset().size(), 0);
 
 		log.info("Initialized! Starting optimization...");
 		long start = System.currentTimeMillis();
