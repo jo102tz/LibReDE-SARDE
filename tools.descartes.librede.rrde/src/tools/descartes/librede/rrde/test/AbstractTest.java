@@ -29,6 +29,7 @@ package tools.descartes.librede.rrde.test;
 import java.io.File;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 
@@ -131,14 +132,14 @@ public class AbstractTest {
 		for (InputData data : recommendation.getTrainingData()) {
 			data.setRootFolder(trainingfolder);
 		}
-		recommendation.setValidator(librede.getValidation());
+		recommendation.setValidator(EcoreUtil.copy(librede.getValidation()));
 
 		// adapt configurations to be similar
 		for (RunCall call : optimization.getContainsOf()) {
 			for (InputData data : call.getTrainingData()) {
 				data.setRootFolder(trainingfolder);
 			}
-			call.getSettings().setValidator(librede.getValidation());
+			call.getSettings().setValidator(EcoreUtil.copy(librede.getValidation()));
 		}
 
 		vali = new TestSetValidator(configs);

@@ -64,7 +64,6 @@ public class TestRecommendation extends AbstractTest {
 	@Test
 	public void test() {
 
-
 		log.info("Initialized! Starting training phase with Decision Tree...");
 		DecisionTreeAlgorithmSpecifier tree = new DecisionTreeAlgorithmSpecifierImpl();
 		tree.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree");

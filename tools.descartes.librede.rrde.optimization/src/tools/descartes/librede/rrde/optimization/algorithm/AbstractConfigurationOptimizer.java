@@ -236,7 +236,7 @@ public abstract class AbstractConfigurationOptimizer implements
 					"The given specifier does not apply for this algorithm.");
 		}
 		if (estimation == null || input == null || specifier == null
-				|| settings == null) {
+				|| settings == null || settings.getValidator() == null) {
 			throw new NullPointerException(
 					"None of the given parameters can be null.");
 		}
