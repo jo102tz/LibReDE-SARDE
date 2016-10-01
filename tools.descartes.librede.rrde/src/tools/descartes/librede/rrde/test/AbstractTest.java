@@ -123,6 +123,7 @@ public class AbstractTest {
 		configs = Discovery.createConfigurations(
 				recommendation.getTrainingData(), librede.getEstimation(),
 				librede.getValidation());
+		// check if size is correct
 		Assert.assertEquals(new File(validationfolder).list().length,
 				configs.size());
 

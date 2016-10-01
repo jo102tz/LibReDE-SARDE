@@ -43,6 +43,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.swing.plaf.multi.MultiFileChooserUI;
+
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -73,7 +75,7 @@ import tools.descartes.librede.units.UnitsFactory;
 /**
  * This helper class enables the configuration of different
  * {@link LibredeConfiguration} files based on a root directory as defined in
- * {@link InputData}.
+ * {@link InputData}. FIXME this class needs a total restructuring and overhaul
  * 
  * @author JS
  *
@@ -196,9 +198,95 @@ public class Discovery {
 			}
 		}
 		confs.removeAll(remove);
+		deleteMultipleWorkloadConfs(confs);
 		if (confs.isEmpty()) {
 			log.error("There are no valid configurations as training data.");
 		}
+	}
+
+	/**
+	 * Checks the collection for identical configurations just varying in
+	 * workload descriptions and just keeps the one with the biggest
+	 * description. (Resources first, after that WCs
+	 * 
+	 * @param confs
+	 *            The set to check
+	 */
+	private static void deleteMultipleWorkloadConfs(
+			Set<LibredeConfiguration> confs) {
+		HashSet<LibredeConfiguration> remove = new HashSet<>();
+		// TODO could be problematic with multifolderstructures
+		// repeat until no conflicts are detected anymore
+		do {
+			confs.removeAll(remove);
+			remove.clear();
+			for (LibredeConfiguration original : confs) {
+				File parent = new File(((FileTraceConfiguration) original
+						.getInput().getObservations().get(0)).getFile())
+						.getParentFile();
+				for (LibredeConfiguration second : confs) {
+					if (!second.equals(original)) {
+						File next = new File(((FileTraceConfiguration) second
+								.getInput().getObservations().get(0)).getFile())
+								.getParentFile();
+						if (next.equals(parent)) {
+							int orgResources = original
+									.getWorkloadDescription().getResources()
+									.size();
+							int orgServices = original.getWorkloadDescription()
+									.getServices().size();
+							int secResources = second.getWorkloadDescription()
+									.getResources().size();
+							int secServices = second.getWorkloadDescription()
+									.getServices().size();
+							// the two configurations have the same parent
+							// check first for resources, then for WCs
+							if (orgResources == secResources) {
+								if (orgServices == secServices) {
+									// both have the same description -> delete
+									// one
+									log.info("Duplicate Configurations: "
+											+ original + " and " + second
+											+ ". Deleting " + second);
+									remove.add(second);
+								} else if (orgServices > secServices) {
+									// original has more WCs
+									log.debug("Duplicate Configurations: "
+											+ original + " and " + second
+											+ " with " + original
+											+ " having more WCs. Deleting "
+											+ second);
+									remove.add(second);
+								} else {
+									log.debug("Duplicate Configurations: "
+											+ original + " and " + second
+											+ " with " + second
+											+ " having more WCs. Deleting "
+											+ original);
+									remove.add(original);
+								}
+							} else if (orgResources > secResources) {
+								log.debug("Duplicate Configurations: "
+										+ original + " and " + second
+										+ " with " + original
+										+ " having more resources. Deleting "
+										+ second);
+								remove.add(second);
+
+							} else {
+								log.debug("Duplicate Configurations: "
+										+ original + " and " + second
+										+ " with " + second
+										+ " having more resources. Deleting "
+										+ original);
+								remove.add(original);
+							}
+							break;
+						}
+					}
+				}
+			}
+		} while (!remove.isEmpty());
 	}
 
 	/**
@@ -423,14 +511,14 @@ public class Discovery {
 			}
 		}
 
-		// if we reach here, no problems occured and we are done
+		// if we reach here, no problems occurred and we are done
 		set.add(copy);
 		log.info("Found valid configuration in " + root + " folder.");
 	}
 
 	/**
-	 * Fixes the time stamps of the given {@link LibredeConfiguration} to match the
-	 * first and last available measurement.
+	 * Fixes the time stamps of the given {@link LibredeConfiguration} to match
+	 * the first and last available measurement.
 	 * 
 	 * @param conf
 	 *            the {@link LibredeConfiguration} to fix
