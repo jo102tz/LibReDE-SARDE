@@ -262,6 +262,9 @@ public class Util {
 	public static double getMeanValidationError(LibredeResults result) {
 		// equally averaging over all validators and all approaches
 		SummaryStatistics values = new SummaryStatistics();
+		if(result==null){
+			return Double.MAX_VALUE;
+		}
 		Map<Class<? extends IEstimationApproach>, Matrix> errorMap = result
 				.getValidationErrors();
 		for (Class<? extends IEstimationApproach> approach : result

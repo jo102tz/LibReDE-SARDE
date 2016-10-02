@@ -1,1 +1,1 @@
-Just add R_HOME and PATH to the EnvironmentVariables in the RunConfiguration
+Just add R_HOME with the Path to the R installation on the system (e.g. C:\Program Files\R\R-3.3.1) and PATH with the path to the libraries (e.g. C:\Program Files\R\R-3.3.1\bin\x64;C:\Program Files\Java\jre1.8.0_77\bin\server;C:\Users\Johannes Grohmann\git\ma\tools.descartes.librede.rrde.rinterface\lib;C:\Users\Johannes Grohmann\git\ma\tools.descartes.librede.rrde.rinterface\R\win-library\3.3\rJava\jri\x64) to the EnvironmentVariables in the RunConfiguration
