@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <librede-optimization:OptimizationConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization">
   <containsOf>
-    <algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm"/>
+    <algorithm xsi:type="librede-optimization:DataExportSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.StepWindowExportAlgorithm" stepSize="1"/>
     <trainingData rootFolder="C:\Users\JS\Desktop\Train">
       <input>
         <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
@@ -144,19 +144,10 @@
       <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>
       <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
       <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
-      <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter">
-        <parameters name="ObserveNoiseCovariance" value="0.1"/>
-        <parameters name="BoundsFactor" value="0.8"/>
-        <parameters name="StateNoiseCovariance" value="2.0"/>
-        <parameters name="StateNoiseCoupling" value="2.0"/>
-        <parameters name="InitialBoundsDistance" value="1e-3"/>
-      </algorithms>
+      <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
       <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
       <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
         <parameters name="PrintLevel" value="0"/>
-        <parameters name="SolutionTolerance" value="1e-7"/>
-        <parameters name="UpperBoundsInfValue" value="1e19"/>
-        <parameters name="LowerBoundsInfValue" value="-1e19"/>
       </algorithms>
       <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
       <stepSize value="60.0">

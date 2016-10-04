@@ -48,7 +48,6 @@ import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
-import tools.descartes.librede.rrde.test.AbstractTest;
 
 /**
  * @author JS
@@ -132,10 +131,9 @@ public class Evaluate {
 
 	@Test
 	public void test() {
-		log.info("Starting initialization");
-
 		main = new Plugin();
 		main.init();
+		log.info("Starting initialization");
 		// load config files
 		librede = Librede.loadConfiguration(new File(LIB_PATH).toPath());
 		optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
@@ -174,25 +172,9 @@ public class Evaluate {
 		long opti = System.currentTimeMillis() - start;
 		log.info("Finished optimization! Starting training phase...");
 
-		// delete the read estimators and replace them with the optimized
-		// ones
-		recommendation.getEstimators().clear();
-		recommendation.getEstimators().addAll(estimations);
-
-		// train algorithm
-		start = System.currentTimeMillis();
-		IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
-				.loadAndTrainAlgorithm(recommendation);
-		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
-				.loadFeatureExtractor(recommendation.getFeatureAlgorithm());
-		long reco = System.currentTimeMillis() - start;
-		log.info("Finished training! Validating...");
-
-		// wrap into Executor
-		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
-		vali.compareOptimized(exec);
-		vali.printResults(null, opti, reco);
+		vali.compareOptimized(estimations, false);
+		vali.printResults(null, opti, 0);
 
 	}
 
