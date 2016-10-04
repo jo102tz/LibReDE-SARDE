@@ -15,6 +15,7 @@ package tools.descartes.librede.rrde.optimization;
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#getStepSize <em>Step Size</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isMultidimensional <em>Multidimensional</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isSplitConfigurations <em>Split Configurations</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isUseBestResult <em>Use Best Result</em>}</li>
  * </ul>
  * </p>
  *
@@ -130,5 +131,32 @@ public interface DataExportSpecifier extends ConfigurationOptimizationAlgorithmS
 	 * @generated
 	 */
 	void setSplitConfigurations(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Use Best Result</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Use Best Result</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Use Best Result</em>' attribute.
+	 * @see #setUseBestResult(boolean)
+	 * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getDataExportSpecifier_UseBestResult()
+	 * @model default="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+	 * @generated
+	 */
+	boolean isUseBestResult();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isUseBestResult <em>Use Best Result</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Use Best Result</em>' attribute.
+	 * @see #isUseBestResult()
+	 * @generated
+	 */
+	void setUseBestResult(boolean value);
 
 } // DataExportSpecifier

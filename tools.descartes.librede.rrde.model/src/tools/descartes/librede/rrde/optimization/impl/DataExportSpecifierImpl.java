@@ -19,6 +19,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#getStepSize <em>Step Size</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#isMultidimensional <em>Multidimensional</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#isSplitConfigurations <em>Split Configurations</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.optimization.impl.DataExportSpecifierImpl#isUseBestResult <em>Use Best Result</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,6 +105,26 @@ public class DataExportSpecifierImpl extends ConfigurationOptimizationAlgorithmS
 	 * @ordered
 	 */
 	protected boolean splitConfigurations = SPLIT_CONFIGURATIONS_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isUseBestResult() <em>Use Best Result</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUseBestResult()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean USE_BEST_RESULT_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isUseBestResult() <em>Use Best Result</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUseBestResult()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean useBestResult = USE_BEST_RESULT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -213,6 +234,27 @@ public class DataExportSpecifierImpl extends ConfigurationOptimizationAlgorithmS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isUseBestResult() {
+		return useBestResult;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUseBestResult(boolean newUseBestResult) {
+		boolean oldUseBestResult = useBestResult;
+		useBestResult = newUseBestResult;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OptimizationPackage.DATA_EXPORT_SPECIFIER__USE_BEST_RESULT, oldUseBestResult, useBestResult));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -224,6 +266,8 @@ public class DataExportSpecifierImpl extends ConfigurationOptimizationAlgorithmS
 				return isMultidimensional();
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				return isSplitConfigurations();
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__USE_BEST_RESULT:
+				return isUseBestResult();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -247,6 +291,9 @@ public class DataExportSpecifierImpl extends ConfigurationOptimizationAlgorithmS
 				return;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				setSplitConfigurations((Boolean)newValue);
+				return;
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__USE_BEST_RESULT:
+				setUseBestResult((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -272,6 +319,9 @@ public class DataExportSpecifierImpl extends ConfigurationOptimizationAlgorithmS
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				setSplitConfigurations(SPLIT_CONFIGURATIONS_EDEFAULT);
 				return;
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__USE_BEST_RESULT:
+				setUseBestResult(USE_BEST_RESULT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -292,6 +342,8 @@ public class DataExportSpecifierImpl extends ConfigurationOptimizationAlgorithmS
 				return multidimensional != MULTIDIMENSIONAL_EDEFAULT;
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
 				return splitConfigurations != SPLIT_CONFIGURATIONS_EDEFAULT;
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__USE_BEST_RESULT:
+				return useBestResult != USE_BEST_RESULT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -306,7 +358,7 @@ public class DataExportSpecifierImpl extends ConfigurationOptimizationAlgorithmS
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (OutputDirectory: ");
+		result.append(" (outputDirectory: ");
 		result.append(outputDirectory);
 		result.append(", stepSize: ");
 		result.append(stepSize);
@@ -314,6 +366,8 @@ public class DataExportSpecifierImpl extends ConfigurationOptimizationAlgorithmS
 		result.append(multidimensional);
 		result.append(", splitConfigurations: ");
 		result.append(splitConfigurations);
+		result.append(", useBestResult: ");
+		result.append(useBestResult);
 		result.append(')');
 		return result.toString();
 	}

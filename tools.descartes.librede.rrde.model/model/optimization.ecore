@@ -101,5 +101,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="splitConfigurations" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="useBestResult" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
   </eClassifiers>
 </ecore:EPackage>
