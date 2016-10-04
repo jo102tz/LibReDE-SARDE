@@ -47,6 +47,7 @@ public class DataExportSpecifierItemProvider
 			addStepSizePropertyDescriptor(object);
 			addMultidimensionalPropertyDescriptor(object);
 			addSplitConfigurationsPropertyDescriptor(object);
+			addUseBestResultPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -62,8 +63,8 @@ public class DataExportSpecifierItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_DataExportSpecifier_OutputDirectory_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_DataExportSpecifier_OutputDirectory_feature", "_UI_DataExportSpecifier_type"),
+				 getString("_UI_DataExportSpecifier_outputDirectory_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_DataExportSpecifier_outputDirectory_feature", "_UI_DataExportSpecifier_type"),
 				 OptimizationPackage.Literals.DATA_EXPORT_SPECIFIER__OUTPUT_DIRECTORY,
 				 true,
 				 false,
@@ -140,6 +141,28 @@ public class DataExportSpecifierItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Use Best Result feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUseBestResultPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_DataExportSpecifier_useBestResult_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_DataExportSpecifier_useBestResult_feature", "_UI_DataExportSpecifier_type"),
+				 OptimizationPackage.Literals.DATA_EXPORT_SPECIFIER__USE_BEST_RESULT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns DataExportSpecifier.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -181,6 +204,7 @@ public class DataExportSpecifierItemProvider
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__STEP_SIZE:
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL:
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS:
+			case OptimizationPackage.DATA_EXPORT_SPECIFIER__USE_BEST_RESULT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
