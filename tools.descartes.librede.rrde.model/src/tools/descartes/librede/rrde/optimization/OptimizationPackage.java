@@ -753,22 +753,13 @@ public interface OptimizationPackage extends EPackage {
 	int DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Use Best Result</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_EXPORT_SPECIFIER__USE_BEST_RESULT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 4;
-
-	/**
 	 * The number of structural features of the '<em>Data Export Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_EXPORT_SPECIFIER_FEATURE_COUNT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 5;
+	int DATA_EXPORT_SPECIFIER_FEATURE_COUNT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Data Export Specifier</em>' class.
@@ -1198,17 +1189,6 @@ public interface OptimizationPackage extends EPackage {
 	EAttribute getDataExportSpecifier_SplitConfigurations();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.DataExportSpecifier#isUseBestResult <em>Use Best Result</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Use Best Result</em>'.
-	 * @see tools.descartes.librede.rrde.optimization.DataExportSpecifier#isUseBestResult()
-	 * @see #getDataExportSpecifier()
-	 * @generated
-	 */
-	EAttribute getDataExportSpecifier_UseBestResult();
-
-	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1566,14 +1546,6 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS = eINSTANCE.getDataExportSpecifier_SplitConfigurations();
-
-		/**
-		 * The meta object literal for the '<em><b>Use Best Result</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DATA_EXPORT_SPECIFIER__USE_BEST_RESULT = eINSTANCE.getDataExportSpecifier_UseBestResult();
 
 	}
 

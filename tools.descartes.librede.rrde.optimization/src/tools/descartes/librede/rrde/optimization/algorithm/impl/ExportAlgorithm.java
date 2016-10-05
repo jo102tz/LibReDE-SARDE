@@ -94,20 +94,8 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	private static final String BREAKLINE = System
 			.getProperty("line.separator");
 
-	/**
-	 * The minimum error to store the best value.
-	 */
-	private double minimumError;
-
-	/**
-	 * A map to store the best value for each parameter.
-	 */
-	private Map<IOptimizableParameter, Double> values;
-
 	public ExportAlgorithm() {
 		super();
-		minimumError = Double.MAX_VALUE;
-		values = new HashMap<IOptimizableParameter, Double>();
 	}
 
 	/**
@@ -188,13 +176,9 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 								+ " of approach "
 								+ getSpecification().getApproaches().get(0)
 										.getType());
-				exportSingleParameter(param, settings.isUseBestResult());
+				exportSingleParameter(param);
 			}
 		} else {
-			if (settings.isUseBestResult()) {
-				getLog().warn(
-						"Using the best result is not supported for multidimensional exporting. Ignoring this setting...");
-			}
 			getLog().info(
 					"Exporting all parameters of "
 							+ getSpecification().getApproaches().get(0)
@@ -269,13 +253,8 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 * 
 	 * @param param
 	 *            the parameter to export
-	 * @param useBest
-	 *            Flag if the best estimate should be put at the end of the
-	 *            iteration
 	 */
-	protected void exportSingleParameter(IOptimizableParameter param,
-			boolean useBest) {
-		minimumError = Double.MAX_VALUE;
+	protected void exportSingleParameter(IOptimizableParameter param) {
 		String paramname = param.getClass().getSimpleName();
 		if (param instanceof GenericParameter) {
 			paramname = ((GenericParameter) param).getParameter().getName();
@@ -291,10 +270,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 				runIteration();
 				writeError(s, getLastError());
 				newLine(s);
-				if (getLastError() < minimumError) {
-					// found a new minimum error
-					values.put(param, i);
-				}
 			}
 		} else {
 			Set<LibredeConfiguration> original = new HashSet<LibredeConfiguration>(
@@ -320,30 +295,12 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 			}
 			getConfs().clear();
 			getConfs().addAll(original);
-			if (useBest) {
-				// one iteration to find the best average error
-				for (double i = param.getLowerBound(); i <= param
-						.getUpperBound(); i += settings().getStepSize()) {
-					setTargetValue(param, i);
-					adaptOtherValues(param, i);
-					runIteration();
-					if (getLastError() < minimumError) {
-						// found a new minimum error
-						values.put(param, i);
-					}
-				}
-			}
 
 		}
-		if (useBest) {
-			// use best values if required
-			setTargetValue(param, values.get(param));
-			adaptOtherValues(param, values.get(param));
-		} else {
-			// set to default again
-			setTargetValue(param, param.getStartValue());
-			adaptOtherValues(param, param.getStartValue());
-		}
+
+		// set to default again
+		setTargetValue(param, param.getStartValue());
+		adaptOtherValues(param, param.getStartValue());
 
 		try {
 			s.close();

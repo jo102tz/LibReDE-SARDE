@@ -562,15 +562,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDataExportSpecifier_UseBestResult() {
-		return (EAttribute)dataExportSpecifierEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public OptimizationFactory getOptimizationFactory() {
 		return (OptimizationFactory)getEFactoryInstance();
 	}
@@ -644,7 +635,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__STEP_SIZE);
 		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL);
 		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS);
-		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__USE_BEST_RESULT);
 	}
 
 	/**
@@ -737,7 +727,6 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEAttribute(getDataExportSpecifier_StepSize(), theXMLTypePackage.getDouble(), "stepSize", "1.0", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataExportSpecifier_Multidimensional(), theXMLTypePackage.getBoolean(), "multidimensional", "false", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataExportSpecifier_SplitConfigurations(), theXMLTypePackage.getBoolean(), "splitConfigurations", "true", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataExportSpecifier_UseBestResult(), theXMLTypePackage.getBoolean(), "useBestResult", "true", 0, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
