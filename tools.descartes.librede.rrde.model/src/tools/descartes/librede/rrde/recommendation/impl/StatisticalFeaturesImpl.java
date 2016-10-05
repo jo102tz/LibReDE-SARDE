@@ -31,6 +31,7 @@ import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getTenthpercentile <em>Tenthpercentile</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getNinetiethpercentile <em>Ninetiethpercentile</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getAutocorrelation <em>Autocorrelation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getIsNormalDistributed <em>Is Normal Distributed</em>}</li>
  * </ul>
  * </p>
  *
@@ -276,6 +277,26 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 	 * @ordered
 	 */
 	protected double autocorrelation = AUTOCORRELATION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getIsNormalDistributed() <em>Is Normal Distributed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIsNormalDistributed()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double IS_NORMAL_DISTRIBUTED_EDEFAULT = -1.0;
+
+	/**
+	 * The cached value of the '{@link #getIsNormalDistributed() <em>Is Normal Distributed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIsNormalDistributed()
+	 * @generated
+	 * @ordered
+	 */
+	protected double isNormalDistributed = IS_NORMAL_DISTRIBUTED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -553,6 +574,27 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public double getIsNormalDistributed() {
+		return isNormalDistributed;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIsNormalDistributed(double newIsNormalDistributed) {
+		double oldIsNormalDistributed = isNormalDistributed;
+		isNormalDistributed = newIsNormalDistributed;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.STATISTICAL_FEATURES__IS_NORMAL_DISTRIBUTED, oldIsNormalDistributed, isNormalDistributed));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -580,6 +622,8 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 				return getNinetiethpercentile();
 			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
 				return getAutocorrelation();
+			case RecommendationPackage.STATISTICAL_FEATURES__IS_NORMAL_DISTRIBUTED:
+				return getIsNormalDistributed();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -627,6 +671,9 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 				return;
 			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
 				setAutocorrelation((Double)newValue);
+				return;
+			case RecommendationPackage.STATISTICAL_FEATURES__IS_NORMAL_DISTRIBUTED:
+				setIsNormalDistributed((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -676,6 +723,9 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
 				setAutocorrelation(AUTOCORRELATION_EDEFAULT);
 				return;
+			case RecommendationPackage.STATISTICAL_FEATURES__IS_NORMAL_DISTRIBUTED:
+				setIsNormalDistributed(IS_NORMAL_DISTRIBUTED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -712,6 +762,8 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 				return ninetiethpercentile != NINETIETHPERCENTILE_EDEFAULT;
 			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
 				return autocorrelation != AUTOCORRELATION_EDEFAULT;
+			case RecommendationPackage.STATISTICAL_FEATURES__IS_NORMAL_DISTRIBUTED:
+				return isNormalDistributed != IS_NORMAL_DISTRIBUTED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -750,6 +802,8 @@ public class StatisticalFeaturesImpl extends MinimalEObjectImpl.Container implem
 		result.append(ninetiethpercentile);
 		result.append(", autocorrelation: ");
 		result.append(autocorrelation);
+		result.append(", isNormalDistributed: ");
+		result.append(isNormalDistributed);
 		result.append(')');
 		return result.toString();
 	}

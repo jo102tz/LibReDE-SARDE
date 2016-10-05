@@ -113,6 +113,8 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="autocorrelation" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isNormalDistributed" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="-1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DecisionTreeAlgorithmSpecifier" eSuperTypes="#//RecommendationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximumNumberOfNodes" lowerBound="1"

@@ -585,13 +585,22 @@ public interface RecommendationPackage extends EPackage {
 	int STATISTICAL_FEATURES__AUTOCORRELATION = 11;
 
 	/**
+	 * The feature id for the '<em><b>Is Normal Distributed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATISTICAL_FEATURES__IS_NORMAL_DISTRIBUTED = 12;
+
+	/**
 	 * The number of structural features of the '<em>Statistical Features</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATISTICAL_FEATURES_FEATURE_COUNT = 12;
+	int STATISTICAL_FEATURES_FEATURE_COUNT = 13;
 
 	/**
 	 * The number of operations of the '<em>Statistical Features</em>' class.
@@ -1275,6 +1284,17 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getStatisticalFeatures_Autocorrelation();
 
 	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getIsNormalDistributed <em>Is Normal Distributed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Normal Distributed</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getIsNormalDistributed()
+	 * @see #getStatisticalFeatures()
+	 * @generated
+	 */
+	EAttribute getStatisticalFeatures_IsNormalDistributed();
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier <em>Decision Tree Algorithm Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1766,6 +1786,14 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute STATISTICAL_FEATURES__AUTOCORRELATION = eINSTANCE.getStatisticalFeatures_Autocorrelation();
+
+		/**
+		 * The meta object literal for the '<em><b>Is Normal Distributed</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_FEATURES__IS_NORMAL_DISTRIBUTED = eINSTANCE.getStatisticalFeatures_IsNormalDistributed();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.DecisionTreeAlgorithmSpecifierImpl <em>Decision Tree Algorithm Specifier</em>}' class.

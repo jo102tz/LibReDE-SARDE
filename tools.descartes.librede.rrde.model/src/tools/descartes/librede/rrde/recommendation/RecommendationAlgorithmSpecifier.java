@@ -32,7 +32,7 @@ public interface RecommendationAlgorithmSpecifier extends EObject {
 	 * @return the value of the '<em>Algorithm Name</em>' attribute.
 	 * @see #setAlgorithmName(String)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getRecommendationAlgorithmSpecifier_AlgorithmName()
-	 * @model required="true"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
 	 * @generated
 	 */
 	String getAlgorithmName();

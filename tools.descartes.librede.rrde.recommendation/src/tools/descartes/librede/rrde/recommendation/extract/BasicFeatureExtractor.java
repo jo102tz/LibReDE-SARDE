@@ -28,9 +28,12 @@ package tools.descartes.librede.rrde.recommendation.extract;
 
 import java.util.Arrays;
 
+import org.apache.commons.math3.distribution.NormalDistribution;
+import org.apache.commons.math3.distribution.RealDistribution;
 import org.apache.commons.math3.stat.correlation.Covariance;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.commons.math3.stat.inference.TestUtils;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.apache.log4j.Logger;
 
@@ -368,6 +371,8 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		vector.setSkewness(stat.getSkewness());
 		vector.setTenthpercentile(stat.getPercentile(10));
 		vector.setNinetiethpercentile(stat.getPercentile(90));
+		vector.setIsNormalDistributed(TestUtils.kolmogorovSmirnovStatistic(
+				new NormalDistribution(), stat.getValues()));
 
 		// TODO effective autocorrelation
 		vector.setAutocorrelation(computeAutocorrelation(stat.getValues()));
@@ -397,7 +402,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 			sumofcorrelations += pear.correlation(values, copy);
 		}
 		// return average over all lags
-		return sumofcorrelations/values.length;
+		return sumofcorrelations / values.length;
 	}
 
 	/**
