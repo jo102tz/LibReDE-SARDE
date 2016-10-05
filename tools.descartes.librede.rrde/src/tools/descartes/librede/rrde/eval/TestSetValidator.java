@@ -286,6 +286,10 @@ public class TestSetValidator {
 	public Map<LibredeConfiguration, TestResult> compareOptimized(
 			Collection<EstimationSpecification> estimations, boolean minimum) {
 		after = new HashMap<LibredeConfiguration, TestResult>();
+		if(estimations.isEmpty()){
+			log.error("No estimators to compare.");
+			return after;
+		}
 		for (LibredeConfiguration libredeConfiguration : testset) {
 
 			LibredeResults finalres = null;

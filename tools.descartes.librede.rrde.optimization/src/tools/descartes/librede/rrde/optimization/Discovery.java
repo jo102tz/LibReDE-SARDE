@@ -221,6 +221,9 @@ public class Discovery {
 			confs.removeAll(remove);
 			remove.clear();
 			for (LibredeConfiguration original : confs) {
+				if(!remove.isEmpty()){
+					break;
+				}
 				File parent = new File(((FileTraceConfiguration) original
 						.getInput().getObservations().get(0)).getFile())
 						.getParentFile();

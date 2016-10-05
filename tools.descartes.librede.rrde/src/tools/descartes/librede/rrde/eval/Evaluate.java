@@ -40,6 +40,7 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.Plugin;
+import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.Discovery;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
@@ -59,11 +60,12 @@ public class Evaluate {
 	 * The logger used for logging
 	 */
 	private static final Logger log = Logger.getLogger(Evaluate.class);
-	
+
 	/**
 	 * A link to the desktop.
 	 */
-	public static final String DESKTOP = "C://Users//Johannes Grohmann//Desktop";
+	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes Grohmann"
+			+ File.separator + "Desktop";
 
 	/**
 	 * The path linking to the test folder.
@@ -87,7 +89,7 @@ public class Evaluate {
 	/**
 	 * The path for validation
 	 */
-	public static final String validationfolder = DESKTOP + File.separator + "validation";
+	public static final String validationfolder = DESKTOP + File.separator + "training";
 
 	/**
 	 * The path for training
@@ -97,7 +99,8 @@ public class Evaluate {
 	/**
 	 * The output path, where all output files are stored.
 	 */
-	public final static String OUTPUT = DESKTOP + File.separator + "output";
+	// NO IDEA WHY THIS ISNT WORKING WITH DESKTOP
+	public final static String OUTPUT = TESTPATH + File.separator + "output";
 
 	/**
 	 * The testset used for validation.
@@ -153,12 +156,16 @@ public class Evaluate {
 		}
 		recommendation.setValidator(EcoreUtil.copy(librede.getValidation()));
 
-		// adapt configurations to be similar
+		// adapt optimization
 		for (RunCall call : optimization.getContainsOf()) {
 			for (InputData data : call.getTrainingData()) {
 				data.setRootFolder(trainingfolder);
 			}
 			call.getSettings().setValidator(EcoreUtil.copy(librede.getValidation()));
+			if (call.getAlgorithm() instanceof DataExportSpecifier) {
+				((DataExportSpecifier) call.getAlgorithm()).setOutputDirectory(OUTPUT);
+			}
+
 		}
 
 		vali = new TestSetValidator(configs);
@@ -170,10 +177,10 @@ public class Evaluate {
 		Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
 				.runConfigurationOptimization(librede, optimization, OUTPUT);
 		long opti = System.currentTimeMillis() - start;
-		log.info("Finished optimization! Starting training phase...");
+		log.info("Finished optimization! Validating...");
 
 		// print results
-		vali.compareOptimized(estimations, false);
+		vali.compareOptimized(estimations, true);
 		vali.printResults(null, opti, 0);
 
 	}
