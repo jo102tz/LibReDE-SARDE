@@ -29,6 +29,8 @@ package tools.descartes.librede.rrde.optimization.algorithm.impl;
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
 
 /**
@@ -37,32 +39,68 @@ import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfiguration
  */
 public class BruteForceAlgorithm extends AbstractConfigurationOptimizer {
 
-	/* (non-Javadoc)
-	 * @see tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer#isSpecifierSupported(tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier)
+	/**
+	 * The log used for logging.
+	 */
+	private static final Logger log = Logger
+			.getLogger(BruteForceAlgorithm.class);
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer
+	 * #isSpecifierSupported(tools.descartes.librede.rrde.optimization.
+	 * ConfigurationOptimizationAlgorithmSpecifier)
 	 */
 	@Override
 	public boolean isSpecifierSupported(
 			ConfigurationOptimizationAlgorithmSpecifier specifier) {
-		// TODO Auto-generated method stub
+		if (specifier instanceof LocalSearchSpecifier) {
+			return true;
+		}
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer#getLog()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see tools.descartes.librede.rrde.optimization.algorithm.
+	 * AbstractConfigurationOptimizer#getLog()
 	 */
 	@Override
 	protected Logger getLog() {
-		// TODO Auto-generated method stub
-		return null;
+		return log;
 	}
 
-	/* (non-Javadoc)
-	 * @see tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer#executeAlgorithm()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see tools.descartes.librede.rrde.optimization.algorithm.
+	 * AbstractConfigurationOptimizer#executeAlgorithm()
 	 */
 	@Override
 	public void executeAlgorithm() {
-		// TODO Auto-generated method stub
-		
+		getLog().info("Starting brute forcing...");
+		for (IOptimizableParameter param : getSettings()
+				.getParametersToOptimize()) {
+			double minError = Double.MAX_VALUE;
+			double value = param.getStartValue();
+			getLog().info("Now brute forcing " + param.toString());
+			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += ((LocalSearchSpecifier) getSettings())
+					.getStepSize()) {
+				setTargetValue(param, i);
+				double err = runIteration();
+				if (err < minError) {
+					value = i;
+					minError = err;
+				}
+			}
+			// set optimal found value
+			setTargetValue(param, value);
+			getLog().info(
+					"Found optimal value for " + param.toString() + " at "
+							+ value + "!");
+		}
 	}
-
 }
