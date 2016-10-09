@@ -38,12 +38,12 @@ import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getUtilizationResponseCovariance <em>Utilization Response Covariance</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getUtilizationArrivalCorrelation <em>Utilization Arrival Correlation</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getUtilizationArrivalCovariance <em>Utilization Arrival Covariance</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getInterUtilizationCorrelation <em>Inter Utilization Correlation</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getInterUtilizationCovariance <em>Inter Utilization Covariance</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getInterResponseTimeCorrelation <em>Inter Response Time Correlation</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getInterResponseTimeCovariance <em>Inter Response Time Covariance</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getInterArrivalRateCorrelation <em>Inter Arrival Rate Correlation</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getInterArrivalRateCovariance <em>Inter Arrival Rate Covariance</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getIntraUtilizationCorrelation <em>Intra Utilization Correlation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getIntraUtilizationCovariance <em>Intra Utilization Covariance</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getIntraResponseTimeCorrelation <em>Intra Response Time Correlation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getIntraResponseTimeCovariance <em>Intra Response Time Covariance</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getIntraArrivalRateCorrelation <em>Intra Arrival Rate Correlation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getIntraArrivalRateCovariance <em>Intra Arrival Rate Covariance</em>}</li>
  * </ul>
  * </p>
  *
@@ -148,7 +148,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double RESPONSE_ARRIVAL_CORRELATION_EDEFAULT = 0.0;
+	protected static final double RESPONSE_ARRIVAL_CORRELATION_EDEFAULT = -1.0;
 
 	/**
 	 * The cached value of the '{@link #getResponseArrivalCorrelation() <em>Response Arrival Correlation</em>}' attribute.
@@ -168,7 +168,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double RESPONSE_ARRIVAL_COVARIANCE_EDEFAULT = 0.0;
+	protected static final double RESPONSE_ARRIVAL_COVARIANCE_EDEFAULT = -1.0;
 
 	/**
 	 * The cached value of the '{@link #getResponseArrivalCovariance() <em>Response Arrival Covariance</em>}' attribute.
@@ -188,7 +188,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double UTILIZATION_RESPONSE_CORRELATION_EDEFAULT = 0.0;
+	protected static final double UTILIZATION_RESPONSE_CORRELATION_EDEFAULT = -1.0;
 
 	/**
 	 * The cached value of the '{@link #getUtilizationResponseCorrelation() <em>Utilization Response Correlation</em>}' attribute.
@@ -208,7 +208,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double UTILIZATION_RESPONSE_COVARIANCE_EDEFAULT = 0.0;
+	protected static final double UTILIZATION_RESPONSE_COVARIANCE_EDEFAULT = -1.0;
 
 	/**
 	 * The cached value of the '{@link #getUtilizationResponseCovariance() <em>Utilization Response Covariance</em>}' attribute.
@@ -228,7 +228,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double UTILIZATION_ARRIVAL_CORRELATION_EDEFAULT = 0.0;
+	protected static final double UTILIZATION_ARRIVAL_CORRELATION_EDEFAULT = -1.0;
 
 	/**
 	 * The cached value of the '{@link #getUtilizationArrivalCorrelation() <em>Utilization Arrival Correlation</em>}' attribute.
@@ -248,7 +248,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double UTILIZATION_ARRIVAL_COVARIANCE_EDEFAULT = 0.0;
+	protected static final double UTILIZATION_ARRIVAL_COVARIANCE_EDEFAULT = -1.0;
 
 	/**
 	 * The cached value of the '{@link #getUtilizationArrivalCovariance() <em>Utilization Arrival Covariance</em>}' attribute.
@@ -261,124 +261,124 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	protected double utilizationArrivalCovariance = UTILIZATION_ARRIVAL_COVARIANCE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getInterUtilizationCorrelation() <em>Inter Utilization Correlation</em>}' attribute.
+	 * The default value of the '{@link #getIntraUtilizationCorrelation() <em>Intra Utilization Correlation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterUtilizationCorrelation()
+	 * @see #getIntraUtilizationCorrelation()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTER_UTILIZATION_CORRELATION_EDEFAULT = 0.0;
+	protected static final double INTRA_UTILIZATION_CORRELATION_EDEFAULT = -1.0;
 
 	/**
-	 * The cached value of the '{@link #getInterUtilizationCorrelation() <em>Inter Utilization Correlation</em>}' attribute.
+	 * The cached value of the '{@link #getIntraUtilizationCorrelation() <em>Intra Utilization Correlation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterUtilizationCorrelation()
+	 * @see #getIntraUtilizationCorrelation()
 	 * @generated
 	 * @ordered
 	 */
-	protected double interUtilizationCorrelation = INTER_UTILIZATION_CORRELATION_EDEFAULT;
+	protected double intraUtilizationCorrelation = INTRA_UTILIZATION_CORRELATION_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getInterUtilizationCovariance() <em>Inter Utilization Covariance</em>}' attribute.
+	 * The default value of the '{@link #getIntraUtilizationCovariance() <em>Intra Utilization Covariance</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterUtilizationCovariance()
+	 * @see #getIntraUtilizationCovariance()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTER_UTILIZATION_COVARIANCE_EDEFAULT = 0.0;
+	protected static final double INTRA_UTILIZATION_COVARIANCE_EDEFAULT = -1.0;
 
 	/**
-	 * The cached value of the '{@link #getInterUtilizationCovariance() <em>Inter Utilization Covariance</em>}' attribute.
+	 * The cached value of the '{@link #getIntraUtilizationCovariance() <em>Intra Utilization Covariance</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterUtilizationCovariance()
+	 * @see #getIntraUtilizationCovariance()
 	 * @generated
 	 * @ordered
 	 */
-	protected double interUtilizationCovariance = INTER_UTILIZATION_COVARIANCE_EDEFAULT;
+	protected double intraUtilizationCovariance = INTRA_UTILIZATION_COVARIANCE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getInterResponseTimeCorrelation() <em>Inter Response Time Correlation</em>}' attribute.
+	 * The default value of the '{@link #getIntraResponseTimeCorrelation() <em>Intra Response Time Correlation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterResponseTimeCorrelation()
+	 * @see #getIntraResponseTimeCorrelation()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTER_RESPONSE_TIME_CORRELATION_EDEFAULT = 0.0;
+	protected static final double INTRA_RESPONSE_TIME_CORRELATION_EDEFAULT = -1.0;
 
 	/**
-	 * The cached value of the '{@link #getInterResponseTimeCorrelation() <em>Inter Response Time Correlation</em>}' attribute.
+	 * The cached value of the '{@link #getIntraResponseTimeCorrelation() <em>Intra Response Time Correlation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterResponseTimeCorrelation()
+	 * @see #getIntraResponseTimeCorrelation()
 	 * @generated
 	 * @ordered
 	 */
-	protected double interResponseTimeCorrelation = INTER_RESPONSE_TIME_CORRELATION_EDEFAULT;
+	protected double intraResponseTimeCorrelation = INTRA_RESPONSE_TIME_CORRELATION_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getInterResponseTimeCovariance() <em>Inter Response Time Covariance</em>}' attribute.
+	 * The default value of the '{@link #getIntraResponseTimeCovariance() <em>Intra Response Time Covariance</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterResponseTimeCovariance()
+	 * @see #getIntraResponseTimeCovariance()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTER_RESPONSE_TIME_COVARIANCE_EDEFAULT = 0.0;
+	protected static final double INTRA_RESPONSE_TIME_COVARIANCE_EDEFAULT = -1.0;
 
 	/**
-	 * The cached value of the '{@link #getInterResponseTimeCovariance() <em>Inter Response Time Covariance</em>}' attribute.
+	 * The cached value of the '{@link #getIntraResponseTimeCovariance() <em>Intra Response Time Covariance</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterResponseTimeCovariance()
+	 * @see #getIntraResponseTimeCovariance()
 	 * @generated
 	 * @ordered
 	 */
-	protected double interResponseTimeCovariance = INTER_RESPONSE_TIME_COVARIANCE_EDEFAULT;
+	protected double intraResponseTimeCovariance = INTRA_RESPONSE_TIME_COVARIANCE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getInterArrivalRateCorrelation() <em>Inter Arrival Rate Correlation</em>}' attribute.
+	 * The default value of the '{@link #getIntraArrivalRateCorrelation() <em>Intra Arrival Rate Correlation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterArrivalRateCorrelation()
+	 * @see #getIntraArrivalRateCorrelation()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTER_ARRIVAL_RATE_CORRELATION_EDEFAULT = 0.0;
+	protected static final double INTRA_ARRIVAL_RATE_CORRELATION_EDEFAULT = -1.0;
 
 	/**
-	 * The cached value of the '{@link #getInterArrivalRateCorrelation() <em>Inter Arrival Rate Correlation</em>}' attribute.
+	 * The cached value of the '{@link #getIntraArrivalRateCorrelation() <em>Intra Arrival Rate Correlation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterArrivalRateCorrelation()
+	 * @see #getIntraArrivalRateCorrelation()
 	 * @generated
 	 * @ordered
 	 */
-	protected double interArrivalRateCorrelation = INTER_ARRIVAL_RATE_CORRELATION_EDEFAULT;
+	protected double intraArrivalRateCorrelation = INTRA_ARRIVAL_RATE_CORRELATION_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getInterArrivalRateCovariance() <em>Inter Arrival Rate Covariance</em>}' attribute.
+	 * The default value of the '{@link #getIntraArrivalRateCovariance() <em>Intra Arrival Rate Covariance</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterArrivalRateCovariance()
+	 * @see #getIntraArrivalRateCovariance()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTER_ARRIVAL_RATE_COVARIANCE_EDEFAULT = 0.0;
+	protected static final double INTRA_ARRIVAL_RATE_COVARIANCE_EDEFAULT = -1.0;
 
 	/**
-	 * The cached value of the '{@link #getInterArrivalRateCovariance() <em>Inter Arrival Rate Covariance</em>}' attribute.
+	 * The cached value of the '{@link #getIntraArrivalRateCovariance() <em>Intra Arrival Rate Covariance</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInterArrivalRateCovariance()
+	 * @see #getIntraArrivalRateCovariance()
 	 * @generated
 	 * @ordered
 	 */
-	protected double interArrivalRateCovariance = INTER_ARRIVAL_RATE_COVARIANCE_EDEFAULT;
+	protected double intraArrivalRateCovariance = INTRA_ARRIVAL_RATE_COVARIANCE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -629,8 +629,8 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getInterUtilizationCorrelation() {
-		return interUtilizationCorrelation;
+	public double getIntraUtilizationCorrelation() {
+		return intraUtilizationCorrelation;
 	}
 
 	/**
@@ -638,11 +638,11 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInterUtilizationCorrelation(double newInterUtilizationCorrelation) {
-		double oldInterUtilizationCorrelation = interUtilizationCorrelation;
-		interUtilizationCorrelation = newInterUtilizationCorrelation;
+	public void setIntraUtilizationCorrelation(double newIntraUtilizationCorrelation) {
+		double oldIntraUtilizationCorrelation = intraUtilizationCorrelation;
+		intraUtilizationCorrelation = newIntraUtilizationCorrelation;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION, oldInterUtilizationCorrelation, interUtilizationCorrelation));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_CORRELATION, oldIntraUtilizationCorrelation, intraUtilizationCorrelation));
 	}
 
 	/**
@@ -650,8 +650,8 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getInterUtilizationCovariance() {
-		return interUtilizationCovariance;
+	public double getIntraUtilizationCovariance() {
+		return intraUtilizationCovariance;
 	}
 
 	/**
@@ -659,11 +659,11 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInterUtilizationCovariance(double newInterUtilizationCovariance) {
-		double oldInterUtilizationCovariance = interUtilizationCovariance;
-		interUtilizationCovariance = newInterUtilizationCovariance;
+	public void setIntraUtilizationCovariance(double newIntraUtilizationCovariance) {
+		double oldIntraUtilizationCovariance = intraUtilizationCovariance;
+		intraUtilizationCovariance = newIntraUtilizationCovariance;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE, oldInterUtilizationCovariance, interUtilizationCovariance));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_COVARIANCE, oldIntraUtilizationCovariance, intraUtilizationCovariance));
 	}
 
 	/**
@@ -671,8 +671,8 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getInterResponseTimeCorrelation() {
-		return interResponseTimeCorrelation;
+	public double getIntraResponseTimeCorrelation() {
+		return intraResponseTimeCorrelation;
 	}
 
 	/**
@@ -680,11 +680,11 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInterResponseTimeCorrelation(double newInterResponseTimeCorrelation) {
-		double oldInterResponseTimeCorrelation = interResponseTimeCorrelation;
-		interResponseTimeCorrelation = newInterResponseTimeCorrelation;
+	public void setIntraResponseTimeCorrelation(double newIntraResponseTimeCorrelation) {
+		double oldIntraResponseTimeCorrelation = intraResponseTimeCorrelation;
+		intraResponseTimeCorrelation = newIntraResponseTimeCorrelation;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION, oldInterResponseTimeCorrelation, interResponseTimeCorrelation));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_CORRELATION, oldIntraResponseTimeCorrelation, intraResponseTimeCorrelation));
 	}
 
 	/**
@@ -692,8 +692,8 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getInterResponseTimeCovariance() {
-		return interResponseTimeCovariance;
+	public double getIntraResponseTimeCovariance() {
+		return intraResponseTimeCovariance;
 	}
 
 	/**
@@ -701,11 +701,11 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInterResponseTimeCovariance(double newInterResponseTimeCovariance) {
-		double oldInterResponseTimeCovariance = interResponseTimeCovariance;
-		interResponseTimeCovariance = newInterResponseTimeCovariance;
+	public void setIntraResponseTimeCovariance(double newIntraResponseTimeCovariance) {
+		double oldIntraResponseTimeCovariance = intraResponseTimeCovariance;
+		intraResponseTimeCovariance = newIntraResponseTimeCovariance;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE, oldInterResponseTimeCovariance, interResponseTimeCovariance));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_COVARIANCE, oldIntraResponseTimeCovariance, intraResponseTimeCovariance));
 	}
 
 	/**
@@ -713,8 +713,8 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getInterArrivalRateCorrelation() {
-		return interArrivalRateCorrelation;
+	public double getIntraArrivalRateCorrelation() {
+		return intraArrivalRateCorrelation;
 	}
 
 	/**
@@ -722,11 +722,11 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInterArrivalRateCorrelation(double newInterArrivalRateCorrelation) {
-		double oldInterArrivalRateCorrelation = interArrivalRateCorrelation;
-		interArrivalRateCorrelation = newInterArrivalRateCorrelation;
+	public void setIntraArrivalRateCorrelation(double newIntraArrivalRateCorrelation) {
+		double oldIntraArrivalRateCorrelation = intraArrivalRateCorrelation;
+		intraArrivalRateCorrelation = newIntraArrivalRateCorrelation;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION, oldInterArrivalRateCorrelation, interArrivalRateCorrelation));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_CORRELATION, oldIntraArrivalRateCorrelation, intraArrivalRateCorrelation));
 	}
 
 	/**
@@ -734,8 +734,8 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getInterArrivalRateCovariance() {
-		return interArrivalRateCovariance;
+	public double getIntraArrivalRateCovariance() {
+		return intraArrivalRateCovariance;
 	}
 
 	/**
@@ -743,11 +743,11 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInterArrivalRateCovariance(double newInterArrivalRateCovariance) {
-		double oldInterArrivalRateCovariance = interArrivalRateCovariance;
-		interArrivalRateCovariance = newInterArrivalRateCovariance;
+	public void setIntraArrivalRateCovariance(double newIntraArrivalRateCovariance) {
+		double oldIntraArrivalRateCovariance = intraArrivalRateCovariance;
+		intraArrivalRateCovariance = newIntraArrivalRateCovariance;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE, oldInterArrivalRateCovariance, interArrivalRateCovariance));
+			eNotify(new ENotificationImpl(this, Notification.SET, RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_COVARIANCE, oldIntraArrivalRateCovariance, intraArrivalRateCovariance));
 	}
 
 	/**
@@ -782,18 +782,18 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 				return getUtilizationArrivalCorrelation();
 			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_ARRIVAL_COVARIANCE:
 				return getUtilizationArrivalCovariance();
-			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION:
-				return getInterUtilizationCorrelation();
-			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE:
-				return getInterUtilizationCovariance();
-			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION:
-				return getInterResponseTimeCorrelation();
-			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE:
-				return getInterResponseTimeCovariance();
-			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION:
-				return getInterArrivalRateCorrelation();
-			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE:
-				return getInterArrivalRateCovariance();
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_CORRELATION:
+				return getIntraUtilizationCorrelation();
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_COVARIANCE:
+				return getIntraUtilizationCovariance();
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_CORRELATION:
+				return getIntraResponseTimeCorrelation();
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_COVARIANCE:
+				return getIntraResponseTimeCovariance();
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_CORRELATION:
+				return getIntraArrivalRateCorrelation();
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_COVARIANCE:
+				return getIntraArrivalRateCovariance();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -846,23 +846,23 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_ARRIVAL_COVARIANCE:
 				setUtilizationArrivalCovariance((Double)newValue);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION:
-				setInterUtilizationCorrelation((Double)newValue);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_CORRELATION:
+				setIntraUtilizationCorrelation((Double)newValue);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE:
-				setInterUtilizationCovariance((Double)newValue);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_COVARIANCE:
+				setIntraUtilizationCovariance((Double)newValue);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION:
-				setInterResponseTimeCorrelation((Double)newValue);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_CORRELATION:
+				setIntraResponseTimeCorrelation((Double)newValue);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE:
-				setInterResponseTimeCovariance((Double)newValue);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_COVARIANCE:
+				setIntraResponseTimeCovariance((Double)newValue);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION:
-				setInterArrivalRateCorrelation((Double)newValue);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_CORRELATION:
+				setIntraArrivalRateCorrelation((Double)newValue);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE:
-				setInterArrivalRateCovariance((Double)newValue);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_COVARIANCE:
+				setIntraArrivalRateCovariance((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -912,23 +912,23 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_ARRIVAL_COVARIANCE:
 				setUtilizationArrivalCovariance(UTILIZATION_ARRIVAL_COVARIANCE_EDEFAULT);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION:
-				setInterUtilizationCorrelation(INTER_UTILIZATION_CORRELATION_EDEFAULT);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_CORRELATION:
+				setIntraUtilizationCorrelation(INTRA_UTILIZATION_CORRELATION_EDEFAULT);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE:
-				setInterUtilizationCovariance(INTER_UTILIZATION_COVARIANCE_EDEFAULT);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_COVARIANCE:
+				setIntraUtilizationCovariance(INTRA_UTILIZATION_COVARIANCE_EDEFAULT);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION:
-				setInterResponseTimeCorrelation(INTER_RESPONSE_TIME_CORRELATION_EDEFAULT);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_CORRELATION:
+				setIntraResponseTimeCorrelation(INTRA_RESPONSE_TIME_CORRELATION_EDEFAULT);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE:
-				setInterResponseTimeCovariance(INTER_RESPONSE_TIME_COVARIANCE_EDEFAULT);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_COVARIANCE:
+				setIntraResponseTimeCovariance(INTRA_RESPONSE_TIME_COVARIANCE_EDEFAULT);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION:
-				setInterArrivalRateCorrelation(INTER_ARRIVAL_RATE_CORRELATION_EDEFAULT);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_CORRELATION:
+				setIntraArrivalRateCorrelation(INTRA_ARRIVAL_RATE_CORRELATION_EDEFAULT);
 				return;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE:
-				setInterArrivalRateCovariance(INTER_ARRIVAL_RATE_COVARIANCE_EDEFAULT);
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_COVARIANCE:
+				setIntraArrivalRateCovariance(INTRA_ARRIVAL_RATE_COVARIANCE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -966,18 +966,18 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 				return utilizationArrivalCorrelation != UTILIZATION_ARRIVAL_CORRELATION_EDEFAULT;
 			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_ARRIVAL_COVARIANCE:
 				return utilizationArrivalCovariance != UTILIZATION_ARRIVAL_COVARIANCE_EDEFAULT;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION:
-				return interUtilizationCorrelation != INTER_UTILIZATION_CORRELATION_EDEFAULT;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE:
-				return interUtilizationCovariance != INTER_UTILIZATION_COVARIANCE_EDEFAULT;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION:
-				return interResponseTimeCorrelation != INTER_RESPONSE_TIME_CORRELATION_EDEFAULT;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE:
-				return interResponseTimeCovariance != INTER_RESPONSE_TIME_COVARIANCE_EDEFAULT;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION:
-				return interArrivalRateCorrelation != INTER_ARRIVAL_RATE_CORRELATION_EDEFAULT;
-			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE:
-				return interArrivalRateCovariance != INTER_ARRIVAL_RATE_COVARIANCE_EDEFAULT;
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_CORRELATION:
+				return intraUtilizationCorrelation != INTRA_UTILIZATION_CORRELATION_EDEFAULT;
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_COVARIANCE:
+				return intraUtilizationCovariance != INTRA_UTILIZATION_COVARIANCE_EDEFAULT;
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_CORRELATION:
+				return intraResponseTimeCorrelation != INTRA_RESPONSE_TIME_CORRELATION_EDEFAULT;
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_COVARIANCE:
+				return intraResponseTimeCovariance != INTRA_RESPONSE_TIME_COVARIANCE_EDEFAULT;
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_CORRELATION:
+				return intraArrivalRateCorrelation != INTRA_ARRIVAL_RATE_CORRELATION_EDEFAULT;
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_COVARIANCE:
+				return intraArrivalRateCovariance != INTRA_ARRIVAL_RATE_COVARIANCE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1010,18 +1010,18 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 		result.append(utilizationArrivalCorrelation);
 		result.append(", utilizationArrivalCovariance: ");
 		result.append(utilizationArrivalCovariance);
-		result.append(", interUtilizationCorrelation: ");
-		result.append(interUtilizationCorrelation);
-		result.append(", interUtilizationCovariance: ");
-		result.append(interUtilizationCovariance);
-		result.append(", interResponseTimeCorrelation: ");
-		result.append(interResponseTimeCorrelation);
-		result.append(", interResponseTimeCovariance: ");
-		result.append(interResponseTimeCovariance);
-		result.append(", interArrivalRateCorrelation: ");
-		result.append(interArrivalRateCorrelation);
-		result.append(", interArrivalRateCovariance: ");
-		result.append(interArrivalRateCovariance);
+		result.append(", intraUtilizationCorrelation: ");
+		result.append(intraUtilizationCorrelation);
+		result.append(", intraUtilizationCovariance: ");
+		result.append(intraUtilizationCovariance);
+		result.append(", intraResponseTimeCorrelation: ");
+		result.append(intraResponseTimeCorrelation);
+		result.append(", intraResponseTimeCovariance: ");
+		result.append(intraResponseTimeCovariance);
+		result.append(", intraArrivalRateCorrelation: ");
+		result.append(intraArrivalRateCorrelation);
+		result.append(", intraArrivalRateCovariance: ");
+		result.append(intraArrivalRateCovariance);
 		result.append(')');
 		return result.toString();
 	}

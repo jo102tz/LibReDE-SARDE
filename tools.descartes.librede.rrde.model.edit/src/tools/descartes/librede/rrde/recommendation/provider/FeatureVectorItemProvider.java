@@ -74,12 +74,12 @@ public class FeatureVectorItemProvider
 			addUtilizationResponseCovariancePropertyDescriptor(object);
 			addUtilizationArrivalCorrelationPropertyDescriptor(object);
 			addUtilizationArrivalCovariancePropertyDescriptor(object);
-			addInterUtilizationCorrelationPropertyDescriptor(object);
-			addInterUtilizationCovariancePropertyDescriptor(object);
-			addInterResponseTimeCorrelationPropertyDescriptor(object);
-			addInterResponseTimeCovariancePropertyDescriptor(object);
-			addInterArrivalRateCorrelationPropertyDescriptor(object);
-			addInterArrivalRateCovariancePropertyDescriptor(object);
+			addIntraUtilizationCorrelationPropertyDescriptor(object);
+			addIntraUtilizationCovariancePropertyDescriptor(object);
+			addIntraResponseTimeCorrelationPropertyDescriptor(object);
+			addIntraResponseTimeCovariancePropertyDescriptor(object);
+			addIntraArrivalRateCorrelationPropertyDescriptor(object);
+			addIntraArrivalRateCovariancePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -349,19 +349,19 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Inter Utilization Correlation feature.
+	 * This adds a property descriptor for the Intra Utilization Correlation feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInterUtilizationCorrelationPropertyDescriptor(Object object) {
+	protected void addIntraUtilizationCorrelationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_interUtilizationCorrelation_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interUtilizationCorrelation_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION,
+				 getString("_UI_FeatureVector_intraUtilizationCorrelation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_intraUtilizationCorrelation_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTRA_UTILIZATION_CORRELATION,
 				 true,
 				 false,
 				 false,
@@ -371,19 +371,19 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Inter Utilization Covariance feature.
+	 * This adds a property descriptor for the Intra Utilization Covariance feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInterUtilizationCovariancePropertyDescriptor(Object object) {
+	protected void addIntraUtilizationCovariancePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_interUtilizationCovariance_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interUtilizationCovariance_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE,
+				 getString("_UI_FeatureVector_intraUtilizationCovariance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_intraUtilizationCovariance_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTRA_UTILIZATION_COVARIANCE,
 				 true,
 				 false,
 				 false,
@@ -393,19 +393,19 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Inter Response Time Correlation feature.
+	 * This adds a property descriptor for the Intra Response Time Correlation feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInterResponseTimeCorrelationPropertyDescriptor(Object object) {
+	protected void addIntraResponseTimeCorrelationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_interResponseTimeCorrelation_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interResponseTimeCorrelation_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION,
+				 getString("_UI_FeatureVector_intraResponseTimeCorrelation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_intraResponseTimeCorrelation_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTRA_RESPONSE_TIME_CORRELATION,
 				 true,
 				 false,
 				 false,
@@ -415,19 +415,19 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Inter Response Time Covariance feature.
+	 * This adds a property descriptor for the Intra Response Time Covariance feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInterResponseTimeCovariancePropertyDescriptor(Object object) {
+	protected void addIntraResponseTimeCovariancePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_interResponseTimeCovariance_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interResponseTimeCovariance_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE,
+				 getString("_UI_FeatureVector_intraResponseTimeCovariance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_intraResponseTimeCovariance_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTRA_RESPONSE_TIME_COVARIANCE,
 				 true,
 				 false,
 				 false,
@@ -437,19 +437,19 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Inter Arrival Rate Correlation feature.
+	 * This adds a property descriptor for the Intra Arrival Rate Correlation feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInterArrivalRateCorrelationPropertyDescriptor(Object object) {
+	protected void addIntraArrivalRateCorrelationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_interArrivalRateCorrelation_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interArrivalRateCorrelation_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION,
+				 getString("_UI_FeatureVector_intraArrivalRateCorrelation_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_intraArrivalRateCorrelation_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_CORRELATION,
 				 true,
 				 false,
 				 false,
@@ -459,19 +459,19 @@ public class FeatureVectorItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Inter Arrival Rate Covariance feature.
+	 * This adds a property descriptor for the Intra Arrival Rate Covariance feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInterArrivalRateCovariancePropertyDescriptor(Object object) {
+	protected void addIntraArrivalRateCovariancePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureVector_interArrivalRateCovariance_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_interArrivalRateCovariance_feature", "_UI_FeatureVector_type"),
-				 RecommendationPackage.Literals.FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE,
+				 getString("_UI_FeatureVector_intraArrivalRateCovariance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureVector_intraArrivalRateCovariance_feature", "_UI_FeatureVector_type"),
+				 RecommendationPackage.Literals.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_COVARIANCE,
 				 true,
 				 false,
 				 false,
@@ -525,12 +525,12 @@ public class FeatureVectorItemProvider
 			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_RESPONSE_COVARIANCE:
 			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_ARRIVAL_CORRELATION:
 			case RecommendationPackage.FEATURE_VECTOR__UTILIZATION_ARRIVAL_COVARIANCE:
-			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION:
-			case RecommendationPackage.FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE:
-			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION:
-			case RecommendationPackage.FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE:
-			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION:
-			case RecommendationPackage.FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE:
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_CORRELATION:
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_UTILIZATION_COVARIANCE:
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_CORRELATION:
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_RESPONSE_TIME_COVARIANCE:
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_CORRELATION:
+			case RecommendationPackage.FEATURE_VECTOR__INTRA_ARRIVAL_RATE_COVARIANCE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

@@ -449,7 +449,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureVector_InterUtilizationCorrelation() {
+	public EAttribute getFeatureVector_IntraUtilizationCorrelation() {
 		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -458,7 +458,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureVector_InterUtilizationCovariance() {
+	public EAttribute getFeatureVector_IntraUtilizationCovariance() {
 		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -467,7 +467,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureVector_InterResponseTimeCorrelation() {
+	public EAttribute getFeatureVector_IntraResponseTimeCorrelation() {
 		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -476,7 +476,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureVector_InterResponseTimeCovariance() {
+	public EAttribute getFeatureVector_IntraResponseTimeCovariance() {
 		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -485,7 +485,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureVector_InterArrivalRateCorrelation() {
+	public EAttribute getFeatureVector_IntraArrivalRateCorrelation() {
 		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -494,7 +494,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureVector_InterArrivalRateCovariance() {
+	public EAttribute getFeatureVector_IntraArrivalRateCovariance() {
 		return (EAttribute)featureVectorEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -748,12 +748,12 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_RESPONSE_COVARIANCE);
 		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_ARRIVAL_CORRELATION);
 		createEAttribute(featureVectorEClass, FEATURE_VECTOR__UTILIZATION_ARRIVAL_COVARIANCE);
-		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION);
-		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE);
-		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION);
-		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE);
-		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION);
-		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTRA_UTILIZATION_CORRELATION);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTRA_UTILIZATION_COVARIANCE);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTRA_RESPONSE_TIME_CORRELATION);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTRA_RESPONSE_TIME_COVARIANCE);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTRA_ARRIVAL_RATE_CORRELATION);
+		createEAttribute(featureVectorEClass, FEATURE_VECTOR__INTRA_ARRIVAL_RATE_COVARIANCE);
 
 		statisticalFeaturesEClass = createEClass(STATISTICAL_FEATURES);
 		createEAttribute(statisticalFeaturesEClass, STATISTICAL_FEATURES__N);
@@ -858,18 +858,18 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEReference(getFeatureVector_UtilizationStatistics(), this.getStatisticalFeatures(), null, "utilizationStatistics", null, 1, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureVector_ResponseTimeStatistics(), this.getStatisticalFeatures(), null, "responseTimeStatistics", null, 1, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureVector_ArrivalRateStatistics(), this.getStatisticalFeatures(), null, "arrivalRateStatistics", null, 1, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_ResponseArrivalCorrelation(), theXMLTypePackage.getDouble(), "responseArrivalCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_ResponseArrivalCovariance(), theXMLTypePackage.getDouble(), "responseArrivalCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationResponseCorrelation(), theXMLTypePackage.getDouble(), "utilizationResponseCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationResponseCovariance(), theXMLTypePackage.getDouble(), "utilizationResponseCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationArrivalCorrelation(), theXMLTypePackage.getDouble(), "utilizationArrivalCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationArrivalCovariance(), theXMLTypePackage.getDouble(), "utilizationArrivalCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_InterUtilizationCorrelation(), theXMLTypePackage.getDouble(), "interUtilizationCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_InterUtilizationCovariance(), theXMLTypePackage.getDouble(), "interUtilizationCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_InterResponseTimeCorrelation(), theXMLTypePackage.getDouble(), "interResponseTimeCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_InterResponseTimeCovariance(), theXMLTypePackage.getDouble(), "interResponseTimeCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_InterArrivalRateCorrelation(), theXMLTypePackage.getDouble(), "interArrivalRateCorrelation", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_InterArrivalRateCovariance(), theXMLTypePackage.getDouble(), "interArrivalRateCovariance", null, 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_ResponseArrivalCorrelation(), theXMLTypePackage.getDouble(), "responseArrivalCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_ResponseArrivalCovariance(), theXMLTypePackage.getDouble(), "responseArrivalCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationResponseCorrelation(), theXMLTypePackage.getDouble(), "utilizationResponseCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationResponseCovariance(), theXMLTypePackage.getDouble(), "utilizationResponseCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationArrivalCorrelation(), theXMLTypePackage.getDouble(), "utilizationArrivalCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationArrivalCovariance(), theXMLTypePackage.getDouble(), "utilizationArrivalCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraUtilizationCorrelation(), theXMLTypePackage.getDouble(), "intraUtilizationCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraUtilizationCovariance(), theXMLTypePackage.getDouble(), "intraUtilizationCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraResponseTimeCorrelation(), theXMLTypePackage.getDouble(), "intraResponseTimeCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraResponseTimeCovariance(), theXMLTypePackage.getDouble(), "intraResponseTimeCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraArrivalRateCorrelation(), theXMLTypePackage.getDouble(), "intraArrivalRateCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraArrivalRateCovariance(), theXMLTypePackage.getDouble(), "intraArrivalRateCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(statisticalFeaturesEClass, StatisticalFeatures.class, "StatisticalFeatures", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStatisticalFeatures_N(), theXMLTypePackage.getDouble(), "N", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

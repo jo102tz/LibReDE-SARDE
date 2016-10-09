@@ -205,20 +205,20 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		// inter entity correlation
 		if (var.getRepo().getWorkload().getResources().size() > 1) {
 			// only if there are more than one resources, else zero
-			vector.setInterUtilizationCorrelation(pear
+			vector.setIntraUtilizationCorrelation(pear
 					.computeCorrelationMatrix(data[0]).getNorm());
-			vector.setInterUtilizationCovariance(new Covariance(data[0])
+			vector.setIntraUtilizationCovariance(new Covariance(data[0])
 					.getCovarianceMatrix().getNorm());
 		}
 		if (var.getRepo().getWorkload().getServices().size() > 1) {
 			// only if there are more than one service, else zero
-			vector.setInterResponseTimeCorrelation(pear
+			vector.setIntraResponseTimeCorrelation(pear
 					.computeCorrelationMatrix(data[1]).getNorm());
-			vector.setInterResponseTimeCovariance(new Covariance(data[1])
+			vector.setIntraResponseTimeCovariance(new Covariance(data[1])
 					.getCovarianceMatrix().getNorm());
-			vector.setInterArrivalRateCorrelation(pear
+			vector.setIntraArrivalRateCorrelation(pear
 					.computeCorrelationMatrix(data[2]).getNorm());
-			vector.setInterArrivalRateCovariance(new Covariance(data[2])
+			vector.setIntraArrivalRateCovariance(new Covariance(data[2])
 					.getCovarianceMatrix().getNorm());
 		}
 
