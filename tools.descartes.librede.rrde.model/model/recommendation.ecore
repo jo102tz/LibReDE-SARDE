@@ -56,7 +56,7 @@
         defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="varianceInflationFactor"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="0"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="utilizationStatistics"
         lowerBound="1" upperBound="-1" eType="#//StatisticalFeatures"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="responseTimeStatistics"
@@ -65,40 +65,40 @@
         lowerBound="1" upperBound="-1" eType="#//StatisticalFeatures"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseArrivalCorrelation"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="0"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseArrivalCovariance"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="0"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="utilizationResponseCorrelation"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="0"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="utilizationResponseCovariance"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="0"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="utilizationArrivalCorrelation"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="0"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="utilizationArrivalCovariance"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="0"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="intraUtilizationCorrelation"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="intraUtilizationCovariance"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="intraResponseTimeCorrelation"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="intraResponseTimeCovariance"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="intraArrivalRateCorrelation"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="intraArrivalRateCovariance"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
-        defaultValueLiteral="-1"/>
+        defaultValueLiteral="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StatisticalFeatures">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="N" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"

@@ -232,16 +232,16 @@ public class TestSetValidator {
 		log.info("----------------------------------------------------");
 		log.info("Numer of test configurations: " + testset.size());
 		log.info("Average Execution time before optimization: "
-				+ statbeforetime.getMean() + "ms");
+				+ statbeforetime.getMean() + "ms (Standard Deviation: "+statbeforetime.getStandardDeviation()+")");
 		log.info("Average Execution time after optimization: "
-				+ stataftertime.getMean() + "ms");
+				+ stataftertime.getMean() + "ms (Standard Deviation: "+stataftertime.getStandardDeviation()+")");
 		log.info("This is an improvement of avg.: "
 				+ (statbeforetime.getMean() - stataftertime.getMean() + "ms"));
 
 		log.info("Average validation error before optimization: "
-				+ statbeforeerror.getMean());
+				+ statbeforeerror.getMean() + "(Standard Deviation: "+statbeforeerror.getStandardDeviation()+")");
 		log.info("Average validation error after optimization: "
-				+ stataftererror.getMean());
+				+ stataftererror.getMean() + "(Standard Deviation: "+stataftererror.getStandardDeviation()+")");
 		log.info("Improvement: "
 				+ (statbeforeerror.getMean() - stataftererror.getMean())
 				+ " or "
