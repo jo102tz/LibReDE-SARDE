@@ -383,7 +383,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		vector.setTenthpercentile(stat.getPercentile(10));
 		vector.setNinetiethpercentile(stat.getPercentile(90));
 		vector.setIsNormalDistributed(TestUtils.kolmogorovSmirnovStatistic(
-				new NormalDistribution(), stat.getValues()));
+				new NormalDistribution(stat.getMean(), stat.getStandardDeviation()), stat.getValues()));
 
 		// TODO effective autocorrelation
 		vector.setAutocorrelation(computeAutocorrelation(stat.getValues()));
