@@ -32,10 +32,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -271,7 +269,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 					.getStepSize()) {
 				writeDouble(s, i);
 				setTargetValue(param, i);
-				adaptOtherValues(param, i);
 				runIteration();
 				writeError(s, getLastError());
 				newLine(s);
@@ -292,7 +289,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 				for (double i = param.getLowerBound(); i <= param
 						.getUpperBound(); i += settings().getStepSize()) {
 					setTargetValue(param, i);
-					adaptOtherValues(param, i);
 					runIteration();
 					writeError(s, getLastError());
 				}
@@ -305,7 +301,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 
 		// set to default again
 		setTargetValue(param, param.getStartValue());
-		adaptOtherValues(param, param.getStartValue());
 
 		try {
 			if (s != null)
@@ -313,20 +308,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		} catch (IOException e) {
 			getLog().error("Closing resource caused an error.", e);
 		}
-	}
-
-	/**
-	 * This method can be overwritten by subclasses (such as
-	 * {@link StepWindowExportAlgorithm}) to react to changes in the target
-	 * value of the given parameter
-	 * 
-	 * @param param
-	 *            The parameter that has been changed
-	 * @param i
-	 *            The new value of the parameter
-	 */
-	protected void adaptOtherValues(IOptimizableParameter param, double i) {
-		// do nothing, default is empty
 	}
 
 	/**

@@ -110,7 +110,6 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 		if (!settings().isSplitConfigurations()) {
 			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
 				setTargetValue(param, i);
-				adaptOtherValues(param, i);
 				runIteration();
 				int j = 0;
 				for (BufferedWriter s : writers) {
@@ -143,7 +142,6 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 				getConfs().add(conf);
 				for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
 					setTargetValue(param, i);
-					adaptOtherValues(param, i);
 					runIteration();
 					int j = 0;
 					for (BufferedWriter s : writers) {
@@ -161,7 +159,6 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 		}
 		// set to default again
 		setTargetValue(param, param.getStartValue());
-		adaptOtherValues(param, param.getStartValue());
 		try {
 			for (BufferedWriter s : writers) {
 				s.close();
