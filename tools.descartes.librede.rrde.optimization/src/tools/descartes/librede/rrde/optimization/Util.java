@@ -95,11 +95,6 @@ public class Util {
 			log.trace("Set Stepsize to " + value);
 			int integer = (int) Math.round(((StepSizeRelWindow) param)
 					.getProductMaxValue() / value);
-			if (integer != value) {
-				log.debug("The value "
-						+ value
-						+ " is not an Integer and had to be rounded to fit as window size.");
-			}
 			librede.setWindow(integer);
 			log.trace("Adapt Windowsize to " + integer);
 		} else if (eClass.equals(GenericParameter.class.getName())) {
