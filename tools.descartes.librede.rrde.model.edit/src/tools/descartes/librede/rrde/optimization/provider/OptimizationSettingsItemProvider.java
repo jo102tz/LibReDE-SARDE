@@ -173,6 +173,11 @@ public class OptimizationSettingsItemProvider
 			(createChildParameter
 				(OptimizationPackage.Literals.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE,
 				 OptimizationFactory.eINSTANCE.createWindowSize()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(OptimizationPackage.Literals.OPTIMIZATION_SETTINGS__PARAMETERS_TO_OPTIMIZE,
+				 OptimizationFactory.eINSTANCE.createStepSizeRelWindow()));
 	}
 
 	/**

@@ -116,6 +116,10 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 				return createDataExportSpecifierAdapter();
 			}
 			@Override
+			public Adapter caseStepSizeRelWindow(StepSizeRelWindow object) {
+				return createStepSizeRelWindowAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -300,6 +304,20 @@ public class OptimizationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDataExportSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.optimization.StepSizeRelWindow <em>Step Size Rel Window</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.optimization.StepSizeRelWindow
+	 * @generated
+	 */
+	public Adapter createStepSizeRelWindowAdapter() {
 		return null;
 	}
 

@@ -772,6 +772,71 @@ public interface OptimizationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.optimization.impl.StepSizeRelWindowImpl <em>Step Size Rel Window</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.optimization.impl.StepSizeRelWindowImpl
+	 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getStepSizeRelWindow()
+	 * @generated
+	 */
+	int STEP_SIZE_REL_WINDOW = 12;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_SIZE_REL_WINDOW__LOWER_BOUND = STEP_SIZE__LOWER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_SIZE_REL_WINDOW__UPPER_BOUND = STEP_SIZE__UPPER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Start Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_SIZE_REL_WINDOW__START_VALUE = STEP_SIZE__START_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Product Max Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_SIZE_REL_WINDOW__PRODUCT_MAX_VALUE = STEP_SIZE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Step Size Rel Window</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_SIZE_REL_WINDOW_FEATURE_COUNT = STEP_SIZE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Step Size Rel Window</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STEP_SIZE_REL_WINDOW_OPERATION_COUNT = STEP_SIZE_OPERATION_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.OptimizationConfiguration <em>Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1189,6 +1254,27 @@ public interface OptimizationPackage extends EPackage {
 	EAttribute getDataExportSpecifier_SplitConfigurations();
 
 	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.optimization.StepSizeRelWindow <em>Step Size Rel Window</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Step Size Rel Window</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.StepSizeRelWindow
+	 * @generated
+	 */
+	EClass getStepSizeRelWindow();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.optimization.StepSizeRelWindow#getProductMaxValue <em>Product Max Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Product Max Value</em>'.
+	 * @see tools.descartes.librede.rrde.optimization.StepSizeRelWindow#getProductMaxValue()
+	 * @see #getStepSizeRelWindow()
+	 * @generated
+	 */
+	EAttribute getStepSizeRelWindow_ProductMaxValue();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1546,6 +1632,24 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS = eINSTANCE.getDataExportSpecifier_SplitConfigurations();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.optimization.impl.StepSizeRelWindowImpl <em>Step Size Rel Window</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.optimization.impl.StepSizeRelWindowImpl
+		 * @see tools.descartes.librede.rrde.optimization.impl.OptimizationPackageImpl#getStepSizeRelWindow()
+		 * @generated
+		 */
+		EClass STEP_SIZE_REL_WINDOW = eINSTANCE.getStepSizeRelWindow();
+
+		/**
+		 * The meta object literal for the '<em><b>Product Max Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STEP_SIZE_REL_WINDOW__PRODUCT_MAX_VALUE = eINSTANCE.getStepSizeRelWindow_ProductMaxValue();
 
 	}
 

@@ -43,8 +43,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.swing.plaf.multi.MultiFileChooserUI;
-
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -66,7 +64,6 @@ import tools.descartes.librede.datasource.IDataSource;
 import tools.descartes.librede.datasource.csv.CsvDataSource;
 import tools.descartes.librede.registry.Instantiator;
 import tools.descartes.librede.registry.Registry;
-import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;
 import tools.descartes.librede.units.Unit;

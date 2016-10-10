@@ -102,4 +102,8 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StepSizeRelWindow" eSuperTypes="#//StepSize">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="productMaxValue" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="10000"/>
+  </eClassifiers>
 </ecore:EPackage>

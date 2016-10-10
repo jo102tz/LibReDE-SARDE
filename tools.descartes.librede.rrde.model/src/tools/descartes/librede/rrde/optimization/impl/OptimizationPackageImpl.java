@@ -32,6 +32,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.StepSize;
+import tools.descartes.librede.rrde.optimization.StepSizeRelWindow;
 import tools.descartes.librede.rrde.optimization.WindowSize;
 
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
@@ -130,6 +131,13 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * @generated
 	 */
 	private EClass dataExportSpecifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stepSizeRelWindowEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -562,6 +570,24 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getStepSizeRelWindow() {
+		return stepSizeRelWindowEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStepSizeRelWindow_ProductMaxValue() {
+		return (EAttribute)stepSizeRelWindowEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public OptimizationFactory getOptimizationFactory() {
 		return (OptimizationFactory)getEFactoryInstance();
 	}
@@ -635,6 +661,9 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__STEP_SIZE);
 		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL);
 		createEAttribute(dataExportSpecifierEClass, DATA_EXPORT_SPECIFIER__SPLIT_CONFIGURATIONS);
+
+		stepSizeRelWindowEClass = createEClass(STEP_SIZE_REL_WINDOW);
+		createEAttribute(stepSizeRelWindowEClass, STEP_SIZE_REL_WINDOW__PRODUCT_MAX_VALUE);
 	}
 
 	/**
@@ -675,6 +704,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		stepSizeEClass.getESuperTypes().add(this.getIOptimizableParameter());
 		windowSizeEClass.getESuperTypes().add(this.getIOptimizableParameter());
 		dataExportSpecifierEClass.getESuperTypes().add(this.getConfigurationOptimizationAlgorithmSpecifier());
+		stepSizeRelWindowEClass.getESuperTypes().add(this.getStepSize());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(optimizationConfigurationEClass, OptimizationConfiguration.class, "OptimizationConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -727,6 +757,9 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		initEAttribute(getDataExportSpecifier_StepSize(), theXMLTypePackage.getDouble(), "stepSize", "1.0", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataExportSpecifier_Multidimensional(), theXMLTypePackage.getBoolean(), "multidimensional", "false", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataExportSpecifier_SplitConfigurations(), theXMLTypePackage.getBoolean(), "splitConfigurations", "true", 1, 1, DataExportSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stepSizeRelWindowEClass, StepSizeRelWindow.class, "StepSizeRelWindow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStepSizeRelWindow_ProductMaxValue(), theXMLTypePackage.getDouble(), "productMaxValue", "10000", 1, 1, StepSizeRelWindow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

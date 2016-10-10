@@ -90,6 +90,18 @@ public class Util {
 			}
 			librede.setWindow(integer);
 			log.trace("Set Windowsize to " + integer);
+		} else if (eClass.equals(StepSizeRelWindow.class.getName())) {
+			librede.getStepSize().setValue(value);
+			log.trace("Set Stepsize to " + value);
+			int integer = (int) Math.round(((StepSizeRelWindow) param)
+					.getProductMaxValue() / value);
+			if (integer != value) {
+				log.debug("The value "
+						+ value
+						+ " is not an Integer and had to be rounded to fit as window size.");
+			}
+			librede.setWindow(integer);
+			log.trace("Adapt Windowsize to " + integer);
 		} else if (eClass.equals(GenericParameter.class.getName())) {
 			setGenericParameter(librede, (GenericParameter) param,
 					Double.toString(value));
@@ -224,7 +236,8 @@ public class Util {
 	public static double getValue(EstimationSpecification librede,
 			IOptimizableParameter param) {
 		String eClass = param.getClass().getInterfaces()[0].getName();
-		if (eClass.equals(StepSize.class.getName())) {
+		// Treat StepSize and StepSizeRelWindow equal
+		if (eClass.equals(StepSize.class.getName()) || eClass.equals(StepSizeRelWindow.class.getName())) {
 			return librede.getStepSize().getValue();
 		} else if (eClass.equals(WindowSize.class.getName())) {
 			return librede.getWindow();
@@ -262,7 +275,7 @@ public class Util {
 	public static double getMeanValidationError(LibredeResults result) {
 		// equally averaging over all validators and all approaches
 		SummaryStatistics values = new SummaryStatistics();
-		if(result==null){
+		if (result == null) {
 			return Double.MAX_VALUE;
 		}
 		Map<Class<? extends IEstimationApproach>, Matrix> errorMap = result
@@ -359,7 +372,7 @@ public class Util {
 		return (RecommendationTrainingConfiguration) resource.getContents()
 				.get(0);
 	}
-	
+
 	/**
 	 * Converts an array of {@link Double}s into an array of primitives.
 	 * 

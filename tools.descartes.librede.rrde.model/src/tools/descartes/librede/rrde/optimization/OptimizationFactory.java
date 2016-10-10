@@ -121,6 +121,15 @@ public interface OptimizationFactory extends EFactory {
 	DataExportSpecifier createDataExportSpecifier();
 
 	/**
+	 * Returns a new object of class '<em>Step Size Rel Window</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Step Size Rel Window</em>'.
+	 * @generated
+	 */
+	StepSizeRelWindow createStepSizeRelWindow();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

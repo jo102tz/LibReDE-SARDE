@@ -325,6 +325,29 @@ public class OptimizationItemProviderAdapterFactory extends OptimizationAdapterF
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.optimization.StepSizeRelWindow} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StepSizeRelWindowItemProvider stepSizeRelWindowItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.optimization.StepSizeRelWindow}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createStepSizeRelWindowAdapter() {
+		if (stepSizeRelWindowItemProvider == null) {
+			stepSizeRelWindowItemProvider = new StepSizeRelWindowItemProvider(this);
+		}
+
+		return stepSizeRelWindowItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -434,6 +457,7 @@ public class OptimizationItemProviderAdapterFactory extends OptimizationAdapterF
 		if (stepSizeItemProvider != null) stepSizeItemProvider.dispose();
 		if (windowSizeItemProvider != null) windowSizeItemProvider.dispose();
 		if (dataExportSpecifierItemProvider != null) dataExportSpecifierItemProvider.dispose();
+		if (stepSizeRelWindowItemProvider != null) stepSizeRelWindowItemProvider.dispose();
 	}
 
 }
