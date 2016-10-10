@@ -86,6 +86,7 @@ public class BruteForceAlgorithm extends AbstractConfigurationOptimizer {
 			getLog().info("Now brute forcing " + param.toString());
 			for (double i = param.getLowerBound(); i <= param
 					.getUpperBound(); i += ((LocalSearchSpecifier) getAlgorithm()).getStepSize()) {
+				getLog().info("Tried value of " + i + " for parameter " + param.toString());
 				setTargetValue(param, i);
 				double err = runIteration();
 				if (err < minError) {
