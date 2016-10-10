@@ -79,6 +79,11 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	private static final double MAX_VIF = 1000;
 
 	/**
+	 * The maximum lag to be considered
+	 */
+	private static final int MAX_LAG = 10;
+
+	/**
 	 * The standard time unit for all features.
 	 */
 	public Unit<Time> standardTimeUnit;
@@ -397,7 +402,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		double[] copy = Arrays.copyOf(values, values.length);
 		double sumofcorrelations = 0;
 		// for all possible lag values
-		for (int lag = 0; lag < values.length; lag++) {
+		for (int lag = 0; lag < MAX_LAG; lag++) {
 			// cyclic shift copy array one to the left
 			double tmp = copy[0];
 			for (int i = 1; i < copy.length; i++) {

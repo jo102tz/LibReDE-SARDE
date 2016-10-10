@@ -30,7 +30,6 @@ import org.apache.log4j.Logger;
 
 import smile.classification.SVM;
 import smile.math.kernel.GaussianKernel;
-import tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
