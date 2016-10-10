@@ -26,12 +26,12 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationResponseCovariance <em>Utilization Response Covariance</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationArrivalCorrelation <em>Utilization Arrival Correlation</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getUtilizationArrivalCovariance <em>Utilization Arrival Covariance</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterUtilizationCorrelation <em>Inter Utilization Correlation</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterUtilizationCovariance <em>Inter Utilization Covariance</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterResponseTimeCorrelation <em>Inter Response Time Correlation</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterResponseTimeCovariance <em>Inter Response Time Covariance</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterArrivalRateCorrelation <em>Inter Arrival Rate Correlation</em>}</li>
- *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterArrivalRateCovariance <em>Inter Arrival Rate Covariance</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraUtilizationCorrelation <em>Intra Utilization Correlation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraUtilizationCovariance <em>Intra Utilization Covariance</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraResponseTimeCorrelation <em>Intra Response Time Correlation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraResponseTimeCovariance <em>Intra Response Time Covariance</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraArrivalRateCorrelation <em>Intra Arrival Rate Correlation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraArrivalRateCovariance <em>Intra Arrival Rate Covariance</em>}</li>
  * </ul>
  * </p>
  *
@@ -171,6 +171,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Response Arrival Correlation</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Response Arrival Correlation</em>' attribute isn't clear,
@@ -180,7 +181,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Response Arrival Correlation</em>' attribute.
 	 * @see #setResponseArrivalCorrelation(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_ResponseArrivalCorrelation()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getResponseArrivalCorrelation();
@@ -197,6 +198,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Response Arrival Covariance</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Response Arrival Covariance</em>' attribute isn't clear,
@@ -206,7 +208,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Response Arrival Covariance</em>' attribute.
 	 * @see #setResponseArrivalCovariance(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_ResponseArrivalCovariance()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getResponseArrivalCovariance();
@@ -223,6 +225,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Utilization Response Correlation</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Utilization Response Correlation</em>' attribute isn't clear,
@@ -232,7 +235,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Utilization Response Correlation</em>' attribute.
 	 * @see #setUtilizationResponseCorrelation(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationResponseCorrelation()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getUtilizationResponseCorrelation();
@@ -249,6 +252,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Utilization Response Covariance</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Utilization Response Covariance</em>' attribute isn't clear,
@@ -258,7 +262,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Utilization Response Covariance</em>' attribute.
 	 * @see #setUtilizationResponseCovariance(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationResponseCovariance()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getUtilizationResponseCovariance();
@@ -275,6 +279,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Utilization Arrival Correlation</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Utilization Arrival Correlation</em>' attribute isn't clear,
@@ -284,7 +289,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Utilization Arrival Correlation</em>' attribute.
 	 * @see #setUtilizationArrivalCorrelation(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationArrivalCorrelation()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getUtilizationArrivalCorrelation();
@@ -301,6 +306,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Utilization Arrival Covariance</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Utilization Arrival Covariance</em>' attribute isn't clear,
@@ -310,7 +316,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Utilization Arrival Covariance</em>' attribute.
 	 * @see #setUtilizationArrivalCovariance(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationArrivalCovariance()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getUtilizationArrivalCovariance();
@@ -326,159 +332,165 @@ public interface FeatureVector extends EObject {
 	void setUtilizationArrivalCovariance(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Inter Utilization Correlation</b></em>' attribute.
+	 * Returns the value of the '<em><b>Intra Utilization Correlation</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Inter Utilization Correlation</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Intra Utilization Correlation</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Inter Utilization Correlation</em>' attribute.
-	 * @see #setInterUtilizationCorrelation(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_InterUtilizationCorrelation()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @return the value of the '<em>Intra Utilization Correlation</em>' attribute.
+	 * @see #setIntraUtilizationCorrelation(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraUtilizationCorrelation()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
-	double getInterUtilizationCorrelation();
+	double getIntraUtilizationCorrelation();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterUtilizationCorrelation <em>Inter Utilization Correlation</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraUtilizationCorrelation <em>Intra Utilization Correlation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Inter Utilization Correlation</em>' attribute.
-	 * @see #getInterUtilizationCorrelation()
+	 * @param value the new value of the '<em>Intra Utilization Correlation</em>' attribute.
+	 * @see #getIntraUtilizationCorrelation()
 	 * @generated
 	 */
-	void setInterUtilizationCorrelation(double value);
+	void setIntraUtilizationCorrelation(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Inter Utilization Covariance</b></em>' attribute.
+	 * Returns the value of the '<em><b>Intra Utilization Covariance</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Inter Utilization Covariance</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Intra Utilization Covariance</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Inter Utilization Covariance</em>' attribute.
-	 * @see #setInterUtilizationCovariance(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_InterUtilizationCovariance()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @return the value of the '<em>Intra Utilization Covariance</em>' attribute.
+	 * @see #setIntraUtilizationCovariance(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraUtilizationCovariance()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
-	double getInterUtilizationCovariance();
+	double getIntraUtilizationCovariance();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterUtilizationCovariance <em>Inter Utilization Covariance</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraUtilizationCovariance <em>Intra Utilization Covariance</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Inter Utilization Covariance</em>' attribute.
-	 * @see #getInterUtilizationCovariance()
+	 * @param value the new value of the '<em>Intra Utilization Covariance</em>' attribute.
+	 * @see #getIntraUtilizationCovariance()
 	 * @generated
 	 */
-	void setInterUtilizationCovariance(double value);
+	void setIntraUtilizationCovariance(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Inter Response Time Correlation</b></em>' attribute.
+	 * Returns the value of the '<em><b>Intra Response Time Correlation</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Inter Response Time Correlation</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Intra Response Time Correlation</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Inter Response Time Correlation</em>' attribute.
-	 * @see #setInterResponseTimeCorrelation(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_InterResponseTimeCorrelation()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @return the value of the '<em>Intra Response Time Correlation</em>' attribute.
+	 * @see #setIntraResponseTimeCorrelation(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraResponseTimeCorrelation()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
-	double getInterResponseTimeCorrelation();
+	double getIntraResponseTimeCorrelation();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterResponseTimeCorrelation <em>Inter Response Time Correlation</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraResponseTimeCorrelation <em>Intra Response Time Correlation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Inter Response Time Correlation</em>' attribute.
-	 * @see #getInterResponseTimeCorrelation()
+	 * @param value the new value of the '<em>Intra Response Time Correlation</em>' attribute.
+	 * @see #getIntraResponseTimeCorrelation()
 	 * @generated
 	 */
-	void setInterResponseTimeCorrelation(double value);
+	void setIntraResponseTimeCorrelation(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Inter Response Time Covariance</b></em>' attribute.
+	 * Returns the value of the '<em><b>Intra Response Time Covariance</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Inter Response Time Covariance</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Intra Response Time Covariance</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Inter Response Time Covariance</em>' attribute.
-	 * @see #setInterResponseTimeCovariance(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_InterResponseTimeCovariance()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @return the value of the '<em>Intra Response Time Covariance</em>' attribute.
+	 * @see #setIntraResponseTimeCovariance(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraResponseTimeCovariance()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
-	double getInterResponseTimeCovariance();
+	double getIntraResponseTimeCovariance();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterResponseTimeCovariance <em>Inter Response Time Covariance</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraResponseTimeCovariance <em>Intra Response Time Covariance</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Inter Response Time Covariance</em>' attribute.
-	 * @see #getInterResponseTimeCovariance()
+	 * @param value the new value of the '<em>Intra Response Time Covariance</em>' attribute.
+	 * @see #getIntraResponseTimeCovariance()
 	 * @generated
 	 */
-	void setInterResponseTimeCovariance(double value);
+	void setIntraResponseTimeCovariance(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Inter Arrival Rate Correlation</b></em>' attribute.
+	 * Returns the value of the '<em><b>Intra Arrival Rate Correlation</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Inter Arrival Rate Correlation</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Intra Arrival Rate Correlation</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Inter Arrival Rate Correlation</em>' attribute.
-	 * @see #setInterArrivalRateCorrelation(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_InterArrivalRateCorrelation()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @return the value of the '<em>Intra Arrival Rate Correlation</em>' attribute.
+	 * @see #setIntraArrivalRateCorrelation(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraArrivalRateCorrelation()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
-	double getInterArrivalRateCorrelation();
+	double getIntraArrivalRateCorrelation();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterArrivalRateCorrelation <em>Inter Arrival Rate Correlation</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraArrivalRateCorrelation <em>Intra Arrival Rate Correlation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Inter Arrival Rate Correlation</em>' attribute.
-	 * @see #getInterArrivalRateCorrelation()
+	 * @param value the new value of the '<em>Intra Arrival Rate Correlation</em>' attribute.
+	 * @see #getIntraArrivalRateCorrelation()
 	 * @generated
 	 */
-	void setInterArrivalRateCorrelation(double value);
+	void setIntraArrivalRateCorrelation(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Inter Arrival Rate Covariance</b></em>' attribute.
+	 * Returns the value of the '<em><b>Intra Arrival Rate Covariance</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Inter Arrival Rate Covariance</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Intra Arrival Rate Covariance</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Inter Arrival Rate Covariance</em>' attribute.
-	 * @see #setInterArrivalRateCovariance(double)
-	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_InterArrivalRateCovariance()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @return the value of the '<em>Intra Arrival Rate Covariance</em>' attribute.
+	 * @see #setIntraArrivalRateCovariance(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraArrivalRateCovariance()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
-	double getInterArrivalRateCovariance();
+	double getIntraArrivalRateCovariance();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterArrivalRateCovariance <em>Inter Arrival Rate Covariance</em>}' attribute.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraArrivalRateCovariance <em>Intra Arrival Rate Covariance</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Inter Arrival Rate Covariance</em>' attribute.
-	 * @see #getInterArrivalRateCovariance()
+	 * @param value the new value of the '<em>Intra Arrival Rate Covariance</em>' attribute.
+	 * @see #getIntraArrivalRateCovariance()
 	 * @generated
 	 */
-	void setInterArrivalRateCovariance(double value);
+	void setIntraArrivalRateCovariance(double value);
 
 } // FeatureVector

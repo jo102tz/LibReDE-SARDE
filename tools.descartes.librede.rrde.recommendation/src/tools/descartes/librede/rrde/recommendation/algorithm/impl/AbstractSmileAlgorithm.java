@@ -36,6 +36,7 @@ import org.eclipse.emf.common.util.EMap;
 
 import smile.classification.Classifier;
 import tools.descartes.librede.configuration.EstimationSpecification;
+import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.AbstractRecommendationAlgorithm;
@@ -203,7 +204,7 @@ public abstract class AbstractSmileAlgorithm extends
 			return false;
 		}
 		double[][] training = trainingfeatures.toArray(new double[0][0]);
-		int[] target = convertListInt(targetvalues.toArray(new Double[0]));
+		int[] target = Util.convertListInt(targetvalues.toArray(new Double[0]));
 		if (training == null || target == null) {
 			getLog().error("Training or target values are null.");
 			return false;

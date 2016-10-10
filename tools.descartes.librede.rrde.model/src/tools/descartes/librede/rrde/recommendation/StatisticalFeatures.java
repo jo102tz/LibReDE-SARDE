@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getTenthpercentile <em>Tenthpercentile</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getNinetiethpercentile <em>Ninetiethpercentile</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getAutocorrelation <em>Autocorrelation</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getIsNormalDistributed <em>Is Normal Distributed</em>}</li>
  * </ul>
  * </p>
  *
@@ -355,5 +356,32 @@ public interface StatisticalFeatures extends EObject {
 	 * @generated
 	 */
 	void setAutocorrelation(double value);
+
+	/**
+	 * Returns the value of the '<em><b>Is Normal Distributed</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Is Normal Distributed</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Is Normal Distributed</em>' attribute.
+	 * @see #setIsNormalDistributed(double)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getStatisticalFeatures_IsNormalDistributed()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @generated
+	 */
+	double getIsNormalDistributed();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getIsNormalDistributed <em>Is Normal Distributed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Is Normal Distributed</em>' attribute.
+	 * @see #getIsNormalDistributed()
+	 * @generated
+	 */
+	void setIsNormalDistributed(double value);
 
 } // StatisticalFeatures

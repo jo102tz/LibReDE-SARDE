@@ -395,58 +395,58 @@ public interface RecommendationPackage extends EPackage {
 	int FEATURE_VECTOR__UTILIZATION_ARRIVAL_COVARIANCE = 11;
 
 	/**
-	 * The feature id for the '<em><b>Inter Utilization Correlation</b></em>' attribute.
+	 * The feature id for the '<em><b>Intra Utilization Correlation</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION = 12;
+	int FEATURE_VECTOR__INTRA_UTILIZATION_CORRELATION = 12;
 
 	/**
-	 * The feature id for the '<em><b>Inter Utilization Covariance</b></em>' attribute.
+	 * The feature id for the '<em><b>Intra Utilization Covariance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE = 13;
+	int FEATURE_VECTOR__INTRA_UTILIZATION_COVARIANCE = 13;
 
 	/**
-	 * The feature id for the '<em><b>Inter Response Time Correlation</b></em>' attribute.
+	 * The feature id for the '<em><b>Intra Response Time Correlation</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION = 14;
+	int FEATURE_VECTOR__INTRA_RESPONSE_TIME_CORRELATION = 14;
 
 	/**
-	 * The feature id for the '<em><b>Inter Response Time Covariance</b></em>' attribute.
+	 * The feature id for the '<em><b>Intra Response Time Covariance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE = 15;
+	int FEATURE_VECTOR__INTRA_RESPONSE_TIME_COVARIANCE = 15;
 
 	/**
-	 * The feature id for the '<em><b>Inter Arrival Rate Correlation</b></em>' attribute.
+	 * The feature id for the '<em><b>Intra Arrival Rate Correlation</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION = 16;
+	int FEATURE_VECTOR__INTRA_ARRIVAL_RATE_CORRELATION = 16;
 
 	/**
-	 * The feature id for the '<em><b>Inter Arrival Rate Covariance</b></em>' attribute.
+	 * The feature id for the '<em><b>Intra Arrival Rate Covariance</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE = 17;
+	int FEATURE_VECTOR__INTRA_ARRIVAL_RATE_COVARIANCE = 17;
 
 	/**
 	 * The number of structural features of the '<em>Feature Vector</em>' class.
@@ -585,13 +585,22 @@ public interface RecommendationPackage extends EPackage {
 	int STATISTICAL_FEATURES__AUTOCORRELATION = 11;
 
 	/**
+	 * The feature id for the '<em><b>Is Normal Distributed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATISTICAL_FEATURES__IS_NORMAL_DISTRIBUTED = 12;
+
+	/**
 	 * The number of structural features of the '<em>Statistical Features</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATISTICAL_FEATURES_FEATURE_COUNT = 12;
+	int STATISTICAL_FEATURES_FEATURE_COUNT = 13;
 
 	/**
 	 * The number of operations of the '<em>Statistical Features</em>' class.
@@ -1067,70 +1076,70 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getFeatureVector_UtilizationArrivalCovariance();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterUtilizationCorrelation <em>Inter Utilization Correlation</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraUtilizationCorrelation <em>Intra Utilization Correlation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Inter Utilization Correlation</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getInterUtilizationCorrelation()
+	 * @return the meta object for the attribute '<em>Intra Utilization Correlation</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraUtilizationCorrelation()
 	 * @see #getFeatureVector()
 	 * @generated
 	 */
-	EAttribute getFeatureVector_InterUtilizationCorrelation();
+	EAttribute getFeatureVector_IntraUtilizationCorrelation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterUtilizationCovariance <em>Inter Utilization Covariance</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraUtilizationCovariance <em>Intra Utilization Covariance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Inter Utilization Covariance</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getInterUtilizationCovariance()
+	 * @return the meta object for the attribute '<em>Intra Utilization Covariance</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraUtilizationCovariance()
 	 * @see #getFeatureVector()
 	 * @generated
 	 */
-	EAttribute getFeatureVector_InterUtilizationCovariance();
+	EAttribute getFeatureVector_IntraUtilizationCovariance();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterResponseTimeCorrelation <em>Inter Response Time Correlation</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraResponseTimeCorrelation <em>Intra Response Time Correlation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Inter Response Time Correlation</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getInterResponseTimeCorrelation()
+	 * @return the meta object for the attribute '<em>Intra Response Time Correlation</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraResponseTimeCorrelation()
 	 * @see #getFeatureVector()
 	 * @generated
 	 */
-	EAttribute getFeatureVector_InterResponseTimeCorrelation();
+	EAttribute getFeatureVector_IntraResponseTimeCorrelation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterResponseTimeCovariance <em>Inter Response Time Covariance</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraResponseTimeCovariance <em>Intra Response Time Covariance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Inter Response Time Covariance</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getInterResponseTimeCovariance()
+	 * @return the meta object for the attribute '<em>Intra Response Time Covariance</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraResponseTimeCovariance()
 	 * @see #getFeatureVector()
 	 * @generated
 	 */
-	EAttribute getFeatureVector_InterResponseTimeCovariance();
+	EAttribute getFeatureVector_IntraResponseTimeCovariance();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterArrivalRateCorrelation <em>Inter Arrival Rate Correlation</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraArrivalRateCorrelation <em>Intra Arrival Rate Correlation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Inter Arrival Rate Correlation</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getInterArrivalRateCorrelation()
+	 * @return the meta object for the attribute '<em>Intra Arrival Rate Correlation</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraArrivalRateCorrelation()
 	 * @see #getFeatureVector()
 	 * @generated
 	 */
-	EAttribute getFeatureVector_InterArrivalRateCorrelation();
+	EAttribute getFeatureVector_IntraArrivalRateCorrelation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getInterArrivalRateCovariance <em>Inter Arrival Rate Covariance</em>}'.
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraArrivalRateCovariance <em>Intra Arrival Rate Covariance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Inter Arrival Rate Covariance</em>'.
-	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getInterArrivalRateCovariance()
+	 * @return the meta object for the attribute '<em>Intra Arrival Rate Covariance</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.FeatureVector#getIntraArrivalRateCovariance()
 	 * @see #getFeatureVector()
 	 * @generated
 	 */
-	EAttribute getFeatureVector_InterArrivalRateCovariance();
+	EAttribute getFeatureVector_IntraArrivalRateCovariance();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures <em>Statistical Features</em>}'.
@@ -1273,6 +1282,17 @@ public interface RecommendationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getStatisticalFeatures_Autocorrelation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getIsNormalDistributed <em>Is Normal Distributed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Normal Distributed</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.StatisticalFeatures#getIsNormalDistributed()
+	 * @see #getStatisticalFeatures()
+	 * @generated
+	 */
+	EAttribute getStatisticalFeatures_IsNormalDistributed();
 
 	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier <em>Decision Tree Algorithm Specifier</em>}'.
@@ -1614,52 +1634,52 @@ public interface RecommendationPackage extends EPackage {
 		EAttribute FEATURE_VECTOR__UTILIZATION_ARRIVAL_COVARIANCE = eINSTANCE.getFeatureVector_UtilizationArrivalCovariance();
 
 		/**
-		 * The meta object literal for the '<em><b>Inter Utilization Correlation</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Intra Utilization Correlation</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_VECTOR__INTER_UTILIZATION_CORRELATION = eINSTANCE.getFeatureVector_InterUtilizationCorrelation();
+		EAttribute FEATURE_VECTOR__INTRA_UTILIZATION_CORRELATION = eINSTANCE.getFeatureVector_IntraUtilizationCorrelation();
 
 		/**
-		 * The meta object literal for the '<em><b>Inter Utilization Covariance</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Intra Utilization Covariance</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_VECTOR__INTER_UTILIZATION_COVARIANCE = eINSTANCE.getFeatureVector_InterUtilizationCovariance();
+		EAttribute FEATURE_VECTOR__INTRA_UTILIZATION_COVARIANCE = eINSTANCE.getFeatureVector_IntraUtilizationCovariance();
 
 		/**
-		 * The meta object literal for the '<em><b>Inter Response Time Correlation</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Intra Response Time Correlation</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_VECTOR__INTER_RESPONSE_TIME_CORRELATION = eINSTANCE.getFeatureVector_InterResponseTimeCorrelation();
+		EAttribute FEATURE_VECTOR__INTRA_RESPONSE_TIME_CORRELATION = eINSTANCE.getFeatureVector_IntraResponseTimeCorrelation();
 
 		/**
-		 * The meta object literal for the '<em><b>Inter Response Time Covariance</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Intra Response Time Covariance</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_VECTOR__INTER_RESPONSE_TIME_COVARIANCE = eINSTANCE.getFeatureVector_InterResponseTimeCovariance();
+		EAttribute FEATURE_VECTOR__INTRA_RESPONSE_TIME_COVARIANCE = eINSTANCE.getFeatureVector_IntraResponseTimeCovariance();
 
 		/**
-		 * The meta object literal for the '<em><b>Inter Arrival Rate Correlation</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Intra Arrival Rate Correlation</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_VECTOR__INTER_ARRIVAL_RATE_CORRELATION = eINSTANCE.getFeatureVector_InterArrivalRateCorrelation();
+		EAttribute FEATURE_VECTOR__INTRA_ARRIVAL_RATE_CORRELATION = eINSTANCE.getFeatureVector_IntraArrivalRateCorrelation();
 
 		/**
-		 * The meta object literal for the '<em><b>Inter Arrival Rate Covariance</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Intra Arrival Rate Covariance</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_VECTOR__INTER_ARRIVAL_RATE_COVARIANCE = eINSTANCE.getFeatureVector_InterArrivalRateCovariance();
+		EAttribute FEATURE_VECTOR__INTRA_ARRIVAL_RATE_COVARIANCE = eINSTANCE.getFeatureVector_IntraArrivalRateCovariance();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl <em>Statistical Features</em>}' class.
@@ -1766,6 +1786,14 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute STATISTICAL_FEATURES__AUTOCORRELATION = eINSTANCE.getStatisticalFeatures_Autocorrelation();
+
+		/**
+		 * The meta object literal for the '<em><b>Is Normal Distributed</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATISTICAL_FEATURES__IS_NORMAL_DISTRIBUTED = eINSTANCE.getStatisticalFeatures_IsNormalDistributed();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.DecisionTreeAlgorithmSpecifierImpl <em>Decision Tree Algorithm Specifier</em>}' class.

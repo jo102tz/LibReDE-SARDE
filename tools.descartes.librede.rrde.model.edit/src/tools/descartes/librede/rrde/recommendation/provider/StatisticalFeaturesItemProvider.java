@@ -74,6 +74,7 @@ public class StatisticalFeaturesItemProvider
 			addTenthpercentilePropertyDescriptor(object);
 			addNinetiethpercentilePropertyDescriptor(object);
 			addAutocorrelationPropertyDescriptor(object);
+			addIsNormalDistributedPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -343,6 +344,28 @@ public class StatisticalFeaturesItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Is Normal Distributed feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addIsNormalDistributedPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_StatisticalFeatures_isNormalDistributed_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_StatisticalFeatures_isNormalDistributed_feature", "_UI_StatisticalFeatures_type"),
+				 RecommendationPackage.Literals.STATISTICAL_FEATURES__IS_NORMAL_DISTRIBUTED,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns StatisticalFeatures.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -390,6 +413,7 @@ public class StatisticalFeaturesItemProvider
 			case RecommendationPackage.STATISTICAL_FEATURES__TENTHPERCENTILE:
 			case RecommendationPackage.STATISTICAL_FEATURES__NINETIETHPERCENTILE:
 			case RecommendationPackage.STATISTICAL_FEATURES__AUTOCORRELATION:
+			case RecommendationPackage.STATISTICAL_FEATURES__IS_NORMAL_DISTRIBUTED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

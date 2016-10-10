@@ -35,6 +35,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
+import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
@@ -244,7 +245,7 @@ public abstract class AbstractRecommendationAlgorithm implements
 
 		// convert list to double[]
 		Double[] array = list.toArray(new Double[1]);
-		return convertListDouble(array);
+		return Util.convertListDouble(array);
 	}
 
 	/**
@@ -299,36 +300,6 @@ public abstract class AbstractRecommendationAlgorithm implements
 				}
 			}
 		}
-	}
-
-	/**
-	 * Converts an array of {@link Double}s into an array of primitives.
-	 * 
-	 * @param list
-	 *            The {@link Double} array
-	 * @return The double[]
-	 */
-	public static double[] convertListDouble(Double[] array) {
-		double[] result = new double[array.length];
-		for (int i = 0; i < array.length; i++) {
-			result[i] = array[i].doubleValue();
-		}
-		return result;
-	}
-
-	/**
-	 * Converts an array of {@link Double}s into an array of primitives.
-	 * 
-	 * @param list
-	 *            The {@link Double} array
-	 * @return The int[]
-	 */
-	public static int[] convertListInt(Double[] array) {
-		int[] result = new int[array.length];
-		for (int i = 0; i < array.length; i++) {
-			result[i] = array[i].intValue();
-		}
-		return result;
 	}
 
 	/**

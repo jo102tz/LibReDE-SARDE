@@ -26,11 +26,14 @@
  */
 package tools.descartes.librede.rrde.recommendation.extract;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.stat.correlation.Covariance;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.commons.math3.stat.inference.TestUtils;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.apache.log4j.Logger;
 
@@ -43,6 +46,7 @@ import tools.descartes.librede.metrics.Metric;
 import tools.descartes.librede.metrics.StandardMetrics;
 import tools.descartes.librede.repository.IRepositoryCursor;
 import tools.descartes.librede.repository.TimeSeries;
+import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
@@ -68,6 +72,11 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	 */
 	private static final Logger log = Logger
 			.getLogger(BasicFeatureExtractor.class);
+
+	/**
+	 * The maximum VIF to be exported
+	 */
+	private static final double MAX_VIF = 1000;
 
 	/**
 	 * The standard time unit for all features.
@@ -146,7 +155,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		Librede.initRepo(var);
 		FeatureVector vector = new FeatureVectorImpl();
 		extractWorkloadDescription(vector, var);
-		// extractRegressionAnalyzisInformation(vector, var);
+		extractRegressionAnalyzisInformation(vector, var);
 
 		for (ModelEntity res : var.getRepo().getWorkload().getResources()) {
 			vector.getUtilizationStatistics().add(
@@ -195,20 +204,20 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		// inter entity correlation
 		if (var.getRepo().getWorkload().getResources().size() > 1) {
 			// only if there are more than one resources, else zero
-			vector.setInterUtilizationCorrelation(pear
+			vector.setIntraUtilizationCorrelation(pear
 					.computeCorrelationMatrix(data[0]).getNorm());
-			vector.setInterUtilizationCovariance(new Covariance(data[0])
+			vector.setIntraUtilizationCovariance(new Covariance(data[0])
 					.getCovarianceMatrix().getNorm());
 		}
 		if (var.getRepo().getWorkload().getServices().size() > 1) {
 			// only if there are more than one service, else zero
-			vector.setInterResponseTimeCorrelation(pear
+			vector.setIntraResponseTimeCorrelation(pear
 					.computeCorrelationMatrix(data[1]).getNorm());
-			vector.setInterResponseTimeCovariance(new Covariance(data[1])
+			vector.setIntraResponseTimeCovariance(new Covariance(data[1])
 					.getCovarianceMatrix().getNorm());
-			vector.setInterArrivalRateCorrelation(pear
+			vector.setIntraArrivalRateCorrelation(pear
 					.computeCorrelationMatrix(data[2]).getNorm());
-			vector.setInterArrivalRateCovariance(new Covariance(data[2])
+			vector.setIntraArrivalRateCovariance(new Covariance(data[2])
 					.getCovarianceMatrix().getNorm());
 		}
 
@@ -368,6 +377,8 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		vector.setSkewness(stat.getSkewness());
 		vector.setTenthpercentile(stat.getPercentile(10));
 		vector.setNinetiethpercentile(stat.getPercentile(90));
+		vector.setIsNormalDistributed(TestUtils.kolmogorovSmirnovStatistic(
+				new NormalDistribution(), stat.getValues()));
 
 		// TODO effective autocorrelation
 		vector.setAutocorrelation(computeAutocorrelation(stat.getValues()));
@@ -397,7 +408,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 			sumofcorrelations += pear.correlation(values, copy);
 		}
 		// return average over all lags
-		return sumofcorrelations/values.length;
+		return sumofcorrelations / values.length;
 	}
 
 	/**
@@ -411,17 +422,48 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	 */
 	protected void extractRegressionAnalyzisInformation(FeatureVector vector,
 			LibredeVariables var) {
+		if (var.getConf().getWorkloadDescription().getServices().size() < 2) {
+			vector.setVarianceInflationFactor(0);
+			return;
+		}
 		// create regression instance
 		OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
+
 		// fill data
-		IRepositoryCursor cursor = var.getRepo().getCursor(
-				var.getRepo().getCurrentTime(), basicStepSize);
-		// TODO keinen plan
+		@SuppressWarnings("unchecked")
+		ArrayList<Double>[] throughputs = new ArrayList[var.getRepo().getWorkload()
+				.getServices().size()];
+		for (int i = 0; i < var.getRepo().getWorkload().getServices().size(); i++) {
+			throughputs[i] = new ArrayList<>();
+		}
+		IRepositoryCursor cursor = var.getCursor(var.getConf().getEstimation()
+				.getApproaches().get(0).getType());
+		while (cursor.next()) {
+			for (int i = 0; i < var.getRepo().getWorkload().getServices()
+					.size(); i++) {
+				throughputs[i].add(cursor.getAggregatedValue(
+						cursor.getLastInterval(), StandardMetrics.THROUGHPUT,
+						rateUnit, var.getRepo().getWorkload().getServices()
+								.get(i), Aggregation.AVERAGE));
+			}
+		}
+		double[][] preds = new double[throughputs[0].size()][throughputs.length -1];
+		for (int i = 0; i < preds.length; i++) {
+			for(int j = 0; j < preds[i].length;j++){
+				preds[i][j] = throughputs[j+1].get(i);
+			}
+		}
+
+		regression.newSampleData(
+				Util.convertListDouble(throughputs[0].toArray(new Double[0])), preds);
 
 		// export Rsquared and calculate VIF
 		double rsquared = regression.calculateRSquared();
 		double vif = (1.0) / (1.0 - rsquared);
-		vector.setVarianceInflationFactor(vif);
+		if(vif > MAX_VIF){
+			vector.setVarianceInflationFactor(MAX_VIF);
+		} else {
+			vector.setVarianceInflationFactor(vif);
+		}
 	}
-
 }

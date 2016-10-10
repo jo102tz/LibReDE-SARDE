@@ -359,5 +359,35 @@ public class Util {
 		return (RecommendationTrainingConfiguration) resource.getContents()
 				.get(0);
 	}
+	
+	/**
+	 * Converts an array of {@link Double}s into an array of primitives.
+	 * 
+	 * @param list
+	 *            The {@link Double} array
+	 * @return The double[]
+	 */
+	public static double[] convertListDouble(Double[] array) {
+		double[] result = new double[array.length];
+		for (int i = 0; i < array.length; i++) {
+			result[i] = array[i].doubleValue();
+		}
+		return result;
+	}
+
+	/**
+	 * Converts an array of {@link Double}s into an array of primitives.
+	 * 
+	 * @param list
+	 *            The {@link Double} array
+	 * @return The int[]
+	 */
+	public static int[] convertListInt(Double[] array) {
+		int[] result = new int[array.length];
+		for (int i = 0; i < array.length; i++) {
+			result[i] = array[i].intValue();
+		}
+		return result;
+	}
 
 }
