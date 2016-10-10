@@ -42,20 +42,18 @@ public class BruteForceAlgorithm extends AbstractConfigurationOptimizer {
 	/**
 	 * The log used for logging.
 	 */
-	private static final Logger log = Logger
-			.getLogger(BruteForceAlgorithm.class);
+	private static final Logger log = Logger.getLogger(BruteForceAlgorithm.class);
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer
+	 * @see tools.descartes.librede.rrde.optimization.algorithm.
+	 * IConfigurationOptimizer
 	 * #isSpecifierSupported(tools.descartes.librede.rrde.optimization.
 	 * ConfigurationOptimizationAlgorithmSpecifier)
 	 */
 	@Override
-	public boolean isSpecifierSupported(
-			ConfigurationOptimizationAlgorithmSpecifier specifier) {
+	public boolean isSpecifierSupported(ConfigurationOptimizationAlgorithmSpecifier specifier) {
 		if (specifier instanceof LocalSearchSpecifier) {
 			return true;
 		}
@@ -82,13 +80,12 @@ public class BruteForceAlgorithm extends AbstractConfigurationOptimizer {
 	@Override
 	public void executeAlgorithm() {
 		getLog().info("Starting brute forcing...");
-		for (IOptimizableParameter param : getSettings()
-				.getParametersToOptimize()) {
+		for (IOptimizableParameter param : getSettings().getParametersToOptimize()) {
 			double minError = Double.MAX_VALUE;
 			double value = param.getStartValue();
 			getLog().info("Now brute forcing " + param.toString());
-			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += ((LocalSearchSpecifier) getSettings())
-					.getStepSize()) {
+			for (double i = param.getLowerBound(); i <= param
+					.getUpperBound(); i += ((LocalSearchSpecifier) getAlgorithm()).getStepSize()) {
 				setTargetValue(param, i);
 				double err = runIteration();
 				if (err < minError) {
@@ -98,9 +95,7 @@ public class BruteForceAlgorithm extends AbstractConfigurationOptimizer {
 			}
 			// set optimal found value
 			setTargetValue(param, value);
-			getLog().info(
-					"Found optimal value for " + param.toString() + " at "
-							+ value + "!");
+			getLog().info("Found optimal value for " + param.toString() + " at " + value + "!");
 		}
 	}
 }
