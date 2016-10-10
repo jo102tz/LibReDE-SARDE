@@ -413,7 +413,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 			sumofcorrelations += pear.correlation(values, copy);
 		}
 		// return average over all lags
-		return sumofcorrelations / values.length;
+		return sumofcorrelations / MAX_LAG;
 	}
 
 	/**
