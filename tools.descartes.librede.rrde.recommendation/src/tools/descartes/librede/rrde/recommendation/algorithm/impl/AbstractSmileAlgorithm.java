@@ -275,4 +275,14 @@ public abstract class AbstractSmileAlgorithm extends
 		return null;
 	}
 
+	/**
+	 * Returns the number of different {@link EstimationSpecification}s used for
+	 * training.
+	 * 
+	 * @return The size of the mapping between estimations and indexes
+	 */
+	protected int getNumberOfSupportedEstimators() {
+		return algorithmIndexMapping.size();
+	}
+
 }

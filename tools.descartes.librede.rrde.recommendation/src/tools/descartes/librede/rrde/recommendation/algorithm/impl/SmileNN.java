@@ -67,11 +67,14 @@ public class SmileNN extends AbstractSmileAlgorithm {
 	@Override
 	protected boolean train(double[][] features, int[] targets) {
 		try {
+			int[] layers = new int[4];
+			// number of features, aka input nodes
+			layers[0] = features[0].length;
+			layers[3] = getNumberOfSupportedEstimators();
+			layers[1] = layers[2] = (((NeuralNetworkAlgorithmSpecifier) getSpecifier())
+					.getNumberOfNeurons() - layers[3]) / 2;
 			NeuralNetwork nn = new NeuralNetwork(
-					NeuralNetwork.ErrorFunction.LEAST_MEAN_SQUARES,
-					((NeuralNetworkAlgorithmSpecifier) getSpecifier())
-							.getNumberOfNeurons());
-
+					NeuralNetwork.ErrorFunction.LEAST_MEAN_SQUARES, layers);
 			setClassifier(nn);
 			return true;
 		} catch (Exception e) {
