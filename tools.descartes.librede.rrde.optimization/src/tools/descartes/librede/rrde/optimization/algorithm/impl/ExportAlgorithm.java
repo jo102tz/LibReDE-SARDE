@@ -335,7 +335,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		 *            the name of the file
 		 * @return The write to use later
 		 */
-		protected BufferedWriter initFile(String outputdir, String suffix) {
+		public BufferedWriter initFile(String outputdir, String suffix) {
 			URI uri = null;
 			try {
 				uri = URI.createFileURI(new File(outputdir).toString()
@@ -376,7 +376,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		 * 
 		 * @param double the error to write
 		 */
-		protected void writeError(double d) {
+		public void writeError(double d) {
 			if (d == Double.MAX_VALUE) {
 				getLog().warn("Error is Double.MAX_VALUE.");
 				writeString(MAX_DOUBLE_REPLACE);
@@ -401,7 +401,7 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		 * @param simpleName
 		 *            the string to write
 		 */
-		protected void writeString(String simpleName) {
+		public void writeString(String simpleName) {
 			if (writer == null)
 				return;
 			try {
@@ -417,14 +417,14 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		 * 
 		 * @param double the double to write
 		 */
-		protected void writeDouble(double d) {
+		public void writeDouble(double d) {
 			writeString(df.format(d));
 		}
 
 		/**
 		 * Writes a new line
 		 */
-		protected void newLine() {
+		public void newLine() {
 			if (writer == null)
 				return;
 			try {
