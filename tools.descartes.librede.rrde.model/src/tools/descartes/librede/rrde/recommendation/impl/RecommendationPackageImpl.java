@@ -665,6 +665,15 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getNeuralNetworkAlgorithmSpecifier_Epochs() {
+		return (EAttribute)neuralNetworkAlgorithmSpecifierEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSVMAlgorithmSpecifier() {
 		return svmAlgorithmSpecifierEClass;
 	}
@@ -775,6 +784,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 
 		neuralNetworkAlgorithmSpecifierEClass = createEClass(NEURAL_NETWORK_ALGORITHM_SPECIFIER);
 		createEAttribute(neuralNetworkAlgorithmSpecifierEClass, NEURAL_NETWORK_ALGORITHM_SPECIFIER__NUMBER_OF_NEURONS);
+		createEAttribute(neuralNetworkAlgorithmSpecifierEClass, NEURAL_NETWORK_ALGORITHM_SPECIFIER__EPOCHS);
 
 		svmAlgorithmSpecifierEClass = createEClass(SVM_ALGORITHM_SPECIFIER);
 		createEAttribute(svmAlgorithmSpecifierEClass, SVM_ALGORITHM_SPECIFIER__GAUSSIAN_SIGMA);
@@ -854,22 +864,22 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEClass(featureVectorEClass, FeatureVector.class, "FeatureVector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeatureVector_NumberOfRessources(), theXMLTypePackage.getInt(), "numberOfRessources", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureVector_NumberOfWorkloadClasses(), theXMLTypePackage.getInt(), "numberOfWorkloadClasses", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_VarianceInflationFactor(), theXMLTypePackage.getDouble(), "varianceInflationFactor", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_VarianceInflationFactor(), theXMLTypePackage.getDouble(), "varianceInflationFactor", "0", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureVector_UtilizationStatistics(), this.getStatisticalFeatures(), null, "utilizationStatistics", null, 1, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureVector_ResponseTimeStatistics(), this.getStatisticalFeatures(), null, "responseTimeStatistics", null, 1, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeatureVector_ArrivalRateStatistics(), this.getStatisticalFeatures(), null, "arrivalRateStatistics", null, 1, -1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_ResponseArrivalCorrelation(), theXMLTypePackage.getDouble(), "responseArrivalCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_ResponseArrivalCovariance(), theXMLTypePackage.getDouble(), "responseArrivalCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationResponseCorrelation(), theXMLTypePackage.getDouble(), "utilizationResponseCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationResponseCovariance(), theXMLTypePackage.getDouble(), "utilizationResponseCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationArrivalCorrelation(), theXMLTypePackage.getDouble(), "utilizationArrivalCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_UtilizationArrivalCovariance(), theXMLTypePackage.getDouble(), "utilizationArrivalCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_IntraUtilizationCorrelation(), theXMLTypePackage.getDouble(), "intraUtilizationCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_IntraUtilizationCovariance(), theXMLTypePackage.getDouble(), "intraUtilizationCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_IntraResponseTimeCorrelation(), theXMLTypePackage.getDouble(), "intraResponseTimeCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_IntraResponseTimeCovariance(), theXMLTypePackage.getDouble(), "intraResponseTimeCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_IntraArrivalRateCorrelation(), theXMLTypePackage.getDouble(), "intraArrivalRateCorrelation", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureVector_IntraArrivalRateCovariance(), theXMLTypePackage.getDouble(), "intraArrivalRateCovariance", "-1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_ResponseArrivalCorrelation(), theXMLTypePackage.getDouble(), "responseArrivalCorrelation", "0", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_ResponseArrivalCovariance(), theXMLTypePackage.getDouble(), "responseArrivalCovariance", "0", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationResponseCorrelation(), theXMLTypePackage.getDouble(), "utilizationResponseCorrelation", "0", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationResponseCovariance(), theXMLTypePackage.getDouble(), "utilizationResponseCovariance", "0", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationArrivalCorrelation(), theXMLTypePackage.getDouble(), "utilizationArrivalCorrelation", "0", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_UtilizationArrivalCovariance(), theXMLTypePackage.getDouble(), "utilizationArrivalCovariance", "0", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraUtilizationCorrelation(), theXMLTypePackage.getDouble(), "intraUtilizationCorrelation", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraUtilizationCovariance(), theXMLTypePackage.getDouble(), "intraUtilizationCovariance", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraResponseTimeCorrelation(), theXMLTypePackage.getDouble(), "intraResponseTimeCorrelation", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraResponseTimeCovariance(), theXMLTypePackage.getDouble(), "intraResponseTimeCovariance", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraArrivalRateCorrelation(), theXMLTypePackage.getDouble(), "intraArrivalRateCorrelation", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureVector_IntraArrivalRateCovariance(), theXMLTypePackage.getDouble(), "intraArrivalRateCovariance", "1", 1, 1, FeatureVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(statisticalFeaturesEClass, StatisticalFeatures.class, "StatisticalFeatures", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStatisticalFeatures_N(), theXMLTypePackage.getDouble(), "N", "-1", 1, 1, StatisticalFeatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -891,6 +901,7 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 
 		initEClass(neuralNetworkAlgorithmSpecifierEClass, NeuralNetworkAlgorithmSpecifier.class, "NeuralNetworkAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNeuralNetworkAlgorithmSpecifier_NumberOfNeurons(), theXMLTypePackage.getInt(), "numberOfNeurons", "100", 1, 1, NeuralNetworkAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNeuralNetworkAlgorithmSpecifier_Epochs(), theXMLTypePackage.getInt(), "epochs", "5", 1, 1, NeuralNetworkAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(svmAlgorithmSpecifierEClass, SVMAlgorithmSpecifier.class, "SVMAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSVMAlgorithmSpecifier_GaussianSigma(), theXMLTypePackage.getDouble(), "gaussianSigma", "8.0", 1, 1, SVMAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

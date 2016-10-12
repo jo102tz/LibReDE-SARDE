@@ -688,13 +688,22 @@ public interface RecommendationPackage extends EPackage {
 	int NEURAL_NETWORK_ALGORITHM_SPECIFIER__NUMBER_OF_NEURONS = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Epochs</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEURAL_NETWORK_ALGORITHM_SPECIFIER__EPOCHS = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Neural Network Algorithm Specifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NEURAL_NETWORK_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+	int NEURAL_NETWORK_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Neural Network Algorithm Specifier</em>' class.
@@ -1337,6 +1346,17 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getNeuralNetworkAlgorithmSpecifier_NumberOfNeurons();
 
 	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier#getEpochs <em>Epochs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Epochs</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier#getEpochs()
+	 * @see #getNeuralNetworkAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getNeuralNetworkAlgorithmSpecifier_Epochs();
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier <em>SVM Algorithm Specifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1830,6 +1850,14 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute NEURAL_NETWORK_ALGORITHM_SPECIFIER__NUMBER_OF_NEURONS = eINSTANCE.getNeuralNetworkAlgorithmSpecifier_NumberOfNeurons();
+
+		/**
+		 * The meta object literal for the '<em><b>Epochs</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NEURAL_NETWORK_ALGORITHM_SPECIFIER__EPOCHS = eINSTANCE.getNeuralNetworkAlgorithmSpecifier_Epochs();
 
 		/**
 		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.SVMAlgorithmSpecifierImpl <em>SVM Algorithm Specifier</em>}' class.

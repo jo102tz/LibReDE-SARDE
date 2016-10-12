@@ -98,7 +98,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double VARIANCE_INFLATION_FACTOR_EDEFAULT = -1.0;
+	protected static final double VARIANCE_INFLATION_FACTOR_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getVarianceInflationFactor() <em>Variance Inflation Factor</em>}' attribute.
@@ -148,7 +148,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double RESPONSE_ARRIVAL_CORRELATION_EDEFAULT = -1.0;
+	protected static final double RESPONSE_ARRIVAL_CORRELATION_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getResponseArrivalCorrelation() <em>Response Arrival Correlation</em>}' attribute.
@@ -168,7 +168,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double RESPONSE_ARRIVAL_COVARIANCE_EDEFAULT = -1.0;
+	protected static final double RESPONSE_ARRIVAL_COVARIANCE_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getResponseArrivalCovariance() <em>Response Arrival Covariance</em>}' attribute.
@@ -188,7 +188,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double UTILIZATION_RESPONSE_CORRELATION_EDEFAULT = -1.0;
+	protected static final double UTILIZATION_RESPONSE_CORRELATION_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getUtilizationResponseCorrelation() <em>Utilization Response Correlation</em>}' attribute.
@@ -208,7 +208,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double UTILIZATION_RESPONSE_COVARIANCE_EDEFAULT = -1.0;
+	protected static final double UTILIZATION_RESPONSE_COVARIANCE_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getUtilizationResponseCovariance() <em>Utilization Response Covariance</em>}' attribute.
@@ -228,7 +228,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double UTILIZATION_ARRIVAL_CORRELATION_EDEFAULT = -1.0;
+	protected static final double UTILIZATION_ARRIVAL_CORRELATION_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getUtilizationArrivalCorrelation() <em>Utilization Arrival Correlation</em>}' attribute.
@@ -248,7 +248,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double UTILIZATION_ARRIVAL_COVARIANCE_EDEFAULT = -1.0;
+	protected static final double UTILIZATION_ARRIVAL_COVARIANCE_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getUtilizationArrivalCovariance() <em>Utilization Arrival Covariance</em>}' attribute.
@@ -268,7 +268,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTRA_UTILIZATION_CORRELATION_EDEFAULT = -1.0;
+	protected static final double INTRA_UTILIZATION_CORRELATION_EDEFAULT = 1.0;
 
 	/**
 	 * The cached value of the '{@link #getIntraUtilizationCorrelation() <em>Intra Utilization Correlation</em>}' attribute.
@@ -288,7 +288,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTRA_UTILIZATION_COVARIANCE_EDEFAULT = -1.0;
+	protected static final double INTRA_UTILIZATION_COVARIANCE_EDEFAULT = 1.0;
 
 	/**
 	 * The cached value of the '{@link #getIntraUtilizationCovariance() <em>Intra Utilization Covariance</em>}' attribute.
@@ -308,7 +308,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTRA_RESPONSE_TIME_CORRELATION_EDEFAULT = -1.0;
+	protected static final double INTRA_RESPONSE_TIME_CORRELATION_EDEFAULT = 1.0;
 
 	/**
 	 * The cached value of the '{@link #getIntraResponseTimeCorrelation() <em>Intra Response Time Correlation</em>}' attribute.
@@ -328,7 +328,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTRA_RESPONSE_TIME_COVARIANCE_EDEFAULT = -1.0;
+	protected static final double INTRA_RESPONSE_TIME_COVARIANCE_EDEFAULT = 1.0;
 
 	/**
 	 * The cached value of the '{@link #getIntraResponseTimeCovariance() <em>Intra Response Time Covariance</em>}' attribute.
@@ -348,7 +348,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTRA_ARRIVAL_RATE_CORRELATION_EDEFAULT = -1.0;
+	protected static final double INTRA_ARRIVAL_RATE_CORRELATION_EDEFAULT = 1.0;
 
 	/**
 	 * The cached value of the '{@link #getIntraArrivalRateCorrelation() <em>Intra Arrival Rate Correlation</em>}' attribute.
@@ -368,7 +368,7 @@ public class FeatureVectorImpl extends MinimalEObjectImpl.Container implements F
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double INTRA_ARRIVAL_RATE_COVARIANCE_EDEFAULT = -1.0;
+	protected static final double INTRA_ARRIVAL_RATE_COVARIANCE_EDEFAULT = 1.0;
 
 	/**
 	 * The cached value of the '{@link #getIntraArrivalRateCovariance() <em>Intra Arrival Rate Covariance</em>}' attribute.

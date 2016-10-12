@@ -12,6 +12,7 @@ package tools.descartes.librede.rrde.recommendation;
  * The following features are supported:
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier#getNumberOfNeurons <em>Number Of Neurons</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier#getEpochs <em>Epochs</em>}</li>
  * </ul>
  * </p>
  *
@@ -46,5 +47,32 @@ public interface NeuralNetworkAlgorithmSpecifier extends RecommendationAlgorithm
 	 * @generated
 	 */
 	void setNumberOfNeurons(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Epochs</b></em>' attribute.
+	 * The default value is <code>"5"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Epochs</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Epochs</em>' attribute.
+	 * @see #setEpochs(int)
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getNeuralNetworkAlgorithmSpecifier_Epochs()
+	 * @model default="5" dataType="org.eclipse.emf.ecore.xml.type.Int" required="true"
+	 * @generated
+	 */
+	int getEpochs();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier#getEpochs <em>Epochs</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Epochs</em>' attribute.
+	 * @see #getEpochs()
+	 * @generated
+	 */
+	void setEpochs(int value);
 
 } // NeuralNetworkAlgorithmSpecifier

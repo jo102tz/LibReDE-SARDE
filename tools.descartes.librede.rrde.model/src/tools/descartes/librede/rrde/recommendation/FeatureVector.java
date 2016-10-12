@@ -96,7 +96,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Variance Inflation Factor</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Variance Inflation Factor</em>' attribute isn't clear,
@@ -106,7 +106,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Variance Inflation Factor</em>' attribute.
 	 * @see #setVarianceInflationFactor(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_VarianceInflationFactor()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="0" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getVarianceInflationFactor();
@@ -171,7 +171,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Response Arrival Correlation</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Response Arrival Correlation</em>' attribute isn't clear,
@@ -181,7 +181,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Response Arrival Correlation</em>' attribute.
 	 * @see #setResponseArrivalCorrelation(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_ResponseArrivalCorrelation()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="0" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getResponseArrivalCorrelation();
@@ -198,7 +198,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Response Arrival Covariance</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Response Arrival Covariance</em>' attribute isn't clear,
@@ -208,7 +208,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Response Arrival Covariance</em>' attribute.
 	 * @see #setResponseArrivalCovariance(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_ResponseArrivalCovariance()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="0" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getResponseArrivalCovariance();
@@ -225,7 +225,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Utilization Response Correlation</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Utilization Response Correlation</em>' attribute isn't clear,
@@ -235,7 +235,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Utilization Response Correlation</em>' attribute.
 	 * @see #setUtilizationResponseCorrelation(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationResponseCorrelation()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="0" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getUtilizationResponseCorrelation();
@@ -252,7 +252,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Utilization Response Covariance</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Utilization Response Covariance</em>' attribute isn't clear,
@@ -262,7 +262,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Utilization Response Covariance</em>' attribute.
 	 * @see #setUtilizationResponseCovariance(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationResponseCovariance()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="0" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getUtilizationResponseCovariance();
@@ -279,7 +279,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Utilization Arrival Correlation</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Utilization Arrival Correlation</em>' attribute isn't clear,
@@ -289,7 +289,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Utilization Arrival Correlation</em>' attribute.
 	 * @see #setUtilizationArrivalCorrelation(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationArrivalCorrelation()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="0" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getUtilizationArrivalCorrelation();
@@ -306,7 +306,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Utilization Arrival Covariance</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Utilization Arrival Covariance</em>' attribute isn't clear,
@@ -316,7 +316,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Utilization Arrival Covariance</em>' attribute.
 	 * @see #setUtilizationArrivalCovariance(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_UtilizationArrivalCovariance()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="0" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getUtilizationArrivalCovariance();
@@ -333,7 +333,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Intra Utilization Correlation</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Intra Utilization Correlation</em>' attribute isn't clear,
@@ -343,7 +343,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Intra Utilization Correlation</em>' attribute.
 	 * @see #setIntraUtilizationCorrelation(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraUtilizationCorrelation()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getIntraUtilizationCorrelation();
@@ -360,7 +360,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Intra Utilization Covariance</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Intra Utilization Covariance</em>' attribute isn't clear,
@@ -370,7 +370,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Intra Utilization Covariance</em>' attribute.
 	 * @see #setIntraUtilizationCovariance(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraUtilizationCovariance()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getIntraUtilizationCovariance();
@@ -387,7 +387,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Intra Response Time Correlation</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Intra Response Time Correlation</em>' attribute isn't clear,
@@ -397,7 +397,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Intra Response Time Correlation</em>' attribute.
 	 * @see #setIntraResponseTimeCorrelation(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraResponseTimeCorrelation()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getIntraResponseTimeCorrelation();
@@ -414,7 +414,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Intra Response Time Covariance</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Intra Response Time Covariance</em>' attribute isn't clear,
@@ -424,7 +424,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Intra Response Time Covariance</em>' attribute.
 	 * @see #setIntraResponseTimeCovariance(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraResponseTimeCovariance()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getIntraResponseTimeCovariance();
@@ -441,7 +441,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Intra Arrival Rate Correlation</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Intra Arrival Rate Correlation</em>' attribute isn't clear,
@@ -451,7 +451,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Intra Arrival Rate Correlation</em>' attribute.
 	 * @see #setIntraArrivalRateCorrelation(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraArrivalRateCorrelation()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getIntraArrivalRateCorrelation();
@@ -468,7 +468,7 @@ public interface FeatureVector extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Intra Arrival Rate Covariance</b></em>' attribute.
-	 * The default value is <code>"-1"</code>.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Intra Arrival Rate Covariance</em>' attribute isn't clear,
@@ -478,7 +478,7 @@ public interface FeatureVector extends EObject {
 	 * @return the value of the '<em>Intra Arrival Rate Covariance</em>' attribute.
 	 * @see #setIntraArrivalRateCovariance(double)
 	 * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureVector_IntraArrivalRateCovariance()
-	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
+	 * @model default="1" dataType="org.eclipse.emf.ecore.xml.type.Double" required="true"
 	 * @generated
 	 */
 	double getIntraArrivalRateCovariance();

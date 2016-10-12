@@ -135,6 +135,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="NeuralNetworkAlgorithmSpecifier" eSuperTypes="#//RecommendationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfNeurons" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="100"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="epochs" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="5"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SVMAlgorithmSpecifier" eSuperTypes="#//RecommendationAlgorithmSpecifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="gaussianSigma" lowerBound="1"

@@ -46,6 +46,7 @@ public class NeuralNetworkAlgorithmSpecifierItemProvider extends RecommendationA
 			super.getPropertyDescriptors(object);
 
 			addNumberOfNeuronsPropertyDescriptor(object);
+			addEpochsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -64,6 +65,28 @@ public class NeuralNetworkAlgorithmSpecifierItemProvider extends RecommendationA
 				 getString("_UI_NeuralNetworkAlgorithmSpecifier_numberOfNeurons_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_NeuralNetworkAlgorithmSpecifier_numberOfNeurons_feature", "_UI_NeuralNetworkAlgorithmSpecifier_type"),
 				 RecommendationPackage.Literals.NEURAL_NETWORK_ALGORITHM_SPECIFIER__NUMBER_OF_NEURONS,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Epochs feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEpochsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_NeuralNetworkAlgorithmSpecifier_epochs_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_NeuralNetworkAlgorithmSpecifier_epochs_feature", "_UI_NeuralNetworkAlgorithmSpecifier_type"),
+				 RecommendationPackage.Literals.NEURAL_NETWORK_ALGORITHM_SPECIFIER__EPOCHS,
 				 true,
 				 false,
 				 false,
@@ -111,6 +134,7 @@ public class NeuralNetworkAlgorithmSpecifierItemProvider extends RecommendationA
 
 		switch (notification.getFeatureID(NeuralNetworkAlgorithmSpecifier.class)) {
 			case RecommendationPackage.NEURAL_NETWORK_ALGORITHM_SPECIFIER__NUMBER_OF_NEURONS:
+			case RecommendationPackage.NEURAL_NETWORK_ALGORITHM_SPECIFIER__EPOCHS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

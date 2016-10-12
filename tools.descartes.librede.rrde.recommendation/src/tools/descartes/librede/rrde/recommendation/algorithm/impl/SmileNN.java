@@ -75,7 +75,10 @@ public class SmileNN extends AbstractSmileAlgorithm {
 					.getNumberOfNeurons() - layers[3]) / 2;
 			NeuralNetwork nn = new NeuralNetwork(
 					NeuralNetwork.ErrorFunction.LEAST_MEAN_SQUARES, layers);
-			nn.learn(features, targets);
+			for (int i = 0; i < ((NeuralNetworkAlgorithmSpecifier) getSpecifier())
+					.getEpochs(); i++){
+				nn.learn(features, targets);
+			}
 			setClassifier(nn);
 			return true;
 		} catch (Exception e) {
