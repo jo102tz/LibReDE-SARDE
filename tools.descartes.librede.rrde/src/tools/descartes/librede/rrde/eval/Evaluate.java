@@ -26,19 +26,29 @@
  */
 package tools.descartes.librede.rrde.eval;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
 import tools.descartes.librede.Librede;
+import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.Plugin;
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.Discovery;
@@ -46,9 +56,9 @@ import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.Util;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.FileExporter;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
-import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
-import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
 /**
  * @author JS
@@ -64,37 +74,43 @@ public class Evaluate {
 	/**
 	 * A link to the desktop.
 	 */
-	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes Grohmann"
-			+ File.separator + "Desktop";
+	public static final String DESKTOP = "C:" + File.separator + "Users"
+			+ File.separator + "Johannes Grohmann" + File.separator + "Desktop";
 
 	/**
 	 * The path linking to the test folder.
 	 */
-	public static final String TESTPATH = "resources" + File.separator + "test" + File.separator + "validation";
+	public static final String TESTPATH = "resources" + File.separator + "test"
+			+ File.separator + "validation";
 
 	/**
 	 * The path to the default {@link LibredeConfiguration}
 	 */
-	public final static String LIB_PATH = TESTPATH + File.separator + "estimation.librede";
+	public final static String LIB_PATH = TESTPATH + File.separator
+			+ "estimation.librede";
 
 	/**
 	 * The path to the default {@link OptimizationConfiguration}
 	 */
-	public final static String OPT_PATH = TESTPATH + File.separator + "conf.optimization";
+	public final static String OPT_PATH = TESTPATH + File.separator
+			+ "conf.optimization";
 
 	/**
 	 * The path to the default {@link RecommendationTrainingConfiguration}
 	 */
-	public final static String REC_PATH = TESTPATH + File.separator + "conf.recommendation";
+	public final static String REC_PATH = TESTPATH + File.separator
+			+ "conf.recommendation";
 	/**
 	 * The path for validation
 	 */
-	public static final String validationfolder = DESKTOP + File.separator + "training";
+	public static final String validationfolder = DESKTOP + File.separator
+			+ "training";
 
 	/**
 	 * The path for training
 	 */
-	public static final String trainingfolder = DESKTOP + File.separator + "training";
+	public static final String trainingfolder = DESKTOP + File.separator
+			+ "training";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -139,15 +155,18 @@ public class Evaluate {
 		log.info("Starting initialization");
 		// load config files
 		librede = Librede.loadConfiguration(new File(LIB_PATH).toPath());
-		optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
-		recommendation = Util.loadRecommendationConfiguration(new File(REC_PATH).toPath());
+		optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH)
+				.toPath());
+		recommendation = Util
+				.loadRecommendationConfiguration(new File(REC_PATH).toPath());
 
 		// discover validation configurations
 		for (InputData data : recommendation.getTrainingData()) {
 			data.setRootFolder(validationfolder);
 		}
 
-		configs = Discovery.createConfigurations(recommendation.getTrainingData(), librede.getEstimation(),
+		configs = Discovery.createConfigurations(
+				recommendation.getTrainingData(), librede.getEstimation(),
 				librede.getValidation());
 
 		// adapt configurations to be similar
@@ -161,28 +180,72 @@ public class Evaluate {
 			for (InputData data : call.getTrainingData()) {
 				data.setRootFolder(trainingfolder);
 			}
-			call.getSettings().setValidator(EcoreUtil.copy(librede.getValidation()));
+			call.getSettings().setValidator(
+					EcoreUtil.copy(librede.getValidation()));
 			if (call.getAlgorithm() instanceof DataExportSpecifier) {
-				((DataExportSpecifier) call.getAlgorithm()).setOutputDirectory(OUTPUT);
+				((DataExportSpecifier) call.getAlgorithm())
+						.setOutputDirectory(OUTPUT);
 			}
 
 		}
 
-		vali = new TestSetValidator(configs);
-		Assert.assertNotEquals(vali.getTestset().size(), 0);
-		vali.calculateInitialErrors();
-		log.info("Initialized! Starting optimization...");
-		long start = System.currentTimeMillis();
-		// run optimization
-		Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
-				.runConfigurationOptimization(librede, optimization, OUTPUT);
-		long opti = System.currentTimeMillis() - start;
-		log.info("Finished optimization! Validating...");
-
-		// print results
-		vali.compareOptimized(estimations, true);
-		vali.printResults(null, opti, 0);
+		validateOptimizers(optimization, OUTPUT);
 
 	}
 
+	/**
+	 * @param the
+	 *            file is stored here
+	 */
+	private void validateOptimizers(OptimizationConfiguration conf,
+			String output) {
+		ArrayList<RunCall> newRunCalls = new ArrayList<RunCall>();
+		for (RunCall call : conf.getContainsOf()) {
+			if (call.getEstimation().getApproaches().size() > 1) {
+				// split up
+				for (EstimationApproachConfiguration approach : call
+						.getEstimation().getApproaches()) {
+					// deep copy
+					RunCall newCall = EcoreUtil.copy(call);
+
+					newCall.setEstimation(EcoreUtil.copy(call.getEstimation()));
+
+					newCall.getEstimation().getApproaches().clear();
+					newCall.getEstimation().getApproaches()
+							.add(EcoreUtil.copy(approach));
+
+					newRunCalls.add(newCall);
+				}
+			} else {
+				newRunCalls.add(call);
+			}
+		}
+		conf.getContainsOf().clear();
+
+		FileExporter file = new ExportAlgorithm().new FileExporter(OUTPUT,
+				"optimizationresults.csv");
+
+		for (RunCall run : newRunCalls) {
+			conf.getContainsOf().add(run);
+			// run estimation and comparison
+			vali = new TestSetValidator(configs);
+			Assert.assertNotEquals(vali.getTestset().size(), 0);
+			vali.calculateInitialErrors();
+			log.info("Initialized! Starting optimization...");
+			long start = System.currentTimeMillis();
+			// run optimization
+			Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
+					.runConfigurationOptimization(librede, optimization, OUTPUT);
+			long opti = System.currentTimeMillis() - start;
+			log.info("Finished optimization! Validating...");
+
+			// print results
+			vali.compareOptimized(estimations, true);
+			vali.printResults(null, opti, 0);
+
+			//
+		}
+
+		conf.getContainsOf().addAll(newRunCalls);
+	}
 }

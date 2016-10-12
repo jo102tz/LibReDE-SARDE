@@ -42,6 +42,7 @@ import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ModelEntity;
+import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.GenericParameter;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.validation.ResponseTimeValidator;
@@ -57,7 +58,8 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 	/**
 	 * The log used for logging.
 	 */
-	private static final Logger log = Logger.getLogger(EstimateExportAlgorithm.class);
+	private static final Logger log = Logger
+			.getLogger(EstimateExportAlgorithm.class);
 
 	/*
 	 * (non-Javadoc)
@@ -72,9 +74,11 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 	}
 
 	@Override
-	protected void exportAllParameters(EList<IOptimizableParameter> parametersToOptimize) {
-		throw new UnsupportedOperationException(
-				"The " + this.getClass().getSimpleName() + " does not support mulit-parameter resolution.");
+	protected void exportAllParameters(
+			EList<IOptimizableParameter> parametersToOptimize) {
+		throw new UnsupportedOperationException("The "
+				+ this.getClass().getSimpleName()
+				+ " does not support mulit-parameter resolution.");
 	}
 
 	/**
@@ -91,7 +95,8 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 		Class<? extends IEstimationApproach> approach = null;
 		try {
 			approach = (Class<? extends IEstimationApproach>) Class
-					.forName(getSpecification().getApproaches().get(0).getType());
+					.forName(getSpecification().getApproaches().get(0)
+							.getType());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -101,57 +106,65 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 			paramname = ((GenericParameter) param).getParameter().getName();
 		}
 
-		List<BufferedWriter> writers = new ArrayList<BufferedWriter>();
-		for (ModelEntity res : results.get(getConfs().iterator().next()).getValidatedEntities()
-				.get(ResponseTimeValidator.class)) {
-			writers.add(initFile(getSimpleApproachName() + "_" + paramname + "_" + res.getName() + "_estimates.csv"));
+		List<FileExporter> writers = new ArrayList<FileExporter>();
+		for (ModelEntity res : results.get(getConfs().iterator().next())
+				.getValidatedEntities().get(ResponseTimeValidator.class)) {
+			writers.add(new FileExporter(((DataExportSpecifier) getAlgorithm())
+					.getOutputDirectory(), getSimpleApproachName() + "_"
+					+ paramname + "_" + res.getName() + "_estimates.csv"));
 		}
 
 		if (!settings().isSplitConfigurations()) {
-			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
+			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings()
+					.getStepSize()) {
 				setTargetValue(param, i);
 				runIteration();
 				int j = 0;
-				for (BufferedWriter s : writers) {
-					writeDouble(s, i);
+				for (FileExporter s : writers) {
+					s.writeDouble(i);
 					// aggregate over all configurations for average
 					DescriptiveStatistics stat = new DescriptiveStatistics();
 					for (LibredeConfiguration conf : getConfs()) {
-						stat.addValue(
-								getLastResults().get(conf).getApproachResults(approach).getMeanEstimates().get(j, 0));
+						stat.addValue(getLastResults().get(conf)
+								.getApproachResults(approach)
+								.getMeanEstimates().get(j, 0));
 						j++;
 					}
-					writeDouble(s, stat.getMean());
-					newLine(s);
+					s.writeDouble(stat.getMean());
+					s.newLine();
 				}
 			}
 		} else {
-			Set<LibredeConfiguration> original = new HashSet<LibredeConfiguration>(getConfs());
+			Set<LibredeConfiguration> original = new HashSet<LibredeConfiguration>(
+					getConfs());
 			// write header
-			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
-				for (BufferedWriter s : writers) {
-					writeDouble(s, i);
+			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings()
+					.getStepSize()) {
+				for (FileExporter s : writers) {
+					s.writeDouble(i);
 				}
 			}
-			for (BufferedWriter s : writers) {
-				newLine(s);
+			for (FileExporter s : writers) {
+				s.newLine();
 			}
 			// split for configurations
 			for (LibredeConfiguration conf : original) {
 				getConfs().clear();
 				getConfs().add(conf);
-				for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
+				for (double i = param.getLowerBound(); i <= param
+						.getUpperBound(); i += settings().getStepSize()) {
 					setTargetValue(param, i);
 					runIteration();
 					int j = 0;
-					for (BufferedWriter s : writers) {
-						writeDouble(s,
-								getLastResults().get(conf).getApproachResults(approach).getMeanEstimates().get(j, 0));
+					for (FileExporter s : writers) {
+						s.writeDouble(getLastResults().get(conf)
+								.getApproachResults(approach)
+								.getMeanEstimates().get(j, 0));
 						j++;
 					}
 				}
-				for (BufferedWriter s : writers) {
-					newLine(s);
+				for (FileExporter s : writers) {
+					s.newLine();
 				}
 			}
 			getConfs().clear();
@@ -159,12 +172,9 @@ public class EstimateExportAlgorithm extends ExportAlgorithm {
 		}
 		// set to default again
 		setTargetValue(param, param.getStartValue());
-		try {
-			for (BufferedWriter s : writers) {
-				s.close();
-			}
-		} catch (IOException e) {
-			getLog().error("Closing resource caused an error.", e);
+		for (FileExporter s : writers) {
+			s.close();
 		}
+
 	}
 }

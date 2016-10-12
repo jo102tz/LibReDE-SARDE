@@ -67,32 +67,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 */
 	private DataExportSpecifier settings;
 
-	/**
-	 * The Decimal format to format the output values.
-	 */
-	private DecimalFormat df;
-
-	/**
-	 * This value will be used to replace MAX_DOUBLE values.
-	 */
-	private static final String MAX_DOUBLE_REPLACE = "NA";
-
-	/**
-	 * This value will be used to replace NaN values.
-	 */
-	private static final String NaN_REPLACE = "NA";
-
-	/**
-	 * The character to differentiate between to elements in the file.
-	 */
-	private static final String BREAK = ";";
-
-	/**
-	 * The character to skip to the next line.
-	 */
-	private static final String BREAKLINE = System
-			.getProperty("line.separator");
-
 	public ExportAlgorithm() {
 		super();
 	}
@@ -154,10 +128,6 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 	 */
 	@Override
 	public void executeAlgorithm() {
-		// define output format
-		df = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
-		df.setMaximumFractionDigits(8);
-		df.setGroupingUsed(false);
 
 		settings = (DataExportSpecifier) getAlgorithm();
 		if (settings().isMultidimensional()
@@ -206,44 +176,39 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 			getLog().warn("No parameters specified.");
 			return;
 		}
-		BufferedWriter s = initFile(getSimpleApproachName() + "_allParams.csv");
-		if (s == null) {
-			return;
-		}
+		FileExporter s = new FileExporter(settings.getOutputDirectory(), getSimpleApproachName()
+				+ "_allParams.csv");
 
 		// write headerline
-		writeString(s, parametersToOptimize.get(1).getClass().getSimpleName());
+		s.writeString(parametersToOptimize.get(1).getClass().getSimpleName());
 		for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize
 				.get(1).getUpperBound(); j += settings().getStepSize()) {
-			writeDouble(s, j);
+			s.writeDouble(j);
 		}
-		newLine(s);
+		s.newLine();
 
 		// write matrix
 		for (double i = parametersToOptimize.get(0).getLowerBound(); i <= parametersToOptimize
 				.get(0).getUpperBound(); i += settings().getStepSize()) {
-			writeDouble(s, i);
+			s.writeDouble(i);
 			setTargetValue(parametersToOptimize.get(0), i);
 			for (double j = parametersToOptimize.get(1).getLowerBound(); j <= parametersToOptimize
 					.get(1).getUpperBound(); j += settings().getStepSize()) {
 				setTargetValue(parametersToOptimize.get(1), j);
 				runIteration();
-				writeError(s, getLastError());
+				s.writeError(getLastError());
 			}
-			newLine(s);
+			s.newLine();
 		}
-		writeString(s, parametersToOptimize.get(0).getClass().getSimpleName());
+		s.writeString(parametersToOptimize.get(0).getClass().getSimpleName());
 
 		// set to default again
 		setTargetValue(parametersToOptimize.get(0), parametersToOptimize.get(0)
 				.getStartValue());
 		setTargetValue(parametersToOptimize.get(1), parametersToOptimize.get(1)
 				.getStartValue());
-		try {
-			s.close();
-		} catch (IOException e) {
-			getLog().error("Closing resource caused an error.", e);
-		}
+		
+		s.close();
 	}
 
 	/**
@@ -262,16 +227,16 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 			paramname = "StepSize_relative"
 					+ ((StepSizeRelWindow) param).getProductMaxValue();
 		}
-		BufferedWriter s = initFile(getSimpleApproachName() + "_" + paramname
-				+ ".csv");
+		FileExporter s = new FileExporter(settings.getOutputDirectory(), getSimpleApproachName() + "_"
+				+ paramname + ".csv");
 		if (!settings().isSplitConfigurations()) {
 			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings()
 					.getStepSize()) {
-				writeDouble(s, i);
+				s.writeDouble(i);
 				setTargetValue(param, i);
 				runIteration();
-				writeError(s, getLastError());
-				newLine(s);
+				s.writeError(getLastError());
+				s.newLine();
 			}
 		} else {
 			Set<LibredeConfiguration> original = new HashSet<LibredeConfiguration>(
@@ -279,9 +244,9 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 			// write header
 			for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings()
 					.getStepSize()) {
-				writeDouble(s, i);
+				s.writeDouble(i);
 			}
-			newLine(s);
+			s.newLine();
 			// split for configurations
 			for (LibredeConfiguration conf : original) {
 				getConfs().clear();
@@ -290,9 +255,9 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 						.getUpperBound(); i += settings().getStepSize()) {
 					setTargetValue(param, i);
 					runIteration();
-					writeError(s, getLastError());
+					s.writeError(getLastError());
 				}
-				newLine(s);
+				s.newLine();
 			}
 			getConfs().clear();
 			getConfs().addAll(original);
@@ -302,127 +267,172 @@ public class ExportAlgorithm extends AbstractConfigurationOptimizer {
 		// set to default again
 		setTargetValue(param, param.getStartValue());
 
-		try {
-			if (s != null)
-				s.close();
-		} catch (IOException e) {
-			getLog().error("Closing resource caused an error.", e);
-		}
+		s.close();
 	}
 
-	/**
-	 * Writes an error value in the output (as opposed to an index) and
-	 * therefore checks if the error is of somewhat of a malformed structure. If
-	 * so, an error message is logged to the console.
-	 * 
-	 * @param s
-	 *            the writer
-	 * @param double the error to write
-	 */
-	protected void writeError(BufferedWriter s, double d) {
-		if (d == Double.MAX_VALUE) {
-			getLog().warn("Error is Double.MAX_VALUE.");
-			writeString(s, MAX_DOUBLE_REPLACE);
-			return;
-		}
-		if (Double.isNaN(d)) {
-			getLog().warn("Error is NaN.");
-			writeString(s, NaN_REPLACE);
-			return;
-		}
-		if (d < 0) {
-			getLog().warn("Error is negative.");
-			writeDouble(s, 0);
-			return;
-		}
-		writeDouble(s, d);
-	}
+	public class FileExporter {
+		/**
+		 * The Decimal format to format the output values.
+		 */
+		private DecimalFormat df;
 
-	/**
-	 * Writes a string in the output file
-	 * 
-	 * @param s
-	 *            the writer
-	 * @param simpleName
-	 *            the string to write
-	 */
-	protected void writeString(BufferedWriter s, String simpleName) {
-		if (s == null)
-			return;
-		try {
-			s.write(simpleName);
-			s.write(BREAK);
-		} catch (IOException e) {
-			getLog().error("Writing caused an error.", e);
-		}
-	}
+		/**
+		 * This value will be used to replace MAX_DOUBLE values.
+		 */
+		private static final String MAX_DOUBLE_REPLACE = "NA";
 
-	/**
-	 * Writes a double in the output file
-	 * 
-	 * @param s
-	 *            the writer
-	 * @param double the double to write
-	 */
-	protected void writeDouble(BufferedWriter s, double d) {
-		writeString(s, df.format(d));
-	}
+		/**
+		 * This value will be used to replace NaN values.
+		 */
+		private static final String NaN_REPLACE = "NA";
 
-	/**
-	 * Writes a double in the output file
-	 * 
-	 * @param s
-	 *            the writer
-	 * @param double the double to write
-	 */
-	protected void newLine(BufferedWriter s) {
-		if (s == null)
-			return;
-		try {
-			s.write(BREAKLINE);
-			s.flush();
-		} catch (IOException e) {
-			getLog().error("Writing caused an error.", e);
-		}
-	}
+		/**
+		 * The character to differentiate between to elements in the file.
+		 */
+		private static final String BREAK = ";";
 
-	/**
-	 * Creates and inits a file
-	 * 
-	 * @param suffix
-	 *            the name of the file
-	 * @return The write to use later
-	 */
-	protected BufferedWriter initFile(String suffix) {
-		URI uri = null;
-		try {
-			uri = URI.createFileURI(new File(settings().getOutputDirectory())
-					.toString() + File.separator + suffix);
-		} catch (Exception e) {
-			getLog().error(
-					"The given direction was not found."
-							+ settings().getOutputDirectory() + File.separator
-							+ suffix);
-			return null;
+		/**
+		 * The character to skip to the next line.
+		 */
+		private String BREAKLINE;
+
+		/**
+		 * The writer used as file.
+		 */
+		private BufferedWriter writer;
+
+		/**
+		 * Creates the instance.
+		 * 
+		 * @param suffix
+		 *            the name of the file.
+		 */
+		public FileExporter(String outputdir, String suffix) {
+			// define output format
+			df = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
+			df.setMaximumFractionDigits(8);
+			df.setGroupingUsed(false);
+			writer = initFile(outputdir, suffix);
+			BREAKLINE = System.getProperty("line.separator");
 		}
 
-		if (uri == null) {
-			getLog().error(
-					"The given direction was not found."
-							+ settings().getOutputDirectory() + File.separator
-							+ suffix);
-			return null;
-		}
-		try {
-			File f = new File(uri.path());
-			if (!f.exists()) {
-				f.getParentFile().mkdirs();
-				f.createNewFile();
+		/**
+		 * Closes the attached File.
+		 */
+		public void close() {
+			try {
+				if (writer != null)
+					writer.close();
+			} catch (IOException e) {
+				getLog().error("Closing resource caused an error.", e);
 			}
-			return new BufferedWriter(new FileWriter(f));
-		} catch (IOException e) {
-			getLog().error("There was an error when opening the file", e);
 		}
-		return null;
+
+		/**
+		 * Creates and inits a file
+		 * 
+		 * @param suffix
+		 *            the name of the file
+		 * @return The write to use later
+		 */
+		protected BufferedWriter initFile(String outputdir, String suffix) {
+			URI uri = null;
+			try {
+				uri = URI.createFileURI(new File(outputdir).toString()
+						+ File.separator
+						+ suffix);
+			} catch (Exception e) {
+				getLog().error(
+						"The given direction was not found."
+								+ outputdir
+								+ File.separator + suffix);
+				return null;
+			}
+
+			if (uri == null) {
+				getLog().error(
+						"The given direction was not found."
+								+ outputdir
+								+ File.separator + suffix);
+				return null;
+			}
+			try {
+				File f = new File(uri.path());
+				if (!f.exists()) {
+					f.getParentFile().mkdirs();
+					f.createNewFile();
+				}
+				return new BufferedWriter(new FileWriter(f));
+			} catch (IOException e) {
+				getLog().error("There was an error when opening the file", e);
+			}
+			return null;
+		}
+
+		/**
+		 * Writes an error value in the output (as opposed to an index) and
+		 * therefore checks if the error is of somewhat of a malformed
+		 * structure. If so, an error message is logged to the console.
+		 * 
+		 * @param double the error to write
+		 */
+		protected void writeError(double d) {
+			if (d == Double.MAX_VALUE) {
+				getLog().warn("Error is Double.MAX_VALUE.");
+				writeString(MAX_DOUBLE_REPLACE);
+				return;
+			}
+			if (Double.isNaN(d)) {
+				getLog().warn("Error is NaN.");
+				writeString(NaN_REPLACE);
+				return;
+			}
+			if (d < 0) {
+				getLog().warn("Error is negative.");
+				writeDouble(0);
+				return;
+			}
+			writeDouble(d);
+		}
+
+		/**
+		 * Writes a string in the output file
+		 * 
+		 * @param simpleName
+		 *            the string to write
+		 */
+		protected void writeString(String simpleName) {
+			if (writer == null)
+				return;
+			try {
+				writer.write(simpleName);
+				writer.write(BREAK);
+			} catch (IOException e) {
+				getLog().error("Writing caused an error.", e);
+			}
+		}
+
+		/**
+		 * Writes a double in the output file
+		 * 
+		 * @param double the double to write
+		 */
+		protected void writeDouble(double d) {
+			writeString(df.format(d));
+		}
+
+		/**
+		 * Writes a new line
+		 */
+		protected void newLine() {
+			if (writer == null)
+				return;
+			try {
+				writer.write(BREAKLINE);
+				writer.flush();
+			} catch (IOException e) {
+				getLog().error("Writing caused an error.", e);
+			}
+		}
 	}
 }
