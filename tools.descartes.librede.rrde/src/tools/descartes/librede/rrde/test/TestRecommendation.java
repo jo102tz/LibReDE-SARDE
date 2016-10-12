@@ -84,7 +84,7 @@ public class TestRecommendation extends AbstractTest {
 				algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, 0, reco);
+		vali.printResults(null, null, 0, reco);
 
 		log.info("Initialized! Starting training phase with neural net...");
 		NeuralNetworkAlgorithmSpecifierImpl nn = new NeuralNetworkAlgorithmSpecifierImpl();
@@ -103,7 +103,7 @@ public class TestRecommendation extends AbstractTest {
 		exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, 0, reco);
+		vali.printResults(null, null, 0, reco);
 
 		log.info("Initialized! Starting training phase with SVM...");
 		SVMAlgorithmSpecifier svm = new SVMAlgorithmSpecifierImpl();
@@ -123,7 +123,7 @@ public class TestRecommendation extends AbstractTest {
 		exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, 0, reco);
+		vali.printResults(null, null, 0, reco);
 
 	}
 

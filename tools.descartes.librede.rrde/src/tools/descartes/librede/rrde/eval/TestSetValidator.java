@@ -36,8 +36,6 @@ import java.util.TreeSet;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import tools.descartes.librede.LibredeResults;
@@ -45,10 +43,9 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.optimization.Discovery;
-import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.Wrapper;
-import tools.descartes.librede.rrde.optimization.impl.InputDataImpl;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.FileExporter;
 
 /**
  * This class is for validating via a Test set.
@@ -176,6 +173,8 @@ public class TestSetValidator {
 	 * Compares the initial results with the improved ones an writes it into the
 	 * given log instance.
 	 * 
+	 * @param file
+	 *            The {@link FileExporter} to use. If <code>null</code>, it is ignored.
 	 * @param log
 	 *            The logger to use. If <code>null</code>, the default log of
 	 *            the {@link TestSetValidator} is used.
@@ -186,7 +185,7 @@ public class TestSetValidator {
 	 *            The time spent for recommendation in milliseconds for
 	 *            summarizing.
 	 */
-	public void printResults(Logger log, long optimization, long recommendation) {
+	public void printResults(FileExporter file, Logger log, long optimization, long recommendation) {
 		if (log == null) {
 			log = TestSetValidator.log;
 		}
@@ -267,6 +266,21 @@ public class TestSetValidator {
 					+ recommendation
 					+ "ms for recommendation training. Optimization was not done.");
 		}
+		// printtoFile
+		if(file!=null){
+			file.writeDouble(statbeforetime.getMean());
+			file.writeDouble(statbeforetime.getStandardDeviation());
+			file.writeDouble(stataftertime.getMean());
+			file.writeDouble(stataftertime.getStandardDeviation());
+			
+
+			file.writeDouble(statbeforeerror.getMean());
+			file.writeDouble(statbeforeerror.getStandardDeviation());
+			file.writeDouble(stataftererror.getMean());
+			file.writeDouble(stataftererror.getStandardDeviation());
+			
+			file.writeDouble(recommendation+optimization);
+		}
 	}
 
 	/**
@@ -312,7 +326,7 @@ public class TestSetValidator {
 			long starttime = System.currentTimeMillis();
 			// testing all approaches and choosing the minimum
 			for (EstimationSpecification estimationSpecification : estimations) {
-				libredeConfiguration.setEstimation(estimationSpecification);
+				libredeConfiguration.setEstimation(EcoreUtil.copy(estimationSpecification));
 				// check timestamps
 				Discovery.fixTimeStamps(libredeConfiguration);
 				LibredeResults res = Wrapper

@@ -26,21 +26,12 @@
  */
 package tools.descartes.librede.rrde.eval;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Locale;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Assert;
 import org.junit.Test;
@@ -104,7 +95,7 @@ public class Evaluate {
 	 * The path for validation
 	 */
 	public static final String validationfolder = DESKTOP + File.separator
-			+ "training";
+			+ "validation";
 
 	/**
 	 * The path for training
@@ -189,7 +180,8 @@ public class Evaluate {
 
 		}
 
-		validateOptimizers(optimization, OUTPUT);
+		validateOptimizers(EcoreUtil.copy(librede),
+				EcoreUtil.copy(optimization), OUTPUT);
 
 	}
 
@@ -197,9 +189,12 @@ public class Evaluate {
 	 * @param the
 	 *            file is stored here
 	 */
-	private void validateOptimizers(OptimizationConfiguration conf,
-			String output) {
+	private void validateOptimizers(LibredeConfiguration libconf,
+			OptimizationConfiguration conf, String output) {
 		ArrayList<RunCall> newRunCalls = new ArrayList<RunCall>();
+		String[] algorithmsplit = conf.getContainsOf().get(0).getAlgorithm()
+				.getAlgorithmName().split("\\.");
+		String algorithmname = algorithmsplit[algorithmsplit.length - 1];
 		for (RunCall call : conf.getContainsOf()) {
 			if (call.getEstimation().getApproaches().size() > 1) {
 				// split up
@@ -225,27 +220,50 @@ public class Evaluate {
 		FileExporter file = new ExportAlgorithm().new FileExporter(OUTPUT,
 				"optimizationresults.csv");
 
+		file.writeString("Estimator");
+		file.writeString("Default: Avg. execution time(ms)");
+		file.writeString("Default: Std. deviation time(ms) ");
+		file.writeString(algorithmname + ": Avg. execution time(ms) ");
+		file.writeString(algorithmname + ": Std. deviation time(ms) ");
+
+		file.writeString("Default: Avg. estimation error");
+		file.writeString("Default: Std. deviation error");
+		file.writeString(algorithmname + ": Avg. estimation error");
+		file.writeString(algorithmname + ": Std. deviation error");
+
+		file.writeString(algorithmname + ": Runtime");
+		file.newLine();
+
+
 		for (RunCall run : newRunCalls) {
 			conf.getContainsOf().add(run);
+			file.writeString(run.getEstimation().getApproaches().get(0)
+					.getType());
+
 			// run estimation and comparison
 			vali = new TestSetValidator(configs);
+			for (LibredeConfiguration c : configs) {
+				c.setEstimation(EcoreUtil.copy(run.getEstimation()));
+				Discovery.fixTimeStamps(c);
+			}
 			Assert.assertNotEquals(vali.getTestset().size(), 0);
 			vali.calculateInitialErrors();
+
 			log.info("Initialized! Starting optimization...");
 			long start = System.currentTimeMillis();
 			// run optimization
 			Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
-					.runConfigurationOptimization(librede, optimization, OUTPUT);
+					.runConfigurationOptimization(libconf, conf, OUTPUT);
 			long opti = System.currentTimeMillis() - start;
 			log.info("Finished optimization! Validating...");
 
 			// print results
 			vali.compareOptimized(estimations, true);
-			vali.printResults(null, opti, 0);
-
-			//
+			vali.printResults(file, null, opti, 0);
+			file.newLine();
+			conf.getContainsOf().remove(run);
 		}
-
+		file.close();
 		conf.getContainsOf().addAll(newRunCalls);
 	}
 }
