@@ -96,7 +96,8 @@ public class BruteForceAlgorithm extends AbstractConfigurationOptimizer {
 			}
 			// set optimal found value
 			setTargetValue(param, value);
-			getLog().error("Found optimal value for " + param.toString() + " at " + value + "!");
+			getLog().error("Found optimal value for " + getSpecification().getApproaches().get(0).toString()
+					+ " for parameter " + param.toString() + " at " + value + "!");
 		}
 	}
 }
