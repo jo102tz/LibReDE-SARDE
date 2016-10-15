@@ -136,12 +136,12 @@
       <parametersToOptimize xsi:type="librede-optimization:StepSizeRelWindow" lowerBound="20.0" upperBound="500.0" startValue="60.0"/>
       </settings>
     <estimation window="60">
-      <approaches type="tools.descartes.librede.approach.KraftRegressionApproach"/>
+      <approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>
+      <approaches type="tools.descartes.librede.approach.KumarKalmanFilterApproach"/>
+      <approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>
       <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
       <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
       <approaches type="tools.descartes.librede.approach.WangKalmanFilterApproach"/>
-      <approaches type="tools.descartes.librede.approach.RoliaRegressionApproach"/>
-      <approaches type="tools.descartes.librede.approach.ZhangKalmanFilterApproach"/>
       <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
       <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
       <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
