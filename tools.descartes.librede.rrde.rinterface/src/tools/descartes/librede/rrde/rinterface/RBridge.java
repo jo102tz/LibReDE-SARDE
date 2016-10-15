@@ -159,7 +159,7 @@ public class RBridge implements RMainLoopCallbacks {
 		re.eval("nSplits <- " + nSplits);
 		re.eval("nExplorations <- " + nExplorations);
 		re.eval("nIterations <- " + nIterations);
-		re.eval("trace <- 0");
+		re.eval("trace <- 1");
 
 		// run
 		re.eval("opts <- optimizeParams(java, params, nSplits, nExplorations, nIterations, trace)");

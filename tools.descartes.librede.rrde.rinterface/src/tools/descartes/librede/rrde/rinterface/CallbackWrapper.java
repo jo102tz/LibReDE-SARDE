@@ -56,8 +56,7 @@ public class CallbackWrapper {
 	 *            The {@link ICallbackEvaluator} that this instance wraps
 	 *            around.
 	 */
-	public CallbackWrapper(List<IOptimizableParameter> params,
-			ICallbackEvaluator evaluator) {
+	public CallbackWrapper(List<IOptimizableParameter> params, ICallbackEvaluator evaluator) {
 		this.eval = evaluator;
 		this.paramlist = params;
 	}
@@ -86,6 +85,23 @@ public class CallbackWrapper {
 	}
 
 	/**
+	 * Maps the given parameters to the according parameters of this object
+	 * specified at instantiation. This method calls
+	 * {@link #mapToParameters(double[])}, therefore its specifications also
+	 * apply here. Method for a single double parameter
+	 * 
+	 * @param param
+	 *            The ordered parameter values to set.
+	 * @return The return value of the specified {@link ICallbackEvaluator} of
+	 *         "-1" if the call failed.
+	 */
+	public double evaluate(double param) {
+		double[] params = new double[1];
+		params[0] = param;
+		return evaluate(params);
+	}
+
+	/**
 	 * Maps the double array of parameter values to their corresponding
 	 * {@link IOptimizableParameter}s and returns the map.<br>
 	 * The length of the array MUST match the length of the list of
@@ -102,8 +118,7 @@ public class CallbackWrapper {
 	public Map<IOptimizableParameter, Double> mapToParameters(double[] params) {
 		// parse Objects
 		if (params.length != paramlist.size()) {
-			RBridge.getLog()
-					.error("The List of parameters and their mapping of values does not match.");
+			RBridge.getLog().error("The List of parameters and their mapping of values does not match.");
 			return null;
 		}
 		// the list interface ensures, that the parameters are always in the

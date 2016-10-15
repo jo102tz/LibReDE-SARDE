@@ -54,8 +54,7 @@ import tools.descartes.librede.rrde.optimization.Wrapper;
  * @author JS
  *
  */
-public abstract class AbstractConfigurationOptimizer implements
-		IConfigurationOptimizer {
+public abstract class AbstractConfigurationOptimizer implements IConfigurationOptimizer {
 
 	/**
 	 * The specification of LibReDE to modify
@@ -189,8 +188,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * @param algorithm
 	 *            the algorithm to set
 	 */
-	public void setAlgorithm(
-			ConfigurationOptimizationAlgorithmSpecifier algorithm) {
+	public void setAlgorithm(ConfigurationOptimizationAlgorithmSpecifier algorithm) {
 		this.algorithm = algorithm;
 	}
 
@@ -227,27 +225,22 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * .librede.rrde.optimization.IConfigurationOptimizationAlgorithmSpecifier)
 	 */
 	@Override
-	public boolean optimizeConfiguration(EstimationSpecification estimation,
-			EList<InputData> input, OptimizationSettings settings,
-			ConfigurationOptimizationAlgorithmSpecifier specifier)
+	public boolean optimizeConfiguration(EstimationSpecification estimation, EList<InputData> input,
+			OptimizationSettings settings, ConfigurationOptimizationAlgorithmSpecifier specifier)
 			throws IllegalArgumentException {
 		if (!isSpecifierSupported(specifier)) {
-			throw new IllegalArgumentException(
-					"The given specifier does not apply for this algorithm.");
+			throw new IllegalArgumentException("The given specifier does not apply for this algorithm.");
 		}
-		if (estimation == null || input == null || specifier == null
-				|| settings == null || settings.getValidator() == null) {
-			throw new NullPointerException(
-					"None of the given parameters can be null.");
+		if (estimation == null || input == null || specifier == null || settings == null
+				|| settings.getValidator() == null) {
+			throw new NullPointerException("None of the given parameters can be null.");
 		}
 		setSettings(settings);
 		setInput(input);
 		setSpecification(estimation);
 		setAlgorithm(specifier);
 		finished = false;
-		getLog().info(
-				"Starting reconfiguration of configuration "
-						+ getSpecification().toString());
+		getLog().info("Starting reconfiguration of configuration " + getSpecification().toString());
 		time = System.currentTimeMillis();
 		init();
 		if (confs.size() == 0) {
@@ -258,22 +251,18 @@ public abstract class AbstractConfigurationOptimizer implements
 		executeAlgorithm();
 		double newError = runIteration();
 		finished = true;
-		getLog().info(
-				"Successfully ran optimization of configuration file "
-						+ getSpecification().toString());
+		getLog().info("Successfully ran optimization of configuration file " + getSpecification().toString());
 		getLog().info("Number of iterations:" + iterationcounter);
 		getLog().info("Number of total executions:" + totalruns);
-		getLog().info(
-				"Elapsed Time: "
-						+ DurationFormatUtils.formatDurationWords(
-								(System.currentTimeMillis() - time), false,
-								false) + ".");
-		double improvementPercent = ((firstError - newError) * 100)
-				/ (firstError);
-		getLog().info(
-				"The optimized configurations have an error of " + newError
-						+ ". This is an improvement of around "
-						+ improvementPercent + "%.");
+		getLog().info("Elapsed Time: "
+				+ DurationFormatUtils.formatDurationWords((System.currentTimeMillis() - time), false, false) + ".");
+		double improvementPercent = ((firstError - newError) * 100) / (firstError);
+		getLog().info("The optimized configurations have an error of " + newError
+				+ ". This is an improvement of around " + improvementPercent + "%.");
+		for (IOptimizableParameter param : settings.getParametersToOptimize())
+			getLog().error("Found optimal value for " + getSpecification().getApproaches().get(0).toString()
+					+ " for parameter " + param.toString() + " at "
+					+ Util.getValue(getConfs().iterator().next().getEstimation(), param) + "!");
 		return true;
 	}
 
@@ -281,19 +270,13 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * Initializes all resources required for execution.
 	 */
 	private void init() {
-		confs = Discovery.createConfigurations(getInput(), getSpecification(),
-				getSettings().getValidator());
-		getLog().info(
-				"Finished initialization. Available Training-Configurations: "
-						+ confs.size());
+		confs = Discovery.createConfigurations(getInput(), getSpecification(), getSettings().getValidator());
+		getLog().info("Finished initialization. Available Training-Configurations: " + confs.size());
 		long thistime = System.currentTimeMillis();
 		firstError = runIteration();
-		String timestamp = DurationFormatUtils.formatDuration(
-				(System.currentTimeMillis() - thistime), "ss.SSS", false);
-		getLog().info(
-				"The starting configurations have an error of " + firstError
-						+ ". Time elapsed for the first iteration: "
-						+ timestamp + "s.");
+		String timestamp = DurationFormatUtils.formatDuration((System.currentTimeMillis() - thistime), "ss.SSS", false);
+		getLog().info("The starting configurations have an error of " + firstError
+				+ ". Time elapsed for the first iteration: " + timestamp + "s.");
 	}
 
 	/**
@@ -316,8 +299,7 @@ public abstract class AbstractConfigurationOptimizer implements
 				return getLastError();
 			}
 			if (results.getApproaches().size() > 1) {
-				getLog().error(
-						"There must not be more than one approach per optimization run.");
+				getLog().error("There must not be more than one approach per optimization run.");
 			}
 			if (results.getApproaches().isEmpty()) {
 				getLog().warn("Result table is empty.");
@@ -332,8 +314,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	@Override
 	public EstimationSpecification getResult() throws IllegalStateException {
 		if (!finished) {
-			throw new IllegalStateException(
-					"The optimization is still ongoing.");
+			throw new IllegalStateException("The optimization is still ongoing.");
 		}
 		return getSpecification();
 	}
@@ -366,10 +347,8 @@ public abstract class AbstractConfigurationOptimizer implements
 	 *            The target value of the optimizing function
 	 */
 	protected void setTargetValue(IOptimizableParameter param, double value) {
-		getLog().trace(
-				"Set value of " + Util.getParameterString(param)
-						+ " for Approach " + getSimpleApproachName() + " to "
-						+ value);
+		getLog().trace("Set value of " + Util.getParameterString(param) + " for Approach " + getSimpleApproachName()
+				+ " to " + value);
 		for (LibredeConfiguration conf : confs) {
 			Util.setValue(conf.getEstimation(), value, param);
 		}
@@ -393,8 +372,7 @@ public abstract class AbstractConfigurationOptimizer implements
 	 * @return A simple descriptor of the approach
 	 */
 	public String getSimpleApproachName() {
-		return getSpecification().getApproaches().get(0).getType()
-				.replace("tools.descartes.librede.approach.", "");
+		return getSpecification().getApproaches().get(0).getType().replace("tools.descartes.librede.approach.", "");
 	}
 
 	/**

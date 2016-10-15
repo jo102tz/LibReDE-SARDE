@@ -26,8 +26,6 @@
  */
 package tools.descartes.librede.rrde.optimization.algorithm.impl;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
