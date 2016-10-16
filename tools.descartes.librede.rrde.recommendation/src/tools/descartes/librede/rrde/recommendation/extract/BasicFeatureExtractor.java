@@ -383,7 +383,8 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		vector.setTenthpercentile(stat.getPercentile(10));
 		vector.setNinetiethpercentile(stat.getPercentile(90));
 		vector.setIsNormalDistributed(TestUtils.kolmogorovSmirnovStatistic(
-				new NormalDistribution(stat.getMean(), stat.getStandardDeviation()), stat.getValues()));
+				new NormalDistribution(stat.getMean(), stat
+						.getStandardDeviation()), stat.getValues()));
 
 		// TODO effective autocorrelation
 		vector.setAutocorrelation(computeAutocorrelation(stat.getValues()));
@@ -436,11 +437,19 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 
 		// fill data
 		@SuppressWarnings("unchecked")
-		ArrayList<Double>[] throughputs = new ArrayList[var.getRepo().getWorkload()
-				.getServices().size()];
+		ArrayList<Double>[] throughputs = new ArrayList[var.getRepo()
+				.getWorkload().getServices().size()];
 		for (int i = 0; i < var.getRepo().getWorkload().getServices().size(); i++) {
 			throughputs[i] = new ArrayList<>();
 		}
+
+		@SuppressWarnings("unchecked")
+		ArrayList<Double>[] utilizations = new ArrayList[var.getRepo()
+				.getWorkload().getResources().size()];
+		for (int i = 0; i < var.getRepo().getWorkload().getResources().size(); i++) {
+			utilizations[i] = new ArrayList<>();
+		}
+
 		IRepositoryCursor cursor = var.getCursor(var.getConf().getEstimation()
 				.getApproaches().get(0).getType());
 		while (cursor.next()) {
@@ -451,21 +460,37 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 						rateUnit, var.getRepo().getWorkload().getServices()
 								.get(i), Aggregation.AVERAGE));
 			}
-		}
-		double[][] preds = new double[throughputs[0].size()][throughputs.length -1];
-		for (int i = 0; i < preds.length; i++) {
-			for(int j = 0; j < preds[i].length;j++){
-				preds[i][j] = throughputs[j+1].get(i);
+			for (int i = 0; i < var.getRepo().getWorkload().getResources()
+					.size(); i++) {
+				utilizations[i].add(cursor.getAggregatedValue(
+						cursor.getLastInterval(), StandardMetrics.UTILIZATION,
+						Ratio.PERCENTAGE, var.getRepo().getWorkload()
+								.getResources().get(i), Aggregation.AVERAGE));
 			}
 		}
 
-		regression.newSampleData(
-				Util.convertListDouble(throughputs[0].toArray(new Double[0])), preds);
+		double[] avgutilization = new double[utilizations[0].size()];
+		for (int i = 0; i < avgutilization.length; i++) {
+			double avg = 0;
+			for (int j = 0; j < utilizations.length; j++) {
+				avg += utilizations[j].get(i);
+			}
+			avgutilization[i] = avg / utilizations.length;
+		}
+
+		double[][] preds = new double[throughputs[0].size()][throughputs.length];
+		for (int i = 0; i < preds.length; i++) {
+			for (int j = 0; j < preds[i].length; j++) {
+				preds[i][j] = throughputs[j].get(i);
+			}
+		}
+
+		regression.newSampleData(avgutilization, preds);
 
 		// export Rsquared and calculate VIF
 		double rsquared = regression.calculateRSquared();
 		double vif = (1.0) / (1.0 - rsquared);
-		if(vif > MAX_VIF){
+		if (vif > MAX_VIF) {
 			vector.setVarianceInflationFactor(MAX_VIF);
 		} else {
 			vector.setVarianceInflationFactor(vif);
