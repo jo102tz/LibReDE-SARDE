@@ -53,6 +53,8 @@ import org.eclipse.equinox.app.IApplicationContext;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.approach.IEstimationApproach;
+import tools.descartes.librede.approach.LiuOptimizationApproach;
+import tools.descartes.librede.approach.MenasceOptimizationApproach;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
@@ -81,23 +83,20 @@ public class Plugin implements IApplication {
 	/**
 	 * The path to the default {@link LibredeConfiguration}
 	 */
-	public final static String LIB_PATH = ".." + File.separator
-			+ "tools.descartes.librede.rrde" + File.separator + "resources"
-			+ File.separator + "estimation.librede";
+	public final static String LIB_PATH = ".." + File.separator + "tools.descartes.librede.rrde" + File.separator
+			+ "resources" + File.separator + "estimation.librede";
 
 	/**
 	 * The path to the default {@link OptimizationConfiguration}
 	 */
-	public final static String CONF_PATH = ".." + File.separator
-			+ "tools.descartes.librede.rrde" + File.separator + "resources"
-			+ File.separator + "test" + File.separator + "src" + File.separator
-			+ "conf.optimization";
+	public final static String CONF_PATH = ".." + File.separator + "tools.descartes.librede.rrde" + File.separator
+			+ "resources" + File.separator + "test" + File.separator + "src" + File.separator + "conf.optimization";
 
 	/**
 	 * The output path, where all output files are stored.
 	 */
-	public final static String OUTPUT = ".." + File.separator
-			+ "tools.descartes.librede.rrde" + File.separator + "output";
+	public final static String OUTPUT = ".." + File.separator + "tools.descartes.librede.rrde" + File.separator
+			+ "output";
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
@@ -105,10 +104,8 @@ public class Plugin implements IApplication {
 		Wrapper.init();
 		try {
 			// load config files
-			LibredeConfiguration librede = Librede.loadConfiguration(new File(
-					LIB_PATH).toPath());
-			OptimizationConfiguration conf = Util
-					.loadOptimizationConfiguration(new File(CONF_PATH).toPath());
+			LibredeConfiguration librede = Librede.loadConfiguration(new File(LIB_PATH).toPath());
+			OptimizationConfiguration conf = Util.loadOptimizationConfiguration(new File(CONF_PATH).toPath());
 
 			// run optimization
 			runConfigurationOptimization(librede, conf, OUTPUT);
@@ -162,9 +159,8 @@ public class Plugin implements IApplication {
 	 *         required.
 	 * 
 	 */
-	public Collection<EstimationSpecification> runConfigurationOptimization(
-			LibredeConfiguration librede, OptimizationConfiguration conf,
-			String outputDir) {
+	public Collection<EstimationSpecification> runConfigurationOptimization(LibredeConfiguration librede,
+			OptimizationConfiguration conf, String outputDir) {
 
 		// split one RunCall with several approaches into multiple RunCalls with
 		// just one approach each, since the framework can not handle multiple
@@ -173,16 +169,14 @@ public class Plugin implements IApplication {
 		for (RunCall call : conf.getContainsOf()) {
 			if (call.getEstimation().getApproaches().size() > 1) {
 				// split up
-				for (EstimationApproachConfiguration approach : call
-						.getEstimation().getApproaches()) {
+				for (EstimationApproachConfiguration approach : call.getEstimation().getApproaches()) {
 					// deep copy
 					RunCall newCall = EcoreUtil.copy(call);
 
 					newCall.setEstimation(EcoreUtil.copy(call.getEstimation()));
 
 					newCall.getEstimation().getApproaches().clear();
-					newCall.getEstimation().getApproaches()
-							.add(EcoreUtil.copy(approach));
+					newCall.getEstimation().getApproaches().add(EcoreUtil.copy(approach));
 
 					newRunCalls.add(newCall);
 				}
@@ -194,19 +188,13 @@ public class Plugin implements IApplication {
 		conf.getContainsOf().addAll(newRunCalls);
 
 		// execute Calls
-		HashMap<RunCall, EstimationSpecification> results = collectResults(conf
-				.getContainsOf());
+		HashMap<RunCall, EstimationSpecification> results = collectResults(conf.getContainsOf());
 
 		// store each specification in a different file
 		int i = 0;
 		for (EstimationSpecification spec : results.values()) {
-			String name = outputDir
-					+ File.separator
-					+ "Optimized_RunCall"
-					+ i++
-					+ "_"
-					+ spec.getApproaches().get(0).getType()
-							.replace("tools.descartes.librede.approach.", "")
+			String name = outputDir + File.separator + "Optimized_RunCall" + i++ + "_"
+					+ spec.getApproaches().get(0).getType().replace("tools.descartes.librede.approach.", "")
 					+ ".librede";
 			store(spec, librede, name);
 		}
@@ -227,8 +215,7 @@ public class Plugin implements IApplication {
 	 * @throws RuntimeException
 	 *             If the storing fails for some reason
 	 */
-	private void store(EstimationSpecification result,
-			LibredeConfiguration conf, String file) {
+	private void store(EstimationSpecification result, LibredeConfiguration conf, String file) {
 		// create configuration
 		LibredeConfiguration output = EcoreUtil.copy(conf);
 		output.setEstimation(result);
@@ -241,11 +228,9 @@ public class Plugin implements IApplication {
 		Resource resource = rs.createResource(uri);
 
 		resource.getContents().add(output);
-		Map<Object, Object> saveOptions = ((XMLResource) resource)
-				.getDefaultSaveOptions();
+		Map<Object, Object> saveOptions = ((XMLResource) resource).getDefaultSaveOptions();
 		saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-		saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE,
-				new ArrayList<Object>());
+		saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList<Object>());
 		try {
 			resource.save(saveOptions);
 		} catch (IOException e) {
@@ -262,8 +247,7 @@ public class Plugin implements IApplication {
 	 * @return A Map, assigning each {@link RunCall} its result as an
 	 *         {@link EstimationSpecification}
 	 */
-	public HashMap<RunCall, EstimationSpecification> collectResults(
-			Collection<RunCall> calls) {
+	public HashMap<RunCall, EstimationSpecification> collectResults(Collection<RunCall> calls) {
 		// Run each RunCall separately and concurrently
 		ExecutorService pool = Executors.newCachedThreadPool();
 		ExecutorService fixedpool = Executors.newFixedThreadPool(1);
@@ -272,16 +256,9 @@ public class Plugin implements IApplication {
 			// catch optimization as they do not run concurrently and execute
 			// them
 			// sequentially
-			if (call.getEstimation()
-					.getApproaches()
-					.get(0)
-					.getType()
-					.equals("tools.descartes.librede.approach.LiuOptimizationApproach")
-					|| call.getEstimation()
-							.getApproaches()
-							.get(0)
-							.getType()
-							.equals("tools.descartes.librede.approach.MenasceOptimizationApproach")) {
+			if (call.getEstimation().getApproaches().get(0).getType().equals(LiuOptimizationApproach.class.getName())
+					|| call.getEstimation().getApproaches().get(0).getType()
+							.equals(MenasceOptimizationApproach.class.getName())) {
 				// shutdown and restart
 				results.put(call, fixedpool.submit(new RunCallExecutor(call)));
 				fixedpool.shutdown();
@@ -309,12 +286,9 @@ public class Plugin implements IApplication {
 			} catch (CancellationException e) {
 				log.error("RunCall got cancelled.", e);
 			} catch (InterruptedException e) {
-				log.error(
-						"Waiting for an unfinished RunCall failed and was interrupted",
-						e);
+				log.error("Waiting for an unfinished RunCall failed and was interrupted", e);
 			} catch (ExecutionException e) {
-				log.error("Executing a RunCall threw the following exception",
-						e);
+				log.error("Executing a RunCall threw the following exception", e);
 			}
 		}
 
@@ -327,14 +301,10 @@ public class Plugin implements IApplication {
 	public void initLogging() {
 		Librede.initLogging();
 		LogManager.getRootLogger().setLevel(loglevel);
-		Logger.getLogger(
-				tools.descartes.librede.Librede.class.getPackage().getName())
-				.setLevel(Level.WARN);
-		Logger.getLogger(this.getClass().getPackage().getName()).setLevel(
-				loglevel);
-		Logger.getLogger(
-				tools.descartes.librede.rrde.rinterface.RBridge.class
-						.getPackage().getName()).setLevel(loglevel);
+		Logger.getLogger(tools.descartes.librede.Librede.class.getPackage().getName()).setLevel(Level.WARN);
+		Logger.getLogger(this.getClass().getPackage().getName()).setLevel(loglevel);
+		Logger.getLogger(tools.descartes.librede.rrde.rinterface.RBridge.class.getPackage().getName())
+				.setLevel(loglevel);
 	}
 
 	/**
@@ -365,10 +335,8 @@ public class Plugin implements IApplication {
 		public EstimationSpecification call() throws Exception {
 			log.trace("Executing Call: " + call.toString());
 			IConfigurationOptimizer algo = (IConfigurationOptimizer) Class
-					.forName(call.getAlgorithm().getAlgorithmName())
-					.newInstance();
-			algo.optimizeConfiguration(call.getEstimation(),
-					call.getTrainingData(), call.getSettings(),
+					.forName(call.getAlgorithm().getAlgorithmName()).newInstance();
+			algo.optimizeConfiguration(call.getEstimation(), call.getTrainingData(), call.getSettings(),
 					call.getAlgorithm());
 			return algo.getResult();
 		}
