@@ -29,6 +29,7 @@ package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 import org.apache.log4j.Logger;
 
 import smile.classification.SVM;
+import smile.classification.SVM.Multiclass;
 import smile.math.kernel.GaussianKernel;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
@@ -68,12 +69,11 @@ public class SmileSVM extends AbstractSmileAlgorithm {
 	@Override
 	protected boolean train(double[][] features, int[] targets) {
 		try {
+
 			SVM<double[]> svm = new SVM<double[]>(
-					new GaussianKernel(
-							((SVMAlgorithmSpecifier) getSpecifier())
-									.getGaussianSigma()),
-					((SVMAlgorithmSpecifier) getSpecifier())
-							.getSoftMarginPenalty());
+					new GaussianKernel(((SVMAlgorithmSpecifier) getSpecifier()).getGaussianSigma()),
+					((SVMAlgorithmSpecifier) getSpecifier()).getSoftMarginPenalty(), getNumberOfSupportedEstimators(),
+					Multiclass.ONE_VS_ALL);
 			svm.learn(features, targets);
 			svm.finish();
 			setClassifier(svm);
@@ -87,14 +87,13 @@ public class SmileSVM extends AbstractSmileAlgorithm {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
+	 * @see tools.descartes.librede.rrde.recommendation.algorithm.
+	 * IRecomendationAlgorithm
 	 * #isSpecifierSupported(tools.descartes.librede.rrde.recommendation.
 	 * RecommendationAlgorithmSpecifier)
 	 */
 	@Override
-	public boolean isSpecifierSupported(
-			RecommendationAlgorithmSpecifier specifier) {
+	public boolean isSpecifierSupported(RecommendationAlgorithmSpecifier specifier) {
 		if (specifier instanceof SVMAlgorithmSpecifier) {
 			return true;
 		}
