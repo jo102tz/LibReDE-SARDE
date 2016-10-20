@@ -76,12 +76,6 @@
         <unit href="librede:units#MILLISECONDS"/>
       </endTimestamp>
     </estimation>
-  <output>
-    <exporters name="Default" type="tools.descartes.librede.export.csv.CsvExporter">
-      <parameters name="OutputDirectory" value="C:\Users\JS\Documents\Uni\Master\Masterarbeit\Code\DEVELOP\resources"/>
-      <parameters name="FileName" value="estimates"/>
-    </exporters>
-  </output>
   <validation validateEstimates="true">
     <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
     <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>

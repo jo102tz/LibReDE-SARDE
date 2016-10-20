@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <librede-optimization:OptimizationConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization">
   <containsOf>
-    <algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm" numberOfSplits="3" numberOfIterations="3" numberOfExplorations="3"/>
+    <algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm" numberOfSplits="2" numberOfIterations="10" numberOfExplorations="3"/>
     <trainingData rootFolder="C:\Users\JS\Desktop\Train">
       <input>
         <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
@@ -133,18 +133,29 @@
         <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
         <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
       </validator>
-      <parametersToOptimize xsi:type="librede-optimization:StepSizeRelWindow" lowerBound="20.0" upperBound="500.0" startValue="60.0"/>
-      </settings>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.1"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.4"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="10.0" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.0"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="2.0" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.3"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.2"/>
+      <!--<parametersToOptimize xsi:type="librede-optimization:StepSizeRelWindow" lowerBound="20.0" upperBound="500.0" startValue="60.0"/>-->
+    </settings>
     <estimation window="60">
-      <approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>
+      <!--<approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>-->
       <approaches type="tools.descartes.librede.approach.KumarKalmanFilterApproach"/>
-      <approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>
-      <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
-      <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
+      <!--<approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>-->
+      <!--<approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>-->
+      <!--<approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>-->
       <approaches type="tools.descartes.librede.approach.WangKalmanFilterApproach"/>
-      <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
-      <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
-      <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+      <!--<approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>-->
+      <!--<approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>-->
+      <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter">
+        <parameters name="ObserveNoiseCovariance" value="0.0001"/>
+        <parameters name="BoundsFactor" value="0.9"/>
+        <parameters name="StateNoiseCovariance" value="1.0"/>
+        <parameters name="StateNoiseCoupling" value="1.0"/>
+        <parameters name="InitialBoundsDistance" value="1e-4"/>
+      </algorithms>
       <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
       <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
         <parameters name="PrintLevel" value="0"/>

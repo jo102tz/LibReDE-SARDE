@@ -58,8 +58,7 @@ public class TestRecommendation extends AbstractTest {
 	/**
 	 * The logger used for logging
 	 */
-	private static final Logger log = Logger
-			.getLogger(TestRecommendation.class);
+	private static final Logger log = Logger.getLogger(TestRecommendation.class);
 
 	@Test
 	public void test() {
@@ -80,11 +79,10 @@ public class TestRecommendation extends AbstractTest {
 		log.info("Finished training with Decision Tree! Validating...");
 
 		// wrap into Executor
-		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor,
-				algorithm);
+		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, 0, reco);
+		vali.printResults(null, null, 0, reco, false);
 
 		log.info("Initialized! Starting training phase with neural net...");
 		NeuralNetworkAlgorithmSpecifierImpl nn = new NeuralNetworkAlgorithmSpecifierImpl();
@@ -94,8 +92,7 @@ public class TestRecommendation extends AbstractTest {
 
 		// train algorithm
 		start = System.currentTimeMillis();
-		algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
-				.loadAndTrainAlgorithm(recommendation);
+		algorithm = new tools.descartes.librede.rrde.recommendation.Plugin().loadAndTrainAlgorithm(recommendation);
 		reco = System.currentTimeMillis() - start;
 		log.info("Finished training with Decision Tree! Validating...");
 
@@ -103,7 +100,7 @@ public class TestRecommendation extends AbstractTest {
 		exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, 0, reco);
+		vali.printResults(null, null, 0, reco, false);
 
 		log.info("Initialized! Starting training phase with SVM...");
 		SVMAlgorithmSpecifier svm = new SVMAlgorithmSpecifierImpl();
@@ -114,8 +111,7 @@ public class TestRecommendation extends AbstractTest {
 
 		// train algorithm
 		start = System.currentTimeMillis();
-		algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
-				.loadAndTrainAlgorithm(recommendation);
+		algorithm = new tools.descartes.librede.rrde.recommendation.Plugin().loadAndTrainAlgorithm(recommendation);
 		reco = System.currentTimeMillis() - start;
 		log.info("Finished training with Decision Tree! Validating...");
 
@@ -123,7 +119,7 @@ public class TestRecommendation extends AbstractTest {
 		exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, 0, reco);
+		vali.printResults(null, null, 0, reco, false);
 
 	}
 

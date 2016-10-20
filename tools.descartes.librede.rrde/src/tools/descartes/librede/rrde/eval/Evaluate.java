@@ -29,6 +29,7 @@ package tools.descartes.librede.rrde.eval;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -40,6 +41,7 @@ import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.Plugin;
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.Discovery;
@@ -49,7 +51,14 @@ import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.FileExporter;
+import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
+import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
+import tools.descartes.librede.rrde.recommendation.impl.DecisionTreeAlgorithmSpecifierImpl;
+import tools.descartes.librede.rrde.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl;
+import tools.descartes.librede.rrde.recommendation.impl.RecommendationAlgorithmSpecifierImpl;
+import tools.descartes.librede.rrde.recommendation.impl.SVMAlgorithmSpecifierImpl;
 
 /**
  * @author JS
@@ -65,43 +74,37 @@ public class Evaluate {
 	/**
 	 * A link to the desktop.
 	 */
-	public static final String DESKTOP = "C:" + File.separator + "Users"
-			+ File.separator + "Johannes Grohmann" + File.separator + "Desktop";
+	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes Grohmann"
+			+ File.separator + "Desktop";
 
 	/**
 	 * The path linking to the test folder.
 	 */
-	public static final String TESTPATH = "resources" + File.separator + "test"
-			+ File.separator + "validation";
+	public static final String TESTPATH = "resources" + File.separator + "test" + File.separator + "validation";
 
 	/**
 	 * The path to the default {@link LibredeConfiguration}
 	 */
-	public final static String LIB_PATH = TESTPATH + File.separator
-			+ "estimation.librede";
+	public final static String LIB_PATH = TESTPATH + File.separator + "estimation.librede";
 
 	/**
 	 * The path to the default {@link OptimizationConfiguration}
 	 */
-	public final static String OPT_PATH = TESTPATH + File.separator
-			+ "conf.optimization";
+	public final static String OPT_PATH = TESTPATH + File.separator + "conf.optimization";
 
 	/**
 	 * The path to the default {@link RecommendationTrainingConfiguration}
 	 */
-	public final static String REC_PATH = TESTPATH + File.separator
-			+ "conf.recommendation";
+	public final static String REC_PATH = TESTPATH + File.separator + "conf.recommendation";
 	/**
 	 * The path for validation
 	 */
-	public static final String validationfolder = DESKTOP + File.separator
-			+ "validation";
+	public static final String validationfolder = DESKTOP + File.separator + "validation";
 
 	/**
 	 * The path for training
 	 */
-	public static final String trainingfolder = DESKTOP + File.separator
-			+ "training";
+	public static final String trainingfolder = DESKTOP + File.separator + "training";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -146,18 +149,15 @@ public class Evaluate {
 		log.info("Starting initialization");
 		// load config files
 		librede = Librede.loadConfiguration(new File(LIB_PATH).toPath());
-		optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH)
-				.toPath());
-		recommendation = Util
-				.loadRecommendationConfiguration(new File(REC_PATH).toPath());
+		optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
+		recommendation = Util.loadRecommendationConfiguration(new File(REC_PATH).toPath());
 
 		// discover validation configurations
 		for (InputData data : recommendation.getTrainingData()) {
 			data.setRootFolder(validationfolder);
 		}
 
-		configs = Discovery.createConfigurations(
-				recommendation.getTrainingData(), librede.getEstimation(),
+		configs = Discovery.createConfigurations(recommendation.getTrainingData(), librede.getEstimation(),
 				librede.getValidation());
 
 		// adapt configurations to be similar
@@ -171,17 +171,17 @@ public class Evaluate {
 			for (InputData data : call.getTrainingData()) {
 				data.setRootFolder(trainingfolder);
 			}
-			call.getSettings().setValidator(
-					EcoreUtil.copy(librede.getValidation()));
+			call.getSettings().setValidator(EcoreUtil.copy(librede.getValidation()));
 			if (call.getAlgorithm() instanceof DataExportSpecifier) {
-				((DataExportSpecifier) call.getAlgorithm())
-						.setOutputDirectory(OUTPUT);
+				((DataExportSpecifier) call.getAlgorithm()).setOutputDirectory(OUTPUT);
 			}
 
 		}
 
-		validateOptimizers(EcoreUtil.copy(librede),
-				EcoreUtil.copy(optimization), OUTPUT);
+		// validateOptimizers(EcoreUtil.copy(librede),
+		// EcoreUtil.copy(optimization), OUTPUT);
+		
+		validateRecommenders(librede, recommendation, OUTPUT);
 
 	}
 
@@ -189,25 +189,93 @@ public class Evaluate {
 	 * @param the
 	 *            file is stored here
 	 */
-	private void validateOptimizers(LibredeConfiguration libconf,
-			OptimizationConfiguration conf, String output) {
+	private void validateRecommenders(LibredeConfiguration libconf, RecommendationTrainingConfiguration conf,
+			String output) {
+		// leave other parameters default
+		RecommendationAlgorithmSpecifierImpl tree = new DecisionTreeAlgorithmSpecifierImpl();
+		tree.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree");
+		RecommendationAlgorithmSpecifierImpl nn = new NeuralNetworkAlgorithmSpecifierImpl();
+		nn.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileNN");
+		RecommendationAlgorithmSpecifierImpl svm = new SVMAlgorithmSpecifierImpl();
+		svm.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileSVM");
+		RecommendationAlgorithmSpecifier[] algos = { tree, nn, svm };
+
+		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
+				.loadFeatureExtractor(conf.getFeatureAlgorithm());
+
+		FileExporter file = new ExportAlgorithm().new FileExporter(OUTPUT, "recommendationresults.csv");
+
+		// get available estimation approaches
+		Collection<EstimationApproachConfiguration> estimators = new HashSet<>();
+		for (EstimationApproachConfiguration app : librede.getEstimation().getApproaches()) {
+			estimators.add(EcoreUtil.copy(app));
+		}
+
+		for (RecommendationAlgorithmSpecifier alg : algos) {
+			log.info("Starting " + alg.getAlgorithmName());
+
+			file.writeString("Estimator");
+			file.writeString("Standard: Avg. execution time(ms)");
+			file.writeString("Standard: Std. deviation time(ms) ");
+			file.writeString(alg.getAlgorithmName() + ": Avg. execution time(ms) ");
+			file.writeString(alg.getAlgorithmName() + ": Std. deviation time(ms) ");
+
+			file.writeString("Default: Avg. estimation error");
+			file.writeString("Default: Std. deviation error");
+			file.writeString(alg.getAlgorithmName() + ": Avg. estimation error");
+			file.writeString(alg.getAlgorithmName() + ": Std. deviation error");
+
+			file.writeString(alg.getAlgorithmName() + ": Training");
+
+			file.writeString(alg.getAlgorithmName() + ": Hitrate");
+			file.newLine();
+
+			// run estimation of comparison
+			vali = new TestSetValidator(configs);
+			for (LibredeConfiguration c : configs) {
+				Discovery.fixTimeStamps(c);
+			}
+			Assert.assertNotEquals(vali.getTestset().size(), 0);
+			vali.calculateInitialErrorsRecommendation(estimators, true);
+
+			// set different training algos
+			log.info("Training " + alg.getAlgorithmName());
+			conf.setLearningAlgorithm(alg);
+			long start = System.currentTimeMillis();
+			// train algorithm
+			IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
+					.loadAndTrainAlgorithm(conf);
+			OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor, algorithm);
+			long reco = System.currentTimeMillis() - start;
+
+			// print results
+			log.info("Validating " + alg.getAlgorithmName());
+			vali.compareOptimized(exec);
+			vali.printResults(file, null, 0, reco, true);
+			file.newLine();
+
+		}
+	}
+
+	/**
+	 * @param the
+	 *            file is stored here
+	 */
+	private void validateOptimizers(LibredeConfiguration libconf, OptimizationConfiguration conf, String output) {
 		ArrayList<RunCall> newRunCalls = new ArrayList<RunCall>();
-		String[] algorithmsplit = conf.getContainsOf().get(0).getAlgorithm()
-				.getAlgorithmName().split("\\.");
+		String[] algorithmsplit = conf.getContainsOf().get(0).getAlgorithm().getAlgorithmName().split("\\.");
 		String algorithmname = algorithmsplit[algorithmsplit.length - 1];
 		for (RunCall call : conf.getContainsOf()) {
 			if (call.getEstimation().getApproaches().size() > 1) {
 				// split up
-				for (EstimationApproachConfiguration approach : call
-						.getEstimation().getApproaches()) {
+				for (EstimationApproachConfiguration approach : call.getEstimation().getApproaches()) {
 					// deep copy
 					RunCall newCall = EcoreUtil.copy(call);
 
 					newCall.setEstimation(EcoreUtil.copy(call.getEstimation()));
 
 					newCall.getEstimation().getApproaches().clear();
-					newCall.getEstimation().getApproaches()
-							.add(EcoreUtil.copy(approach));
+					newCall.getEstimation().getApproaches().add(EcoreUtil.copy(approach));
 
 					newRunCalls.add(newCall);
 				}
@@ -217,8 +285,7 @@ public class Evaluate {
 		}
 		conf.getContainsOf().clear();
 
-		FileExporter file = new ExportAlgorithm().new FileExporter(OUTPUT,
-				"optimizationresults.csv");
+		FileExporter file = new ExportAlgorithm().new FileExporter(OUTPUT, "optimizationresults.csv");
 
 		file.writeString("Estimator");
 		file.writeString("Default: Avg. execution time(ms)");
@@ -234,11 +301,9 @@ public class Evaluate {
 		file.writeString(algorithmname + ": Runtime");
 		file.newLine();
 
-
 		for (RunCall run : newRunCalls) {
 			conf.getContainsOf().add(run);
-			file.writeString(run.getEstimation().getApproaches().get(0)
-					.getType());
+			file.writeString(run.getEstimation().getApproaches().get(0).getType());
 
 			// run estimation and comparison
 			vali = new TestSetValidator(configs);
@@ -259,7 +324,7 @@ public class Evaluate {
 
 			// print results
 			vali.compareOptimized(estimations, true);
-			vali.printResults(file, null, opti, 0);
+			vali.printResults(file, null, opti, 0, false);
 			file.newLine();
 			conf.getContainsOf().remove(run);
 		}

@@ -64,7 +64,7 @@ public class TestOptimization extends AbstractTest {
 
 		// print results
 		vali.compareOptimized(estimations, false);
-		vali.printResults(null, null, opti, 0);
+		vali.printResults(null, null, opti, 0, false);
 
 	}
 

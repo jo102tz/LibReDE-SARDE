@@ -84,7 +84,7 @@ public class TestCycle extends AbstractTest {
 				algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, opti, reco);
+		vali.printResults(null, null, opti, reco, false);
 
 	}
 
