@@ -26,6 +26,7 @@
  */
 package tools.descartes.librede.rrde.eval;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -195,6 +196,8 @@ public class TestSetValidator {
 				}
 			});
 			// testing all approaches and choosing the minimum
+			ArrayList<EstimationApproachConfiguration> tmp = new ArrayList<>();
+			tmp.addAll(libredeConfiguration.getEstimation().getApproaches());
 			for (EstimationApproachConfiguration est : estimations) {
 				libredeConfiguration.getEstimation().getApproaches().clear();
 				libredeConfiguration.getEstimation().getApproaches().add(EcoreUtil.copy(est));
@@ -203,6 +206,7 @@ public class TestSetValidator {
 				LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
 				set.add(res);
 			}
+			libredeConfiguration.getEstimation().getApproaches().addAll(tmp);
 
 			// choose final comparator
 			if (minimum) {
@@ -353,11 +357,11 @@ public class TestSetValidator {
 			file.writeDouble(stataftererror.getMean());
 			file.writeDouble(stataftererror.getStandardDeviation());
 
+			file.writeDouble(recommendation + optimization);
+
 			if (printHitRate) {
 				file.writeDouble(((double) hitted) / ((double) testset.size()));
 			}
-
-			file.writeDouble(recommendation + optimization);
 		}
 	}
 

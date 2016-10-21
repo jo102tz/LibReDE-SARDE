@@ -49,6 +49,7 @@ import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.Util;
+import tools.descartes.librede.rrde.optimization.Wrapper;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.FileExporter;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
@@ -159,7 +160,7 @@ public class Evaluate {
 
 		configs = Discovery.createConfigurations(recommendation.getTrainingData(), librede.getEstimation(),
 				librede.getValidation());
-
+		
 		// adapt configurations to be similar
 		for (InputData data : recommendation.getTrainingData()) {
 			data.setRootFolder(trainingfolder);
@@ -192,11 +193,13 @@ public class Evaluate {
 	private void validateRecommenders(LibredeConfiguration libconf, RecommendationTrainingConfiguration conf,
 			String output) {
 		// leave other parameters default
-		RecommendationAlgorithmSpecifierImpl tree = new DecisionTreeAlgorithmSpecifierImpl();
+		DecisionTreeAlgorithmSpecifierImpl tree = new DecisionTreeAlgorithmSpecifierImpl();
 		tree.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree");
-		RecommendationAlgorithmSpecifierImpl nn = new NeuralNetworkAlgorithmSpecifierImpl();
+		NeuralNetworkAlgorithmSpecifierImpl nn = new NeuralNetworkAlgorithmSpecifierImpl();
 		nn.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileNN");
-		RecommendationAlgorithmSpecifierImpl svm = new SVMAlgorithmSpecifierImpl();
+		SVMAlgorithmSpecifierImpl svm = new SVMAlgorithmSpecifierImpl();
+		svm.setGaussianSigma(4);
+		svm.setSoftMarginPenalty(1);
 		svm.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileSVM");
 		RecommendationAlgorithmSpecifier[] algos = { tree, nn, svm };
 
@@ -215,20 +218,20 @@ public class Evaluate {
 			log.info("Starting " + alg.getAlgorithmName());
 
 			file.writeString("Estimator");
-			file.writeString("Standard: Avg. execution time(ms)");
-			file.writeString("Standard: Std. deviation time(ms) ");
+			file.writeString("Aposteriori: Avg. execution time(ms)");
+			file.writeString("Aposteriori: Std. deviation time(ms) ");
 			file.writeString(alg.getAlgorithmName() + ": Avg. execution time(ms) ");
 			file.writeString(alg.getAlgorithmName() + ": Std. deviation time(ms) ");
 
-			file.writeString("Default: Avg. estimation error");
-			file.writeString("Default: Std. deviation error");
+			file.writeString("Aposteriori: Avg. estimation error");
+			file.writeString("Aposteriori: Std. deviation error");
 			file.writeString(alg.getAlgorithmName() + ": Avg. estimation error");
 			file.writeString(alg.getAlgorithmName() + ": Std. deviation error");
-
+			
 			file.writeString(alg.getAlgorithmName() + ": Training");
-
 			file.writeString(alg.getAlgorithmName() + ": Hitrate");
 			file.newLine();
+			file.writeString("");
 
 			// run estimation of comparison
 			vali = new TestSetValidator(configs);
