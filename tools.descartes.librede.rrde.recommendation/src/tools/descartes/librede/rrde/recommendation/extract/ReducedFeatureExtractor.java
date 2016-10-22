@@ -52,6 +52,12 @@ public class ReducedFeatureExtractor extends BasicFeatureExtractor {
 		return log;
 	}
 
+	@Override
+	protected void computeIsNormaldistributed(StatisticalFeatures vector,
+			double mean, double standardDeviation, double[] values) {
+		// empty
+	}
+
 	/**
 	 * Standard constructor setting basic values for all constants.
 	 */

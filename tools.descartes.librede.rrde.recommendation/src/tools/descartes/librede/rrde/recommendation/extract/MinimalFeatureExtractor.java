@@ -40,7 +40,8 @@ import tools.descartes.librede.units.Dimension;
 import tools.descartes.librede.units.Unit;
 
 /**
- * This class reduces the features extracted into the {@link FeatureVector}s.
+ * This class only provides minimal functionality for extracting
+ * {@link FeatureVector}s.
  * 
  * @author JS
  *

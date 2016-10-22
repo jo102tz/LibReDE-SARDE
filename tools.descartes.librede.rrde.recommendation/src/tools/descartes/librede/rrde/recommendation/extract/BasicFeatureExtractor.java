@@ -110,7 +110,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	/**
 	 * Returns the logger for logging events.
 	 * 
-	 * @return the {@link Logger} instance
+	 * @return the {@link Logger}
 	 */
 	protected Logger getLog() {
 		return log;
@@ -387,13 +387,32 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		vector.setSkewness(stat.getSkewness());
 		vector.setTenthpercentile(stat.getPercentile(10));
 		vector.setNinetiethpercentile(stat.getPercentile(90));
-		vector.setIsNormalDistributed(TestUtils.kolmogorovSmirnovStatistic(
-				new NormalDistribution(stat.getMean(), stat
-						.getStandardDeviation()), stat.getValues()));
+		
+		computeIsNormaldistributed(vector, stat.getMean(),
+				stat.getStandardDeviation(), stat.getValues());
 
 		computeAutocorrelation(vector, stat.getValues());
 
 		return vector;
+	}
+
+	/**
+	 * Computes the KS-Test of the given double array and writes it into the
+	 * given {@link StatisticalFeatures} instance.
+	 * 
+	 * @param vector
+	 *            The {@link StatisticalFeatures} object to add the result
+	 * @param standardDeviation
+	 *            The standard deviation of the trace
+	 * @param mean
+	 *            The mean of the trace
+	 * @param values
+	 *            The trace itself
+	 */
+	protected void computeIsNormaldistributed(StatisticalFeatures vector,
+			double mean, double standardDeviation, double[] values) {
+		vector.setIsNormalDistributed(TestUtils.kolmogorovSmirnovStatistic(
+				new NormalDistribution(mean, standardDeviation), values));
 	}
 
 	/**
