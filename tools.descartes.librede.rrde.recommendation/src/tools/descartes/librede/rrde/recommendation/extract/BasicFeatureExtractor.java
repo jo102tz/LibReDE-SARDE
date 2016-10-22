@@ -46,14 +46,12 @@ import tools.descartes.librede.metrics.Metric;
 import tools.descartes.librede.metrics.StandardMetrics;
 import tools.descartes.librede.repository.IRepositoryCursor;
 import tools.descartes.librede.repository.TimeSeries;
-import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
 import tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl;
 import tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl;
 import tools.descartes.librede.units.Dimension;
-import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Ratio;
 import tools.descartes.librede.units.RequestRate;
 import tools.descartes.librede.units.Time;
@@ -86,17 +84,12 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	/**
 	 * The standard time unit for all features.
 	 */
-	public Unit<Time> standardTimeUnit;
-
-	/**
-	 * The standard step size for feature extraction used by the cursors.
-	 */
-	public Quantity<Time> basicStepSize;
+	private Unit<Time> standardTimeUnit;
 
 	/**
 	 * The standard rate for all exports
 	 */
-	public Unit<RequestRate> rateUnit;
+	private Unit<RequestRate> rateUnit;
 
 	/**
 	 * {@link PearsonsCorrelation} object for correlation calculations.
@@ -115,6 +108,15 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	private FeatureExtractorSpecifier spec;
 
 	/**
+	 * Returns the logger for logging events.
+	 * 
+	 * @return the {@link Logger} instance
+	 */
+	protected Logger getLog() {
+		return log;
+	}
+
+	/**
 	 * Standard constructor setting basic values for all constants.
 	 */
 	@SuppressWarnings("unchecked")
@@ -122,27 +124,29 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		this.spec = specifier;
 		if (spec == null || spec.getRateUnit() == null
 				|| spec.getAggregation() == null) {
-			log.warn("Specifier is null. Using default values...");
+			getLog().warn("Specifier is null. Using default values...");
 			standardTimeUnit = Time.MILLISECONDS;
 		} else {
 			try {
 				standardTimeUnit = spec.getAggregation().getUnit();
 			} catch (Exception e) {
-				log.warn("Time unit could not be cast. Using default value...");
+				getLog().warn(
+						"Time unit could not be cast. Using default value...");
 				standardTimeUnit = Time.MILLISECONDS;
 			}
 			try {
 				rateUnit = (Unit<RequestRate>) spec.getRateUnit();
 			} catch (Exception e) {
-				log.warn("Request rate unit could not be cast. Using default value...");
+				getLog().warn(
+						"Request rate unit could not be cast. Using default value...");
 				rateUnit = RequestRate.REQ_PER_MINUTE;
 			}
 		}
 		if (spec.getAggregation().getValue() <= 0) {
-			log.warn("Aggreation interval could not be read. Using default value...");
+			getLog().warn(
+					"Aggreation interval could not be read. Using default value...");
 			spec.getAggregation().setValue(60000);
 		}
-		basicStepSize = spec.getAggregation();
 	}
 
 	/*
@@ -201,7 +205,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	 * @param var
 	 *            The {@link LibredeVariables} to analyze
 	 */
-	private void extractCorrelationAndCovarianceInformation(
+	protected void extractCorrelationAndCovarianceInformation(
 			FeatureVector vector, LibredeVariables var) {
 
 		double[][][] data = extractDoubleArray(var);
@@ -264,7 +268,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	 *            The variables to extract
 	 * @return The double array
 	 */
-	private double[][][] extractDoubleArray(LibredeVariables var) {
+	protected double[][][] extractDoubleArray(LibredeVariables var) {
 
 		// create cursor
 		IRepositoryCursor cursor = var.getCursor(var.getConf().getEstimation()
@@ -353,10 +357,11 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 						metric, unit, entity));
 				// time series should only contain one dimension
 				if (series.getData().columns() > 1) {
-					log.warn("The time series " + series
-							+ " has more than one column. ");
+					getLog().warn(
+							"The time series " + series
+									+ " has more than one column. ");
 				} else if (series.getData().columns() == 0 || series.isEmpty()) {
-					log.warn("The time series " + series + " is empty.");
+					getLog().warn("The time series " + series + " is empty.");
 				}
 				double[] data = series.getData().toArray1D();
 				for (int j = 0; j < data.length; j++) {
@@ -386,8 +391,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 				new NormalDistribution(stat.getMean(), stat
 						.getStandardDeviation()), stat.getValues()));
 
-		// TODO effective autocorrelation
-		vector.setAutocorrelation(computeAutocorrelation(stat.getValues()));
+		computeAutocorrelation(vector, stat.getValues());
 
 		return vector;
 	}
@@ -395,11 +399,16 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	/**
 	 * Computes the autocorrelation of the given double array.
 	 * 
+	 * @param vector
+	 *            The {@link StatisticalFeatures} object to add the
+	 *            autocorrelation
+	 * 
 	 * @param values
 	 *            The array to check
 	 * @return The autocorrelation of the array
 	 */
-	private double computeAutocorrelation(double[] values) {
+	protected void computeAutocorrelation(StatisticalFeatures vector,
+			double[] values) {
 		double[] copy = Arrays.copyOf(values, values.length);
 		double sumofcorrelations = 0;
 		// for all possible lag values
@@ -414,7 +423,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 			sumofcorrelations += pear.correlation(values, copy);
 		}
 		// return average over all lags
-		return sumofcorrelations / MAX_LAG;
+		vector.setAutocorrelation(sumofcorrelations / ((double) MAX_LAG));
 	}
 
 	/**
