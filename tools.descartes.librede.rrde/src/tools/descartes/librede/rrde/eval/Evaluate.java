@@ -74,7 +74,7 @@ public class Evaluate {
 	 * A link to the desktop.
 	 */
 	public static final String DESKTOP = "C:" + File.separator + "Users"
-			+ File.separator + "JS" + File.separator + "Desktop";
+			+ File.separator + "Johannes Grohmann" + File.separator + "Desktop";
 
 	/**
 	 * The path linking to the test folder.

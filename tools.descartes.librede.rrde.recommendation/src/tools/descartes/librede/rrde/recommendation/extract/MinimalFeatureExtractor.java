@@ -28,6 +28,7 @@ package tools.descartes.librede.rrde.recommendation.extract;
 
 import org.apache.log4j.Logger;
 
+import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.ModelEntity;
 import tools.descartes.librede.metrics.Aggregation;
 import tools.descartes.librede.metrics.Metric;
@@ -74,6 +75,12 @@ public class MinimalFeatureExtractor extends ReducedFeatureExtractor {
 		StatisticalFeatures vector = new StatisticalFeaturesImpl();
 
 		return vector;
+	}
+	
+	@Override
+	protected void extractWorkloadDescription(FeatureVector vector,
+			LibredeVariables var) {
+		// empty
 	}
 
 }
