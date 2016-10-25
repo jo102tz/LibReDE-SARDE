@@ -156,7 +156,7 @@ public class TestSetValidator {
 	 * {@link LibredeConfiguration} form is taken (should contain all
 	 * approaches).
 	 * 
-	 * @param estiations
+	 * @param estimations
 	 *            The different estimators to choose from
 	 * 
 	 * @param minimum
@@ -337,7 +337,7 @@ public class TestSetValidator {
 		}
 		if (optimization > 0 && recommendation > 0) {
 			log.info("This took around " + optimization + "ms for optimizations and " + recommendation
-					+ "ms for training resulting in a total training time of " + optimization + recommendation + "ms.");
+					+ "ms for training resulting in a total training time of " + (optimization + recommendation) + "ms.");
 		} else if (optimization > 0) {
 			log.info("This took around " + optimization + "ms for optimizations. Recommendation was not done.");
 		} else if (recommendation > 0) {

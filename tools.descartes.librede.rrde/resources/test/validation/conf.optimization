@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <librede-optimization:OptimizationConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization">
   <containsOf>
-    <algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm" numberOfSplits="2" numberOfIterations="10" numberOfExplorations="3"/>
-    <trainingData rootFolder="C:\Users\JS\Desktop\Train">
+    <algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm" numberOfSplits="5" numberOfIterations="5" numberOfExplorations="5"/>
+    <trainingData rootFolder="C:\Users\Johannes Grohmann\Desktop\Train">
       <input>
         <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
           <parameters name="SkipFirstLine" value="on"/>
@@ -55,7 +55,7 @@
         </services>
       </workloadDescription>
     </trainingData>
-    <trainingData rootFolder="C:\Users\JS\Desktop\Train">
+    <trainingData rootFolder="C:\Users\Johannes Grohmann\Desktop\Train">
       <input>
         <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
           <parameters name="SkipFirstLine" value="on"/>
@@ -97,7 +97,7 @@
         </services>
       </workloadDescription>
     </trainingData>
-    <trainingData rootFolder="C:\Users\JS\Desktop\Train">
+    <trainingData rootFolder="C:\Users\Johannes Grohmann\Desktop\Train">
       <input>
         <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
           <parameters name="SkipFirstLine" value="on"/>

@@ -4,7 +4,7 @@
     <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
     <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
   </validator>
-  <trainingData rootFolder="C:\Users\JS\Desktop\Train">
+  <trainingData rootFolder="C:\Users\Johannes Grohmann\Desktop\Train">
     <input>
       <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
         <parameters name="SkipFirstLine" value="on"/>
@@ -57,7 +57,7 @@
       </services>
     </workloadDescription>
   </trainingData>
-  <trainingData rootFolder="C:\Users\JS\Desktop\Train">
+  <trainingData rootFolder="C:\Users\Johannes Grohmann\Desktop\Train">
     <input>
       <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
         <parameters name="SkipFirstLine" value="on"/>
@@ -99,7 +99,7 @@
       </services>
     </workloadDescription>
   </trainingData>
-  <trainingData rootFolder="C:\Users\JS\Desktop\Train">
+  <trainingData rootFolder="C:\Users\Johannes Grohmann\Desktop\Train">
     <input>
       <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
         <parameters name="SkipFirstLine" value="on"/>
@@ -130,13 +130,13 @@
       </services>
     </workloadDescription>
   </trainingData>
-  <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.recommendation.extract.BasicFeatureExtractor">
+  <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.recommendation.extract.ReducedFeatureExtractor">
     <rateUnit href="librede:units#REQUESTS_PER_MINUTE"/>
     <aggregation value="60.0">
       <unit href="librede:units#SECONDS"/>
     </aggregation>
   </featureAlgorithm>
-  <learningAlgorithm xsi:type="librede-recommendation:DecisionTreeAlgorithmSpecifier" algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree"/>
+  <learningAlgorithm xsi:type="librede-recommendation:NeuralNetworkAlgorithmSpecifier" algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileNN"/>
   <estimators window="60">
     <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
