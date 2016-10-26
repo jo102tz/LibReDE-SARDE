@@ -148,6 +148,10 @@ public abstract class AbstractRecommendationAlgorithm implements
 		// calculate the number of supported resources and workload classes
 		supportedResources = Integer.MIN_VALUE;
 		supportedWorkloadClasses = Integer.MIN_VALUE;
+		if (trainingMap == null || trainingMap.isEmpty()) {
+			getLog().error("No training sets were inserted.");
+			return false;
+		}
 		for (FeatureVector feature : trainingMap.keySet()) {
 			supportedResources = Math.max(supportedResources,
 					feature.getNumberOfRessources());

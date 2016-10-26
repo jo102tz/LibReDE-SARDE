@@ -201,6 +201,10 @@ public class Plugin implements IApplication {
 		Set<LibredeConfiguration> set = Discovery.createConfigurations(inputs,
 				estimators.get(0), validationSpecification);
 		log.info("Available Training-Configurations: " + set.size());
+		if(set.size()==0){
+			log.error("No training sets available.");
+			return false;
+		}
 		for (LibredeConfiguration conf : set) {
 			try {
 				boolean result = trainOneConfiguration(alg, extractor,

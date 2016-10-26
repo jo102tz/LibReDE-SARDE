@@ -74,7 +74,7 @@ public class Evaluate {
 	 * A link to the desktop.
 	 */
 	public static final String DESKTOP = "C:" + File.separator + "Users"
-			+ File.separator + "JS" + File.separator + "Desktop";
+			+ File.separator + "Johannes Grohmann" + File.separator + "Desktop";
 
 	/**
 	 * The path linking to the test folder.
@@ -226,9 +226,13 @@ public class Evaluate {
 			LibredeConfiguration librede2,
 			OptimizationConfiguration optimization2,
 			RecommendationTrainingConfiguration recommendation2, String output2) {
-		OptimizationConfiguration postoptconf = Util
-				.loadOptimizationConfiguration(new File(TESTPATH
-						+ File.separator + "postconf.optimization").toPath());
+		// load special recommendation with optimized parameters
+		RecommendationTrainingConfiguration postreco = Util
+				.loadRecommendationConfiguration(new File(TESTPATH
+						+ File.separator + "IPOoptimized.recommendation").toPath());
+		for (InputData data : postreco.getTrainingData()) {
+			data.setRootFolder(trainingfolder);
+		}
 
 		Collection<EstimationApproachConfiguration> estimators = new HashSet<>();
 		for (EstimationApproachConfiguration app : librede.getEstimation()
@@ -243,26 +247,18 @@ public class Evaluate {
 		}
 		Assert.assertNotEquals(vali.getTestset().size(), 0);
 		vali.calculateInitialErrorsRecommendation(estimators, true);
-
-		log.info("Initialized! Starting optimization...");
-		long start = System.currentTimeMillis();
-		// run optimization
-		Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
-				.runConfigurationOptimization(librede2, postoptconf, OUTPUT);
-		long opti = System.currentTimeMillis() - start;
-		log.info("Finished optimization! Starting training phase...");
-
 		// delete the read estimators and replace them with the optimized
 		// ones
-		recommendation2.getEstimators().clear();
-		recommendation2.getEstimators().addAll(estimations);
+		
+//		recommendation2.getEstimators().clear();
+//		recommendation2.getEstimators().addAll(estimators);
 
 		// train algorithm
-		start = System.currentTimeMillis();
+		long start = System.currentTimeMillis();
 		IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
-				.loadAndTrainAlgorithm(recommendation2);
+				.loadAndTrainAlgorithm(postreco);
 		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
-				.loadFeatureExtractor(recommendation2.getFeatureAlgorithm());
+				.loadFeatureExtractor(postreco.getFeatureAlgorithm());
 		// wrap into Executor
 		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor,
 				algorithm);
@@ -271,7 +267,7 @@ public class Evaluate {
 
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, opti, reco, true);
+		vali.printResults(null, null, 0, reco, true);
 
 	}
 
