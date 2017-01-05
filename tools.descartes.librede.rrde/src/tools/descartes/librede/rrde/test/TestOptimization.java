@@ -26,6 +26,8 @@
  */
 package tools.descartes.librede.rrde.test;
 
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.util.Collection;
 
@@ -39,6 +41,7 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.eval.TestSetValidator;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.Util;
+import tools.descartes.librede.rrde.rinterface.RBridge;
 
 /**
  * @author JS
@@ -53,6 +56,18 @@ public class TestOptimization extends AbstractTest {
 
 	@Test
 	public void test() {
+
+		// check if RBridge is available and running
+		try {
+			RBridge bridge = RBridge.getInstance();
+			bridge.runOptimization(null, null, 0, 0, 0);
+		} catch (NullPointerException e) {
+			// supposed to happen
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e);
+			fail("RBridge was not available");
+		}
 
 		log.info("Initialized! Starting optimization...");
 		long start = System.currentTimeMillis();

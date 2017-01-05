@@ -260,7 +260,7 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 		getLog().info("The optimized configurations have an error of " + newError
 				+ ". This is an improvement of around " + improvementPercent + "%.");
 		for (IOptimizableParameter param : settings.getParametersToOptimize())
-			getLog().error("Found optimal value for " + getSpecification().getApproaches().get(0).toString()
+			getLog().info("Found optimal value for " + getSpecification().getApproaches().get(0).toString()
 					+ " for parameter " + param.toString() + " at "
 					+ Util.getValue(getConfs().iterator().next().getEstimation(), param) + "!");
 		return true;

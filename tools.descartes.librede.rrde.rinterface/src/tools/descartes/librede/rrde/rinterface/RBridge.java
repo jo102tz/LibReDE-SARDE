@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.log4j.Logger;
 import org.rosuda.JRI.REXP;
@@ -146,6 +147,9 @@ public class RBridge implements RMainLoopCallbacks {
 			List<IOptimizableParameter> params, ICallbackEvaluator evaluator,
 			int nSplits, int nExplorations, int nIterations) {
 		log.trace("Entering blocked R mode.");
+		
+		Objects.requireNonNull(params, "Parameters must not be null.");
+		Objects.requireNonNull(evaluator, "Evaluator must not be null.");
 
 		// setting evaluator
 		CallbackWrapper wrapper = new CallbackWrapper(params, evaluator);
