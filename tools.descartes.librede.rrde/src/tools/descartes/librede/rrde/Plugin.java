@@ -94,6 +94,7 @@ public class Plugin implements IApplication {
 	 *            The required logging level
 	 */
 	public void initLogging(Level loglevel) {
+		LogManager.resetConfiguration();
 		Librede.initLogging();
 		LogManager.getRootLogger().setLevel(loglevel);
 		Logger.getLogger(

@@ -26,22 +26,11 @@
  */
 package tools.descartes.librede.rrde.test;
 
-import java.io.File;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
-import org.junit.Assert;
 import org.junit.Test;
 
-import tools.descartes.librede.Librede;
-import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
-import tools.descartes.librede.rrde.eval.TestSetValidator;
-import tools.descartes.librede.rrde.optimization.Discovery;
-import tools.descartes.librede.rrde.optimization.InputData;
-import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
-import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;

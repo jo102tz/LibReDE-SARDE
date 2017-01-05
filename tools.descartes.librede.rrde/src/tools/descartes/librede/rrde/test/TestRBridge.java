@@ -42,7 +42,7 @@ public class TestRBridge extends AbstractTest {
 			public double evaluate(Map<IOptimizableParameter, Double> params) {
 				return 0;
 			}
-		}, 0, 0, 0);
+		}, 1, 1, 1);
 
 	}
 
