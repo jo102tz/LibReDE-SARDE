@@ -30,6 +30,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
+import tools.descartes.librede.rrde.eval.StatisticsSummary;
 import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
@@ -71,8 +72,9 @@ public class TestRecommendation extends AbstractTest {
 		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, 0, reco, false);
-
+		StatisticsSummary stat = vali.printResults(null, null, 0, reco, true);
+		testStatValues(stat, 2.076, 0.121, 0, 0, 0, false, true);
+		
 		log.info("Initialized! Starting training phase with neural net...");
 		NeuralNetworkAlgorithmSpecifierImpl nn = new NeuralNetworkAlgorithmSpecifierImpl();
 		nn.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileNN");
@@ -89,7 +91,8 @@ public class TestRecommendation extends AbstractTest {
 		exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, 0, reco, false);
+		vali.printResults(null, null, 0, reco, true);
+		testStatValues(stat, 2.076, 0.121, 0, 0, 0, false, true);
 
 		log.info("Initialized! Starting training phase with SVM...");
 		SVMAlgorithmSpecifier svm = new SVMAlgorithmSpecifierImpl();
@@ -108,7 +111,8 @@ public class TestRecommendation extends AbstractTest {
 		exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, 0, reco, false);
+		vali.printResults(null, null, 0, reco, true);
+		testStatValues(stat, 2.076, 0.121, 0, 0, 0, false, true);
 
 	}
 

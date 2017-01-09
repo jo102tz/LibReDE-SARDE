@@ -33,6 +33,7 @@ import org.junit.Test;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
+import tools.descartes.librede.rrde.eval.StatisticsSummary;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
@@ -40,12 +41,12 @@ import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
  * @author JS
  *
  */
-public class TestCycle extends AbstractTest {
+public class TestCombination extends AbstractTest {
 
 	/**
 	 * The logger used for logging
 	 */
-	private static final Logger log = Logger.getLogger(TestCycle.class);
+	private static final Logger log = Logger.getLogger(TestCombination.class);
 
 	@Test
 	public void test() {
@@ -72,12 +73,12 @@ public class TestCycle extends AbstractTest {
 		log.info("Finished training! Validating...");
 
 		// wrap into Executor
-		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor,
-				algorithm);
+		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, opti, reco, false);
+		StatisticsSummary stat = vali.printResults(null, null, opti, reco, false);
 
+		testStatValues(stat, 2.076, 0.123, 0, 0, -1, true, true);
 	}
 
 }

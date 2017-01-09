@@ -68,6 +68,8 @@ public class TestSetValidator {
 
 	private Map<LibredeConfiguration, TestResult> after;
 
+	private StatisticsSummary stat;
+
 	/**
 	 * @return the testset
 	 */
@@ -261,8 +263,10 @@ public class TestSetValidator {
 	 * @param printHitRate
 	 *            If the hit-ratio should be printed. Only useful for
 	 *            recommendation.
+	 * @return A {@link StatisticsSummary} instance, containing the key
+	 *         statistics.
 	 */
-	public void printResults(FileExporter file, Logger log, long optimization, long recommendation,
+	public StatisticsSummary printResults(FileExporter file, Logger log, long optimization, long recommendation,
 			boolean printHitRate) {
 		if (log == null) {
 			log = TestSetValidator.log;
@@ -311,57 +315,108 @@ public class TestSetValidator {
 				}
 			}
 		}
+		stat = new StatisticsSummary();
+		stat.setAvgTimeBefore(statbeforetime.getMean());
+		stat.setStdDevTimeBefore(statbeforetime.getStandardDeviation());
+		stat.setAvgTimeAfter(stataftertime.getMean());
+		stat.setStdDevTimeAfter(stataftertime.getStandardDeviation());
+
+		stat.setAvgErrorBefore(statbeforeerror.getMean());
+		stat.setStdDevErrorBefore(statbeforeerror.getStandardDeviation());
+		stat.setAvgErrorAfter(stataftererror.getMean());
+		stat.setStdDevErrorAfter(stataftererror.getStandardDeviation());
+
+
+		stat.setHitrate(((double) hitted) / ((double) testset.size()));
+
+		stat.setOptimizationtime(optimization);
+		stat.setRecommendationtime(recommendation);
+
+		stat.setBeforeignored(beforeignored);
+		stat.setAfterignored(afterignored);
+
+		printStatistics(stat, printHitRate);
+
+		printToFile(stat, printHitRate, file);
+
+		return stat;
+	}
+
+	/**
+	 * Prints the summary statistics to the given file, if not null.
+	 * 
+	 * @param stat
+	 *            The statistics to print.
+	 * @param printHitRate
+	 *            If the hit-rate should be printed
+	 * @param file
+	 *            The file to write into. If <code>null</code>, nothing is
+	 *            written.
+	 */
+	private void printToFile(StatisticsSummary stat, boolean printHitRate, FileExporter file) {
+		if (file != null) {
+			file.writeDouble(stat.getAvgTimeBefore());
+			file.writeDouble(stat.getStdDevTimeBefore());
+			file.writeDouble(stat.getAvgTimeAfter());
+			file.writeDouble(stat.getStdDevTimeAfter());
+
+			file.writeDouble(stat.getAvgErrorBefore());
+			file.writeDouble(stat.getStdDevErrorBefore());
+			file.writeDouble(stat.getAvgErrorAfter());
+			file.writeDouble(stat.getStdDevTimeAfter());
+
+			file.writeDouble(stat.getRecommendationtime() + stat.getOptimizationtime());
+
+			if (printHitRate) {
+				file.writeDouble(stat.getHitrate());
+			}
+		}
+	}
+
+	/**
+	 * Prints the summary statistics to the log.
+	 * 
+	 * @param stat
+	 *            The statistics to print.
+	 * @param printHitRate
+	 *            If the hit-rate should be printed
+	 */
+	private void printStatistics(StatisticsSummary stat, boolean printHitRate) {
 		log.info("----------------------------------------------------");
 		log.info("Summarized");
 		log.info("----------------------------------------------------");
 		log.info("Numer of test configurations: " + testset.size());
-		log.info("Average Execution time before optimization: " + statbeforetime.getMean() + "ms (Standard Deviation: "
-				+ statbeforetime.getStandardDeviation() + ")");
-		log.info("Average Execution time after optimization: " + stataftertime.getMean() + "ms (Standard Deviation: "
-				+ stataftertime.getStandardDeviation() + ")");
-		log.info("This is an improvement of avg.: " + (statbeforetime.getMean() - stataftertime.getMean() + "ms"));
+		log.info("Average Execution time before optimization: " + stat.getAvgTimeBefore() + "ms (Standard Deviation: "
+				+ stat.getStdDevTimeBefore() + ")");
+		log.info("Average Execution time after optimization: " + stat.getAvgTimeAfter() + "ms (Standard Deviation: "
+				+ stat.getStdDevTimeAfter() + ")");
+		log.info("This is an improvement of avg.: " + (stat.getAvgTimeBefore() - stat.getAvgTimeAfter() + "ms"));
 
-		log.info("Average validation error before optimization: " + statbeforeerror.getMean() + "(Standard Deviation: "
-				+ statbeforeerror.getStandardDeviation() + ")");
-		log.info("Average validation error after optimization: " + stataftererror.getMean() + "(Standard Deviation: "
-				+ stataftererror.getStandardDeviation() + ")");
-		log.info("Improvement: " + (statbeforeerror.getMean() - stataftererror.getMean()) + " or "
-				+ ((statbeforeerror.getMean() - stataftererror.getMean()) * 100) / statbeforeerror.getMean() + " %.");
-		log.info("Due to invalid results " + beforeignored + " of total " + testset.size()
+		log.info("Average validation error before optimization: " + stat.getAvgErrorBefore() + "(Standard Deviation: "
+				+ stat.getStdDevErrorBefore() + ")");
+		log.info("Average validation error after optimization: " + stat.getAvgErrorAfter() + "(Standard Deviation: "
+				+ stat.getStdDevErrorAfter() + ")");
+		log.info("Improvement: " + (stat.getAvgErrorBefore() - stat.getAvgErrorAfter()) + " or "
+				+ ((stat.getAvgErrorBefore() - stat.getAvgErrorAfter()) * 100) / stat.getAvgErrorBefore() + " %.");
+		log.info("Due to invalid results " + stat.getBeforeignored() + " of total " + testset.size()
 				+ " approaches were ignored before testing started.");
-		log.info("After computation " + afterignored + " of total " + testset.size()
-				+ " approaches were ignored. That is an improvement of " + (beforeignored - afterignored) + ".");
+		log.info("After computation " + stat.getAfterignored() + " of total " + testset.size()
+				+ " approaches were ignored. That is an improvement of "
+				+ (stat.getBeforeignored() - stat.getAfterignored()) + ".");
 		if (printHitRate) {
-			log.info("A hit rate of " + hitted + "/" + testset.size() + " was achieved or "
-					+ ((double) hitted) / ((double) testset.size()));
+			log.info("A hit rate of " + (stat.getHitrate() * testset.size()) + "/" + testset.size()
+					+ " was achieved or " + stat.getHitrate());
 		}
-		if (optimization > 0 && recommendation > 0) {
-			log.info("This took around " + optimization + "ms for optimizations and " + recommendation
-					+ "ms for training resulting in a total training time of " + (optimization + recommendation) + "ms.");
-		} else if (optimization > 0) {
-			log.info("This took around " + optimization + "ms for optimizations. Recommendation was not done.");
-		} else if (recommendation > 0) {
-			log.info("This took around " + recommendation
+		if (stat.getOptimizationtime() > 0 && stat.getRecommendationtime() > 0) {
+			log.info("This took around " + stat.getOptimizationtime() + "ms for optimizations and "
+					+ stat.getRecommendationtime() + "ms for training resulting in a total training time of "
+					+ (stat.getOptimizationtime() + stat.getRecommendationtime()) + "ms.");
+		} else if (stat.getOptimizationtime() > 0) {
+			log.info("This took around " + stat.getOptimizationtime()
+					+ "ms for optimizations. Recommendation was not done.");
+		} else if (stat.getRecommendationtime() > 0) {
+			log.info("This took around " + stat.getRecommendationtime()
 					+ "ms for recommendation training. Optimization was not done.");
-		}
-
-		// printtoFile
-		if (file != null) {
-			file.writeDouble(statbeforetime.getMean());
-			file.writeDouble(statbeforetime.getStandardDeviation());
-			file.writeDouble(stataftertime.getMean());
-			file.writeDouble(stataftertime.getStandardDeviation());
-
-			file.writeDouble(statbeforeerror.getMean());
-			file.writeDouble(statbeforeerror.getStandardDeviation());
-			file.writeDouble(stataftererror.getMean());
-			file.writeDouble(stataftererror.getStandardDeviation());
-
-			file.writeDouble(recommendation + optimization);
-
-			if (printHitRate) {
-				file.writeDouble(((double) hitted) / ((double) testset.size()));
-			}
 		}
 	}
 

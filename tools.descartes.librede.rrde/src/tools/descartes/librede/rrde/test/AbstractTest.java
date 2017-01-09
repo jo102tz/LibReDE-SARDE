@@ -36,6 +36,7 @@ import org.junit.BeforeClass;
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.Plugin;
+import tools.descartes.librede.rrde.eval.StatisticsSummary;
 import tools.descartes.librede.rrde.eval.TestSetValidator;
 import tools.descartes.librede.rrde.optimization.Discovery;
 import tools.descartes.librede.rrde.optimization.InputData;
@@ -53,37 +54,31 @@ public class AbstractTest {
 	/**
 	 * The path linking to the test folder.
 	 */
-	public static final String TESTPATH = "resources" + File.separator + "test"
-			+ File.separator + "junit";
+	public static final String TESTPATH = "resources" + File.separator + "test" + File.separator + "junit";
 
 	/**
 	 * The path to the default {@link LibredeConfiguration}
 	 */
-	public final static String LIB_PATH = TESTPATH + File.separator
-			+ "estimation.librede";
+	public final static String LIB_PATH = TESTPATH + File.separator + "estimation.librede";
 
 	/**
 	 * The path to the default {@link OptimizationConfiguration}
 	 */
-	public final static String OPT_PATH = TESTPATH + File.separator
-			+ "conf.optimization";
+	public final static String OPT_PATH = TESTPATH + File.separator + "conf.optimization";
 
 	/**
 	 * The path to the default {@link RecommendationTrainingConfiguration}
 	 */
-	public final static String REC_PATH = TESTPATH + File.separator
-			+ "conf.recommendation";
+	public final static String REC_PATH = TESTPATH + File.separator + "conf.recommendation";
 	/**
 	 * The path for validation
 	 */
-	public static final String validationfolder = TESTPATH + File.separator
-			+ "validation";
+	public static final String validationfolder = TESTPATH + File.separator + "validation";
 
 	/**
 	 * The path for training
 	 */
-	public static final String trainingfolder = TESTPATH + File.separator
-			+ "training";
+	public static final String trainingfolder = TESTPATH + File.separator + "training";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -126,22 +121,18 @@ public class AbstractTest {
 		main.init();
 		// load config files
 		librede = Librede.loadConfiguration(new File(LIB_PATH).toPath());
-		optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH)
-				.toPath());
-		recommendation = Util
-				.loadRecommendationConfiguration(new File(REC_PATH).toPath());
+		optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
+		recommendation = Util.loadRecommendationConfiguration(new File(REC_PATH).toPath());
 
 		// discover validation configurations
 		for (InputData data : recommendation.getTrainingData()) {
 			data.setRootFolder(validationfolder);
 		}
 
-		configs = Discovery.createConfigurations(
-				recommendation.getTrainingData(), librede.getEstimation(),
+		configs = Discovery.createConfigurations(recommendation.getTrainingData(), librede.getEstimation(),
 				librede.getValidation());
 		// check if size is correct
-		Assert.assertEquals(new File(validationfolder).list().length,
-				configs.size());
+		Assert.assertEquals(new File(validationfolder).list().length, configs.size());
 
 		// adapt configurations to be similar
 		for (InputData data : recommendation.getTrainingData()) {
@@ -161,6 +152,48 @@ public class AbstractTest {
 		Assert.assertNotEquals(vali.getTestset().size(), 0);
 		vali.calculateInitialErrors();
 
+	}
+
+	/**
+	 * Tests if the given values are met and fails the test if not.
+	 * 
+	 * @param stat
+	 *            The {@link StatisticsSummary} to test.
+	 * @param avgBefore
+	 *            The average error before.
+	 * @param avgAter
+	 *            The average error after.
+	 * @param beforeignored
+	 *            The number of data sets that were ignored before.
+	 * @param afterignored
+	 *            The number of data sets that were ignored after.
+	 * @param hitrate
+	 *            The hitrate of the recommendation algorithm or -1 if not
+	 *            applicable.
+	 * @param optimizationtime
+	 *            If true, the time spent on optimization must not be zero. If
+	 *            false, it must be zero.
+	 * @param recommendationtime
+	 *            If true, the time spent on recommendation must not be zero. If
+	 *            false, it must be zero.
+	 */
+	public void testStatValues(StatisticsSummary stat, double avgBefore, double avgAter, int beforeignored,
+			int afterignored, double hitrate, boolean optimizationtime, boolean recommendationtime) {
+		// ignore runtime, since different on different machines
+		Assert.assertEquals(avgBefore, stat.getAvgErrorBefore(), 0.01);
+		Assert.assertEquals(avgAter, stat.getAvgErrorAfter(), 0.01);
+		Assert.assertEquals(beforeignored, stat.getBeforeignored());
+		Assert.assertEquals(afterignored, stat.getAfterignored());
+		if (hitrate >= 0)
+			Assert.assertEquals(hitrate, stat.getHitrate(), 0.01);
+		if (recommendationtime)
+			Assert.assertNotEquals(0, stat.getRecommendationtime());
+		else
+			Assert.assertEquals(0, stat.getRecommendationtime());
+		if (optimizationtime)
+			Assert.assertNotEquals(0, stat.getOptimizationtime());
+		else
+			Assert.assertEquals(0, stat.getOptimizationtime());
 	}
 
 }
