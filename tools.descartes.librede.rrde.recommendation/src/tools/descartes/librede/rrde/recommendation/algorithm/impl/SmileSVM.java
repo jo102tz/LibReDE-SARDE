@@ -69,11 +69,20 @@ public class SmileSVM extends AbstractSmileAlgorithm {
 	@Override
 	protected boolean train(double[][] features, int[] targets) {
 		try {
-
-			SVM<double[]> svm = new SVM<double[]>(
-					new GaussianKernel(((SVMAlgorithmSpecifier) getSpecifier()).getGaussianSigma()),
-					((SVMAlgorithmSpecifier) getSpecifier()).getSoftMarginPenalty(), getNumberOfSupportedEstimators(),
-					Multiclass.ONE_VS_ALL);
+			SVM<double[]> svm = null;
+			if (getNumberOfSupportedEstimators() == 2) {
+				// only use binary SVM
+				svm = new SVM<double[]>(
+						new GaussianKernel(((SVMAlgorithmSpecifier) getSpecifier()).getGaussianSigma()),
+						((SVMAlgorithmSpecifier) getSpecifier()).getSoftMarginPenalty(),
+						((SVMAlgorithmSpecifier) getSpecifier()).getSoftMarginPenalty());
+			} else {
+				// else train multi-class SVM
+				svm = new SVM<double[]>(
+						new GaussianKernel(((SVMAlgorithmSpecifier) getSpecifier()).getGaussianSigma()),
+						((SVMAlgorithmSpecifier) getSpecifier()).getSoftMarginPenalty(),
+						getNumberOfSupportedEstimators(), Multiclass.ONE_VS_ALL);
+			}
 			svm.learn(features, targets);
 			svm.finish();
 			setClassifier(svm);
