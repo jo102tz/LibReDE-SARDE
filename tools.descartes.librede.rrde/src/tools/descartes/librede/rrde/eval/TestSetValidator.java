@@ -326,7 +326,6 @@ public class TestSetValidator {
 		stat.setAvgErrorAfter(stataftererror.getMean());
 		stat.setStdDevErrorAfter(stataftererror.getStandardDeviation());
 
-
 		stat.setHitrate(((double) hitted) / ((double) testset.size()));
 
 		stat.setOptimizationtime(optimization);
@@ -466,6 +465,8 @@ public class TestSetValidator {
 				Discovery.fixTimeStamps(libredeConfiguration);
 				LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
 				set.add(res);
+				System.out.println(estimationSpecification.getApproaches().get(0).getType() + ": "
+						+ Util.getMeanValidationError(res));
 			}
 
 			// choose final comparator

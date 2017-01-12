@@ -29,11 +29,18 @@ package tools.descartes.librede.rrde.test;
 import static org.junit.Assert.fail;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
+import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.eval.StatisticsSummary;
+import tools.descartes.librede.rrde.eval.TestResult;
 import tools.descartes.librede.rrde.rinterface.RBridge;
 
 /**
@@ -67,12 +74,38 @@ public class TestOptimization extends AbstractTest {
 		// run optimization
 		Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
 				.runConfigurationOptimization(librede, optimization, OUTPUT);
+		LinkedList<EstimationSpecification> orderedEstimations = new LinkedList<>(estimations);
 		long opti = System.currentTimeMillis() - start;
 		log.info("Finished optimization! Done...");
 
 		// print results
-		vali.compareOptimized(estimations, false);
-		vali.printResults(null, null, opti, 0, false);
+		Map<LibredeConfiguration, TestResult> aftermap = vali.compareOptimized(orderedEstimations, true);
+		StatisticsSummary stat = vali.printResults(null, null, opti, 0, false);
+
+		// here only the best estimator is tested
+		testStatValues(stat, 2.076, 0.121, 0, 0, -1, true, false);
+
+		// define test values for individual tests
+		HashMap<String, Double> map = new HashMap<>();
+		map.put("tools.descartes.librede.approach.KumarKalmanFilterApproach", 0.15913631153458851);
+
+		map.put("tools.descartes.librede.approach.UtilizationRegressionApproach", 0.2087590642133215);
+
+		map.put("tools.descartes.librede.approach.MenasceOptimizationApproach", 0.12206704666806811);
+
+		map.put("tools.descartes.librede.approach.ServiceDemandLawApproach", 0.16472361000470914);
+
+		map.put("tools.descartes.librede.approach.ResponseTimeApproximationApproach", 13.154786927218074);
+
+		map.put("tools.descartes.librede.approach.ResponseTimeRegressionApproach", 0.15913631153458851);
+
+		map.put("tools.descartes.librede.approach.LiuOptimizationApproach", 0.1232117464725842);
+
+		map.put("tools.descartes.librede.approach.WangKalmanFilterApproach", 0.18727236209474354);
+
+		// test individual optimization results
+		for (EstimationSpecification est : estimations)
+			testStatValue(est, aftermap.keySet().iterator().next(), map.get(est.getApproaches().get(0).getType()));
 
 	}
 

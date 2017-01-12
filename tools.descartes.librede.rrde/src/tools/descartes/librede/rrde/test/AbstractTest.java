@@ -34,6 +34,8 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 
 import tools.descartes.librede.Librede;
+import tools.descartes.librede.LibredeResults;
+import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.Plugin;
 import tools.descartes.librede.rrde.eval.StatisticsSummary;
@@ -43,6 +45,7 @@ import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.Util;
+import tools.descartes.librede.rrde.optimization.Wrapper;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 
 /**
@@ -161,7 +164,7 @@ public class AbstractTest {
 	 *            The {@link StatisticsSummary} to test.
 	 * @param avgBefore
 	 *            The average error before.
-	 * @param avgAter
+	 * @param avgAfter
 	 *            The average error after.
 	 * @param beforeignored
 	 *            The number of data sets that were ignored before.
@@ -177,11 +180,11 @@ public class AbstractTest {
 	 *            If true, the time spent on recommendation must not be zero. If
 	 *            false, it must be zero.
 	 */
-	public void testStatValues(StatisticsSummary stat, double avgBefore, double avgAter, int beforeignored,
+	public void testStatValues(StatisticsSummary stat, double avgBefore, double avgAfter, int beforeignored,
 			int afterignored, double hitrate, boolean optimizationtime, boolean recommendationtime) {
 		// ignore runtime, since different on different machines
 		Assert.assertEquals(avgBefore, stat.getAvgErrorBefore(), 0.01);
-		Assert.assertEquals(avgAter, stat.getAvgErrorAfter(), 0.01);
+		Assert.assertEquals(avgAfter, stat.getAvgErrorAfter(), 0.01);
 		Assert.assertEquals(beforeignored, stat.getBeforeignored());
 		Assert.assertEquals(afterignored, stat.getAfterignored());
 		if (hitrate >= 0)
@@ -194,6 +197,25 @@ public class AbstractTest {
 			Assert.assertNotEquals(0, stat.getOptimizationtime());
 		else
 			Assert.assertEquals(0, stat.getOptimizationtime());
+	}
+	
+
+	/**
+	 * Tests if the given values are met and fails the test if not.
+	 * 
+	 * @param est
+	 *            {@link EstimationSpecification} to use.
+	 * @param libredeConfiguration
+	 *            The {@link LibredeConfiguration} to use.
+	 * @param expected
+	 *            The expected Value
+	 */
+	public void testStatValue(EstimationSpecification est, LibredeConfiguration libredeConfiguration,
+			Double expected) {
+		libredeConfiguration.setEstimation(EcoreUtil.copy(est));
+		Discovery.fixTimeStamps(libredeConfiguration);
+		LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+		Assert.assertEquals(expected, Util.getMeanValidationError(res), 0.01);
 	}
 
 }
