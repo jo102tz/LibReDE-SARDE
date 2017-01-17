@@ -60,7 +60,7 @@ public class TestRBridge extends AbstractTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e);
-			fail("RBridge did not respont to null values.");
+			fail("RBridge did not respond to null values.");
 		}
 		bridge.runOptimization(Collections.emptyList(), new ICallbackEvaluator() {
 

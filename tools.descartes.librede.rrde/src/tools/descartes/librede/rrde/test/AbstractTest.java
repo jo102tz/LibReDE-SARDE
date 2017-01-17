@@ -198,7 +198,6 @@ public class AbstractTest {
 		else
 			Assert.assertEquals(0, stat.getOptimizationtime());
 	}
-	
 
 	/**
 	 * Tests if the given values are met and fails the test if not.
@@ -210,12 +209,13 @@ public class AbstractTest {
 	 * @param expected
 	 *            The expected Value
 	 */
-	public void testStatValue(EstimationSpecification est, LibredeConfiguration libredeConfiguration,
+	public void testSingleEstimator(EstimationSpecification est, LibredeConfiguration libredeConfiguration,
 			Double expected) {
 		libredeConfiguration.setEstimation(EcoreUtil.copy(est));
 		Discovery.fixTimeStamps(libredeConfiguration);
 		LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
-		Assert.assertEquals(expected, Util.getMeanValidationError(res), 0.01);
+		Assert.assertEquals("Wrong value for " + est.getApproaches().get(0).getType() + ".", expected,
+				Util.getMeanValidationError(res), 0.001);
 	}
 
 }
