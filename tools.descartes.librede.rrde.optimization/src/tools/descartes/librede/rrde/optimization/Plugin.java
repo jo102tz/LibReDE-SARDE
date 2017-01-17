@@ -218,7 +218,7 @@ public class Plugin implements IApplication {
 	private void store(EstimationSpecification result, LibredeConfiguration conf, String file) {
 		// create configuration
 		LibredeConfiguration output = EcoreUtil.copy(conf);
-		output.setEstimation(result);
+		output.setEstimation(EcoreUtil.copy(result));
 		// fix timestamps for valid output
 		Discovery.fixTimeStamps(output);
 
