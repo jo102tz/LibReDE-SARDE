@@ -27,9 +27,12 @@
 package tools.descartes.librede.rrde.eval;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -74,8 +77,8 @@ public class Evaluate {
 	/**
 	 * A link to the desktop.
 	 */
-	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes Grohmann"
-			+ File.separator + "Desktop";
+	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes" + File.separator
+			+ "Desktop";
 
 	/**
 	 * The path linking to the test folder.
@@ -105,6 +108,11 @@ public class Evaluate {
 	 * The path for training
 	 */
 	public static final String trainingfolder = DESKTOP + File.separator + "training";
+
+	/**
+	 * Contains all available testsets to be used for this run
+	 */
+	public static final String testsetfolder = DESKTOP + File.separator + "testset";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -142,10 +150,27 @@ public class Evaluate {
 	 */
 	static Plugin main;
 
+	/**
+	 * Flag, if the training and validation folders should be redone
+	 */
+	static boolean reshuffle = false;
+
 	@Test
 	public void test() {
 		main = new Plugin();
 		main.init();
+
+		if (reshuffle) {
+			try {
+				TestSetCreator.shuffle(testsetfolder, trainingfolder, validationfolder, 0.2, DESKTOP.length());
+			} catch (IOException e) {
+				log.error("Reshuffling failed.");
+				e.printStackTrace();
+				Assert.fail("Reshuffling error.");
+				return;
+			}
+		}
+
 		log.info("Starting initialization");
 		// load config files
 		librede = Librede.loadConfiguration(new File(LIB_PATH).toPath());
@@ -179,13 +204,13 @@ public class Evaluate {
 		}
 
 		// validateOptimizers(EcoreUtil.copy(librede),
-		// EcoreUtil.copy(optimization), OUTPUT);
+		// EcoreUtil.copy(optimization));
 
 		// validateNothing();
 
-		// validateRecommenders(librede, recommendation, OUTPUT);
+		 validateRecommenders(librede, recommendation);
 
-		validateOptimizationAndRecommendation(librede, optimization, recommendation, OUTPUT);
+//		validateOptimizationAndRecommendation(librede, optimization, recommendation);
 
 	}
 
@@ -204,15 +229,8 @@ public class Evaluate {
 		vali.printResults(null, null, 0, 0, false);
 	}
 
-	/**
-	 * @param librede2
-	 * @param optimization2
-	 * @param recommendation2
-	 * @param output2
-	 */
-	private void validateOptimizationAndRecommendation(LibredeConfiguration librede2,
-			OptimizationConfiguration optimization2, RecommendationTrainingConfiguration recommendation2,
-			String output2) {
+	private void validateOptimizationAndRecommendation(LibredeConfiguration librede,
+			OptimizationConfiguration optimization, RecommendationTrainingConfiguration recommendation) {
 		// load special recommendation with optimized parameters
 		RecommendationTrainingConfiguration postreco = Util.loadRecommendationConfiguration(
 				new File(TESTPATH + File.separator + "IPOoptimized.recommendation").toPath());
@@ -255,12 +273,7 @@ public class Evaluate {
 
 	}
 
-	/**
-	 * @param the
-	 *            file is stored here
-	 */
-	private void validateRecommenders(LibredeConfiguration libconf, RecommendationTrainingConfiguration conf,
-			String output) {
+	private void validateRecommenders(LibredeConfiguration libconf, RecommendationTrainingConfiguration conf) {
 		// leave other parameters default
 		DecisionTreeAlgorithmSpecifierImpl tree = new DecisionTreeAlgorithmSpecifierImpl();
 		tree.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree");
@@ -329,11 +342,7 @@ public class Evaluate {
 		}
 	}
 
-	/**
-	 * @param the
-	 *            file is stored here
-	 */
-	private void validateOptimizers(LibredeConfiguration libconf, OptimizationConfiguration conf, String output) {
+	private void validateOptimizers(LibredeConfiguration libconf, OptimizationConfiguration conf) {
 		ArrayList<RunCall> newRunCalls = new ArrayList<RunCall>();
 		String[] algorithmsplit = conf.getContainsOf().get(0).getAlgorithm().getAlgorithmName().split("\\.");
 		String algorithmname = algorithmsplit[algorithmsplit.length - 1];
