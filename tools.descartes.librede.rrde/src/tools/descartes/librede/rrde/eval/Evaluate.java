@@ -151,25 +151,40 @@ public class Evaluate {
 	static Plugin main;
 
 	/**
-	 * Flag, if the training and validation folders should be redone
+	 * The share of the testset to be used for validation.
 	 */
-	static boolean reshuffle = false;
+	static double factor = 0.2;
 
 	@Test
-	public void test() {
+	public void reshuffeling() {
 		main = new Plugin();
 		main.init();
-
-		if (reshuffle) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Do you really want to reshuffle the testcases? (Y/N)");
+		String ans = sc.nextLine();
+		sc.close();
+		if (ans.equals("Y") || ans.equals("y")) {
+			log.info("Reshuffeling testcases of folder " + testsetfolder + " into " + trainingfolder
+					+ " for training and " + validationfolder + " for validation. The validation-share is " + factor
+					+ ".");
 			try {
-				TestSetCreator.shuffle(testsetfolder, trainingfolder, validationfolder, 0.2, DESKTOP.length());
+				TestSetCreator.shuffle(testsetfolder, trainingfolder, validationfolder, factor, DESKTOP.length());
 			} catch (IOException e) {
 				log.error("Reshuffling failed.");
 				e.printStackTrace();
 				Assert.fail("Reshuffling error.");
 				return;
 			}
+			log.info("Reshuffeling Done! Exiting...");
+		} else {
+			log.info("Not reshuffeling. Exiting...");
 		}
+	}
+
+	@Test
+	public void test() {
+		main = new Plugin();
+		main.init();
 
 		log.info("Starting initialization");
 		// load config files
@@ -208,9 +223,10 @@ public class Evaluate {
 
 		// validateNothing();
 
-		 validateRecommenders(librede, recommendation);
+		validateRecommenders(librede, recommendation);
 
-//		validateOptimizationAndRecommendation(librede, optimization, recommendation);
+		// validateOptimizationAndRecommendation(librede, optimization,
+		// recommendation);
 
 	}
 
