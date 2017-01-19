@@ -30,7 +30,9 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
+import java.util.InputMismatchException;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.log4j.Logger;
@@ -41,6 +43,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import tools.descartes.librede.ApproachResult;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.algorithm.IEstimationAlgorithm;
 import tools.descartes.librede.approach.IEstimationApproach;
@@ -48,9 +51,11 @@ import tools.descartes.librede.configuration.EstimationAlgorithmConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.Parameter;
 import tools.descartes.librede.linalg.Matrix;
+import tools.descartes.librede.linalg.Vector;
 import tools.descartes.librede.registry.ParameterDefinition;
 import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.validation.IValidator;
 
 /**
  * This class contains some useful utilities.
@@ -75,8 +80,7 @@ public class Util {
 	 * @param param
 	 *            The {@link IOptimizableParameter} to set
 	 */
-	public static void setValue(EstimationSpecification librede, double value,
-			IOptimizableParameter param) {
+	public static void setValue(EstimationSpecification librede, double value, IOptimizableParameter param) {
 		String eClass = param.getClass().getInterfaces()[0].getName();
 		if (eClass.equals(StepSize.class.getName())) {
 			librede.getStepSize().setValue(value);
@@ -84,26 +88,21 @@ public class Util {
 		} else if (eClass.equals(WindowSize.class.getName())) {
 			int integer = (int) Math.round(value);
 			if (integer != value) {
-				log.debug("The value "
-						+ value
-						+ " is not an Integer and had to be rounded to fit as window size.");
+				log.debug("The value " + value + " is not an Integer and had to be rounded to fit as window size.");
 			}
 			librede.setWindow(integer);
 			log.trace("Set Windowsize to " + integer);
 		} else if (eClass.equals(StepSizeRelWindow.class.getName())) {
 			librede.getStepSize().setValue(value);
 			log.trace("Set Stepsize to " + value);
-			int integer = (int) Math.round(((StepSizeRelWindow) param)
-					.getProductMaxValue() / value);
+			int integer = (int) Math.round(((StepSizeRelWindow) param).getProductMaxValue() / value);
 			librede.setWindow(integer);
 			log.trace("Adapt Windowsize to " + integer);
 		} else if (eClass.equals(GenericParameter.class.getName())) {
-			setGenericParameter(librede, (GenericParameter) param,
-					Double.toString(value));
+			setGenericParameter(librede, (GenericParameter) param, Double.toString(value));
 			log.trace("Set " + getParameterString(param) + " to " + value);
 		} else {
-			log.error("No handling adapter of setting Optimizable Parameter "
-					+ eClass);
+			log.error("No handling adapter of setting Optimizable Parameter " + eClass);
 		}
 	}
 
@@ -117,8 +116,7 @@ public class Util {
 	 * @param param
 	 *            The {@link GenericParameter} to set
 	 */
-	public static void setGenericParameter(EstimationSpecification librede,
-			GenericParameter param, String value) {
+	public static void setGenericParameter(EstimationSpecification librede, GenericParameter param, String value) {
 		// it is usually enough to find one parameter with the given name
 		// multiple parameters will be set anyhow
 		boolean oneSet = false;
@@ -136,8 +134,7 @@ public class Util {
 					boolean present = false;
 					// if the parameter is present already
 					for (Parameter par : alg.getParameters()) {
-						if (par.getName()
-								.equals(param.getParameter().getName())) {
+						if (par.getName().equals(param.getParameter().getName())) {
 							par.setValue(value);
 							present = true;
 							oneSet = true;
@@ -145,16 +142,14 @@ public class Util {
 					}
 					// if the param was not present
 					if (!present) {
-						alg.getParameters().add(
-								EcoreUtil.copy(param.getParameter()));
+						alg.getParameters().add(EcoreUtil.copy(param.getParameter()));
 						oneSet = true;
 					}
 				}
 			}
 		}
 		if (oneSet != true) {
-			log.warn("The generic parameter " + getParameterString(param)
-					+ " could not be set.");
+			log.warn("The generic parameter " + getParameterString(param) + " could not be set.");
 		}
 	}
 
@@ -169,8 +164,7 @@ public class Util {
 	 *            The {@link GenericParameter} to check
 	 * @return True, if the parameter is actually present, false if not
 	 */
-	private static boolean containsParameter(
-			EstimationAlgorithmConfiguration alg, GenericParameter param) {
+	private static boolean containsParameter(EstimationAlgorithmConfiguration alg, GenericParameter param) {
 		// check if this class actually should support this parameter
 		try {
 
@@ -179,8 +173,7 @@ public class Util {
 					.forName(alg.getType());
 
 			for (Field field : c.getDeclaredFields()) {
-				if (field
-						.isAnnotationPresent(tools.descartes.librede.registry.ParameterDefinition.class)) {
+				if (field.isAnnotationPresent(tools.descartes.librede.registry.ParameterDefinition.class)) {
 					ParameterDefinition anno = field
 							.getAnnotation(tools.descartes.librede.registry.ParameterDefinition.class);
 					if (anno.name().equals(param.getParameter().getName())) {
@@ -205,8 +198,7 @@ public class Util {
 	 * 
 	 * @return The String value of the parameter
 	 */
-	public static String getGenericParameter(EstimationSpecification librede,
-			GenericParameter param) {
+	public static String getGenericParameter(EstimationSpecification librede, GenericParameter param) {
 		for (EstimationAlgorithmConfiguration alg : librede.getAlgorithms()) {
 			for (Parameter par : alg.getParameters()) {
 				if (par.getName().equals(param.getParameter().getName())) {
@@ -228,8 +220,7 @@ public class Util {
 	 * 
 	 * @return The double value of the parameter
 	 */
-	public static double getValue(EstimationSpecification librede,
-			IOptimizableParameter param) {
+	public static double getValue(EstimationSpecification librede, IOptimizableParameter param) {
 		String eClass = param.getClass().getInterfaces()[0].getName();
 		// Treat StepSize and StepSizeRelWindow equal
 		if (eClass.equals(StepSize.class.getName()) || eClass.equals(StepSizeRelWindow.class.getName())) {
@@ -238,24 +229,18 @@ public class Util {
 			return librede.getWindow();
 		} else if (eClass.equals(GenericParameter.class.getName())) {
 			try {
-				return Double.parseDouble(getGenericParameter(librede,
-						(GenericParameter) param));
+				return Double.parseDouble(getGenericParameter(librede, (GenericParameter) param));
 			} catch (NumberFormatException e) {
-				log.error("The generic parameter with key "
-						+ getParameterString(param)
-						+ " has value "
-						+ getGenericParameter(librede, (GenericParameter) param)
-						+ " which is not numeric.");
+				log.error("The generic parameter with key " + getParameterString(param) + " has value "
+						+ getGenericParameter(librede, (GenericParameter) param) + " which is not numeric.");
 				return -1;
 			} catch (NullPointerException e) {
-				log.warn("The generic parameter with key "
-						+ getParameterString(param)
+				log.warn("The generic parameter with key " + getParameterString(param)
 						+ " has a null value. Returning 0 instead.");
 				return 0;
 			}
 		} else {
-			log.error("No handling adapter of setting Optimizable Parameter "
-					+ eClass);
+			log.error("No handling adapter of setting Optimizable Parameter " + eClass);
 		}
 		return -1;
 	}
@@ -266,26 +251,42 @@ public class Util {
 	 * @param result
 	 *            The result produced by LibReDE
 	 * @return The mean validation error
+	 * 
+	 * @deprecated Prefer the use of
+	 *             {@link #getValidationError(LibredeResults, IEstimationApproach, IValidator)}
+	 *             instead.
 	 */
+	@Deprecated
 	public static double getMeanValidationError(LibredeResults result) {
+		if (result.getApproaches().size() > 1) {
+			log.error("More than one approach is not supported. " + result);
+			throw new InputMismatchException("More than one approach is not supported.");
+		}
+		return getAverageOfMeanValidationErrors(result);
+	}
+
+	/**
+	 * Calculates the mean Validation error, i.e. the target function value.
+	 * 
+	 * @param result
+	 *            The result produced by LibReDE
+	 * @return The mean validation error
+	 * 
+	 */
+	public static double getAverageOfMeanValidationErrors(LibredeResults result) {
 		// equally averaging over all validators and all approaches
 		SummaryStatistics values = new SummaryStatistics();
 		if (result == null) {
 			return Double.MAX_VALUE;
 		}
-		Map<Class<? extends IEstimationApproach>, Matrix> errorMap = result
-				.getValidationErrors();
-		for (Class<? extends IEstimationApproach> approach : result
-				.getApproaches()) {
+		Map<Class<? extends IEstimationApproach>, Matrix> errorMap = result.getValidationErrors();
+		for (Class<? extends IEstimationApproach> approach : result.getApproaches()) {
 			Matrix appError = errorMap.get(approach);
 			if ((int) appError.columns() != result.getNumberOfFolds()) {
-				log.warn("Not enough fold validation results available: "
-						+ result.toString());
+				log.warn("Not enough fold validation results available: " + result.toString());
 			}
-			if (appError.rows() != result.getValidatedEntities().entrySet()
-					.size()) {
-				log.warn("Not enough validators for results available: "
-						+ result.toString());
+			if (appError.rows() != result.getValidatedEntities().entrySet().size()) {
+				log.warn("Not enough validators for results available: " + result.toString());
 			}
 
 			for (int i = 0; i < appError.columns(); i++)
@@ -296,8 +297,7 @@ public class Util {
 						log.warn("Validator returned NaN.");
 					}
 			if (values.getN() < 1) {
-				log.warn("No validation results for approach "
-						+ result.getApproaches().iterator().next());
+				log.warn("No validation results for approach " + result.getApproaches().iterator().next());
 				return Double.MAX_VALUE;
 			}
 		}
@@ -305,6 +305,74 @@ public class Util {
 			return Double.MAX_VALUE;
 		}
 		return values.getMean();
+	}
+
+	/**
+	 * Calculates the mean response time error for the given
+	 * {@link LibredeResults}.
+	 * 
+	 * @param result
+	 *            The result produced by LibReDE
+	 * @param approach
+	 *            The approach to validate
+	 * 
+	 * @return The mean response time error
+	 */
+	public static double getResponseTimeError(LibredeResults result, IEstimationApproach approach) {
+		ApproachResult approachResult = result.getApproachResults(approach.getClass());
+		Map<Class<? extends IValidator>, Vector> errorMap = approachResult.getValidationErrors();
+		Set<Class<? extends IValidator>> valis = approachResult.getResult()[0].getValidators();
+		Vector respTimeError = null;
+		for (Class<? extends IValidator> vali : valis) {
+			if (vali.getName().equals("Response Time Validator")) {
+				respTimeError = errorMap.get(vali);
+			}
+		}
+
+		if (respTimeError != null) {
+			double errorSum = 0.0;
+			for (int i = 0; i < respTimeError.columns(); i++) {
+				errorSum += respTimeError.get(i);
+			}
+			return errorSum / respTimeError.columns();
+		}
+
+		log.warn("The response time error for Approach " + approach.toString() + " was not found.");
+		return Double.MAX_VALUE;
+	}
+
+	/**
+	 * Calculates the mean utilization error for the given
+	 * {@link LibredeResults}.
+	 * 
+	 * @param result
+	 *            The result produced by LibReDE
+	 * @param approach
+	 *            The approach to validate
+	 * 
+	 * @return The mean utilization error
+	 */
+	public static double getUtilizationError(LibredeResults result, IEstimationApproach approach) {
+		ApproachResult approachResult = result.getApproachResults(approach.getClass());
+		Map<Class<? extends IValidator>, Vector> errorMap = approachResult.getValidationErrors();
+		Set<Class<? extends IValidator>> valis = approachResult.getResult()[0].getValidators();
+		Vector utilError = null;
+		for (Class<? extends IValidator> vali : valis) {
+			if (vali.getName().equals("Utilization Law Validator")) {
+				utilError = errorMap.get(vali);
+			}
+		}
+
+		if (utilError != null) {
+			double errorSum = 0.0;
+			for (int i = 0; i < utilError.columns(); i++) {
+				errorSum += utilError.get(i);
+			}
+			return errorSum / utilError.columns();
+		}
+
+		log.warn("The utilization error for Approach " + approach.toString() + " was not found.");
+		return Double.MAX_VALUE;
 	}
 
 	/**
@@ -331,15 +399,13 @@ public class Util {
 	 * @throws Exception
 	 *             If something in the loading process fails
 	 */
-	public static OptimizationConfiguration loadOptimizationConfiguration(
-			Path path) {
+	public static OptimizationConfiguration loadOptimizationConfiguration(Path path) {
 		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put("optimization", new XMIResourceFactoryImpl());
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("optimization",
+				new XMIResourceFactoryImpl());
 		File configFile = new File(path.toString());
 		URI fileURI = URI.createFileURI(configFile.getAbsolutePath());
-		org.eclipse.emf.ecore.resource.Resource resource = resourceSet
-				.getResource(fileURI, true);
+		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(fileURI, true);
 		EcoreUtil.resolveAll(resource);
 		return (OptimizationConfiguration) resource.getContents().get(0);
 	}
@@ -354,18 +420,15 @@ public class Util {
 	 * @throws Exception
 	 *             If something in the loading process fails
 	 */
-	public static RecommendationTrainingConfiguration loadRecommendationConfiguration(
-			Path path) {
+	public static RecommendationTrainingConfiguration loadRecommendationConfiguration(Path path) {
 		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put("optimization", new XMIResourceFactoryImpl());
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("optimization",
+				new XMIResourceFactoryImpl());
 		File configFile = new File(path.toString());
 		URI fileURI = URI.createFileURI(configFile.getAbsolutePath());
-		org.eclipse.emf.ecore.resource.Resource resource = resourceSet
-				.getResource(fileURI, true);
+		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(fileURI, true);
 		EcoreUtil.resolveAll(resource);
-		return (RecommendationTrainingConfiguration) resource.getContents()
-				.get(0);
+		return (RecommendationTrainingConfiguration) resource.getContents().get(0);
 	}
 
 	/**

@@ -175,9 +175,9 @@ public class Evaluate {
 				Assert.fail("Reshuffling error.");
 				return;
 			}
-			log.info("Reshuffeling Done! Exiting...");
+			log.info("Reshuffeling Done! Exit.");
 		} else {
-			log.info("Not reshuffeling. Exiting...");
+			log.info("Not reshuffeling. Exit.");
 		}
 	}
 
@@ -299,7 +299,9 @@ public class Evaluate {
 		svm.setGaussianSigma(4);
 		svm.setSoftMarginPenalty(1);
 		svm.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileSVM");
-		RecommendationAlgorithmSpecifier[] algos = { tree, nn, svm };
+		SVMAlgorithmSpecifierImpl warmup = EcoreUtil.copy(svm);
+		// first one for warmup
+		RecommendationAlgorithmSpecifier[] algos = {warmup, tree, nn, svm };
 
 		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
 				.loadFeatureExtractor(conf.getFeatureAlgorithm());
