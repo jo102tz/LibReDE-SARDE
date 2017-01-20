@@ -262,7 +262,8 @@ public class Util {
 			log.error("More than one approach is not supported. " + result);
 			throw new InputMismatchException("More than one approach is not supported.");
 		}
-		return getAverageOfMeanValidationErrors(result);
+//		return getAverageOfMeanValidationErrors(result);
+		return getUtilizationError(result, result.getApproaches().iterator().next());
 	}
 
 	/**
@@ -318,13 +319,13 @@ public class Util {
 	 * 
 	 * @return The mean response time error
 	 */
-	public static double getResponseTimeError(LibredeResults result, IEstimationApproach approach) {
-		ApproachResult approachResult = result.getApproachResults(approach.getClass());
+	public static double getResponseTimeError(LibredeResults result, Class<? extends IEstimationApproach> approach) {
+		ApproachResult approachResult = result.getApproachResults(approach);
 		Map<Class<? extends IValidator>, Vector> errorMap = approachResult.getValidationErrors();
 		Set<Class<? extends IValidator>> valis = approachResult.getResult()[0].getValidators();
 		Vector respTimeError = null;
 		for (Class<? extends IValidator> vali : valis) {
-			if (vali.getName().equals("Response Time Validator")) {
+			if (vali.getName().equals("tools.descartes.librede.validation.ResponseTimeValidator")) {
 				respTimeError = errorMap.get(vali);
 			}
 		}
@@ -352,13 +353,13 @@ public class Util {
 	 * 
 	 * @return The mean utilization error
 	 */
-	public static double getUtilizationError(LibredeResults result, IEstimationApproach approach) {
-		ApproachResult approachResult = result.getApproachResults(approach.getClass());
+	public static double getUtilizationError(LibredeResults result, Class<? extends IEstimationApproach> approach) {
+		ApproachResult approachResult = result.getApproachResults(approach);
 		Map<Class<? extends IValidator>, Vector> errorMap = approachResult.getValidationErrors();
 		Set<Class<? extends IValidator>> valis = approachResult.getResult()[0].getValidators();
 		Vector utilError = null;
 		for (Class<? extends IValidator> vali : valis) {
-			if (vali.getName().equals("Utilization Law Validator")) {
+			if (vali.getName().equals("tools.descartes.librede.validation.UtilizationValidator")) {
 				utilError = errorMap.get(vali);
 			}
 		}
