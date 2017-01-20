@@ -263,7 +263,8 @@ public class Util {
 			throw new InputMismatchException("More than one approach is not supported.");
 		}
 //		return getAverageOfMeanValidationErrors(result);
-		return getUtilizationError(result, result.getApproaches().iterator().next());
+//		return getUtilizationError(result, result.getApproaches().iterator().next());
+		return getResponseTimeError(result, result.getApproaches().iterator().next());
 	}
 
 	/**
