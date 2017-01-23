@@ -30,6 +30,7 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Set;
@@ -48,6 +49,7 @@ import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.algorithm.IEstimationAlgorithm;
 import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationAlgorithmConfiguration;
+import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.Parameter;
 import tools.descartes.librede.linalg.Matrix;
@@ -262,8 +264,9 @@ public class Util {
 			log.error("More than one approach is not supported. " + result);
 			throw new InputMismatchException("More than one approach is not supported.");
 		}
-//		return getAverageOfMeanValidationErrors(result);
-//		return getUtilizationError(result, result.getApproaches().iterator().next());
+		// return getAverageOfMeanValidationErrors(result);
+		// return getUtilizationError(result,
+		// result.getApproaches().iterator().next());
 		return getResponseTimeError(result, result.getApproaches().iterator().next());
 	}
 
@@ -461,6 +464,47 @@ public class Util {
 			result[i] = array[i].intValue();
 		}
 		return result;
+	}
+
+	/**
+	 * Returns the short name for a given approach.
+	 * 
+	 * @param approach
+	 *            The {@link EstimationApproachConfiguration} describing the
+	 *            approach.
+	 * @return The short name.
+	 */
+	public static String getSimpleApproachName(EstimationApproachConfiguration approach) {
+		String[] algorithmsplit = approach.getType().split("\\.");
+		return algorithmsplit[algorithmsplit.length - 1];
+	}
+
+	private static final HashMap<String, String> acronyms;
+	static {
+		acronyms = new HashMap<String, String>();
+		acronyms.put("ServiceDemandLawApproach", "SDL");
+		acronyms.put("ResponseTimeRegressionApproach", "RR");
+		acronyms.put("UtilizationRegressionApproach", "UR");
+		acronyms.put("ResponseTimeApproximationApproach", "RTA");
+		acronyms.put("WangKalmanFilterApproach", "WKF");
+		acronyms.put("KumarKalmanFilterApproach", "KKF");
+		acronyms.put("MenasceOptimizationApproach", "MO");
+		acronyms.put("LiuOptimizationApproach", "LO");
+	}
+
+	/**
+	 * Returns the acronym for the given approach.
+	 * 
+	 * @param approach
+	 *            The approach name.
+	 * @return The acronym for the approach or the input string, if no acronym
+	 *         was found.
+	 */
+	public static String shortenApproachName(String approach) {
+		if (acronyms.get(approach) != null) {
+			return acronyms.get(approach);
+		}
+		return approach;
 	}
 
 }
