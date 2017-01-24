@@ -62,6 +62,7 @@ import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.
 import tools.descartes.librede.rrde.optimization.impl.ConfigurationOptimizationAlgorithmSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl;
+import tools.descartes.librede.rrde.optimization.impl.StepSizeImpl;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
@@ -251,7 +252,7 @@ public class Evaluate {
 		HashSet<EstimationSpecification> set = new HashSet<EstimationSpecification>();
 		set.add(librede.getEstimation());
 		vali.compareOptimized(set, false);
-		vali.printResults(null, null, 0, 0, false);
+		vali.printResults(null, null, 0, 0, false, null);
 	}
 
 	private void validateOptimizationAndRecommendation(LibredeConfiguration librede,
@@ -294,7 +295,7 @@ public class Evaluate {
 
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, 0, reco, true);
+		vali.printResults(null, null, 0, reco, true, null);
 
 	}
 
@@ -363,7 +364,7 @@ public class Evaluate {
 			// print results
 			log.info("Validating " + alg.getAlgorithmName());
 			vali.compareOptimized(exec);
-			vali.printResults(file, null, 0, reco, true);
+			vali.printResults(file, null, 0, reco, true,null);
 			file.newLine();
 
 		}
@@ -414,7 +415,7 @@ public class Evaluate {
 
 			// print results
 			vali.compareOptimized(estimations, true);
-			vali.printResults(file, null, opti, 0, false);
+			vali.printResults(file, null, opti, 0, false, null);
 			file.newLine();
 			conf.getContainsOf().remove(run);
 		}
@@ -511,9 +512,14 @@ public class Evaluate {
 
 			// print results
 			vali.compareOptimized(estimations, true);
-			StatisticsSummary stat = vali.printResults(null, null, opti, 0, false);
+			ArrayList<IOptimizableParameter> list = new ArrayList<>();
+			list.add(new StepSizeImpl());
+			StatisticsSummary stat = vali.printResults(null, null, opti, 0, false, list);
 			conf.getContainsOf().remove(run);
+			stat.getParameters();
 
+			// TODO install EMF and LIBREDE
+			// TODO add parameters (step size)
 			map.put(getMatchingEstimation(run.getEstimation().getApproaches().get(0), estimationList), stat);
 		}
 		return map;

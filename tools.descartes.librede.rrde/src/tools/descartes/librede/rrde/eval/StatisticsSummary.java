@@ -26,6 +26,7 @@
  */
 package tools.descartes.librede.rrde.eval;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
@@ -38,6 +39,13 @@ import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
  *
  */
 public class StatisticsSummary {
+
+	/**
+	 * Standard constructor.
+	 */
+	public StatisticsSummary() {
+		parameters = new HashMap<>();
+	}
 
 	/**
 	 * The average execution time before optimization/recommendation.
@@ -308,7 +316,8 @@ public class StatisticsSummary {
 	}
 
 	/**
-	 * @param parameters the parameters to set
+	 * @param parameters
+	 *            the parameters to set
 	 */
 	public void setParameters(Map<IOptimizableParameter, Double> parameters) {
 		this.parameters = parameters;

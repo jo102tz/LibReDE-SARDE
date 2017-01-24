@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
@@ -45,6 +46,7 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.optimization.Discovery;
+import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.Wrapper;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.FileExporter;
@@ -263,11 +265,15 @@ public class TestSetValidator {
 	 * @param printHitRate
 	 *            If the hit-ratio should be printed. Only useful for
 	 *            recommendation.
-	 * @return A {@link StatisticsSummary} instance, containing the key
+	 * @param stat
+	 *            A {@link StatisticsSummary} instance to fill. If null, a new
+	 *            instance is created.
+	 * @return The {@link StatisticsSummary} instance, containing the key
 	 *         statistics.
 	 */
 	public StatisticsSummary printResults(FileExporter file, Logger log, long optimization, long recommendation,
-			boolean printHitRate) {
+			boolean printHitRate, List<IOptimizableParameter> params) {
+		stat = new StatisticsSummary();
 		if (log == null) {
 			log = TestSetValidator.log;
 		}
@@ -314,8 +320,12 @@ public class TestSetValidator {
 					}
 				}
 			}
+			for (IOptimizableParameter param : params) {
+				stat.getParameters().put(param, Util.getValue(libredeConfiguration.getEstimation(), param));
+			}
+
 		}
-		stat = new StatisticsSummary();
+
 		stat.setAvgTimeBefore(statbeforetime.getMean());
 		stat.setStdDevTimeBefore(statbeforetime.getStandardDeviation());
 		stat.setAvgTimeAfter(stataftertime.getMean());
@@ -465,8 +475,9 @@ public class TestSetValidator {
 				Discovery.fixTimeStamps(libredeConfiguration);
 				LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
 				set.add(res);
-//				System.out.println(estimationSpecification.getApproaches().get(0).getType() + ": "
-//						+ Util.getMeanValidationError(res));
+				// System.out.println(estimationSpecification.getApproaches().get(0).getType()
+				// + ": "
+				// + Util.getMeanValidationError(res));
 			}
 
 			// choose final comparator

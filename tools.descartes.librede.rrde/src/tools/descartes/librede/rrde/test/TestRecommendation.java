@@ -72,7 +72,7 @@ public class TestRecommendation extends AbstractTest {
 		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		StatisticsSummary stat = vali.printResults(null, null, 0, reco, true);
+		StatisticsSummary stat = vali.printResults(null, null, 0, reco, true, null);
 		testStatValues(stat, 2.076, 0.121, 0, 0, 0, false, true);
 		
 		log.info("Initialized! Starting training phase with neural net...");
@@ -91,7 +91,7 @@ public class TestRecommendation extends AbstractTest {
 		exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, 0, reco, true);
+		vali.printResults(null, null, 0, reco, true, null);
 		testStatValues(stat, 2.076, 0.121, 0, 0, 0, false, true);
 
 		log.info("Initialized! Starting training phase with SVM...");
@@ -111,7 +111,7 @@ public class TestRecommendation extends AbstractTest {
 		exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		vali.printResults(null, null, 0, reco, true);
+		vali.printResults(null, null, 0, reco, true, null);
 		testStatValues(stat, 2.076, 0.121, 0, 0, 0, false, true);
 
 	}

@@ -87,7 +87,7 @@ public class TestOptimization extends AbstractTest {
 
 		// print results
 		Map<LibredeConfiguration, TestResult> aftermap = vali.compareOptimized(estimations, true);
-		StatisticsSummary stat = vali.printResults(null, null, opti, 0, false);
+		StatisticsSummary stat = vali.printResults(null, null, opti, 0, false, null);
 
 		// here only the best estimator is tested
 		testStatValues(stat, 2.076, 0.121, 0, 0, -1, true, false);
@@ -138,7 +138,7 @@ public class TestOptimization extends AbstractTest {
 
 		// print results
 		aftermap = vali.compareOptimized(estimations, true);
-		stat = vali.printResults(null, null, 1000, 0, false);
+		stat = vali.printResults(null, null, 1000, 0, false, null);
 
 		// here only the best estimator is tested
 		testStatValues(stat, 2.076, 0.121, 0, 0, -1, true, false);
@@ -187,7 +187,7 @@ public class TestOptimization extends AbstractTest {
 
 		// print results
 		aftermap = vali.compareOptimized(estimations, true);
-		stat = vali.printResults(null, null, 1000, 0, false);
+		stat = vali.printResults(null, null, 1000, 0, false, null);
 
 		// here only the best estimator is tested
 		testStatValues(stat, 2.076, 0.121, 0, 0, -1, true, false);

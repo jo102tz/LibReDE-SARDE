@@ -76,7 +76,7 @@ public class TestCombination extends AbstractTest {
 		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		StatisticsSummary stat = vali.printResults(null, null, opti, reco, false);
+		StatisticsSummary stat = vali.printResults(null, null, opti, reco, false, null);
 
 		testStatValues(stat, 2.076, 0.123, 0, 0, -1, true, true);
 	}
