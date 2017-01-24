@@ -27,11 +27,12 @@
 package tools.descartes.librede.rrde.eval;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -46,14 +47,21 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.Plugin;
+import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.optimization.Discovery;
+import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.InputData;
+import tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier;
+import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.FileExporter;
+import tools.descartes.librede.rrde.optimization.impl.ConfigurationOptimizationAlgorithmSpecifierImpl;
+import tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl;
+import tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
@@ -223,10 +231,11 @@ public class Evaluate {
 
 		// validateNothing();
 
-		validateRecommenders(librede, recommendation);
+		// validateRecommenders(librede, recommendation);
 
 		// validateOptimizationAndRecommendation(librede, optimization,
 		// recommendation);
+		validateAllOptimizersAutomatically(librede, optimization);
 
 	}
 
@@ -301,7 +310,7 @@ public class Evaluate {
 		svm.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileSVM");
 		SVMAlgorithmSpecifierImpl warmup = EcoreUtil.copy(svm);
 		// first one for warmup
-		RecommendationAlgorithmSpecifier[] algos = {warmup, tree, nn, svm };
+		RecommendationAlgorithmSpecifier[] algos = { warmup, tree, nn, svm };
 
 		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
 				.loadFeatureExtractor(conf.getFeatureAlgorithm());
@@ -361,28 +370,10 @@ public class Evaluate {
 	}
 
 	private void validateOptimizers(LibredeConfiguration libconf, OptimizationConfiguration conf) {
-		ArrayList<RunCall> newRunCalls = new ArrayList<RunCall>();
 		String[] algorithmsplit = conf.getContainsOf().get(0).getAlgorithm().getAlgorithmName().split("\\.");
 		String algorithmname = algorithmsplit[algorithmsplit.length - 1];
-		for (RunCall call : conf.getContainsOf()) {
-			if (call.getEstimation().getApproaches().size() > 1) {
-				// split up
-				for (EstimationApproachConfiguration approach : call.getEstimation().getApproaches()) {
-					// deep copy
-					RunCall newCall = EcoreUtil.copy(call);
 
-					newCall.setEstimation(EcoreUtil.copy(call.getEstimation()));
-
-					newCall.getEstimation().getApproaches().clear();
-					newCall.getEstimation().getApproaches().add(EcoreUtil.copy(approach));
-
-					newRunCalls.add(newCall);
-				}
-			} else {
-				newRunCalls.add(call);
-			}
-		}
-		conf.getContainsOf().clear();
+		ArrayList<RunCall> newRunCalls = Util.splitRunCalls(conf);
 
 		FileExporter file = new ExportAlgorithm().new FileExporter(OUTPUT, "optimizationresults.csv");
 
@@ -430,4 +421,170 @@ public class Evaluate {
 		file.close();
 		conf.getContainsOf().addAll(newRunCalls);
 	}
+
+	private void validateAllOptimizersAutomatically(LibredeConfiguration libconf, OptimizationConfiguration conf) {
+		// put approaches into sorted set
+		ArrayList<EstimationApproachConfiguration> estimationList = new ArrayList<>(
+				EcoreUtil.copyAll(conf.getContainsOf().get(0).getEstimation().getApproaches()));
+
+		// file heading
+		FileExporter file = new ExportAlgorithm().new FileExporter(OUTPUT, "aggregatedoptimizationresults.csv");
+
+		file.writeString("Approach");
+		// empty cell
+		file.writeString("");
+		for (EstimationApproachConfiguration approach : estimationList) {
+			file.writeString(Util.shortenApproachName(Util.getSimpleApproachName(approach)));
+		}
+		file.newLine();
+
+		ArrayList<RunCall> newRunCalls = Util.splitRunCalls(conf);
+
+		// Default
+		file.writeString("Default:");
+		// empty
+		ConfigurationOptimizationAlgorithmSpecifierImpl algorithm = new ConfigurationOptimizationAlgorithmSpecifierImpl();
+		algorithm.setAlgorithmName("");
+		HashMap<EstimationApproachConfiguration, StatisticsSummary> map = evaluateApproachesWithConfiguration(
+				newRunCalls, algorithm, conf, libconf, estimationList);
+		printSolutions(file, estimationList, map);
+
+		file.writeString("BruteForce:");
+		LocalSearchSpecifier spec = new LocalSearchSpecifierImpl();
+		spec.setAlgorithmName("tools.descartes.librede.rrde.optimization.algorithm.impl.BruteForceAlgorithm");
+		spec.setStepSize(1);
+		spec.setTolerance(0);
+		map = evaluateApproachesWithConfiguration(newRunCalls, spec, conf, libconf, estimationList);
+		printSolutions(file, estimationList, map);
+
+		file.writeString("LocalSearch:");
+		spec = new LocalSearchSpecifierImpl();
+		spec.setAlgorithmName("tools.descartes.librede.rrde.optimization.algorithm.impl.HillClimbingAlgorithm");
+		spec.setStepSize(1);
+		spec.setTolerance(0);
+		map = evaluateApproachesWithConfiguration(newRunCalls, spec, conf, libconf, estimationList);
+		printSolutions(file, estimationList, map);
+
+		file.writeString("IPO:");
+		IterativeParameterOptimizerSpecifier ipo = new IterativeParameterOptimizerSpecifierImpl();
+		ipo.setAlgorithmName(
+				"tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm");
+		ipo.setNumberOfSplits(3);
+		ipo.setNumberOfExplorations(3);
+		ipo.setNumberOfIterations(3);
+		map = evaluateApproachesWithConfiguration(newRunCalls, ipo, conf, libconf, estimationList);
+		printSolutions(file, estimationList, map);
+
+		// TODO add step size output
+
+		// close up
+		file.close();
+		conf.getContainsOf().addAll(newRunCalls);
+	}
+
+	private HashMap<EstimationApproachConfiguration, StatisticsSummary> evaluateApproachesWithConfiguration(
+			ArrayList<RunCall> newRunCalls, ConfigurationOptimizationAlgorithmSpecifier algorithm,
+			OptimizationConfiguration conf, LibredeConfiguration libconf,
+			ArrayList<EstimationApproachConfiguration> estimationList) {
+
+		HashMap<EstimationApproachConfiguration, StatisticsSummary> map = new HashMap<>();
+		for (RunCall run : newRunCalls) {
+			conf.getContainsOf().add(run);
+			run.setAlgorithm(EcoreUtil.copy(algorithm));
+
+			// run estimation and comparison
+			vali = new TestSetValidator(configs);
+			for (LibredeConfiguration c : configs) {
+				c.setEstimation(EcoreUtil.copy(run.getEstimation()));
+				Discovery.fixTimeStamps(c);
+			}
+			Assert.assertNotEquals(vali.getTestset().size(), 0);
+			vali.calculateInitialErrors();
+
+			log.info("Initialized! Starting optimization...");
+			long start = System.currentTimeMillis();
+			// run optimization
+			Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
+					.runConfigurationOptimization(libconf, conf, OUTPUT);
+			long opti = System.currentTimeMillis() - start;
+			log.info("Finished optimization! Validating...");
+
+			// print results
+			vali.compareOptimized(estimations, true);
+			StatisticsSummary stat = vali.printResults(null, null, opti, 0, false);
+			conf.getContainsOf().remove(run);
+
+			map.put(getMatchingEstimation(run.getEstimation().getApproaches().get(0), estimationList), stat);
+		}
+		return map;
+	}
+
+	private EstimationApproachConfiguration getMatchingEstimation(
+			EstimationApproachConfiguration estimationApproachConfiguration,
+			ArrayList<EstimationApproachConfiguration> estimationList) {
+		for (EstimationApproachConfiguration est : estimationList) {
+			if (est.getType().equals(estimationApproachConfiguration.getType()))
+				return est;
+		}
+		return null;
+	}
+
+	private void printSolutions(FileExporter file, ArrayList<EstimationApproachConfiguration> estimations,
+			Map<EstimationApproachConfiguration, StatisticsSummary> map) {
+
+		file.writeString("Optimization time:");
+		// iterate through all estimation approaches in order
+		for (EstimationApproachConfiguration est : estimations) {
+			file.writeDouble(map.get(est).getOptimizationtime());
+		}
+		file.newLine();
+
+		file.writeString("");
+		file.writeString("Avg. execution time (ms):");
+		// iterate through all estimation approaches in order
+		for (EstimationApproachConfiguration est : estimations) {
+			file.writeDouble(map.get(est).getAvgTimeAfter());
+		}
+		file.newLine();
+
+		file.writeString("");
+		file.writeString("Std. deviation time (ms):");
+		// iterate through all estimation approaches in order
+		for (EstimationApproachConfiguration est : estimations) {
+			file.writeDouble(map.get(est).getStdDevTimeAfter());
+		}
+		file.newLine();
+
+		file.writeString("");
+		file.writeString("Avg. estimation error:");
+		// iterate through all estimation approaches in order
+		for (EstimationApproachConfiguration est : estimations) {
+			file.writeDouble(map.get(est).getAvgErrorAfter());
+		}
+		file.newLine();
+
+		file.writeString("");
+		file.writeString("Std. deviation error:");
+		// iterate through all estimation approaches in order
+		for (EstimationApproachConfiguration est : estimations) {
+			file.writeDouble(map.get(est).getStdDevErrorAfter());
+		}
+		file.newLine();
+
+		file.writeString("");
+		file.writeString("Step size value:");
+		// iterate through all estimation approaches in order
+		for (EstimationApproachConfiguration est : estimations) {
+			Double stepsize = -1.0;
+			Map<IOptimizableParameter, Double> params = map.get(est).getParameters();
+			if (params != null && !params.isEmpty())
+				for (IOptimizableParameter p : params.keySet()) {
+					if (p instanceof tools.descartes.librede.rrde.optimization.StepSize)
+						stepsize = params.get(p);
+				}
+			file.writeDouble(stepsize);
+		}
+		file.newLine();
+	}
+
 }

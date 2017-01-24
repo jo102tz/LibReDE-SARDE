@@ -26,6 +26,10 @@
  */
 package tools.descartes.librede.rrde.eval;
 
+import java.util.Map;
+
+import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+
 /**
  * Objects of this class hold statistical information about a
  * optimization/recommendation run.
@@ -95,6 +99,11 @@ public class StatisticsSummary {
 	 * The number of test cases ignored after optimization/recommendation.
 	 */
 	private int afterignored;
+
+	/**
+	 * This map contains all optimized parameters and their corresponding value.
+	 */
+	private Map<IOptimizableParameter, Double> parameters;
 
 	/**
 	 * @return the avgTimeBefore
@@ -289,6 +298,20 @@ public class StatisticsSummary {
 	 */
 	public void setAfterignored(int afterignored) {
 		this.afterignored = afterignored;
+	}
+
+	/**
+	 * @return the parameters
+	 */
+	public Map<IOptimizableParameter, Double> getParameters() {
+		return parameters;
+	}
+
+	/**
+	 * @param parameters the parameters to set
+	 */
+	public void setParameters(Map<IOptimizableParameter, Double> parameters) {
+		this.parameters = parameters;
 	}
 
 }

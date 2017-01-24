@@ -465,8 +465,8 @@ public class TestSetValidator {
 				Discovery.fixTimeStamps(libredeConfiguration);
 				LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
 				set.add(res);
-				System.out.println(estimationSpecification.getApproaches().get(0).getType() + ": "
-						+ Util.getMeanValidationError(res));
+//				System.out.println(estimationSpecification.getApproaches().get(0).getType() + ": "
+//						+ Util.getMeanValidationError(res));
 			}
 
 			// choose final comparator

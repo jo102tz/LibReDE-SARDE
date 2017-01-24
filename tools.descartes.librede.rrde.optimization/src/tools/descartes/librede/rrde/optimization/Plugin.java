@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
@@ -165,26 +166,7 @@ public class Plugin implements IApplication {
 		// split one RunCall with several approaches into multiple RunCalls with
 		// just one approach each, since the framework can not handle multiple
 		// right now, since e.g. StepSize applies for all approaches at once
-		ArrayList<RunCall> newRunCalls = new ArrayList<RunCall>();
-		for (RunCall call : conf.getContainsOf()) {
-			if (call.getEstimation().getApproaches().size() > 1) {
-				// split up
-				for (EstimationApproachConfiguration approach : call.getEstimation().getApproaches()) {
-					// deep copy
-					RunCall newCall = EcoreUtil.copy(call);
-
-					newCall.setEstimation(EcoreUtil.copy(call.getEstimation()));
-
-					newCall.getEstimation().getApproaches().clear();
-					newCall.getEstimation().getApproaches().add(EcoreUtil.copy(approach));
-
-					newRunCalls.add(newCall);
-				}
-			} else {
-				newRunCalls.add(call);
-			}
-		}
-		conf.getContainsOf().clear();
+		ArrayList<RunCall> newRunCalls = Util.splitRunCalls(conf);
 		conf.getContainsOf().addAll(newRunCalls);
 
 		// execute Calls
@@ -283,6 +265,11 @@ public class Plugin implements IApplication {
 				// wait for the first call, the others should work concurrently
 				// and already been done by then
 				res.put(call, results.get(call).get());
+				if (res.get(call) == null) {
+					log.warn(
+							"The optimization of the specification failed and returned null. Therefore the unmodified specification is returned.");
+					res.put(call, call.getEstimation());
+				}
 			} catch (CancellationException e) {
 				log.error("RunCall got cancelled.", e);
 			} catch (InterruptedException e) {
@@ -334,6 +321,17 @@ public class Plugin implements IApplication {
 		@Override
 		public EstimationSpecification call() throws Exception {
 			log.trace("Executing Call: " + call.toString());
+			Objects.requireNonNull(call, "The RunCall must not be null.");
+			Objects.requireNonNull(call.getAlgorithm(), "The specified algorithm must not be null.");
+			Objects.requireNonNull(call.getAlgorithm().getAlgorithmName(),
+					"The specified algorithm description must not be null.");
+			Objects.requireNonNull(call.getEstimation(), "The specified estimation must not be null.");
+			Objects.requireNonNull(call.getSettings(), "The specified settings must not be null.");
+			Objects.requireNonNull(call.getTrainingData(), "The specified training data must not be null.");
+			if (call.getAlgorithm().getAlgorithmName().isEmpty()) {
+				log.error("No algorithm was defined. Terminated.");
+				return null;
+			}
 			IConfigurationOptimizer algo = (IConfigurationOptimizer) Class
 					.forName(call.getAlgorithm().getAlgorithmName()).newInstance();
 			algo.optimizeConfiguration(call.getEstimation(), call.getTrainingData(), call.getSettings(),

@@ -30,6 +30,7 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -505,6 +506,41 @@ public class Util {
 			return acronyms.get(approach);
 		}
 		return approach;
+	}
+
+	/**
+	 * Splits all approaches in one {@link RunCall} into different
+	 * {@link RunCall}s.
+	 * 
+	 * @param conf
+	 *            The {@link OptimizationConfiguration} containing one
+	 *            {@link RunCall}
+	 * @return An {@link ArrayList} of {@link RunCall}s, all containing just one
+	 *         {@link EstimationApproachConfiguration}
+	 */
+	public static ArrayList<RunCall> splitRunCalls(OptimizationConfiguration conf) {
+		// split runcalls
+		ArrayList<RunCall> newRunCalls = new ArrayList<RunCall>();
+		for (RunCall call : conf.getContainsOf()) {
+			if (call.getEstimation().getApproaches().size() > 1) {
+				// split up
+				for (EstimationApproachConfiguration approach : call.getEstimation().getApproaches()) {
+					// deep copy
+					RunCall newCall = EcoreUtil.copy(call);
+
+					newCall.setEstimation(EcoreUtil.copy(call.getEstimation()));
+
+					newCall.getEstimation().getApproaches().clear();
+					newCall.getEstimation().getApproaches().add(EcoreUtil.copy(approach));
+
+					newRunCalls.add(newCall);
+				}
+			} else {
+				newRunCalls.add(call);
+			}
+		}
+		conf.getContainsOf().clear();
+		return newRunCalls;
 	}
 
 }
