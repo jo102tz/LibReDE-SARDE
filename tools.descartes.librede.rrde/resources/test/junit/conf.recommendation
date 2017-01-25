@@ -271,7 +271,7 @@
       <unit href="librede:units#SECONDS"/>
     </endTimestamp>
   </estimators>
-  <estimators window="60">
+<!--  <estimators window="60">
     <approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>
     <approaches type="tools.descartes.librede.approach.KumarKalmanFilterApproach"/>
     <approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>
@@ -295,5 +295,5 @@
     <endTimestamp value="1.370090939129E9">
       <unit href="librede:units#SECONDS"/>
     </endTimestamp>
-  </estimators>
+  </estimators>-->
 </librede-recommendation:RecommendationTrainingConfiguration>

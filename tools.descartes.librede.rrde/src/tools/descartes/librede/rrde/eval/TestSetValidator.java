@@ -152,6 +152,30 @@ public class TestSetValidator {
 		}
 		return before;
 	}
+	
+	/**
+	 * Creates a mapping of {@link LibredeConfiguration}s to their initial
+	 * corresponding {@link TestResult}s for later comparison. Using
+	 * standardform.
+	 *
+	 * @return The mapping of created {@link LibredeConfiguration}s to their
+	 *         {@link TestResult}s
+	 */
+	public Map<LibredeConfiguration, TestResult> calculateInitialErrorsMultipleEstimators() {
+		before = new HashMap<LibredeConfiguration, TestResult>();
+		if (testset.isEmpty()) {
+			log.warn("Testset is empty. No tests can be done.");
+		} else {
+			log.info("Available test configurations: " + testset.size());
+		}
+		for (LibredeConfiguration libredeConfiguration : testset) {
+			long starttime = System.currentTimeMillis();
+			LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+			long finish = System.currentTimeMillis() - starttime;
+			before.put(libredeConfiguration, new TestResult(res, finish));
+		}
+		return before;
+	}
 
 	/**
 	 * Creates a mapping of {@link LibredeConfiguration}s to their initial
@@ -179,6 +203,8 @@ public class TestSetValidator {
 		}
 		for (LibredeConfiguration libredeConfiguration : testset) {
 
+			libredeConfiguration.getEstimation().getApproaches().clear();
+			libredeConfiguration.getEstimation().getApproaches().addAll(EcoreUtil.copyAll(estimations));
 			// first measure runtime
 			long starttime = System.currentTimeMillis();
 			Wrapper.executeLibrede(libredeConfiguration);
@@ -265,10 +291,10 @@ public class TestSetValidator {
 	 * @param printHitRate
 	 *            If the hit-ratio should be printed. Only useful for
 	 *            recommendation.
-	 * @param stat
-	 *            A {@link StatisticsSummary} instance to fill. If null, a new
-	 *            instance is created.
-	 * @return The {@link StatisticsSummary} instance, containing the key
+	 * @param params
+	 *            A list of {@link IOptimizableParameter}s to extract the
+	 *            values. If <code>null</code>, nothing is extracted.
+	 * @return A {@link StatisticsSummary} instance, containing the key
 	 *         statistics.
 	 */
 	public StatisticsSummary printResults(FileExporter file, Logger log, long optimization, long recommendation,
@@ -320,9 +346,10 @@ public class TestSetValidator {
 					}
 				}
 			}
-			for (IOptimizableParameter param : params) {
-				stat.getParameters().put(param, Util.getValue(libredeConfiguration.getEstimation(), param));
-			}
+			if (params != null)
+				for (IOptimizableParameter param : params) {
+					stat.getParameters().put(param, Util.getValue(libredeConfiguration.getEstimation(), param));
+				}
 
 		}
 

@@ -31,7 +31,9 @@ import java.util.Collection;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
+import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.eval.StatisticsSummary;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
@@ -50,12 +52,11 @@ public class TestCombination extends AbstractTest {
 
 	@Test
 	public void test() {
+		// do not initialize error values
 		log.info("Initialized! Starting optimization...");
-		long start = System.currentTimeMillis();
 		// run optimization
 		Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
 				.runConfigurationOptimization(librede, optimization, OUTPUT);
-		long opti = System.currentTimeMillis() - start;
 		log.info("Finished optimization! Starting training phase...");
 
 		// delete the read estimators and replace them with the optimized
@@ -64,21 +65,20 @@ public class TestCombination extends AbstractTest {
 		recommendation.getEstimators().addAll(estimations);
 
 		// train algorithm
-		start = System.currentTimeMillis();
 		IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
 				.loadAndTrainAlgorithm(recommendation);
 		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
 				.loadFeatureExtractor(recommendation.getFeatureAlgorithm());
-		long reco = System.currentTimeMillis() - start;
 		log.info("Finished training! Validating...");
 
 		// wrap into Executor
 		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		StatisticsSummary stat = vali.printResults(null, null, opti, reco, false, null);
-
-		testStatValues(stat, 2.076, 0.123, 0, 0, -1, true, true);
+		
+		// THIS test just checks for functionality and makes sure no exceptions are thrown.
+		// no values or accuracies are checked
+		// this is done by the individual tests
 	}
 
 }

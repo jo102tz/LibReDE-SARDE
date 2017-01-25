@@ -364,7 +364,7 @@ public class Evaluate {
 			// print results
 			log.info("Validating " + alg.getAlgorithmName());
 			vali.compareOptimized(exec);
-			vali.printResults(file, null, 0, reco, true,null);
+			vali.printResults(file, null, 0, reco, true, null);
 			file.newLine();
 
 		}
@@ -476,8 +476,6 @@ public class Evaluate {
 		map = evaluateApproachesWithConfiguration(newRunCalls, ipo, conf, libconf, estimationList);
 		printSolutions(file, estimationList, map);
 
-		// TODO add step size output
-
 		// close up
 		file.close();
 		conf.getContainsOf().addAll(newRunCalls);
@@ -519,7 +517,6 @@ public class Evaluate {
 			stat.getParameters();
 
 			// TODO install EMF and LIBREDE
-			// TODO add parameters (step size)
 			map.put(getMatchingEstimation(run.getEstimation().getApproaches().get(0), estimationList), stat);
 		}
 		return map;

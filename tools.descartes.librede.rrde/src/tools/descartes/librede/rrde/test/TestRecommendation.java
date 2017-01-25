@@ -26,9 +26,14 @@
  */
 package tools.descartes.librede.rrde.test;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Test;
 
+import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.eval.StatisticsSummary;
 import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
@@ -52,7 +57,13 @@ public class TestRecommendation extends AbstractTest {
 
 	@Test
 	public void test() {
-
+		// get available estimation approaches
+		Collection<EstimationApproachConfiguration> estimators = new HashSet<>();
+		for (EstimationApproachConfiguration app : librede.getEstimation().getApproaches()) {
+			estimators.add(EcoreUtil.copy(app));
+		}
+		vali.calculateInitialErrorsRecommendation(estimators, true);
+		
 		log.info("Initialized! Starting training phase with Decision Tree...");
 		DecisionTreeAlgorithmSpecifier tree = new DecisionTreeAlgorithmSpecifierImpl();
 		tree.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree");
@@ -73,7 +84,7 @@ public class TestRecommendation extends AbstractTest {
 		// print results
 		vali.compareOptimized(exec);
 		StatisticsSummary stat = vali.printResults(null, null, 0, reco, true, null);
-		testStatValues(stat, 2.076, 0.121, 0, 0, 0, false, true);
+		testStatValues(stat, 0.121, 0.121, 0, 0, 0, false, true);
 		
 		log.info("Initialized! Starting training phase with neural net...");
 		NeuralNetworkAlgorithmSpecifierImpl nn = new NeuralNetworkAlgorithmSpecifierImpl();
@@ -92,7 +103,7 @@ public class TestRecommendation extends AbstractTest {
 		// print results
 		vali.compareOptimized(exec);
 		vali.printResults(null, null, 0, reco, true, null);
-		testStatValues(stat, 2.076, 0.121, 0, 0, 0, false, true);
+		testStatValues(stat, 0.121, 0.121, 0, 0, 0, false, true);
 
 		log.info("Initialized! Starting training phase with SVM...");
 		SVMAlgorithmSpecifier svm = new SVMAlgorithmSpecifierImpl();
@@ -112,7 +123,7 @@ public class TestRecommendation extends AbstractTest {
 		// print results
 		vali.compareOptimized(exec);
 		vali.printResults(null, null, 0, reco, true, null);
-		testStatValues(stat, 2.076, 0.121, 0, 0, 0, false, true);
+		testStatValues(stat, 0.121, 0.121, 0, 0, 0, false, true);
 
 	}
 

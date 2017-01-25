@@ -263,16 +263,27 @@ public class Util {
 	public static double getMeanValidationError(LibredeResults result) {
 		if (result.getApproaches().size() > 1) {
 			log.error("More than one approach is not supported. " + result);
-			throw new InputMismatchException("More than one approach is not supported.");
+			throw new InputMismatchException("More than one approach is not expected.");
 		}
-		// return getAverageOfMeanValidationErrors(result);
+
+		// FIXME change back!
+		return getAverageOfMeanValidationErrors(result);
+
+		// TODO implement a validator
+		// the validator has to be given as additional parameter
+
 		// return getUtilizationError(result,
 		// result.getApproaches().iterator().next());
-		return getResponseTimeError(result, result.getApproaches().iterator().next());
+		// return getResponseTimeError(result,
+		// result.getApproaches().iterator().next());
 	}
 
 	/**
-	 * Calculates the mean Validation error, i.e. the target function value.
+	 * Calculates the mean Validation error, i.e. the target function value
+	 * averaging over all approaches. This method is usually not the desired
+	 * behavior. This is just useful for testing, since it averages over all
+	 * approaches. Consider the use of
+	 * {@link #getMeanValidationError(LibredeResults)} instead.
 	 * 
 	 * @param result
 	 *            The result produced by LibReDE

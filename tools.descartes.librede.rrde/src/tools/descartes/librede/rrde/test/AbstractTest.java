@@ -39,6 +39,7 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.Plugin;
 import tools.descartes.librede.rrde.eval.StatisticsSummary;
+import tools.descartes.librede.rrde.eval.TestResult;
 import tools.descartes.librede.rrde.eval.TestSetValidator;
 import tools.descartes.librede.rrde.optimization.Discovery;
 import tools.descartes.librede.rrde.optimization.InputData;
@@ -153,7 +154,8 @@ public class AbstractTest {
 
 		vali = new TestSetValidator(configs);
 		Assert.assertNotEquals(vali.getTestset().size(), 0);
-		vali.calculateInitialErrors();
+		// FIXME error calculation?
+		// vali.calculateInitialErrors();
 
 	}
 
@@ -180,7 +182,7 @@ public class AbstractTest {
 	 *            If true, the time spent on recommendation must not be zero. If
 	 *            false, it must be zero.
 	 */
-	public void testStatValues(StatisticsSummary stat, double avgBefore, double avgAfter, int beforeignored,
+	protected void testStatValues(StatisticsSummary stat, double avgBefore, double avgAfter, int beforeignored,
 			int afterignored, double hitrate, boolean optimizationtime, boolean recommendationtime) {
 		// ignore runtime, since different on different machines
 		Assert.assertEquals(avgBefore, stat.getAvgErrorBefore(), 0.01);
@@ -209,13 +211,18 @@ public class AbstractTest {
 	 * @param expected
 	 *            The expected Value
 	 */
-	public void testSingleEstimator(EstimationSpecification est, LibredeConfiguration libredeConfiguration,
+	protected void testSingleEstimator(EstimationSpecification est, LibredeConfiguration libredeConfiguration,
 			Double expected) {
 		libredeConfiguration.setEstimation(EcoreUtil.copy(est));
 		Discovery.fixTimeStamps(libredeConfiguration);
 		LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
 		Assert.assertEquals("Wrong value for " + est.getApproaches().get(0).getType() + ".", expected,
 				Util.getMeanValidationError(res), 0.001);
+	}
+
+	protected void testApproachOptimization(TestResult before, TestResult after, double avgBefore, double avgAfter,
+			int beforeignored, int afterignored, double hitrate, boolean optimizationtime, boolean recommendationtime) {
+		// TODO
 	}
 
 }
