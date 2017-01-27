@@ -44,6 +44,7 @@ import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.configuration.ValidationSpecification;
 import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.optimization.Discovery;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
@@ -59,464 +60,457 @@ import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.
  */
 public class TestSetValidator {
 
-	/**
-	 * The logger used for logging
-	 */
-	private static final Logger log = Logger.getLogger(TestSetValidator.class);
+  /**
+   * The logger used for logging
+   */
+  private static final Logger log = Logger.getLogger(TestSetValidator.class);
 
-	private Set<LibredeConfiguration> testset;
+  private Set<LibredeConfiguration> testset;
 
-	private Map<LibredeConfiguration, TestResult> before;
+  private Map<LibredeConfiguration, TestResult> before;
 
-	private Map<LibredeConfiguration, TestResult> after;
+  private Map<LibredeConfiguration, TestResult> after;
 
-	private StatisticsSummary stat;
+  private StatisticsSummary stat;
 
-	/**
-	 * @return the testset
-	 */
-	public Set<LibredeConfiguration> getTestset() {
-		return testset;
-	}
+  private ValidationSpecification validator;
 
-	/**
-	 * @param testset
-	 *            the testset to set
-	 */
-	public void setTestset(Set<LibredeConfiguration> testset) {
-		this.testset = testset;
-	}
+  /**
+   * @return the testset
+   */
+  public Set<LibredeConfiguration> getTestset() {
+    return testset;
+  }
 
-	/**
-	 * @return the before
-	 */
-	public Map<LibredeConfiguration, TestResult> getBefore() {
-		return before;
-	}
+  /**
+   * @param testset
+   *          the testset to set
+   */
+  public void setTestset(Set<LibredeConfiguration> testset) {
+    this.testset = testset;
+  }
 
-	/**
-	 * @param before
-	 *            the before to set
-	 */
-	public void setBefore(Map<LibredeConfiguration, TestResult> before) {
-		this.before = before;
-	}
+  /**
+   * @return the before
+   */
+  public Map<LibredeConfiguration, TestResult> getBefore() {
+    return before;
+  }
 
-	/**
-	 * @return the after
-	 */
-	public Map<LibredeConfiguration, TestResult> getAfter() {
-		return after;
-	}
+  /**
+   * @param before
+   *          the before to set
+   */
+  public void setBefore(Map<LibredeConfiguration, TestResult> before) {
+    this.before = before;
+  }
 
-	/**
-	 * @param after
-	 *            the after to set
-	 */
-	public void setAfter(Map<LibredeConfiguration, TestResult> after) {
-		this.after = after;
-	}
+  /**
+   * @return the after
+   */
+  public Map<LibredeConfiguration, TestResult> getAfter() {
+    return after;
+  }
 
-	/**
-	 * Creates a new {@link TestSetValidator} instance and sets the testset
-	 * accordingly.
-	 * 
-	 * @param testset
-	 *            A {@link Set} of {@link LibredeConfiguration} to use for
-	 *            validation.
-	 */
-	public TestSetValidator(Set<LibredeConfiguration> testset) {
-		this.testset = testset;
-	}
+  /**
+   * @param after
+   *          the after to set
+   */
+  public void setAfter(Map<LibredeConfiguration, TestResult> after) {
+    this.after = after;
+  }
 
-	/**
-	 * Creates a mapping of {@link LibredeConfiguration}s to their initial
-	 * corresponding {@link TestResult}s for later comparison. Using
-	 * standardform.
-	 *
-	 * @return The mapping of created {@link LibredeConfiguration}s to their
-	 *         {@link TestResult}s
-	 */
-	public Map<LibredeConfiguration, TestResult> calculateInitialErrors() {
-		before = new HashMap<LibredeConfiguration, TestResult>();
-		if (testset.isEmpty()) {
-			log.warn("Testset is empty. No tests can be done.");
-		} else {
-			log.info("Available test configurations: " + testset.size());
-		}
-		for (LibredeConfiguration libredeConfiguration : testset) {
-			long starttime = System.currentTimeMillis();
-			LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
-			long finish = System.currentTimeMillis() - starttime;
-			before.put(libredeConfiguration, new TestResult(res, finish));
-		}
-		return before;
-	}
-	
-	/**
-	 * Creates a mapping of {@link LibredeConfiguration}s to their initial
-	 * corresponding {@link TestResult}s for later comparison. Using
-	 * standardform.
-	 *
-	 * @return The mapping of created {@link LibredeConfiguration}s to their
-	 *         {@link TestResult}s
-	 */
-	public Map<LibredeConfiguration, TestResult> calculateInitialErrorsMultipleEstimators() {
-		before = new HashMap<LibredeConfiguration, TestResult>();
-		if (testset.isEmpty()) {
-			log.warn("Testset is empty. No tests can be done.");
-		} else {
-			log.info("Available test configurations: " + testset.size());
-		}
-		for (LibredeConfiguration libredeConfiguration : testset) {
-			long starttime = System.currentTimeMillis();
-			LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
-			long finish = System.currentTimeMillis() - starttime;
-			before.put(libredeConfiguration, new TestResult(res, finish));
-		}
-		return before;
-	}
+  /**
+   * Creates a new {@link TestSetValidator} instance and sets the testset accordingly.
+   * 
+   * @param testset
+   *          A {@link Set} of {@link LibredeConfiguration} to use for validation.
+   * @param The
+   *          {@link ValidationSpecification} to be used for calculating the error values.
+   */
+  public TestSetValidator(Set<LibredeConfiguration> testset, ValidationSpecification validator) {
+    this.testset = testset;
+    this.validator = validator;
+  }
 
-	/**
-	 * Creates a mapping of {@link LibredeConfiguration}s to their initial
-	 * corresponding {@link TestResult}s for later comparison. Selecting one
-	 * approach and saving it. For runtime calculations the standard
-	 * {@link LibredeConfiguration} form is taken (should contain all
-	 * approaches).
-	 * 
-	 * @param estimations
-	 *            The different estimators to choose from
-	 * 
-	 * @param minimum
-	 *            If the best approach or the median should be chosen.
-	 *
-	 * @return The mapping of created {@link LibredeConfiguration}s to their
-	 *         {@link TestResult}s
-	 */
-	public Map<LibredeConfiguration, TestResult> calculateInitialErrorsRecommendation(
-			Collection<EstimationApproachConfiguration> estimations, boolean minimum) {
-		before = new HashMap<LibredeConfiguration, TestResult>();
-		if (testset.isEmpty()) {
-			log.warn("Testset is empty. No tests can be done.");
-		} else {
-			log.info("Available test configurations: " + testset.size());
-		}
-		for (LibredeConfiguration libredeConfiguration : testset) {
+  /**
+   * Creates a mapping of {@link LibredeConfiguration}s to their initial corresponding
+   * {@link TestResult}s for later comparison. Using standardform.
+   *
+   * @return The mapping of created {@link LibredeConfiguration}s to their {@link TestResult}s
+   */
+  public Map<LibredeConfiguration, TestResult> calculateInitialErrors() {
+    before = new HashMap<LibredeConfiguration, TestResult>();
+    if (testset.isEmpty()) {
+      log.warn("Testset is empty. No tests can be done.");
+    } else {
+      log.info("Available test configurations: " + testset.size());
+    }
+    for (LibredeConfiguration libredeConfiguration : testset) {
+      long starttime = System.currentTimeMillis();
+      LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+      long finish = System.currentTimeMillis() - starttime;
+      before.put(libredeConfiguration, new TestResult(res, finish));
+    }
+    return before;
+  }
 
-			libredeConfiguration.getEstimation().getApproaches().clear();
-			libredeConfiguration.getEstimation().getApproaches().addAll(EcoreUtil.copyAll(estimations));
-			// first measure runtime
-			long starttime = System.currentTimeMillis();
-			Wrapper.executeLibrede(libredeConfiguration);
-			long finish = System.currentTimeMillis() - starttime;
+  /**
+   * Creates a mapping of {@link LibredeConfiguration}s to their initial corresponding
+   * {@link TestResult}s for later comparison. Using standardform.
+   *
+   * @return The mapping of created {@link LibredeConfiguration}s to their {@link TestResult}s
+   */
+  public Map<LibredeConfiguration, TestResult> calculateInitialErrorsMultipleEstimators() {
+    before = new HashMap<LibredeConfiguration, TestResult>();
+    if (testset.isEmpty()) {
+      log.warn("Testset is empty. No tests can be done.");
+    } else {
+      log.info("Available test configurations: " + testset.size());
+    }
+    for (LibredeConfiguration libredeConfiguration : testset) {
+      long starttime = System.currentTimeMillis();
+      LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+      long finish = System.currentTimeMillis() - starttime;
+      before.put(libredeConfiguration, new TestResult(res, finish));
+    }
+    return before;
+  }
 
-			LibredeResults finalres = null;
-			// create sorted set
-			SortedSet<LibredeResults> set = new TreeSet<>(new Comparator<LibredeResults>() {
-				@Override
-				public int compare(LibredeResults one, LibredeResults two) {
-					double errone = Util.getMeanValidationError(one);
-					double errtwo = Util.getMeanValidationError(two);
-					if (errone < errtwo) {
-						return -1;
-					} else if (errone == errtwo) {
-						return 0;
-					}
-					return 1;
-				}
-			});
-			// testing all approaches and choosing the minimum
-			ArrayList<EstimationApproachConfiguration> tmp = new ArrayList<>();
-			tmp.addAll(libredeConfiguration.getEstimation().getApproaches());
-			for (EstimationApproachConfiguration est : estimations) {
-				libredeConfiguration.getEstimation().getApproaches().clear();
-				libredeConfiguration.getEstimation().getApproaches().add(EcoreUtil.copy(est));
-				// check timestamps
-				Discovery.fixTimeStamps(libredeConfiguration);
-				LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
-				set.add(res);
-			}
-			libredeConfiguration.getEstimation().getApproaches().addAll(tmp);
+  /**
+   * Creates a mapping of {@link LibredeConfiguration}s to their initial corresponding
+   * {@link TestResult}s for later comparison. Selecting one approach and saving it. For runtime
+   * calculations the standard {@link LibredeConfiguration} form is taken (should contain all
+   * approaches).
+   * 
+   * @param estimations
+   *          The different estimators to choose from
+   * 
+   * @param minimum
+   *          If the best approach or the median should be chosen.
+   *
+   * @return The mapping of created {@link LibredeConfiguration}s to their {@link TestResult}s
+   */
+  public Map<LibredeConfiguration, TestResult> calculateInitialErrorsRecommendation(
+      Collection<EstimationApproachConfiguration> estimations, boolean minimum) {
+    before = new HashMap<LibredeConfiguration, TestResult>();
+    if (testset.isEmpty()) {
+      log.warn("Testset is empty. No tests can be done.");
+    } else {
+      log.info("Available test configurations: " + testset.size());
+    }
+    for (LibredeConfiguration libredeConfiguration : testset) {
 
-			// choose final comparator
-			if (minimum) {
-				finalres = set.first();
-			} else {
-				finalres = set.toArray(new LibredeResults[0])[set.size() / 2];
-			}
+      libredeConfiguration.getEstimation().getApproaches().clear();
+      libredeConfiguration.getEstimation().getApproaches().addAll(EcoreUtil.copyAll(estimations));
+      // first measure runtime
+      long starttime = System.currentTimeMillis();
+      Wrapper.executeLibrede(libredeConfiguration);
+      long finish = System.currentTimeMillis() - starttime;
 
-			before.put(libredeConfiguration, new TestResult(finalres, finish));
-		}
-		return before;
-	}
+      LibredeResults finalres = null;
+      // create sorted set
+      SortedSet<LibredeResults> set = new TreeSet<>(new Comparator<LibredeResults>() {
+        @Override
+        public int compare(LibredeResults one, LibredeResults two) {
+          double errone = Util.getValidationError(one, validator);
+          double errtwo = Util.getValidationError(two, validator);
+          if (errone < errtwo) {
+            return -1;
+          } else if (errone == errtwo) {
+            return 0;
+          }
+          return 1;
+        }
+      });
+      // testing all approaches and choosing the minimum
+      ArrayList<EstimationApproachConfiguration> tmp = new ArrayList<>();
+      tmp.addAll(libredeConfiguration.getEstimation().getApproaches());
+      for (EstimationApproachConfiguration est : estimations) {
+        libredeConfiguration.getEstimation().getApproaches().clear();
+        libredeConfiguration.getEstimation().getApproaches().add(EcoreUtil.copy(est));
+        // check timestamps
+        Discovery.fixTimeStamps(libredeConfiguration);
+        LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+        set.add(res);
+      }
+      libredeConfiguration.getEstimation().getApproaches().addAll(tmp);
 
-	/**
-	 * Creates a mapping between all {@link LibredeConfiguration}s of the
-	 * initial compare set and their new {@link TestResult}s.
-	 * 
-	 * @param exec
-	 *            An {@link OptimizedLibredeExecutor} instance used for
-	 *            execution of the {@link LibredeConfiguration}s.
-	 * 
-	 * @return The resulting mapping of {@link LibredeConfiguration} to
-	 *         {@link TestResult}
-	 */
-	public Map<LibredeConfiguration, TestResult> compareOptimized(OptimizedLibredeExecutor exec) {
-		after = new HashMap<LibredeConfiguration, TestResult>();
-		for (LibredeConfiguration libredeConfiguration : testset) {
-			long starttime = System.currentTimeMillis();
-			LibredeResults res = exec.executeLibrede(libredeConfiguration);
-			long finish = System.currentTimeMillis() - starttime;
-			after.put(libredeConfiguration, new TestResult(res, finish));
-		}
-		return after;
-	}
+      // choose final comparator
+      if (minimum) {
+        finalres = set.first();
+      } else {
+        finalres = set.toArray(new LibredeResults[0])[set.size() / 2];
+      }
 
-	/**
-	 * Compares the initial results with the improved ones an writes it into the
-	 * given log instance.
-	 * 
-	 * @param file
-	 *            The {@link FileExporter} to use. If <code>null</code>, it is
-	 *            ignored.
-	 * @param log
-	 *            The logger to use. If <code>null</code>, the default log of
-	 *            the {@link TestSetValidator} is used.
-	 * @param optimization
-	 *            The time spent for optimization in milliseconds for
-	 *            summarizing.
-	 * @param recommendation
-	 *            The time spent for recommendation in milliseconds for
-	 *            summarizing.
-	 * @param printHitRate
-	 *            If the hit-ratio should be printed. Only useful for
-	 *            recommendation.
-	 * @param params
-	 *            A list of {@link IOptimizableParameter}s to extract the
-	 *            values. If <code>null</code>, nothing is extracted.
-	 * @return A {@link StatisticsSummary} instance, containing the key
-	 *         statistics.
-	 */
-	public StatisticsSummary printResults(FileExporter file, Logger log, long optimization, long recommendation,
-			boolean printHitRate, List<IOptimizableParameter> params) {
-		stat = new StatisticsSummary();
-		if (log == null) {
-			log = TestSetValidator.log;
-		}
-		DescriptiveStatistics statbeforetime = new DescriptiveStatistics();
-		DescriptiveStatistics stataftertime = new DescriptiveStatistics();
-		DescriptiveStatistics statbeforeerror = new DescriptiveStatistics();
-		DescriptiveStatistics stataftererror = new DescriptiveStatistics();
-		int hitted = 0;
-		int beforeignored = 0;
-		int afterignored = 0;
-		log.info("Results:");
-		log.info("----------------------------------------------------");
-		log.info("Individual test results:");
-		for (LibredeConfiguration libredeConfiguration : testset) {
-			log.info("----------------------------------------------------");
-			log.info("LibredeConfiguration: " + libredeConfiguration.toString());
-			log.info("Execution time before optimization: " + before.get(libredeConfiguration).getRuntime());
-			statbeforetime.addValue(before.get(libredeConfiguration).getRuntime());
-			log.info("Execution time after optimization: " + after.get(libredeConfiguration).getRuntime());
-			stataftertime.addValue(after.get(libredeConfiguration).getRuntime());
-			double beforeerror = Util.getMeanValidationError(before.get(libredeConfiguration).getResults());
-			if (beforeerror == Double.MAX_VALUE || beforeerror < 0)
-				beforeignored++;
-			else
-				statbeforeerror.addValue(beforeerror);
-			log.info("Validation error before optimization: " + beforeerror);
-			double aftererror = Util.getMeanValidationError(after.get(libredeConfiguration).getResults());
-			if (aftererror == Double.MAX_VALUE || aftererror < 0)
-				afterignored++;
-			else
-				stataftererror.addValue(aftererror);
-			log.info("Validation error after optimization: " + aftererror);
-			log.info("Improvement: " + (beforeerror - aftererror) + " or "
-					+ ((beforeerror - aftererror) * 100) / beforeerror + " %.");
+      before.put(libredeConfiguration, new TestResult(finalres, finish));
+    }
+    return before;
+  }
 
-			if (printHitRate) {
-				if (before.get(libredeConfiguration).getResults().getApproaches().size() > 1
-						|| after.get(libredeConfiguration).getResults().getApproaches().size() > 1) {
-					log.error("Can not print hitrate, if before or after has no specified minimum.");
-				} else {
-					if (before.get(libredeConfiguration).getResults().getApproaches().iterator().next()
-							.equals(after.get(libredeConfiguration).getResults().getApproaches().iterator().next())) {
-						hitted++;
-					}
-				}
-			}
-			if (params != null)
-				for (IOptimizableParameter param : params) {
-					stat.getParameters().put(param, Util.getValue(libredeConfiguration.getEstimation(), param));
-				}
+  /**
+   * Creates a mapping between all {@link LibredeConfiguration}s of the initial compare set and
+   * their new {@link TestResult}s.
+   * 
+   * @param exec
+   *          An {@link OptimizedLibredeExecutor} instance used for execution of the
+   *          {@link LibredeConfiguration}s.
+   * 
+   * @return The resulting mapping of {@link LibredeConfiguration} to {@link TestResult}
+   */
+  public Map<LibredeConfiguration, TestResult> compareOptimized(OptimizedLibredeExecutor exec) {
+    after = new HashMap<LibredeConfiguration, TestResult>();
+    for (LibredeConfiguration libredeConfiguration : testset) {
+      long starttime = System.currentTimeMillis();
+      LibredeResults res = exec.executeLibrede(libredeConfiguration);
+      long finish = System.currentTimeMillis() - starttime;
+      after.put(libredeConfiguration, new TestResult(res, finish));
+    }
+    return after;
+  }
 
-		}
+  /**
+   * Compares the initial results with the improved ones an writes it into the given log instance.
+   * 
+   * @param file
+   *          The {@link FileExporter} to use. If <code>null</code>, it is ignored.
+   * @param log
+   *          The logger to use. If <code>null</code>, the default log of the
+   *          {@link TestSetValidator} is used.
+   * @param optimization
+   *          The time spent for optimization in milliseconds for summarizing.
+   * @param recommendation
+   *          The time spent for recommendation in milliseconds for summarizing.
+   * @param printHitRate
+   *          If the hit-ratio should be printed. Only useful for recommendation.
+   * @param params
+   *          A list of {@link IOptimizableParameter}s to extract the values. If <code>null</code>,
+   *          nothing is extracted.
+   * @return A {@link StatisticsSummary} instance, containing the key statistics.
+   */
+  public StatisticsSummary printResults(FileExporter file, Logger log, long optimization,
+      long recommendation, boolean printHitRate, List<IOptimizableParameter> params) {
+    stat = new StatisticsSummary();
+    if (log == null) {
+      log = TestSetValidator.log;
+    }
+    DescriptiveStatistics statbeforetime = new DescriptiveStatistics();
+    DescriptiveStatistics stataftertime = new DescriptiveStatistics();
+    DescriptiveStatistics statbeforeerror = new DescriptiveStatistics();
+    DescriptiveStatistics stataftererror = new DescriptiveStatistics();
+    int hitted = 0;
+    int beforeignored = 0;
+    int afterignored = 0;
+    log.info("Results:");
+    log.info("----------------------------------------------------");
+    log.info("Individual test results:");
+    for (LibredeConfiguration libredeConfiguration : testset) {
+      log.info("----------------------------------------------------");
+      log.info("LibredeConfiguration: " + libredeConfiguration.toString());
+      log.info(
+          "Execution time before optimization: " + before.get(libredeConfiguration).getRuntime());
+      statbeforetime.addValue(before.get(libredeConfiguration).getRuntime());
+      log.info(
+          "Execution time after optimization: " + after.get(libredeConfiguration).getRuntime());
+      stataftertime.addValue(after.get(libredeConfiguration).getRuntime());
+      double beforeerror = Util
+          .getValidationError(before.get(libredeConfiguration).getResults(), validator);
+      if (beforeerror == Double.MAX_VALUE || beforeerror < 0)
+        beforeignored++;
+      else
+        statbeforeerror.addValue(beforeerror);
+      log.info("Validation error before optimization: " + beforeerror);
+      double aftererror = Util.getValidationError(after.get(libredeConfiguration).getResults(), validator);
+      if (aftererror == Double.MAX_VALUE || aftererror < 0)
+        afterignored++;
+      else
+        stataftererror.addValue(aftererror);
+      log.info("Validation error after optimization: " + aftererror);
+      log.info("Improvement: " + (beforeerror - aftererror) + " or "
+          + ((beforeerror - aftererror) * 100) / beforeerror + " %.");
 
-		stat.setAvgTimeBefore(statbeforetime.getMean());
-		stat.setStdDevTimeBefore(statbeforetime.getStandardDeviation());
-		stat.setAvgTimeAfter(stataftertime.getMean());
-		stat.setStdDevTimeAfter(stataftertime.getStandardDeviation());
+      if (printHitRate) {
+        if (before.get(libredeConfiguration).getResults().getApproaches().size() > 1
+            || after.get(libredeConfiguration).getResults().getApproaches().size() > 1) {
+          log.error("Can not print hitrate, if before or after has no specified minimum.");
+        } else {
+          if (before.get(libredeConfiguration).getResults().getApproaches().iterator().next()
+              .equals(
+                  after.get(libredeConfiguration).getResults().getApproaches().iterator().next())) {
+            hitted++;
+          }
+        }
+      }
+      if (params != null)
+        for (IOptimizableParameter param : params) {
+          stat.getParameters().put(param,
+              Util.getValue(libredeConfiguration.getEstimation(), param));
+        }
 
-		stat.setAvgErrorBefore(statbeforeerror.getMean());
-		stat.setStdDevErrorBefore(statbeforeerror.getStandardDeviation());
-		stat.setAvgErrorAfter(stataftererror.getMean());
-		stat.setStdDevErrorAfter(stataftererror.getStandardDeviation());
+    }
 
-		stat.setHitrate(((double) hitted) / ((double) testset.size()));
+    stat.setAvgTimeBefore(statbeforetime.getMean());
+    stat.setStdDevTimeBefore(statbeforetime.getStandardDeviation());
+    stat.setAvgTimeAfter(stataftertime.getMean());
+    stat.setStdDevTimeAfter(stataftertime.getStandardDeviation());
 
-		stat.setOptimizationtime(optimization);
-		stat.setRecommendationtime(recommendation);
+    stat.setAvgErrorBefore(statbeforeerror.getMean());
+    stat.setStdDevErrorBefore(statbeforeerror.getStandardDeviation());
+    stat.setAvgErrorAfter(stataftererror.getMean());
+    stat.setStdDevErrorAfter(stataftererror.getStandardDeviation());
 
-		stat.setBeforeignored(beforeignored);
-		stat.setAfterignored(afterignored);
+    stat.setHitrate(((double) hitted) / ((double) testset.size()));
 
-		printStatistics(stat, printHitRate);
+    stat.setOptimizationtime(optimization);
+    stat.setRecommendationtime(recommendation);
 
-		printToFile(stat, printHitRate, file);
+    stat.setBeforeignored(beforeignored);
+    stat.setAfterignored(afterignored);
 
-		return stat;
-	}
+    printStatistics(stat, printHitRate);
 
-	/**
-	 * Prints the summary statistics to the given file, if not null.
-	 * 
-	 * @param stat
-	 *            The statistics to print.
-	 * @param printHitRate
-	 *            If the hit-rate should be printed
-	 * @param file
-	 *            The file to write into. If <code>null</code>, nothing is
-	 *            written.
-	 */
-	private void printToFile(StatisticsSummary stat, boolean printHitRate, FileExporter file) {
-		if (file != null) {
-			file.writeDouble(stat.getAvgTimeBefore());
-			file.writeDouble(stat.getStdDevTimeBefore());
-			file.writeDouble(stat.getAvgTimeAfter());
-			file.writeDouble(stat.getStdDevTimeAfter());
+    printToFile(stat, printHitRate, file);
 
-			file.writeDouble(stat.getAvgErrorBefore());
-			file.writeDouble(stat.getStdDevErrorBefore());
-			file.writeDouble(stat.getAvgErrorAfter());
-			file.writeDouble(stat.getStdDevTimeAfter());
+    return stat;
+  }
 
-			file.writeDouble(stat.getRecommendationtime() + stat.getOptimizationtime());
+  /**
+   * Prints the summary statistics to the given file, if not null.
+   * 
+   * @param stat
+   *          The statistics to print.
+   * @param printHitRate
+   *          If the hit-rate should be printed
+   * @param file
+   *          The file to write into. If <code>null</code>, nothing is written.
+   */
+  private void printToFile(StatisticsSummary stat, boolean printHitRate, FileExporter file) {
+    if (file != null) {
+      file.writeDouble(stat.getAvgTimeBefore());
+      file.writeDouble(stat.getStdDevTimeBefore());
+      file.writeDouble(stat.getAvgTimeAfter());
+      file.writeDouble(stat.getStdDevTimeAfter());
 
-			if (printHitRate) {
-				file.writeDouble(stat.getHitrate());
-			}
-		}
-	}
+      file.writeDouble(stat.getAvgErrorBefore());
+      file.writeDouble(stat.getStdDevErrorBefore());
+      file.writeDouble(stat.getAvgErrorAfter());
+      file.writeDouble(stat.getStdDevTimeAfter());
 
-	/**
-	 * Prints the summary statistics to the log.
-	 * 
-	 * @param stat
-	 *            The statistics to print.
-	 * @param printHitRate
-	 *            If the hit-rate should be printed
-	 */
-	private void printStatistics(StatisticsSummary stat, boolean printHitRate) {
-		log.info("----------------------------------------------------");
-		log.info("Summarized");
-		log.info("----------------------------------------------------");
-		log.info("Numer of test configurations: " + testset.size());
-		log.info("Average Execution time before optimization: " + stat.getAvgTimeBefore() + "ms (Standard Deviation: "
-				+ stat.getStdDevTimeBefore() + ")");
-		log.info("Average Execution time after optimization: " + stat.getAvgTimeAfter() + "ms (Standard Deviation: "
-				+ stat.getStdDevTimeAfter() + ")");
-		log.info("This is an improvement of avg.: " + (stat.getAvgTimeBefore() - stat.getAvgTimeAfter() + "ms"));
+      file.writeDouble(stat.getRecommendationtime() + stat.getOptimizationtime());
 
-		log.info("Average validation error before optimization: " + stat.getAvgErrorBefore() + "(Standard Deviation: "
-				+ stat.getStdDevErrorBefore() + ")");
-		log.info("Average validation error after optimization: " + stat.getAvgErrorAfter() + "(Standard Deviation: "
-				+ stat.getStdDevErrorAfter() + ")");
-		log.info("Improvement: " + (stat.getAvgErrorBefore() - stat.getAvgErrorAfter()) + " or "
-				+ ((stat.getAvgErrorBefore() - stat.getAvgErrorAfter()) * 100) / stat.getAvgErrorBefore() + " %.");
-		log.info("Due to invalid results " + stat.getBeforeignored() + " of total " + testset.size()
-				+ " approaches were ignored before testing started.");
-		log.info("After computation " + stat.getAfterignored() + " of total " + testset.size()
-				+ " approaches were ignored. That is an improvement of "
-				+ (stat.getBeforeignored() - stat.getAfterignored()) + ".");
-		if (printHitRate) {
-			log.info("A hit rate of " + (stat.getHitrate() * testset.size()) + "/" + testset.size()
-					+ " was achieved or " + stat.getHitrate());
-		}
-		if (stat.getOptimizationtime() > 0 && stat.getRecommendationtime() > 0) {
-			log.info("This took around " + stat.getOptimizationtime() + "ms for optimizations and "
-					+ stat.getRecommendationtime() + "ms for training resulting in a total training time of "
-					+ (stat.getOptimizationtime() + stat.getRecommendationtime()) + "ms.");
-		} else if (stat.getOptimizationtime() > 0) {
-			log.info("This took around " + stat.getOptimizationtime()
-					+ "ms for optimizations. Recommendation was not done.");
-		} else if (stat.getRecommendationtime() > 0) {
-			log.info("This took around " + stat.getRecommendationtime()
-					+ "ms for recommendation training. Optimization was not done.");
-		}
-	}
+      if (printHitRate) {
+        file.writeDouble(stat.getHitrate());
+      }
+    }
+  }
 
-	/**
-	 * Creates a mapping between all {@link LibredeConfiguration}s of the
-	 * initial compare set and their new {@link TestResult}s.
-	 * 
-	 * @param estimations
-	 *            The {@link EstimationSpecification}s to consider at once. All
-	 *            of them are executed.
-	 * @param minimum
-	 *            If true, the {@link EstimationSpecification} with the minimum
-	 *            error in each run is chosen as representative. If false, the
-	 *            median is chosen instead.
-	 * @return The resulting mapping of {@link LibredeConfiguration} to
-	 *         {@link TestResult}
-	 */
-	public Map<LibredeConfiguration, TestResult> compareOptimized(Collection<EstimationSpecification> estimations,
-			boolean minimum) {
-		after = new HashMap<LibredeConfiguration, TestResult>();
-		if (estimations.isEmpty()) {
-			log.error("No estimators to compare.");
-			return after;
-		}
-		for (LibredeConfiguration libredeConfiguration : testset) {
+  /**
+   * Prints the summary statistics to the log.
+   * 
+   * @param stat
+   *          The statistics to print.
+   * @param printHitRate
+   *          If the hit-rate should be printed
+   */
+  private void printStatistics(StatisticsSummary stat, boolean printHitRate) {
+    log.info("----------------------------------------------------");
+    log.info("Summarized");
+    log.info("----------------------------------------------------");
+    log.info("Numer of test configurations: " + testset.size());
+    log.info("Average Execution time before optimization: " + stat.getAvgTimeBefore()
+        + "ms (Standard Deviation: " + stat.getStdDevTimeBefore() + ")");
+    log.info("Average Execution time after optimization: " + stat.getAvgTimeAfter()
+        + "ms (Standard Deviation: " + stat.getStdDevTimeAfter() + ")");
+    log.info("This is an improvement of avg.: "
+        + (stat.getAvgTimeBefore() - stat.getAvgTimeAfter() + "ms"));
 
-			LibredeResults finalres = null;
-			// create sorted set
-			SortedSet<LibredeResults> set = new TreeSet<>(new Comparator<LibredeResults>() {
-				@Override
-				public int compare(LibredeResults one, LibredeResults two) {
-					double errone = Util.getMeanValidationError(one);
-					double errtwo = Util.getMeanValidationError(two);
-					if (errone < errtwo) {
-						return -1;
-					} else if (errone == errtwo) {
-						return 0;
-					}
-					return 1;
-				}
-			});
-			long starttime = System.currentTimeMillis();
-			// testing all approaches and choosing the minimum
-			for (EstimationSpecification estimationSpecification : estimations) {
-				libredeConfiguration.setEstimation(EcoreUtil.copy(estimationSpecification));
-				// check timestamps
-				Discovery.fixTimeStamps(libredeConfiguration);
-				LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
-				set.add(res);
-				// System.out.println(estimationSpecification.getApproaches().get(0).getType()
-				// + ": "
-				// + Util.getMeanValidationError(res));
-			}
+    log.info("Average validation error before optimization: " + stat.getAvgErrorBefore()
+        + "(Standard Deviation: " + stat.getStdDevErrorBefore() + ")");
+    log.info("Average validation error after optimization: " + stat.getAvgErrorAfter()
+        + "(Standard Deviation: " + stat.getStdDevErrorAfter() + ")");
+    log.info("Improvement: " + (stat.getAvgErrorBefore() - stat.getAvgErrorAfter()) + " or "
+        + ((stat.getAvgErrorBefore() - stat.getAvgErrorAfter()) * 100) / stat.getAvgErrorBefore()
+        + " %.");
+    log.info("Due to invalid results " + stat.getBeforeignored() + " of total " + testset.size()
+        + " approaches were ignored before testing started.");
+    log.info("After computation " + stat.getAfterignored() + " of total " + testset.size()
+        + " approaches were ignored. That is an improvement of "
+        + (stat.getBeforeignored() - stat.getAfterignored()) + ".");
+    if (printHitRate) {
+      log.info("A hit rate of " + (stat.getHitrate() * testset.size()) + "/" + testset.size()
+          + " was achieved or " + stat.getHitrate());
+    }
+    if (stat.getOptimizationtime() > 0 && stat.getRecommendationtime() > 0) {
+      log.info("This took around " + stat.getOptimizationtime() + "ms for optimizations and "
+          + stat.getRecommendationtime() + "ms for training resulting in a total training time of "
+          + (stat.getOptimizationtime() + stat.getRecommendationtime()) + "ms.");
+    } else if (stat.getOptimizationtime() > 0) {
+      log.info("This took around " + stat.getOptimizationtime()
+          + "ms for optimizations. Recommendation was not done.");
+    } else if (stat.getRecommendationtime() > 0) {
+      log.info("This took around " + stat.getRecommendationtime()
+          + "ms for recommendation training. Optimization was not done.");
+    }
+  }
 
-			// choose final comparator
-			if (minimum) {
-				finalres = set.first();
-			} else {
-				finalres = set.toArray(new LibredeResults[0])[set.size() / 2];
-			}
+  /**
+   * Creates a mapping between all {@link LibredeConfiguration}s of the initial compare set and
+   * their new {@link TestResult}s.
+   * 
+   * @param estimations
+   *          The {@link EstimationSpecification}s to consider at once. All of them are executed.
+   * @param minimum
+   *          If true, the {@link EstimationSpecification} with the minimum error in each run is
+   *          chosen as representative. If false, the median is chosen instead.
+   * @return The resulting mapping of {@link LibredeConfiguration} to {@link TestResult}
+   */
+  public Map<LibredeConfiguration, TestResult> compareOptimized(
+      Collection<EstimationSpecification> estimations, boolean minimum) {
+    after = new HashMap<LibredeConfiguration, TestResult>();
+    if (estimations.isEmpty()) {
+      log.error("No estimators to compare.");
+      return after;
+    }
+    for (LibredeConfiguration libredeConfiguration : testset) {
 
-			long finish = System.currentTimeMillis() - starttime;
-			after.put(libredeConfiguration, new TestResult(finalres, finish));
-		}
-		return after;
-	}
+      LibredeResults finalres = null;
+      // create sorted set
+      SortedSet<LibredeResults> set = new TreeSet<>(new Comparator<LibredeResults>() {
+        @Override
+        public int compare(LibredeResults one, LibredeResults two) {
+          double errone = Util.getValidationError(one, validator);
+          double errtwo = Util.getValidationError(two, validator);
+          if (errone < errtwo) {
+            return -1;
+          } else if (errone == errtwo) {
+            return 0;
+          }
+          return 1;
+        }
+      });
+      long starttime = System.currentTimeMillis();
+      // testing all approaches and choosing the minimum
+      for (EstimationSpecification estimationSpecification : estimations) {
+        libredeConfiguration.setEstimation(EcoreUtil.copy(estimationSpecification));
+        // check timestamps
+        Discovery.fixTimeStamps(libredeConfiguration);
+        LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+        set.add(res);
+        // System.out.println(estimationSpecification.getApproaches().get(0).getType()
+        // + ": "
+        // + Util.getMeanValidationError(res));
+      }
+
+      // choose final comparator
+      if (minimum) {
+        finalres = set.first();
+      } else {
+        finalres = set.toArray(new LibredeResults[0])[set.size() / 2];
+      }
+
+      long finish = System.currentTimeMillis() - starttime;
+      after.put(libredeConfiguration, new TestResult(finalres, finish));
+    }
+    return after;
+  }
 }

@@ -98,21 +98,21 @@ public class TestOptimization extends AbstractTest {
 
 		// define test values for individual tests
 		HashMap<String, Double> map = new HashMap<>();
-		map.put("tools.descartes.librede.approach.KumarKalmanFilterApproach", 0.16239038001301997);
+		map.put("tools.descartes.librede.approach.KumarKalmanFilterApproach", 0.12101901025993064);
 
-		map.put("tools.descartes.librede.approach.UtilizationRegressionApproach", 0.5072564301634406);
+		map.put("tools.descartes.librede.approach.UtilizationRegressionApproach", 0.2966855761760091);
 
-		map.put("tools.descartes.librede.approach.MenasceOptimizationApproach", 0.12162169602939857);
+		map.put("tools.descartes.librede.approach.MenasceOptimizationApproach", 0.1110554480107873);
 
-		map.put("tools.descartes.librede.approach.ServiceDemandLawApproach", 0.16389576046097135);
+		map.put("tools.descartes.librede.approach.ServiceDemandLawApproach", 0.1288983656977063);
 
-		map.put("tools.descartes.librede.approach.ResponseTimeApproximationApproach", 14.81082321157683);
+		map.put("tools.descartes.librede.approach.ResponseTimeApproximationApproach", 10.383485472077957);
 
-		map.put("tools.descartes.librede.approach.ResponseTimeRegressionApproach", 0.15788520893140656);
+		map.put("tools.descartes.librede.approach.ResponseTimeRegressionApproach", 0.14982718034705866);
 
-		map.put("tools.descartes.librede.approach.LiuOptimizationApproach", 0.12319083075443728);
+		map.put("tools.descartes.librede.approach.LiuOptimizationApproach", 0.10513127812915761);
 
-		map.put("tools.descartes.librede.approach.WangKalmanFilterApproach", 0.19190897972410062);
+		map.put("tools.descartes.librede.approach.WangKalmanFilterApproach", 0.2174499197465632);
 
 		// test individual optimization results
 		for (EstimationSpecification est : estimations)
@@ -144,21 +144,21 @@ public class TestOptimization extends AbstractTest {
 		aftermap = vali.compareOptimized(estimations, true);
 
 		map = new HashMap<>();
-		map.put("tools.descartes.librede.approach.KumarKalmanFilterApproach", 0.15584718859352667);
+		map.put("tools.descartes.librede.approach.KumarKalmanFilterApproach", 0.11392650410342983);
 
-		map.put("tools.descartes.librede.approach.UtilizationRegressionApproach", 0.4440329598946429);
+		map.put("tools.descartes.librede.approach.UtilizationRegressionApproach", 0.5655154888467464);
 
-		map.put("tools.descartes.librede.approach.MenasceOptimizationApproach", 0.12163977149660513);
+		map.put("tools.descartes.librede.approach.MenasceOptimizationApproach", 0.10830419820089768);
 
-		map.put("tools.descartes.librede.approach.ServiceDemandLawApproach", 0.16184994778564174);
+		map.put("tools.descartes.librede.approach.ServiceDemandLawApproach", 0.12198099155153273);
 
-		map.put("tools.descartes.librede.approach.ResponseTimeApproximationApproach", 15.555436667414847);
+		map.put("tools.descartes.librede.approach.ResponseTimeApproximationApproach", 10.952402239389489);
 
-		map.put("tools.descartes.librede.approach.ResponseTimeRegressionApproach", 0.1583949214134712);
+		map.put("tools.descartes.librede.approach.ResponseTimeRegressionApproach", 0.15802188951381646);
 
-		map.put("tools.descartes.librede.approach.LiuOptimizationApproach", 0.1214197492980892);
+		map.put("tools.descartes.librede.approach.LiuOptimizationApproach", 0.10818503299960118);
 
-		map.put("tools.descartes.librede.approach.WangKalmanFilterApproach", 0.1643574655740587);
+		map.put("tools.descartes.librede.approach.WangKalmanFilterApproach", 0.13669433210379583);
 
 		// test individual optimization results
 		for (EstimationSpecification est : estimations)
@@ -190,21 +190,21 @@ public class TestOptimization extends AbstractTest {
 		aftermap = vali.compareOptimized(estimations, true);
 
 		map = new HashMap<>();
-		map.put("tools.descartes.librede.approach.KumarKalmanFilterApproach", 0.15831290392293898);
+		map.put("tools.descartes.librede.approach.KumarKalmanFilterApproach", 0.11890723189927888);
 
-		map.put("tools.descartes.librede.approach.UtilizationRegressionApproach", 0.4440329598946429);
+		map.put("tools.descartes.librede.approach.UtilizationRegressionApproach", 0.6150293802231154);
 
-		map.put("tools.descartes.librede.approach.MenasceOptimizationApproach", 0.12206043339354765);
+		map.put("tools.descartes.librede.approach.MenasceOptimizationApproach", 0.1070624239826064);
 
-		map.put("tools.descartes.librede.approach.ServiceDemandLawApproach", 0.1679372865456179);
+		map.put("tools.descartes.librede.approach.ServiceDemandLawApproach", 0.12940281358431296);
 
-		map.put("tools.descartes.librede.approach.ResponseTimeApproximationApproach", 13.877731748883567);
+		map.put("tools.descartes.librede.approach.ResponseTimeApproximationApproach", 9.715012995380654);
 
-		map.put("tools.descartes.librede.approach.ResponseTimeRegressionApproach", 0.15130280253745343);
+		map.put("tools.descartes.librede.approach.ResponseTimeRegressionApproach", 0.14978792875864688);
 
-		map.put("tools.descartes.librede.approach.LiuOptimizationApproach", 0.12312799702259825);
+		map.put("tools.descartes.librede.approach.LiuOptimizationApproach", 0.10514545177991287);
 
-		map.put("tools.descartes.librede.approach.WangKalmanFilterApproach", 0.42893360138698344);
+		map.put("tools.descartes.librede.approach.WangKalmanFilterApproach", 0.09720415438110785);
 
 		// test individual optimization results
 		for (EstimationSpecification est : estimations)

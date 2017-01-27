@@ -304,7 +304,7 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 			if (results.getApproaches().isEmpty()) {
 				getLog().warn("Result table is empty.");
 			}
-			stat.addValue(Util.getMeanValidationError(results));
+			stat.addValue(Util.getValidationError(results, single.getValidation()));
 		}
 		iterationcounter++;
 		lastError = stat.getMean();

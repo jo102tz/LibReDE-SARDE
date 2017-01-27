@@ -36,6 +36,8 @@ import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.bind.Validator;
+
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.BasicEList;
@@ -53,6 +55,8 @@ import tools.descartes.librede.configuration.EstimationAlgorithmConfiguration;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.Parameter;
+import tools.descartes.librede.configuration.ValidationSpecification;
+import tools.descartes.librede.configuration.ValidatorConfiguration;
 import tools.descartes.librede.linalg.Matrix;
 import tools.descartes.librede.linalg.Vector;
 import tools.descartes.librede.registry.ParameterDefinition;
@@ -255,72 +259,22 @@ public class Util {
 	 *            The result produced by LibReDE
 	 * @return The mean validation error
 	 * 
-	 * @deprecated Prefer the use of
-	 *             {@link #getValidationError(LibredeResults, IEstimationApproach, IValidator)}
-	 *             instead.
 	 */
-	@Deprecated
-	public static double getMeanValidationError(LibredeResults result) {
+	public static double getValidationError(LibredeResults result, ValidationSpecification vali) {
 		if (result.getApproaches().size() > 1) {
 			log.error("More than one approach is not supported. " + result);
 			throw new InputMismatchException("More than one approach is not expected.");
 		}
+		Class<? extends IEstimationApproach> approach = result.getApproaches().iterator().next();
 
-		// FIXME change back!
-		 return getAverageOfMeanValidationErrors(result);
+		// TODO implement weighting with geom. mean
+		double error = 0;
 
-		// TODO implement a validator
-		// the validator has to be given as additional parameter
-
-		// return getUtilizationError(result,
-		// result.getApproaches().iterator().next());
-//		return getResponseTimeError(result, result.getApproaches().iterator().next());
-	}
-
-	/**
-	 * Calculates the mean Validation error, i.e. the target function value
-	 * averaging over all approaches. This method is usually not the desired
-	 * behavior. This is just useful for testing, since it averages over all
-	 * approaches. Consider the use of
-	 * {@link #getMeanValidationError(LibredeResults)} instead.
-	 * 
-	 * @param result
-	 *            The result produced by LibReDE
-	 * @return The mean validation error
-	 * 
-	 */
-	public static double getAverageOfMeanValidationErrors(LibredeResults result) {
-		// equally averaging over all validators and all approaches
-		SummaryStatistics values = new SummaryStatistics();
-		if (result == null) {
-			return Double.MAX_VALUE;
+		for (ValidatorConfiguration validator : vali.getValidators()) {
+			error += getError(result, approach, validator);
 		}
-		Map<Class<? extends IEstimationApproach>, Matrix> errorMap = result.getValidationErrors();
-		for (Class<? extends IEstimationApproach> approach : result.getApproaches()) {
-			Matrix appError = errorMap.get(approach);
-			if ((int) appError.columns() != result.getNumberOfFolds()) {
-				log.warn("Not enough fold validation results available: " + result.toString());
-			}
-			if (appError.rows() != result.getValidatedEntities().entrySet().size()) {
-				log.warn("Not enough validators for results available: " + result.toString());
-			}
 
-			for (int i = 0; i < appError.columns(); i++)
-				for (int j = 0; j < appError.rows(); j++)
-					if (!Double.isNaN(appError.get(j, i))) {
-						values.addValue(appError.get(j, i));
-					} else {
-						log.warn("Validator returned NaN.");
-					}
-			if (values.getN() < 1) {
-				log.warn("No validation results for approach " + result.getApproaches().iterator().next());
-				return Double.MAX_VALUE;
-			}
-		}
-		if (Double.isNaN(values.getMean())) {
-			return Double.MAX_VALUE;
-		}
-		return values.getMean();
+		return error;
 	}
 
 	/**
@@ -334,7 +288,7 @@ public class Util {
 	 * 
 	 * @return The mean response time error
 	 */
-	public static double getResponseTimeError(LibredeResults result, Class<? extends IEstimationApproach> approach) {
+	private static double getResponseTimeError(LibredeResults result, Class<? extends IEstimationApproach> approach) {
 		ApproachResult approachResult = result.getApproachResults(approach);
 		Map<Class<? extends IValidator>, Vector> errorMap = approachResult.getValidationErrors();
 		Set<Class<? extends IValidator>> valis = approachResult.getResult()[0].getValidators();
@@ -358,6 +312,37 @@ public class Util {
 	}
 
 	/**
+	 * 
+	 * @param result
+	 * @param approach
+	 * @param validator
+	 * @return
+	 */
+	private static double getError(LibredeResults result, Class<? extends IEstimationApproach> approach,
+			ValidatorConfiguration validator) {
+		ApproachResult approachResult = result.getApproachResults(approach);
+		Map<Class<? extends IValidator>, Vector> errorMap = approachResult.getValidationErrors();
+		Set<Class<? extends IValidator>> valis = approachResult.getResult()[0].getValidators();
+		Vector valiError = null;
+		for (Class<? extends IValidator> vali : valis) {
+			if (vali.getName().equals(validator.getType())) {
+				valiError = errorMap.get(vali);
+			}
+		}
+
+		if (valiError != null) {
+			double errorSum = 0.0;
+			for (int i = 0; i < valiError.columns(); i++) {
+				errorSum += valiError.get(i);
+			}
+			return errorSum / valiError.columns();
+		}
+
+		log.warn("The " + validator.getType() + " for Approach " + approach.toString() + " was not found.");
+		return Double.MAX_VALUE;
+	}
+
+	/**
 	 * Calculates the mean utilization error for the given
 	 * {@link LibredeResults}.
 	 * 
@@ -368,7 +353,7 @@ public class Util {
 	 * 
 	 * @return The mean utilization error
 	 */
-	public static double getUtilizationError(LibredeResults result, Class<? extends IEstimationApproach> approach) {
+	private static double getUtilizationError(LibredeResults result, Class<? extends IEstimationApproach> approach) {
 		ApproachResult approachResult = result.getApproachResults(approach);
 		Map<Class<? extends IValidator>, Vector> errorMap = approachResult.getValidationErrors();
 		Set<Class<? extends IValidator>> valis = approachResult.getResult()[0].getValidators();

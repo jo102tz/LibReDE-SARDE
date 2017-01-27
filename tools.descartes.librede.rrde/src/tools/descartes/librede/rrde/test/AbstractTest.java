@@ -55,174 +55,168 @@ import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfigu
  */
 public class AbstractTest {
 
-	/**
-	 * The path linking to the test folder.
-	 */
-	public static final String TESTPATH = "resources" + File.separator + "test" + File.separator + "junit";
+  /**
+   * The path linking to the test folder.
+   */
+  public static final String TESTPATH = "resources" + File.separator + "test" + File.separator
+      + "junit";
 
-	/**
-	 * The path to the default {@link LibredeConfiguration}
-	 */
-	public final static String LIB_PATH = TESTPATH + File.separator + "estimation.librede";
+  /**
+   * The path to the default {@link LibredeConfiguration}
+   */
+  public final static String LIB_PATH = TESTPATH + File.separator + "estimation.librede";
 
-	/**
-	 * The path to the default {@link OptimizationConfiguration}
-	 */
-	public final static String OPT_PATH = TESTPATH + File.separator + "conf.optimization";
+  /**
+   * The path to the default {@link OptimizationConfiguration}
+   */
+  public final static String OPT_PATH = TESTPATH + File.separator + "conf.optimization";
 
-	/**
-	 * The path to the default {@link RecommendationTrainingConfiguration}
-	 */
-	public final static String REC_PATH = TESTPATH + File.separator + "conf.recommendation";
-	/**
-	 * The path for validation
-	 */
-	public static final String validationfolder = TESTPATH + File.separator + "validation";
+  /**
+   * The path to the default {@link RecommendationTrainingConfiguration}
+   */
+  public final static String REC_PATH = TESTPATH + File.separator + "conf.recommendation";
+  /**
+   * The path for validation
+   */
+  public static final String validationfolder = TESTPATH + File.separator + "validation";
 
-	/**
-	 * The path for training
-	 */
-	public static final String trainingfolder = TESTPATH + File.separator + "training";
+  /**
+   * The path for training
+   */
+  public static final String trainingfolder = TESTPATH + File.separator + "training";
 
-	/**
-	 * The output path, where all output files are stored.
-	 */
-	public final static String OUTPUT = TESTPATH + File.separator + "output";
+  /**
+   * The output path, where all output files are stored.
+   */
+  public final static String OUTPUT = TESTPATH + File.separator + "output";
 
-	/**
-	 * The testset used for validation.
-	 */
-	static Set<LibredeConfiguration> configs;
+  /**
+   * The testset used for validation.
+   */
+  static Set<LibredeConfiguration> configs;
 
-	/**
-	 * The configuration read.
-	 */
-	static LibredeConfiguration librede;
+  /**
+   * The configuration read.
+   */
+  static LibredeConfiguration librede;
 
-	/**
-	 * The optimization configuration read.
-	 */
-	static OptimizationConfiguration optimization;
+  /**
+   * The optimization configuration read.
+   */
+  static OptimizationConfiguration optimization;
 
-	/**
-	 * The recommendation configuration read.
-	 */
-	static RecommendationTrainingConfiguration recommendation;
+  /**
+   * The recommendation configuration read.
+   */
+  static RecommendationTrainingConfiguration recommendation;
 
-	/**
-	 * The validator used.
-	 */
-	static TestSetValidator vali;
+  /**
+   * The validator used.
+   */
+  static TestSetValidator vali;
 
-	/**
-	 * A PLugin instance.
-	 */
-	static Plugin main;
+  /**
+   * A PLugin instance.
+   */
+  static Plugin main;
 
-	@BeforeClass
-	public static void init() {
-		main = new Plugin();
-		main.init();
-		// load config files
-		librede = Librede.loadConfiguration(new File(LIB_PATH).toPath());
-		optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
-		recommendation = Util.loadRecommendationConfiguration(new File(REC_PATH).toPath());
+  @BeforeClass
+  public static void init() {
+    main = new Plugin();
+    main.init();
+    // load config files
+    librede = Librede.loadConfiguration(new File(LIB_PATH).toPath());
+    optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
+    recommendation = Util.loadRecommendationConfiguration(new File(REC_PATH).toPath());
 
-		// discover validation configurations
-		for (InputData data : recommendation.getTrainingData()) {
-			data.setRootFolder(validationfolder);
-		}
+    // discover validation configurations
+    for (InputData data : recommendation.getTrainingData()) {
+      data.setRootFolder(validationfolder);
+    }
 
-		configs = Discovery.createConfigurations(recommendation.getTrainingData(), librede.getEstimation(),
-				librede.getValidation());
-		// check if size is correct
-		Assert.assertEquals(new File(validationfolder).list().length, configs.size());
+    configs = Discovery.createConfigurations(recommendation.getTrainingData(),
+        librede.getEstimation(), librede.getValidation());
+    // check if size is correct
+    Assert.assertEquals(new File(validationfolder).list().length, configs.size());
 
-		// adapt configurations to be similar
-		for (InputData data : recommendation.getTrainingData()) {
-			data.setRootFolder(trainingfolder);
-		}
-		recommendation.setValidator(EcoreUtil.copy(librede.getValidation()));
+    // adapt configurations to be similar
+    for (InputData data : recommendation.getTrainingData()) {
+      data.setRootFolder(trainingfolder);
+    }
+    recommendation.setValidator(EcoreUtil.copy(librede.getValidation()));
 
-		// adapt configurations to be similar
-		for (RunCall call : optimization.getContainsOf()) {
-			for (InputData data : call.getTrainingData()) {
-				data.setRootFolder(trainingfolder);
-			}
-			call.getSettings().setValidator(EcoreUtil.copy(librede.getValidation()));
-		}
+    // adapt configurations to be similar
+    for (RunCall call : optimization.getContainsOf()) {
+      for (InputData data : call.getTrainingData()) {
+        data.setRootFolder(trainingfolder);
+      }
+      call.getSettings().setValidator(EcoreUtil.copy(librede.getValidation()));
+    }
 
-		vali = new TestSetValidator(configs);
-		Assert.assertNotEquals(vali.getTestset().size(), 0);
-		// FIXME error calculation?
-		// vali.calculateInitialErrors();
+    vali = new TestSetValidator(configs, librede.getValidation());
+    Assert.assertNotEquals(vali.getTestset().size(), 0);
 
-	}
+  }
 
-	/**
-	 * Tests if the given values are met and fails the test if not.
-	 * 
-	 * @param stat
-	 *            The {@link StatisticsSummary} to test.
-	 * @param avgBefore
-	 *            The average error before.
-	 * @param avgAfter
-	 *            The average error after.
-	 * @param beforeignored
-	 *            The number of data sets that were ignored before.
-	 * @param afterignored
-	 *            The number of data sets that were ignored after.
-	 * @param hitrate
-	 *            The hitrate of the recommendation algorithm or -1 if not
-	 *            applicable.
-	 * @param optimizationtime
-	 *            If true, the time spent on optimization must not be zero. If
-	 *            false, it must be zero.
-	 * @param recommendationtime
-	 *            If true, the time spent on recommendation must not be zero. If
-	 *            false, it must be zero.
-	 */
-	protected void testStatValues(StatisticsSummary stat, double avgBefore, double avgAfter, int beforeignored,
-			int afterignored, double hitrate, boolean optimizationtime, boolean recommendationtime) {
-		// ignore runtime, since different on different machines
-		Assert.assertEquals(avgBefore, stat.getAvgErrorBefore(), 0.01);
-		Assert.assertEquals(avgAfter, stat.getAvgErrorAfter(), 0.01);
-		Assert.assertEquals(beforeignored, stat.getBeforeignored());
-		Assert.assertEquals(afterignored, stat.getAfterignored());
-		if (hitrate >= 0)
-			Assert.assertEquals(hitrate, stat.getHitrate(), 0.01);
-		if (recommendationtime)
-			Assert.assertNotEquals(0, stat.getRecommendationtime());
-		else
-			Assert.assertEquals(0, stat.getRecommendationtime());
-		if (optimizationtime)
-			Assert.assertNotEquals(0, stat.getOptimizationtime());
-		else
-			Assert.assertEquals(0, stat.getOptimizationtime());
-	}
+  /**
+   * Tests if the given values are met and fails the test if not.
+   * 
+   * @param stat
+   *          The {@link StatisticsSummary} to test.
+   * @param avgBefore
+   *          The average error before.
+   * @param avgAfter
+   *          The average error after.
+   * @param beforeignored
+   *          The number of data sets that were ignored before.
+   * @param afterignored
+   *          The number of data sets that were ignored after.
+   * @param hitrate
+   *          The hitrate of the recommendation algorithm or -1 if not applicable.
+   * @param optimizationtime
+   *          If true, the time spent on optimization must not be zero. If false, it must be zero.
+   * @param recommendationtime
+   *          If true, the time spent on recommendation must not be zero. If false, it must be zero.
+   */
+  protected void testStatValues(StatisticsSummary stat, double avgBefore, double avgAfter,
+      int beforeignored, int afterignored, double hitrate, boolean optimizationtime,
+      boolean recommendationtime) {
+    // ignore runtime, since different on different machines
+    Assert.assertEquals(avgBefore, stat.getAvgErrorBefore(), 0.01);
+    Assert.assertEquals(avgAfter, stat.getAvgErrorAfter(), 0.01);
+    Assert.assertEquals(beforeignored, stat.getBeforeignored());
+    Assert.assertEquals(afterignored, stat.getAfterignored());
+    if (hitrate >= 0)
+      Assert.assertEquals(hitrate, stat.getHitrate(), 0.01);
+    if (recommendationtime)
+      Assert.assertNotEquals(0, stat.getRecommendationtime());
+    else
+      Assert.assertEquals(0, stat.getRecommendationtime());
+    if (optimizationtime)
+      Assert.assertNotEquals(0, stat.getOptimizationtime());
+    else
+      Assert.assertEquals(0, stat.getOptimizationtime());
+  }
 
-	/**
-	 * Tests if the given values are met and fails the test if not.
-	 * 
-	 * @param est
-	 *            {@link EstimationSpecification} to use.
-	 * @param libredeConfiguration
-	 *            The {@link LibredeConfiguration} to use.
-	 * @param expected
-	 *            The expected Value
-	 */
-	protected void testSingleEstimator(EstimationSpecification est, LibredeConfiguration libredeConfiguration,
-			Double expected) {
-		libredeConfiguration.setEstimation(EcoreUtil.copy(est));
-		Discovery.fixTimeStamps(libredeConfiguration);
-		LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
-		Assert.assertEquals("Wrong value for " + est.getApproaches().get(0).getType() + ".", expected,
-				Util.getMeanValidationError(res), 0.001);
-	}
-
-	protected void testApproachOptimization(TestResult before, TestResult after, double avgBefore, double avgAfter,
-			int beforeignored, int afterignored, double hitrate, boolean optimizationtime, boolean recommendationtime) {
-		// TODO
-	}
+  /**
+   * Tests if the given values are met and fails the test if not.
+   * 
+   * @param est
+   *          {@link EstimationSpecification} to use.
+   * @param libredeConfiguration
+   *          The {@link LibredeConfiguration} to use.
+   * @param expected
+   *          The expected Value
+   */
+  protected void testSingleEstimator(EstimationSpecification est,
+      LibredeConfiguration libredeConfiguration, Double expected) {
+    libredeConfiguration.setEstimation(EcoreUtil.copy(est));
+    Discovery.fixTimeStamps(libredeConfiguration);
+    LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+    // System.out.println(est.getApproaches().iterator().next().getType() + ": "
+    // + Util.getValidationError(res, libredeConfiguration.getValidation()));
+    Assert.assertEquals("Wrong value for " + est.getApproaches().get(0).getType() + ".", expected,
+        Util.getValidationError(res, libredeConfiguration.getValidation()), 0.001);
+  }
 
 }
