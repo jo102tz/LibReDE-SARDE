@@ -267,15 +267,14 @@ public class Util {
 		}
 
 		// FIXME change back!
-		return getAverageOfMeanValidationErrors(result);
+		 return getAverageOfMeanValidationErrors(result);
 
 		// TODO implement a validator
 		// the validator has to be given as additional parameter
 
 		// return getUtilizationError(result,
 		// result.getApproaches().iterator().next());
-		// return getResponseTimeError(result,
-		// result.getApproaches().iterator().next());
+//		return getResponseTimeError(result, result.getApproaches().iterator().next());
 	}
 
 	/**

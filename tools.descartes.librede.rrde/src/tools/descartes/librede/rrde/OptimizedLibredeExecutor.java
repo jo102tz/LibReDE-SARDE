@@ -40,103 +40,96 @@ import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgor
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
 /**
- * This class accepts an {@link IRecomendationAlgorithm} and wraps all calls to
- * be optimized.
+ * This class accepts an {@link IRecomendationAlgorithm} and wraps all calls to be optimized.
  * 
  * @author JS
  *
  */
 public class OptimizedLibredeExecutor {
 
-	/**
-	 * The logger used for logging
-	 */
-	private static final Logger log = Logger
-			.getLogger(OptimizedLibredeExecutor.class);
+  /**
+   * The logger used for logging
+   */
+  private static final Logger log = Logger.getLogger(OptimizedLibredeExecutor.class);
 
-	private IFeatureExtractor extractor;
+  private IFeatureExtractor extractor;
 
-	private IRecomendationAlgorithm algo;
+  private IRecomendationAlgorithm algo;
 
-	/**
-	 * Constructor specifying the {@link IFeatureExtractor} to use with a
-	 * trained {@link IRecomendationAlgorithm}.
-	 * 
-	 * @param extractor
-	 *            {@link IFeatureExtractor} that was used to train the algorithm
-	 * @param algo
-	 *            {@link IRecomendationAlgorithm} to use for predictions.
-	 * @throws IllegalArgumentException
-	 *             If {@link IRecomendationAlgorithm#isInTrainingPhase()}
-	 *             returns true
-	 */
-	public OptimizedLibredeExecutor(IFeatureExtractor extractor,
-			IRecomendationAlgorithm algo) {
-		super();
-		this.extractor = extractor;
-		this.algo = algo;
-		if (algo.isInTrainingPhase()) {
-			throw new IllegalArgumentException(
-					"The recommendation algorithm is not yet fully trained.");
-		}
-	}
+  /**
+   * Constructor specifying the {@link IFeatureExtractor} to use with a trained
+   * {@link IRecomendationAlgorithm}.
+   * 
+   * @param extractor
+   *          {@link IFeatureExtractor} that was used to train the algorithm
+   * @param algo
+   *          {@link IRecomendationAlgorithm} to use for predictions.
+   * @throws IllegalArgumentException
+   *           If {@link IRecomendationAlgorithm#isInTrainingPhase()} returns true
+   */
+  public OptimizedLibredeExecutor(IFeatureExtractor extractor, IRecomendationAlgorithm algo) {
+    super();
+    this.extractor = extractor;
+    this.algo = algo;
+    if (algo.isInTrainingPhase()) {
+      throw new IllegalArgumentException("The recommendation algorithm is not yet fully trained.");
+    }
+  }
 
-	/**
-	 * @return the algo
-	 */
-	public IRecomendationAlgorithm getAlgo() {
-		return algo;
-	}
+  /**
+   * @return the algo
+   */
+  public IRecomendationAlgorithm getAlgo() {
+    return algo;
+  }
 
-	/**
-	 * @param algo
-	 *            the algo to set
-	 */
-	public void setAlgo(IRecomendationAlgorithm algo) {
-		this.algo = algo;
-	}
+  /**
+   * @param algo
+   *          the algo to set
+   */
+  public void setAlgo(IRecomendationAlgorithm algo) {
+    this.algo = algo;
+  }
 
-	/**
-	 * @return the extractor
-	 */
-	public IFeatureExtractor getExtractor() {
-		return extractor;
-	}
+  /**
+   * @return the extractor
+   */
+  public IFeatureExtractor getExtractor() {
+    return extractor;
+  }
 
-	/**
-	 * @param extractor
-	 *            the extractor to set
-	 */
-	public void setExtractor(IFeatureExtractor extractor) {
-		this.extractor = extractor;
-	}
+  /**
+   * @param extractor
+   *          the extractor to set
+   */
+  public void setExtractor(IFeatureExtractor extractor) {
+    this.extractor = extractor;
+  }
 
-	/**
-	 * Tries to analyze the given {@link LibredeConfiguration} and uses its
-	 * configured {@link IRecomendationAlgorithm} to search for the best
-	 * {@link EstimationSpecification}. If that fails, the unmodified
-	 * configuration is executed.
-	 * 
-	 * @param conf
-	 *            The {@link LibredeConfiguration} to be run.
-	 * @return The {@link LibredeResults} as returned by the standard
-	 *         {@link Librede}.
-	 */
-	public LibredeResults executeLibrede(LibredeConfiguration conf) {
-		try {
-			FeatureVector features = extractor.extractFeatures(conf);
-			EstimationSpecification est = algo.recommendEstimation(features);
-			if (est != null) {
-				conf.setEstimation(EcoreUtil.copy(est));
-			} else {
-				log.warn("Recommendation failed. Returning standard result.");
-			}
-		} catch (Exception e) {
-			log.error(
-					"There was an unexpected Exception with recommending. Returning standard result.",
-					e);
-		}
-		Discovery.fixTimeStamps(conf);
-		return Wrapper.executeLibrede(conf);
-	}
+  /**
+   * Tries to analyze the given {@link LibredeConfiguration} and uses its configured
+   * {@link IRecomendationAlgorithm} to search for the best {@link EstimationSpecification}. If that
+   * fails, the unmodified configuration is executed.
+   * 
+   * @param conf
+   *          The {@link LibredeConfiguration} to be run.
+   * @return The {@link LibredeResults} as returned by the standard {@link Librede}.
+   */
+  public LibredeResults executeLibrede(LibredeConfiguration conf) {
+    try {
+      FeatureVector features = extractor.extractFeatures(conf);
+      EstimationSpecification est = algo.recommendEstimation(features);
+      if (est != null) {
+        conf.setEstimation(EcoreUtil.copy(est));
+      } else {
+        log.warn("Recommendation failed. Returning standard result.");
+      }
+    } catch (Exception e) {
+      log.error("There was an unexpected Exception with recommending.",
+          e);
+      throw new RuntimeException(e);
+    }
+    Discovery.fixTimeStamps(conf);
+    return Wrapper.executeLibrede(conf);
+  }
 }

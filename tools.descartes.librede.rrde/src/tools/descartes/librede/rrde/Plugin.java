@@ -138,13 +138,14 @@ public class Plugin implements IApplication {
 					extractor, algorithm);
 
 			log.info("Finished training! Ready for predictions now.");
+      log.info("Finished optimization and recommendation.");
 			return exec;
 
 		} catch (Exception e) {
-			log.error("Error occurred", e);
+			log.error("Error occurred. Returning null.", e);
+	    return null;
 		}
-		log.info("Finished optimization and recommendation.");
-		return 0;
+		
 	}
 
 	@Override

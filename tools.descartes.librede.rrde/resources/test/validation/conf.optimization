@@ -130,8 +130,7 @@
     </trainingData>
     <settings>
       <validator validateEstimates="true">
-        <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
-        <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
+        <validators type="tools.descartes.librede.validation.AbsoluteUtilizationValidator"/>
       </validator>
       <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.1"/>-->
       <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.4"/>-->
