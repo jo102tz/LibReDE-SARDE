@@ -107,6 +107,11 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	private Map<LibredeConfiguration, LibredeResults> lastResults;
 
 	/**
+	 * The time elapsed for the first iteration.
+	 */
+	private long firstiterationtime;
+
+	/**
 	 * The value of the last error.
 	 */
 	private double lastError;
@@ -207,6 +212,13 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	}
 
 	/**
+	 * @return the firstiterationtime
+	 */
+	public long getFirstiterationtime() {
+		return firstiterationtime;
+	}
+
+	/**
 	 * Returns the log instance, to provide proper visible logging.
 	 * 
 	 * @return the logger of the implementing class
@@ -274,7 +286,8 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 		getLog().info("Finished initialization. Available Training-Configurations: " + confs.size());
 		long thistime = System.currentTimeMillis();
 		firstError = runIteration();
-		String timestamp = DurationFormatUtils.formatDuration((System.currentTimeMillis() - thistime), "ss.SSS", false);
+		firstiterationtime = System.currentTimeMillis() - thistime;
+		String timestamp = DurationFormatUtils.formatDuration(firstiterationtime, "ss.SSS", false);
 		getLog().info("The starting configurations have an error of " + firstError
 				+ ". Time elapsed for the first iteration: " + timestamp + "s.");
 	}

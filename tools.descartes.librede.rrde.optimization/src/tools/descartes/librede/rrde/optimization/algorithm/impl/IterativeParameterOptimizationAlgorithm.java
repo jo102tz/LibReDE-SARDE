@@ -29,6 +29,7 @@ package tools.descartes.librede.rrde.optimization.algorithm.impl;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
@@ -46,14 +47,12 @@ import tools.descartes.librede.rrde.rinterface.RBridge;
  * @author JS
  *
  */
-public class IterativeParameterOptimizationAlgorithm
-		extends AbstractConfigurationOptimizer {
+public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurationOptimizer {
 
 	/**
 	 * The log used for logging.
 	 */
-	private static final Logger log = Logger
-			.getLogger(IterativeParameterOptimizerSpecifierImpl.class);
+	private static final Logger log = Logger.getLogger(IterativeParameterOptimizerSpecifierImpl.class);
 
 	/*
 	 * (non-Javadoc)
@@ -74,8 +73,7 @@ public class IterativeParameterOptimizationAlgorithm
 	 * IConfigurationOptimizationAlgorithmSpecifier)
 	 */
 	@Override
-	public boolean isSpecifierSupported(
-			ConfigurationOptimizationAlgorithmSpecifier specifier) {
+	public boolean isSpecifierSupported(ConfigurationOptimizationAlgorithmSpecifier specifier) {
 		if (specifier instanceof IterativeParameterOptimizerSpecifierImpl) {
 			return true;
 		}
@@ -106,23 +104,27 @@ public class IterativeParameterOptimizationAlgorithm
 		RBridge r = RBridge.getInstance();
 		IterativeParameterOptimizerSpecifierImpl alg = (IterativeParameterOptimizerSpecifierImpl) getAlgorithm();
 		getLog().info("Starting execution of IPA script...");
-		Map<IOptimizableParameter, Double> best = r.runOptimization(
-				getSettings().getParametersToOptimize(),
+
+		// calculate expected runtime
+		long complexity = (long) (alg.getNumberOfIterations() * alg.getNumberOfExplorations()
+				* Math.pow(getSettings().getParametersToOptimize().size(), alg.getNumberOfSplits() + 2));
+		String timestamp = DurationFormatUtils.formatDurationHMS(complexity * getFirstiterationtime());
+		getLog().info("Expected runtime: " + timestamp);
+
+		// call RBridge
+		Map<IOptimizableParameter, Double> best = r.runOptimization(getSettings().getParametersToOptimize(),
 				new ICallbackEvaluator() {
 					@Override
-					public double evaluate(
-							Map<IOptimizableParameter, Double> params) {
-						for (Entry<IOptimizableParameter, Double> en : params
-								.entrySet()) {
+					public double evaluate(Map<IOptimizableParameter, Double> params) {
+						for (Entry<IOptimizableParameter, Double> en : params.entrySet()) {
 							setTargetValue(en.getKey(), en.getValue());
 						}
 						return runIteration();
 					}
-				}, alg.getNumberOfSplits(), alg.getNumberOfExplorations(), alg
-						.getNumberOfIterations());
+				}, alg.getNumberOfSplits(), alg.getNumberOfExplorations(), alg.getNumberOfIterations());
 		for (Entry<IOptimizableParameter, Double> en : best.entrySet()) {
-			log.info("Found parameter value of " + en.getValue()
-					+ " for parameter " + Util.getParameterString(en.getKey()));
+			log.info("Found parameter value of " + en.getValue() + " for parameter "
+					+ Util.getParameterString(en.getKey()));
 			setTargetValue(en.getKey(), en.getValue());
 		}
 		getLog().info("Finished execution of IPA script!");
