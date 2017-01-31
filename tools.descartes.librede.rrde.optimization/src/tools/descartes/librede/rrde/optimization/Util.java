@@ -387,7 +387,7 @@ public class Util {
 		if (param instanceof GenericParameter) {
 			return ((GenericParameter) param).getParameter().getName();
 		}
-		return param.toString();
+		return param.getClass().getName();
 	}
 
 	/**

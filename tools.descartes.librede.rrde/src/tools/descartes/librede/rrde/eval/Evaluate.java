@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -236,11 +236,8 @@ public class Evaluate {
       }
 
     }
-    
-    checkValidatorEquality();
 
-    // validateOptimizers(EcoreUtil.copy(librede),
-    // EcoreUtil.copy(optimization));
+    validateOptimizers(EcoreUtil.copy(librede), EcoreUtil.copy(optimization));
 
     // validateNothing();
 
@@ -248,16 +245,8 @@ public class Evaluate {
 
     // validateOptimizationAndRecommendation(librede, optimization,
     // recommendation);
-    validateAllOptimizersAutomatically(librede, optimization);
+    // validateAllOptimizersAutomatically(librede, optimization);
 
-  }
-
-  private void checkValidatorEquality() {
-    for (RunCall call : optimization.getContainsOf()) {
-      Assert.assertEquals(call.getSettings().getValidator(), validator);
-    }
-    Assert.assertEquals(librede.getValidation(), validator);
-    Assert.assertEquals(recommendation.getValidator(), validator);
   }
 
   private void validateNothing() {
@@ -393,55 +382,40 @@ public class Evaluate {
   }
 
   private void validateOptimizers(LibredeConfiguration libconf, OptimizationConfiguration conf) {
-    String[] algorithmsplit = conf.getContainsOf().get(0).getAlgorithm().getAlgorithmName()
-        .split("\\.");
-    String algorithmname = algorithmsplit[algorithmsplit.length - 1];
+    // put approaches into sorted set
+    ArrayList<EstimationApproachConfiguration> estimationList = new ArrayList<>(
+        EcoreUtil.copyAll(conf.getContainsOf().get(0).getEstimation().getApproaches()));
+
+    // file heading
+    FileExporter file = new ExportAlgorithm().new FileExporter(OUTPUT, "optimizationresults.csv");
+
+    file.writeString("Approach");
+    // empty cell
+    file.writeString("");
+    for (EstimationApproachConfiguration approach : estimationList) {
+      file.writeString(Util.shortenApproachName(Util.getSimpleApproachName(approach)));
+    }
+    file.newLine();
 
     ArrayList<RunCall> newRunCalls = Util.splitRunCalls(conf);
 
-    FileExporter file = new ExportAlgorithm().new FileExporter(OUTPUT, "optimizationresults.csv");
+    // Default
+    file.writeString("Default:");
+    // empty
+    ConfigurationOptimizationAlgorithmSpecifierImpl algorithm = new ConfigurationOptimizationAlgorithmSpecifierImpl();
+    algorithm.setAlgorithmName("");
+    HashMap<EstimationApproachConfiguration, StatisticsSummary> map = evaluateApproachesWithConfiguration(
+        newRunCalls, algorithm, conf, libconf, estimationList,
+        newRunCalls.iterator().next().getSettings().getParametersToOptimize());
+    printSolutions(file, estimationList, map);
 
-    file.writeString("Estimator");
-    file.writeString("Default: Avg. execution time(ms)");
-    file.writeString("Default: Std. deviation time(ms) ");
-    file.writeString(algorithmname + ": Avg. execution time(ms) ");
-    file.writeString(algorithmname + ": Std. deviation time(ms) ");
+    // configured optimizer
+    file.writeString(newRunCalls.iterator().next().getAlgorithm().getAlgorithmName());
+    map = evaluateApproachesWithConfiguration(newRunCalls,
+        newRunCalls.iterator().next().getAlgorithm(), conf, libconf, estimationList,
+        newRunCalls.iterator().next().getSettings().getParametersToOptimize());
+    printSolutions(file, estimationList, map);
 
-    file.writeString("Default: Avg. estimation error");
-    file.writeString("Default: Std. deviation error");
-    file.writeString(algorithmname + ": Avg. estimation error");
-    file.writeString(algorithmname + ": Std. deviation error");
-
-    file.writeString(algorithmname + ": Runtime");
-    file.newLine();
-
-    for (RunCall run : newRunCalls) {
-      conf.getContainsOf().add(run);
-      file.writeString(run.getEstimation().getApproaches().get(0).getType());
-
-      // run estimation and comparison
-      vali = new TestSetValidator(configs, validator);
-      for (LibredeConfiguration c : configs) {
-        c.setEstimation(EcoreUtil.copy(run.getEstimation()));
-        Discovery.fixTimeStamps(c);
-      }
-      Assert.assertNotEquals(vali.getTestset().size(), 0);
-      vali.calculateInitialErrors();
-
-      log.info("Initialized! Starting optimization...");
-      long start = System.currentTimeMillis();
-      // run optimization
-      Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
-          .runConfigurationOptimization(libconf, conf, OUTPUT);
-      long opti = System.currentTimeMillis() - start;
-      log.info("Finished optimization! Validating...");
-
-      // print results
-      vali.compareOptimized(estimations, true);
-      vali.printResults(file, null, opti, 0, false, null);
-      file.newLine();
-      conf.getContainsOf().remove(run);
-    }
     file.close();
     conf.getContainsOf().addAll(newRunCalls);
   }
@@ -451,6 +425,10 @@ public class Evaluate {
     // put approaches into sorted set
     ArrayList<EstimationApproachConfiguration> estimationList = new ArrayList<>(
         EcoreUtil.copyAll(conf.getContainsOf().get(0).getEstimation().getApproaches()));
+
+    // get parameters to investigate
+    ArrayList<IOptimizableParameter> params = new ArrayList<>();
+    params.add(new StepSizeImpl());
 
     // file heading
     FileExporter file = new ExportAlgorithm().new FileExporter(OUTPUT,
@@ -472,7 +450,7 @@ public class Evaluate {
     ConfigurationOptimizationAlgorithmSpecifierImpl algorithm = new ConfigurationOptimizationAlgorithmSpecifierImpl();
     algorithm.setAlgorithmName("");
     HashMap<EstimationApproachConfiguration, StatisticsSummary> map = evaluateApproachesWithConfiguration(
-        newRunCalls, algorithm, conf, libconf, estimationList);
+        newRunCalls, algorithm, conf, libconf, estimationList, params);
     printSolutions(file, estimationList, map);
 
     file.writeString("BruteForce");
@@ -481,7 +459,8 @@ public class Evaluate {
         "tools.descartes.librede.rrde.optimization.algorithm.impl.BruteForceAlgorithm");
     spec.setStepSize(1);
     spec.setTolerance(0);
-    map = evaluateApproachesWithConfiguration(newRunCalls, spec, conf, libconf, estimationList);
+    map = evaluateApproachesWithConfiguration(newRunCalls, spec, conf, libconf, estimationList,
+        params);
     printSolutions(file, estimationList, map);
 
     file.writeString("LocalSearch");
@@ -490,7 +469,8 @@ public class Evaluate {
         "tools.descartes.librede.rrde.optimization.algorithm.impl.HillClimbingAlgorithm");
     spec.setStepSize(1);
     spec.setTolerance(0);
-    map = evaluateApproachesWithConfiguration(newRunCalls, spec, conf, libconf, estimationList);
+    map = evaluateApproachesWithConfiguration(newRunCalls, spec, conf, libconf, estimationList,
+        params);
     printSolutions(file, estimationList, map);
 
     file.writeString("S3");
@@ -500,7 +480,8 @@ public class Evaluate {
     ipo.setNumberOfSplits(3);
     ipo.setNumberOfExplorations(3);
     ipo.setNumberOfIterations(3);
-    map = evaluateApproachesWithConfiguration(newRunCalls, ipo, conf, libconf, estimationList);
+    map = evaluateApproachesWithConfiguration(newRunCalls, ipo, conf, libconf, estimationList,
+        params);
     printSolutions(file, estimationList, map);
 
     // close up
@@ -511,11 +492,15 @@ public class Evaluate {
   private HashMap<EstimationApproachConfiguration, StatisticsSummary> evaluateApproachesWithConfiguration(
       ArrayList<RunCall> newRunCalls, ConfigurationOptimizationAlgorithmSpecifier algorithm,
       OptimizationConfiguration conf, LibredeConfiguration libconf,
-      ArrayList<EstimationApproachConfiguration> estimationList) {
+      ArrayList<EstimationApproachConfiguration> estimationList,
+      List<IOptimizableParameter> params) {
+
+    Map<RunCall, ConfigurationOptimizationAlgorithmSpecifier> tmpstore = new HashMap<>();
 
     HashMap<EstimationApproachConfiguration, StatisticsSummary> map = new HashMap<>();
     for (RunCall run : newRunCalls) {
       conf.getContainsOf().add(run);
+      tmpstore.put(run, run.getAlgorithm());
       run.setAlgorithm(EcoreUtil.copy(algorithm));
 
       // run estimation and comparison
@@ -537,14 +522,13 @@ public class Evaluate {
 
       // print results
       vali.compareOptimized(estimations, true);
-      ArrayList<IOptimizableParameter> list = new ArrayList<>();
-      list.add(new StepSizeImpl());
-      StatisticsSummary stat = vali.printResults(null, null, opti, 0, false, list);
+      StatisticsSummary stat = vali.printResults(null, null, opti, 0, false, params);
       conf.getContainsOf().remove(run);
       stat.getParameters();
 
       map.put(getMatchingEstimation(run.getEstimation().getApproaches().get(0), estimationList),
           stat);
+      run.setAlgorithm(tmpstore.get(run));
     }
     return map;
   }
@@ -602,20 +586,22 @@ public class Evaluate {
     }
     file.newLine();
 
-    file.writeString("");
-    file.writeString("Step size value:");
-    // iterate through all estimation approaches in order
-    for (EstimationApproachConfiguration est : estimations) {
-      Double stepsize = -1.0;
-      Map<IOptimizableParameter, Double> params = map.get(est).getParameters();
-      if (params != null && !params.isEmpty())
-        for (IOptimizableParameter p : params.keySet()) {
-          if (p instanceof tools.descartes.librede.rrde.optimization.StepSize)
-            stepsize = params.get(p);
-        }
-      file.writeDouble(stepsize);
+    // print all parameters
+    for (IOptimizableParameter parameter : map.values().iterator().next().getParameters()
+        .keySet()) {
+      file.writeString("");
+      file.writeString(Util.getParameterString(parameter) + " value:");
+      // iterate through all estimation approaches in order
+      for (EstimationApproachConfiguration est : estimations) {
+        Double value = -1.0;
+        Map<IOptimizableParameter, Double> params = map.get(est).getParameters();
+        if (params != null && !params.isEmpty() && params.get(parameter) != null)
+          value = params.get(parameter);
+        file.writeDouble(value);
+      }
+      file.newLine();
     }
-    file.newLine();
+
   }
 
 }

@@ -107,9 +107,9 @@ public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurati
 
 		// calculate expected runtime
 		long complexity = (long) (alg.getNumberOfIterations() * alg.getNumberOfExplorations()
-				* Math.pow(getSettings().getParametersToOptimize().size(), alg.getNumberOfSplits() + 2));
+				* Math.pow(alg.getNumberOfSplits() + 2, getSettings().getParametersToOptimize().size()));
 		String timestamp = DurationFormatUtils.formatDurationHMS(complexity * getFirstiterationtime());
-		getLog().info("Expected runtime: " + timestamp);
+		getLog().info("Expected runtime (pessimistic): " + timestamp);
 
 		// call RBridge
 		Map<IOptimizableParameter, Double> best = r.runOptimization(getSettings().getParametersToOptimize(),
