@@ -237,7 +237,9 @@ public class Evaluate {
 
     }
 
-    validateOptimizers(EcoreUtil.copy(librede), EcoreUtil.copy(optimization));
+    // calculateOptimalSolutions(EcoreUtil.copy(optimization));
+
+    // validateOptimizers(EcoreUtil.copy(librede), EcoreUtil.copy(optimization));
 
     // validateNothing();
 
@@ -245,8 +247,29 @@ public class Evaluate {
 
     // validateOptimizationAndRecommendation(librede, optimization,
     // recommendation);
-    // validateAllOptimizersAutomatically(librede, optimization);
+    validateAllOptimizersAutomatically(librede, optimization);
 
+  }
+
+  /**
+   * @param optimization2
+   */
+  private void calculateOptimalSolutions(OptimizationConfiguration optimizationcopy) {
+    RunCall call = optimizationcopy.getContainsOf().get(0);
+    optimizationcopy.getContainsOf().clear();
+    optimizationcopy.getContainsOf().add(call);
+
+    LocalSearchSpecifier spec = new LocalSearchSpecifierImpl();
+    spec.setAlgorithmName(
+        "tools.descartes.librede.rrde.optimization.algorithm.impl.BruteForceAlgorithm");
+    spec.setStepSize(1);
+    spec.setTolerance(0);
+    call.setAlgorithm(spec);
+
+    for (InputData data : call.getTrainingData()) {
+      data.setRootFolder(validationfolder);
+    }
+    validateOptimizers(librede, optimizationcopy);
   }
 
   private void validateNothing() {
@@ -445,7 +468,7 @@ public class Evaluate {
     ArrayList<RunCall> newRunCalls = Util.splitRunCalls(conf);
 
     // Default
-    file.writeString("Default:");
+    file.writeString("Default");
     // empty
     ConfigurationOptimizationAlgorithmSpecifierImpl algorithm = new ConfigurationOptimizationAlgorithmSpecifierImpl();
     algorithm.setAlgorithmName("");
@@ -453,8 +476,35 @@ public class Evaluate {
         newRunCalls, algorithm, conf, libconf, estimationList, params);
     printSolutions(file, estimationList, map);
 
-    file.writeString("BruteForce");
+    // Optimum
+    file.writeString("Optimum value");
+    // empty
     LocalSearchSpecifier spec = new LocalSearchSpecifierImpl();
+    spec.setAlgorithmName(
+        "tools.descartes.librede.rrde.optimization.algorithm.impl.BruteForceAlgorithm");
+    spec.setStepSize(1);
+    spec.setTolerance(0);
+    // set folder to validation, because optiomum value is searched
+    String folder = newRunCalls.iterator().next().getTrainingData().iterator().next()
+        .getRootFolder();
+    for (RunCall call : newRunCalls) {
+      for (InputData data : call.getTrainingData()) {
+        data.setRootFolder(validationfolder);
+      }
+    }
+    map = evaluateApproachesWithConfiguration(newRunCalls, spec, conf, libconf, estimationList,
+        params);
+    printSolutions(file, estimationList, map);
+    // restore
+    for (RunCall call : newRunCalls) {
+      for (InputData data : call.getTrainingData()) {
+        data.setRootFolder(folder);
+      }
+    }
+
+    // Approaches
+    file.writeString("BruteForce");
+    spec = new LocalSearchSpecifierImpl();
     spec.setAlgorithmName(
         "tools.descartes.librede.rrde.optimization.algorithm.impl.BruteForceAlgorithm");
     spec.setStepSize(1);
