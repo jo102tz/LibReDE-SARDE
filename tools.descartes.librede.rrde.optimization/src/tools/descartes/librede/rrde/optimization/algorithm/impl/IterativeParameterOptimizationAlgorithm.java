@@ -26,6 +26,7 @@
  */
 package tools.descartes.librede.rrde.optimization.algorithm.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -112,22 +113,92 @@ public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurati
 		getLog().info("Expected runtime (pessimistic): " + timestamp);
 
 		// call RBridge
-		Map<IOptimizableParameter, Double> best = r.runOptimization(getSettings().getParametersToOptimize(),
-				new ICallbackEvaluator() {
-					@Override
-					public double evaluate(Map<IOptimizableParameter, Double> params) {
-						for (Entry<IOptimizableParameter, Double> en : params.entrySet()) {
-							setTargetValue(en.getKey(), en.getValue());
-						}
-						return runIteration();
-					}
-				}, alg.getNumberOfSplits(), alg.getNumberOfExplorations(), alg.getNumberOfIterations());
+		ICallbackEvaluator evaluator = new ICallbackEvaluator() {
+			@Override
+			public double evaluate(Map<IOptimizableParameter, Double> params) {
+				for (Entry<IOptimizableParameter, Double> en : params.entrySet()) {
+					setTargetValue(en.getKey(), en.getValue());
+				}
+				return runIteration();
+			}
+		};
+		Map<IOptimizableParameter, Double> best = r.runOptimization(getSettings().getParametersToOptimize(), evaluator,
+				alg.getNumberOfSplits(), alg.getNumberOfExplorations(), alg.getNumberOfIterations());
+		// do sanity check first
+		doSanityCheck(best, evaluator);
+		// set target values
 		for (Entry<IOptimizableParameter, Double> en : best.entrySet()) {
 			log.info("Found parameter value of " + en.getValue() + " for parameter "
 					+ Util.getParameterString(en.getKey()));
 			setTargetValue(en.getKey(), en.getValue());
 		}
 		getLog().info("Finished execution of IPA script!");
+	}
+
+	/**
+	 * Performs the sanity check, i.e. checks, if the results would be better if
+	 * any of the parameters would go back to default values.
+	 * 
+	 * @param best
+	 *            The currently best parameter configuration.
+	 * @param evaluator
+	 *            The evaluator to evaluate the parameter changes.
+	 */
+	private void doSanityCheck(Map<IOptimizableParameter, Double> best, ICallbackEvaluator evaluator) {
+		getLog().trace("Performing sanity check.");
+		for (Entry<IOptimizableParameter, Double> en : best.entrySet()) {
+			getLog().trace("Parameter " + Util.getParameterString(en.getKey()) + " has value " + en.getValue() + ".");
+		}
+		int iteration = 0;
+		// repeat until no improvement can be found
+		boolean changed = false;
+		do {
+			getLog().trace("Iteration no. " + iteration++);
+			Map<IOptimizableParameter, Double> map = getBetterMap(best, evaluator, evaluator.evaluate(best));
+			if (map == null) {
+				// if map is null, no improvements could be found
+				break;
+			} else {
+				best = map;
+				getLog().trace("Found improvement by using the default value.");
+				changed = true;
+			}
+		} while (changed);
+
+		getLog().trace("No (more) improvements to be found. Existing sanity check.");
+	}
+
+	/**
+	 * Checks, if the results would be better if any of the parameters would go
+	 * back to default values.
+	 * 
+	 * @param best
+	 *            The currently best parameter configuration.
+	 * @param evaluator
+	 *            The evaluator to evaluate the parameter changes.
+	 * @param target
+	 *            The error value to beat.
+	 * @return A map that has a better error value than <b>target</b>, or
+	 *         <code>null</code> if none could be found.
+	 */
+	private Map<IOptimizableParameter, Double> getBetterMap(Map<IOptimizableParameter, Double> best,
+			ICallbackEvaluator evaluator, double target) {
+		Map<IOptimizableParameter, Double> returnmap = null;
+		for (Entry<IOptimizableParameter, Double> en : best.entrySet()) {
+			getLog().trace("Parameter " + Util.getParameterString(en.getKey()) + " has value " + en.getValue() + ".");
+			Double valTmp = en.getValue();
+			// insert given default value
+			best.put(en.getKey(), en.getKey().getStartValue());
+			double compare = evaluator.evaluate(best);
+			if (compare < target) {
+				returnmap = new HashMap<IOptimizableParameter, Double>(best);
+				// update target
+				target = compare;
+			}
+			// restore default
+			best.put(en.getKey(), valTmp);
+		}
+		return returnmap;
 	}
 
 }
