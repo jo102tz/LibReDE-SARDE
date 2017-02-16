@@ -56,7 +56,6 @@ import tools.descartes.librede.Librede;
 import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.approach.LiuOptimizationApproach;
 import tools.descartes.librede.approach.MenasceOptimizationApproach;
-import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.exceptions.EstimationException;
@@ -166,6 +165,12 @@ public class Plugin implements IApplication {
 	public Collection<EstimationSpecification> runConfigurationOptimization(LibredeConfiguration librede,
 			OptimizationConfiguration conf, String outputDir) {
 
+		Objects.requireNonNull(conf.getContainsOf());
+		if (conf.getContainsOf().isEmpty()) {
+			log.warn("The were no RunCalls specified. Returning null.");
+			return null;
+		}
+
 		// split one RunCall with several approaches into multiple RunCalls with
 		// just one approach each, since the framework can not handle multiple
 		// right now, since e.g. StepSize applies for all approaches at once
@@ -238,6 +243,14 @@ public class Plugin implements IApplication {
 		ExecutorService fixedpool = Executors.newFixedThreadPool(1);
 		HashMap<RunCall, Future<EstimationSpecification>> results = new HashMap<RunCall, Future<EstimationSpecification>>();
 		for (RunCall call : calls) {
+
+			// do sanity check
+			if (call.getAlgorithm() == null || call.getEstimation() == null || call.getSettings() == null
+					|| call.getTrainingData() == null) {
+				log.warn("The RunCall " + call + " was not properly configured. Skipping over this run.");
+				continue;
+			}
+
 			// catch optimization as they do not run concurrently and execute
 			// them
 			// sequentially
