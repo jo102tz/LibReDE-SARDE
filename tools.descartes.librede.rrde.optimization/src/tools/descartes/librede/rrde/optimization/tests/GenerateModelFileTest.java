@@ -34,11 +34,11 @@ import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.Plugin;
-import tools.descartes.librede.rrde.optimization.Util;
-import tools.descartes.librede.rrde.optimization.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.optimization.util.Wrapper;
 
 /**
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class GenerateModelFileTest {

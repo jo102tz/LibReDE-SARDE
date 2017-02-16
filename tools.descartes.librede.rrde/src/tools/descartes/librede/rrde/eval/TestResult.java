@@ -31,7 +31,7 @@ import tools.descartes.librede.LibredeResults;
 /**
  * Containing a test result.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class TestResult {

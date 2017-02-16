@@ -34,13 +34,13 @@ import org.junit.Test;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.eval.StatisticsSummary;
+import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
 /**
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class TestCombination extends AbstractTest {

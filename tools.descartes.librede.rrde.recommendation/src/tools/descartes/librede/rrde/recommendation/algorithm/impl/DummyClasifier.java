@@ -31,7 +31,7 @@ import smile.classification.Classifier;
 /**
  * A Dummy recommender who always returns one already defined classification.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class DummyClasifier implements Classifier<double[]> {

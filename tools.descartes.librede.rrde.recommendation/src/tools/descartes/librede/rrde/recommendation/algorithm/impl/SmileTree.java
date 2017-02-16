@@ -33,7 +33,7 @@ import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifie
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 
 /**
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class SmileTree extends AbstractSmileAlgorithm {

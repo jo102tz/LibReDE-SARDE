@@ -26,7 +26,7 @@
  */
 /**
  * Contains the Unit-tests for several modules of this package.
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 package tools.descartes.librede.rrde.optimization.tests;

@@ -26,7 +26,7 @@
  */
 /**
  * This package contains implementations of {@link tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm}
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 package tools.descartes.librede.rrde.recommendation.algorithm.impl;

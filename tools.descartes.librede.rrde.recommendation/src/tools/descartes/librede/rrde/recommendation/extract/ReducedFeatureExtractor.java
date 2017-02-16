@@ -36,7 +36,7 @@ import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
 /**
  * This class reduces the features extracted into the {@link FeatureVector}s.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class ReducedFeatureExtractor extends BasicFeatureExtractor {

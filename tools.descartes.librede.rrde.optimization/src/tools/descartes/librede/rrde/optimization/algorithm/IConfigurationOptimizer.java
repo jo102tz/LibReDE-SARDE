@@ -37,7 +37,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 /**
  * Basic interface for algorithms optimizing LibReDE configuration files.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public interface IConfigurationOptimizer {

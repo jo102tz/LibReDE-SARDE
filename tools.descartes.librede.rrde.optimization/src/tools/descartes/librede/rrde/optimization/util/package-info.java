@@ -25,8 +25,8 @@
  * in the United States and other countries.]
  */
 /**
- * This package supports an interface to the R programming language to implement an algorithm from an R script.
- * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
- *
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de) This package contains some utility classes and functionalities for
+ *         the process of optimizing
+ *         {@link tools.descartes.librede.configuration.LibredeConfiguration}s.
  */
-package tools.descartes.librede.rrde.rinterface;
+package tools.descartes.librede.rrde.optimization.util;

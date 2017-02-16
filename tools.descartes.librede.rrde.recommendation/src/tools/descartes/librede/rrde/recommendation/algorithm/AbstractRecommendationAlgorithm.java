@@ -35,7 +35,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
-import tools.descartes.librede.rrde.optimization.Util;
+import tools.descartes.librede.rrde.optimization.util.Util;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
@@ -44,7 +44,7 @@ import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
  * Abstract class providing simple functionality for the
  * {@link IRecomendationAlgorithm} interface.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public abstract class AbstractRecommendationAlgorithm implements

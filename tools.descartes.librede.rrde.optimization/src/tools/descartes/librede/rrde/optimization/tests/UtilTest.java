@@ -37,11 +37,11 @@ import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.Plugin;
-import tools.descartes.librede.rrde.optimization.Util;
-import tools.descartes.librede.rrde.optimization.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.optimization.util.Wrapper;
 
 /**
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class UtilTest {

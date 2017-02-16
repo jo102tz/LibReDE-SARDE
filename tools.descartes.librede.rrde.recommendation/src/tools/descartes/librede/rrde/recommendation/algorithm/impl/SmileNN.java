@@ -37,7 +37,7 @@ import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgor
  * This is an implementation of {@link IRecomendationAlgorithm} using the Neural
  * Network algorithm from the Smile library.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class SmileNN extends AbstractSmileAlgorithm {

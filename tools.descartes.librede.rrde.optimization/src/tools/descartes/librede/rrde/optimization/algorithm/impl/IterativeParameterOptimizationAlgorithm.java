@@ -35,9 +35,9 @@ import org.apache.log4j.Logger;
 
 import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
-import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl;
+import tools.descartes.librede.rrde.optimization.util.Util;
 import tools.descartes.librede.rrde.rinterface.ICallbackEvaluator;
 import tools.descartes.librede.rrde.rinterface.RBridge;
 
@@ -45,7 +45,7 @@ import tools.descartes.librede.rrde.rinterface.RBridge;
  * This algorithm utilizes the R script for the Iterative Parameter Optimization
  * Algorithm.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurationOptimizer {

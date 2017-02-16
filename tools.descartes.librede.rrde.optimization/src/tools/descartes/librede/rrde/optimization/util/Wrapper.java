@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization;
+package tools.descartes.librede.rrde.optimization.util;
 
 import org.apache.log4j.Logger;
 
@@ -41,7 +41,7 @@ import tools.descartes.librede.nnls.NNLSLibrary;
  * around the standard LibReDE tool in order to make calls for the algorithms
  * implemented here.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class Wrapper {

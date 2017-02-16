@@ -33,7 +33,7 @@ import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 /**
  * Helper interface, that handles call-backs by R.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public interface ICallbackEvaluator {

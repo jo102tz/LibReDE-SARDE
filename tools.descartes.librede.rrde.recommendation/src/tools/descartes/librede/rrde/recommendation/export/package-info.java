@@ -26,7 +26,7 @@
  */
 /**
  * This package contains functionality for exporting Features and Feature vectors.
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 package tools.descartes.librede.rrde.recommendation.export;

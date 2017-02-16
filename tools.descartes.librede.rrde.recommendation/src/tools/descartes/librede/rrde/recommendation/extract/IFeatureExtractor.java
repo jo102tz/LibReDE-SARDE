@@ -33,7 +33,7 @@ import tools.descartes.librede.rrde.recommendation.FeatureVector;
  * Interface that provides functionality to extract {@link FeatureVector}s for
  * given {@link LibredeConfiguration}s.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public interface IFeatureExtractor {

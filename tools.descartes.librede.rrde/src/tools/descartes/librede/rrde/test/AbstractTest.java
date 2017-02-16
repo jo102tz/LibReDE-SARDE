@@ -41,16 +41,16 @@ import tools.descartes.librede.rrde.Plugin;
 import tools.descartes.librede.rrde.eval.StatisticsSummary;
 import tools.descartes.librede.rrde.eval.TestResult;
 import tools.descartes.librede.rrde.eval.TestSetValidator;
-import tools.descartes.librede.rrde.optimization.Discovery;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
-import tools.descartes.librede.rrde.optimization.Util;
-import tools.descartes.librede.rrde.optimization.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.Discovery;
+import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.optimization.util.Wrapper;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 
 /**
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class AbstractTest {

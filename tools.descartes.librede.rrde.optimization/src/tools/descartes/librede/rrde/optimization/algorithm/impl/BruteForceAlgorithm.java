@@ -34,7 +34,7 @@ import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
 
 /**
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class BruteForceAlgorithm extends AbstractConfigurationOptimizer {

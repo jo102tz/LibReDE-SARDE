@@ -44,7 +44,7 @@ import tools.descartes.librede.units.Unit;
  * This class only provides minimal functionality for extracting
  * {@link FeatureVector}s.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class MinimalFeatureExtractor extends ReducedFeatureExtractor {

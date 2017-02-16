@@ -26,7 +26,7 @@
  */
 /**
  * This package contains some implementations for {@link tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer}.
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 package tools.descartes.librede.rrde.optimization.algorithm.impl;

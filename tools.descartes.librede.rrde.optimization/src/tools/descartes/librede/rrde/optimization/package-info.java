@@ -25,7 +25,7 @@
  * in the United States and other countries.]
  */
 /**
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  * This package contains functionality in order to optimize the execution of the LibReDE standard tool.
  */
 package tools.descartes.librede.rrde.optimization;

@@ -26,7 +26,7 @@
  */
 /**
  * This package contains implementations of the {@link tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor} interface.
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 package tools.descartes.librede.rrde.recommendation.extract;

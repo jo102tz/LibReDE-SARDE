@@ -45,7 +45,7 @@ import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 /**
  * A Bridge to manage calls from Java to R and vice versa.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class RBridge implements RMainLoopCallbacks {

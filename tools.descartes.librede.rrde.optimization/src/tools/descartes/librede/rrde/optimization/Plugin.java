@@ -61,12 +61,15 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.exceptions.EstimationException;
 import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
+import tools.descartes.librede.rrde.optimization.util.Discovery;
+import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.optimization.util.Wrapper;
 
 /**
  * The main class of this Plug-In. Here, the configuration files are read, and
  * the {@link RunCall}s scheduled and executed.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class Plugin implements IApplication {
@@ -298,7 +301,7 @@ public class Plugin implements IApplication {
 	 * Internal class, that executes a {@link RunCall} and implements the
 	 * {@link Callable} interface.
 	 * 
-	 * @author JS
+	 * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
 	 *
 	 */
 	private class RunCallExecutor implements Callable<EstimationSpecification> {

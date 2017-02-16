@@ -39,19 +39,19 @@ import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
-import tools.descartes.librede.rrde.optimization.Discovery;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
-import tools.descartes.librede.rrde.optimization.Util;
-import tools.descartes.librede.rrde.optimization.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.Discovery;
+import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.optimization.util.Wrapper;
 
 /**
  * This class contains an abstract implementation of an
  * {@link IConfigurationOptimizer}. Basic functionality is implemented as a
  * framework in order to support different subclass implementations.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public abstract class AbstractConfigurationOptimizer implements IConfigurationOptimizer {

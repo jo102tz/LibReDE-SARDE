@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization;
+package tools.descartes.librede.rrde.optimization.util;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
@@ -61,13 +61,20 @@ import tools.descartes.librede.linalg.Matrix;
 import tools.descartes.librede.linalg.Vector;
 import tools.descartes.librede.registry.ParameterDefinition;
 import tools.descartes.librede.registry.Registry;
+import tools.descartes.librede.rrde.optimization.GenericParameter;
+import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.optimization.RunCall;
+import tools.descartes.librede.rrde.optimization.StepSize;
+import tools.descartes.librede.rrde.optimization.StepSizeRelWindow;
+import tools.descartes.librede.rrde.optimization.WindowSize;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.validation.IValidator;
 
 /**
  * This class contains some useful utilities.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class Util {

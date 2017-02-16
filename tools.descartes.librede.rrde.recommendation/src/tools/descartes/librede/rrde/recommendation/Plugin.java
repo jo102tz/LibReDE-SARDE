@@ -44,17 +44,17 @@ import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ValidationSpecification;
-import tools.descartes.librede.rrde.optimization.Discovery;
 import tools.descartes.librede.rrde.optimization.InputData;
-import tools.descartes.librede.rrde.optimization.Util;
-import tools.descartes.librede.rrde.optimization.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.Discovery;
+import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.optimization.util.Wrapper;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
 /**
  * The main class of this Plugin.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class Plugin implements IApplication {
@@ -90,7 +90,7 @@ public class Plugin implements IApplication {
 		Logger.getLogger(this.getClass().getPackage().getName()).setLevel(loglevel);
 		Logger.getLogger(tools.descartes.librede.rrde.rinterface.RBridge.class.getPackage().getName())
 				.setLevel(loglevel);
-		Logger.getLogger(tools.descartes.librede.rrde.optimization.Discovery.class.getPackage().getName())
+		Logger.getLogger(tools.descartes.librede.rrde.optimization.util.Discovery.class.getPackage().getName())
 				.setLevel(loglevel);
 	}
 

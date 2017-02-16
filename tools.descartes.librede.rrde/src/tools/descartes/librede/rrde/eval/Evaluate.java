@@ -47,24 +47,24 @@ import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ValidationSpecification;
-import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.Plugin;
 import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
-import tools.descartes.librede.rrde.optimization.Discovery;
 import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier;
 import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
-import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.FileExporter;
 import tools.descartes.librede.rrde.optimization.impl.ConfigurationOptimizationAlgorithmSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.impl.StepSizeImpl;
+import tools.descartes.librede.rrde.optimization.util.Discovery;
+import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
@@ -74,7 +74,7 @@ import tools.descartes.librede.rrde.recommendation.impl.NeuralNetworkAlgorithmSp
 import tools.descartes.librede.rrde.recommendation.impl.SVMAlgorithmSpecifierImpl;
 
 /**
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 @SuppressWarnings("unused")
@@ -239,7 +239,7 @@ public class Evaluate {
 
     // calculateOptimalSolutions(EcoreUtil.copy(optimization));
 
-    // validateOptimizers(EcoreUtil.copy(librede), EcoreUtil.copy(optimization));
+    validateOptimizers(EcoreUtil.copy(librede), EcoreUtil.copy(optimization));
 
     // validateNothing();
 
@@ -247,7 +247,7 @@ public class Evaluate {
 
     // validateOptimizationAndRecommendation(librede, optimization,
     // recommendation);
-    validateAllOptimizersAutomatically(librede, optimization);
+    // validateAllOptimizersAutomatically(librede, optimization);
 
   }
 

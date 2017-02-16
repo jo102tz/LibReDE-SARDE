@@ -26,7 +26,7 @@
  */
 /**
  * This package contains features for controlling the different sub-plugins.
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 package tools.descartes.librede.rrde;

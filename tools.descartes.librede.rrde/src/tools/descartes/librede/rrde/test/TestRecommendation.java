@@ -34,9 +34,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Test;
 
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
-import tools.descartes.librede.rrde.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.eval.StatisticsSummary;
 import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
+import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
@@ -45,7 +45,7 @@ import tools.descartes.librede.rrde.recommendation.impl.NeuralNetworkAlgorithmSp
 import tools.descartes.librede.rrde.recommendation.impl.SVMAlgorithmSpecifierImpl;
 
 /**
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class TestRecommendation extends AbstractTest {

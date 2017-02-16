@@ -48,7 +48,7 @@ import tools.descartes.librede.validation.ResponseTimeValidator;
 /**
  * Algorithm for exporting the actual estimate
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class EstimateExportAlgorithm extends ExportAlgorithm {

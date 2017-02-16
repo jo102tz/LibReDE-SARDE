@@ -29,7 +29,7 @@
  * LibReDE configuration file in order to optimize quality and runtime of the 
  * estimators.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 package tools.descartes.librede.rrde.optimization.algorithm;

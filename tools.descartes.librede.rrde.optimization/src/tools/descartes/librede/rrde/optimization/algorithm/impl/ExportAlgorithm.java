@@ -52,7 +52,7 @@ import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfiguration
  * Algorithm that simply tries out every combination and prints the result to a
  * file in order for further analyzes as well as verification.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class ExportAlgorithm extends AbstractConfigurationOptimizer {

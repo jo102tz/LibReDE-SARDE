@@ -36,7 +36,7 @@ import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
  * This class wraps call-backs from R in order to call the evaluation function
  * of the {@link ICallbackEvaluator}.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class CallbackWrapper {

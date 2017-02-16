@@ -35,7 +35,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecif
 /**
  * Interface for machine learning algorithms, that recommend an algorithm.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public interface IRecomendationAlgorithm {

@@ -26,7 +26,7 @@
  */
 /**
  * This package contains test files.
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 package tools.descartes.librede.rrde.test;

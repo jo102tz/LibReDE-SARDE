@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization;
+package tools.descartes.librede.rrde.optimization.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -64,6 +64,7 @@ import tools.descartes.librede.datasource.IDataSource;
 import tools.descartes.librede.datasource.csv.CsvDataSource;
 import tools.descartes.librede.registry.Instantiator;
 import tools.descartes.librede.registry.Registry;
+import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;
 import tools.descartes.librede.units.Unit;
@@ -74,7 +75,7 @@ import tools.descartes.librede.units.UnitsFactory;
  * {@link LibredeConfiguration} files based on a root directory as defined in
  * {@link InputData}. FIXME this class needs a total restructuring and overhaul
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class Discovery {

@@ -37,7 +37,7 @@ import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfiguration
  * A general implementation of a Hill-climbing routine supporting a tolerance
  * radius for negative results.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {

@@ -60,7 +60,7 @@ import tools.descartes.librede.units.Unit;
 /**
  * Basic class extracting the {@link FeatureVector}s.
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class BasicFeatureExtractor implements IFeatureExtractor {

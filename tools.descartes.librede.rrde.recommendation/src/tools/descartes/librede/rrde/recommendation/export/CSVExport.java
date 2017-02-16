@@ -31,7 +31,7 @@ import tools.descartes.librede.rrde.recommendation.DataSet;
 /**
  * Exports a list of {@link DataSet}s to an CSV file
  * 
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class CSVExport {

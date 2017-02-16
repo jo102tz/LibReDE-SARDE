@@ -45,12 +45,12 @@ import tools.descartes.librede.rrde.eval.TestResult;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.optimization.RunCall;
-import tools.descartes.librede.rrde.optimization.Util;
 import tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl;
+import tools.descartes.librede.rrde.optimization.util.Util;
 import tools.descartes.librede.rrde.rinterface.RBridge;
 
 /**
- * @author JS
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
 public class TestOptimization extends AbstractTest {
