@@ -477,7 +477,7 @@ public class Evaluate {
     printSolutions(file, estimationList, map);
 
     // Optimum
-    file.writeString("Optimum value");
+    file.writeString("Optimal value");
     // empty
     LocalSearchSpecifier spec = new LocalSearchSpecifierImpl();
     spec.setAlgorithmName(
