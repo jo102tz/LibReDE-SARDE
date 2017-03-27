@@ -126,6 +126,28 @@ public class Plugin implements IApplication {
 	}
 
 	/**
+	 * Has the same effect as
+	 * <code>runConfigurationOptimization(null, conf, null)</code>. It runs the
+	 * optimizations without storing the results as a file.
+	 * 
+	 * @see Plugin#runConfigurationOptimization(LibredeConfiguration,
+	 *      OptimizationConfiguration, String).
+	 * 
+	 * @param conf
+	 *            The {@link OptimizationConfiguration}, specifying the desired
+	 *            optimizations
+	 * @return The collection of the optimized {@link EstimationSpecification}s
+	 *         as read in the configurations file like they are stored in the
+	 *         output folder. Note that the timestamps for start and ending are
+	 *         not yet fixed so a call of
+	 *         {@link Discovery#fixTimeStamps(LibredeConfiguration)} is usually
+	 *         required.
+	 */
+	public Collection<EstimationSpecification> runConfigurationOptimization(OptimizationConfiguration conf) {
+		return runConfigurationOptimization(null, conf, null);
+	}
+
+	/**
 	 * Runs an optimization of the {@link EstimationSpecification} of the given
 	 * {@link OptimizationConfiguration} and sets is as a result in one or many
 	 * {@link LibredeConfiguration}. For this purpose, the given configuration
@@ -170,6 +192,10 @@ public class Plugin implements IApplication {
 			log.warn("The were no RunCalls specified. Returning null.");
 			return null;
 		}
+		if (outputDir != null) {
+			Objects.requireNonNull(librede,
+					"The skeleton configuration must not be null, if output configurations are desired.");
+		}
 
 		// split one RunCall with several approaches into multiple RunCalls with
 		// just one approach each, since the framework can not handle multiple
@@ -181,15 +207,16 @@ public class Plugin implements IApplication {
 		HashMap<RunCall, EstimationSpecification> results = collectResults(conf.getContainsOf());
 
 		// store each specification in a different file
-		int i = 0;
-		for (EstimationSpecification spec : results.values()) {
-			String name = outputDir + File.separator + "Optimized_RunCall" + i++ + "_"
-					+ spec.getApproaches().get(0).getType().replace("tools.descartes.librede.approach.", "")
-					+ ".librede";
-			store(spec, librede, name);
+		if (outputDir != null) {
+			int i = 0;
+			for (EstimationSpecification spec : results.values()) {
+				String name = outputDir + File.separator + "Optimized_RunCall" + i++ + "_"
+						+ spec.getApproaches().get(0).getType().replace("tools.descartes.librede.approach.", "")
+						+ ".librede";
+				store(spec, librede, name);
+			}
 		}
 		return results.values();
-
 	}
 
 	/**

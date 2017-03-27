@@ -26,6 +26,7 @@
  */
 /**
  * This package contains features for controlling the different sub-plugins.
+ * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
