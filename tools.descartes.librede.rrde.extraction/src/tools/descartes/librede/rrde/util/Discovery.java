@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.util;
+package tools.descartes.librede.rrde.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -64,7 +64,7 @@ import tools.descartes.librede.datasource.IDataSource;
 import tools.descartes.librede.datasource.csv.CsvDataSource;
 import tools.descartes.librede.registry.Instantiator;
 import tools.descartes.librede.registry.Registry;
-import tools.descartes.librede.rrde.optimization.InputData;
+import tools.descartes.librede.rrde.model.optimization.InputData;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;
 import tools.descartes.librede.units.Unit;

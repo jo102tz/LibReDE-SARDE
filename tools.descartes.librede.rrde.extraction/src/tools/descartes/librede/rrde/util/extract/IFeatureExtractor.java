@@ -24,9 +24,27 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
+package tools.descartes.librede.rrde.util.extract;
+
+import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
+
 /**
- * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de) This package contains some utility classes and functionalities for
- *         the process of optimizing
- *         {@link tools.descartes.librede.configuration.LibredeConfiguration}s.
+ * Interface that provides functionality to extract {@link FeatureVector}s for
+ * given {@link LibredeConfiguration}s.
+ * 
+ * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
+ *
  */
-package tools.descartes.librede.rrde.optimization.util;
+public interface IFeatureExtractor {
+
+	/**
+	 * Creates a new {@link FeatureVector} containing extracted features about
+	 * the given {@link LibredeConfiguration}.
+	 * 
+	 * @param conf
+	 *            The configuration to extract
+	 * @return The extracted features.
+	 */
+	public FeatureVector extractFeatures(LibredeConfiguration conf);
+}

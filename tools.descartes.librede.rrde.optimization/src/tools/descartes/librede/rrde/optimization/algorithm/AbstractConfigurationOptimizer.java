@@ -38,13 +38,13 @@ import org.eclipse.emf.common.util.EList;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
-import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
-import tools.descartes.librede.rrde.optimization.InputData;
-import tools.descartes.librede.rrde.optimization.OptimizationSettings;
-import tools.descartes.librede.rrde.optimization.util.Discovery;
-import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
+import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.InputData;
+import tools.descartes.librede.rrde.model.optimization.OptimizationSettings;
+import tools.descartes.librede.rrde.util.Discovery;
+import tools.descartes.librede.rrde.util.Util;
+import tools.descartes.librede.rrde.util.Wrapper;
 
 /**
  * This class contains an abstract implementation of an

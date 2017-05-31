@@ -26,7 +26,7 @@
  */
 package tools.descartes.librede.rrde.recommendation.export;
 
-import tools.descartes.librede.rrde.recommendation.DataSet;
+import tools.descartes.librede.rrde.model.recommendation.DataSet;
 
 /**
  * Exports a list of {@link DataSet}s to an CSV file

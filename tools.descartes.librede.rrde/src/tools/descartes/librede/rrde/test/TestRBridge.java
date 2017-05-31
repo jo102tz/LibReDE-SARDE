@@ -26,7 +26,7 @@
  */
 package tools.descartes.librede.rrde.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.util.Collections;
 import java.util.Map;
@@ -34,7 +34,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.rinterface.ICallbackEvaluator;
 import tools.descartes.librede.rrde.rinterface.RBridge;
 

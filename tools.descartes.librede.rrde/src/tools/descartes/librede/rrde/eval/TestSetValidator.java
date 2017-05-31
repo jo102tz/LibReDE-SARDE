@@ -45,12 +45,12 @@ import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ValidationSpecification;
-import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.FileExporter;
-import tools.descartes.librede.rrde.optimization.util.Discovery;
-import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
+import tools.descartes.librede.rrde.util.Discovery;
+import tools.descartes.librede.rrde.util.Util;
+import tools.descartes.librede.rrde.util.Wrapper;
 
 /**
  * This class is for validating via a Test set.

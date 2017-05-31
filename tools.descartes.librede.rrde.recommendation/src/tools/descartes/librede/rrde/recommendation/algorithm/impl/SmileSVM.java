@@ -31,8 +31,8 @@ import org.apache.log4j.Logger;
 import smile.classification.SVM;
 import smile.classification.SVM.Multiclass;
 import smile.math.kernel.GaussianKernel;
-import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
-import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 
 /**

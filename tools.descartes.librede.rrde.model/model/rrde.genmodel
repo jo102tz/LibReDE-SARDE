@@ -8,17 +8,18 @@
   <foreignModel>lifecycle.ecore</foreignModel>
   <foreignModel>optimization.ecore</foreignModel>
   <foreignModel>recommendation.ecore</foreignModel>
-  <genPackages prefix="Lifecycle" basePackage="tools.descartes.librede.rrde" disposableProviderFactory="true"
-      ecorePackage="lifecycle.ecore#/">
+  <genPackages prefix="Lifecycle" basePackage="tools.descartes.librede.rrde.model"
+      disposableProviderFactory="true" ecorePackage="lifecycle.ecore#/">
     <genClasses ecoreClass="lifecycle.ecore#//LifeCycleConfiguration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lifecycle.ecore#//LifeCycleConfiguration/recommendationLoopTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lifecycle.ecore#//LifeCycleConfiguration/optimizationLoopTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lifecycle.ecore#//LifeCycleConfiguration/selectionLoopTime"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lifecycle.ecore#//LifeCycleConfiguration/recommendationConfiguration"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lifecycle.ecore#//LifeCycleConfiguration/optimizationConfiguration"/>
     </genClasses>
   </genPackages>
-  <genPackages prefix="Optimization" basePackage="tools.descartes.librede.rrde" disposableProviderFactory="true"
-      ecorePackage="optimization.ecore#/" publicationLocation="">
+  <genPackages prefix="Optimization" basePackage="tools.descartes.librede.rrde.model"
+      disposableProviderFactory="true" ecorePackage="optimization.ecore#/" publicationLocation="">
     <genClasses ecoreClass="optimization.ecore#//OptimizationConfiguration">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference optimization.ecore#//OptimizationConfiguration/containsOf"/>
     </genClasses>
@@ -64,13 +65,16 @@
     <genClasses ecoreClass="optimization.ecore#//StepSize" labelFeature="#//optimization/IOptimizableParameter/startValue"/>
     <genClasses ecoreClass="optimization.ecore#//WindowSize" labelFeature="#//optimization/IOptimizableParameter/startValue"/>
     <genClasses ecoreClass="optimization.ecore#//DataExportSpecifier">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//DataExportSpecifier/OutputDirectory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//DataExportSpecifier/outputDirectory"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//DataExportSpecifier/stepSize"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//DataExportSpecifier/multidimensional"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//DataExportSpecifier/splitConfigurations"/>
     </genClasses>
+    <genClasses ecoreClass="optimization.ecore#//StepSizeRelWindow">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute optimization.ecore#//StepSizeRelWindow/productMaxValue"/>
+    </genClasses>
   </genPackages>
-  <genPackages prefix="Recommendation" basePackage="tools.descartes.librede.rrde"
+  <genPackages prefix="Recommendation" basePackage="tools.descartes.librede.rrde.model"
       disposableProviderFactory="true" ecorePackage="recommendation.ecore#/">
     <genClasses ecoreClass="recommendation.ecore#//RecommendationTrainingConfiguration">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference recommendation.ecore#//RecommendationTrainingConfiguration/validator"/>
@@ -85,9 +89,8 @@
     </genClasses>
     <genClasses ecoreClass="recommendation.ecore#//FeatureExtractorSpecifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureExtractorSpecifier/featureExtractor"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//FeatureExtractorSpecifier/timeUnit"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureExtractorSpecifier/aggregationInterval"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//FeatureExtractorSpecifier/rateUnit"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference recommendation.ecore#//FeatureExtractorSpecifier/aggregation"/>
     </genClasses>
     <genClasses ecoreClass="recommendation.ecore#//DataSet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference recommendation.ecore#//DataSet/configuration"/>
@@ -107,12 +110,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/utilizationResponseCovariance"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/utilizationArrivalCorrelation"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/utilizationArrivalCovariance"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/interUtilizationCorrelation"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/interUtilizationCovariance"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/interResponseTimeCorrelation"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/interResponseTimeCovariance"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/interArrivalRateCorrelation"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/interArrivalRateCovariance"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/intraUtilizationCorrelation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/intraUtilizationCovariance"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/intraResponseTimeCorrelation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/intraResponseTimeCovariance"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/intraArrivalRateCorrelation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//FeatureVector/intraArrivalRateCovariance"/>
     </genClasses>
     <genClasses ecoreClass="recommendation.ecore#//StatisticalFeatures">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//StatisticalFeatures/N"/>
@@ -127,6 +130,18 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//StatisticalFeatures/tenthpercentile"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//StatisticalFeatures/ninetiethpercentile"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//StatisticalFeatures/autocorrelation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//StatisticalFeatures/isNormalDistributed"/>
+    </genClasses>
+    <genClasses ecoreClass="recommendation.ecore#//DecisionTreeAlgorithmSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//DecisionTreeAlgorithmSpecifier/maximumNumberOfNodes"/>
+    </genClasses>
+    <genClasses ecoreClass="recommendation.ecore#//NeuralNetworkAlgorithmSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//NeuralNetworkAlgorithmSpecifier/numberOfNeurons"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//NeuralNetworkAlgorithmSpecifier/epochs"/>
+    </genClasses>
+    <genClasses ecoreClass="recommendation.ecore#//SVMAlgorithmSpecifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//SVMAlgorithmSpecifier/gaussianSigma"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute recommendation.ecore#//SVMAlgorithmSpecifier/softMarginPenalty"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

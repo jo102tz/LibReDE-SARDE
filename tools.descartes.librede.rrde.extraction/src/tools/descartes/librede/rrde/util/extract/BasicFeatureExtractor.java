@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.recommendation.extract;
+package tools.descartes.librede.rrde.util.extract;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,11 +46,11 @@ import tools.descartes.librede.metrics.Metric;
 import tools.descartes.librede.metrics.StandardMetrics;
 import tools.descartes.librede.repository.IRepositoryCursor;
 import tools.descartes.librede.repository.TimeSeries;
-import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
-import tools.descartes.librede.rrde.recommendation.FeatureVector;
-import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
-import tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl;
-import tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl;
+import tools.descartes.librede.rrde.model.recommendation.FeatureExtractorSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.model.recommendation.StatisticalFeatures;
+import tools.descartes.librede.rrde.model.recommendation.impl.FeatureVectorImpl;
+import tools.descartes.librede.rrde.model.recommendation.impl.StatisticalFeaturesImpl;
 import tools.descartes.librede.units.Dimension;
 import tools.descartes.librede.units.Ratio;
 import tools.descartes.librede.units.RequestRate;

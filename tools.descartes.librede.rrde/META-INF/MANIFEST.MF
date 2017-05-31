@@ -5,13 +5,14 @@ Bundle-SymbolicName: tools.descartes.librede.rrde;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Export-Package: tools.descartes.librede.rrde
 Require-Bundle: tools.descartes.librede.rrde.model;bundle-version="1.0.0",
+ tools.descartes.librede.rrde.util,
+ tools.descartes.librede.estimation,
+ tools.descartes.librede.rrde.rinterface;bundle-version="1.0.0",
  tools.descartes.librede.rrde.recommendation;bundle-version="1.0.0",
- tools.descartes.librede.rrde.optimization;bundle-version="1.0.0",
  org.apache.log4j;bundle-version="1.2.15",
  org.eclipse.equinox.app,
- tools.descartes.librede.estimation,
  org.junit,
  org.eclipse.emf.ecore.xmi,
  org.apache.commons.math3;bundle-version="3.2.0",
- tools.descartes.librede.rrde.rinterface;bundle-version="1.0.0"
+ tools.descartes.librede.rrde.optimization;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

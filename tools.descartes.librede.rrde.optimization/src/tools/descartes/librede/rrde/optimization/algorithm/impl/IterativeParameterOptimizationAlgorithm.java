@@ -33,13 +33,13 @@ import java.util.Map.Entry;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.log4j.Logger;
 
-import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
-import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.impl.IterativeParameterOptimizerSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
-import tools.descartes.librede.rrde.optimization.impl.IterativeParameterOptimizerSpecifierImpl;
-import tools.descartes.librede.rrde.optimization.util.Util;
 import tools.descartes.librede.rrde.rinterface.ICallbackEvaluator;
 import tools.descartes.librede.rrde.rinterface.RBridge;
+import tools.descartes.librede.rrde.util.Util;
 
 /**
  * This algorithm utilizes the R script for the Iterative Parameter Optimization

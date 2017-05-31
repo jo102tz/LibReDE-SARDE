@@ -28,7 +28,7 @@ package tools.descartes.librede.rrde.rinterface;
 
 import java.util.Map;
 
-import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 
 /**
  * Helper interface, that handles call-backs by R.

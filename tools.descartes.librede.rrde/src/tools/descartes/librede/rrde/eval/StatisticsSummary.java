@@ -29,7 +29,7 @@ package tools.descartes.librede.rrde.eval;
 import java.util.HashMap;
 import java.util.Map;
 
-import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 
 /**
  * Objects of this class hold statistical information about a

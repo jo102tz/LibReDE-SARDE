@@ -35,14 +35,14 @@ import org.junit.Test;
 
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.rrde.eval.StatisticsSummary;
-import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.SVMAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.impl.DecisionTreeAlgorithmSpecifierImpl;
+import tools.descartes.librede.rrde.model.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl;
+import tools.descartes.librede.rrde.model.recommendation.impl.SVMAlgorithmSpecifierImpl;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
-import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
-import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
-import tools.descartes.librede.rrde.recommendation.impl.DecisionTreeAlgorithmSpecifierImpl;
-import tools.descartes.librede.rrde.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl;
-import tools.descartes.librede.rrde.recommendation.impl.SVMAlgorithmSpecifierImpl;
+import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)

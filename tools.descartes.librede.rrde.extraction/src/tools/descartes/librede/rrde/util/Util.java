@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.util;
+package tools.descartes.librede.rrde.util;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
@@ -36,9 +36,6 @@ import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Set;
 
-import javax.xml.bind.Validator;
-
-import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -57,18 +54,17 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.Parameter;
 import tools.descartes.librede.configuration.ValidationSpecification;
 import tools.descartes.librede.configuration.ValidatorConfiguration;
-import tools.descartes.librede.linalg.Matrix;
 import tools.descartes.librede.linalg.Vector;
 import tools.descartes.librede.registry.ParameterDefinition;
 import tools.descartes.librede.registry.Registry;
-import tools.descartes.librede.rrde.optimization.GenericParameter;
-import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
-import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
-import tools.descartes.librede.rrde.optimization.RunCall;
-import tools.descartes.librede.rrde.optimization.StepSize;
-import tools.descartes.librede.rrde.optimization.StepSizeRelWindow;
-import tools.descartes.librede.rrde.optimization.WindowSize;
-import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.rrde.model.optimization.GenericParameter;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.model.optimization.RunCall;
+import tools.descartes.librede.rrde.model.optimization.StepSize;
+import tools.descartes.librede.rrde.model.optimization.StepSizeRelWindow;
+import tools.descartes.librede.rrde.model.optimization.WindowSize;
+import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.validation.IValidator;
 
 /**

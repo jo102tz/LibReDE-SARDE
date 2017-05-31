@@ -33,11 +33,11 @@ import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.util.Discovery;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
-import tools.descartes.librede.rrde.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
-import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
+import tools.descartes.librede.rrde.util.Discovery;
+import tools.descartes.librede.rrde.util.Wrapper;
+import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
 
 /**
  * This class accepts an {@link IRecomendationAlgorithm} and wraps all calls to be optimized.

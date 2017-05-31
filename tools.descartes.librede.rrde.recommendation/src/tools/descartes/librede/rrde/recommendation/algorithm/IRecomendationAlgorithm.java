@@ -29,8 +29,8 @@ package tools.descartes.librede.rrde.recommendation.algorithm;
 import org.eclipse.emf.common.util.EMap;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
-import tools.descartes.librede.rrde.recommendation.FeatureVector;
-import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 
 /**
  * Interface for machine learning algorithms, that recommend an algorithm.

@@ -59,10 +59,12 @@ import tools.descartes.librede.approach.MenasceOptimizationApproach;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.exceptions.EstimationException;
+import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.model.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
-import tools.descartes.librede.rrde.optimization.util.Discovery;
-import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
+import tools.descartes.librede.rrde.util.Discovery;
+import tools.descartes.librede.rrde.util.Util;
+import tools.descartes.librede.rrde.util.Wrapper;
 
 /**
  * The main class of this Plug-In. Here, the configuration files are read, and
@@ -71,7 +73,7 @@ import tools.descartes.librede.rrde.optimization.util.Wrapper;
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class Plugin implements IApplication {
+public class OptimizationPlugin implements IApplication {
 
 	/**
 	 * The logging level for all classes of this package
@@ -81,7 +83,7 @@ public class Plugin implements IApplication {
 	/**
 	 * The logger used for logging
 	 */
-	private static final Logger log = Logger.getLogger(Plugin.class);
+	private static final Logger log = Logger.getLogger(OptimizationPlugin.class);
 
 	/**
 	 * The path to the default {@link LibredeConfiguration}

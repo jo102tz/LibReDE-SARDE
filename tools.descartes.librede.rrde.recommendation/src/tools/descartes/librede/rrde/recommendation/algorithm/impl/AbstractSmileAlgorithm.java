@@ -36,10 +36,10 @@ import org.eclipse.emf.common.util.EMap;
 
 import smile.classification.Classifier;
 import tools.descartes.librede.configuration.EstimationSpecification;
-import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.recommendation.FeatureVector;
-import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.AbstractRecommendationAlgorithm;
+import tools.descartes.librede.rrde.util.Util;
 
 /**
  * Abstract class simplifying the usage of algorithms using the Smile interface.

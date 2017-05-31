@@ -41,11 +41,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
-import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
-import tools.descartes.librede.rrde.optimization.GenericParameter;
-import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
-import tools.descartes.librede.rrde.optimization.StepSizeRelWindow;
+import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.optimization.DataExportSpecifier;
+import tools.descartes.librede.rrde.model.optimization.GenericParameter;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.StepSizeRelWindow;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
 
 /**

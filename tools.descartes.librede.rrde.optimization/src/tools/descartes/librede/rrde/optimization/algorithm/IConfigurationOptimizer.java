@@ -30,9 +30,9 @@ import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
-import tools.descartes.librede.rrde.optimization.InputData;
-import tools.descartes.librede.rrde.optimization.OptimizationSettings;
+import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.optimization.InputData;
+import tools.descartes.librede.rrde.model.optimization.OptimizationSettings;
 
 /**
  * Basic interface for algorithms optimizing LibReDE configuration files.

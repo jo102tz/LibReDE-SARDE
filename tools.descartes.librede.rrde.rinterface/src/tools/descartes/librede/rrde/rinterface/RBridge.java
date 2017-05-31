@@ -39,8 +39,8 @@ import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.RMainLoopCallbacks;
 import org.rosuda.JRI.Rengine;
 
-import tools.descartes.librede.rrde.optimization.GenericParameter;
-import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.GenericParameter;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 
 /**
  * A Bridge to manage calls from Java to R and vice versa.

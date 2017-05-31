@@ -32,8 +32,8 @@ import org.junit.Test;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.Plugin;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
+import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
+import tools.descartes.librede.rrde.util.Wrapper;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -45,7 +45,7 @@ public class WrapperTest {
 
 	@Test
 	public void test() {
-		Plugin p = new Plugin();
+		OptimizationPlugin p = new OptimizationPlugin();
 		p.initLogging();
 		Wrapper.init();
 		LibredeConfiguration configuration = Librede

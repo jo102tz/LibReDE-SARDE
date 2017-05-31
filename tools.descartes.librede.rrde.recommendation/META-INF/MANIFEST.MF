@@ -4,21 +4,19 @@ Bundle-Name: Recommendation
 Bundle-SymbolicName: tools.descartes.librede.rrde.recommendation;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: tools.descartes.librede.rrde.optimization;bundle-version="1.0.0",
- org.apache.log4j;bundle-version="1.2.15",
+Require-Bundle: org.apache.log4j;bundle-version="1.2.15",
  tools.descartes.librede.model;bundle-version="1.1.0",
  tools.descartes.librede.rrde.model;bundle-version="1.0.0",
  tools.descartes.librede.estimation,
  tools.descartes.librede.rrde.rinterface;bundle-version="1.0.0",
  org.eclipse.equinox.app,
  org.eclipse.emf.ecore.xmi,
- tools.descartes.librede.linalg;bundle-version="1.1.0"
-Bundle-ClassPath: lib/commons-math3-3.6.1.jar,
- .,
+ tools.descartes.librede.linalg;bundle-version="1.1.0",
+ tools.descartes.librede.rrde.util;bundle-version="1.0.0"
+Bundle-ClassPath: .,
  lib/smile/com.github.haifengl.smile-core-1.2.0.jar,
  lib/smile/com.github.haifengl.smile-math-1.2.0.jar,
  lib/smile/com.github.haifengl.smile-data-1.2.0.jar,
  lib/smile/org.slf4j.slf4j-api-1.7.21.jar
 Export-Package: tools.descartes.librede.rrde.recommendation,
- tools.descartes.librede.rrde.recommendation.algorithm,
- tools.descartes.librede.rrde.recommendation.extract
+ tools.descartes.librede.rrde.recommendation.algorithm

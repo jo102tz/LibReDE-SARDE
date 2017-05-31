@@ -29,8 +29,8 @@ package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 import org.apache.log4j.Logger;
 
 import smile.classification.DecisionTree;
-import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
-import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)

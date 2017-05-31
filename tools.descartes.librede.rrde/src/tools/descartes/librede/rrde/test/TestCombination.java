@@ -31,13 +31,11 @@ import java.util.Collection;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
-import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.eval.StatisticsSummary;
+import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
-import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
+import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -55,7 +53,7 @@ public class TestCombination extends AbstractTest {
 		// do not initialize error values
 		log.info("Initialized! Starting optimization...");
 		// run optimization
-		Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
+		Collection<EstimationSpecification> estimations = new OptimizationPlugin()
 				.runConfigurationOptimization(librede, optimization, OUTPUT);
 		log.info("Finished optimization! Starting training phase...");
 

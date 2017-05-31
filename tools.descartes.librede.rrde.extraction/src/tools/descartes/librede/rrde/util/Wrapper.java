@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.util;
+package tools.descartes.librede.rrde.util;
 
 import org.apache.log4j.Logger;
 

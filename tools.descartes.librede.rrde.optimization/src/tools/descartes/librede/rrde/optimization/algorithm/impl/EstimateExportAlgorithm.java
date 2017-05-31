@@ -40,9 +40,9 @@ import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ModelEntity;
-import tools.descartes.librede.rrde.optimization.DataExportSpecifier;
-import tools.descartes.librede.rrde.optimization.GenericParameter;
-import tools.descartes.librede.rrde.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.DataExportSpecifier;
+import tools.descartes.librede.rrde.model.optimization.GenericParameter;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.validation.ResponseTimeValidator;
 
 /**

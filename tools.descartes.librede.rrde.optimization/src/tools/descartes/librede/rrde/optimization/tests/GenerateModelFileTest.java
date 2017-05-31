@@ -32,10 +32,10 @@ import org.junit.Test;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
-import tools.descartes.librede.rrde.optimization.Plugin;
-import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
+import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
+import tools.descartes.librede.rrde.util.Util;
+import tools.descartes.librede.rrde.util.Wrapper;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -49,7 +49,7 @@ public class GenerateModelFileTest {
 	@SuppressWarnings("unused")
 	@Test
 	public void loadModels() {
-		Plugin p = new Plugin();
+		OptimizationPlugin p = new OptimizationPlugin();
 		p.initLogging();
 		Wrapper.init();
 		Librede.init();

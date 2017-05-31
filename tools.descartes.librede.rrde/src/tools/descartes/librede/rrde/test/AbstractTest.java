@@ -39,15 +39,14 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.Plugin;
 import tools.descartes.librede.rrde.eval.StatisticsSummary;
-import tools.descartes.librede.rrde.eval.TestResult;
 import tools.descartes.librede.rrde.eval.TestSetValidator;
-import tools.descartes.librede.rrde.optimization.InputData;
-import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
-import tools.descartes.librede.rrde.optimization.RunCall;
-import tools.descartes.librede.rrde.optimization.util.Discovery;
-import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
-import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.rrde.model.optimization.InputData;
+import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.model.optimization.RunCall;
+import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.rrde.util.Discovery;
+import tools.descartes.librede.rrde.util.Util;
+import tools.descartes.librede.rrde.util.Wrapper;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)

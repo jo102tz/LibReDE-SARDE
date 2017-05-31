@@ -29,8 +29,8 @@ package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 import org.apache.log4j.Logger;
 
 import smile.classification.NeuralNetwork;
-import tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier;
-import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.NeuralNetworkAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 
 /**

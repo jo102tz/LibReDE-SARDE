@@ -24,14 +24,14 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.recommendation.extract;
+package tools.descartes.librede.rrde.util.extract;
 
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.LibredeVariables;
-import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
-import tools.descartes.librede.rrde.recommendation.FeatureVector;
-import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
+import tools.descartes.librede.rrde.model.recommendation.FeatureExtractorSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.model.recommendation.StatisticalFeatures;
 
 /**
  * This class reduces the features extracted into the {@link FeatureVector}s.

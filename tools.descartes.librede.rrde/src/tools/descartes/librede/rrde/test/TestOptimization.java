@@ -37,17 +37,16 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Test;
 
-import junit.framework.Assert;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.eval.StatisticsSummary;
 import tools.descartes.librede.rrde.eval.TestResult;
-import tools.descartes.librede.rrde.optimization.InputData;
-import tools.descartes.librede.rrde.optimization.LocalSearchSpecifier;
-import tools.descartes.librede.rrde.optimization.RunCall;
-import tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl;
-import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.model.optimization.InputData;
+import tools.descartes.librede.rrde.model.optimization.LocalSearchSpecifier;
+import tools.descartes.librede.rrde.model.optimization.RunCall;
+import tools.descartes.librede.rrde.model.optimization.impl.LocalSearchSpecifierImpl;
+import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
 import tools.descartes.librede.rrde.rinterface.RBridge;
+import tools.descartes.librede.rrde.util.Util;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -80,7 +79,7 @@ public class TestOptimization extends AbstractTest {
 		log.info("Initialized! Starting optimization...");
 		long start = System.currentTimeMillis();
 		// run optimization
-		Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
+		Collection<EstimationSpecification> estimations = new OptimizationPlugin()
 				.runConfigurationOptimization(librede, optimization, OUTPUT);
 		long opti = System.currentTimeMillis() - start;
 		log.info("Finished optimization! Done...");
@@ -136,7 +135,7 @@ public class TestOptimization extends AbstractTest {
 		}
 
 		// repeat
-		estimations = new tools.descartes.librede.rrde.optimization.Plugin().runConfigurationOptimization(librede,
+		estimations = new OptimizationPlugin().runConfigurationOptimization(librede,
 				optimization, OUTPUT);
 		log.info("Finished optimization! Done...");
 
@@ -182,7 +181,7 @@ public class TestOptimization extends AbstractTest {
 		}
 
 		// repeat
-		estimations = new tools.descartes.librede.rrde.optimization.Plugin().runConfigurationOptimization(librede,
+		estimations = new OptimizationPlugin().runConfigurationOptimization(librede,
 				optimization, OUTPUT);
 		log.info("Finished optimization! Done...");
 

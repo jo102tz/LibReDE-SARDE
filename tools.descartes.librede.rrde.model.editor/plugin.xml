@@ -7,34 +7,6 @@
 <plugin>
 
    <extension point="org.eclipse.ui.newWizards">
-      <!-- @generated rrde -->
-      <category
-            id="org.eclipse.emf.ecore.Wizard.category.ID"
-            name="%_UI_Wizard_category"/>
-      <wizard
-            id="tools.descartes.librede.rrde.lifecycle.presentation.LifecycleModelWizardID"
-            name="%_UI_LifecycleModelWizard_label"
-            class="tools.descartes.librede.rrde.lifecycle.presentation.LifecycleModelWizard"
-            category="org.eclipse.emf.ecore.Wizard.category.ID"
-            icon="icons/full/obj16/LifecycleModelFile.gif">
-         <description>%_UI_LifecycleModelWizard_description</description>
-         <selection class="org.eclipse.core.resources.IResource"/>
-      </wizard>
-   </extension>
-
-
-   <extension point="org.eclipse.ui.editors">
-      <!-- @generated rrde -->
-      <editor
-            id="tools.descartes.librede.rrde.lifecycle.presentation.LifecycleEditorID"
-            name="%_UI_LifecycleEditor_label"
-            icon="icons/full/obj16/LifecycleModelFile.gif"
-            extensions="lifecycle"
-            class="tools.descartes.librede.rrde.lifecycle.presentation.LifecycleEditor"
-            contributorClass="tools.descartes.librede.rrde.lifecycle.presentation.LifecycleActionBarContributor">
-      </editor>
-   </extension>
-   <extension point="org.eclipse.ui.newWizards">
       <!-- @generated newrrde -->
       <category
             id="org.eclipse.emf.ecore.Wizard.category.ID"
@@ -48,18 +20,6 @@
          <description>%_UI_OptimizationModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
-   </extension>
-
-   <extension point="org.eclipse.ui.editors">
-      <!-- @generated rrde -->
-      <editor
-            id="tools.descartes.librede.rrde.optimization.presentation.OptimizationEditorID"
-            name="%_UI_OptimizationEditor_label"
-            icon="icons/full/obj16/OptimizationModelFile.gif"
-            extensions="optimization"
-            class="tools.descartes.librede.rrde.optimization.presentation.OptimizationEditor"
-            contributorClass="tools.descartes.librede.rrde.optimization.presentation.OptimizationActionBarContributor">
-      </editor>
    </extension>
 
    <extension point="org.eclipse.ui.newWizards">
@@ -90,4 +50,87 @@
       </editor>
    </extension>
 
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated rrde -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="tools.descartes.librede.rrde.model.lifecycle.presentation.LifecycleModelWizardID"
+            name="%_UI_LifecycleModelWizard_label"
+            class="tools.descartes.librede.rrde.model.lifecycle.presentation.LifecycleModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/LifecycleModelFile.gif">
+         <description>%_UI_LifecycleModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated rrde -->
+      <editor
+            id="tools.descartes.librede.rrde.model.lifecycle.presentation.LifecycleEditorID"
+            name="%_UI_LifecycleEditor_label"
+            icon="icons/full/obj16/LifecycleModelFile.gif"
+            extensions="lifecycle"
+            class="tools.descartes.librede.rrde.model.lifecycle.presentation.LifecycleEditor"
+            contributorClass="tools.descartes.librede.rrde.model.lifecycle.presentation.LifecycleActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated rrde -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="tools.descartes.librede.rrde.model.optimization.presentation.OptimizationModelWizardID"
+            name="%_UI_OptimizationModelWizard_label"
+            class="tools.descartes.librede.rrde.model.optimization.presentation.OptimizationModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/OptimizationModelFile.gif">
+         <description>%_UI_OptimizationModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated rrde -->
+      <editor
+            id="tools.descartes.librede.rrde.model.optimization.presentation.OptimizationEditorID"
+            name="%_UI_OptimizationEditor_label"
+            icon="icons/full/obj16/OptimizationModelFile.gif"
+            extensions="optimization"
+            class="tools.descartes.librede.rrde.model.optimization.presentation.OptimizationEditor"
+            contributorClass="tools.descartes.librede.rrde.model.optimization.presentation.OptimizationActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated rrde -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="tools.descartes.librede.rrde.model.recommendation.presentation.RecommendationModelWizardID"
+            name="%_UI_RecommendationModelWizard_label"
+            class="tools.descartes.librede.rrde.model.recommendation.presentation.RecommendationModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/RecommendationModelFile.gif">
+         <description>%_UI_RecommendationModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated rrde -->
+      <editor
+            id="tools.descartes.librede.rrde.model.recommendation.presentation.RecommendationEditorID"
+            name="%_UI_RecommendationEditor_label"
+            icon="icons/full/obj16/RecommendationModelFile.gif"
+            extensions="recommendation"
+            class="tools.descartes.librede.rrde.model.recommendation.presentation.RecommendationEditor"
+            contributorClass="tools.descartes.librede.rrde.model.recommendation.presentation.RecommendationActionBarContributor">
+      </editor>
+   </extension>
 </plugin>
