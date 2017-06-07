@@ -130,7 +130,7 @@
       </services>
     </workloadDescription>
   </trainingData>
-  <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.recommendation.extract.ReducedFeatureExtractor">
+  <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.util.extract.ReducedFeatureExtractor">
     <rateUnit href="librede:units#REQUESTS_PER_MINUTE"/>
     <aggregation value="60.0">
       <unit href="librede:units#SECONDS"/>
