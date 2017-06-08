@@ -66,6 +66,7 @@ import tools.descartes.librede.rrde.model.recommendation.impl.DecisionTreeAlgori
 import tools.descartes.librede.rrde.model.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl;
 import tools.descartes.librede.rrde.model.recommendation.impl.SVMAlgorithmSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.ClusterExportAlgorithm;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.FileExporter;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
@@ -89,7 +90,7 @@ public class Evaluate {
   /**
    * A link to the desktop.
    */
-  public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes"
+  public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "pc"
       + File.separator + "Desktop";
 
   /**
@@ -244,12 +245,18 @@ public class Evaluate {
 
     // validateNothing();
 
-     validateRecommenders(librede, recommendation);
+//     validateRecommenders(librede, recommendation);
+    validateClusters(EcoreUtil.copy(librede), EcoreUtil.copy(optimization));
 
 //     validateOptimizationAndRecommendation(librede, optimization,
 //     recommendation);
     // validateAllOptimizersAutomatically(librede, optimization);
 
+  }
+  
+  private void validateClusters(LibredeConfiguration libredeConf, OptimizationConfiguration optConf) {
+	  ClusterExportAlgorithm a = new ClusterExportAlgorithm();
+	  a.executeAlgorithm();
   }
 
   /**
