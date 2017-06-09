@@ -25,6 +25,7 @@ import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getNumberOfRessources <em>Number Of Ressources</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getNumberOfWorkloadClasses <em>Number Of Workload Classes</em>}</li>
@@ -45,7 +46,6 @@ import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getIntraArrivalRateCorrelation <em>Intra Arrival Rate Correlation</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureVectorImpl#getIntraArrivalRateCovariance <em>Intra Arrival Rate Covariance</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

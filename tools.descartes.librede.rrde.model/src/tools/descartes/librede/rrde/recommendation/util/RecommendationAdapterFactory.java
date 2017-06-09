@@ -104,6 +104,38 @@ public class RecommendationAdapterFactory extends AdapterFactoryImpl {
 				return createSVMAlgorithmSpecifierAdapter();
 			}
 			@Override
+			public Adapter caseRegressionTreeTradeOffAlgorithmSpecifier(RegressionTreeTradeOffAlgorithmSpecifier object) {
+				return createRegressionTreeTradeOffAlgorithmSpecifierAdapter();
+			}
+			@Override
+			public Adapter caseOLSTradeOffAlgorithmSpecifier(OLSTradeOffAlgorithmSpecifier object) {
+				return createOLSTradeOffAlgorithmSpecifierAdapter();
+			}
+			@Override
+			public Adapter caseRecommendationTradeOffAlgorithmSpecifier(RecommendationTradeOffAlgorithmSpecifier object) {
+				return createRecommendationTradeOffAlgorithmSpecifierAdapter();
+			}
+			@Override
+			public Adapter caseRandomForestTradeOffAlgorithmSpecifier(RandomForestTradeOffAlgorithmSpecifier object) {
+				return createRandomForestTradeOffAlgorithmSpecifierAdapter();
+			}
+			@Override
+			public Adapter caseLASSOTradeOffAlgorithmSpecifier(LASSOTradeOffAlgorithmSpecifier object) {
+				return createLASSOTradeOffAlgorithmSpecifierAdapter();
+			}
+			@Override
+			public Adapter caseGradientTreeBoostTradeOffAlgorithmSpecifier(GradientTreeBoostTradeOffAlgorithmSpecifier object) {
+				return createGradientTreeBoostTradeOffAlgorithmSpecifierAdapter();
+			}
+			@Override
+			public Adapter caseGaussianProcessRegressionTradeOffAlgorithmSpecifier(GaussianProcessRegressionTradeOffAlgorithmSpecifier object) {
+				return createGaussianProcessRegressionTradeOffAlgorithmSpecifierAdapter();
+			}
+			@Override
+			public Adapter caseRBFNetworkTradeOffAlgorithmSpecifier(RBFNetworkTradeOffAlgorithmSpecifier object) {
+				return createRBFNetworkTradeOffAlgorithmSpecifierAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -246,6 +278,118 @@ public class RecommendationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSVMAlgorithmSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.RegressionTreeTradeOffAlgorithmSpecifier <em>Regression Tree Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.RegressionTreeTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	public Adapter createRegressionTreeTradeOffAlgorithmSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.OLSTradeOffAlgorithmSpecifier <em>OLS Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.OLSTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	public Adapter createOLSTradeOffAlgorithmSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.RecommendationTradeOffAlgorithmSpecifier <em>Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	public Adapter createRecommendationTradeOffAlgorithmSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier <em>Random Forest Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	public Adapter createRandomForestTradeOffAlgorithmSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.LASSOTradeOffAlgorithmSpecifier <em>LASSO Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.LASSOTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	public Adapter createLASSOTradeOffAlgorithmSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.GradientTreeBoostTradeOffAlgorithmSpecifier <em>Gradient Tree Boost Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.GradientTreeBoostTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	public Adapter createGradientTreeBoostTradeOffAlgorithmSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.GaussianProcessRegressionTradeOffAlgorithmSpecifier <em>Gaussian Process Regression Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.GaussianProcessRegressionTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	public Adapter createGaussianProcessRegressionTradeOffAlgorithmSpecifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link tools.descartes.librede.rrde.recommendation.RBFNetworkTradeOffAlgorithmSpecifier <em>RBF Network Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see tools.descartes.librede.rrde.recommendation.RBFNetworkTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	public Adapter createRBFNetworkTradeOffAlgorithmSpecifierAdapter() {
 		return null;
 	}
 

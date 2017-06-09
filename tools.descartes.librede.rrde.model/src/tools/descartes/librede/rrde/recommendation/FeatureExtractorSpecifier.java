@@ -15,12 +15,12 @@ import tools.descartes.librede.units.Unit;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getFeatureExtractor <em>Feature Extractor</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getRateUnit <em>Rate Unit</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier#getAggregation <em>Aggregation</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getFeatureExtractorSpecifier()
  * @model

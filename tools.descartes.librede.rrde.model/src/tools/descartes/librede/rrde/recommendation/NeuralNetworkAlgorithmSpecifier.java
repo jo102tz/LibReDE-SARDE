@@ -10,11 +10,11 @@ package tools.descartes.librede.rrde.recommendation;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier#getNumberOfNeurons <em>Number Of Neurons</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier#getEpochs <em>Epochs</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getNeuralNetworkAlgorithmSpecifier()
  * @model

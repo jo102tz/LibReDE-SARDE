@@ -23,6 +23,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfigu
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.impl.LifeCycleConfigurationImpl#getRecommendationLoopTime <em>Recommendation Loop Time</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.impl.LifeCycleConfigurationImpl#getOptimizationLoopTime <em>Optimization Loop Time</em>}</li>
@@ -30,7 +31,6 @@ import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfigu
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.impl.LifeCycleConfigurationImpl#getRecommendationConfiguration <em>Recommendation Configuration</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.lifecycle.impl.LifeCycleConfigurationImpl#getOptimizationConfiguration <em>Optimization Configuration</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

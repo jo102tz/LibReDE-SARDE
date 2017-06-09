@@ -24,12 +24,12 @@ import tools.descartes.librede.units.Unit;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureExtractorSpecifierImpl#getFeatureExtractor <em>Feature Extractor</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureExtractorSpecifierImpl#getRateUnit <em>Rate Unit</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.FeatureExtractorSpecifierImpl#getAggregation <em>Aggregation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

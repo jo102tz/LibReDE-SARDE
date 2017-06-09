@@ -279,6 +279,190 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.RegressionTreeTradeOffAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RegressionTreeTradeOffAlgorithmSpecifierItemProvider regressionTreeTradeOffAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.RegressionTreeTradeOffAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRegressionTreeTradeOffAlgorithmSpecifierAdapter() {
+		if (regressionTreeTradeOffAlgorithmSpecifierItemProvider == null) {
+			regressionTreeTradeOffAlgorithmSpecifierItemProvider = new RegressionTreeTradeOffAlgorithmSpecifierItemProvider(this);
+		}
+
+		return regressionTreeTradeOffAlgorithmSpecifierItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.OLSTradeOffAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OLSTradeOffAlgorithmSpecifierItemProvider olsTradeOffAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.OLSTradeOffAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOLSTradeOffAlgorithmSpecifierAdapter() {
+		if (olsTradeOffAlgorithmSpecifierItemProvider == null) {
+			olsTradeOffAlgorithmSpecifierItemProvider = new OLSTradeOffAlgorithmSpecifierItemProvider(this);
+		}
+
+		return olsTradeOffAlgorithmSpecifierItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.RecommendationTradeOffAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RecommendationTradeOffAlgorithmSpecifierItemProvider recommendationTradeOffAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.RecommendationTradeOffAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRecommendationTradeOffAlgorithmSpecifierAdapter() {
+		if (recommendationTradeOffAlgorithmSpecifierItemProvider == null) {
+			recommendationTradeOffAlgorithmSpecifierItemProvider = new RecommendationTradeOffAlgorithmSpecifierItemProvider(this);
+		}
+
+		return recommendationTradeOffAlgorithmSpecifierItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RandomForestTradeOffAlgorithmSpecifierItemProvider randomForestTradeOffAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRandomForestTradeOffAlgorithmSpecifierAdapter() {
+		if (randomForestTradeOffAlgorithmSpecifierItemProvider == null) {
+			randomForestTradeOffAlgorithmSpecifierItemProvider = new RandomForestTradeOffAlgorithmSpecifierItemProvider(this);
+		}
+
+		return randomForestTradeOffAlgorithmSpecifierItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.LASSOTradeOffAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LASSOTradeOffAlgorithmSpecifierItemProvider lassoTradeOffAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.LASSOTradeOffAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLASSOTradeOffAlgorithmSpecifierAdapter() {
+		if (lassoTradeOffAlgorithmSpecifierItemProvider == null) {
+			lassoTradeOffAlgorithmSpecifierItemProvider = new LASSOTradeOffAlgorithmSpecifierItemProvider(this);
+		}
+
+		return lassoTradeOffAlgorithmSpecifierItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.GradientTreeBoostTradeOffAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GradientTreeBoostTradeOffAlgorithmSpecifierItemProvider gradientTreeBoostTradeOffAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.GradientTreeBoostTradeOffAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGradientTreeBoostTradeOffAlgorithmSpecifierAdapter() {
+		if (gradientTreeBoostTradeOffAlgorithmSpecifierItemProvider == null) {
+			gradientTreeBoostTradeOffAlgorithmSpecifierItemProvider = new GradientTreeBoostTradeOffAlgorithmSpecifierItemProvider(this);
+		}
+
+		return gradientTreeBoostTradeOffAlgorithmSpecifierItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.GaussianProcessRegressionTradeOffAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GaussianProcessRegressionTradeOffAlgorithmSpecifierItemProvider gaussianProcessRegressionTradeOffAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.GaussianProcessRegressionTradeOffAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGaussianProcessRegressionTradeOffAlgorithmSpecifierAdapter() {
+		if (gaussianProcessRegressionTradeOffAlgorithmSpecifierItemProvider == null) {
+			gaussianProcessRegressionTradeOffAlgorithmSpecifierItemProvider = new GaussianProcessRegressionTradeOffAlgorithmSpecifierItemProvider(this);
+		}
+
+		return gaussianProcessRegressionTradeOffAlgorithmSpecifierItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link tools.descartes.librede.rrde.recommendation.RBFNetworkTradeOffAlgorithmSpecifier} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RBFNetworkTradeOffAlgorithmSpecifierItemProvider rbfNetworkTradeOffAlgorithmSpecifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link tools.descartes.librede.rrde.recommendation.RBFNetworkTradeOffAlgorithmSpecifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRBFNetworkTradeOffAlgorithmSpecifierAdapter() {
+		if (rbfNetworkTradeOffAlgorithmSpecifierItemProvider == null) {
+			rbfNetworkTradeOffAlgorithmSpecifierItemProvider = new RBFNetworkTradeOffAlgorithmSpecifierItemProvider(this);
+		}
+
+		return rbfNetworkTradeOffAlgorithmSpecifierItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -386,6 +570,14 @@ public class RecommendationItemProviderAdapterFactory extends RecommendationAdap
 		if (decisionTreeAlgorithmSpecifierItemProvider != null) decisionTreeAlgorithmSpecifierItemProvider.dispose();
 		if (neuralNetworkAlgorithmSpecifierItemProvider != null) neuralNetworkAlgorithmSpecifierItemProvider.dispose();
 		if (svmAlgorithmSpecifierItemProvider != null) svmAlgorithmSpecifierItemProvider.dispose();
+		if (regressionTreeTradeOffAlgorithmSpecifierItemProvider != null) regressionTreeTradeOffAlgorithmSpecifierItemProvider.dispose();
+		if (olsTradeOffAlgorithmSpecifierItemProvider != null) olsTradeOffAlgorithmSpecifierItemProvider.dispose();
+		if (recommendationTradeOffAlgorithmSpecifierItemProvider != null) recommendationTradeOffAlgorithmSpecifierItemProvider.dispose();
+		if (randomForestTradeOffAlgorithmSpecifierItemProvider != null) randomForestTradeOffAlgorithmSpecifierItemProvider.dispose();
+		if (lassoTradeOffAlgorithmSpecifierItemProvider != null) lassoTradeOffAlgorithmSpecifierItemProvider.dispose();
+		if (gradientTreeBoostTradeOffAlgorithmSpecifierItemProvider != null) gradientTreeBoostTradeOffAlgorithmSpecifierItemProvider.dispose();
+		if (gaussianProcessRegressionTradeOffAlgorithmSpecifierItemProvider != null) gaussianProcessRegressionTradeOffAlgorithmSpecifierItemProvider.dispose();
+		if (rbfNetworkTradeOffAlgorithmSpecifierItemProvider != null) rbfNetworkTradeOffAlgorithmSpecifierItemProvider.dispose();
 	}
 
 }

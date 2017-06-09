@@ -10,12 +10,12 @@ package tools.descartes.librede.rrde.optimization;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier#getTolerance <em>Tolerance</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier#getMaximumNumberOfSteps <em>Maximum Number Of Steps</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.LocalSearchSpecifier#getStepSize <em>Step Size</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getLocalSearchSpecifier()
  * @model

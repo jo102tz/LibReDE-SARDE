@@ -17,11 +17,11 @@ import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.SVMAlgorithmSpecifierImpl#getGaussianSigma <em>Gaussian Sigma</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.SVMAlgorithmSpecifierImpl#getSoftMarginPenalty <em>Soft Margin Penalty</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

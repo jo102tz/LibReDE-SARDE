@@ -199,6 +199,46 @@ public class RecommendationTrainingConfigurationItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createRecommendationTradeOffAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createRegressionTreeTradeOffAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createOLSTradeOffAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createRandomForestTradeOffAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createLASSOTradeOffAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createGradientTreeBoostTradeOffAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createGaussianProcessRegressionTradeOffAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__LEARNING_ALGORITHM,
+				 RecommendationFactory.eINSTANCE.createRBFNetworkTradeOffAlgorithmSpecifier()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS,
 				 ConfigurationFactory.eINSTANCE.createEstimationSpecification()));
 	}

@@ -18,6 +18,7 @@ import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getN <em>N</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getArithmeticMean <em>Arithmetic Mean</em>}</li>
@@ -33,7 +34,6 @@ import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getAutocorrelation <em>Autocorrelation</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.StatisticalFeaturesImpl#getIsNormalDistributed <em>Is Normal Distributed</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

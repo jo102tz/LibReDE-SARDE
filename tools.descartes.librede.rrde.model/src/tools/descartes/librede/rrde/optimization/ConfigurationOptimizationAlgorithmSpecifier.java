@@ -15,11 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier#getTimeOut <em>Time Out</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier#getAlgorithmName <em>Algorithm Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getConfigurationOptimizationAlgorithmSpecifier()
  * @model

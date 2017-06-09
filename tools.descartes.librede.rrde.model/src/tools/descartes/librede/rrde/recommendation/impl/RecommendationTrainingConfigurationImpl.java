@@ -34,6 +34,7 @@ import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfigu
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getValidator <em>Validator</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getTrainingData <em>Training Data</em>}</li>
@@ -41,7 +42,6 @@ import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfigu
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getLearningAlgorithm <em>Learning Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTrainingConfigurationImpl#getEstimators <em>Estimators</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

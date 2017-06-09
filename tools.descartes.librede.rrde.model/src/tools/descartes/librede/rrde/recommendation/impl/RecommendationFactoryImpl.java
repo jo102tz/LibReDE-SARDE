@@ -65,6 +65,14 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 			case RecommendationPackage.DECISION_TREE_ALGORITHM_SPECIFIER: return createDecisionTreeAlgorithmSpecifier();
 			case RecommendationPackage.NEURAL_NETWORK_ALGORITHM_SPECIFIER: return createNeuralNetworkAlgorithmSpecifier();
 			case RecommendationPackage.SVM_ALGORITHM_SPECIFIER: return createSVMAlgorithmSpecifier();
+			case RecommendationPackage.REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER: return createRegressionTreeTradeOffAlgorithmSpecifier();
+			case RecommendationPackage.OLS_TRADE_OFF_ALGORITHM_SPECIFIER: return createOLSTradeOffAlgorithmSpecifier();
+			case RecommendationPackage.RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER: return createRecommendationTradeOffAlgorithmSpecifier();
+			case RecommendationPackage.RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER: return createRandomForestTradeOffAlgorithmSpecifier();
+			case RecommendationPackage.LASSO_TRADE_OFF_ALGORITHM_SPECIFIER: return createLASSOTradeOffAlgorithmSpecifier();
+			case RecommendationPackage.GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER: return createGradientTreeBoostTradeOffAlgorithmSpecifier();
+			case RecommendationPackage.GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER: return createGaussianProcessRegressionTradeOffAlgorithmSpecifier();
+			case RecommendationPackage.RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER: return createRBFNetworkTradeOffAlgorithmSpecifier();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -158,6 +166,86 @@ public class RecommendationFactoryImpl extends EFactoryImpl implements Recommend
 	public SVMAlgorithmSpecifier createSVMAlgorithmSpecifier() {
 		SVMAlgorithmSpecifierImpl svmAlgorithmSpecifier = new SVMAlgorithmSpecifierImpl();
 		return svmAlgorithmSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RegressionTreeTradeOffAlgorithmSpecifier createRegressionTreeTradeOffAlgorithmSpecifier() {
+		RegressionTreeTradeOffAlgorithmSpecifierImpl regressionTreeTradeOffAlgorithmSpecifier = new RegressionTreeTradeOffAlgorithmSpecifierImpl();
+		return regressionTreeTradeOffAlgorithmSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OLSTradeOffAlgorithmSpecifier createOLSTradeOffAlgorithmSpecifier() {
+		OLSTradeOffAlgorithmSpecifierImpl olsTradeOffAlgorithmSpecifier = new OLSTradeOffAlgorithmSpecifierImpl();
+		return olsTradeOffAlgorithmSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RecommendationTradeOffAlgorithmSpecifier createRecommendationTradeOffAlgorithmSpecifier() {
+		RecommendationTradeOffAlgorithmSpecifierImpl recommendationTradeOffAlgorithmSpecifier = new RecommendationTradeOffAlgorithmSpecifierImpl();
+		return recommendationTradeOffAlgorithmSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RandomForestTradeOffAlgorithmSpecifier createRandomForestTradeOffAlgorithmSpecifier() {
+		RandomForestTradeOffAlgorithmSpecifierImpl randomForestTradeOffAlgorithmSpecifier = new RandomForestTradeOffAlgorithmSpecifierImpl();
+		return randomForestTradeOffAlgorithmSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LASSOTradeOffAlgorithmSpecifier createLASSOTradeOffAlgorithmSpecifier() {
+		LASSOTradeOffAlgorithmSpecifierImpl lassoTradeOffAlgorithmSpecifier = new LASSOTradeOffAlgorithmSpecifierImpl();
+		return lassoTradeOffAlgorithmSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GradientTreeBoostTradeOffAlgorithmSpecifier createGradientTreeBoostTradeOffAlgorithmSpecifier() {
+		GradientTreeBoostTradeOffAlgorithmSpecifierImpl gradientTreeBoostTradeOffAlgorithmSpecifier = new GradientTreeBoostTradeOffAlgorithmSpecifierImpl();
+		return gradientTreeBoostTradeOffAlgorithmSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GaussianProcessRegressionTradeOffAlgorithmSpecifier createGaussianProcessRegressionTradeOffAlgorithmSpecifier() {
+		GaussianProcessRegressionTradeOffAlgorithmSpecifierImpl gaussianProcessRegressionTradeOffAlgorithmSpecifier = new GaussianProcessRegressionTradeOffAlgorithmSpecifierImpl();
+		return gaussianProcessRegressionTradeOffAlgorithmSpecifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RBFNetworkTradeOffAlgorithmSpecifier createRBFNetworkTradeOffAlgorithmSpecifier() {
+		RBFNetworkTradeOffAlgorithmSpecifierImpl rbfNetworkTradeOffAlgorithmSpecifier = new RBFNetworkTradeOffAlgorithmSpecifierImpl();
+		return rbfNetworkTradeOffAlgorithmSpecifier;
 	}
 
 	/**

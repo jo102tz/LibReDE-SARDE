@@ -17,11 +17,11 @@ import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl#getNumberOfNeurons <em>Number Of Neurons</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl#getEpochs <em>Epochs</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

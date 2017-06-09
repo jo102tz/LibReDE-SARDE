@@ -23,13 +23,13 @@ import tools.descartes.librede.rrde.optimization.OptimizationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getInput <em>Input</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getWorkloadDescription <em>Workload Description</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#getRootFolder <em>Root Folder</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.InputDataImpl#isMultiFolderStructures <em>Multi Folder Structures</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -103,6 +103,78 @@ public interface RecommendationFactory extends EFactory {
 	SVMAlgorithmSpecifier createSVMAlgorithmSpecifier();
 
 	/**
+	 * Returns a new object of class '<em>Regression Tree Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Regression Tree Trade Off Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	RegressionTreeTradeOffAlgorithmSpecifier createRegressionTreeTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>OLS Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>OLS Trade Off Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	OLSTradeOffAlgorithmSpecifier createOLSTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Trade Off Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	RecommendationTradeOffAlgorithmSpecifier createRecommendationTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>Random Forest Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Random Forest Trade Off Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	RandomForestTradeOffAlgorithmSpecifier createRandomForestTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>LASSO Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>LASSO Trade Off Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	LASSOTradeOffAlgorithmSpecifier createLASSOTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>Gradient Tree Boost Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gradient Tree Boost Trade Off Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	GradientTreeBoostTradeOffAlgorithmSpecifier createGradientTreeBoostTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>Gaussian Process Regression Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gaussian Process Regression Trade Off Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	GaussianProcessRegressionTradeOffAlgorithmSpecifier createGaussianProcessRegressionTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns a new object of class '<em>RBF Network Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>RBF Network Trade Off Algorithm Specifier</em>'.
+	 * @generated
+	 */
+	RBFNetworkTradeOffAlgorithmSpecifier createRBFNetworkTradeOffAlgorithmSpecifier();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

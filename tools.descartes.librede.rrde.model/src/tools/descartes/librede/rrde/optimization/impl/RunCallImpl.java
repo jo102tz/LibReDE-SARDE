@@ -32,13 +32,13 @@ import tools.descartes.librede.rrde.optimization.RunCall;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl#getAlgorithm <em>Algorithm</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl#getTrainingData <em>Training Data</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl#getSettings <em>Settings</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.RunCallImpl#getEstimation <em>Estimation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

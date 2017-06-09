@@ -26,12 +26,12 @@ import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl#getConfiguration <em>Configuration</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl#getEstimationErrors <em>Estimation Errors</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DataSetImpl#getFeatures <em>Features</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

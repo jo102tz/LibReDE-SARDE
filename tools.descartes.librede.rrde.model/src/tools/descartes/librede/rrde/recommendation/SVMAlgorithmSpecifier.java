@@ -10,11 +10,11 @@ package tools.descartes.librede.rrde.recommendation;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier#getGaussianSigma <em>Gaussian Sigma</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier#getSoftMarginPenalty <em>Soft Margin Penalty</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getSVMAlgorithmSpecifier()
  * @model

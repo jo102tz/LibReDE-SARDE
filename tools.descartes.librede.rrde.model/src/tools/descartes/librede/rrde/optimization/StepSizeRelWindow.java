@@ -10,10 +10,10 @@ package tools.descartes.librede.rrde.optimization;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.StepSizeRelWindow#getProductMaxValue <em>Product Max Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getStepSizeRelWindow()
  * @model

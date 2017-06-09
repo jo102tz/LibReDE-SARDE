@@ -10,12 +10,12 @@ package tools.descartes.librede.rrde.optimization;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfSplits <em>Number Of Splits</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfExplorations <em>Number Of Explorations</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.IterativeParameterOptimizerSpecifier#getNumberOfIterations <em>Number Of Iterations</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getIterativeParameterOptimizerSpecifier()
  * @model

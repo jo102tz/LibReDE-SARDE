@@ -771,6 +771,459 @@ public interface RecommendationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTradeOffAlgorithmSpecifierImpl <em>Trade Off Algorithm Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationTradeOffAlgorithmSpecifierImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getRecommendationTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	int RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER = 11;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME = RECOMMENDATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Trade Off Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT = RECOMMENDATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.RegressionTreeTradeOffAlgorithmSpecifierImpl <em>Regression Tree Trade Off Algorithm Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RegressionTreeTradeOffAlgorithmSpecifierImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getRegressionTreeTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	int REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER = 9;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Trade Off Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Max Tree Nodes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER__MAX_TREE_NODES = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Split Threshould</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER__SPLIT_THRESHOULD = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Regression Tree Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Regression Tree Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.OLSTradeOffAlgorithmSpecifierImpl <em>OLS Trade Off Algorithm Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.OLSTradeOffAlgorithmSpecifierImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getOLSTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	int OLS_TRADE_OFF_ALGORITHM_SPECIFIER = 10;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OLS_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Trade Off Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OLS_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME;
+
+	/**
+	 * The number of structural features of the '<em>OLS Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OLS_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>OLS Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OLS_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.RandomForestTradeOffAlgorithmSpecifierImpl <em>Random Forest Trade Off Algorithm Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RandomForestTradeOffAlgorithmSpecifierImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getRandomForestTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	int RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER = 12;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Trade Off Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Max Tree Nodes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER__MAX_TREE_NODES = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Split Threshould</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER__SPLIT_THRESHOULD = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Tree Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER__TREE_NUMBER = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Random Forest Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of operations of the '<em>Random Forest Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.LASSOTradeOffAlgorithmSpecifierImpl <em>LASSO Trade Off Algorithm Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.LASSOTradeOffAlgorithmSpecifierImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getLASSOTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	int LASSO_TRADE_OFF_ALGORITHM_SPECIFIER = 13;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LASSO_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Trade Off Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LASSO_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Lambda</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LASSO_TRADE_OFF_ALGORITHM_SPECIFIER__LAMBDA = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>LASSO Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LASSO_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>LASSO Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LASSO_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.GradientTreeBoostTradeOffAlgorithmSpecifierImpl <em>Gradient Tree Boost Trade Off Algorithm Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.GradientTreeBoostTradeOffAlgorithmSpecifierImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getGradientTreeBoostTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	int GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER = 14;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Trade Off Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Iteration Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER__ITERATION_NUMBER = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gradient Tree Boost Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Gradient Tree Boost Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.GaussianProcessRegressionTradeOffAlgorithmSpecifierImpl <em>Gaussian Process Regression Trade Off Algorithm Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.GaussianProcessRegressionTradeOffAlgorithmSpecifierImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getGaussianProcessRegressionTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	int GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER = 15;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Trade Off Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Shrink Factor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER__SHRINK_FACTOR = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gaussian Process Regression Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Gaussian Process Regression Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+
+	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.recommendation.impl.RBFNetworkTradeOffAlgorithmSpecifierImpl <em>RBF Network Trade Off Algorithm Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RBFNetworkTradeOffAlgorithmSpecifierImpl
+	 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getRBFNetworkTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	int RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER = 16;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Trade Off Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>K</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER__K = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>RBF Network Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>RBF Network Trade Off Algorithm Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT = RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration <em>Training Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1389,6 +1842,196 @@ public interface RecommendationPackage extends EPackage {
 	EAttribute getSVMAlgorithmSpecifier_SoftMarginPenalty();
 
 	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RegressionTreeTradeOffAlgorithmSpecifier <em>Regression Tree Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Regression Tree Trade Off Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RegressionTreeTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	EClass getRegressionTreeTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.RegressionTreeTradeOffAlgorithmSpecifier#getMaxTreeNodes <em>Max Tree Nodes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Tree Nodes</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RegressionTreeTradeOffAlgorithmSpecifier#getMaxTreeNodes()
+	 * @see #getRegressionTreeTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getRegressionTreeTradeOffAlgorithmSpecifier_MaxTreeNodes();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.RegressionTreeTradeOffAlgorithmSpecifier#getSplitThreshould <em>Split Threshould</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Split Threshould</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RegressionTreeTradeOffAlgorithmSpecifier#getSplitThreshould()
+	 * @see #getRegressionTreeTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getRegressionTreeTradeOffAlgorithmSpecifier_SplitThreshould();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.OLSTradeOffAlgorithmSpecifier <em>OLS Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>OLS Trade Off Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.OLSTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	EClass getOLSTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RecommendationTradeOffAlgorithmSpecifier <em>Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Trade Off Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	EClass getRecommendationTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.RecommendationTradeOffAlgorithmSpecifier#getTradeOffAlgorithmName <em>Trade Off Algorithm Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Trade Off Algorithm Name</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RecommendationTradeOffAlgorithmSpecifier#getTradeOffAlgorithmName()
+	 * @see #getRecommendationTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getRecommendationTradeOffAlgorithmSpecifier_TradeOffAlgorithmName();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier <em>Random Forest Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Random Forest Trade Off Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	EClass getRandomForestTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier#getMaxTreeNodes <em>Max Tree Nodes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Tree Nodes</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier#getMaxTreeNodes()
+	 * @see #getRandomForestTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getRandomForestTradeOffAlgorithmSpecifier_MaxTreeNodes();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier#getSplitThreshould <em>Split Threshould</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Split Threshould</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier#getSplitThreshould()
+	 * @see #getRandomForestTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getRandomForestTradeOffAlgorithmSpecifier_SplitThreshould();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier#getTreeNumber <em>Tree Number</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tree Number</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier#getTreeNumber()
+	 * @see #getRandomForestTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getRandomForestTradeOffAlgorithmSpecifier_TreeNumber();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.LASSOTradeOffAlgorithmSpecifier <em>LASSO Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>LASSO Trade Off Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.LASSOTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	EClass getLASSOTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.LASSOTradeOffAlgorithmSpecifier#getLambda <em>Lambda</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lambda</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.LASSOTradeOffAlgorithmSpecifier#getLambda()
+	 * @see #getLASSOTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getLASSOTradeOffAlgorithmSpecifier_Lambda();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.GradientTreeBoostTradeOffAlgorithmSpecifier <em>Gradient Tree Boost Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gradient Tree Boost Trade Off Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.GradientTreeBoostTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	EClass getGradientTreeBoostTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.GradientTreeBoostTradeOffAlgorithmSpecifier#getIterationNumber <em>Iteration Number</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Iteration Number</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.GradientTreeBoostTradeOffAlgorithmSpecifier#getIterationNumber()
+	 * @see #getGradientTreeBoostTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getGradientTreeBoostTradeOffAlgorithmSpecifier_IterationNumber();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.GaussianProcessRegressionTradeOffAlgorithmSpecifier <em>Gaussian Process Regression Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gaussian Process Regression Trade Off Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.GaussianProcessRegressionTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	EClass getGaussianProcessRegressionTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.GaussianProcessRegressionTradeOffAlgorithmSpecifier#getShrinkFactor <em>Shrink Factor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Shrink Factor</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.GaussianProcessRegressionTradeOffAlgorithmSpecifier#getShrinkFactor()
+	 * @see #getGaussianProcessRegressionTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getGaussianProcessRegressionTradeOffAlgorithmSpecifier_ShrinkFactor();
+
+	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.recommendation.RBFNetworkTradeOffAlgorithmSpecifier <em>RBF Network Trade Off Algorithm Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>RBF Network Trade Off Algorithm Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RBFNetworkTradeOffAlgorithmSpecifier
+	 * @generated
+	 */
+	EClass getRBFNetworkTradeOffAlgorithmSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.recommendation.RBFNetworkTradeOffAlgorithmSpecifier#getK <em>K</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>K</em>'.
+	 * @see tools.descartes.librede.rrde.recommendation.RBFNetworkTradeOffAlgorithmSpecifier#getK()
+	 * @see #getRBFNetworkTradeOffAlgorithmSpecifier()
+	 * @generated
+	 */
+	EAttribute getRBFNetworkTradeOffAlgorithmSpecifier_K();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1884,6 +2527,166 @@ public interface RecommendationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SVM_ALGORITHM_SPECIFIER__SOFT_MARGIN_PENALTY = eINSTANCE.getSVMAlgorithmSpecifier_SoftMarginPenalty();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.RegressionTreeTradeOffAlgorithmSpecifierImpl <em>Regression Tree Trade Off Algorithm Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RegressionTreeTradeOffAlgorithmSpecifierImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getRegressionTreeTradeOffAlgorithmSpecifier()
+		 * @generated
+		 */
+		EClass REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER = eINSTANCE.getRegressionTreeTradeOffAlgorithmSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Tree Nodes</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER__MAX_TREE_NODES = eINSTANCE.getRegressionTreeTradeOffAlgorithmSpecifier_MaxTreeNodes();
+
+		/**
+		 * The meta object literal for the '<em><b>Split Threshould</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER__SPLIT_THRESHOULD = eINSTANCE.getRegressionTreeTradeOffAlgorithmSpecifier_SplitThreshould();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.OLSTradeOffAlgorithmSpecifierImpl <em>OLS Trade Off Algorithm Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.OLSTradeOffAlgorithmSpecifierImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getOLSTradeOffAlgorithmSpecifier()
+		 * @generated
+		 */
+		EClass OLS_TRADE_OFF_ALGORITHM_SPECIFIER = eINSTANCE.getOLSTradeOffAlgorithmSpecifier();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationTradeOffAlgorithmSpecifierImpl <em>Trade Off Algorithm Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationTradeOffAlgorithmSpecifierImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getRecommendationTradeOffAlgorithmSpecifier()
+		 * @generated
+		 */
+		EClass RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER = eINSTANCE.getRecommendationTradeOffAlgorithmSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Trade Off Algorithm Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME = eINSTANCE.getRecommendationTradeOffAlgorithmSpecifier_TradeOffAlgorithmName();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.RandomForestTradeOffAlgorithmSpecifierImpl <em>Random Forest Trade Off Algorithm Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RandomForestTradeOffAlgorithmSpecifierImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getRandomForestTradeOffAlgorithmSpecifier()
+		 * @generated
+		 */
+		EClass RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER = eINSTANCE.getRandomForestTradeOffAlgorithmSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Tree Nodes</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER__MAX_TREE_NODES = eINSTANCE.getRandomForestTradeOffAlgorithmSpecifier_MaxTreeNodes();
+
+		/**
+		 * The meta object literal for the '<em><b>Split Threshould</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER__SPLIT_THRESHOULD = eINSTANCE.getRandomForestTradeOffAlgorithmSpecifier_SplitThreshould();
+
+		/**
+		 * The meta object literal for the '<em><b>Tree Number</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER__TREE_NUMBER = eINSTANCE.getRandomForestTradeOffAlgorithmSpecifier_TreeNumber();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.LASSOTradeOffAlgorithmSpecifierImpl <em>LASSO Trade Off Algorithm Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.LASSOTradeOffAlgorithmSpecifierImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getLASSOTradeOffAlgorithmSpecifier()
+		 * @generated
+		 */
+		EClass LASSO_TRADE_OFF_ALGORITHM_SPECIFIER = eINSTANCE.getLASSOTradeOffAlgorithmSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Lambda</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LASSO_TRADE_OFF_ALGORITHM_SPECIFIER__LAMBDA = eINSTANCE.getLASSOTradeOffAlgorithmSpecifier_Lambda();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.GradientTreeBoostTradeOffAlgorithmSpecifierImpl <em>Gradient Tree Boost Trade Off Algorithm Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.GradientTreeBoostTradeOffAlgorithmSpecifierImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getGradientTreeBoostTradeOffAlgorithmSpecifier()
+		 * @generated
+		 */
+		EClass GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER = eINSTANCE.getGradientTreeBoostTradeOffAlgorithmSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Iteration Number</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER__ITERATION_NUMBER = eINSTANCE.getGradientTreeBoostTradeOffAlgorithmSpecifier_IterationNumber();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.GaussianProcessRegressionTradeOffAlgorithmSpecifierImpl <em>Gaussian Process Regression Trade Off Algorithm Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.GaussianProcessRegressionTradeOffAlgorithmSpecifierImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getGaussianProcessRegressionTradeOffAlgorithmSpecifier()
+		 * @generated
+		 */
+		EClass GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER = eINSTANCE.getGaussianProcessRegressionTradeOffAlgorithmSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Shrink Factor</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER__SHRINK_FACTOR = eINSTANCE.getGaussianProcessRegressionTradeOffAlgorithmSpecifier_ShrinkFactor();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.recommendation.impl.RBFNetworkTradeOffAlgorithmSpecifierImpl <em>RBF Network Trade Off Algorithm Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RBFNetworkTradeOffAlgorithmSpecifierImpl
+		 * @see tools.descartes.librede.rrde.recommendation.impl.RecommendationPackageImpl#getRBFNetworkTradeOffAlgorithmSpecifier()
+		 * @generated
+		 */
+		EClass RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER = eINSTANCE.getRBFNetworkTradeOffAlgorithmSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>K</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER__K = eINSTANCE.getRBFNetworkTradeOffAlgorithmSpecifier_K();
 
 	}
 

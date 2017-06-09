@@ -14,13 +14,13 @@ import tools.descartes.librede.configuration.WorkloadDescription;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getInput <em>Input</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getWorkloadDescription <em>Workload Description</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#getRootFolder <em>Root Folder</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.optimization.InputData#isMultiFolderStructures <em>Multi Folder Structures</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getInputData()
  * @model

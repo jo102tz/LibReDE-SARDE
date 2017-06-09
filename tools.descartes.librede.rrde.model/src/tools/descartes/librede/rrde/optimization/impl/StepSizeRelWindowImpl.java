@@ -15,10 +15,10 @@ import tools.descartes.librede.rrde.optimization.StepSizeRelWindow;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.impl.StepSizeRelWindowImpl#getProductMaxValue <em>Product Max Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

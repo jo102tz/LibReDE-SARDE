@@ -10,10 +10,10 @@ package tools.descartes.librede.rrde.recommendation;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier#getMaximumNumberOfNodes <em>Maximum Number Of Nodes</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getDecisionTreeAlgorithmSpecifier()
  * @model

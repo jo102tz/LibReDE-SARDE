@@ -18,10 +18,10 @@ import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.RecommendationAlgorithmSpecifierImpl#getAlgorithmName <em>Algorithm Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

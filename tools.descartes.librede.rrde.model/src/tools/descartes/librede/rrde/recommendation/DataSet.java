@@ -16,12 +16,12 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getConfiguration <em>Configuration</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getEstimationErrors <em>Estimation Errors</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.DataSet#getFeatures <em>Features</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.recommendation.RecommendationPackage#getDataSet()
  * @model

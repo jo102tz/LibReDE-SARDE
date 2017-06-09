@@ -28,11 +28,19 @@ import tools.descartes.librede.rrde.recommendation.DataSet;
 import tools.descartes.librede.rrde.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.recommendation.GaussianProcessRegressionTradeOffAlgorithmSpecifier;
+import tools.descartes.librede.rrde.recommendation.GradientTreeBoostTradeOffAlgorithmSpecifier;
+import tools.descartes.librede.rrde.recommendation.LASSOTradeOffAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.NeuralNetworkAlgorithmSpecifier;
+import tools.descartes.librede.rrde.recommendation.OLSTradeOffAlgorithmSpecifier;
+import tools.descartes.librede.rrde.recommendation.RBFNetworkTradeOffAlgorithmSpecifier;
+import tools.descartes.librede.rrde.recommendation.RandomForestTradeOffAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationFactory;
 import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
+import tools.descartes.librede.rrde.recommendation.RecommendationTradeOffAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.rrde.recommendation.RegressionTreeTradeOffAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.StatisticalFeatures;
 
@@ -107,6 +115,62 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * @generated
 	 */
 	private EClass svmAlgorithmSpecifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass regressionTreeTradeOffAlgorithmSpecifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass olsTradeOffAlgorithmSpecifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass recommendationTradeOffAlgorithmSpecifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass randomForestTradeOffAlgorithmSpecifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass lassoTradeOffAlgorithmSpecifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gradientTreeBoostTradeOffAlgorithmSpecifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gaussianProcessRegressionTradeOffAlgorithmSpecifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass rbfNetworkTradeOffAlgorithmSpecifierEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -701,6 +765,168 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getRegressionTreeTradeOffAlgorithmSpecifier() {
+		return regressionTreeTradeOffAlgorithmSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRegressionTreeTradeOffAlgorithmSpecifier_MaxTreeNodes() {
+		return (EAttribute)regressionTreeTradeOffAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRegressionTreeTradeOffAlgorithmSpecifier_SplitThreshould() {
+		return (EAttribute)regressionTreeTradeOffAlgorithmSpecifierEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOLSTradeOffAlgorithmSpecifier() {
+		return olsTradeOffAlgorithmSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRecommendationTradeOffAlgorithmSpecifier() {
+		return recommendationTradeOffAlgorithmSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRecommendationTradeOffAlgorithmSpecifier_TradeOffAlgorithmName() {
+		return (EAttribute)recommendationTradeOffAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRandomForestTradeOffAlgorithmSpecifier() {
+		return randomForestTradeOffAlgorithmSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRandomForestTradeOffAlgorithmSpecifier_MaxTreeNodes() {
+		return (EAttribute)randomForestTradeOffAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRandomForestTradeOffAlgorithmSpecifier_SplitThreshould() {
+		return (EAttribute)randomForestTradeOffAlgorithmSpecifierEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRandomForestTradeOffAlgorithmSpecifier_TreeNumber() {
+		return (EAttribute)randomForestTradeOffAlgorithmSpecifierEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLASSOTradeOffAlgorithmSpecifier() {
+		return lassoTradeOffAlgorithmSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLASSOTradeOffAlgorithmSpecifier_Lambda() {
+		return (EAttribute)lassoTradeOffAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGradientTreeBoostTradeOffAlgorithmSpecifier() {
+		return gradientTreeBoostTradeOffAlgorithmSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGradientTreeBoostTradeOffAlgorithmSpecifier_IterationNumber() {
+		return (EAttribute)gradientTreeBoostTradeOffAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGaussianProcessRegressionTradeOffAlgorithmSpecifier() {
+		return gaussianProcessRegressionTradeOffAlgorithmSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGaussianProcessRegressionTradeOffAlgorithmSpecifier_ShrinkFactor() {
+		return (EAttribute)gaussianProcessRegressionTradeOffAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRBFNetworkTradeOffAlgorithmSpecifier() {
+		return rbfNetworkTradeOffAlgorithmSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRBFNetworkTradeOffAlgorithmSpecifier_K() {
+		return (EAttribute)rbfNetworkTradeOffAlgorithmSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public RecommendationFactory getRecommendationFactory() {
 		return (RecommendationFactory)getEFactoryInstance();
 	}
@@ -789,6 +1015,32 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		svmAlgorithmSpecifierEClass = createEClass(SVM_ALGORITHM_SPECIFIER);
 		createEAttribute(svmAlgorithmSpecifierEClass, SVM_ALGORITHM_SPECIFIER__GAUSSIAN_SIGMA);
 		createEAttribute(svmAlgorithmSpecifierEClass, SVM_ALGORITHM_SPECIFIER__SOFT_MARGIN_PENALTY);
+
+		regressionTreeTradeOffAlgorithmSpecifierEClass = createEClass(REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER);
+		createEAttribute(regressionTreeTradeOffAlgorithmSpecifierEClass, REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER__MAX_TREE_NODES);
+		createEAttribute(regressionTreeTradeOffAlgorithmSpecifierEClass, REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER__SPLIT_THRESHOULD);
+
+		olsTradeOffAlgorithmSpecifierEClass = createEClass(OLS_TRADE_OFF_ALGORITHM_SPECIFIER);
+
+		recommendationTradeOffAlgorithmSpecifierEClass = createEClass(RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER);
+		createEAttribute(recommendationTradeOffAlgorithmSpecifierEClass, RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER__TRADE_OFF_ALGORITHM_NAME);
+
+		randomForestTradeOffAlgorithmSpecifierEClass = createEClass(RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER);
+		createEAttribute(randomForestTradeOffAlgorithmSpecifierEClass, RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER__MAX_TREE_NODES);
+		createEAttribute(randomForestTradeOffAlgorithmSpecifierEClass, RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER__SPLIT_THRESHOULD);
+		createEAttribute(randomForestTradeOffAlgorithmSpecifierEClass, RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER__TREE_NUMBER);
+
+		lassoTradeOffAlgorithmSpecifierEClass = createEClass(LASSO_TRADE_OFF_ALGORITHM_SPECIFIER);
+		createEAttribute(lassoTradeOffAlgorithmSpecifierEClass, LASSO_TRADE_OFF_ALGORITHM_SPECIFIER__LAMBDA);
+
+		gradientTreeBoostTradeOffAlgorithmSpecifierEClass = createEClass(GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER);
+		createEAttribute(gradientTreeBoostTradeOffAlgorithmSpecifierEClass, GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER__ITERATION_NUMBER);
+
+		gaussianProcessRegressionTradeOffAlgorithmSpecifierEClass = createEClass(GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER);
+		createEAttribute(gaussianProcessRegressionTradeOffAlgorithmSpecifierEClass, GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER__SHRINK_FACTOR);
+
+		rbfNetworkTradeOffAlgorithmSpecifierEClass = createEClass(RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER);
+		createEAttribute(rbfNetworkTradeOffAlgorithmSpecifierEClass, RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER__K);
 	}
 
 	/**
@@ -828,6 +1080,14 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		decisionTreeAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationAlgorithmSpecifier());
 		neuralNetworkAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationAlgorithmSpecifier());
 		svmAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationAlgorithmSpecifier());
+		regressionTreeTradeOffAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationTradeOffAlgorithmSpecifier());
+		olsTradeOffAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationTradeOffAlgorithmSpecifier());
+		recommendationTradeOffAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationAlgorithmSpecifier());
+		randomForestTradeOffAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationTradeOffAlgorithmSpecifier());
+		lassoTradeOffAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationTradeOffAlgorithmSpecifier());
+		gradientTreeBoostTradeOffAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationTradeOffAlgorithmSpecifier());
+		gaussianProcessRegressionTradeOffAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationTradeOffAlgorithmSpecifier());
+		rbfNetworkTradeOffAlgorithmSpecifierEClass.getESuperTypes().add(this.getRecommendationTradeOffAlgorithmSpecifier());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(recommendationTrainingConfigurationEClass, RecommendationTrainingConfiguration.class, "RecommendationTrainingConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -906,6 +1166,32 @@ public class RecommendationPackageImpl extends EPackageImpl implements Recommend
 		initEClass(svmAlgorithmSpecifierEClass, SVMAlgorithmSpecifier.class, "SVMAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSVMAlgorithmSpecifier_GaussianSigma(), theXMLTypePackage.getDouble(), "gaussianSigma", "8.0", 1, 1, SVMAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSVMAlgorithmSpecifier_SoftMarginPenalty(), theXMLTypePackage.getDouble(), "softMarginPenalty", "5.0", 1, 1, SVMAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(regressionTreeTradeOffAlgorithmSpecifierEClass, RegressionTreeTradeOffAlgorithmSpecifier.class, "RegressionTreeTradeOffAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRegressionTreeTradeOffAlgorithmSpecifier_MaxTreeNodes(), theXMLTypePackage.getInt(), "maxTreeNodes", "1000", 1, 1, RegressionTreeTradeOffAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRegressionTreeTradeOffAlgorithmSpecifier_SplitThreshould(), theXMLTypePackage.getInt(), "splitThreshould", "4", 1, 1, RegressionTreeTradeOffAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(olsTradeOffAlgorithmSpecifierEClass, OLSTradeOffAlgorithmSpecifier.class, "OLSTradeOffAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(recommendationTradeOffAlgorithmSpecifierEClass, RecommendationTradeOffAlgorithmSpecifier.class, "RecommendationTradeOffAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRecommendationTradeOffAlgorithmSpecifier_TradeOffAlgorithmName(), theXMLTypePackage.getString(), "tradeOffAlgorithmName", null, 1, 1, RecommendationTradeOffAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(randomForestTradeOffAlgorithmSpecifierEClass, RandomForestTradeOffAlgorithmSpecifier.class, "RandomForestTradeOffAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRandomForestTradeOffAlgorithmSpecifier_MaxTreeNodes(), theXMLTypePackage.getInt(), "maxTreeNodes", "1000", 1, 1, RandomForestTradeOffAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRandomForestTradeOffAlgorithmSpecifier_SplitThreshould(), theXMLTypePackage.getInt(), "splitThreshould", "4", 1, 1, RandomForestTradeOffAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRandomForestTradeOffAlgorithmSpecifier_TreeNumber(), theXMLTypePackage.getInt(), "treeNumber", "4", 1, 1, RandomForestTradeOffAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(lassoTradeOffAlgorithmSpecifierEClass, LASSOTradeOffAlgorithmSpecifier.class, "LASSOTradeOffAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLASSOTradeOffAlgorithmSpecifier_Lambda(), theXMLTypePackage.getDouble(), "lambda", "1", 1, 1, LASSOTradeOffAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(gradientTreeBoostTradeOffAlgorithmSpecifierEClass, GradientTreeBoostTradeOffAlgorithmSpecifier.class, "GradientTreeBoostTradeOffAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGradientTreeBoostTradeOffAlgorithmSpecifier_IterationNumber(), theXMLTypePackage.getInt(), "iterationNumber", "100", 1, 1, GradientTreeBoostTradeOffAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(gaussianProcessRegressionTradeOffAlgorithmSpecifierEClass, GaussianProcessRegressionTradeOffAlgorithmSpecifier.class, "GaussianProcessRegressionTradeOffAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGaussianProcessRegressionTradeOffAlgorithmSpecifier_ShrinkFactor(), theXMLTypePackage.getDouble(), "shrinkFactor", "0.5", 1, 1, GaussianProcessRegressionTradeOffAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(rbfNetworkTradeOffAlgorithmSpecifierEClass, RBFNetworkTradeOffAlgorithmSpecifier.class, "RBFNetworkTradeOffAlgorithmSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRBFNetworkTradeOffAlgorithmSpecifier_K(), theXMLTypePackage.getInt(), "k", "20", 1, 1, RBFNetworkTradeOffAlgorithmSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

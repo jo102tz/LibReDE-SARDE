@@ -11,10 +11,10 @@ import tools.descartes.librede.configuration.Parameter;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.optimization.GenericParameter#getParameter <em>Parameter</em>}</li>
  * </ul>
- * </p>
  *
  * @see tools.descartes.librede.rrde.optimization.OptimizationPackage#getGenericParameter()
  * @model

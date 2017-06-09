@@ -17,10 +17,10 @@ import tools.descartes.librede.rrde.recommendation.RecommendationPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link tools.descartes.librede.rrde.recommendation.impl.DecisionTreeAlgorithmSpecifierImpl#getMaximumNumberOfNodes <em>Maximum Number Of Nodes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

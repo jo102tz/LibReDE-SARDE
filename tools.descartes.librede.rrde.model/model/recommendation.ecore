@@ -144,4 +144,45 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="softMarginPenalty" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="5.0"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RegressionTreeTradeOffAlgorithmSpecifier"
+      eSuperTypes="#//RecommendationTradeOffAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxTreeNodes" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="1000"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="splitThreshould" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OLSTradeOffAlgorithmSpecifier" eSuperTypes="#//RecommendationTradeOffAlgorithmSpecifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RecommendationTradeOffAlgorithmSpecifier"
+      eSuperTypes="#//RecommendationAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tradeOffAlgorithmName"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RandomForestTradeOffAlgorithmSpecifier"
+      eSuperTypes="#//RecommendationTradeOffAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxTreeNodes" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="1000"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="splitThreshould" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="4"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="treeNumber" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LASSOTradeOffAlgorithmSpecifier" eSuperTypes="#//RecommendationTradeOffAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lambda" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GradientTreeBoostTradeOffAlgorithmSpecifier"
+      eSuperTypes="#//RecommendationTradeOffAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="iterationNumber" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int" defaultValueLiteral="100"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GaussianProcessRegressionTradeOffAlgorithmSpecifier"
+      eSuperTypes="#//RecommendationTradeOffAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shrinkFactor" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="0.5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RBFNetworkTradeOffAlgorithmSpecifier"
+      eSuperTypes="#//RecommendationTradeOffAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="k" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"
+        defaultValueLiteral="20"/>
+  </eClassifiers>
 </ecore:EPackage>

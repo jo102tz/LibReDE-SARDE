@@ -47,7 +47,7 @@ public class RecommendationSwitch<T> extends Switch<T> {
 	 * Checks whether this is a switch for the given package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -120,6 +120,69 @@ public class RecommendationSwitch<T> extends Switch<T> {
 				SVMAlgorithmSpecifier svmAlgorithmSpecifier = (SVMAlgorithmSpecifier)theEObject;
 				T result = caseSVMAlgorithmSpecifier(svmAlgorithmSpecifier);
 				if (result == null) result = caseRecommendationAlgorithmSpecifier(svmAlgorithmSpecifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RecommendationPackage.REGRESSION_TREE_TRADE_OFF_ALGORITHM_SPECIFIER: {
+				RegressionTreeTradeOffAlgorithmSpecifier regressionTreeTradeOffAlgorithmSpecifier = (RegressionTreeTradeOffAlgorithmSpecifier)theEObject;
+				T result = caseRegressionTreeTradeOffAlgorithmSpecifier(regressionTreeTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationTradeOffAlgorithmSpecifier(regressionTreeTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationAlgorithmSpecifier(regressionTreeTradeOffAlgorithmSpecifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RecommendationPackage.OLS_TRADE_OFF_ALGORITHM_SPECIFIER: {
+				OLSTradeOffAlgorithmSpecifier olsTradeOffAlgorithmSpecifier = (OLSTradeOffAlgorithmSpecifier)theEObject;
+				T result = caseOLSTradeOffAlgorithmSpecifier(olsTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationTradeOffAlgorithmSpecifier(olsTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationAlgorithmSpecifier(olsTradeOffAlgorithmSpecifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RecommendationPackage.RECOMMENDATION_TRADE_OFF_ALGORITHM_SPECIFIER: {
+				RecommendationTradeOffAlgorithmSpecifier recommendationTradeOffAlgorithmSpecifier = (RecommendationTradeOffAlgorithmSpecifier)theEObject;
+				T result = caseRecommendationTradeOffAlgorithmSpecifier(recommendationTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationAlgorithmSpecifier(recommendationTradeOffAlgorithmSpecifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RecommendationPackage.RANDOM_FOREST_TRADE_OFF_ALGORITHM_SPECIFIER: {
+				RandomForestTradeOffAlgorithmSpecifier randomForestTradeOffAlgorithmSpecifier = (RandomForestTradeOffAlgorithmSpecifier)theEObject;
+				T result = caseRandomForestTradeOffAlgorithmSpecifier(randomForestTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationTradeOffAlgorithmSpecifier(randomForestTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationAlgorithmSpecifier(randomForestTradeOffAlgorithmSpecifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RecommendationPackage.LASSO_TRADE_OFF_ALGORITHM_SPECIFIER: {
+				LASSOTradeOffAlgorithmSpecifier lassoTradeOffAlgorithmSpecifier = (LASSOTradeOffAlgorithmSpecifier)theEObject;
+				T result = caseLASSOTradeOffAlgorithmSpecifier(lassoTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationTradeOffAlgorithmSpecifier(lassoTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationAlgorithmSpecifier(lassoTradeOffAlgorithmSpecifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RecommendationPackage.GRADIENT_TREE_BOOST_TRADE_OFF_ALGORITHM_SPECIFIER: {
+				GradientTreeBoostTradeOffAlgorithmSpecifier gradientTreeBoostTradeOffAlgorithmSpecifier = (GradientTreeBoostTradeOffAlgorithmSpecifier)theEObject;
+				T result = caseGradientTreeBoostTradeOffAlgorithmSpecifier(gradientTreeBoostTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationTradeOffAlgorithmSpecifier(gradientTreeBoostTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationAlgorithmSpecifier(gradientTreeBoostTradeOffAlgorithmSpecifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RecommendationPackage.GAUSSIAN_PROCESS_REGRESSION_TRADE_OFF_ALGORITHM_SPECIFIER: {
+				GaussianProcessRegressionTradeOffAlgorithmSpecifier gaussianProcessRegressionTradeOffAlgorithmSpecifier = (GaussianProcessRegressionTradeOffAlgorithmSpecifier)theEObject;
+				T result = caseGaussianProcessRegressionTradeOffAlgorithmSpecifier(gaussianProcessRegressionTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationTradeOffAlgorithmSpecifier(gaussianProcessRegressionTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationAlgorithmSpecifier(gaussianProcessRegressionTradeOffAlgorithmSpecifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case RecommendationPackage.RBF_NETWORK_TRADE_OFF_ALGORITHM_SPECIFIER: {
+				RBFNetworkTradeOffAlgorithmSpecifier rbfNetworkTradeOffAlgorithmSpecifier = (RBFNetworkTradeOffAlgorithmSpecifier)theEObject;
+				T result = caseRBFNetworkTradeOffAlgorithmSpecifier(rbfNetworkTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationTradeOffAlgorithmSpecifier(rbfNetworkTradeOffAlgorithmSpecifier);
+				if (result == null) result = caseRecommendationAlgorithmSpecifier(rbfNetworkTradeOffAlgorithmSpecifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -259,6 +322,126 @@ public class RecommendationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSVMAlgorithmSpecifier(SVMAlgorithmSpecifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Regression Tree Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Regression Tree Trade Off Algorithm Specifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRegressionTreeTradeOffAlgorithmSpecifier(RegressionTreeTradeOffAlgorithmSpecifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>OLS Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>OLS Trade Off Algorithm Specifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOLSTradeOffAlgorithmSpecifier(OLSTradeOffAlgorithmSpecifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Trade Off Algorithm Specifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRecommendationTradeOffAlgorithmSpecifier(RecommendationTradeOffAlgorithmSpecifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Random Forest Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Random Forest Trade Off Algorithm Specifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRandomForestTradeOffAlgorithmSpecifier(RandomForestTradeOffAlgorithmSpecifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>LASSO Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>LASSO Trade Off Algorithm Specifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLASSOTradeOffAlgorithmSpecifier(LASSOTradeOffAlgorithmSpecifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gradient Tree Boost Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gradient Tree Boost Trade Off Algorithm Specifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGradientTreeBoostTradeOffAlgorithmSpecifier(GradientTreeBoostTradeOffAlgorithmSpecifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gaussian Process Regression Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gaussian Process Regression Trade Off Algorithm Specifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGaussianProcessRegressionTradeOffAlgorithmSpecifier(GaussianProcessRegressionTradeOffAlgorithmSpecifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>RBF Network Trade Off Algorithm Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>RBF Network Trade Off Algorithm Specifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRBFNetworkTradeOffAlgorithmSpecifier(RBFNetworkTradeOffAlgorithmSpecifier object) {
 		return null;
 	}
 
