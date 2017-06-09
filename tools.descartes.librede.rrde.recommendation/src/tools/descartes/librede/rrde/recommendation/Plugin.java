@@ -41,6 +41,7 @@ import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import tools.descartes.librede.Librede;
+import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ValidationSpecification;
@@ -49,6 +50,7 @@ import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
 import tools.descartes.librede.rrde.optimization.util.Wrapper;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
+import tools.descartes.librede.rrde.recommendation.algorithm.ITradeOffRecommendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
 /**
@@ -224,13 +226,23 @@ public class Plugin implements IApplication {
 	private boolean trainOneConfiguration(IRecomendationAlgorithm alg, IFeatureExtractor extractor,
 			EList<EstimationSpecification> estimators, LibredeConfiguration conf) {
 		EMap<EstimationSpecification, Double> results = new BasicEMap<EstimationSpecification, Double>();
+		EMap<EstimationSpecification, Double> times = new BasicEMap<EstimationSpecification, Double>();
 		for (EstimationSpecification spec : estimators) {
 			// calculate error values for all estimators
 			conf.setEstimation(EcoreUtil.copy(spec));
 			Discovery.fixTimeStamps(conf);
-			results.put(spec, Util.getValidationError(Wrapper.executeLibrede(conf), conf.getValidation()));
+		    long start = System.currentTimeMillis();
+			LibredeResults result = Wrapper.executeLibrede(conf);
+		    long time = System.currentTimeMillis()-start;
+			results.put(spec, Util.getValidationError(result, conf.getValidation()));
+			times.put(spec, Double.longBitsToDouble(time));
 		}
-		alg.trainSet(results, extractor.extractFeatures(conf));
+		if(alg instanceof ITradeOffRecommendationAlgorithm){
+			((ITradeOffRecommendationAlgorithm) alg)
+			.trainSet(results, times, extractor.extractFeatures(conf));
+		} else{
+			alg.trainSet(results, extractor.extractFeatures(conf));
+		}
 		log.info("Inserted training set for configuration " + conf + ".");
 		return true;
 	}

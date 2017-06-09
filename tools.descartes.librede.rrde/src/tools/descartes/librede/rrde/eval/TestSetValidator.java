@@ -51,6 +51,8 @@ import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
 import tools.descartes.librede.rrde.optimization.util.Wrapper;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
+import tools.descartes.librede.rrde.recommendation.TradeOffLibredeExecutor;
+import tools.descartes.librede.rrde.recommendation.algorithm.TimeImportance;
 
 /**
  * This class is for validating via a Test set.
@@ -513,4 +515,15 @@ public class TestSetValidator {
     }
     return after;
   }
+
+	public Map<LibredeConfiguration, TestResult> compareTradeOff(TradeOffLibredeExecutor exec) {
+		after = new HashMap<LibredeConfiguration, TestResult>();
+	    for (LibredeConfiguration libredeConfiguration : testset) {
+	      long starttime = System.currentTimeMillis();
+	      LibredeResults res = exec.executeLibrede(libredeConfiguration);
+	      long finish = System.currentTimeMillis() - starttime;
+	      after.put(libredeConfiguration, new TestResult(res, finish));
+	    }
+	    return after;
+	}
 }
