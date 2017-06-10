@@ -255,8 +255,8 @@ public class Evaluate {
   }
   
   private void validateClusters(LibredeConfiguration libredeConf, OptimizationConfiguration optConf) {
-	  ClusterExportAlgorithm a = new ClusterExportAlgorithm();
-	  a.executeAlgorithm();
+	  OptimizationPlugin p = new OptimizationPlugin();
+	  p.runConfigurationOptimization(optConf);
   }
 
   /**
