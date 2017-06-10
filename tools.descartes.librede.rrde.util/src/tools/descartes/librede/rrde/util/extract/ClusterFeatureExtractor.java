@@ -24,6 +24,7 @@ import tools.descartes.librede.rrde.model.optimization.util.OptimizationAdapterF
 import tools.descartes.librede.rrde.model.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.model.recommendation.StatisticalFeatures;
+import tools.descartes.librede.rrde.model.recommendation.impl.FeatureExtractorSpecifierImpl;
 import tools.descartes.librede.rrde.model.recommendation.impl.FeatureVectorImpl;
 import tools.descartes.librede.rrde.model.recommendation.impl.RecommendationFactoryImpl;
 import tools.descartes.librede.rrde.model.recommendation.impl.StatisticalFeaturesImpl;
@@ -124,7 +125,13 @@ public class ClusterFeatureExtractor implements IFeatureExtractor{
 
 
 	public ClusterFeatureExtractor() {
-		
+		standardTimeUnit = Time.MILLISECONDS;
+		rateUnit = RequestRate.REQ_PER_MINUTE;
+//		UnitsFactoryImpl factory = (UnitsFactoryImpl) UnitsFactoryImpl.init();
+//		spec.setAggregation(factory.createQuantity());
+//		spec.getAggregation().setValue(60000);
+//		spec.getAggregation().setUnit(standardTimeUnit);
+
 	}
 
 	protected <D extends Dimension> StatisticalFeatures extractStatisticalFeatureVector(
