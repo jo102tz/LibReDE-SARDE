@@ -133,21 +133,21 @@
         <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
       </validator>
       <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.0" upperBound="1.0" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.1"/>-->
-      <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.0" upperBound="0.1" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.4"/>-->
-      <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.0" upperBound="0.1" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.0"/>-->
-      <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.0" upperBound="2.0" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.3"/>-->
-      <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.0" upperBound="2.0" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.2"/>-->
-      <parametersToOptimize xsi:type="librede-optimization:StepSizeRelWindow" lowerBound="20.0" upperBound="360.0" startValue="60.0" productMaxValue="7200"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.0" upperBound="0.1" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.4"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.0" upperBound="0.1" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.0"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.0" upperBound="2.0" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.3"/>
+      <parametersToOptimize xsi:type="librede-optimization:GenericParameter" lowerBound="0.0" upperBound="2.0" startValue="0.01" parameter="//@containsOf.0/@estimation/@algorithms.0/@parameters.2"/>
+      <!--<parametersToOptimize xsi:type="librede-optimization:StepSizeRelWindow" lowerBound="20.0" upperBound="360.0" startValue="60.0" productMaxValue="7200"/>-->
     </settings>
     <estimation window="60">
-      <approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>
+      <!--<approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>-->
       <approaches type="tools.descartes.librede.approach.KumarKalmanFilterApproach"/>
-      <approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>
+      <!--<approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>
       <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
-      <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
+      <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>-->
       <approaches type="tools.descartes.librede.approach.WangKalmanFilterApproach"/>
-      <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
-      <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
+      <!--<approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
+      <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>-->
       <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter">
         <parameters name="ObserveNoiseCovariance" value="0.0001"/>
         <parameters name="BoundsFactor" value="0.9"/>
