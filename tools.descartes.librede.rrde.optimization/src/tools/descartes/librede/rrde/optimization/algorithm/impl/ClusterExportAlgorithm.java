@@ -70,6 +70,38 @@ public class ClusterExportAlgorithm extends ExportAlgorithm {
 			s.writeString("maximumArrivalRate");
 			s.writeString("arrivalRateAutoCorrelation");
 			s.writeString("arrivalRateDistribution");
+			
+			//the following features exist per workloadClass
+			s.writeString("responseTimeArithmeticMean");
+			s.writeString("responseTimeGeometricMean");
+			s.writeString("responseTimeStandardDeviation");
+			s.writeString("minimumResponseTime");
+			s.writeString("maximumResponseTime");
+			s.writeString("responseTimeAutoCorrelation");
+			s.writeString("responseTimeDistribution");
+			s.writeString("arrivalRateArithmeticMean");
+			s.writeString("arrivalRateGeometricMean");
+			s.writeString("arrivalRateStandardDeviation");
+			s.writeString("minimumArrivalRate");
+			s.writeString("maximumArrivalRate");
+			s.writeString("arrivalRateAutoCorrelation");
+			s.writeString("arrivalRateDistribution");
+			
+			s.writeString("responseTimeArithmeticMean");
+			s.writeString("responseTimeGeometricMean");
+			s.writeString("responseTimeStandardDeviation");
+			s.writeString("minimumResponseTime");
+			s.writeString("maximumResponseTime");
+			s.writeString("responseTimeAutoCorrelation");
+			s.writeString("responseTimeDistribution");
+			s.writeString("arrivalRateArithmeticMean");
+			s.writeString("arrivalRateGeometricMean");
+			s.writeString("arrivalRateStandardDeviation");
+			s.writeString("minimumArrivalRate");
+			s.writeString("maximumArrivalRate");
+			s.writeString("arrivalRateAutoCorrelation");
+			s.writeString("arrivalRateDistribution");
+			
 			s.newLine();
 			
 			ClusterFeatureExtractor ex = new ClusterFeatureExtractor();
@@ -85,7 +117,7 @@ public class ClusterExportAlgorithm extends ExportAlgorithm {
 				// add feature vector here
 				FeatureVector fv = ex.extractFeatures(conf);
 				s.writeDouble(fv.getNumberOfRessources());
-				s.writeDouble(fv.getNumberOfWorkloadClasses());
+				s.writeDouble(fv.getResponseTimeStatistics().size()); //this should be number of workload classes
 				s.writeDouble(fv.getVarianceInflationFactor());
 				StatisticalFeatures features = fv.getUtilizationStatistics().get(0);
 				writeFeatures(s, features);
