@@ -9,10 +9,10 @@ import java.util.SortedSet;
 import org.apache.commons.math3.util.Pair;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
-import tools.descartes.librede.rrde.recommendation.algorithm.AbstractTradOffAlgorithm;
+import tools.descartes.librede.rrde.recommendation.algorithm.AbstractTradeOffAlgorithm;
 import tools.descartes.librede.rrde.recommendation.algorithm.ITradeOffAlgorithm;
 
-public class ThresholdTradeOffAlgorithm extends AbstractTradOffAlgorithm {	
+public class ThresholdTradeOffAlgorithm extends AbstractTradeOffAlgorithm {	
 	
 	
 	@Override

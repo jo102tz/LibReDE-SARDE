@@ -229,9 +229,9 @@ public class TradeOffEvaluate {
 		      RecommendationTrainingConfiguration conf) {
 		    // Load the algorithm specifier and specify the algorithm itself
 		  //RecommendationAlgorithmSpecifier algorithmSpecifier = conf.getLearningAlgorithm();
-		  RecommendationTradeOffAlgorithmSpecifier algorithmSpecifier = new GaussianProcessRegressionTradeOffAlgorithmSpecifierImpl();
-		  algorithmSpecifier.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.TradeOffSmileGaussianProcessRegression");
-		  algorithmSpecifier.setTradeOffAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.ThresholdTradeOffAlgorithm");
+		  RecommendationTradeOffAlgorithmSpecifier algorithmSpecifier = new RandomForestTradeOffAlgorithmSpecifierImpl();
+		  algorithmSpecifier.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.TradeOffSmileRandomForest");
+		  algorithmSpecifier.setTradeOffAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.WeightedRankingTradeOffAlgorithm");
 		    //OLSTradeOffAlgorithmSpecifier algorithmSpecifier = new OLSTradeOffAlgorithmSpecifierImpl();
 		    //algorithmSpecifier.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.TradeOffSmileOLS");
 		    // Load the feature extractor from xml 
@@ -281,7 +281,7 @@ public class TradeOffEvaluate {
 		    // train algorithm
 		    IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
 		          .loadAndTrainAlgorithm(conf);
-		    TradeOffLibredeExecutor exec = new TradeOffLibredeExecutor(extractor, algorithm, 0.1, TimeImportance.NORMAL);
+		    TradeOffLibredeExecutor exec = new TradeOffLibredeExecutor(extractor, algorithm, 0.1, TimeImportance.HIGH);
 		    long reco = System.currentTimeMillis() - start;
 
 		    // print results

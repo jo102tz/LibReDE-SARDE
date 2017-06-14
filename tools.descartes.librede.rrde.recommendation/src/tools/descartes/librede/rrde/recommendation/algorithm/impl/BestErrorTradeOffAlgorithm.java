@@ -5,10 +5,10 @@ import java.util.SortedSet;
 import org.apache.commons.math3.util.Pair;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
-import tools.descartes.librede.rrde.recommendation.algorithm.AbstractTradOffAlgorithm;
+import tools.descartes.librede.rrde.recommendation.algorithm.AbstractTradeOffAlgorithm;
 import tools.descartes.librede.rrde.recommendation.algorithm.ITradeOffAlgorithm;
 
-public class BestErrorTradeOffAlgorithm extends AbstractTradOffAlgorithm {
+public class BestErrorTradeOffAlgorithm extends AbstractTradeOffAlgorithm {
 
 
 	@Override
