@@ -301,8 +301,9 @@ public class ClusterFeatureExtractor implements IFeatureExtractor{
 		LibredeVariables var = new LibredeVariables(conf);
 		Librede.initRepo(var);
 		FeatureVector vector = new FeatureVectorImpl();
-//		extractWorkloadDescription(vector, var);
-//		extractRegressionAnalyzisInformation(vector, var);
+		//TODO: NPE here?
+		extractWorkloadDescription(vector, var);
+		extractRegressionAnalyzisInformation(vector, var);
 
 		for (ModelEntity res : var.getRepo().getWorkload().getResources()) {
 			vector.getUtilizationStatistics().add(
