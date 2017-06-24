@@ -68,7 +68,7 @@ public class TasksParser extends Parser {
 		Machine m = cluster.getContainingMachine(machineId);
 		if (m != null) {
 			if (!IGNORE_UPDATED_MACHINES || !m.isWasupdated()) {
-				m.getTasks().add(new TaskUsage(Long.parseLong(split[3]), starttime, endtime, Float.parseFloat(split[5]),
+				m.addTask(new TaskUsage(Long.parseLong(split[3]), starttime, endtime, Float.parseFloat(split[5]),
 						Float.parseFloat(split[19]), Float.parseFloat(split[13])));
 			}
 		} else {

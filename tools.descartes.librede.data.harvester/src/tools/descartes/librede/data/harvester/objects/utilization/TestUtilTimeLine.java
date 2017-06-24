@@ -37,6 +37,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 
+import tools.descartes.librede.data.harvester.objects.Machine;
 import tools.descartes.librede.data.harvester.objects.TaskUsage;
 
 /**
@@ -60,7 +61,10 @@ public class TestUtilTimeLine {
 		list.add(new TaskUsage(0l, 20l, 25l, 0.2f, 0.2f, 0.3f));
 		list.add(new TaskUsage(0l, 20l, 25l, 0.2f, 0.2f, 0.3f));
 		list.add(new TaskUsage(0l, 25l, 30l, 0.2f, 0.2f, 0.3f));
-		UtilizationTimeLine tl = new UtilizationTimeLine(list);
+		Machine m = new Machine(0);
+		for (TaskUsage taskUsage : list) {
+			m.addTask(taskUsage);
+		}
 
 		// expected from above tasklist
 		SortedSet<Point> expected = new TreeSet<Point>();
@@ -76,14 +80,13 @@ public class TestUtilTimeLine {
 
 		Iterator<Point> expIt = expected.iterator();
 
-		Point cur = tl.getStart();
-		while (cur != null) {
+		for (Point point : m.getUtilization()) {
 			Point expectedP = expIt.next();
-			assertEquals(expectedP.getTime(), cur.getTime());
-			assertEquals(expectedP.getValue(), cur.getValue(), 0);
-			cur = cur.getPost();
+			assertEquals(expectedP.getTime(), point.getTime());
+			assertEquals(expectedP.getValue(), point.getValue(), 0);
 		}
-		if(expIt.hasNext())
+		
+		if (expIt.hasNext())
 			fail("Iterator has left elements.");
 
 	}

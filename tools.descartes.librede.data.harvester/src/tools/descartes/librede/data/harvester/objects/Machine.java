@@ -26,8 +26,11 @@
  */
 package tools.descartes.librede.data.harvester.objects;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import tools.descartes.librede.data.harvester.objects.utilization.Point;
+import tools.descartes.librede.data.harvester.objects.utilization.UtilizationTimeLine;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -48,8 +51,10 @@ public class Machine {
 	private float cpu;
 
 	private float memory;
+	
+	private int totalTasks = 0;
 
-	private List<TaskUsage> tasks;
+	private UtilizationTimeLine utiltl;
 
 	/**
 	 * @param id
@@ -57,7 +62,7 @@ public class Machine {
 	public Machine(int id) {
 		super();
 		this.id = id;
-		tasks = new ArrayList<TaskUsage>();
+		utiltl = new UtilizationTimeLine();
 	}
 
 	/**
@@ -74,7 +79,7 @@ public class Machine {
 		this.platformid = platformid;
 		this.cpu = cpu;
 		this.memory = memory;
-		tasks = new ArrayList<TaskUsage>();
+		utiltl = new UtilizationTimeLine();
 	}
 
 	/**
@@ -182,21 +187,6 @@ public class Machine {
 		this.memory = memory;
 	}
 
-	/**
-	 * @return the tasks
-	 */
-	public List<TaskUsage> getTasks() {
-		return tasks;
-	}
-
-	/**
-	 * @param tasks
-	 *            the tasks to set
-	 */
-	public void setTasks(List<TaskUsage> tasks) {
-		this.tasks = tasks;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -230,18 +220,36 @@ public class Machine {
 	}
 
 	/**
-	 * Returns all tasks that ran on this machine at the particular time.
-	 * 
-	 * @param time
-	 * @return
+	 * @return the totalTasks
 	 */
-	public List<TaskUsage> getIntervalTasks(long time) {
-		ArrayList<TaskUsage> list = new ArrayList<TaskUsage>();
-		for (TaskUsage taskUsage : tasks) {
-			if (taskUsage.getStarttime() <= time && taskUsage.getEndtime() >= time) {
-				list.add(taskUsage);
-			}
+	public int getTotalTasks() {
+		return totalTasks;
+	}
+
+	/**
+	 * @param totalTasks the totalTasks to set
+	 */
+	public void setTotalTasks(int totalTasks) {
+		this.totalTasks = totalTasks;
+	}
+
+	public void addTask(TaskUsage task) {
+		totalTasks++;
+		utiltl.addTask(task);
+	}
+
+	public List<Point> getUtilization() {
+		LinkedList<Point> list = new LinkedList<Point>();
+		Point cur = utiltl.getStart();
+
+		while (cur != null) {
+			list.add(cur);
+			cur = cur.getPost();
 		}
+
+		// delete helper points
+		list.removeFirst();
+		list.removeLast();
 		return list;
 	}
 

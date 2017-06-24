@@ -44,21 +44,12 @@ public class UtilizationTimeLine {
 	static Logger log = Logger
 			.getLogger(tools.descartes.librede.data.harvester.objects.utilization.UtilizationTimeLine.class);
 
-	public UtilizationTimeLine(List<TaskUsage> tasks) {
+	public UtilizationTimeLine() {
 		// temporary helper points
 		start = new Point(-1, 0);
 		Point end = new Point(Long.MAX_VALUE, 0);
 		start.setPost(end);
 		end.setPre(start);
-
-		for (TaskUsage t : tasks)
-			addTask(t);
-
-		// delete start points
-		start.getPost().setPre(null);
-		start = start.getPost();
-		end.getPre().setPost(null);
-
 	}
 
 	/**
@@ -68,7 +59,7 @@ public class UtilizationTimeLine {
 		return start;
 	}
 
-	private void addTask(TaskUsage task) {
+	public void addTask(TaskUsage task) {
 		LinkedList<Point> affectedPoints = new LinkedList<Point>();
 		Point cur = start;
 		// ignore all Points before

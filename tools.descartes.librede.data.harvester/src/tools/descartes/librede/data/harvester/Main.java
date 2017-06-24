@@ -27,9 +27,8 @@
 package tools.descartes.librede.data.harvester;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map.Entry;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
@@ -38,9 +37,7 @@ import tools.descartes.librede.data.harvester.io.DataStream;
 import tools.descartes.librede.data.harvester.io.Folder;
 import tools.descartes.librede.data.harvester.objects.Cluster;
 import tools.descartes.librede.data.harvester.objects.Machine;
-import tools.descartes.librede.data.harvester.objects.TaskUsage;
 import tools.descartes.librede.data.harvester.objects.utilization.Point;
-import tools.descartes.librede.data.harvester.objects.utilization.UtilizationTimeLine;
 import tools.descartes.librede.data.harvester.parser.MachineParser;
 import tools.descartes.librede.data.harvester.parser.Parser;
 import tools.descartes.librede.data.harvester.parser.TasksParser;
@@ -99,11 +96,10 @@ public class Main {
 			testmachine = it.next();
 		} while (testmachine.isWasupdated());
 		log.info("Printing Machine: " + testmachine.getId());
-		UtilizationTimeLine tl = new UtilizationTimeLine(testmachine.getTasks());
-		Point cur = tl.getStart();
-		while (cur != null) {
-			log.info(cur.getTime() + "; " + cur.getValue());
-			cur = cur.getPost();
+		
+		List<Point> list = testmachine.getUtilization();
+		for (Point point : list) {
+			log.info(point.getTime() + "; " + point.getValue());
 		}
 	}
 
@@ -136,7 +132,7 @@ public class Main {
 			if (m.getValue().isWasupdated())
 				updated++;
 			else {
-				totaltasknr += m.getValue().getTasks().size();
+				totaltasknr += m.getValue().getTotalTasks();
 			}
 		}
 		double noNonUpdatedMachines = noMachines - updated;
