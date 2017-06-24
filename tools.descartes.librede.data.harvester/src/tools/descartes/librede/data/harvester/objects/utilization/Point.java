@@ -33,17 +33,21 @@ import org.apache.log4j.Logger;
  *
  */
 public class Point implements Comparable<Point> {
+	
+	private Point pre;
+	
+	private Point post;
 
 	private long time;
 
-	private double value;
+	private float value;
 
 	static Logger log = Logger.getLogger(tools.descartes.librede.data.harvester.objects.utilization.Point.class);
 
 	/**
 	 * @return the value
 	 */
-	public double getValue() {
+	public float getValue() {
 		return value;
 	}
 
@@ -51,7 +55,7 @@ public class Point implements Comparable<Point> {
 	 * @param value
 	 *            the value to set
 	 */
-	public void setValue(double value) {
+	public void setValue(float value) {
 		this.value = value;
 	}
 
@@ -71,10 +75,38 @@ public class Point implements Comparable<Point> {
 	}
 
 	/**
+	 * @return the pre
+	 */
+	public Point getPre() {
+		return pre;
+	}
+
+	/**
+	 * @param pre the pre to set
+	 */
+	public void setPre(Point pre) {
+		this.pre = pre;
+	}
+
+	/**
+	 * @return the post
+	 */
+	public Point getPost() {
+		return post;
+	}
+
+	/**
+	 * @param post the post to set
+	 */
+	public void setPost(Point post) {
+		this.post = post;
+	}
+
+	/**
 	 * @param value
 	 * @param time
 	 */
-	public Point(long time, double value) {
+	public Point(long time, float value) {
 		super();
 		this.value = value;
 		this.time = time;
@@ -91,7 +123,7 @@ public class Point implements Comparable<Point> {
 			return 1;
 		else if (this.getTime() == o.getTime()) {
 			if (!this.equals(o)) {
-				log.warn("Two points to have the same timestamp, but not the same value...");
+				log.warn("Comparing two points to have the same timestamp, but not the same value...");
 			}
 			return 0;
 		} else

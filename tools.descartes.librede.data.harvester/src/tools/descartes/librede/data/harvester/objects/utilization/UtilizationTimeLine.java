@@ -26,11 +26,8 @@
  */
 package tools.descartes.librede.data.harvester.objects.utilization;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 
@@ -42,56 +39,72 @@ import tools.descartes.librede.data.harvester.objects.TaskUsage;
  */
 public class UtilizationTimeLine {
 
-	private SortedSet<Point> graph = new TreeSet<Point>();
+	private Point start;
 
-	static Logger log = Logger.getLogger(tools.descartes.librede.data.harvester.objects.utilization.UtilizationTimeLine.class);
+	static Logger log = Logger
+			.getLogger(tools.descartes.librede.data.harvester.objects.utilization.UtilizationTimeLine.class);
 
 	public UtilizationTimeLine(List<TaskUsage> tasks) {
-		graph.add(new Point(0, 0));
-		graph.add(new Point(Long.MAX_VALUE, 0));
-		graph.add(new Point(Long.MAX_VALUE - 1, 0));
+		// temporary helper points
+		start = new Point(-1, 0);
+		Point end = new Point(Long.MAX_VALUE, 0);
+		start.setPost(end);
+		end.setPre(start);
+
 		for (TaskUsage t : tasks)
 			addTask(t);
-//		graph.remove(graph.first());
-//		graph.remove(graph.last());
-//		graph.remove(graph.last());
+
+		// delete start points
+		start.getPost().setPre(null);
+		start = start.getPost();
+		end.getPre().setPost(null);
+
 	}
 
 	/**
-	 * @return the graph
+	 * @return the start
 	 */
-	public SortedSet<Point> getGraph() {
-		return graph;
+	public Point getStart() {
+		return start;
 	}
 
 	private void addTask(TaskUsage task) {
-		ArrayList<Point> toAdd = new ArrayList<Point>(2);
-		Iterator<Point> it = graph.iterator();
-		Point p = it.next();
-		while (p.getTime() < task.getStarttime()) {
-			p = it.next();
+		LinkedList<Point> affectedPoints = new LinkedList<Point>();
+		Point cur = start;
+		// ignore all Points before
+		while (cur.getPost() != null && cur.getTime() <= task.getStarttime()) {
+			cur = cur.getPost();
 		}
-		// found first point which is influenced by task
-		if (p.getTime() != task.getStarttime()) {
-			// create new point, if new point in time is necessary
-			p = new Point(task.getStarttime(), p.getValue());
-			toAdd.add(p);
+		Point lastPointbefore = cur.getPre();
+		// add all affected points
+		while (cur.getPost() != null && cur.getTime() <= task.getEndtime()) {
+			affectedPoints.addLast(cur);
+			cur = cur.getPost();
 		}
-		// increase all points until end with given meancpu
-		Point lastpoint = null;
-		while (p.getTime() <= task.getEndtime()) {
-			p.setValue(p.getValue() + task.getMeanCPU());
-			lastpoint = p;
-			p = it.next();
+		Point firstPointafter = cur;
+		// add point at endpoint if not already there
+		if (firstPointafter.getPre().getTime() != task.getEndtime()) {
+			Point p = new Point(task.getEndtime(), firstPointafter.getValue());
+			addPointBetween(p, firstPointafter.getPre(), firstPointafter);
+			affectedPoints.add(p);
 		}
-		if (lastpoint.getTime() != task.getEndtime()) {
-			// create new point, if endpoint is not a known point yet
-			p = new Point(task.getEndtime(), p.getValue());
-			toAdd.add(p);
+		if (lastPointbefore.getTime() != task.getStarttime()) {
+			Point p = new Point(task.getStarttime(), lastPointbefore.getPost().getValue());
+			addPointBetween(p, lastPointbefore, lastPointbefore.getPost());
+		}
+		// affected points is not sorted!!
+		// increase all affected points
+		for (Point point : affectedPoints) {
+			point.setValue(point.getValue() + task.getMeanCPU());
 		}
 
-		// add both created points
-		graph.addAll(toAdd);
+	}
+
+	private void addPointBetween(Point p, Point pre, Point post) {
+		p.setPost(post);
+		p.setPre(pre);
+		p.getPre().setPost(p);
+		post.setPre(p);
 	}
 
 }

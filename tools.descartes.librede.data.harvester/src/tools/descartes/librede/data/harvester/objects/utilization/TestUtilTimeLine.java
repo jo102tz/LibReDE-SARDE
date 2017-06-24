@@ -26,16 +26,17 @@
  */
 package tools.descartes.librede.data.harvester.objects.utilization;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.log4j.BasicConfigurator;
+import org.junit.Before;
 import org.junit.Test;
 
-import junit.framework.Assert;
 import tools.descartes.librede.data.harvester.objects.TaskUsage;
 
 /**
@@ -43,6 +44,11 @@ import tools.descartes.librede.data.harvester.objects.TaskUsage;
  *
  */
 public class TestUtilTimeLine {
+
+	@Before
+	public void init() {
+		BasicConfigurator.configure();
+	}
 
 	@Test
 	public void test() {
@@ -55,28 +61,31 @@ public class TestUtilTimeLine {
 		list.add(new TaskUsage(0l, 20l, 25l, 0.2f, 0.2f, 0.3f));
 		list.add(new TaskUsage(0l, 25l, 30l, 0.2f, 0.2f, 0.3f));
 		UtilizationTimeLine tl = new UtilizationTimeLine(list);
-		
+
 		// expected from above tasklist
 		SortedSet<Point> expected = new TreeSet<Point>();
 		expected.add(new Point(0, 0));
-		expected.add(new Point(1, 0.2));
-		expected.add(new Point(10, 0.4));
-		expected.add(new Point(11, 0.2));
+		expected.add(new Point(1, 0.2f));
+		expected.add(new Point(10, 0.4f));
+		expected.add(new Point(11, 0.2f));
 		expected.add(new Point(15, 0));
-		expected.add(new Point(20, 0.9));
-		expected.add(new Point(25, 0.4));
-		expected.add(new Point(30, 0.2));
-		
-		SortedSet<Point> points = tl.getGraph();
-		
+		expected.add(new Point(16, 0.9f));
+		expected.add(new Point(20, 0.9f));
+		expected.add(new Point(25, 0.4f));
+		expected.add(new Point(30, 0.2f));
+
 		Iterator<Point> expIt = expected.iterator();
-		
-		for (Point point : points) {
+
+		Point cur = tl.getStart();
+		while (cur != null) {
 			Point expectedP = expIt.next();
-			assertEquals(expectedP.getTime(), point.getTime());
-			assertEquals(expectedP.getValue(), point.getValue(), 0);
+			assertEquals(expectedP.getTime(), cur.getTime());
+			assertEquals(expectedP.getValue(), cur.getValue(), 0);
+			cur = cur.getPost();
 		}
-	
+		if(expIt.hasNext())
+			fail("Iterator has left elements.");
+
 	}
 
 }

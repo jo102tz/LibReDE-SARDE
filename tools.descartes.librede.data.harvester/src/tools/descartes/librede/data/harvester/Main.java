@@ -100,8 +100,10 @@ public class Main {
 		} while (testmachine.isWasupdated());
 		log.info("Printing Machine: " + testmachine.getId());
 		UtilizationTimeLine tl = new UtilizationTimeLine(testmachine.getTasks());
-		for (Point p : tl.getGraph()) {
-			log.info(p.getTime() + "; " + p.getValue());
+		Point cur = tl.getStart();
+		while (cur != null) {
+			log.info(cur.getTime() + "; " + cur.getValue());
+			cur = cur.getPost();
 		}
 	}
 
