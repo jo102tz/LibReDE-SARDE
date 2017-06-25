@@ -26,7 +26,12 @@
  */
 package tools.descartes.librede.data.harvester;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -79,7 +84,45 @@ public class Main {
 		printUtilStatistics(cluster, tparser.getEarliestStart(), tparser.getLatestEnd());
 		log.info("-----------------------");
 		printSystemInfo();
+		log.info("Now exporting:");
+		for (Machine m : cluster.getMachines().values()) {
+			if (m.isWasupdated() == false) {
+				printUtilOfMachine(m);
+			}
+		}
+		log.info("Export finished.");
+		log.info("Done!");
+	}
 
+	/**
+	 * @param m
+	 */
+	private static void printUtilOfMachine(Machine m) {
+		File f = new File(PATH + "csvs" + File.separatorChar + m.getId() + ".csv");
+		try {
+			f.createNewFile();
+		} catch (IOException e) {
+			log.warn("IOExcpetion occurred.", e);
+		}
+		try {
+			BufferedWriter o = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));
+			printToFile(o, m.getUtilization(), ",");
+			o.close();
+		} catch (IOException e) {
+			log.warn("IOExcpetion occurred.", e);
+		}
+	}
+
+	/**
+	 * @param o
+	 * @param utilization
+	 * @throws IOException
+	 */
+	private static void printToFile(BufferedWriter o, List<Point> utilization, String separator) throws IOException {
+		for (Point point : utilization) {
+			o.write(point.getTime() + separator + point.getValue());
+			o.newLine();
+		}
 	}
 
 	/**
@@ -96,7 +139,7 @@ public class Main {
 			testmachine = it.next();
 		} while (testmachine.isWasupdated());
 		log.info("Printing Machine: " + testmachine.getId());
-		
+
 		List<Point> list = testmachine.getUtilization();
 		for (Point point : list) {
 			log.info(point.getTime() + "; " + point.getValue());
