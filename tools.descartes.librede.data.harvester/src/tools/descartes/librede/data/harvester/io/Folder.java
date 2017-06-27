@@ -62,14 +62,16 @@ public class Folder {
 		files = new TreeSet<IndexedFile>(new Comparator<IndexedFile>() {
 			@Override
 			public int compare(IndexedFile o1, IndexedFile o2) {
+				// ordering files in the reversed order (500 before 499) in
+				// order to improve performance !!!
 				if (o1.getIndex() > o2.getIndex())
-					return 1;
+					return -1;
 				else if (o1.getIndex() == o2.getIndex()) {
 					if (!o1.equals(o2))
 						log.warn("Indexes are equal!");
 					return 0;
 				} else
-					return -1;
+					return 1;
 
 			}
 		});

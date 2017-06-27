@@ -29,6 +29,8 @@ package tools.descartes.librede.data.harvester.objects.utilization;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -61,33 +63,38 @@ public class TestUtilTimeLine {
 		list.add(new TaskUsage(0l, 20l, 25l, 0.2f, 0.2f, 0.3f));
 		list.add(new TaskUsage(0l, 20l, 25l, 0.2f, 0.2f, 0.3f));
 		list.add(new TaskUsage(0l, 25l, 30l, 0.2f, 0.2f, 0.3f));
-		Machine m = new Machine(0);
-		for (TaskUsage taskUsage : list) {
-			m.addTask(taskUsage);
+
+		for (int i = 0; i < 5; i++) {
+			// test 5 five times with random order
+			Collections.shuffle(list);
+			Machine m = new Machine(0);
+			for (TaskUsage taskUsage : list) {
+				m.addTask(taskUsage);
+			}
+
+			// expected from above tasklist
+			SortedSet<Point> expected = new TreeSet<Point>();
+			expected.add(new Point(0, 0));
+			expected.add(new Point(1, 0.2f));
+			expected.add(new Point(10, 0.4f));
+			expected.add(new Point(11, 0.2f));
+			expected.add(new Point(15, 0));
+			expected.add(new Point(16, 0.9f));
+			expected.add(new Point(20, 0.9f));
+			expected.add(new Point(25, 0.4f));
+			expected.add(new Point(30, 0.2f));
+
+			Iterator<Point> expIt = expected.iterator();
+
+			for (Point point : m.getUtilization()) {
+				Point expectedP = expIt.next();
+				assertEquals(expectedP.getTime(), point.getTime());
+				assertEquals(expectedP.getValue(), point.getValue(), 0);
+			}
+
+			if (expIt.hasNext())
+				fail("Iterator has left elements.");
 		}
-
-		// expected from above tasklist
-		SortedSet<Point> expected = new TreeSet<Point>();
-		expected.add(new Point(0, 0));
-		expected.add(new Point(1, 0.2f));
-		expected.add(new Point(10, 0.4f));
-		expected.add(new Point(11, 0.2f));
-		expected.add(new Point(15, 0));
-		expected.add(new Point(16, 0.9f));
-		expected.add(new Point(20, 0.9f));
-		expected.add(new Point(25, 0.4f));
-		expected.add(new Point(30, 0.2f));
-
-		Iterator<Point> expIt = expected.iterator();
-
-		for (Point point : m.getUtilization()) {
-			Point expectedP = expIt.next();
-			assertEquals(expectedP.getTime(), point.getTime());
-			assertEquals(expectedP.getValue(), point.getValue(), 0);
-		}
-		
-		if (expIt.hasNext())
-			fail("Iterator has left elements.");
 
 	}
 
