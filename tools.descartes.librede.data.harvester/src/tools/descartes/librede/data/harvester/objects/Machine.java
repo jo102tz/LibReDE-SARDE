@@ -26,6 +26,8 @@
  */
 package tools.descartes.librede.data.harvester.objects;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,10 +53,10 @@ public class Machine {
 	private float cpu;
 
 	private float memory;
-	
-	private int totalTasks = 0;
 
 	private UtilizationTimeLine utiltl;
+
+	private HashMap<Task, Task> tasks;
 
 	/**
 	 * @param id
@@ -63,6 +65,7 @@ public class Machine {
 		super();
 		this.id = id;
 		utiltl = new UtilizationTimeLine();
+		tasks = new HashMap<Task, Task>();
 	}
 
 	/**
@@ -80,6 +83,7 @@ public class Machine {
 		this.cpu = cpu;
 		this.memory = memory;
 		utiltl = new UtilizationTimeLine();
+		tasks = new HashMap<Task, Task>();
 	}
 
 	/**
@@ -219,23 +223,15 @@ public class Machine {
 		return true;
 	}
 
-	/**
-	 * @return the totalTasks
-	 */
-	public int getTotalTasks() {
-		return totalTasks;
-	}
-
-	/**
-	 * @param totalTasks the totalTasks to set
-	 */
-	public void setTotalTasks(int totalTasks) {
-		this.totalTasks = totalTasks;
-	}
-
-	public void addTask(TaskUsage task) {
-		totalTasks++;
+	public void addTaskUsage(TaskUsage task) {
 		utiltl.addTask(task);
+	}
+
+	/**
+	 * @return the tasks
+	 */
+	public HashMap<Task, Task> getTasks() {
+		return tasks;
 	}
 
 	public List<Point> getUtilization() {

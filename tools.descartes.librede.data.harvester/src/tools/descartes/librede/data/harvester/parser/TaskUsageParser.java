@@ -28,6 +28,7 @@ package tools.descartes.librede.data.harvester.parser;
 
 import org.apache.log4j.Logger;
 
+import tools.descartes.librede.data.harvester.Harvester;
 import tools.descartes.librede.data.harvester.objects.Cluster;
 import tools.descartes.librede.data.harvester.objects.Machine;
 import tools.descartes.librede.data.harvester.objects.TaskUsage;
@@ -36,9 +37,7 @@ import tools.descartes.librede.data.harvester.objects.TaskUsage;
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class TasksParser extends Parser {
-
-	private static final boolean IGNORE_UPDATED_MACHINES = false;
+public class TaskUsageParser extends Parser {
 
 	private long earliestStart = Long.MAX_VALUE;
 
@@ -51,7 +50,7 @@ public class TasksParser extends Parser {
 	/**
 	 * @param cluster
 	 */
-	public TasksParser(Cluster cluster) {
+	public TaskUsageParser(Cluster cluster) {
 		super();
 		this.cluster = cluster;
 	}
@@ -67,8 +66,8 @@ public class TasksParser extends Parser {
 
 		Machine m = cluster.getContainingMachine(machineId);
 		if (m != null) {
-			if (!IGNORE_UPDATED_MACHINES || !m.isWasupdated()) {
-				m.addTask(new TaskUsage(Long.parseLong(split[3]), starttime, endtime, Float.parseFloat(split[5]),
+			if (!Harvester.IGNORE_UPDATED_MACHINES || !m.isWasupdated()) {
+				m.addTaskUsage(new TaskUsage(Long.parseLong(split[3]), starttime, endtime, Float.parseFloat(split[5]),
 						Float.parseFloat(split[19]), Float.parseFloat(split[13])));
 			}
 		} else {

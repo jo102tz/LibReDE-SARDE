@@ -28,30 +28,35 @@ package tools.descartes.librede.data.harvester;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map.Entry;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.data.harvester.io.DataStream;
 import tools.descartes.librede.data.harvester.io.Folder;
 import tools.descartes.librede.data.harvester.objects.Cluster;
 import tools.descartes.librede.data.harvester.objects.Machine;
+import tools.descartes.librede.data.harvester.objects.Task;
 import tools.descartes.librede.data.harvester.objects.utilization.Point;
 import tools.descartes.librede.data.harvester.parser.MachineParser;
 import tools.descartes.librede.data.harvester.parser.Parser;
-import tools.descartes.librede.data.harvester.parser.TasksParser;
+import tools.descartes.librede.data.harvester.parser.TaskEventsParser;
+import tools.descartes.librede.data.harvester.parser.TaskUsageParser;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class Main {
+public class Harvester {
+
+	public static final boolean IGNORE_UPDATED_MACHINES = false;
 
 	private static String PATH = "D:/googledata/clusterdata-2011-2/";
 
@@ -62,42 +67,75 @@ public class Main {
 	public static void main(String[] args) {
 
 		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.INFO);
 
 		long start = System.currentTimeMillis();
 		// Parsing machines
 		Cluster cluster = new Cluster();
 		MachineParser mparser = new MachineParser(cluster);
-		parseFolder(mparser, "machine_events", "Machine Events");
+		parseFolder(mparser, "machine_events", "Machine Events", false);
 		log.info("Parsing Machines complete!");
+		log.info("-----------------------");
+		printClusterStatistics(cluster);
+		log.info("-----------------------");
 
 		// Parsing tasks
-		TasksParser tparser = new TasksParser(cluster);
-		parseFolder(tparser, "task_usage", "Task Usage");
+		TaskEventsParser eventparser = new TaskEventsParser(cluster);
+		parseFolder(eventparser, "task_events", "Task Events", false);
 		log.info("Parsing Tasks complete!");
+		log.info("-----------------------");
+		printTaskStatistics(cluster);
+		log.info("-----------------------");
+
+		// Parsing task usages
+		TaskUsageParser tparser = new TaskUsageParser(cluster);
+		parseFolder(tparser, "task_usage", "Task Usage", true);
+		log.info("Parsing Task Events complete!");
 
 		log.info("Parsing complete!");
 		long end = System.currentTimeMillis();
 		log.info("Parsing took: " + (end - start) / 1000 + " s.");
-		log.info("-----------------------");
-		printClusterStatistics(cluster);
+
 		log.info("-----------------------");
 		printUtilStatistics(cluster, tparser.getEarliestStart(), tparser.getLatestEnd());
 		log.info("-----------------------");
 		printSystemInfo();
 		log.info("Now exporting:");
 		for (Machine m : cluster.getMachines().values()) {
-			if (m.isWasupdated() == false) {
-				printUtilOfMachine(m);
-			}
+			// if (m.isWasupdated() == false) {
+			printUtilOfMachineToFile(m);
+			// }
 		}
 		log.info("Export finished.");
 		log.info("Done!");
 	}
 
 	/**
+	 * @param cluster
+	 */
+	private static void printTaskStatistics(Cluster cluster) {
+		log.info("Task Statistics:");
+		log.info("Number of Machines in the cluster:" + cluster.getMachines().entrySet());
+		long totaltasknr = 0;
+		long excluded = 0;
+		for (Entry<Long, Machine> m : cluster.getMachines().entrySet()) {
+			totaltasknr += m.getValue().getTasks().size();
+			for (Task t : m.getValue().getTasks().values()) {
+				if (t.isWasExcluded())
+					excluded++;
+			}
+		}
+		log.info("Total number of tasks: " + totaltasknr);
+		log.info("Number of excluded tasks: " + excluded);
+		log.info("Percentage of non-excluded tasks: " + (excluded * 100.0) / totaltasknr);
+		log.info("Average number of different tasks per machine (incl. excluded): "
+				+ totaltasknr / ((double) cluster.getMachines().entrySet().size()));
+	}
+
+	/**
 	 * @param m
 	 */
-	private static void printUtilOfMachine(Machine m) {
+	private static void printUtilOfMachineToFile(Machine m) {
 		File f = new File(PATH + "csvs" + File.separatorChar + m.getId() + ".csv");
 		try {
 			f.createNewFile();
@@ -133,21 +171,24 @@ public class Main {
 	private static void printUtilStatistics(Cluster cluster, long earliestStart, long latestEnd) {
 		log.info("The earliest start is " + earliestStart + ".");
 		log.info("The latest end is " + latestEnd + ".");
-		Machine testmachine;
-		java.util.Iterator<Machine> it = cluster.getMachines().values().iterator();
-		do {
-			testmachine = it.next();
-		} while (testmachine.isWasupdated());
-		log.info("Printing Machine: " + testmachine.getId());
-
-		List<Point> list = testmachine.getUtilization();
-		for (Point point : list) {
-			log.info(point.getTime() + "; " + point.getValue());
-		}
+		long seconds = (latestEnd - earliestStart) / 1000;
+		log.info("Measurement Period: " + seconds + " s or " + new SimpleDateFormat("HH:mm:ss").format(seconds));
+		// Machine testmachine;
+		// java.util.Iterator<Machine> it =
+		// cluster.getMachines().values().iterator();
+		// do {
+		// testmachine = it.next();
+		// } while (testmachine.isWasupdated());
+		// log.info("Printing Machine: " + testmachine.getId());
+		//
+		// List<Point> list = testmachine.getUtilization();
+		// for (Point point : list) {
+		// log.info(point.getTime() + "; " + point.getValue());
+		// }
 	}
 
-	private static void parseFolder(Parser parser, String filename, String name) {
-		Folder folder = new Folder(new File(PATH + filename), name);
+	private static void parseFolder(Parser parser, String filename, String name, boolean reversed) {
+		Folder folder = new Folder(new File(PATH + filename), name, reversed);
 		DataStream ds = new DataStream(folder);
 
 		String line = ds.getNextLine();
@@ -170,19 +211,13 @@ public class Main {
 		double noMachines = cl.getMachines().size();
 		log.info("Number of Machines in the cluster:" + noMachines);
 		int updated = 0;
-		long totaltasknr = 0;
 		for (Entry<Long, Machine> m : cl.getMachines().entrySet()) {
 			if (m.getValue().isWasupdated())
 				updated++;
-			else {
-				totaltasknr += m.getValue().getTotalTasks();
-			}
 		}
 		double noNonUpdatedMachines = noMachines - updated;
 		log.info("Number of updated machines: " + updated);
 		log.info("Percentage of non-updated machines: " + (noNonUpdatedMachines * 100) / noMachines);
-
-		log.info("Average number of tasks per machine: " + totaltasknr / noNonUpdatedMachines);
 	}
 
 }

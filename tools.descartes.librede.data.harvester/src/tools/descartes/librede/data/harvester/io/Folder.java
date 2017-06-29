@@ -51,30 +51,48 @@ public class Folder {
 	Logger log = Logger.getLogger(this.getClass());
 
 	/**
-	 * @param files
+	 * 
 	 * @param folder
 	 * @param name
+	 * @param reversed
 	 */
-	public Folder(File folder, String name) {
+	public Folder(File folder, String name, boolean reversed) {
 		super();
 		this.folder = folder;
 		this.name = name;
-		files = new TreeSet<IndexedFile>(new Comparator<IndexedFile>() {
-			@Override
-			public int compare(IndexedFile o1, IndexedFile o2) {
-				// ordering files in the reversed order (500 before 499) in
-				// order to improve performance !!!
-				if (o1.getIndex() > o2.getIndex())
-					return -1;
-				else if (o1.getIndex() == o2.getIndex()) {
-					if (!o1.equals(o2))
-						log.warn("Indexes are equal!");
-					return 0;
-				} else
-					return 1;
+		if (reversed) {
+			files = new TreeSet<IndexedFile>(new Comparator<IndexedFile>() {
+				@Override
+				public int compare(IndexedFile o1, IndexedFile o2) {
+					// ordering files in the reversed order (500 before 499) in
+					// order to improve performance !!!
+					if (o1.getIndex() > o2.getIndex())
+						return -1;
+					else if (o1.getIndex() == o2.getIndex()) {
+						if (!o1.equals(o2))
+							log.warn("Indexes are equal!");
+						return 0;
+					} else
+						return 1;
 
-			}
-		});
+				}
+			});
+		} else {
+			files = new TreeSet<IndexedFile>(new Comparator<IndexedFile>() {
+				@Override
+				public int compare(IndexedFile o1, IndexedFile o2) {
+					// ordering in chronological order
+					if (o1.getIndex() < o2.getIndex())
+						return -1;
+					else if (o1.getIndex() == o2.getIndex()) {
+						if (!o1.equals(o2))
+							log.warn("Indexes are equal!");
+						return 0;
+					} else
+						return 1;
+				}
+			});
+		}
 		if (!folder.exists() || !folder.isDirectory()) {
 			log.warn("Folder " + folder + " is not a valid folder.");
 			return;

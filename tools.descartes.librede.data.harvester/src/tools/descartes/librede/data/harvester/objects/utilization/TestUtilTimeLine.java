@@ -69,7 +69,7 @@ public class TestUtilTimeLine {
 			Collections.shuffle(list);
 			Machine m = new Machine(0);
 			for (TaskUsage taskUsage : list) {
-				m.addTask(taskUsage);
+				m.addTaskUsage(taskUsage);
 			}
 
 			// expected from above tasklist

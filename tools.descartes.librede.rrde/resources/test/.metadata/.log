@@ -7,7 +7,7 @@ Framework arguments:  -product org.eclipse.sdk.ide
 Command-line arguments:  -product org.eclipse.sdk.ide -data C:\Users\Johannes Grohmann\git\ma\tools.descartes.librede.rrde\resources\test -dev file:C:/Users/Johannes Grohmann/workspace/.metadata/.plugins/org.eclipse.pde.core/Model/dev.properties -os win32 -ws win32 -arch x86_64 -consoleLog
 
 !ENTRY org.eclipse.emf.ecore 2 0 2016-09-27 19:05:21.206
-!MESSAGE Both 'edu.kit.ipd.descartes.identifier' and 'edu.kit.ipd.descartes.identifier' register a package for 'http://www.descartes-research.net/identifier/1.0'
+!MESSAGE Both 'tools.descartes.dml.identifier' and 'tools.descartes.dml.identifier' register a package for 'http://www.descartes-research.net/identifier/1.0'
 !SESSION 2016-10-04 14:27:38.051 -----------------------------------------------
 eclipse.buildId=unknown
 java.version=1.8.0_92
@@ -17,7 +17,7 @@ Framework arguments:  -product org.eclipse.sdk.ide
 Command-line arguments:  -product org.eclipse.sdk.ide -data C:\Users\Johannes Grohmann\git\ma\tools.descartes.librede.rrde\resources\test -dev file:C:/Users/Johannes Grohmann/workspace/.metadata/.plugins/org.eclipse.pde.core/Model/dev.properties -os win32 -ws win32 -arch x86_64 -consoleLog
 
 !ENTRY org.eclipse.emf.ecore 2 0 2016-10-04 14:27:57.566
-!MESSAGE Both 'edu.kit.ipd.descartes.identifier' and 'edu.kit.ipd.descartes.identifier' register a package for 'http://www.descartes-research.net/identifier/1.0'
+!MESSAGE Both 'tools.descartes.dml.identifier' and 'tools.descartes.dml.identifier' register a package for 'http://www.descartes-research.net/identifier/1.0'
 !SESSION 2016-10-04 14:28:52.298 -----------------------------------------------
 eclipse.buildId=unknown
 java.version=1.8.0_92
@@ -27,4 +27,4 @@ Framework arguments:  -product org.eclipse.sdk.ide
 Command-line arguments:  -product org.eclipse.sdk.ide -data C:\Users\Johannes Grohmann\git\ma\tools.descartes.librede.rrde\resources\test -dev file:C:/Users/Johannes Grohmann/workspace/.metadata/.plugins/org.eclipse.pde.core/Model/dev.properties -os win32 -ws win32 -arch x86_64 -consoleLog
 
 !ENTRY org.eclipse.emf.ecore 2 0 2016-10-04 14:28:55.770
-!MESSAGE Both 'edu.kit.ipd.descartes.identifier' and 'edu.kit.ipd.descartes.identifier' register a package for 'http://www.descartes-research.net/identifier/1.0'
+!MESSAGE Both 'tools.descartes.dml.identifier' and 'tools.descartes.dml.identifier' register a package for 'http://www.descartes-research.net/identifier/1.0'
