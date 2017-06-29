@@ -38,7 +38,7 @@ import tools.descartes.librede.data.harvester.objects.TaskUsage;
  */
 public class TasksParser extends Parser {
 
-	private static final boolean IGNORE_UPDATED_MACHINES = true;
+	private static final boolean IGNORE_UPDATED_MACHINES = false;
 
 	private long earliestStart = Long.MAX_VALUE;
 
