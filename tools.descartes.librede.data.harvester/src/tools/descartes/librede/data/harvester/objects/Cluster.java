@@ -38,12 +38,15 @@ public class Cluster {
 
 	private HashMap<Long, Machine> machines;
 
+	private HashMap<Task, Task> tasks;
+
 	/**
 	 * @param machines
 	 */
 	public Cluster() {
 		super();
 		this.machines = new HashMap<Long, Machine>();
+		this.tasks = new HashMap<Task, Task>();
 	}
 
 	/**
@@ -86,6 +89,32 @@ public class Cluster {
 
 	public Machine getContainingMachine(long id) {
 		return machines.get(id);
+	}
+
+	public void addTask(Task t) {
+		tasks.put(t, t);
+	}
+
+	public Task getTask(Task t) {
+		return tasks.get(t);
+	}
+
+	public HashMap<Task, Task> getTasks() {
+		return tasks;
+	}
+
+	/**
+	 * 
+	 */
+	public void organizeWorkloadClasses() {
+		// TODO Auto-generated method stub
+		// find our wcs
+		// assign to machines
+		for (Task t : tasks.values()) {
+			Machine m = getContainingMachine(t.getMachineid());
+			if (m != null)
+				m.getTasks().put(t, t);
+		}
 	}
 
 }

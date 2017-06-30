@@ -58,9 +58,9 @@ public class Harvester {
 
 	public static final boolean IGNORE_UPDATED_MACHINES = false;
 
-	private static String PATH = "D:/googledata/clusterdata-2011-2/";
+	public static final boolean USE_DISK_UTIL = false;
 
-	private static final long INTERVALSIZE = 300000;
+	private static String PATH = "D:/googledata/clusterdata-2011-2/";
 
 	static Logger log = Logger.getLogger("tools.descartes.librede.data.harvester.Main");
 
@@ -82,7 +82,8 @@ public class Harvester {
 		// Parsing tasks
 		TaskEventsParser eventparser = new TaskEventsParser(cluster);
 		parseFolder(eventparser, "task_events", "Task Events", false);
-		log.info("Parsing Tasks complete!");
+		cluster.organizeWorkloadClasses();
+		log.info("Parsing Task Events complete!");
 		log.info("-----------------------");
 		printTaskStatistics(cluster);
 		log.info("-----------------------");
@@ -90,7 +91,7 @@ public class Harvester {
 		// Parsing task usages
 		TaskUsageParser tparser = new TaskUsageParser(cluster);
 		parseFolder(tparser, "task_usage", "Task Usage", true);
-		log.info("Parsing Task Events complete!");
+		log.info("Parsing Task Usages complete!");
 
 		log.info("Parsing complete!");
 		long end = System.currentTimeMillis();
@@ -115,14 +116,20 @@ public class Harvester {
 	 */
 	private static void printTaskStatistics(Cluster cluster) {
 		log.info("Task Statistics:");
-		log.info("Number of Machines in the cluster:" + cluster.getMachines().entrySet());
+		log.info("Number of Machines in the cluster:" + cluster.getMachines().entrySet().size());
 		long totaltasknr = 0;
 		long excluded = 0;
+		long taskswithouttimes = 0;
+		long length = 0;
 		for (Entry<Long, Machine> m : cluster.getMachines().entrySet()) {
 			totaltasknr += m.getValue().getTasks().size();
 			for (Task t : m.getValue().getTasks().values()) {
 				if (t.isWasExcluded())
 					excluded++;
+				if (t.getEndtime() > 0 && t.getStarttime() > 0)
+					length += (t.getEndtime() - t.getStarttime()) / 1000;
+				else
+					taskswithouttimes++;
 			}
 		}
 		log.info("Total number of tasks: " + totaltasknr);
@@ -130,6 +137,8 @@ public class Harvester {
 		log.info("Percentage of non-excluded tasks: " + (excluded * 100.0) / totaltasknr);
 		log.info("Average number of different tasks per machine (incl. excluded): "
 				+ totaltasknr / ((double) cluster.getMachines().entrySet().size()));
+		log.info("Total number of tasks without correct times: " + taskswithouttimes);
+		log.info("Average length of not excluded tasks: " + length / ((double) totaltasknr - taskswithouttimes) + "s");
 	}
 
 	/**
@@ -173,18 +182,17 @@ public class Harvester {
 		log.info("The latest end is " + latestEnd + ".");
 		long seconds = (latestEnd - earliestStart) / 1000;
 		log.info("Measurement Period: " + seconds + " s or " + new SimpleDateFormat("HH:mm:ss").format(seconds));
-		// Machine testmachine;
-		// java.util.Iterator<Machine> it =
-		// cluster.getMachines().values().iterator();
-		// do {
-		// testmachine = it.next();
-		// } while (testmachine.isWasupdated());
-		// log.info("Printing Machine: " + testmachine.getId());
-		//
-		// List<Point> list = testmachine.getUtilization();
-		// for (Point point : list) {
-		// log.info(point.getTime() + "; " + point.getValue());
-		// }
+		Machine testmachine;
+		java.util.Iterator<Machine> it = cluster.getMachines().values().iterator();
+		do {
+			testmachine = it.next();
+		} while (testmachine.isWasupdated());
+		log.info("Printing Machine: " + testmachine.getId());
+
+		List<Point> list = testmachine.getUtilization();
+		for (Point point : list) {
+			log.info(point.getTime() + "; " + point.getValue());
+		}
 	}
 
 	private static void parseFolder(Parser parser, String filename, String name, boolean reversed) {

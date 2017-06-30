@@ -36,22 +36,35 @@ public class Task {
 
 	private long jobId;
 
+	private long internalRepeatId;
+
 	private WorkloadClass wc;
 
 	private long starttime;
 
 	private long endtime;
 
-	private boolean wasExcluded = false;
+	private long machineid;
+
+	private boolean wasExcluded;
+
+	private float requestedCPU;
+
+	private float requestedMEM;
+
+	private TaskStatus status;
 
 	/**
 	 * @param taskId
 	 * @param jobId
 	 */
-	public Task(long taskId, long jobId) {
+	public Task(long jobId, long taskId) {
 		super();
 		this.taskId = taskId;
 		this.jobId = jobId;
+		status = TaskStatus.UNSUBMITTED;
+		internalRepeatId = 0;
+		wasExcluded = false;
 	}
 
 	/**
@@ -144,6 +157,81 @@ public class Task {
 		this.jobId = jobId;
 	}
 
+	/**
+	 * @return the internalRepeatId
+	 */
+	public long getInternalRepeatId() {
+		return internalRepeatId;
+	}
+
+	/**
+	 * @param internalRepeatId
+	 *            the internalRepeatId to set
+	 */
+	public void setInternalRepeatId(long internalRepeatId) {
+		this.internalRepeatId = internalRepeatId;
+	}
+
+	/**
+	 * @return the machineid
+	 */
+	public long getMachineid() {
+		return machineid;
+	}
+
+	/**
+	 * @param machineid
+	 *            the machineid to set
+	 */
+	public void setMachineid(long machineid) {
+		this.machineid = machineid;
+	}
+
+	/**
+	 * @return the requestedCPU
+	 */
+	public float getRequestedCPU() {
+		return requestedCPU;
+	}
+
+	/**
+	 * @param requestedCPU
+	 *            the requestedCPU to set
+	 */
+	public void setRequestedCPU(float requestedCPU) {
+		this.requestedCPU = requestedCPU;
+	}
+
+	/**
+	 * @return the requestedMEM
+	 */
+	public float getRequestedMEM() {
+		return requestedMEM;
+	}
+
+	/**
+	 * @param requestedMEM
+	 *            the requestedMEM to set
+	 */
+	public void setRequestedMEM(float requestedMEM) {
+		this.requestedMEM = requestedMEM;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public TaskStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	public void setStatus(TaskStatus status) {
+		this.status = status;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -153,6 +241,7 @@ public class Task {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (int) (internalRepeatId ^ (internalRepeatId >>> 32));
 		result = prime * result + (int) (jobId ^ (jobId >>> 32));
 		result = prime * result + (int) (taskId ^ (taskId >>> 32));
 		return result;
@@ -172,6 +261,8 @@ public class Task {
 		if (getClass() != obj.getClass())
 			return false;
 		Task other = (Task) obj;
+		if (internalRepeatId != other.internalRepeatId)
+			return false;
 		if (jobId != other.jobId)
 			return false;
 		if (taskId != other.taskId)

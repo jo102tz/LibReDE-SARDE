@@ -31,6 +31,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import tools.descartes.librede.data.harvester.Harvester;
 import tools.descartes.librede.data.harvester.objects.TaskUsage;
 
 /**
@@ -86,7 +87,10 @@ public class UtilizationTimeLine {
 		// affected points is not sorted!!
 		// increase all affected points
 		for (Point point : affectedPoints) {
-			point.setValue(point.getValue() + task.getMeanCPU());
+			if (Harvester.USE_DISK_UTIL)
+				point.setValue(point.getValue() + task.getMeanDisk());
+			else
+				point.setValue(point.getValue() + task.getMeanCPU());
 		}
 
 	}

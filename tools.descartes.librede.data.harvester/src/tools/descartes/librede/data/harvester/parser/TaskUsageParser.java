@@ -68,7 +68,7 @@ public class TaskUsageParser extends Parser {
 		if (m != null) {
 			if (!Harvester.IGNORE_UPDATED_MACHINES || !m.isWasupdated()) {
 				m.addTaskUsage(new TaskUsage(Long.parseLong(split[3]), starttime, endtime, Float.parseFloat(split[5]),
-						Float.parseFloat(split[19]), Float.parseFloat(split[13])));
+						Float.parseFloat(split[11]), Float.parseFloat(split[13])));
 			}
 		} else {
 			log.warn("No machine found with id " + machineId + ".");

@@ -40,7 +40,7 @@ public class TaskUsage {
 
 	private float meanCPU;
 
-	private float sampledCPU;
+	private float meanDisk;
 
 	private float maxCPU;
 
@@ -49,17 +49,32 @@ public class TaskUsage {
 	 * @param starttime
 	 * @param endtime
 	 * @param meanCPU
-	 * @param sampledCPU
+	 * @param meanDisk
 	 * @param maxCPU
 	 */
-	public TaskUsage(long tasknr, long starttime, long endtime, float meanCPU, float sampledCPU, float maxCPU) {
+	public TaskUsage(long tasknr, long starttime, long endtime, float meanCPU, float meanDisk, float maxCPU) {
 		super();
 		this.tasknr = tasknr;
 		this.starttime = starttime;
 		this.endtime = endtime;
 		this.meanCPU = meanCPU;
-		this.sampledCPU = sampledCPU;
+		this.meanDisk = meanDisk;
 		this.maxCPU = maxCPU;
+	}
+
+	/**
+	 * @return the meanDisk
+	 */
+	public float getMeanDisk() {
+		return meanDisk;
+	}
+
+	/**
+	 * @param meanDisk
+	 *            the meanDisk to set
+	 */
+	public void setMeanDisk(float meanDisk) {
+		this.meanDisk = meanDisk;
 	}
 
 	/**
@@ -120,21 +135,6 @@ public class TaskUsage {
 	 */
 	public void setMeanCPU(float meanCPU) {
 		this.meanCPU = meanCPU;
-	}
-
-	/**
-	 * @return the sampledCPU
-	 */
-	public float getSampledCPU() {
-		return sampledCPU;
-	}
-
-	/**
-	 * @param sampledCPU
-	 *            the sampledCPU to set
-	 */
-	public void setSampledCPU(float sampledCPU) {
-		this.sampledCPU = sampledCPU;
 	}
 
 	/**

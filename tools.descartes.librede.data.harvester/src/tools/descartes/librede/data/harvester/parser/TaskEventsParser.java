@@ -29,9 +29,8 @@ package tools.descartes.librede.data.harvester.parser;
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.data.harvester.objects.Cluster;
-import tools.descartes.librede.data.harvester.objects.Machine;
 import tools.descartes.librede.data.harvester.objects.Task;
-import tools.descartes.librede.data.harvester.objects.TaskUsage;
+import tools.descartes.librede.data.harvester.objects.TaskStatus;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -59,73 +58,127 @@ public class TaskEventsParser extends Parser {
 	protected void processLine() {
 		String[] split = getSplit();
 		Task t = new Task(Long.parseLong(split[2]), Long.parseLong(split[3]));
-		Task oldt = null;
-		Machine m = null;
+		long currentTime = Long.parseLong(split[0]);
+		// override t is task already existed
+		t = getTask(t);
+
+		// Assigning machine
 		if (!split[4].equals("")) {
-			m = cluster.getContainingMachine(Long.parseLong(split[4]));
-			if (m == null)
-				log.warn("The machine id " + split[4] + " could not be found.");
-			else if (m.getTasks().containsValue(t)) {
-				oldt = m.getTasks().get(t);
+			if (t.getMachineid() != 0 && Long.parseLong(split[4]) != t.getMachineid() && !t.isWasExcluded()) {
+				if (t.getStatus() != TaskStatus.PENDING)
+					log.warn("The same task was moved from machine " + t.getMachineid() + " to machine " + split[4]
+							+ "!");
+				else {
+					// if pending its fine
+				}
 			}
-		} else if (Integer.parseInt(split[5]) == 0) {
-			// SUBMIT
-			// its okay, do nothing
-		} else {
-			log.debug("No machine was given for task " + t.getTaskId() + " of job " + t.getJobId() + ".");
+			t.setMachineid(Long.parseLong(split[4]));
 		}
 
 		switch (Integer.parseInt(split[5])) {
 		case 0: // SUBMIT
-			// do nothing, was handled above
-			break;
-		case 1: // SCHEDULE
-			if (oldt == null) {
-				if (m != null) { // only if the machine was found
-					t.setStarttime(Long.parseLong(split[0]));
-					m.getTasks().put(t, t);
-				}
+			if (t.getStatus() == TaskStatus.SUCCESSFUL) {
+				splitTask(t, currentTime).setStatus(TaskStatus.PENDING);
+				t.setStatus(TaskStatus.SUCCESSFULLY_SPLITTED);
+			} else if (t.getStatus() == TaskStatus.DEAD) {
+				t.setStatus(TaskStatus.PENDING);
 			} else {
-				// task already present, exclude since anomaly behavior
-				oldt.setWasExcluded(true);
+				assertThat(t, TaskStatus.UNSUBMITTED, split[5]);
+				if (split.length >= 11) {
+					// if let empty, leave zero
+					t.setRequestedCPU(Float.parseFloat(split[9]));
+					t.setRequestedMEM(Float.parseFloat(split[10]));
+				}
+				t.setStatus(TaskStatus.PENDING);
+				cluster.addTask(t);
 			}
 			break;
+		case 1: // SCHEDULE
+			t.setStarttime(currentTime);
+			// task already present, exclude since anomaly behavior
+			assertThat(t, TaskStatus.PENDING, split[5]);
+			t.setStatus(TaskStatus.RUNNING);
+			break;
 		case 2: // EVICT
-			// exclude since anomaly behavior
-			if (oldt != null)
-				oldt.setWasExcluded(true);
+			if (t.getStatus() == TaskStatus.PENDING)
+				t.setStatus(TaskStatus.DEAD);
+			else {
+				assertThat(t, TaskStatus.RUNNING, split[5]);
+				splitTask(t, currentTime).setStatus(TaskStatus.DEAD);
+			}
 			break;
 		case 3: // FAIL
-			// exclude since anomaly behavior
-			if (oldt != null)
-				oldt.setWasExcluded(true);
+			if (t.getStatus() == TaskStatus.PENDING)
+				t.setStatus(TaskStatus.DEAD);
+			else {
+				assertThat(t, TaskStatus.RUNNING, split[5]);
+				splitTask(t, currentTime).setStatus(TaskStatus.DEAD);
+			}
 			break;
 		case 4: // FINISH
-			// if not excluded, add finish time
-			if (oldt != null)
-				oldt.setEndtime(Long.parseLong(split[0]));
+			assertThat(t, TaskStatus.RUNNING, split[5]);
+			t.setEndtime(currentTime);
+			t.setStatus(TaskStatus.SUCCESSFUL);
 			break;
 		case 5: // KILL
-			// exclude since anomaly behavior
-			if (oldt != null)
-				oldt.setWasExcluded(true);
+			if (t.getStatus() == TaskStatus.PENDING)
+				t.setStatus(TaskStatus.DEAD);
+			else {
+				assertThat(t, TaskStatus.RUNNING, split[5]);
+				splitTask(t, currentTime).setStatus(TaskStatus.DEAD);
+			}
 			break;
 		case 6: // LOST
-			// exclude since anomaly behavior
-			if (oldt != null)
-				oldt.setWasExcluded(true);
+			if (t.getStatus() == TaskStatus.PENDING)
+				t.setStatus(TaskStatus.DEAD);
+			else {
+				assertThat(t, TaskStatus.RUNNING, split[5]);
+				splitTask(t, currentTime).setStatus(TaskStatus.DEAD);
+			}
 			break;
 		case 7: // UPDATE_PENDING
 			// exclude since anomaly behavior
-			if (oldt != null)
-				oldt.setWasExcluded(true);
+			assertThat(t, TaskStatus.PENDING, split[5]);
+			t.setRequestedCPU(Float.parseFloat(split[9]));
+			t.setRequestedMEM(Float.parseFloat(split[10]));
 			break;
 		case 8: // UPDATE_RUNNING
-			// exclude since anomaly behavior
-			if (oldt != null)
-				oldt.setWasExcluded(true);
+			// split tasks into two
+			assertThat(t, TaskStatus.RUNNING, split[5]);
+			splitTask(t, currentTime).setStatus(TaskStatus.RUNNING);
 			break;
 		}
+	}
+
+	private Task getTask(Task t) {
+		int internalcounter = 0;
+		while (cluster.getTask(t) != null && (cluster.getTask(t).getStatus() == TaskStatus.SPLIT
+				|| cluster.getTask(t).getStatus() == TaskStatus.SUCCESSFULLY_SPLITTED)) {
+			internalcounter++;
+			t.setInternalRepeatId(internalcounter);
+		}
+		if (cluster.getTask(t) != null)
+			return cluster.getTask(t);
+		else
+			return t;
+	}
+
+	private void assertThat(Task t, TaskStatus status, String operation) {
+		if (t.getStatus() != status) {
+			log.warn("Illegal status " + t.getStatus() + " when performing operation " + operation + ".");
+			t.setWasExcluded(true);
+		}
+	}
+
+	private Task splitTask(Task t, long currentTime) {
+		t.setEndtime(currentTime);
+		t.setStatus(TaskStatus.SPLIT);
+		Task newt = new Task(t.getJobId(), t.getTaskId());
+		newt.setInternalRepeatId(t.getInternalRepeatId() + 1);
+		newt.setStarttime(currentTime);
+		newt.setStatus(TaskStatus.DEAD);
+		cluster.addTask(newt);
+		return newt;
 	}
 
 }
