@@ -43,9 +43,8 @@ public class WorkloadClass {
 	 * @param requestedCPU
 	 * @param requestedMEM
 	 */
-	public WorkloadClass(int id, float requestedCPU, float requestedMEM) {
+	public WorkloadClass(float requestedCPU, float requestedMEM) {
 		super();
-		this.id = id;
 		this.requestedCPU = requestedCPU;
 		this.requestedMEM = requestedMEM;
 	}
@@ -93,6 +92,41 @@ public class WorkloadClass {
 	 */
 	public void setRequestedMEM(float requestedMEM) {
 		this.requestedMEM = requestedMEM;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Float.floatToIntBits(requestedCPU);
+		result = prime * result + Float.floatToIntBits(requestedMEM);
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		WorkloadClass other = (WorkloadClass) obj;
+		if (Float.floatToIntBits(requestedCPU) != Float.floatToIntBits(other.requestedCPU))
+			return false;
+		if (Float.floatToIntBits(requestedMEM) != Float.floatToIntBits(other.requestedMEM))
+			return false;
+		return true;
 	}
 
 }

@@ -26,10 +26,11 @@
  */
 package tools.descartes.librede.data.harvester.objects;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.SortedSet;
 
 import tools.descartes.librede.data.harvester.objects.utilization.Point;
 import tools.descartes.librede.data.harvester.objects.utilization.UtilizationTimeLine;
@@ -56,7 +57,7 @@ public class Machine {
 
 	private UtilizationTimeLine utiltl;
 
-	private HashMap<Task, Task> tasks;
+	private HashMap<WorkloadClass,  SortedSet<Task>> tasks;
 
 	/**
 	 * @param id
@@ -65,7 +66,7 @@ public class Machine {
 		super();
 		this.id = id;
 		utiltl = new UtilizationTimeLine();
-		tasks = new HashMap<Task, Task>();
+		tasks = new HashMap<WorkloadClass,  SortedSet<Task>>();
 	}
 
 	/**
@@ -83,7 +84,7 @@ public class Machine {
 		this.cpu = cpu;
 		this.memory = memory;
 		utiltl = new UtilizationTimeLine();
-		tasks = new HashMap<Task, Task>();
+		tasks = new HashMap<WorkloadClass,  SortedSet<Task>>();
 	}
 
 	/**
@@ -230,7 +231,7 @@ public class Machine {
 	/**
 	 * @return the tasks
 	 */
-	public HashMap<Task, Task> getTasks() {
+	public HashMap<WorkloadClass,  SortedSet<Task>> getTasks() {
 		return tasks;
 	}
 
