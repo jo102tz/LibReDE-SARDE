@@ -27,7 +27,6 @@
 package tools.descartes.librede.data.harvester.objects.utilization;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 

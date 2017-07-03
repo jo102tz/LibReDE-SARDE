@@ -58,7 +58,12 @@ public class TaskEventsParser extends Parser {
 	protected void processLine() {
 		String[] split = getSplit();
 		Task t = new Task(Long.parseLong(split[2]), Long.parseLong(split[3]));
-		long currentTime = Long.parseLong(split[0]);
+		long currentTime = -1;
+		try {
+			currentTime = Long.parseLong(split[0]);
+		} catch (NumberFormatException e) {
+			currentTime = Long.MAX_VALUE;
+		}
 		// override t is task already existed
 		t = getTask(t);
 
