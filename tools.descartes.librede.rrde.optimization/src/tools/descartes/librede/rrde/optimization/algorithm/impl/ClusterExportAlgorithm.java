@@ -47,7 +47,7 @@ public class ClusterExportAlgorithm extends ExportAlgorithm {
 			}
 			// extend header with features
 			s.writeString("numberOfRessources");
-			s.writeString("numverOfWorkloadClasses");
+			s.writeString("numberOfWorkloadClasses");
 			s.writeString("varianceInflationFactor");
 			s.writeString("utilizationArtihmeticMean");
 			s.writeString("utilizationGeometricMean");
@@ -56,6 +56,8 @@ public class ClusterExportAlgorithm extends ExportAlgorithm {
 			s.writeString("maximumUtilization");
 			s.writeString("utilizationAutoCorrelation");
 			s.writeString("utilizationDistribution");
+			
+			//the following features exist per workloadClass
 			s.writeString("responseTimeArithmeticMean");
 			s.writeString("responseTimeGeometricMean");
 			s.writeString("responseTimeStandardDeviation");
@@ -71,7 +73,6 @@ public class ClusterExportAlgorithm extends ExportAlgorithm {
 			s.writeString("arrivalRateAutoCorrelation");
 			s.writeString("arrivalRateDistribution");
 			
-			//the following features exist per workloadClass
 			s.writeString("responseTimeArithmeticMean");
 			s.writeString("responseTimeGeometricMean");
 			s.writeString("responseTimeStandardDeviation");
@@ -123,13 +124,25 @@ public class ClusterExportAlgorithm extends ExportAlgorithm {
 				writeFeatures(s, features);
 				for (int i = 0; i < 3; i++) {
 					if (fv.getResponseTimeStatistics().size() <= i) {
-						writeZeros(s);
+						if (fv.getResponseTimeStatistics().size() <= i-1) {
+							features = fv.getResponseTimeStatistics().get(i-2);
+							writeFeatures(s, features);
+						} else {
+							features = fv.getResponseTimeStatistics().get(i-1);
+							writeFeatures(s, features);
+						}
 					} else {
 						features = fv.getResponseTimeStatistics().get(i);
 						writeFeatures(s, features);
 					}
 					if (fv.getArrivalRateStatistics().size() <= i) {
-						writeZeros(s);
+						if (fv.getArrivalRateStatistics().size() <= i-1) {
+							features = fv.getArrivalRateStatistics().get(i-2);
+							writeFeatures(s, features);
+						} else {
+							features = fv.getArrivalRateStatistics().get(i-1);
+							writeFeatures(s, features);
+						}
 					} else {
 						features = fv.getArrivalRateStatistics().get(i);
 						writeFeatures(s, features);

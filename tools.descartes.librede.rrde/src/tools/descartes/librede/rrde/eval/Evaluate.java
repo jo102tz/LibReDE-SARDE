@@ -90,8 +90,8 @@ public class Evaluate {
   /**
    * A link to the desktop.
    */
-  public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "pc"
-      + File.separator + "Desktop";
+  public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Karsten"
+      + File.separator + "Desktop" + File.separator + "Bachelor Arbeit" + File.separator + "rde_src";
 
   /**
    * The path linking to the test folder.
