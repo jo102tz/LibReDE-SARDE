@@ -26,11 +26,17 @@
  */
 package tools.descartes.librede.data.harvester.parser;
 
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.TreeSet;
+
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.data.harvester.objects.Cluster;
+import tools.descartes.librede.data.harvester.objects.Machine;
 import tools.descartes.librede.data.harvester.objects.Task;
 import tools.descartes.librede.data.harvester.objects.TaskStatus;
+import tools.descartes.librede.data.harvester.objects.WorkloadClass;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -184,6 +190,43 @@ public class TaskEventsParser extends Parser {
 		newt.setStatus(TaskStatus.DEAD);
 		cluster.addTask(newt);
 		return newt;
+	}
+
+	/**
+	 * 
+	 */
+	public void organizeWorkloadClasses(Cluster cluster) {
+		// find our wcs
+		HashMap<WorkloadClass, WorkloadClass> wcs = new HashMap<WorkloadClass, WorkloadClass>();
+		int numberOfWCs = 0;
+		// assign to machines and find our wcs
+		for (Task t : cluster.getTasks().values()) {
+			WorkloadClass wc = new WorkloadClass(t.getRequestedCPU(), t.getRequestedMEM());
+			if (wcs.containsKey(wc)) {
+				t.setWc(wcs.get(wc));
+			} else {
+				wc.setId(numberOfWCs++);
+				t.setWc(wc);
+				wcs.put(wc, wc);
+			}
+			// assign task to machine
+			Machine m = cluster.getContainingMachine(t.getMachineid());
+			if (m != null) {
+				// create empty list if not yet there
+				if (m.getTasks().get(wcs.get(wc)) == null)
+					m.getTasks().put(wcs.get(wc), new TreeSet<Task>(new Comparator<Task>() {
+						@Override
+						public int compare(Task o1, Task o2) {
+							return Long.compare(o1.getStarttime(), o2.getStarttime());
+						}
+
+					}));
+				m.getTasks().get(wcs.get(wc)).add(t);
+
+			}
+
+		}
+		cluster.setNumberOfWCs(numberOfWCs);
 	}
 
 }

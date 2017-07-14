@@ -966,7 +966,7 @@ public class OptimizationEditor
 	 * @generated
 	 */
 	public void createModel() {
-		URI resourceURI = EditUIUtil.getURI(getEditorInput());
+		URI resourceURI = EditUIUtil.getURI(getEditorInput(), editingDomain.getResourceSet().getURIConverter());
 		Exception exception = null;
 		Resource resource = null;
 		try {

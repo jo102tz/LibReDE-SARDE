@@ -40,10 +40,12 @@ import java.util.SortedSet;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 
-import tools.descartes.librede.data.harvester.io.DataStream;
-import tools.descartes.librede.data.harvester.io.Folder;
+import tools.descartes.librede.data.harvester.io.input.DataStream;
+import tools.descartes.librede.data.harvester.io.input.Folder;
+import tools.descartes.librede.data.harvester.io.output.LogOutputStream;
+import tools.descartes.librede.data.harvester.io.output.OutputPrinter;
+import tools.descartes.librede.data.harvester.io.output.SystemInfo;
 import tools.descartes.librede.data.harvester.objects.Cluster;
 import tools.descartes.librede.data.harvester.objects.Machine;
 import tools.descartes.librede.data.harvester.objects.Task;
@@ -61,7 +63,7 @@ import tools.descartes.librede.data.harvester.parser.TaskUsageParser;
  */
 public class Harvester {
 
-	public static final boolean IGNORE_UPDATED_MACHINES = false;
+	public static final boolean IGNORE_UPDATED_MACHINES = true;
 
 	public static final boolean USE_DISK_UTIL = false;
 
@@ -74,6 +76,9 @@ public class Harvester {
 		BasicConfigurator.configure();
 		Logger.getRootLogger().setLevel(Level.INFO);
 
+		OutputStreamWriter logwriter = new OutputStreamWriter(new LogOutputStream(log, Level.INFO));
+		OutputPrinter printer = new OutputPrinter();
+
 		long start = System.currentTimeMillis();
 		// Parsing machines
 		Cluster cluster = new Cluster();
@@ -81,16 +86,24 @@ public class Harvester {
 		parseFolder(mparser, "machine_events", "Machine Events", false);
 		log.info("Parsing Machines complete!");
 		log.info("-----------------------");
-		printClusterStatistics(cluster);
+		try {
+			printer.printClusterStatistics(logwriter, cluster);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		log.info("-----------------------");
 
 		// Parsing tasks
 		TaskEventsParser eventparser = new TaskEventsParser(cluster);
 		parseFolder(eventparser, "task_events", "Task Events", false);
-		cluster.organizeWorkloadClasses();
+		eventparser.organizeWorkloadClasses(cluster);
 		log.info("Parsing Task Events complete!");
 		log.info("-----------------------");
-		printTaskStatistics(cluster);
+		try {
+			printer.printTaskStatistics(logwriter, cluster);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		log.info("-----------------------");
 
 		// Parsing task usages
@@ -103,159 +116,33 @@ public class Harvester {
 		log.info("Parsing took: " + (end - start) / 1000 + " s.");
 
 		log.info("-----------------------");
-		printUtilStatistics(cluster, tparser.getEarliestStart(), tparser.getLatestEnd());
+		try {
+			printer.printUtilStatistics(logwriter, cluster, tparser.getEarliestStart(), tparser.getLatestEnd());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		log.info("-----------------------");
-		printSystemInfo();
+		try {
+			printer.printSystemInfo(logwriter);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		log.info("Now exporting:");
-		printAllFiles(cluster);
+
+		try {
+			printer.printTaskStatistics(logwriter, cluster);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			printer.printClusterToFiles(new File(PATH + File.separator + "csvs"), cluster, tparser,
+					(end - start) / 1000);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		log.info("Export finished.");
 		log.info("Done!");
-	}
-
-	/**
-	 * @param cluster
-	 */
-	private static void printAllFiles(Cluster cluster) {
-		for (Machine m : cluster.getMachines().values()) {
-			// if (m.isWasupdated() == false) {
-			File f = new File(PATH + "csvs" + File.separatorChar + m.getId());
-			if (!f.exists()) {
-				f.mkdirs();
-			}
-			printUtilOfMachineToFile(f, m);
-			for (Entry<WorkloadClass, SortedSet<Task>> list : m.getTasks().entrySet())
-				printWCs(f, list);
-			// }
-		}
-	}
-
-	/**
-	 * @param f
-	 * @param m
-	 */
-	private static void printWCs(File f, Entry<WorkloadClass, SortedSet<Task>> list) {
-		File newfile = new File(f.getAbsolutePath() + File.separatorChar + "WC" + list.getKey().getId() + ".csv");
-		try {
-			newfile.createNewFile();
-		} catch (IOException e) {
-			log.warn("IOExcpetion occurred.", e);
-		}
-		try {
-			BufferedWriter o = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(newfile)));
-			printToFile(o, list.getValue(), ",");
-			o.close();
-		} catch (IOException e) {
-			log.warn("IOExcpetion occurred.", e);
-		}
-	}
-
-	/**
-	 * @param o
-	 * @param value
-	 * @param separator
-	 * @throws IOException
-	 */
-	private static void printToFile(BufferedWriter o, SortedSet<Task> tasks, String separator) throws IOException {
-		for (Task task : tasks) {
-			if (task.getStatus() == TaskStatus.SUCCESSFUL || task.getStatus() == TaskStatus.SPLIT
-					|| task.getStatus() == TaskStatus.SUCCESSFULLY_SPLITTED) {
-				if (task.getEndtime() == 0) {
-					log.warn("No endtime detected...");
-				} else {
-					o.write(task.getStarttime() + separator + (task.getEndtime() - task.getStarttime()));
-					o.newLine();
-				}
-			}
-		}
-	}
-
-	/**
-	 * @param cluster
-	 */
-	private static void printTaskStatistics(Cluster cluster) {
-		log.info("Task Statistics:");
-		log.info("Number of Machines in the cluster:" + cluster.getMachines().entrySet().size());
-		long totaltasknr = 0;
-		long excluded = 0;
-		long taskswithouttimes = 0;
-		long length = 0;
-		for (Entry<Long, Machine> m : cluster.getMachines().entrySet()) {
-			totaltasknr += m.getValue().getTasks().size();
-			for (Collection<Task> list : m.getValue().getTasks().values()) {
-				for (Task t : list) {
-					if (t.isWasExcluded())
-						excluded++;
-					if (t.getEndtime() > 0 && t.getStarttime() > 0)
-						length += ((t.getEndtime() - t.getStarttime()) / 1000);
-					else
-						taskswithouttimes++;
-				}
-			}
-		}
-		log.info("Total number of tasks: " + totaltasknr);
-		log.info("Number of excluded tasks: " + excluded);
-		log.info("Percentage of non-excluded tasks: " + (excluded * 100.0) / totaltasknr);
-		log.info("Average number of different tasks per machine (incl. excluded): "
-				+ totaltasknr / ((double) cluster.getMachines().entrySet().size()));
-		log.info("Total number of tasks without correct times: " + taskswithouttimes);
-		log.info("Average length of not excluded tasks: " + length / ((double) totaltasknr - taskswithouttimes) + "s");
-		log.info("Total number of different workload classes " + cluster.getNumberOfWCs());
-	}
-
-	/**
-	 * @param m
-	 */
-	private static void printUtilOfMachineToFile(File f, Machine m) {
-		File newfile = new File(f.getAbsolutePath() + File.separatorChar + "utilization.csv");
-		try {
-			newfile.createNewFile();
-		} catch (IOException e) {
-			log.warn("IOExcpetion occurred.", e);
-		}
-		try {
-			BufferedWriter o = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(newfile)));
-			printToFile(o, m.getUtilization(), ",");
-			o.close();
-		} catch (IOException e) {
-			log.warn("IOExcpetion occurred.", e);
-		}
-	}
-
-	/**
-	 * @param o
-	 * @param utilization
-	 * @throws IOException
-	 */
-	private static void printToFile(BufferedWriter o, List<Point> utilization, String separator) throws IOException {
-		for (Point point : utilization) {
-			o.write(point.getTime() + separator + point.getValue());
-			o.newLine();
-		}
-	}
-
-	/**
-	 * @param cluster
-	 * @param earliestStart
-	 * @param latestEnd
-	 */
-	private static void printUtilStatistics(Cluster cluster, long earliestStart, long latestEnd) {
-		log.info("The earliest start is " + earliestStart + ".");
-		log.info("The latest end is " + latestEnd + ".");
-		long seconds = (latestEnd - earliestStart) / 1000;
-		log.info("Measurement Period: " + seconds + " s or " + new SimpleDateFormat("HH:mm:ss").format(seconds));
-		// Machine testmachine;
-		// java.util.Iterator<Machine> it =
-		// cluster.getMachines().values().iterator();
-		// do {
-		// testmachine = it.next();
-		// } while (testmachine.isWasupdated());
-		// log.info("Printing Machine: " + testmachine.getId());
-		//
-		// List<Point> list = testmachine.getUtilization();
-		// for (Point point : list) {
-		// log.info(point.getTime() + "; " + point.getValue());
-		// }
 	}
 
 	private static void parseFolder(Parser parser, String filename, String name, boolean reversed) {
@@ -267,28 +154,6 @@ public class Harvester {
 			parser.parseLine(line);
 			line = ds.getNextLine();
 		}
-	}
-
-	/**
-	 * 
-	 */
-	private static void printSystemInfo() {
-		log.info("System Statistics:");
-		log.info(new SystemInfo().info());
-	}
-
-	private static void printClusterStatistics(Cluster cl) {
-		log.info("Cluster Statistics:");
-		double noMachines = cl.getMachines().size();
-		log.info("Number of Machines in the cluster:" + noMachines);
-		int updated = 0;
-		for (Entry<Long, Machine> m : cl.getMachines().entrySet()) {
-			if (m.getValue().isWasupdated())
-				updated++;
-		}
-		double noNonUpdatedMachines = noMachines - updated;
-		log.info("Number of updated machines: " + updated);
-		log.info("Percentage of non-updated machines: " + (noNonUpdatedMachines * 100) / noMachines);
 	}
 
 }

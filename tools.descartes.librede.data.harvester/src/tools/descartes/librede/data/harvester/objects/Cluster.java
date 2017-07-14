@@ -115,39 +115,11 @@ public class Cluster {
 	}
 
 	/**
-	 * 
+	 * @param numberOfWCs
+	 *            the numberOfWCs to set
 	 */
-	public void organizeWorkloadClasses() {
-		// find our wcs
-		HashMap<WorkloadClass, WorkloadClass> wcs = new HashMap<WorkloadClass, WorkloadClass>();
-		numberOfWCs = 0;
-		// assign to machines and find our wcs
-		for (Task t : tasks.values()) {
-			WorkloadClass wc = new WorkloadClass(t.getRequestedCPU(), t.getRequestedMEM());
-			if (wcs.containsKey(wc)) {
-				t.setWc(wcs.get(wc));
-			} else {
-				wc.setId(numberOfWCs++);
-				t.setWc(wc);
-				wcs.put(wc, wc);
-			}
-			// assign task to machine
-			Machine m = getContainingMachine(t.getMachineid());
-			if (m != null) {
-				// create empty list if not yet there
-				if (m.getTasks().get(wcs.get(wc)) == null)
-					m.getTasks().put(wcs.get(wc), new TreeSet<Task>(new Comparator<Task>() {
-						@Override
-						public int compare(Task o1, Task o2) {
-							return Long.compare(o1.getStarttime(), o2.getStarttime());
-						}
-
-					}));
-				m.getTasks().get(wcs.get(wc)).add(t);
-
-			}
-
-		}
+	public void setNumberOfWCs(int numberOfWCs) {
+		this.numberOfWCs = numberOfWCs;
 	}
 
 }

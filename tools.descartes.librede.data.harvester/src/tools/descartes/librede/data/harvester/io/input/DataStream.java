@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.data.harvester.io;
+package tools.descartes.librede.data.harvester.io.input;
 
 import java.io.IOException;
 import java.util.Iterator;

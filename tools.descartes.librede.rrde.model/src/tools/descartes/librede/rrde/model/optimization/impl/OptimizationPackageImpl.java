@@ -19,6 +19,7 @@ import tools.descartes.librede.rrde.model.lifecycle.LifecyclePackage;
 
 import tools.descartes.librede.rrde.model.lifecycle.impl.LifecyclePackageImpl;
 
+import tools.descartes.librede.rrde.model.optimization.ClusterOptimizationSpecifier;
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.model.optimization.GenericParameter;
@@ -138,6 +139,13 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * @generated
 	 */
 	private EClass stepSizeRelWindowEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass clusterOptimizationSpecifierEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -588,6 +596,33 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getClusterOptimizationSpecifier() {
+		return clusterOptimizationSpecifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getClusterOptimizationSpecifier_ClusterAlgorithm() {
+		return (EAttribute)clusterOptimizationSpecifierEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getClusterOptimizationSpecifier_SubAlgorithm() {
+		return (EReference)clusterOptimizationSpecifierEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public OptimizationFactory getOptimizationFactory() {
 		return (OptimizationFactory)getEFactoryInstance();
 	}
@@ -664,6 +699,10 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		stepSizeRelWindowEClass = createEClass(STEP_SIZE_REL_WINDOW);
 		createEAttribute(stepSizeRelWindowEClass, STEP_SIZE_REL_WINDOW__PRODUCT_MAX_VALUE);
+
+		clusterOptimizationSpecifierEClass = createEClass(CLUSTER_OPTIMIZATION_SPECIFIER);
+		createEAttribute(clusterOptimizationSpecifierEClass, CLUSTER_OPTIMIZATION_SPECIFIER__CLUSTER_ALGORITHM);
+		createEReference(clusterOptimizationSpecifierEClass, CLUSTER_OPTIMIZATION_SPECIFIER__SUB_ALGORITHM);
 	}
 
 	/**
@@ -705,6 +744,7 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 		windowSizeEClass.getESuperTypes().add(this.getIOptimizableParameter());
 		dataExportSpecifierEClass.getESuperTypes().add(this.getConfigurationOptimizationAlgorithmSpecifier());
 		stepSizeRelWindowEClass.getESuperTypes().add(this.getStepSize());
+		clusterOptimizationSpecifierEClass.getESuperTypes().add(this.getConfigurationOptimizationAlgorithmSpecifier());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(optimizationConfigurationEClass, OptimizationConfiguration.class, "OptimizationConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -760,6 +800,10 @@ public class OptimizationPackageImpl extends EPackageImpl implements Optimizatio
 
 		initEClass(stepSizeRelWindowEClass, StepSizeRelWindow.class, "StepSizeRelWindow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getStepSizeRelWindow_ProductMaxValue(), theXMLTypePackage.getDouble(), "productMaxValue", "10000", 1, 1, StepSizeRelWindow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(clusterOptimizationSpecifierEClass, ClusterOptimizationSpecifier.class, "ClusterOptimizationSpecifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getClusterOptimizationSpecifier_ClusterAlgorithm(), theXMLTypePackage.getString(), "clusterAlgorithm", "", 0, 1, ClusterOptimizationSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClusterOptimizationSpecifier_SubAlgorithm(), this.getConfigurationOptimizationAlgorithmSpecifier(), null, "subAlgorithm", null, 1, 1, ClusterOptimizationSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

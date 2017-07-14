@@ -1,4 +1,4 @@
-package tools.descartes.librede.data.harvester;
+package tools.descartes.librede.data.harvester.io.output;
 
 import java.io.File;
 import java.text.NumberFormat;
