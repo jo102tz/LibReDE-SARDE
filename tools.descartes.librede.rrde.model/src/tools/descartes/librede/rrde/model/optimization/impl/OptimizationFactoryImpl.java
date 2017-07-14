@@ -68,6 +68,7 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 			case OptimizationPackage.WINDOW_SIZE: return createWindowSize();
 			case OptimizationPackage.DATA_EXPORT_SPECIFIER: return createDataExportSpecifier();
 			case OptimizationPackage.STEP_SIZE_REL_WINDOW: return createStepSizeRelWindow();
+			case OptimizationPackage.CLUSTER_OPTIMIZATION_SPECIFIER: return createClusterOptimizationSpecifier();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -191,6 +192,16 @@ public class OptimizationFactoryImpl extends EFactoryImpl implements Optimizatio
 	public StepSizeRelWindow createStepSizeRelWindow() {
 		StepSizeRelWindowImpl stepSizeRelWindow = new StepSizeRelWindowImpl();
 		return stepSizeRelWindow;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ClusterOptimizationSpecifier createClusterOptimizationSpecifier() {
+		ClusterOptimizationSpecifierImpl clusterOptimizationSpecifier = new ClusterOptimizationSpecifierImpl();
+		return clusterOptimizationSpecifier;
 	}
 
 	/**

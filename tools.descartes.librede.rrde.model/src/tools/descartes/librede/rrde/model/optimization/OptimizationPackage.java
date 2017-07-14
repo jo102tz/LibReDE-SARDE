@@ -836,6 +836,71 @@ public interface OptimizationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link tools.descartes.librede.rrde.model.optimization.impl.ClusterOptimizationSpecifierImpl <em>Cluster Optimization Specifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see tools.descartes.librede.rrde.model.optimization.impl.ClusterOptimizationSpecifierImpl
+	 * @see tools.descartes.librede.rrde.model.optimization.impl.OptimizationPackageImpl#getClusterOptimizationSpecifier()
+	 * @generated
+	 */
+	int CLUSTER_OPTIMIZATION_SPECIFIER = 13;
+
+	/**
+	 * The feature id for the '<em><b>Time Out</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLUSTER_OPTIMIZATION_SPECIFIER__TIME_OUT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__TIME_OUT;
+
+	/**
+	 * The feature id for the '<em><b>Algorithm Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLUSTER_OPTIMIZATION_SPECIFIER__ALGORITHM_NAME = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Cluster Algorithm</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLUSTER_OPTIMIZATION_SPECIFIER__CLUSTER_ALGORITHM = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Sub Algorithm</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLUSTER_OPTIMIZATION_SPECIFIER__SUB_ALGORITHM = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Cluster Optimization Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLUSTER_OPTIMIZATION_SPECIFIER_FEATURE_COUNT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Cluster Optimization Specifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLUSTER_OPTIMIZATION_SPECIFIER_OPERATION_COUNT = CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER_OPERATION_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration <em>Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1274,6 +1339,38 @@ public interface OptimizationPackage extends EPackage {
 	EAttribute getStepSizeRelWindow_ProductMaxValue();
 
 	/**
+	 * Returns the meta object for class '{@link tools.descartes.librede.rrde.model.optimization.ClusterOptimizationSpecifier <em>Cluster Optimization Specifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Cluster Optimization Specifier</em>'.
+	 * @see tools.descartes.librede.rrde.model.optimization.ClusterOptimizationSpecifier
+	 * @generated
+	 */
+	EClass getClusterOptimizationSpecifier();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.model.optimization.ClusterOptimizationSpecifier#getClusterAlgorithm <em>Cluster Algorithm</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cluster Algorithm</em>'.
+	 * @see tools.descartes.librede.rrde.model.optimization.ClusterOptimizationSpecifier#getClusterAlgorithm()
+	 * @see #getClusterOptimizationSpecifier()
+	 * @generated
+	 */
+	EAttribute getClusterOptimizationSpecifier_ClusterAlgorithm();
+
+	/**
+	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.model.optimization.ClusterOptimizationSpecifier#getSubAlgorithm <em>Sub Algorithm</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Sub Algorithm</em>'.
+	 * @see tools.descartes.librede.rrde.model.optimization.ClusterOptimizationSpecifier#getSubAlgorithm()
+	 * @see #getClusterOptimizationSpecifier()
+	 * @generated
+	 */
+	EReference getClusterOptimizationSpecifier_SubAlgorithm();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1649,6 +1746,32 @@ public interface OptimizationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute STEP_SIZE_REL_WINDOW__PRODUCT_MAX_VALUE = eINSTANCE.getStepSizeRelWindow_ProductMaxValue();
+
+		/**
+		 * The meta object literal for the '{@link tools.descartes.librede.rrde.model.optimization.impl.ClusterOptimizationSpecifierImpl <em>Cluster Optimization Specifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see tools.descartes.librede.rrde.model.optimization.impl.ClusterOptimizationSpecifierImpl
+		 * @see tools.descartes.librede.rrde.model.optimization.impl.OptimizationPackageImpl#getClusterOptimizationSpecifier()
+		 * @generated
+		 */
+		EClass CLUSTER_OPTIMIZATION_SPECIFIER = eINSTANCE.getClusterOptimizationSpecifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Cluster Algorithm</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CLUSTER_OPTIMIZATION_SPECIFIER__CLUSTER_ALGORITHM = eINSTANCE.getClusterOptimizationSpecifier_ClusterAlgorithm();
+
+		/**
+		 * The meta object literal for the '<em><b>Sub Algorithm</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CLUSTER_OPTIMIZATION_SPECIFIER__SUB_ALGORITHM = eINSTANCE.getClusterOptimizationSpecifier_SubAlgorithm();
 
 	}
 
