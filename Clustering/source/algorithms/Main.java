@@ -31,6 +31,13 @@ public class Main {
 	
 	public static String FILES_TO_WORK_WITH = "C:\\Users\\Karsten\\Dropbox\\Bachelor Arbeit\\Bachelor Arbeit Cluster\\Clusterdaten\\output";
 	
+	public static String LIU = FILES_TO_WORK_WITH + "\\LiuOptimizationApproach_StepSize_relative7200.0.csv";
+	public static String MENASCE = FILES_TO_WORK_WITH + "\\MenasceOptimizationApproach_StepSize_relative7200.0.csv";
+	public static String RTA = FILES_TO_WORK_WITH + "\\ResponseTimeApproximationApproach_StepSize_relative7200.0.csv";
+	public static String RTR = FILES_TO_WORK_WITH + "\\ResponseTimeRegressionApproach_StepSize_relative7200.0.csv";
+	public static String SDL = FILES_TO_WORK_WITH + "\\ServiceDemandLawApproach_StepSize_relative7200.0.csv";
+	public static String URA = FILES_TO_WORK_WITH + "\\UtilizationRegressionApproach_StepSize_relative7200.0.csv";
+	
 	public static String WKF_STEP_WINDOW_REL = FILES_TO_WORK_WITH + "\\WangKalmanFilterApproach_StepSize_relative7200.0.csv";
 	public static String WKF_BOUNDSFACTOR =  FILES_TO_WORK_WITH + "\\WangKalmanFilterApproach_BoundsFactor.csv";
 	public static String WKF_BOUNDSDISTANCE = FILES_TO_WORK_WITH + "\\WangKalmanFilterApproach_InitialBoundsDistance.csv";
@@ -44,7 +51,9 @@ public class Main {
 	public static String KKF_OBSERVENOISECOVARIANCE = FILES_TO_WORK_WITH + "\\KumarKalmanFilterApproach_ObserveNoiseCovariance.csv";
 	public static String KKF_STATENOISECOVARIANCE = FILES_TO_WORK_WITH + "\\KumarKalmanFilterApproach_StateNoiseCovariance.csv";
 	public static String KKF_STATENOISECOUPLING = FILES_TO_WORK_WITH + "\\KumarKalmanFilterApproach_StateNoiseCoupling.csv";
-
+	
+	public static String RTA_STEPWINDOW_REL = "C:\\Users\\Karsten\\Dropbox\\Bachelor Arbeit\\Bachelor Arbeit Cluster\\Clusterdaten\\Johannes' Daten\\WS-relative-20-500-1\\ResponseTimeApproximationApproach_StepSizeImpl_relativeChanges_10000.csv";
+	
 	public static String TEST_FILE = "C:\\Users\\Karsten\\Dropbox\\Bachelor Arbeit\\Bachelor Arbeit Cluster\\Clusterdaten\\Test2.csv";
 	
 	private static LinkedHashMap<Instance, List<Double>> instanceToFeatureVector = new LinkedHashMap<Instance, List<Double>>();
@@ -56,18 +65,16 @@ public class Main {
 	
 	public static void main(String[] args) throws Exception{
 		
-		boolean rated = false;
+		boolean rated = true;
 		
 		long start = System.currentTimeMillis();
-		instantiateListOfResults(12);
+		instantiateListOfResults(6);
 		
 //		doKMeans(2, 6, rated);
 //		doDBScan(rated);
-//		doKMedoids(rated);
+		doKMedoids(rated);
 //		doOLS();
-		testSilhouette();
-//		dbscanCluster(0.03,6,WKF_BOUNDSFACTOR, "wkf", "boundsfactor", 0, rated);
-		
+//		testSilhouette();
 		if(rated) {
 			BufferedWriter br = new BufferedWriter(new FileWriter("C:\\Users\\Karsten\\Dropbox\\Bachelor Arbeit\\Bachelor Arbeit Cluster\\evaluations\\evaluation.txt"));
 			for(IClusterResult r : evaluate()) {
@@ -80,54 +87,79 @@ public class Main {
 	}
 	
 	private static void doKMedoids(boolean rated) throws Exception {
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(WKF_STEP_WINDOW_REL);
-			kMedoidsCluster(data, k, "wkf", "step_window_rel", 0, rated);
-		}
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(WKF_BOUNDSFACTOR);
-			kMedoidsCluster(data, k, "wkf", "boundsfactor", 1, rated);
-		}
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(WKF_BOUNDSDISTANCE);
-			kMedoidsCluster(data, k, "wkf", "boundsdistance", 2, rated);
-		}
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(WKF_OBSERVENOISECOVARIANCE);
-			kMedoidsCluster(data, k, "wkf", "observenoisecovariance", 3, rated);
-		}
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(WKF_STATENOISECOUPLING);
-			kMedoidsCluster(data, k, "wkf", "statenoisecoupling", 4, rated);
-		}
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(WKF_STATENOISECOVARIANCE);
-			kMedoidsCluster(data, k, "wkf", "statenoisecovariance", 5, rated);
-		}
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(WKF_STEP_WINDOW_REL);
+//			kMedoidsCluster(data, k, "wkf", "step_window_rel", 0, rated);
+//		}
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(WKF_BOUNDSFACTOR);
+//			kMedoidsCluster(data, k, "wkf", "boundsfactor", 1, rated);
+//		}
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(WKF_BOUNDSDISTANCE);
+//			kMedoidsCluster(data, k, "wkf", "boundsdistance", 2, rated);
+//		}
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(WKF_OBSERVENOISECOVARIANCE);
+//			kMedoidsCluster(data, k, "wkf", "observenoisecovariance", 3, rated);
+//		}
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(WKF_STATENOISECOUPLING);
+//			kMedoidsCluster(data, k, "wkf", "statenoisecoupling", 4, rated);
+//		}
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(WKF_STATENOISECOVARIANCE);
+//			kMedoidsCluster(data, k, "wkf", "statenoisecovariance", 5, rated);
+//		}
+//		
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(KKF_STEP_WINDOW_REL);
+//			kMedoidsCluster(data, k, "kkf", "step_window_rel", 6, rated);
+//		}
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(KKF_BOUNDSFACTOR);
+//			kMedoidsCluster(data, k, "kkf", "boundsfactor", 7, rated);
+//		}
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(KKF_BOUNDSDISTANCE);
+//			kMedoidsCluster(data, k, "kkf", "boundsdistance", 8, rated);
+//		}
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(KKF_OBSERVENOISECOVARIANCE);
+//			kMedoidsCluster(data, k, "kkf", "observenoisecovariance", 9, rated);
+//		}
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(KKF_STATENOISECOUPLING);
+//			kMedoidsCluster(data, k, "kkf", "statenoisecoupling", 10, rated);
+//		}
+//		for (int k=2; k < 7; k++) {
+//			Dataset data = prepareData(KKF_STATENOISECOVARIANCE);
+//			kMedoidsCluster(data, k, "kkf", "statenoisecovariance", 11, rated);
+//		}
 		
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(KKF_STEP_WINDOW_REL);
-			kMedoidsCluster(data, k, "kkf", "step_window_rel", 6, rated);
+		for (int k=2; k < 6; k++) {
+			Dataset data = prepareData(LIU);
+			kMedoidsCluster(data, k, "liu", "step_win_rel", 0, rated);
 		}
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(KKF_BOUNDSFACTOR);
-			kMedoidsCluster(data, k, "kkf", "boundsfactor", 7, rated);
+		for (int k=2; k < 6; k++) {
+			Dataset data = prepareData(MENASCE);
+			kMedoidsCluster(data, k, "menasce", "step_win_rel", 1, rated);
 		}
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(KKF_BOUNDSDISTANCE);
-			kMedoidsCluster(data, k, "kkf", "boundsdistance", 8, rated);
+		for (int k=2; k < 6; k++) {
+			Dataset data = prepareData(RTA);
+			kMedoidsCluster(data, k, "rta", "step_win_rel", 2, rated);
 		}
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(KKF_OBSERVENOISECOVARIANCE);
-			kMedoidsCluster(data, k, "kkf", "observenoisecovariance", 9, rated);
+		for (int k=2; k < 6; k++) {
+			Dataset data = prepareData(RTR);
+			kMedoidsCluster(data, k, "rtr", "step_win_rel", 3, rated);
 		}
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(KKF_STATENOISECOUPLING);
-			kMedoidsCluster(data, k, "kkf", "statenoisecoupling", 10, rated);
+		for (int k=2; k < 6; k++) {
+			Dataset data = prepareData(SDL);
+			kMedoidsCluster(data, k, "sdl", "step_win_rel", 4, rated);
 		}
-		for (int k=2; k < 7; k++) {
-			Dataset data = prepareData(KKF_STATENOISECOVARIANCE);
-			kMedoidsCluster(data, k, "kkf", "statenoisecovariance", 11, rated);
+		for (int k=2; k < 6; k++) {
+			Dataset data = prepareData(URA);
+			kMedoidsCluster(data, k, "ura", "step_win_rel", 5, rated);
 		}
 	}
 	
@@ -153,19 +185,25 @@ public class Main {
 	
 	private static void doKMeans(int minK, int maxK, boolean rated) throws Exception {
 		for (int k=minK; k < maxK+1; k++) {
-			kMeansCluster(WKF_STEP_WINDOW_REL, k, "wkf", "step_window_rel", 0, rated);
-			kMeansCluster(WKF_BOUNDSFACTOR, k, "wkf", "boundsfactor", 1, rated);
-			kMeansCluster(WKF_BOUNDSDISTANCE, k, "wkf", "initialboundsdistance", 2, rated);
-			kMeansCluster(WKF_OBSERVENOISECOVARIANCE, k, "wkf", "observenoisecovariance", 3, rated);
-			kMeansCluster(WKF_STATENOISECOVARIANCE, k, "wkf", "statenoisecovariance", 4, rated);
-			kMeansCluster(WKF_STATENOISECOUPLING, k, "wkf", "statenoisecoupling", 5, rated);
-			
-			kMeansCluster(KKF_STEP_WINDOW_REL, k, "kkf", "step_window_rel", 6, rated);
-			kMeansCluster(KKF_BOUNDSFACTOR, k, "kkf", "boundsfactor", 7, rated);
-			kMeansCluster(KKF_BOUNDSDISTANCE, k, "kkf", "initialboundsdistance", 8, rated);
-			kMeansCluster(KKF_OBSERVENOISECOVARIANCE, k, "kkf", "observenoisecovariance", 9, rated);
-			kMeansCluster(KKF_STATENOISECOVARIANCE, k, "kkf", "statenoisecovariance", 10, rated);
-			kMeansCluster(KKF_STATENOISECOUPLING, k, "kkf", "statenoisecoupling", 11, rated);
+//			kMeansCluster(WKF_STEP_WINDOW_REL, k, "wkf", "step_window_rel", 0, rated);
+//			kMeansCluster(WKF_BOUNDSFACTOR, k, "wkf", "boundsfactor", 1, rated);
+//			kMeansCluster(WKF_BOUNDSDISTANCE, k, "wkf", "initialboundsdistance", 2, rated);
+//			kMeansCluster(WKF_OBSERVENOISECOVARIANCE, k, "wkf", "observenoisecovariance", 3, rated);
+//			kMeansCluster(WKF_STATENOISECOVARIANCE, k, "wkf", "statenoisecovariance", 4, rated);
+//			kMeansCluster(WKF_STATENOISECOUPLING, k, "wkf", "statenoisecoupling", 5, rated);
+//			
+//			kMeansCluster(KKF_STEP_WINDOW_REL, k, "kkf", "step_window_rel", 6, rated);
+//			kMeansCluster(KKF_BOUNDSFACTOR, k, "kkf", "boundsfactor", 7, rated);
+//			kMeansCluster(KKF_BOUNDSDISTANCE, k, "kkf", "initialboundsdistance", 8, rated);
+//			kMeansCluster(KKF_OBSERVENOISECOVARIANCE, k, "kkf", "observenoisecovariance", 9, rated);
+//			kMeansCluster(KKF_STATENOISECOVARIANCE, k, "kkf", "statenoisecovariance", 10, rated);
+//			kMeansCluster(KKF_STATENOISECOUPLING, k, "kkf", "statenoisecoupling", 11, rated);
+			kMeansCluster(LIU, k, "liu", "step_win_rel", 0, rated);
+			kMeansCluster(MENASCE, k, "menasce", "step_win_rel", 1, rated);
+			kMeansCluster(RTA, k, "rta", "step_win_rel", 2, rated);
+			kMeansCluster(RTR, k, "rtr", "step_win_rel", 3, rated);
+			kMeansCluster(SDL, k, "sdl", "step_win_rel", 4, rated);
+			kMeansCluster(URA, k, "ura", "step_win_rel", 5, rated);
 		}
 	}
 	
@@ -272,18 +310,14 @@ public class Main {
 	 * @throws Exception
 	 */
 	public static void kMeansCluster(String path, int numberOfClusters, String rdeAlgo, String parameter, int paramID, boolean rated) throws Exception {
-		Dataset data = readIn(path);
-		String header = extractHeader(data);
-		data.remove(0);
-		data = extractFeatureVector(data);
-		calculateDistances(data);
+		Dataset data = prepareData(path);
 		//initialize clustering and export results
 		SimpleKMeans skm = new SimpleKMeans();
 		skm.setNumClusters(numberOfClusters);
 		Clusterer jmlskm = new WekaClusterer(skm);
 		Dataset[] results = jmlskm.cluster(data);
 		mapInstanceToCluster(results);
-//		exportToCSV(results, header, numberOfClusters, "kMeans", rdeAlgo, parameter);
+		exportToCSV(results, header, numberOfClusters, "kMeans", rdeAlgo, parameter);
 				
 //		for (Dataset dataset : results) {
 //			if (Double.isNaN(dataset.get(0).value(0))) {
@@ -371,6 +405,7 @@ public class Main {
 		if (rated) {
 			double score = calculateSilhouette(results);
 			KMedoidsResult result = new KMedoidsResult(k, score, results, rdeAlgo, parameter);
+			System.out.println(result);
 			listOfResults.get(paramID).add(result);
 		}
 		
@@ -435,7 +470,7 @@ public class Main {
 	public static void exportToCSV(Dataset[] datasets, String header, double numberOfClusters, String clusterAlgo, String rdeAlgo, String parameter) throws IOException {
 		System.out.println("starting export");
 		for (int i = 0; i < datasets.length; i++) {
-			String outputpath = String.format("C:\\Users\\Karsten\\Desktop\\Bachelor Arbeit\\Clusterdaten\\Results\\%s\\%s\\%s\\%sclusters", rdeAlgo, parameter, clusterAlgo, numberOfClusters);
+			String outputpath = String.format("C:\\Users\\Karsten\\Desktop\\Bachelor Arbeit\\FeatureCluster\\%s\\%s\\%s\\%sclusters", rdeAlgo, parameter, clusterAlgo, numberOfClusters);
 			exportSingleCluster(datasets[i], header, outputpath, i+1);
 		}
 		
@@ -454,11 +489,11 @@ public class Main {
 				cluster.add(val.toString());
 				cluster.add(";");
 			}
-			List<Double> featureVector = instanceToFeatureVector.get(instance);
-			for (Double d : featureVector) {
-				cluster.add(d.toString());
-				cluster.add(";");
-			}
+//			List<Double> featureVector = instanceToFeatureVector.get(instance);
+//			for (Double d : featureVector) {
+//				cluster.add(d.toString());
+//				cluster.add(";");
+//			}
 			cluster.add(System.lineSeparator());
 		}
 		BufferedWriter writer = new BufferedWriter(new FileWriter(outputpath));
