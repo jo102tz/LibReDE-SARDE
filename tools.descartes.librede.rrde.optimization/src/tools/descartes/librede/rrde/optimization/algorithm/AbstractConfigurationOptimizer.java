@@ -212,6 +212,13 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	}
 
 	/**
+	 * @param confs the confs to set
+	 */
+	public void setConfs(Set<LibredeConfiguration> confs) {
+		this.confs = confs;
+	}
+
+	/**
 	 * @return the firstiterationtime
 	 */
 	public long getFirstiterationtime() {
@@ -282,7 +289,8 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	 * Initializes all resources required for execution.
 	 */
 	private void init() {
-		confs = Discovery.createConfigurations(getInput(), getSpecification(), getSettings().getValidator());
+		if (confs == null)
+			confs = Discovery.createConfigurations(getInput(), getSpecification(), getSettings().getValidator());
 		getLog().info("Finished initialization. Available Training-Configurations: " + confs.size());
 		long thistime = System.currentTimeMillis();
 		firstError = runIteration();
