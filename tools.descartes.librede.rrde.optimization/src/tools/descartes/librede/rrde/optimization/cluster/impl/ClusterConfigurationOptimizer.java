@@ -18,7 +18,9 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.optimization.InputData;
 import tools.descartes.librede.rrde.model.optimization.OptimizationSettings;
+import tools.descartes.librede.rrde.model.optimization.impl.ClusterOptimizationSpecifierImpl;
 import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm;
 import tools.descartes.librede.rrde.optimization.cluster.IClusterConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.cluster.IClusterer;
 import tools.descartes.librede.rrde.util.Discovery;
@@ -81,6 +83,11 @@ public class ClusterConfigurationOptimizer implements IClusterConfigurationOptim
 			OptimizationSettings settings, ConfigurationOptimizationAlgorithmSpecifier specifier)
 			throws IllegalArgumentException {
 		
+		ClusterOptimizationSpecifierImpl spec = (ClusterOptimizationSpecifierImpl) specifier;
+		if (spec.featureCluster()) {
+			return featureCluster(estimation, input, settings, specifier);
+		}
+		
 		if (firstRun) {
 			return firstRun(input, settings);
 		}
@@ -108,6 +115,18 @@ public class ClusterConfigurationOptimizer implements IClusterConfigurationOptim
 		return true;
 	}
 	
+	private boolean featureCluster(EstimationSpecification estimation, EList<InputData> input,
+			OptimizationSettings settings, ConfigurationOptimizationAlgorithmSpecifier specifier) {
+		
+		List<List<LibredeConfiguration>> featureClusters = clusterer.featureCluster();
+		IterativeParameterOptimizationAlgorithm ipo = new IterativeParameterOptimizationAlgorithm();
+		for (List<LibredeConfiguration> list : featureClusters) {
+			//TODO: ipo hier ausführen? die daten sind da.
+		}
+		
+		return false;
+	}
+
 	public int assignInstanceToCluster(List<Double> newVector, List<List<Double>> meanFeatureVectors, double[] coefficients) {
 		Instance newVectorInst = convertVectorToInstance(newVector, coefficients);
 		Dataset meanFeatureVectorsDataset = convertMeanFeaturesToDataset(meanFeatureVectors, coefficients);

@@ -72,8 +72,7 @@ public class KMeansClusterer extends AbstractClusterer {
 		for (LibredeConfiguration conf : confs) {
 			FeatureVector vector = extractor.extractFeatures(conf);
 			List<Double> featureVector = createFeatures(vector);
-			//TODO: hier nachdenken!
-//			features.add(featureVector);
+			//TODO: coefficients setzen vorher!
 			Instance featureInst = convertVectorToInstance(featureVector, getCoefficients());
 			featureVectorToConf.put(featureInst, conf);
 			allData.add(featureInst);

@@ -55,18 +55,18 @@ public class ClusterConfigurationOptimizerWrapperImpl implements IClusterConfigu
 		String clusterAlgoName = spec.getClusterAlgorithm();
 		try {
 			Class<?> c = Class.forName(clusterAlgoName);
-			Constructor<?> constructor = c.getConstructor(EstimationSpecification.class, EList.class, OptimizationSettings.class, ConfigurationOptimizationAlgorithmSpecifier.class);
-			this.clusterer = (IClusterer) constructor.newInstance(estimation, input, settings, specifier);		
+			Constructor<?> constructor = c.getConstructor(EstimationSpecification.class, EList.class, OptimizationSettings.class, ClusterOptimizationSpecifier.class);
+			this.clusterer = (IClusterer) constructor.newInstance(estimation, input, settings, spec);		
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
 			//TODO: logger?
 			e.printStackTrace();
 		}
 		this.optimizer = new ClusterConfigurationOptimizer(clusterer);
 		if (spec.featureCluster()) {
-			optimize(estimation, input, settings, specifier);
+			optimize(estimation, input, settings, spec);
 		} else {
-			if (train(estimation, input, settings, specifier)) {
-				if (optimize(estimation, input, settings, specifier)) {
+			if (train(estimation, input, settings, spec)) {
+				if (optimize(estimation, input, settings, spec)) {
 					this.instanceToOptimum = this.optimizer.confToOptimum();
 					//TODO: setTargetValues
 				}
