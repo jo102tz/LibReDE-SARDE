@@ -20,21 +20,16 @@ import tools.descartes.librede.metrics.Metric;
 import tools.descartes.librede.metrics.StandardMetrics;
 import tools.descartes.librede.repository.IRepositoryCursor;
 import tools.descartes.librede.repository.TimeSeries;
-import tools.descartes.librede.rrde.model.optimization.util.OptimizationAdapterFactory;
 import tools.descartes.librede.rrde.model.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.model.recommendation.StatisticalFeatures;
-import tools.descartes.librede.rrde.model.recommendation.impl.FeatureExtractorSpecifierImpl;
 import tools.descartes.librede.rrde.model.recommendation.impl.FeatureVectorImpl;
-import tools.descartes.librede.rrde.model.recommendation.impl.RecommendationFactoryImpl;
 import tools.descartes.librede.rrde.model.recommendation.impl.StatisticalFeaturesImpl;
 import tools.descartes.librede.units.Dimension;
 import tools.descartes.librede.units.Ratio;
 import tools.descartes.librede.units.RequestRate;
 import tools.descartes.librede.units.Time;
 import tools.descartes.librede.units.Unit;
-import tools.descartes.librede.units.impl.QuantityImpl;
-import tools.descartes.librede.units.impl.UnitsFactoryImpl;
 
 public class ClusterFeatureExtractor implements IFeatureExtractor{
 	
@@ -92,47 +87,10 @@ public class ClusterFeatureExtractor implements IFeatureExtractor{
 	/**
 	 * Standard constructor setting basic values for all constants.
 	 */
-//	public ClusterFeatureExtractor(FeatureExtractorSpecifier specifier) {
-//		this.spec = specifier;
-//		if (spec == null || spec.getRateUnit() == null
-//				|| spec.getAggregation() == null) {
-//			getLog().warn("Specifier is null. Using default values...");
-//			standardTimeUnit = Time.MILLISECONDS;
-//		} else {
-//			try {
-//				standardTimeUnit = spec.getAggregation().getUnit();
-//			} catch (Exception e) {
-//				getLog().warn(
-//						"Time unit could not be cast. Using default value...");
-//				standardTimeUnit = Time.MILLISECONDS;
-//			}
-//			try {
-//				rateUnit = (Unit<RequestRate>) spec.getRateUnit();
-//			} catch (Exception e) {
-//				getLog().warn(
-//						"Request rate unit could not be cast. Using default value...");
-//				rateUnit = RequestRate.REQ_PER_MINUTE;
-//			}
-//		}
-//		if (spec.getAggregation() == null || spec.getAggregation().getValue() <= 0) {
-//			getLog().warn(
-//					"Aggreation interval could not be read. Using default value...");
-//			UnitsFactoryImpl factory = (UnitsFactoryImpl) UnitsFactoryImpl.init();
-//			spec.setAggregation(factory.createQuantity());
-//			spec.getAggregation().setValue(60000);
-//		}
-//	}
-
-
 	public ClusterFeatureExtractor() {
 		standardTimeUnit = Time.MILLISECONDS;
 		rateUnit = RequestRate.REQ_PER_MINUTE;
-//		UnitsFactoryImpl factory = (UnitsFactoryImpl) UnitsFactoryImpl.init();
-//		spec.setAggregation(factory.createQuantity());
-//		spec.getAggregation().setValue(60000);
-//		spec.getAggregation().setUnit(standardTimeUnit);
-
-	}
+}
 
 	protected <D extends Dimension> StatisticalFeatures extractStatisticalFeatureVector(
 			IRepositoryCursor cursor, ModelEntity entity, Metric<D> metric,
@@ -301,7 +259,6 @@ public class ClusterFeatureExtractor implements IFeatureExtractor{
 		LibredeVariables var = new LibredeVariables(conf);
 		Librede.initRepo(var);
 		FeatureVector vector = new FeatureVectorImpl();
-		//TODO: NPE here?
 		extractWorkloadDescription(vector, var);
 		extractRegressionAnalyzisInformation(vector, var);
 

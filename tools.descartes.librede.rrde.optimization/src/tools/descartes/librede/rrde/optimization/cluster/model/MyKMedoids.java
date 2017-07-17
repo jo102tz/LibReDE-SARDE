@@ -1,4 +1,4 @@
-package tools.descartes.librede.rrde.optimization.algorithm.clustermodel;
+package tools.descartes.librede.rrde.optimization.cluster.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -135,15 +135,7 @@ public class MyKMedoids implements Clusterer{
 			result += dist.measure(cluster.get(i), medoid);
 		}
 		return result;
-	}
-	
-	private double calculateTotalCost(Dataset[] clusters, Instance[] medoids) {
-		double result = 0;
-		for (int i = 0; i < k; i++) {
-			result += calculateSingleCost(clusters[i], medoids[i]);
-		}
-		return result;
-	}
+	}	
 	
 	private boolean recalculateMedoids(Dataset data, Dataset[] clusters, Instance[] medoids) {
 		boolean changed = false;
@@ -162,18 +154,7 @@ public class MyKMedoids implements Clusterer{
 		}
 		return changed;
 	}
-	
-	private double[][] distanceTable(Dataset data) {
-		double[][] result = new double[data.size()][data.size()];
-		for (int column = 0; column < data.size(); column++) {
-			for (int row = column; row < data.size(); row++) {
-				result[column][row] = dist.measure(data.get(row), data.get(column));
-				result[row][column] = result[column][row];
-			}
-		}
-		return result;
-	}
-	
+		
 	public Instance[] getMedoids() {
 		return medoids;
 	}

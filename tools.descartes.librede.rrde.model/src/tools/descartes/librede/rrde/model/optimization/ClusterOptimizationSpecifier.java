@@ -73,5 +73,7 @@ public interface ClusterOptimizationSpecifier extends ConfigurationOptimizationA
 	 * @generated
 	 */
 	void setSubAlgorithm(ConfigurationOptimizationAlgorithmSpecifier value);
+	
+	boolean featureCluster();
 
 } // ClusterOptimizationSpecifier

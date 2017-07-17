@@ -38,6 +38,8 @@ public class ClusterOptimizationSpecifierImpl extends ConfigurationOptimizationA
 	 */
 	protected static final String CLUSTER_ALGORITHM_EDEFAULT = "";
 
+	protected boolean featureCluster = false;
+	
 	/**
 	 * The cached value of the '{@link #getClusterAlgorithm() <em>Cluster Algorithm</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -219,6 +221,11 @@ public class ClusterOptimizationSpecifierImpl extends ConfigurationOptimizationA
 		result.append(clusterAlgorithm);
 		result.append(')');
 		return result.toString();
+	}
+
+	@Override
+	public boolean featureCluster() {
+		return featureCluster;
 	}
 
 } //ClusterOptimizationSpecifierImpl

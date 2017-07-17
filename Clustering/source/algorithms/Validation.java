@@ -43,26 +43,22 @@ public class Validation {
 //		kmeans();
 //		kmedoids();
 //		notkf();
-//		showThatItsShit(Main.WKF_STATENOISECOUPLING, 3, "wkf_statenoisecoupling_is_it_shit");
-		clusterFeatures(4);
+//		showThatItsShit(Main.WKF_STEP_WINDOW_REL, 2, "wkf_stepwinrel_dummy_is_it_shit");
+		clusterFeatures(Main.WKF_STEP_WINDOW_REL, 2);
 		double end = System.currentTimeMillis();
 		System.out.println("Time elapsed: " + (end-start));
 	}
 	
-	private static void clusterFeatures(int k) throws Exception {
+	private static void clusterFeatures(String sourcepath, int k) throws Exception {
 		Validation validator = new Validation();
-		Dataset data = validator.prepareData(Main.WKF_BOUNDSFACTOR);
+		Dataset data = validator.prepareData(sourcepath);
 		
-		//get coefficients
-//		double[][] distanceTable = validator.calculateDistances(data);
-//		Dataset[] tmp = validator.kMeansCluster(data, k);
 		validator.instanceToFeatureVector = validator.mapFeatureVector(data);
 		FeatureWeights weights = new FeatureWeights(data, validator.instanceToFeatureVector);
 //		FeatureWeights weights = new FeatureWeights(distanceTable, validator.instanceToFeatureVector);
 		double[] coefficients = weights.learnCoefficients();
-		//TODO: warum kommt hier exakt das gleiche ergebnis raus?
 		Dataset featureData = new DefaultDataset();
-		double[] coefficientsDummy = new double[52];
+		double[] coefficientsDummy = new double[coefficients.length];
 		Arrays.fill(coefficientsDummy, 1);
 		for (Instance instance : data) {
 			List<Double> fv = validator.instanceToFeatureVector.get(instance);
@@ -81,7 +77,10 @@ public class Validation {
 				result[i].add(validator.featureVectorToInstance.get(instance));
 			}
 		}
-		Main.exportToCSV(result, validator.headerString, k, "featureKMeans", "wkf", "bf");
+		validator.instanceToID = validator.mapInstanceToID(data);
+		validator.instanceToCluster = validator.mapInstanceToCluster(result);
+		System.out.println("Silhouette of " + sourcepath + " : " + validator.calculateSilhouette(result, validator.calculateDistances(data)));
+//		Main.exportToCSV(result, validator.headerString, k, "featureKMeans", "wkf", "bf");
 	}
 	
 	private static void notkf() throws Exception {
@@ -319,7 +318,9 @@ public class Validation {
 			List<Double> meanFeatures = validator.calculateMeanFeatures(d);
 			meanFeatureVectors.add(meanFeatures);
 		}
-		FeatureWeights weights = new FeatureWeights(distanceTable, validator.instanceToFeatureVector);
+		validator.instanceToFeatureVector = validator.mapFeatureVector(data);
+//		FeatureWeights weights = new FeatureWeights(distanceTable, validator.instanceToFeatureVector);
+		FeatureWeights weights = new FeatureWeights(data, validator.instanceToFeatureVector);
 		double[] coefficients = weights.learnCoefficients();
 		
 		int count = 0;
@@ -557,8 +558,9 @@ public class Validation {
 	}
 	
 	private List<Double> calculateMeanFeatures(Dataset d) {
+		//TODO: hier short/long feature vector anpassen!
 		List<Double> result = new ArrayList<>();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 4; i++) {
 			double sum = 0;
 			for (Instance instance : d) {
 				double feature = instanceToFeatureVector.get(instance).get(i);
@@ -687,8 +689,8 @@ public class Validation {
 			List<Double> featureVector = new ArrayList<>();
 			Instance instance = data.get(cj);
 			int size = instance.noAttributes();
-			int j = size - 5;
-			for (int i = 0; i < 5; i++) {
+			int j = size - 4;
+			for (int i = 0; i < 4; i++) {
 				featureVector.add(instance.value(j));
 				instance.removeAttribute(j);
 			}
@@ -699,8 +701,8 @@ public class Validation {
 			List<Double> featureVector = new ArrayList<>();
 			Instance instance = data.get(cj);
 			int size = instance.noAttributes();
-			int j = size - 5;
-			for (int i = 0; i < 5; i++) {
+			int j = size - 4;
+			for (int i = 0; i < 4; i++) {
 				featureVector.add(instance.value(j));
 				instance.removeAttribute(j);
 			}

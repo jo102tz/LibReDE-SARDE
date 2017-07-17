@@ -66,7 +66,6 @@ import tools.descartes.librede.rrde.model.recommendation.impl.DecisionTreeAlgori
 import tools.descartes.librede.rrde.model.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl;
 import tools.descartes.librede.rrde.model.recommendation.impl.SVMAlgorithmSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
-import tools.descartes.librede.rrde.optimization.algorithm.impl.ClusterExportAlgorithm;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.FileExporter;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;

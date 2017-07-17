@@ -38,8 +38,8 @@ public class Main {
 	public static String SDL = FILES_TO_WORK_WITH + "\\ServiceDemandLawApproach_StepSize_relative7200.0.csv";
 	public static String URA = FILES_TO_WORK_WITH + "\\UtilizationRegressionApproach_StepSize_relative7200.0.csv";
 	
-	public static String WKF_STEP_WINDOW_REL = FILES_TO_WORK_WITH + "\\WangKalmanFilterApproach_StepSize_relative7200.0.csv";
-	public static String WKF_BOUNDSFACTOR =  FILES_TO_WORK_WITH + "\\WangKalmanFilterApproach_BoundsFactor.csv";
+	public static String WKF_STEP_WINDOW_REL = FILES_TO_WORK_WITH + "\\WangKalmanFilterApproach_StepSize_relative7200.0_short.csv";
+	public static String WKF_BOUNDSFACTOR =  FILES_TO_WORK_WITH + "\\WangKalmanFilterApproach_BoundsFactor_short.csv";
 	public static String WKF_BOUNDSDISTANCE = FILES_TO_WORK_WITH + "\\WangKalmanFilterApproach_InitialBoundsDistance.csv";
 	public static String WKF_OBSERVENOISECOVARIANCE = FILES_TO_WORK_WITH + "\\WangKalmanFilterApproach_ObserveNoiseCovariance.csv";
 	public static String WKF_STATENOISECOVARIANCE = FILES_TO_WORK_WITH + "\\WangKalmanFilterApproach_StateNoiseCovariance.csv";

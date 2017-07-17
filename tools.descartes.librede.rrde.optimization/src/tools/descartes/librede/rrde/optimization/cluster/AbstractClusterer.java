@@ -1,8 +1,9 @@
-package tools.descartes.librede.rrde.optimization.algorithm;
+	package tools.descartes.librede.rrde.optimization.cluster;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,88 +12,71 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 
-import net.sf.javaml.clustering.Clusterer;
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
 import net.sf.javaml.distance.NormalizedEuclideanDistance;
 import net.sf.javaml.tools.data.FileHandler;
-import net.sf.javaml.tools.weka.WekaClusterer;
 import tools.descartes.librede.configuration.EstimationSpecification;
+import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
-import tools.descartes.librede.rrde.model.optimization.DataExportSpecifier;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.model.optimization.InputData;
 import tools.descartes.librede.rrde.model.optimization.OptimizationSettings;
-import tools.descartes.librede.rrde.optimization.algorithm.clustermodel.FeatureWeights;
-import tools.descartes.librede.rrde.optimization.algorithm.impl.ClusterExportAlgorithm;
-import weka.clusterers.SimpleKMeans;
+import tools.descartes.librede.rrde.optimization.cluster.impl.ClusterExportAlgorithm;
 
 public abstract class AbstractClusterer implements IClusterer {
 	
-	protected LinkedHashMap<Instance, List<Double>> instanceToFeatureVector = new LinkedHashMap<Instance, List<Double>>();
-	protected LinkedHashMap<Instance, List<Double>> instanceToFeatureVectorShort = new LinkedHashMap<Instance, List<Double>>();
-	protected LinkedHashMap<Instance, Integer> instanceToID = new LinkedHashMap<Instance, Integer>();
+	private IOptimizableParameter parameter;
+	private boolean finishedCalculation;
+	
+	protected LinkedHashMap<Instance, List<Double>> instanceToFeatureVector = new LinkedHashMap<>();
+	protected LinkedHashMap<Instance, Integer> instanceToID = new LinkedHashMap<>();
 	protected LinkedHashMap<Instance, Dataset> instanceToCluster = new LinkedHashMap<>();
 	protected List<Double> headerValues = new ArrayList<Double>();
-
+	protected HashMap<Instance,LibredeConfiguration> instanceToConf = new HashMap<>();
+	
 	private List<List<Double>> meanFeatures = new ArrayList<>();
 	private List<Instance> means = new ArrayList<>();
+	private int numberOfFeatures;
+	protected List<Double> features;
 	private double[] coefficients;
 	private Dataset[] result;
+	protected List<List<LibredeConfiguration>> resultMap = new ArrayList<>();
 	
 	private EstimationSpecification estimation;
+	private EList<InputData> input;
+	private OptimizationSettings settings;
+	private ConfigurationOptimizationAlgorithmSpecifier specifier;
 	
 	protected Dataset data;
 
 	public AbstractClusterer(EstimationSpecification estimation, EList<InputData> input,
 			OptimizationSettings settings, ConfigurationOptimizationAlgorithmSpecifier specifier) {
 		this.estimation = estimation;
-		ClusterExportAlgorithm export = new ClusterExportAlgorithm();
-		export.optimizeConfiguration(estimation, input, settings, specifier);
-		String sourceDirectory = ((DataExportSpecifier) settings).getOutputDirectory();
-		try {
-			data = prepareData(sourceDirectory);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.input = input;
+		this.settings = settings;
+		this.specifier = specifier;
+		this.parameter = settings.getParametersToOptimize().get(0);
 	}
 	
-	/**
-	 * This method should not be used and should be overwritten. Standard Algorithm is k-Means.
-	 */
-	@Override
-	public Dataset[] cluster() {
-		instanceToID = mapInstanceToID(data);
-		double[][] distanceTable = calculateDistances(data);
-		double bestSilhouette = -2;
-		Dataset[] bestResult = null;
-		for (int i = 2; i < 6; i++) {
-			Dataset[] result = kMeansCluster(data, i);
-			instanceToCluster = mapInstanceToCluster(result);
-			double silhouette = calculateSilhouette(result, distanceTable);
-			if (silhouette > bestSilhouette) {
-				bestSilhouette = silhouette;
-				bestResult = result;
-			}
-		}
-		
-		List<Instance> means = new ArrayList<>();
-		List<List<Double>> meanFeatureVectors = new ArrayList<>();
-		for (Dataset d : bestResult) {
-			Instance meanInstance = calculateMeanInstance(d);
-			means.add(meanInstance);
-			List<Double> meanFeatures = calculateMeanFeatures(d);
-			meanFeatureVectors.add(meanFeatures);
-		}
-		setMeans(means);
-		setMeanFeatures(meanFeatureVectors);
-		
-		FeatureWeights weights = new FeatureWeights(distanceTable, instanceToFeatureVector);
-		setCoefficients(weights.learnCoefficients());
-		this.result = bestResult;
-		return bestResult;
+	public boolean initExport() {
+		finishedCalculation = false;
+		ClusterExportAlgorithm export = new ClusterExportAlgorithm();
+		boolean done = export.optimizeConfiguration(estimation, input, settings, specifier);
+		this.data = export.getData();
+		this.instanceToConf = export.getInstanceToConf();
+		this.instanceToFeatureVector = export.getInstanceToFeatureVector();
+		this.result = cluster();
+		finishedCalculation = done;
+		return true;
 	}
 
+	@Override
+	public List<List<LibredeConfiguration>> getResultMap() {
+		return resultMap;
+	}
+	
 	@Override
 	public List<Instance> getMeans() {
 		return means;
@@ -116,6 +100,7 @@ public abstract class AbstractClusterer implements IClusterer {
 		return coefficients;
 	}
 	
+	@Override
 	public void setCoefficients(double[] coefficients) {
 		this.coefficients = coefficients;
 	}	
@@ -213,7 +198,7 @@ public abstract class AbstractClusterer implements IClusterer {
 	
 	protected List<Double> calculateMeanFeatures(Dataset d) {
 		List<Double> result = new ArrayList<>();
-		for (int i = 0; i < 52; i++) {
+		for (int i = 0; i < numberOfFeatures; i++) {
 			double sum = 0;
 			for (Instance instance : d) {
 				double feature = instanceToFeatureVector.get(instance).get(i);
@@ -225,18 +210,7 @@ public abstract class AbstractClusterer implements IClusterer {
 		return result;
 	}
 
-	private Dataset[] kMeansCluster(Dataset data, int k) {
-		SimpleKMeans skm = new SimpleKMeans();
-		try {
-			skm.setNumClusters(k);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Clusterer jmlskm = new WekaClusterer(skm);
-		Dataset[] results = jmlskm.cluster(data);
-		return results;
-	}
-
+	@SuppressWarnings("unused")
 	private Dataset prepareData(String path) throws IOException {
 		Dataset data = readIn(path);
 		extractHeader(data);
@@ -272,8 +246,8 @@ public abstract class AbstractClusterer implements IClusterer {
 		for (Instance instance : data) {
 			List<Double> featureVector = new ArrayList<>();
 			int size = instance.noAttributes();
-			int j = size - 52;
-			for (int i = 0; i < 52; i++) {
+			int j = size - numberOfFeatures;
+			for (int i = 0; i < numberOfFeatures; i++) {
 				featureVector.add(instance.value(j));
 				instance.removeAttribute(j);
 			}
@@ -281,6 +255,16 @@ public abstract class AbstractClusterer implements IClusterer {
 		}
 		return data;
 	}
+	
+	protected Instance convertVectorToInstance(List<Double> newVector, double[] coefficients) {
+		double[] values = new double[newVector.size()];
+		for (int i = 0; i < values.length; i++) {
+			values[i] = newVector.get(i)*coefficients[i];
+		}
+		Instance result = new DenseInstance(values);
+		return result;
+	}
+
 	
 	@Override
 	public Dataset[] getResults() {
@@ -300,5 +284,41 @@ public abstract class AbstractClusterer implements IClusterer {
 	public void setSpecification(EstimationSpecification estimation) {
 		this.estimation = estimation;
 	}
+	
+	@Override
+	public boolean isParameterSupported(IOptimizableParameter parameter) {
+		return this.parameter.equals(parameter);
+	}
+	
+	@Override
+	public boolean finishedCalculation() {
+		return finishedCalculation;
+	}
 
+	@Override
+	public int getNumberOfFeatures() {
+		return numberOfFeatures;
+	}
+	
+	@Override
+	public List<Double> getFeatures() {
+		return features;
+	}
+	
+	public EList<InputData> getInput() {
+		return input;
+	}
+	
+	public OptimizationSettings getSettings() {
+		return settings;
+	}
+	
+	public ConfigurationOptimizationAlgorithmSpecifier getSpecifier() {
+		return specifier;
+	}
+	
+	@Override
+	public HashMap<Instance, LibredeConfiguration> getInstanceToConf() {
+		return instanceToConf;
+	}
 }
