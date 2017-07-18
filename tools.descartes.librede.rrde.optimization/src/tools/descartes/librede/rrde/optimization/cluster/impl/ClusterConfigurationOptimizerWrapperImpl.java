@@ -16,6 +16,7 @@ import tools.descartes.librede.rrde.model.optimization.impl.ClusterOptimizationS
 import tools.descartes.librede.rrde.optimization.cluster.IClusterConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.cluster.IClusterConfigurationOptimizerWrapper;
 import tools.descartes.librede.rrde.optimization.cluster.IClusterer;
+import tools.descartes.librede.rrde.util.Util;
 
 public class ClusterConfigurationOptimizerWrapperImpl implements IClusterConfigurationOptimizerWrapper {
 
@@ -38,7 +39,9 @@ public class ClusterConfigurationOptimizerWrapperImpl implements IClusterConfigu
 			} else {
 				if (optimize(estimation, input, settings, specifier)) {
 					this.instanceToOptimum = this.optimizer.confToOptimum();
-					//TODO: setTargetValues
+					//TODO: setTargetValues so richtig?
+					double value = instanceToOptimum.entrySet().iterator().next().getValue();
+					Util.setValue(estimation, value, settings.getParametersToOptimize().get(0));
 				}
 			}
 		}
@@ -63,7 +66,9 @@ public class ClusterConfigurationOptimizerWrapperImpl implements IClusterConfigu
 		}
 		this.optimizer = new ClusterConfigurationOptimizer(clusterer);
 		if (spec.featureCluster()) {
-			optimize(estimation, input, settings, spec);
+			if (optimize(estimation, input, settings, spec)) {
+				//TODO: was jetzt? feature clustering wurde hier ausgeführt
+			}
 		} else {
 			if (train(estimation, input, settings, spec)) {
 				if (optimize(estimation, input, settings, spec)) {

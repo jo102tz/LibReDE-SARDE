@@ -73,7 +73,7 @@ public abstract class AbstractClusterer implements IClusterer {
 	}
 
 	@Override
-	public List<List<LibredeConfiguration>> getResultMap() {
+	public List<List<LibredeConfiguration>> getConfResult() {
 		return resultMap;
 	}
 	

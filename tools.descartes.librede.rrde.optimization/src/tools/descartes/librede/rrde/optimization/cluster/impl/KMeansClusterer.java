@@ -90,6 +90,13 @@ public class KMeansClusterer extends AbstractClusterer {
 				bestResult = result;
 			}
 		}
+		
+		List<Instance> means = new ArrayList<>();
+		for (Dataset d : bestResult) {
+			Instance meanInstance = calculateMeanInstance(d);
+			means.add(meanInstance);
+		}
+		setMeans(means);
 
 		List<List<LibredeConfiguration>> result = new ArrayList<>();
 		for (int i = 0; i < bestResult.length; i++) {

@@ -32,7 +32,7 @@ public interface IClusterer {
 	 */
 	public Dataset[] getResults();
 	
-	public List<List<LibredeConfiguration>> getResultMap();
+	public List<List<LibredeConfiguration>> getConfResult();
 
 	/**
 	 * 
