@@ -2,6 +2,7 @@ package tools.descartes.librede.rrde.optimization.cluster.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +25,7 @@ import tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParamet
 import tools.descartes.librede.rrde.optimization.cluster.IClusterConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.cluster.IClusterer;
 import tools.descartes.librede.rrde.util.Discovery;
+import tools.descartes.librede.rrde.util.Util;
 import tools.descartes.librede.rrde.util.extract.ClusterFeatureExtractor;
 
 public class ClusterConfigurationOptimizer implements IClusterConfigurationOptimizer {
@@ -37,6 +39,7 @@ public class ClusterConfigurationOptimizer implements IClusterConfigurationOptim
 	protected EList<InputData> input;
 	protected OptimizationSettings settings;
 	public boolean firstRun = true;
+	public boolean firstFeatureRun = true;
 //	protected ConfigurationOptimizationAlgorithmSpecifier specifier = clusterer.;
 	
 	public ClusterConfigurationOptimizer(IClusterer clusterer) {
@@ -72,7 +75,7 @@ public class ClusterConfigurationOptimizer implements IClusterConfigurationOptim
 	}
 	
 	/**
-	 * TODO: DO THE ASSIGN INSTANCE TO CLUSTER THING HERE!!!!
+	 * DO THE ASSIGN INSTANCE TO CLUSTER THING HERE!!!!
 	 * @param input
 	 * @param settings
 	 * @return
@@ -85,7 +88,7 @@ public class ClusterConfigurationOptimizer implements IClusterConfigurationOptim
 		
 		ClusterOptimizationSpecifierImpl spec = (ClusterOptimizationSpecifierImpl) specifier;
 		if (spec.featureCluster()) {
-			return featureCluster(estimation, input, settings, specifier);
+			return firstFeatureCluster(estimation, input, settings, specifier);
 		}
 		
 		if (firstRun) {
@@ -118,16 +121,56 @@ public class ClusterConfigurationOptimizer implements IClusterConfigurationOptim
 	private boolean featureCluster(EstimationSpecification estimation, EList<InputData> input,
 			OptimizationSettings settings, ConfigurationOptimizationAlgorithmSpecifier specifier) {
 		
+		ClusterFeatureExtractor extractor = new ClusterFeatureExtractor();
+		List<List<LibredeConfiguration>> featureClusterResults = clusterer.getConfResult();
+		Set<LibredeConfiguration> confs = Discovery.createConfigurations(input, estimation, settings.getValidator());
+		for (LibredeConfiguration conf : confs) {
+			FeatureVector fv = extractor.extractFeatures(conf);
+			List<Double> newVector = new ArrayList<>();
+			newVector.add((double)fv.getNumberOfRessources());
+			newVector.add((double)fv.getNumberOfWorkloadClasses());
+			newVector.add(fv.getVarianceInflationFactor());
+			newVector.add(fv.getUtilizationStatistics().get(0).getArithmeticMean());
+			List<Instance> means = clusterer.getMeans();
+			List<List<Double>> meanFeatures = new ArrayList<>();
+			for (Instance instance : means) {
+				List<Double> features = new ArrayList<>(instance.values());
+				meanFeatures.add(features);
+			}
+			int clusterIndex = assignInstanceToCluster(newVector, meanFeatures, clusterer.getCoefficients());
+			//TODO: hier brauchen wir die resultate vom S3 um dem gefundenen cluster ein optimum zuordnen zu können!!
+			double result = instanceToOptimum.get(featureClusterResults.get(clusterIndex));
+			instanceToOptimum.put(conf, result);
+		}
+		return true;
+	}
+	
+	private boolean firstFeatureCluster(EstimationSpecification estimation, EList<InputData> input,
+			OptimizationSettings settings, ConfigurationOptimizationAlgorithmSpecifier specifier) {
+		
+		if (!firstFeatureRun) {
+			return featureCluster(estimation, input, settings, specifier);
+		}
+		boolean allGood = true;
 		List<List<LibredeConfiguration>> featureClusters = clusterer.featureCluster();
 		IterativeParameterOptimizationAlgorithm ipo = new IterativeParameterOptimizationAlgorithm();
 		for (List<LibredeConfiguration> list : featureClusters) {
-			//TODO: ipo hier ausführen? die daten sind da.
+			Set<LibredeConfiguration> set = new HashSet<>(list);
+			ipo.setConfs(set);
+			allGood = ipo.optimizeConfiguration(estimation, input, settings, specifier);
+			//TODO: save values for later -> so richtig?
+			double result = Util.getValue(estimation, settings.getParametersToOptimize().get(0));
+			for (LibredeConfiguration conf : set) {
+				instanceToOptimum.put(conf, result);
+			}
 		}
-		
-		return false;
+		if (allGood) {
+			firstFeatureRun = false;
+		}
+		return allGood;
 	}
-
-	public int assignInstanceToCluster(List<Double> newVector, List<List<Double>> meanFeatureVectors, double[] coefficients) {
+	
+	private int assignInstanceToCluster(List<Double> newVector, List<List<Double>> meanFeatureVectors, double[] coefficients) {
 		Instance newVectorInst = convertVectorToInstance(newVector, coefficients);
 		Dataset meanFeatureVectorsDataset = convertMeanFeaturesToDataset(meanFeatureVectors, coefficients);
 		DistanceMeasure dist = new ManhattanDistance();
