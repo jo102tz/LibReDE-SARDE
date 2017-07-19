@@ -27,10 +27,10 @@ public class ClusterConfigurationOptimizerWrapperImpl implements IClusterConfigu
 	//TODO: normale cluster funktionalität steht
 	//TODO: feature cluster funktionalität implementieren!
 		
-	public void doWork(EstimationSpecification estimation, EList<InputData> input,
+	public boolean doWork(EstimationSpecification estimation, EList<InputData> input,
 			OptimizationSettings settings, ConfigurationOptimizationAlgorithmSpecifier specifier) {
 		
-		if (this.clusterer.equals(null) || clusterer.isParameterSupported(settings.getParametersToOptimize().get(0))) {
+		if (this.clusterer == null || clusterer.isParameterSupported(settings.getParametersToOptimize().get(0))) {
 			init(estimation, input, settings, specifier);
 		} else {
 			ClusterOptimizationSpecifier spec = (ClusterOptimizationSpecifierImpl) specifier;
@@ -45,6 +45,7 @@ public class ClusterConfigurationOptimizerWrapperImpl implements IClusterConfigu
 				}
 			}
 		}
+		return true;
 	}
 	
 	private void init(EstimationSpecification estimation, EList<InputData> input,
@@ -126,6 +127,25 @@ public class ClusterConfigurationOptimizerWrapperImpl implements IClusterConfigu
 
 	public HashMap<LibredeConfiguration, Double> getInstanceToOptimum() {
 		return instanceToOptimum;
+	}
+
+	@Override
+	public boolean optimizeConfiguration(EstimationSpecification estimation, EList<InputData> input,
+			OptimizationSettings settings, ConfigurationOptimizationAlgorithmSpecifier specifier)
+			throws IllegalArgumentException {
+		return doWork(estimation, input, settings, specifier);
+	}
+
+	@Override
+	public EstimationSpecification getResult() throws IllegalStateException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSimpleName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
