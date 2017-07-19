@@ -1,8 +1,8 @@
 package tools.descartes.librede.rrde.optimization.cluster.impl;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -59,9 +59,10 @@ public class ClusterConfigurationOptimizerWrapperImpl implements IClusterConfigu
 		String clusterAlgoName = spec.getClusterAlgorithm();
 		try {
 			Class<?> c = Class.forName(clusterAlgoName);
-			Constructor<?> constructor = c.getConstructor(EstimationSpecification.class, EList.class, OptimizationSettings.class, ClusterOptimizationSpecifier.class);
-			this.clusterer = (IClusterer) constructor.newInstance(estimation, input, settings, spec);		
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+			this.clusterer = (IClusterer) c.getConstructors()[0].newInstance(estimation, input, settings, spec);
+//			Constructor<?> constructor = c.getConstructor(EstimationSpecification.class, input.getClass(), OptimizationSettings.class, ClusterOptimizationSpecifier.class);
+//			this.clusterer = (IClusterer) constructor.newInstance(estimation, input, settings, spec);		
+		} catch (ClassNotFoundException | SecurityException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
 			//TODO: logger?
 			e.printStackTrace();
 		}
@@ -74,6 +75,12 @@ public class ClusterConfigurationOptimizerWrapperImpl implements IClusterConfigu
 			if (train(estimation, input, settings, spec)) {
 				if (optimize(estimation, input, settings, spec)) {
 					this.instanceToOptimum = this.optimizer.confToOptimum();
+					double sum = 0;
+					for (Entry<LibredeConfiguration,Double> entry : instanceToOptimum.entrySet()) {
+						System.out.println("Found optimal value for conf at: " + entry.getValue());
+						sum += entry.getValue();
+					}
+					System.out.println("Average = " + sum/instanceToOptimum.size());
 					//TODO: setTargetValues
 				}
 			}

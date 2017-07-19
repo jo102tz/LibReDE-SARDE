@@ -7,11 +7,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
 import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.model.optimization.GenericParameter;
 import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.model.optimization.StepSizeRelWindow;
@@ -62,16 +66,16 @@ public class ClusterExportAlgorithm extends ExportAlgorithm {
 			for (LibredeConfiguration conf : original) {
 				getConfs().clear();
 				getConfs().add(conf);
-				int size = (int) ((param.getUpperBound()-param.getLowerBound())/settings().getStepSize());
-				Instance instance = new DenseInstance(size);
-				int count = 0;
+				double[] array = new double[0];
 				for (double i = param.getLowerBound(); i <= param.getUpperBound(); i += settings().getStepSize()) {
 					setTargetValue(param, i);
 					runIteration();
 					s.writeError(getLastError());
-					instance.put(count, getLastError());
-					count++;
+					double[] tmpArray = {getLastError()};
+					double[] concat = (double[]) ArrayUtils.addAll(array, tmpArray);
+					array = concat;
 				}
+				Instance instance = new DenseInstance(array);
 				instanceToConf.put(instance, conf);
 				data.add(instance);
 				// add feature vector here
@@ -109,5 +113,16 @@ public class ClusterExportAlgorithm extends ExportAlgorithm {
 	
 	public LinkedHashMap<Instance, List<Double>> getInstanceToFeatureVector() {
 		return instanceToFeatureVector;
+	}
+	
+	@Override
+	public boolean isSpecifierSupported(
+			ConfigurationOptimizationAlgorithmSpecifier specifier) {
+		if (specifier == null)
+			return false;
+		if (specifier instanceof DataExportSpecifier || specifier instanceof ConfigurationOptimizationAlgorithmSpecifier) {
+			return true;
+		}
+		return false;
 	}
 }

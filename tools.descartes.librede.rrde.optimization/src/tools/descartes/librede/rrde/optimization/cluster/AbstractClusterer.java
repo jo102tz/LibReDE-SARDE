@@ -23,6 +23,7 @@ import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimization
 import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.model.optimization.InputData;
 import tools.descartes.librede.rrde.model.optimization.OptimizationSettings;
+import tools.descartes.librede.rrde.model.optimization.impl.DataExportSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.cluster.impl.ClusterExportAlgorithm;
 
 public abstract class AbstractClusterer implements IClusterer {
@@ -63,7 +64,9 @@ public abstract class AbstractClusterer implements IClusterer {
 	public boolean initExport() {
 		finishedCalculation = false;
 		ClusterExportAlgorithm export = new ClusterExportAlgorithm();
-		boolean done = export.optimizeConfiguration(estimation, input, settings, specifier);
+		DataExportSpecifierImpl sp = new DataExportSpecifierImpl();
+//		export.setAlgorithm(new DataExportSpecifierImpl());
+		boolean done = export.optimizeConfiguration(estimation, input, settings, sp);
 		this.data = export.getData();
 		this.instanceToConf = export.getInstanceToConf();
 		this.instanceToFeatureVector = export.getInstanceToFeatureVector();

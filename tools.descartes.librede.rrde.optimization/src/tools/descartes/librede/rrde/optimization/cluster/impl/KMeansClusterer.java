@@ -41,6 +41,7 @@ public class KMeansClusterer extends AbstractClusterer {
 			Dataset[] result = kMeansCluster(data, i);
 			instanceToCluster = mapInstanceToCluster(result);
 			double silhouette = calculateSilhouette(result, distanceTable);
+			System.out.println("Silhouette for k=" + i + " : "+ silhouette);
 			if (silhouette > bestSilhouette) {
 				bestSilhouette = silhouette;
 				bestResult = result;
