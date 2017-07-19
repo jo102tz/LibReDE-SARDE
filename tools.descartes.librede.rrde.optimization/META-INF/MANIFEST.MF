@@ -18,3 +18,9 @@ Bundle-ClassPath: lib/commons-lang3-3.4.jar,
 Export-Package: tools.descartes.librede.rrde.optimization,
  tools.descartes.librede.rrde.optimization.algorithm,
  tools.descartes.librede.rrde.optimization.algorithm.impl
+Import-Package: net.sf.javaml.clustering,
+ net.sf.javaml.core,
+ net.sf.javaml.distance,
+ net.sf.javaml.distance.fastdtw.util,
+ net.sf.javaml.tools.data,
+ net.sf.javaml.tools.weka
