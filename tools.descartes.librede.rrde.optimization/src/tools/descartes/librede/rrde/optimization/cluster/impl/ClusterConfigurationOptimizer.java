@@ -16,12 +16,14 @@ import net.sf.javaml.distance.DistanceMeasure;
 import net.sf.javaml.distance.ManhattanDistance;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.model.optimization.ClusterOptimizationSpecifier;
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.optimization.InputData;
 import tools.descartes.librede.rrde.model.optimization.OptimizationSettings;
 import tools.descartes.librede.rrde.model.optimization.impl.ClusterOptimizationSpecifierImpl;
+import tools.descartes.librede.rrde.model.optimization.impl.LocalSearchSpecifierImpl;
 import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
-import tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.BruteForceAlgorithm;
 import tools.descartes.librede.rrde.optimization.cluster.IClusterConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.cluster.IClusterer;
 import tools.descartes.librede.rrde.util.Discovery;
@@ -113,6 +115,7 @@ public class ClusterConfigurationOptimizer implements IClusterConfigurationOptim
 			newVector.add(fv.getUtilizationStatistics().get(0).getArithmeticMean());
 			int clusterIndex = assignInstanceToCluster(newVector, clusterer.getMeanFeatures(), clusterer.getCoefficients());
 			double optimum = getLowestPoint(clusterer.getMeans().get(clusterIndex));
+			System.out.println("Found optimal value for conf at: " + optimum);
 			instanceToOptimum.put(conf, optimum);
 		}
 		return true;
@@ -139,7 +142,7 @@ public class ClusterConfigurationOptimizer implements IClusterConfigurationOptim
 			}
 			int clusterIndex = assignInstanceToCluster(newVector, meanFeatures, clusterer.getCoefficients());
 			//TODO: hier brauchen wir die resultate vom S3 um dem gefundenen cluster ein optimum zuordnen zu können!!
-			double result = instanceToOptimum.get(featureClusterResults.get(clusterIndex));
+			double result = instanceToOptimum.get(featureClusterResults.get(clusterIndex).get(0));
 			instanceToOptimum.put(conf, result);
 		}
 		return true;
@@ -153,13 +156,16 @@ public class ClusterConfigurationOptimizer implements IClusterConfigurationOptim
 		}
 		boolean allGood = true;
 		List<List<LibredeConfiguration>> featureClusters = clusterer.featureCluster();
-		IterativeParameterOptimizationAlgorithm ipo = new IterativeParameterOptimizationAlgorithm();
+		BruteForceAlgorithm bruce = new BruteForceAlgorithm();
 		for (List<LibredeConfiguration> list : featureClusters) {
+			System.out.println("starting brute force");
 			Set<LibredeConfiguration> set = new HashSet<>(list);
-			ipo.setConfs(set);
-			allGood = ipo.optimizeConfiguration(estimation, input, settings, specifier);
+			bruce.setConfs(set);
+			LocalSearchSpecifierImpl d = new LocalSearchSpecifierImpl();
+			allGood = bruce.optimizeConfiguration(estimation, input, settings, d);
 			//TODO: save values for later -> so richtig?
 			double result = Util.getValue(estimation, settings.getParametersToOptimize().get(0));
+			System.out.println("bruce result: " + result);
 			for (LibredeConfiguration conf : set) {
 				instanceToOptimum.put(conf, result);
 			}
@@ -188,11 +194,9 @@ public class ClusterConfigurationOptimizer implements IClusterConfigurationOptim
 
 	private Dataset convertMeanFeaturesToDataset(List<List<Double>> meanFeatureVectors, double[] coefficients) {
 		Dataset result = new DefaultDataset();
-		for (int i = 0; i < meanFeatureVectors.size(); i++) {
-			for (List<Double> list : meanFeatureVectors) {
-				Instance inst = convertVectorToInstance(list, coefficients);
-				result.add(inst);
-			}
+		for (List<Double> list : meanFeatureVectors) {
+			Instance inst = convertVectorToInstance(list, coefficients);
+			result.add(inst);
 		}
 		return result;
 	}
@@ -247,14 +251,15 @@ public class ClusterConfigurationOptimizer implements IClusterConfigurationOptim
 
 	@Override
 	public String getSimpleName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getClass().getSimpleName();
 	}
 
 	@Override
 	public boolean isSpecifierSupported(ConfigurationOptimizationAlgorithmSpecifier specifier) {
-		// TODO no specifier needed, can we just return true?
-		return true;
+		if (specifier instanceof ClusterOptimizationSpecifier) {
+			return true;
+		}
+		return false;
 	}
 
 	public int getNumberOfFeatures() {

@@ -24,6 +24,7 @@ import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.model.optimization.InputData;
 import tools.descartes.librede.rrde.model.optimization.OptimizationSettings;
 import tools.descartes.librede.rrde.model.optimization.impl.DataExportSpecifierImpl;
+import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.optimization.cluster.impl.ClusterExportAlgorithm;
 
 public abstract class AbstractClusterer implements IClusterer {
@@ -68,6 +69,12 @@ public abstract class AbstractClusterer implements IClusterer {
 //		export.setAlgorithm(new DataExportSpecifierImpl());
 		boolean done = export.optimizeConfiguration(estimation, input, settings, sp);
 		this.data = export.getData();
+		for (Instance instance : data) {
+			if (Double.isNaN(instance.value(0))) {
+				System.out.println("Double is still NaN");
+				instance.removeAttribute(0);
+			}
+		}
 		this.instanceToConf = export.getInstanceToConf();
 		this.instanceToFeatureVector = export.getInstanceToFeatureVector();
 		this.result = cluster();
@@ -138,6 +145,16 @@ public abstract class AbstractClusterer implements IClusterer {
 		return result;
 	}
 	
+	protected List<Double> createFeatures(FeatureVector vector) {
+		List<Double> result = new ArrayList<Double>();
+		result.add((double)vector.getNumberOfRessources());
+		result.add((double)vector.getNumberOfWorkloadClasses());
+		result.add(vector.getVarianceInflationFactor());
+		result.add(vector.getUtilizationStatistics().get(0).getArithmeticMean());
+		return result;
+	}
+
+	
 	protected double calculateSilhouette(Dataset[] datasets, double[][] distanceTable) {
 		double result = 0;
 		for (Map.Entry<Instance, Dataset> entry : instanceToCluster.entrySet()) {
@@ -201,7 +218,7 @@ public abstract class AbstractClusterer implements IClusterer {
 	
 	protected List<Double> calculateMeanFeatures(Dataset d) {
 		List<Double> result = new ArrayList<>();
-		for (int i = 0; i < numberOfFeatures; i++) {
+		for (int i = 0; i < instanceToFeatureVector.get(d.get(0)).size(); i++) {
 			double sum = 0;
 			for (Instance instance : d) {
 				double feature = instanceToFeatureVector.get(instance).get(i);

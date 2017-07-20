@@ -56,7 +56,7 @@ public class DataExportSpecifierImpl extends ConfigurationOptimizationAlgorithmS
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double STEP_SIZE_EDEFAULT = 0.01;
+	protected static final double STEP_SIZE_EDEFAULT = 0.1;
 
 	/**
 	 * The cached value of the '{@link #getStepSize() <em>Step Size</em>}' attribute.

@@ -71,9 +71,11 @@ public class ClusterExportAlgorithm extends ExportAlgorithm {
 					setTargetValue(param, i);
 					runIteration();
 					s.writeError(getLastError());
-					double[] tmpArray = {getLastError()};
-					double[] concat = (double[]) ArrayUtils.addAll(array, tmpArray);
-					array = concat;
+					if (!Double.isNaN(getLastError())) {
+						double[] tmpArray = {getLastError()};
+						double[] concat = (double[]) ArrayUtils.addAll(array, tmpArray);
+						array = concat;
+					}
 				}
 				Instance instance = new DenseInstance(array);
 				instanceToConf.put(instance, conf);

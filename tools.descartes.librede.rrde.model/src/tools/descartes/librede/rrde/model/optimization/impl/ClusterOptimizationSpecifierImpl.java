@@ -38,7 +38,7 @@ public class ClusterOptimizationSpecifierImpl extends ConfigurationOptimizationA
 	 */
 	protected static final String CLUSTER_ALGORITHM_EDEFAULT = "";
 
-	protected boolean featureCluster = false;
+	protected boolean featureCluster = true;
 	
 	/**
 	 * The cached value of the '{@link #getClusterAlgorithm() <em>Cluster Algorithm</em>}' attribute.

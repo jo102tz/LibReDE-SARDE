@@ -30,7 +30,7 @@ public class ClusterConfigurationOptimizerWrapperImpl implements IClusterConfigu
 	public boolean doWork(EstimationSpecification estimation, EList<InputData> input,
 			OptimizationSettings settings, ConfigurationOptimizationAlgorithmSpecifier specifier) {
 		
-		if (this.clusterer == null || clusterer.isParameterSupported(settings.getParametersToOptimize().get(0))) {
+		if (this.clusterer == null || !clusterer.isParameterSupported(settings.getParametersToOptimize().get(0))) {
 			init(estimation, input, settings, specifier);
 		} else {
 			ClusterOptimizationSpecifier spec = (ClusterOptimizationSpecifierImpl) specifier;
@@ -140,7 +140,21 @@ public class ClusterConfigurationOptimizerWrapperImpl implements IClusterConfigu
 	public boolean optimizeConfiguration(EstimationSpecification estimation, EList<InputData> input,
 			OptimizationSettings settings, ConfigurationOptimizationAlgorithmSpecifier specifier)
 			throws IllegalArgumentException {
-		return doWork(estimation, input, settings, specifier);
+		
+		//TODO: This is only for training purposes
+		boolean firstRun = doWork(estimation, input, settings, specifier);
+		boolean secRun = doWork(estimation, input, settings, specifier);
+		if (firstRun && secRun) {
+			System.out.println("Successfully finished both Optimization runs");
+			return true;
+		} else {
+			if (firstRun) {
+				System.out.println("Something went wrong in the second run");
+			} else {
+				System.out.println("Something went wrong in the first run");
+			}
+			return false;
+		}
 	}
 
 	@Override

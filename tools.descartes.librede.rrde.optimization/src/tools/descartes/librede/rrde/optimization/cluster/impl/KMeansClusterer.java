@@ -1,6 +1,7 @@
 package tools.descartes.librede.rrde.optimization.cluster.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -74,6 +75,9 @@ public class KMeansClusterer extends AbstractClusterer {
 			FeatureVector vector = extractor.extractFeatures(conf);
 			List<Double> featureVector = createFeatures(vector);
 			//TODO: coefficients setzen vorher!
+			double[] dummyCoeff = new double[featureVector.size()];
+			Arrays.fill(dummyCoeff, 1);
+			setCoefficients(dummyCoeff);
 			Instance featureInst = convertVectorToInstance(featureVector, getCoefficients());
 			featureVectorToConf.put(featureInst, conf);
 			allData.add(featureInst);
@@ -83,7 +87,7 @@ public class KMeansClusterer extends AbstractClusterer {
 		double bestSilhouette = -2;
 		Dataset[] bestResult = null;
 		for (int i = 2; i < 6; i++) {
-			Dataset[] result = kMeansCluster(data, i);
+			Dataset[] result = kMeansCluster(allData, i);
 			instanceToCluster = mapInstanceToCluster(result);
 			double silhouette = calculateSilhouette(result, distanceTable);
 			if (silhouette > bestSilhouette) {
@@ -91,7 +95,7 @@ public class KMeansClusterer extends AbstractClusterer {
 				bestResult = result;
 			}
 		}
-		
+		System.out.println("Optimal number of clusters found: " + bestResult.length);
 		List<Instance> means = new ArrayList<>();
 		for (Dataset d : bestResult) {
 			Instance meanInstance = calculateMeanInstance(d);
@@ -110,16 +114,7 @@ public class KMeansClusterer extends AbstractClusterer {
 		resultMap = result;
 		return result;
 	}
-	
-	private List<Double> createFeatures(FeatureVector vector) {
-		List<Double> result = new ArrayList<Double>();
-		result.add((double)vector.getNumberOfRessources());
-		result.add((double)vector.getNumberOfWorkloadClasses());
-		result.add(vector.getVarianceInflationFactor());
-		result.add(vector.getUtilizationStatistics().get(0).getArithmeticMean());
-		return result;
-	}
-	
+		
 	private Dataset[] kMeansCluster(Dataset data, int k) {
 		SimpleKMeans skm = new SimpleKMeans();
 		try {
