@@ -36,9 +36,12 @@ import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import tools.descartes.librede.Librede;
+import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
 import tools.descartes.librede.rrde.optimization.util.Wrapper;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
@@ -148,7 +151,20 @@ public class Plugin implements IApplication {
 		}
 		
 	}
-
+	
+	/**
+	 * Method, that starts the online estimation and learning cycle
+	 * 
+	 * @param lifeCycleConfiguration
+	 * @param libredeConfiguration
+	 */
+	public LibredeResults onlineEstimation(LifeCycleConfiguration lifeCycleConfiguration, LibredeConfiguration libredeConfiguration) {
+		//first try to simply execute librede
+		Discovery.fixTimeStamps(libredeConfiguration);
+		LibredeResults results = Wrapper.executeLibrede(libredeConfiguration);
+		return results;
+	}
+	
 	@Override
 	public void stop() {
 		// do nothing

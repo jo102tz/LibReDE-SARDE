@@ -13,5 +13,8 @@ Require-Bundle: tools.descartes.librede.rrde.model;bundle-version="1.0.0",
  org.junit,
  org.eclipse.emf.ecore.xmi,
  org.apache.commons.math3;bundle-version="3.2.0",
- tools.descartes.librede.rrde.rinterface;bundle-version="1.0.0"
+ tools.descartes.librede.rrde.rinterface;bundle-version="1.0.0",
+ tools.descartes.librede.bayesplusplus.java,
+ tools.descartes.librede.nnls.java,
+ tools.descartes.librede.ipopt.java
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
