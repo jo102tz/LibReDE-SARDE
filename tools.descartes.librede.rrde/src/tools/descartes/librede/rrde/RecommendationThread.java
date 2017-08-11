@@ -33,6 +33,7 @@ public class RecommendationThread extends Thread {
 	 * Life cycle helpers of this thread.
 	 */
 	private boolean isInitialized;
+	private boolean isRunning;
 	
 	
 	public RecommendationThread(ThreadHandler threadHandler, RecommendationTrainingConfiguration recommendationTrainingConfiguration) {
@@ -40,11 +41,13 @@ public class RecommendationThread extends Thread {
 		this.threadHandler = threadHandler;
 		this.recommendationTrainingConfiguration = recommendationTrainingConfiguration;
 		this.isInitialized = false;
+		this.isRunning = false;
 		log.info("RecommendationThread instance created!");
 	}
 	
 	@Override
 	public void run() {
+		this.isRunning = true;
 		if(!isInitialized){
 			//initialize the thread here
 			log.info("Initializing RecommendationThread...");
@@ -58,5 +61,17 @@ public class RecommendationThread extends Thread {
 		log.info("Reporting results from RecommendationThread!");
 		this.threadHandler.setNewRecommendationAlgorithm(algorithm);
 		log.info("RecommendationThread terminates normally!");
+		this.isRunning = false;
+	}
+	
+	public boolean isRunning() {
+		return isRunning;
+	}
+	
+
+	public void terminate(){
+		if(isRunning){
+			//this.interrupt();
+		}
 	}
 }

@@ -37,6 +37,7 @@ public class OptimizationThread extends Thread {
 	 * Life cycle helpers of this thread.
 	 */
 	private boolean isInitialized;
+	private boolean isRunning;
 	
 	/**
 	 * This is the constructor of this thread.
@@ -53,11 +54,13 @@ public class OptimizationThread extends Thread {
 		this.optimizationConfiguration = optimizationConfiguration;
 		this.outputdirectory = outputdirectory;
 		this.isInitialized = false;
+		this.isRunning = false;
 		log.info("OptimizationThread instance created!");
 	}
 
 	@Override
 	public void run() {
+		this.isRunning = true;
 		if(!isInitialized){
 			//initialize the thread here
 			log.info("Initializing OptimizationThread...");
@@ -71,7 +74,16 @@ public class OptimizationThread extends Thread {
 		log.info("Reporting results from OptimizationThread!");
 		this.threadHandler.setNewEstimationSpecifications(estimations);
 		log.info("OptimizationThread terminates normally!");
+		this.isRunning = false;
 	}
 	
+	public boolean isRunning() {
+		return isRunning;
+	}
 	
+	public void terminate(){
+		if(isRunning){
+			//this.interrupt();
+		}
+	}
 }

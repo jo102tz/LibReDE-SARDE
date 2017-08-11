@@ -35,6 +35,7 @@ public class SelectionThread extends Thread {
 	 * Life cycle helpers of this thread.
 	 */
 	private boolean isInitialized;
+	private boolean isRunning;
 	
 	public SelectionThread(ThreadHandler threadHandler, IRecomendationAlgorithm recomendationAlgorithm, LibredeConfiguration libredeConfiguration, IFeatureExtractor featureExtractor) {
 		log.info("Create SelectionThread instance...");
@@ -43,11 +44,13 @@ public class SelectionThread extends Thread {
 		this.featureExtractor = featureExtractor;
 		this.recomendationAlgorithm = recomendationAlgorithm;
 		this.isInitialized = false;
+		this.isRunning = false;
 		log.info("SelectionThread instance created!");
 	}
 	
 	@Override
 	public void run() {
+		this.isRunning = true;
 		if(!isInitialized){
 			//initialize the thread here
 			log.info("Initializing SelectionThread...");
@@ -61,5 +64,16 @@ public class SelectionThread extends Thread {
 		log.info("Reporting results from SelectionThread!");
 		this.threadHandler.setNewEstimationSpecification(est);
 		log.info("SelectionThread terminates normally!");
+		this.isRunning = false;
+	}
+	
+	public boolean isRunning() {
+		return isRunning;
+	}
+
+	public void terminate(){
+		if(isRunning){
+			//this.interrupt();
+		}
 	}
 }
