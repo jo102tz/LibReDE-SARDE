@@ -11,9 +11,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="selectionLoopTime" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Long" defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="recommendationConfiguration"
-        eType="ecore:EClass recommendation.ecore#//RecommendationTrainingConfiguration"/>
+        lowerBound="1" eType="ecore:EClass recommendation.ecore#//RecommendationTrainingConfiguration"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="optimizationConfiguration"
-        eType="ecore:EClass optimization.ecore#//OptimizationConfiguration"/>
+        lowerBound="1" eType="ecore:EClass optimization.ecore#//OptimizationConfiguration"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="estimationLoopTime" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Long" defaultValueLiteral="-1"/>
   </eClassifiers>

@@ -94,7 +94,7 @@ public interface LifecyclePackage extends EPackage {
 	int LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME = 2;
 
 	/**
-	 * The feature id for the '<em><b>Recommendation Configuration</b></em>' reference.
+	 * The feature id for the '<em><b>Recommendation Configuration</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -103,7 +103,7 @@ public interface LifecyclePackage extends EPackage {
 	int LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION = 3;
 
 	/**
-	 * The feature id for the '<em><b>Optimization Configuration</b></em>' reference.
+	 * The feature id for the '<em><b>Optimization Configuration</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -183,10 +183,10 @@ public interface LifecyclePackage extends EPackage {
 	EAttribute getLifeCycleConfiguration_SelectionLoopTime();
 
 	/**
-	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getRecommendationConfiguration <em>Recommendation Configuration</em>}'.
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getRecommendationConfiguration <em>Recommendation Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Recommendation Configuration</em>'.
+	 * @return the meta object for the containment reference '<em>Recommendation Configuration</em>'.
 	 * @see tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getRecommendationConfiguration()
 	 * @see #getLifeCycleConfiguration()
 	 * @generated
@@ -194,10 +194,10 @@ public interface LifecyclePackage extends EPackage {
 	EReference getLifeCycleConfiguration_RecommendationConfiguration();
 
 	/**
-	 * Returns the meta object for the reference '{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getOptimizationConfiguration <em>Optimization Configuration</em>}'.
+	 * Returns the meta object for the containment reference '{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getOptimizationConfiguration <em>Optimization Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Optimization Configuration</em>'.
+	 * @return the meta object for the containment reference '<em>Optimization Configuration</em>'.
 	 * @see tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getOptimizationConfiguration()
 	 * @see #getLifeCycleConfiguration()
 	 * @generated
@@ -273,7 +273,7 @@ public interface LifecyclePackage extends EPackage {
 		EAttribute LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME = eINSTANCE.getLifeCycleConfiguration_SelectionLoopTime();
 
 		/**
-		 * The meta object literal for the '<em><b>Recommendation Configuration</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Recommendation Configuration</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -281,7 +281,7 @@ public interface LifecyclePackage extends EPackage {
 		EReference LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION = eINSTANCE.getLifeCycleConfiguration_RecommendationConfiguration();
 
 		/**
-		 * The meta object literal for the '<em><b>Optimization Configuration</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Optimization Configuration</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

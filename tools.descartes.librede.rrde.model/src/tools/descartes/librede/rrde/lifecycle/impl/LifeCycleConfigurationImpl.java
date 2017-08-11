@@ -4,6 +4,7 @@ package tools.descartes.librede.rrde.lifecycle.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -97,7 +98,7 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	protected long selectionLoopTime = SELECTION_LOOP_TIME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getRecommendationConfiguration() <em>Recommendation Configuration</em>}' reference.
+	 * The cached value of the '{@link #getRecommendationConfiguration() <em>Recommendation Configuration</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRecommendationConfiguration()
@@ -107,7 +108,7 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	protected RecommendationTrainingConfiguration recommendationConfiguration;
 
 	/**
-	 * The cached value of the '{@link #getOptimizationConfiguration() <em>Optimization Configuration</em>}' reference.
+	 * The cached value of the '{@link #getOptimizationConfiguration() <em>Optimization Configuration</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOptimizationConfiguration()
@@ -224,14 +225,6 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	 * @generated
 	 */
 	public RecommendationTrainingConfiguration getRecommendationConfiguration() {
-		if (recommendationConfiguration != null && recommendationConfiguration.eIsProxy()) {
-			InternalEObject oldRecommendationConfiguration = (InternalEObject)recommendationConfiguration;
-			recommendationConfiguration = (RecommendationTrainingConfiguration)eResolveProxy(oldRecommendationConfiguration);
-			if (recommendationConfiguration != oldRecommendationConfiguration) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION, oldRecommendationConfiguration, recommendationConfiguration));
-			}
-		}
 		return recommendationConfiguration;
 	}
 
@@ -240,8 +233,14 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RecommendationTrainingConfiguration basicGetRecommendationConfiguration() {
-		return recommendationConfiguration;
+	public NotificationChain basicSetRecommendationConfiguration(RecommendationTrainingConfiguration newRecommendationConfiguration, NotificationChain msgs) {
+		RecommendationTrainingConfiguration oldRecommendationConfiguration = recommendationConfiguration;
+		recommendationConfiguration = newRecommendationConfiguration;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION, oldRecommendationConfiguration, newRecommendationConfiguration);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -250,10 +249,17 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	 * @generated
 	 */
 	public void setRecommendationConfiguration(RecommendationTrainingConfiguration newRecommendationConfiguration) {
-		RecommendationTrainingConfiguration oldRecommendationConfiguration = recommendationConfiguration;
-		recommendationConfiguration = newRecommendationConfiguration;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION, oldRecommendationConfiguration, recommendationConfiguration));
+		if (newRecommendationConfiguration != recommendationConfiguration) {
+			NotificationChain msgs = null;
+			if (recommendationConfiguration != null)
+				msgs = ((InternalEObject)recommendationConfiguration).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION, null, msgs);
+			if (newRecommendationConfiguration != null)
+				msgs = ((InternalEObject)newRecommendationConfiguration).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION, null, msgs);
+			msgs = basicSetRecommendationConfiguration(newRecommendationConfiguration, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION, newRecommendationConfiguration, newRecommendationConfiguration));
 	}
 
 	/**
@@ -262,14 +268,6 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	 * @generated
 	 */
 	public OptimizationConfiguration getOptimizationConfiguration() {
-		if (optimizationConfiguration != null && optimizationConfiguration.eIsProxy()) {
-			InternalEObject oldOptimizationConfiguration = (InternalEObject)optimizationConfiguration;
-			optimizationConfiguration = (OptimizationConfiguration)eResolveProxy(oldOptimizationConfiguration);
-			if (optimizationConfiguration != oldOptimizationConfiguration) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION, oldOptimizationConfiguration, optimizationConfiguration));
-			}
-		}
 		return optimizationConfiguration;
 	}
 
@@ -278,8 +276,14 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OptimizationConfiguration basicGetOptimizationConfiguration() {
-		return optimizationConfiguration;
+	public NotificationChain basicSetOptimizationConfiguration(OptimizationConfiguration newOptimizationConfiguration, NotificationChain msgs) {
+		OptimizationConfiguration oldOptimizationConfiguration = optimizationConfiguration;
+		optimizationConfiguration = newOptimizationConfiguration;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION, oldOptimizationConfiguration, newOptimizationConfiguration);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -288,10 +292,17 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	 * @generated
 	 */
 	public void setOptimizationConfiguration(OptimizationConfiguration newOptimizationConfiguration) {
-		OptimizationConfiguration oldOptimizationConfiguration = optimizationConfiguration;
-		optimizationConfiguration = newOptimizationConfiguration;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION, oldOptimizationConfiguration, optimizationConfiguration));
+		if (newOptimizationConfiguration != optimizationConfiguration) {
+			NotificationChain msgs = null;
+			if (optimizationConfiguration != null)
+				msgs = ((InternalEObject)optimizationConfiguration).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION, null, msgs);
+			if (newOptimizationConfiguration != null)
+				msgs = ((InternalEObject)newOptimizationConfiguration).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION, null, msgs);
+			msgs = basicSetOptimizationConfiguration(newOptimizationConfiguration, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION, newOptimizationConfiguration, newOptimizationConfiguration));
 	}
 
 	/**
@@ -321,6 +332,22 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION:
+				return basicSetRecommendationConfiguration(null, msgs);
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION:
+				return basicSetOptimizationConfiguration(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_LOOP_TIME:
@@ -330,11 +357,9 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME:
 				return getSelectionLoopTime();
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION:
-				if (resolve) return getRecommendationConfiguration();
-				return basicGetRecommendationConfiguration();
+				return getRecommendationConfiguration();
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION:
-				if (resolve) return getOptimizationConfiguration();
-				return basicGetOptimizationConfiguration();
+				return getOptimizationConfiguration();
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__ESTIMATION_LOOP_TIME:
 				return getEstimationLoopTime();
 		}

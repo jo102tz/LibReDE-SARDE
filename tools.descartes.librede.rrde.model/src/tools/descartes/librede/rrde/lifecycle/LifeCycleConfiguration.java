@@ -112,52 +112,52 @@ public interface LifeCycleConfiguration extends EObject {
 	void setSelectionLoopTime(long value);
 
 	/**
-	 * Returns the value of the '<em><b>Recommendation Configuration</b></em>' reference.
+	 * Returns the value of the '<em><b>Recommendation Configuration</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Recommendation Configuration</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Recommendation Configuration</em>' reference.
+	 * @return the value of the '<em>Recommendation Configuration</em>' containment reference.
 	 * @see #setRecommendationConfiguration(RecommendationTrainingConfiguration)
 	 * @see tools.descartes.librede.rrde.lifecycle.LifecyclePackage#getLifeCycleConfiguration_RecommendationConfiguration()
-	 * @model
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	RecommendationTrainingConfiguration getRecommendationConfiguration();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getRecommendationConfiguration <em>Recommendation Configuration</em>}' reference.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getRecommendationConfiguration <em>Recommendation Configuration</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Recommendation Configuration</em>' reference.
+	 * @param value the new value of the '<em>Recommendation Configuration</em>' containment reference.
 	 * @see #getRecommendationConfiguration()
 	 * @generated
 	 */
 	void setRecommendationConfiguration(RecommendationTrainingConfiguration value);
 
 	/**
-	 * Returns the value of the '<em><b>Optimization Configuration</b></em>' reference.
+	 * Returns the value of the '<em><b>Optimization Configuration</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Optimization Configuration</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Optimization Configuration</em>' reference.
+	 * @return the value of the '<em>Optimization Configuration</em>' containment reference.
 	 * @see #setOptimizationConfiguration(OptimizationConfiguration)
 	 * @see tools.descartes.librede.rrde.lifecycle.LifecyclePackage#getLifeCycleConfiguration_OptimizationConfiguration()
-	 * @model
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	OptimizationConfiguration getOptimizationConfiguration();
 
 	/**
-	 * Sets the value of the '{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getOptimizationConfiguration <em>Optimization Configuration</em>}' reference.
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration#getOptimizationConfiguration <em>Optimization Configuration</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Optimization Configuration</em>' reference.
+	 * @param value the new value of the '<em>Optimization Configuration</em>' containment reference.
 	 * @see #getOptimizationConfiguration()
 	 * @generated
 	 */
