@@ -46,7 +46,7 @@ public class TestOnline{
 	public void test() {
 		log.info("Starting the test...");
 		//create the runner class
-		ThreadHandler threadHandler = new ThreadHandler(datafolder, 2, 60);
+		ThreadHandler threadHandler = new ThreadHandler(datafolder, 2000, 60);
 		//start it
 		threadHandler.start();
 		System.out.println("Type something to stop");
@@ -61,7 +61,9 @@ public class TestOnline{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		log.info("Test finished!");
+		log.info("Sutting down everything that is still running!");
+		System.exit(0);
 	}
 }

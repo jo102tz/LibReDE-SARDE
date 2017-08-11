@@ -23,6 +23,8 @@ import tools.descartes.librede.rrde.recommendation.FeatureVector;
 
 /**
  * This class runs the estimations of librede.
+ * This is the same functinality as in the ContinuousKiekerReadingTest.java
+ * The KiekerAmqpDataSource needs to have the right directory to save the kieker files.
  * 
  * @author Torsten Krauß
  *
@@ -32,6 +34,10 @@ public class EstimationThread extends Thread {
 	 * The logger used for logging
 	 */
 	private static final Logger log = Logger.getLogger(EstimationThread.class);
+	/**
+	 * The folder for the results
+	 */
+	private String folderEstimationOutput;
 	/**
 	 * The ThreadHandler, that expects the results of the calculation
 	 */
@@ -44,10 +50,10 @@ public class EstimationThread extends Thread {
 	private boolean isRunning;
 	private boolean stop;
 	private boolean isWaiting;
-	long offsettime; //5mins = 300000
-	long calculationinterval;//60000
-	long pollinginteral; //20000
-	long maxupdaterepotime; //5000
+	long offsettimeMs; //5mins = 300000
+	long calculationintervalMs;//60000
+	long pollinginteralMs; //20000
+	long maxupdaterepotimeMs; //5000
 	/**
 	 * Members
 	 */
@@ -55,7 +61,7 @@ public class EstimationThread extends Thread {
 	private DataSourceSelector dataSourceListener;
 	LibredeVariables var;
 	
-	public EstimationThread(ThreadHandler threadHandler, LibredeConfiguration libredeConfiguration, long offsettime, long calculationinterval, long pollinginterval, long maxupdaterepotime) {
+	public EstimationThread(ThreadHandler threadHandler, LibredeConfiguration libredeConfiguration, long offsettimeMs, long calculationintervalMs, long pollingintervalMs, long maxupdaterepotimeMs, String folderEstimationOutput) {
 		log.info("Create SelectionThread instance...");
 		this.threadHandler = threadHandler;
 		this.libredeConfiguration = libredeConfiguration;
@@ -63,11 +69,12 @@ public class EstimationThread extends Thread {
 		this.isRunning = false;
 		this.stop = false;
 		this.isWaiting = false;
-		this.offsettime = offsettime;
-		this.calculationinterval = calculationinterval;
-		this.pollinginteral = pollinginterval;
-		this.maxupdaterepotime = maxupdaterepotime;
+		this.offsettimeMs = offsettimeMs;
+		this.calculationintervalMs = calculationintervalMs;
+		this.pollinginteralMs = pollingintervalMs;
+		this.maxupdaterepotimeMs = maxupdaterepotimeMs;
 		this.var = null;
+		this.folderEstimationOutput = folderEstimationOutput;
 		log.info("SelectionThread instance created!");
 	}
 	
@@ -89,7 +96,7 @@ public class EstimationThread extends Thread {
 		log.info("Starting calculations in EstimationThread...");
 		//the next time stamp when librede should calculate resource demands
 		long actualtime = System.currentTimeMillis();
-		long nextexecutiontimestamp = actualtime+offsettime;
+		long nextexecutiontimestamp = actualtime+offsettimeMs;
 		while(!stop){
 			log.info("Wait until the next calcualtion...");
 			//sleep some time to give the repo time to initialize
@@ -98,7 +105,7 @@ public class EstimationThread extends Thread {
 			//the time between two update repository iterations
 			try {
 				isWaiting = true;
-				Thread.sleep(pollinginteral);
+				Thread.sleep(pollinginteralMs);
 			} catch (InterruptedException e1) {
 				if(!stop){
 					e1.printStackTrace();
@@ -107,7 +114,7 @@ public class EstimationThread extends Thread {
 			isWaiting = false;
 			if(!stop){
 				log.info("Updating repository for some time...");
-				Librede.updateRepositoryOnline(maxupdaterepotime, var, existingDatasources, dataSourceListener);
+				Librede.updateRepositoryOnline(maxupdaterepotimeMs, var, existingDatasources, dataSourceListener);
 				log.info("Stopped updating repository.");
 			}
 			if(!stop && System.currentTimeMillis() >= nextexecutiontimestamp){
@@ -116,7 +123,7 @@ public class EstimationThread extends Thread {
 				LibredeResults results = Librede.executeOnline(var, existingDatasources, dataSourceListener);
 				try {
 					log.info("Writing results...");
-					File outputfile = new File("/home/torsten/Schreibtisch/jettytests/local/1l_600s_500t_ubuntu_visits/info/results.txt");
+					File outputfile = new File(folderEstimationOutput+"/results.txt");
 					PrintStream outputStream = new PrintStream(new FileOutputStream(outputfile, true));
 					Librede.printSummary(results, outputStream);
 					outputStream.flush();
@@ -126,7 +133,7 @@ public class EstimationThread extends Thread {
 					log.error("WARN: Cannot write output!");
 				}
 				log.info("Calcualtion done!");
-				nextexecutiontimestamp = nextexecutiontimestamp+calculationinterval;
+				nextexecutiontimestamp = nextexecutiontimestamp+calculationintervalMs;
 			}
 		}
 		log.info("Librede Process stopped!");

@@ -62,11 +62,6 @@ public class ThreadHandler extends Thread {
 	private long nextExecutionTimeStampOptimization;
 	private long nextExecutionTimeStampRecommendation;
 	private long nextExecutionTimeStampSelection;
-	private long nextExecutionTimeStampEstimation;
-	private boolean isExecutionDesiredOptimization;
-	private boolean isExecutionDesiredRecommendaton;
-	private boolean isExecutionDesiredSelection;
-	private boolean isExecutionDesiredEstimation;
 	/**
 	 * Life cycle helpers of this thread.
 	 */
@@ -76,37 +71,181 @@ public class ThreadHandler extends Thread {
 	/**
 	 * Filelocations
 	 */
+	//folder with the files to read: .librede, .recommendaton, .optimization
+	//always has to be named "config"
 	private String folderWithConfigFiles;
+	//the folder, where the datasources save the kieker files and read them again
+	//this directory has to be set to the KiekerAmqpDataSource to be written to
+	//always has to be named "kieker"
 	private String folderWithKiekerFiles;
+	//the folder for the optimization output
+	//always has to be named "optimizationoutput"
+	private String folderOptimizationOutput;
+	//the folder for the estimation output
+	//always has to be named "estimationoutput"
+	private String folderEstimationOutput;
+	//the parent folder of all data for one run
 	private String datafolder;
 	/**
 	 * Lifecycle variables
 	 */
-	private long triggerIntervallSec;
-	private long estimationIntervallSec;
+	//The intervall in which the loop times are checked
+	private long triggerIntervallMs;
+	//the offset set to all calcualtions
+	private long offsettimeMs;
 	/**
 	 * The constructor of this class.
-	 * @param lifeCycleConfiguration
-	 * @param folderwithconfigfiles 
+	 * @param datafolder - the root folder of the data
+	 * @param triggerIntervalMs - the intervall we use to check the loop times
+	 * @param offsettimeMs - the offset of all the calculations
+	 * @param estimationLoopMs
+	 * @param selectionLoopMs
+	 * @param recommendationLoopMs
+	 * @param optimizationLoopMs
 	 */
-	public ThreadHandler(String datafolder, long triggerIntervalSec, long estimationIntervalSec) {
+	public ThreadHandler(String datafolder, long triggerIntervalMs, long offsettimeMs, long estimationLoopMs, long selectionLoopMs, long recommendationLoopMs, long optimizationLoopMs) {
 		log.info("Create ThreadHandler instance...");
 		this.isInitialized = false;
 		this.stop = false;
 		this.folderWithConfigFiles = datafolder+"/config";
 		this.folderWithKiekerFiles = datafolder+"/kieker";
+		this.folderOptimizationOutput = datafolder+"/optimizationoutput";
+		this.folderEstimationOutput = datafolder+"/estimationoutput";
 		this.datafolder = datafolder;
-		this.triggerIntervallSec = triggerIntervalSec;
-		this.estimationIntervallSec = estimationIntervalSec;
+		this.triggerIntervallMs = triggerIntervalMs;
+		this.offsettimeMs = offsettimeMs;
+		this.lifeCycleConfiguration = ...;
+		this.lifeCycleConfiguration.setEstimationLoopTime(estimationLoopMs);
+		this.lifeCycleConfiguration.setRecommendationLoopTime(recommendationLoopMs);
+		this.lifeCycleConfiguration.setOptimizationLoopTime(optimizationLoopMs);
+		this.lifeCycleConfiguration.setSelectionLoopTime(selectionLoopMs);
 		log.info("ThreadHandler instance created!");
 	}
-	
+	/**
+	 * Terminates the Thread.
+	 */
 	public void terminate() {
 		log.info("Initialize termination of ThreadHandler instance!");
 		this.stop = true;
 		if(isWaiting){
 			this.interrupt();
 		}
+	}
+	
+	/**
+	 * The runnable of this thread.
+	 */
+	@Override
+	public void run() {
+		if(!isInitialized){
+			//initialize the thread here
+			log.info("Initializing ThreadHandler...");
+			//load the config files
+			loadData(this.folderWithConfigFiles);
+			//initialize the threads
+			this.optimizationThread = new OptimizationThread(this,libredeConfigurationOptimization,
+					optimizationConfiguration,folderOptimizationOutput);
+			this.recommendationThread = new RecommendationThread(this, recommendationTrainingConfiguration);
+			this.selectionThread = new SelectionThread(this, getActualRecommendationAlgorithm(), 
+					null, null);
+			this.estimationThread = new EstimationThread(this,libredeConfigurationEstimation, offsettimeMs, lifeCycleConfiguration.getEstimationLoopTime(), 2000, 5000, folderEstimationOutput);
+			//start the estimation thread, and therefore the data collecting
+			this.estimationThread.start();
+			//set the firsst execution timestamps
+			long timestamp = System.currentTimeMillis();
+			nextExecutionTimeStampOptimization = timestamp+lifeCycleConfiguration.getOptimizationLoopTime();
+			nextExecutionTimeStampRecommendation = timestamp+lifeCycleConfiguration.getRecommendationLoopTime();
+			nextExecutionTimeStampSelection = timestamp+lifeCycleConfiguration.getSelectionLoopTime();
+			log.info("ThreadHandler initialized!");
+			isInitialized = true;
+		}
+		log.info("ThreadHandler starts looping...");
+		//run until stopped
+		while(!stop){
+			long timestamp = System.currentTimeMillis();
+			//start the desired thread, if the next execution
+			//timestamp is reached and, if the thread is
+			//not still working
+			
+			//check the selection thread
+			if(nextExecutionTimeStampSelection<=timestamp && !stop){
+				//if the thread is actually not calculating results
+				if(!selectionThread.isRunning()){
+					//start a new Calcualtion
+					selectionThread.start();
+				}
+				nextExecutionTimeStampSelection = nextExecutionTimeStampSelection + (lifeCycleConfiguration.getSelectionLoopTime());
+			}
+
+			//check the recommendation thread
+			if(nextExecutionTimeStampRecommendation<=timestamp && !stop){
+				//if the thread is actually not calculating results
+				if(!recommendationThread.isRunning()){
+					//start a new Calcualtion
+					recommendationThread.start();
+				}
+				nextExecutionTimeStampRecommendation = nextExecutionTimeStampRecommendation + (lifeCycleConfiguration.getRecommendationLoopTime());
+			}
+			
+			//check the optimization thread
+			if(nextExecutionTimeStampOptimization<=timestamp && !stop){
+				//if the thread is actually not calculating results
+				if(!optimizationThread.isRunning()){
+					//start a new Calcualtion
+					optimizationThread.start();
+				}
+				nextExecutionTimeStampOptimization = nextExecutionTimeStampOptimization + (lifeCycleConfiguration.getOptimizationLoopTime());
+			}
+			try {
+				this.isWaiting = true;
+				Thread.sleep(triggerIntervallMs);
+			} catch (InterruptedException e) {
+				//interrpution
+				if(!stop){
+					e.printStackTrace();
+				}
+			}
+			this.isWaiting = false;
+		}
+		log.info("ThreadHandler looping stopped!");
+		log.info("Deinitialize ThreadHandler...");
+		//these method normally do nothing, because all the threads only have one
+		//iteration and end by themselfs.
+		optimizationThread.terminate();
+		recommendationThread.terminate();
+		selectionThread.terminate();
+		estimationThread.terminate();
+		try {
+			log.info("Waiting for EstimationThread instance...");
+			estimationThread.join();
+			log.info("EstimationThread instance finished!");
+			/*log.info("Waiting for SelectionThread instance...");
+			selectionThread.join();
+			log.info("SelectionThread instance finished!");
+			log.info("Waiting for RecommendationThread instance...");
+			recommendationThread.join();
+			log.info("RecommendationThread instance finished!");
+			log.info("Waiting for OptimizationThread instance...");
+			optimizationThread.join();
+			log.info("OptimizationThread instance finished!");*/
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		log.info("ThreadHandler deinitialized!");
+	}
+
+	private void loadData(String folder){
+		log.info("ThreadHandler starts loading configuration files...");
+		lifeCycleConfiguration = Librede.loadConfiguration(new File(folder+"estimation_amqp.librede").toPath());
+	    libredeConfigurationEstimation = Librede.loadConfiguration(new File(folder+"estimation_amqp.librede").toPath());
+	    libredeConfigurationOptimization = Librede.loadConfiguration(new File(folder+"estimation_opt.librede").toPath());
+	    optimizationConfiguration = Util.loadOptimizationConfiguration(new File(folder+"optimization.librede").toPath());
+	    recommendationTrainingConfiguration = Util.loadRecommendationConfiguration(new File(folder+"recommendation.librede").toPath());
+		if(libredeConfigurationEstimation==null||libredeConfigurationOptimization==null||recommendationTrainingConfiguration==null||optimizationConfiguration==null){
+			log.error("ThreadHandler could not load the configuration files!!!");
+		}
+	    log.info("ThreadHandler finished loading configuration files!");
 	}
 	
 	/**
@@ -214,136 +353,5 @@ public class ThreadHandler extends Thread {
 	/**
 	 * -----------------------------------------------------------------------------
 	 */
-	@Override
-	public void run() {
-		if(!isInitialized){
-			//initialize the thread here
-			log.info("Initializing ThreadHandler...");
-			loadData(this.folderWithConfigFiles);
-			this.optimizationThread = new OptimizationThread(this,libredeConfigurationOptimization,
-					optimizationConfiguration,datafolder+"/optimizationoutput");
-			this.recommendationThread = new RecommendationThread(this, recommendationTrainingConfiguration);
-			this.selectionThread = new SelectionThread(this, getActualRecommendationAlgorithm(), 
-					null, null);
-			this.estimationThread = new EstimationThread(this,libredeConfigurationEstimation);
-			log.info("ThreadHandler initialized!");
-		}
-		log.info("ThreadHandler starts looping...");
-		//run until stopped
-		while(!stop){
-			long timestamp = System.currentTimeMillis();
-			//start the desired thread, if the next execution
-			//timestamp is reached and, if the thread is
-			//not still working
-			
-			//check the estimation thread
-			//if the the next execution timestamp is passed
-			if(nextExecutionTimeStampEstimation<=timestamp && !stop){
-				//tell the system that a new calculation is desired
-				this.isExecutionDesiredEstimation = true;
-				//increase the timestamp
-				nextExecutionTimeStampEstimation = nextExecutionTimeStampEstimation + (estimationIntervallSec*(long)1000);
-			}
-			//if a new calculation is desired
-			if(this.isExecutionDesiredEstimation && !stop){
-				//if the thread is actually not calculating results
-				if(!estimationThread.isRunning()){
-					//start a new Calcualtion
-					estimationThread.start();
-					//reset the desire of the system
-					this.isExecutionDesiredEstimation = false;
-				}
-			}
-			//check the selection thread
-			if(nextExecutionTimeStampSelection<=timestamp && !stop){
-				this.isExecutionDesiredSelection = true;
-				nextExecutionTimeStampSelection = nextExecutionTimeStampSelection + (lifeCycleConfiguration.getSelectionLoopTime());
-			}
-			if(this.isExecutionDesiredSelection && !stop){
-				//if the thread is actually not calculating results
-				if(!selectionThread.isRunning()){
-					//start a new Calcualtion
-					selectionThread.start();
-					this.isExecutionDesiredSelection = false;
-				}
-			}
-
-			//check the recommendation thread
-			if(nextExecutionTimeStampEstimation<=timestamp && !stop){
-				this.isExecutionDesiredRecommendaton = true;
-				nextExecutionTimeStampRecommendation = nextExecutionTimeStampRecommendation + (lifeCycleConfiguration.getRecommendationLoopTime());
-			}
-			if(isExecutionDesiredRecommendaton && !stop){
-				//if the thread is actually not calculating results
-				if(!recommendationThread.isRunning()){
-					//start a new Calcualtion
-					recommendationThread.start();
-					this.isExecutionDesiredRecommendaton = false;
-				}
-			}
-			
-			//check the optimization thread
-			if(nextExecutionTimeStampOptimization<=timestamp && !stop){
-				this.isExecutionDesiredOptimization = true;
-				nextExecutionTimeStampOptimization = nextExecutionTimeStampOptimization + (lifeCycleConfiguration.getOptimizationLoopTime());
-				
-			}
-			if(isExecutionDesiredOptimization && !stop){
-				//if the thread is actually not calculating results
-				if(!optimizationThread.isRunning()){
-					//start a new Calcualtion
-					optimizationThread.start();
-					this.isExecutionDesiredOptimization = false;
-				}
-			}
-			try {
-				this.isWaiting = true;
-				Thread.sleep(triggerIntervallSec*(long)1000);
-			} catch (InterruptedException e) {
-				//interrpution
-				if(!stop){
-					e.printStackTrace();
-				}
-			}
-			this.isWaiting = false;
-		}
-		log.info("ThreadHandler looping stopped!");
-		log.info("Deinitialize ThreadHandler...");
-		//these method normally do nothing, because all the threads only have one
-		//iteration and end by themselfs.
-		optimizationThread.terminate();
-		recommendationThread.terminate();
-		selectionThread.terminate();
-		estimationThread.terminate();
-		try {
-			log.info("Waiting for EstimationThread instance...");
-			estimationThread.join();
-			log.info("EstimationThread instance finished!");
-			log.info("Waiting for SelectionThread instance...");
-			selectionThread.join();
-			log.info("SelectionThread instance finished!");
-			log.info("Waiting for RecommendationThread instance...");
-			recommendationThread.join();
-			log.info("RecommendationThread instance finished!");
-			log.info("Waiting for OptimizationThread instance...");
-			optimizationThread.join();
-			log.info("OptimizationThread instance finished!");
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		log.info("ThreadHandler deinitialized!");
-	}
-
-	private void loadData(String folder){
-		log.info("ThreadHandler starts loading configuration files...");
-	    libredeConfigurationEstimation = Librede.loadConfiguration(new File(folder+"estimation_amqp.librede").toPath());
-	    libredeConfigurationOptimization = Librede.loadConfiguration(new File(folder+"estimation_opt.librede").toPath());
-	    optimizationConfiguration = Util.loadOptimizationConfiguration(new File(folder+"optimization.librede").toPath());
-	    recommendationTrainingConfiguration = Util.loadRecommendationConfiguration(new File(folder+"recommendation.librede").toPath());
-		if(libredeConfigurationEstimation==null||libredeConfigurationOptimization==null||recommendationTrainingConfiguration==null||optimizationConfiguration==null){
-			log.error("ThreadHandler could not load the configuration files!!!");
-		}
-	    log.info("ThreadHandler finished loading configuration files!");
-	}
+	
 }
