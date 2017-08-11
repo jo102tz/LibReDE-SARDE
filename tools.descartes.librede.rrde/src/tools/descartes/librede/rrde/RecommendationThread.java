@@ -53,8 +53,17 @@ public class RecommendationThread extends Thread {
 			log.info("Initializing RecommendationThread...");
 			
 			log.info("RecommendationThread initialized!");
+			isInitialized = true;
 		}
 		log.info("Starting calculations in RecommendationThread...");
+		Collection<EstimationSpecification> actualestimationspecifications = threadHandler.getActualEstimationSpecifications();
+		if(actualestimationspecifications!=null){
+			recommendationTrainingConfiguration.getEstimators().clear();
+			recommendationTrainingConfiguration.getEstimators().addAll(threadHandler.getActualEstimationSpecifications());
+			
+		}else{
+			log.info("RecommendationThread has not yet input data from the OptimizationThread!");
+		}
 		IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
 				.loadAndTrainAlgorithm(recommendationTrainingConfiguration);
 		log.info("Calculations in RecommendationThread finished!");

@@ -17,7 +17,7 @@ import tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 
-public class TestOnline{
+public class TestOnlineEstimation{
 
 	/**
 	 * The logger used for logging
@@ -26,7 +26,7 @@ public class TestOnline{
 	/**
 	 * The used variables in this test.
 	 */
-	private String datafolder = "";
+	private String datafolder = "/home/torsten/test/estimation";
 	
 	
 	@BeforeClass

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<librede-lifecycle:LifeCycleConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede-lifecycle="http://tools/descartes/librede/rrde/lifecycle" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization" xmlns:librede-recommendation="http://tools/descartes/librede/rrde/recommendation" recommendationLoopTime="14" optimizationLoopTime="13" selectionLoopTime="15" estimationLoopTime="12">
+  <recommendationConfiguration>
+    <trainingData/>
+    <learningAlgorithm xsi:type="librede-recommendation:RandomForestTradeOffAlgorithmSpecifier"/>
+    <estimators/>
+  </recommendationConfiguration>
+  <optimizationConfiguration>
+    <containsOf>
+      <algorithm/>
+      <trainingData>
+        <input>
+          <observations location="100"/>
+        </input>
+      </trainingData>
+      <settings>
+        <parametersToOptimize xsi:type="librede-optimization:GenericParameter"/>
+      </settings>
+    </containsOf>
+  </optimizationConfiguration>
+</librede-lifecycle:LifeCycleConfiguration>

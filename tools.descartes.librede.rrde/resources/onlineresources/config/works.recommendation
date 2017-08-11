@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<librede-recommendation:RecommendationTrainingConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-recommendation="http://tools/descartes/librede/rrde/recommendation">
+  <validator validateEstimates="true">
+    <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
+    <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
+  </validator>
+  <trainingData rootFolder="C:\Users\JS\Desktop\Train">
+    <input>
+      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+        <parameters name="SkipFirstLine" value="on"/>
+        <parameters name="Separators" value=";"/>
+        <parameters name="TimestampFormat" value="[ms]"/>
+      </dataSources>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@trainingData.0/@input/@dataSources.0" location="" file="experiment1_WC0_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
+        <unit href="librede:units#SECONDS"/>
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@trainingData.0/@workloadDescription/@services.0"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@trainingData.0/@input/@dataSources.0" location="" file="experiment1_WC1_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
+        <unit href="librede:units#SECONDS"/>
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@trainingData.0/@workloadDescription/@services.1"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@trainingData.0/@input/@dataSources.0" location="" file="experiment1_WC2_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
+        <unit href="librede:units#SECONDS"/>
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@trainingData.0/@workloadDescription/@services.2"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@trainingData.0/@input/@dataSources.0" location="" file="host1_CPU_UTILIZATION.csv">
+        <metric href="librede:metrics#UTILIZATION"/>
+        <unit href="librede:units#NONE"/>
+        <interval value="30.0">
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@trainingData.0/@workloadDescription/@resources.0"/>
+      </observations>
+    </input>
+    <workloadDescription>
+      <resources name="Host1" demands="//@trainingData.0/@workloadDescription/@services.2/@tasks.0 //@trainingData.0/@workloadDescription/@services.1/@tasks.0 //@trainingData.0/@workloadDescription/@services.0/@tasks.0"/>
+      <services name="WC0">
+        <tasks xsi:type="librede:ResourceDemand" name="WC0" resource="//@trainingData.0/@workloadDescription/@resources.0"/>
+      </services>
+      <services name="WC1">
+        <tasks xsi:type="librede:ResourceDemand" name="WC1" resource="//@trainingData.0/@workloadDescription/@resources.0"/>
+      </services>
+      <services name="WC2">
+        <tasks xsi:type="librede:ResourceDemand" name="WC2" resource="//@trainingData.0/@workloadDescription/@resources.0"/>
+      </services>
+    </workloadDescription>
+  </trainingData>
+  <trainingData rootFolder="C:\Users\JS\Desktop\Train">
+    <input>
+      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+        <parameters name="SkipFirstLine" value="on"/>
+        <parameters name="Separators" value=";"/>
+        <parameters name="TimestampFormat" value="[ms]"/>
+      </dataSources>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@trainingData.1/@input/@dataSources.0" location="" file="experiment1_WC0_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
+        <unit href="librede:units#SECONDS"/>
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@trainingData.1/@workloadDescription/@services.0"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@trainingData.1/@input/@dataSources.0" location="" file="experiment1_WC1_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
+        <unit href="librede:units#SECONDS"/>
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@trainingData.1/@workloadDescription/@services.1"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@trainingData.1/@input/@dataSources.0" location="" file="host1_CPU_UTILIZATION.csv">
+        <metric href="librede:metrics#UTILIZATION"/>
+        <unit href="librede:units#NONE"/>
+        <interval value="30.0">
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@trainingData.1/@workloadDescription/@resources.0"/>
+      </observations>
+    </input>
+    <workloadDescription>
+      <resources name="Host1" demands="//@trainingData.1/@workloadDescription/@services.1/@tasks.0 //@trainingData.1/@workloadDescription/@services.0/@tasks.0"/>
+      <services name="WC0">
+        <tasks xsi:type="librede:ResourceDemand" name="WC0" resource="//@trainingData.1/@workloadDescription/@resources.0"/>
+      </services>
+      <services name="WC1">
+        <tasks xsi:type="librede:ResourceDemand" name="WC1" resource="//@trainingData.1/@workloadDescription/@resources.0"/>
+      </services>
+    </workloadDescription>
+  </trainingData>
+  <trainingData rootFolder="C:\Users\JS\Desktop\Train">
+    <input>
+      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+        <parameters name="SkipFirstLine" value="on"/>
+        <parameters name="Separators" value=";"/>
+        <parameters name="TimestampFormat" value="[ms]"/>
+      </dataSources>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@trainingData.2/@input/@dataSources.0" location="" file="experiment1_WC0_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
+        <unit href="librede:units#SECONDS"/>
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@trainingData.2/@workloadDescription/@services.0"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@trainingData.2/@input/@dataSources.0" location="" file="host1_CPU_UTILIZATION.csv">
+        <metric href="librede:metrics#UTILIZATION"/>
+        <unit href="librede:units#NONE"/>
+        <interval value="30.0">
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@trainingData.2/@workloadDescription/@resources.0"/>
+      </observations>
+    </input>
+    <workloadDescription>
+      <resources name="Host1" demands="//@trainingData.2/@workloadDescription/@services.0/@tasks.0"/>
+      <services name="WC0">
+        <tasks xsi:type="librede:ResourceDemand" name="WC0" resource="//@trainingData.2/@workloadDescription/@resources.0"/>
+      </services>
+    </workloadDescription>
+  </trainingData>
+  <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.recommendation.extract.BasicFeatureExtractor">
+    <rateUnit href="librede:units#REQUESTS_PER_MINUTE"/>
+    <aggregation value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </aggregation>
+  </featureAlgorithm>
+  <learningAlgorithm xsi:type="librede-recommendation:DecisionTreeAlgorithmSpecifier" algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree"/>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.WangKalmanFilterApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.KumarKalmanFilterApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization"/>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
+        <parameters name="PrintLevel" value="0"/>
+      </algorithms>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
+        <parameters name="PrintLevel" value="0"/>
+      </algorithms>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
+        <parameters name="PrintLevel" value="0"/>
+      </algorithms>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>
+<!--  <estimators window="60">
+    <approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>
+    <approaches type="tools.descartes.librede.approach.KumarKalmanFilterApproach"/>
+    <approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>
+    <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
+    <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
+    <approaches type="tools.descartes.librede.approach.WangKalmanFilterApproach"/>
+    <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
+    <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
+        <parameters name="PrintLevel" value="0"/>
+      </algorithms>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.370087520861E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.370090939129E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimators>-->
+</librede-recommendation:RecommendationTrainingConfiguration>

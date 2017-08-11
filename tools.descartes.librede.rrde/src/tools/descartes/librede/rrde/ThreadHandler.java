@@ -1,20 +1,31 @@
 package tools.descartes.librede.rrde;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.concurrent.Semaphore;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.configuration.Parameter;
+import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.util.Util;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
+import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
 /**
  * This class handles the online scenario of librede.
@@ -45,6 +56,7 @@ public class ThreadHandler extends Thread {
 	private OptimizationConfiguration optimizationConfiguration;
 	private RecommendationTrainingConfiguration recommendationTrainingConfiguration;
 	private LibredeConfiguration libredeConfigurationEstimation;
+	private LibredeConfiguration libredeConfigurationSelection;
 	//this is only a skeleton for the output
 	private LibredeConfiguration libredeConfigurationOptimization;
 	/**
@@ -56,6 +68,12 @@ public class ThreadHandler extends Thread {
 	private IRecomendationAlgorithm actualRecommendationAlgorithm;
 	private EstimationSpecification newEstimationSpecification;
 	private EstimationSpecification actualEstimationSpecification;
+	/**
+	 * The semaphores to lock the variables
+	 */
+	private Semaphore semaphoreEstimation;
+	private Semaphore semaphoreRecommendation;
+	private Semaphore semaphoreEstimations;
 	/**
 	 * The timestamps and flags for the next executions of the other Threads
 	 */
@@ -93,6 +111,8 @@ public class ThreadHandler extends Thread {
 	private long triggerIntervallMs;
 	//the offset set to all calcualtions
 	private long offsettimeMs;
+
+	
 	/**
 	 * The constructor of this class.
 	 * @param datafolder - the root folder of the data
@@ -114,11 +134,15 @@ public class ThreadHandler extends Thread {
 		this.datafolder = datafolder;
 		this.triggerIntervallMs = triggerIntervalMs;
 		this.offsettimeMs = offsettimeMs;
-		this.lifeCycleConfiguration = ...;
+		//load the config files
+		loadData(this.folderWithConfigFiles);
 		this.lifeCycleConfiguration.setEstimationLoopTime(estimationLoopMs);
 		this.lifeCycleConfiguration.setRecommendationLoopTime(recommendationLoopMs);
 		this.lifeCycleConfiguration.setOptimizationLoopTime(optimizationLoopMs);
 		this.lifeCycleConfiguration.setSelectionLoopTime(selectionLoopMs);
+		this.semaphoreEstimation = new Semaphore(1);
+		this.semaphoreRecommendation = new Semaphore(1);
+		this.semaphoreEstimations = new Semaphore(1);
 		log.info("ThreadHandler instance created!");
 	}
 	/**
@@ -140,14 +164,7 @@ public class ThreadHandler extends Thread {
 		if(!isInitialized){
 			//initialize the thread here
 			log.info("Initializing ThreadHandler...");
-			//load the config files
-			loadData(this.folderWithConfigFiles);
 			//initialize the threads
-			this.optimizationThread = new OptimizationThread(this,libredeConfigurationOptimization,
-					optimizationConfiguration,folderOptimizationOutput);
-			this.recommendationThread = new RecommendationThread(this, recommendationTrainingConfiguration);
-			this.selectionThread = new SelectionThread(this, getActualRecommendationAlgorithm(), 
-					null, null);
 			this.estimationThread = new EstimationThread(this,libredeConfigurationEstimation, offsettimeMs, lifeCycleConfiguration.getEstimationLoopTime(), 2000, 5000, folderEstimationOutput);
 			//start the estimation thread, and therefore the data collecting
 			this.estimationThread.start();
@@ -170,9 +187,18 @@ public class ThreadHandler extends Thread {
 			//check the selection thread
 			if(nextExecutionTimeStampSelection<=timestamp && !stop){
 				//if the thread is actually not calculating results
-				if(!selectionThread.isRunning()){
+				if(selectionThread==null || !selectionThread.isRunning()){
 					//start a new Calcualtion
-					selectionThread.start();
+					for (Parameter parameter : libredeConfigurationSelection.getInput().getDataSources().get(0).getParameters()) {
+						if(parameter.getName().equals("Maximaltimestamp")){
+							parameter.setValue(""+timestamp);
+						}
+					}
+					IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
+							.loadFeatureExtractor(recommendationTrainingConfiguration.getFeatureAlgorithm());
+					this.selectionThread = new SelectionThread(this, 
+							libredeConfigurationSelection, extractor);
+					//selectionThread.start();
 				}
 				nextExecutionTimeStampSelection = nextExecutionTimeStampSelection + (lifeCycleConfiguration.getSelectionLoopTime());
 			}
@@ -180,9 +206,15 @@ public class ThreadHandler extends Thread {
 			//check the recommendation thread
 			if(nextExecutionTimeStampRecommendation<=timestamp && !stop){
 				//if the thread is actually not calculating results
-				if(!recommendationThread.isRunning()){
+				if(recommendationThread==null || !recommendationThread.isRunning()){
 					//start a new Calcualtion
-					recommendationThread.start();
+					for (Parameter parameter : recommendationTrainingConfiguration.getTrainingData().get(0).getInput().getDataSources().get(0).getParameters()) {
+						if(parameter.getName().equals("Maximaltimestamp")){
+							parameter.setValue(""+timestamp);
+						}
+					}
+					this.recommendationThread = new RecommendationThread(this, recommendationTrainingConfiguration);
+					//recommendationThread.start();
 				}
 				nextExecutionTimeStampRecommendation = nextExecutionTimeStampRecommendation + (lifeCycleConfiguration.getRecommendationLoopTime());
 			}
@@ -190,9 +222,16 @@ public class ThreadHandler extends Thread {
 			//check the optimization thread
 			if(nextExecutionTimeStampOptimization<=timestamp && !stop){
 				//if the thread is actually not calculating results
-				if(!optimizationThread.isRunning()){
+				if(optimizationThread==null || !optimizationThread.isRunning()){
 					//start a new Calcualtion
-					optimizationThread.start();
+					for (Parameter parameter : optimizationConfiguration.getContainsOf().get(0).getTrainingData().get(0).getInput().getDataSources().get(0).getParameters()) {
+						if(parameter.getName().equals("Maximaltimestamp")){
+							parameter.setValue(""+timestamp);
+						}
+					}
+					this.optimizationThread = new OptimizationThread(this,libredeConfigurationOptimization,
+							optimizationConfiguration,folderOptimizationOutput);
+					//optimizationThread.start();
 				}
 				nextExecutionTimeStampOptimization = nextExecutionTimeStampOptimization + (lifeCycleConfiguration.getOptimizationLoopTime());
 			}
@@ -211,10 +250,19 @@ public class ThreadHandler extends Thread {
 		log.info("Deinitialize ThreadHandler...");
 		//these method normally do nothing, because all the threads only have one
 		//iteration and end by themselfs.
-		optimizationThread.terminate();
-		recommendationThread.terminate();
-		selectionThread.terminate();
-		estimationThread.terminate();
+		if(optimizationThread!=null){
+			optimizationThread.terminate();
+		}
+		if(recommendationThread!=null){
+			recommendationThread.terminate();
+		}
+		if(selectionThread!=null){
+			selectionThread.terminate();
+		}
+		if(estimationThread!=null){
+			estimationThread.terminate();
+		}
+
 		try {
 			log.info("Waiting for EstimationThread instance...");
 			estimationThread.join();
@@ -237,11 +285,12 @@ public class ThreadHandler extends Thread {
 
 	private void loadData(String folder){
 		log.info("ThreadHandler starts loading configuration files...");
-		lifeCycleConfiguration = Librede.loadConfiguration(new File(folder+"estimation_amqp.librede").toPath());
-	    libredeConfigurationEstimation = Librede.loadConfiguration(new File(folder+"estimation_amqp.librede").toPath());
-	    libredeConfigurationOptimization = Librede.loadConfiguration(new File(folder+"estimation_opt.librede").toPath());
-	    optimizationConfiguration = Util.loadOptimizationConfiguration(new File(folder+"optimization.librede").toPath());
-	    recommendationTrainingConfiguration = Util.loadRecommendationConfiguration(new File(folder+"recommendation.librede").toPath());
+		lifeCycleConfiguration = Util.loadLifecycleConfiguration(new File(folder+"/conf.lifecycle").toPath());
+		libredeConfigurationEstimation = Librede.loadConfiguration(new File(folder+"/estimation_amqp.librede").toPath());
+		libredeConfigurationSelection = Librede.loadConfiguration(new File(folder+"/estimation_sel.librede").toPath());
+	    libredeConfigurationOptimization = Librede.loadConfiguration(new File(folder+"/estimation_opt.librede").toPath());
+	    optimizationConfiguration = Util.loadOptimizationConfiguration(new File(folder+"/conf.optimization").toPath());
+	    recommendationTrainingConfiguration = Util.loadRecommendationConfiguration(new File(folder+"/conf.recommendation").toPath());
 		if(libredeConfigurationEstimation==null||libredeConfigurationOptimization==null||recommendationTrainingConfiguration==null||optimizationConfiguration==null){
 			log.error("ThreadHandler could not load the configuration files!!!");
 		}
@@ -259,9 +308,14 @@ public class ThreadHandler extends Thread {
 	 */
 	public void setNewEstimationSpecifications(
 			Collection<EstimationSpecification> newData) {
-		synchronized (this.newEstimationSpecifications) {
+		try {
+			semaphoreEstimations.acquire();
 			this.newEstimationSpecifications = newData;
 			log.info("New Estimation Specification stored!");
+			semaphoreEstimations.release();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			log.error("ERROR: Threads not synchronized anymore. (Estimations)");
 		}
 	}
 	/**
@@ -270,15 +324,21 @@ public class ThreadHandler extends Thread {
 	 * @return
 	 */
 	public Collection<EstimationSpecification> getActualEstimationSpecifications() {
-		synchronized (this.newEstimationSpecifications) {
+		try {
+			semaphoreEstimations.acquire();
 			if(this.newEstimationSpecifications!=null){
 				this.actualEstimationSpecifications = this.newEstimationSpecifications;
 				this.optimizationConfiguration = null;
 				log.info("Actual Estimation Specification updated!");
 			}
 			log.info("Actual Estimation Specification returned.");
-			return actualEstimationSpecifications;
+			semaphoreEstimations.release();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			log.error("ERROR: Threads not synchronized anymore. (Estimations)");
 		}
+		return actualEstimationSpecifications;
+		
 	}
 	/**
 	 * -----------------------------------------------------------------------------
@@ -293,9 +353,14 @@ public class ThreadHandler extends Thread {
 	 * @param newRecommendationAlgorithm
 	 */
 	public void setNewRecommendationAlgorithm(IRecomendationAlgorithm newRecommendationAlgorithm) {
-		synchronized (this.newRecommendationAlgorithm) {
+		try {
+			semaphoreRecommendation.acquire();
 			this.newRecommendationAlgorithm = newRecommendationAlgorithm;
 			log.info("New Recommendation Algorithm stored!");
+			semaphoreRecommendation.release();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			log.error("ERROR: Threads not synchronized anymore. (Recommendation)");
 		}
 	}
 	/**
@@ -305,15 +370,22 @@ public class ThreadHandler extends Thread {
 	 * @return
 	 */
 	public IRecomendationAlgorithm getActualRecommendationAlgorithm() {
-		synchronized (this.newRecommendationAlgorithm) {
+		try {
+			semaphoreRecommendation.acquire();
 			if(this.newRecommendationAlgorithm!=null){
 				this.actualRecommendationAlgorithm = this. newRecommendationAlgorithm;
 				this.newRecommendationAlgorithm = null;
 				log.info("Actual Recommendation Algorithm updated!");
 			}
 			log.info("Actual Recommendation Algorithm returned.");
-			return this.actualRecommendationAlgorithm;
+			semaphoreRecommendation.release();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			log.error("ERROR: Threads not synchronized anymore. (Recommendation)");
 		}
+
+		return this.actualRecommendationAlgorithm;
+		
 	}
 	/**
 	 * -----------------------------------------------------------------------------
@@ -327,9 +399,14 @@ public class ThreadHandler extends Thread {
 	 * @param newRecommendationAlgorithm
 	 */
 	public void setNewEstimationSpecification(EstimationSpecification newEstimationSpecification) {
-		synchronized (this.newEstimationSpecification) {
+		try {
+			semaphoreEstimation.acquire();
 			this.newEstimationSpecification = newEstimationSpecification;
 			log.info("New Estimation Specification stored!");
+			semaphoreEstimation.release();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			log.error("ERROR: Threads not synchronized anymore. (Estimation)");
 		}
 	}
 	/**
@@ -339,16 +416,20 @@ public class ThreadHandler extends Thread {
 	 * @return
 	 */
 	public EstimationSpecification getActualEstimationSpecification() {
-		synchronized (this.newEstimationSpecification) {
+		try {
+			semaphoreEstimation.acquire();
 			if(this.newEstimationSpecification!=null){
 				this.actualEstimationSpecification = this.newEstimationSpecification;
 				this.newEstimationSpecification = null;
 				log.info("Actual Estimation Specification updated!");
 			}
 			log.info("Actual Estimation Specification returned.");
-			return actualEstimationSpecification;
-			
+			semaphoreEstimation.release();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			log.error("ERROR: Threads not synchronized anymore. (Estimation)");
 		}
+		return actualEstimationSpecification;
 	}
 	/**
 	 * -----------------------------------------------------------------------------

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
@@ -119,6 +120,13 @@ public class EstimationThread extends Thread {
 			}
 			if(!stop && System.currentTimeMillis() >= nextexecutiontimestamp){
 				log.info("Start the next calcualtion...");
+				//get the actual estimation approach
+
+		        EstimationSpecification actualapproach = EcoreUtil.copy(threadHandler.getActualEstimationSpecification());
+		        if(actualapproach!=null){
+					log.info("Updated to new approach!");
+		        	var.getConf().setEstimation(actualapproach);
+		        }
 				//update the repo and calcualte the results
 				LibredeResults results = Librede.executeOnline(var, existingDatasources, dataSourceListener);
 				try {

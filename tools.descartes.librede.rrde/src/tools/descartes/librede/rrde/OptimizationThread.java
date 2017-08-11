@@ -66,6 +66,7 @@ public class OptimizationThread extends Thread {
 			log.info("Initializing OptimizationThread...");
 			
 			log.info("OptimizationThread initialized!");
+			isInitialized = true;
 		}
 		log.info("Starting calculations in OptimizationThread...");
 		Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()

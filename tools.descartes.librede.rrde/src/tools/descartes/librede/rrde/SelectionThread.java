@@ -30,19 +30,17 @@ public class SelectionThread extends Thread {
 	 */
 	private LibredeConfiguration libredeConfiguration;	
 	private IFeatureExtractor featureExtractor;
-	private IRecomendationAlgorithm recomendationAlgorithm;
 	/**
 	 * Life cycle helpers of this thread.
 	 */
 	private boolean isInitialized;
 	private boolean isRunning;
 	
-	public SelectionThread(ThreadHandler threadHandler, IRecomendationAlgorithm recomendationAlgorithm, LibredeConfiguration libredeConfiguration, IFeatureExtractor featureExtractor) {
+	public SelectionThread(ThreadHandler threadHandler, LibredeConfiguration libredeConfiguration, IFeatureExtractor featureExtractor) {
 		log.info("Create SelectionThread instance...");
 		this.threadHandler = threadHandler;
 		this.libredeConfiguration = libredeConfiguration;
 		this.featureExtractor = featureExtractor;
-		this.recomendationAlgorithm = recomendationAlgorithm;
 		this.isInitialized = false;
 		this.isRunning = false;
 		log.info("SelectionThread instance created!");
@@ -56,13 +54,19 @@ public class SelectionThread extends Thread {
 			log.info("Initializing SelectionThread...");
 			
 			log.info("SelectionThread initialized!");
+			isInitialized = true;
 		}
 		log.info("Starting calculations in SelectionThread...");
 		FeatureVector features = featureExtractor.extractFeatures(libredeConfiguration);
-	      EstimationSpecification est = recomendationAlgorithm.recommendEstimation(features);
-		log.info("Calculations in SelectionThread finished!");
-		log.info("Reporting results from SelectionThread!");
-		this.threadHandler.setNewEstimationSpecification(est);
+		IRecomendationAlgorithm recomendationAlgorithm = threadHandler.getActualRecommendationAlgorithm();
+		if(recomendationAlgorithm!=null){
+		    EstimationSpecification est = recomendationAlgorithm.recommendEstimation(features);
+			log.info("Calculations in SelectionThread finished!");
+			log.info("Reporting results from SelectionThread!");
+			this.threadHandler.setNewEstimationSpecification(est);
+		}else{
+			log.info("SelectionThread has not yet data from RecommendationThread!");
+		}
 		log.info("SelectionThread terminates normally!");
 		this.isRunning = false;
 	}
