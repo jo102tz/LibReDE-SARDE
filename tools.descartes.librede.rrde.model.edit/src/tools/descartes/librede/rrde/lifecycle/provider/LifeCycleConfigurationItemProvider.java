@@ -65,6 +65,7 @@ public class LifeCycleConfigurationItemProvider
 			addSelectionLoopTimePropertyDescriptor(object);
 			addRecommendationConfigurationPropertyDescriptor(object);
 			addOptimizationConfigurationPropertyDescriptor(object);
+			addEstimationLoopTimePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -180,6 +181,28 @@ public class LifeCycleConfigurationItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Estimation Loop Time feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEstimationLoopTimePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_LifeCycleConfiguration_estimationLoopTime_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LifeCycleConfiguration_estimationLoopTime_feature", "_UI_LifeCycleConfiguration_type"),
+				 LifecyclePackage.Literals.LIFE_CYCLE_CONFIGURATION__ESTIMATION_LOOP_TIME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns LifeCycleConfiguration.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -218,6 +241,7 @@ public class LifeCycleConfigurationItemProvider
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_LOOP_TIME:
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_LOOP_TIME:
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME:
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__ESTIMATION_LOOP_TIME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

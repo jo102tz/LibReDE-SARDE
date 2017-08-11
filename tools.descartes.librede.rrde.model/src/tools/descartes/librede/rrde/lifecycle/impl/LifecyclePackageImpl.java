@@ -176,6 +176,15 @@ public class LifecyclePackageImpl extends EPackageImpl implements LifecyclePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getLifeCycleConfiguration_EstimationLoopTime() {
+		return (EAttribute)lifeCycleConfigurationEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public LifecycleFactory getLifecycleFactory() {
 		return (LifecycleFactory)getEFactoryInstance();
 	}
@@ -205,6 +214,7 @@ public class LifecyclePackageImpl extends EPackageImpl implements LifecyclePacka
 		createEAttribute(lifeCycleConfigurationEClass, LIFE_CYCLE_CONFIGURATION__SELECTION_LOOP_TIME);
 		createEReference(lifeCycleConfigurationEClass, LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION);
 		createEReference(lifeCycleConfigurationEClass, LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION);
+		createEAttribute(lifeCycleConfigurationEClass, LIFE_CYCLE_CONFIGURATION__ESTIMATION_LOOP_TIME);
 	}
 
 	/**
@@ -248,6 +258,7 @@ public class LifecyclePackageImpl extends EPackageImpl implements LifecyclePacka
 		initEAttribute(getLifeCycleConfiguration_SelectionLoopTime(), theXMLTypePackage.getLong(), "selectionLoopTime", "-1", 1, 1, LifeCycleConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLifeCycleConfiguration_RecommendationConfiguration(), theRecommendationPackage.getRecommendationTrainingConfiguration(), null, "recommendationConfiguration", null, 0, 1, LifeCycleConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLifeCycleConfiguration_OptimizationConfiguration(), theOptimizationPackage.getOptimizationConfiguration(), null, "optimizationConfiguration", null, 0, 1, LifeCycleConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLifeCycleConfiguration_EstimationLoopTime(), theXMLTypePackage.getLong(), "estimationLoopTime", "-1", 1, 1, LifeCycleConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
