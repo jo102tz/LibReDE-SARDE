@@ -26,6 +26,8 @@ import tools.descartes.librede.rrde.optimization.util.Util;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
+import tools.descartes.librede.units.Quantity;
+import tools.descartes.librede.units.Time;
 
 /**
  * This class handles the online scenario of librede.
@@ -111,7 +113,11 @@ public class ThreadHandler extends Thread {
 	private long triggerIntervallMs;
 	//the offset set to all calcualtions
 	private long offsettimeMs;
-
+	/**
+	 * The timestamps to be consistent
+	 */
+	private Quantity<Time> starttimestamp;
+	private Quantity<Time> endtimestamp;
 	
 	/**
 	 * The constructor of this class.
@@ -136,6 +142,8 @@ public class ThreadHandler extends Thread {
 		this.offsettimeMs = offsettimeMs;
 		//load the config files
 		loadData(this.folderWithConfigFiles);
+		this.starttimestamp = libredeConfigurationEstimation.getEstimation().getStartTimestamp();
+		this.endtimestamp = libredeConfigurationEstimation.getEstimation().getEndTimestamp();
 		this.lifeCycleConfiguration.setEstimationLoopTime(estimationLoopMs);
 		this.lifeCycleConfiguration.setRecommendationLoopTime(recommendationLoopMs);
 		this.lifeCycleConfiguration.setOptimizationLoopTime(optimizationLoopMs);
@@ -167,7 +175,7 @@ public class ThreadHandler extends Thread {
 			//initialize the threads
 			this.estimationThread = new EstimationThread(this,libredeConfigurationEstimation, offsettimeMs, lifeCycleConfiguration.getEstimationLoopTime(), 2000, 5000, folderEstimationOutput);
 			//start the estimation thread, and therefore the data collecting
-			this.estimationThread.start();
+			//this.estimationThread.start();
 			//set the firsst execution timestamps
 			long timestamp = System.currentTimeMillis();
 			nextExecutionTimeStampOptimization = timestamp+lifeCycleConfiguration.getOptimizationLoopTime();
@@ -189,11 +197,6 @@ public class ThreadHandler extends Thread {
 				//if the thread is actually not calculating results
 				if(selectionThread==null || !selectionThread.isRunning()){
 					//start a new Calcualtion
-					for (Parameter parameter : libredeConfigurationSelection.getInput().getDataSources().get(0).getParameters()) {
-						if(parameter.getName().equals("Maximaltimestamp")){
-							parameter.setValue(""+timestamp);
-						}
-					}
 					IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
 							.loadFeatureExtractor(recommendationTrainingConfiguration.getFeatureAlgorithm());
 					this.selectionThread = new SelectionThread(this, 
@@ -208,13 +211,8 @@ public class ThreadHandler extends Thread {
 				//if the thread is actually not calculating results
 				if(recommendationThread==null || !recommendationThread.isRunning()){
 					//start a new Calcualtion
-					for (Parameter parameter : recommendationTrainingConfiguration.getTrainingData().get(0).getInput().getDataSources().get(0).getParameters()) {
-						if(parameter.getName().equals("Maximaltimestamp")){
-							parameter.setValue(""+timestamp);
-						}
-					}
 					this.recommendationThread = new RecommendationThread(this, recommendationTrainingConfiguration);
-					//recommendationThread.start();
+					recommendationThread.start();
 				}
 				nextExecutionTimeStampRecommendation = nextExecutionTimeStampRecommendation + (lifeCycleConfiguration.getRecommendationLoopTime());
 			}
@@ -224,14 +222,9 @@ public class ThreadHandler extends Thread {
 				//if the thread is actually not calculating results
 				if(optimizationThread==null || !optimizationThread.isRunning()){
 					//start a new Calcualtion
-					for (Parameter parameter : optimizationConfiguration.getContainsOf().get(0).getTrainingData().get(0).getInput().getDataSources().get(0).getParameters()) {
-						if(parameter.getName().equals("Maximaltimestamp")){
-							parameter.setValue(""+timestamp);
-						}
-					}
 					this.optimizationThread = new OptimizationThread(this,libredeConfigurationOptimization,
 							optimizationConfiguration,folderOptimizationOutput);
-					//optimizationThread.start();
+					optimizationThread.start();
 				}
 				nextExecutionTimeStampOptimization = nextExecutionTimeStampOptimization + (lifeCycleConfiguration.getOptimizationLoopTime());
 			}
@@ -434,5 +427,10 @@ public class ThreadHandler extends Thread {
 	/**
 	 * -----------------------------------------------------------------------------
 	 */
-	
+	public Quantity<Time> getStarttimestamp() {
+		return starttimestamp;
+	}
+	public Quantity<Time> getEndtimestamp() {
+		return endtimestamp;
+	}
 }

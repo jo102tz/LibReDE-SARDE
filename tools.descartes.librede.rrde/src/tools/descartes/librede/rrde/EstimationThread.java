@@ -118,10 +118,10 @@ public class EstimationThread extends Thread {
 				Librede.updateRepositoryOnline(maxupdaterepotimeMs, var, existingDatasources, dataSourceListener);
 				log.info("Stopped updating repository.");
 			}
+			
 			if(!stop && System.currentTimeMillis() >= nextexecutiontimestamp){
 				log.info("Start the next calcualtion...");
 				//get the actual estimation approach
-
 		        EstimationSpecification actualapproach = EcoreUtil.copy(threadHandler.getActualEstimationSpecification());
 		        if(actualapproach!=null){
 					log.info("Updated to new approach!");

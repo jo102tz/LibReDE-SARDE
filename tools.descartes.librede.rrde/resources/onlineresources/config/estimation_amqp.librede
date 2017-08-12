@@ -88,7 +88,7 @@
   </workloadDescription>
   <input>
     <dataSources name="kiekeramqpsource" type="tools.descartes.librede.datasource.kiekeramqp.KiekerAmqpDataSource">
-    	<parameters name="KiekerDirectory" value="/home/torsten/test/estimation/"/>
+      <parameters name="KiekerDirectory" value="/home/torsten/test/estimation/"/>
     </dataSources>
     <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="/home/torsten/Schreibtisch/jettytests/10minsubuntu200t/all">
       <metric href="librede:metrics#RESPONSE_TIME"/>
@@ -129,7 +129,7 @@
       <mappings entity="//@workloadDescription/@resources.0" traceColumn="3"/>
     </observations>
     <observations xsi:type="librede:FileTraceConfiguration" aggregation="SUM" dataSource="//@input/@dataSources.0" file="/home/torsten/Schreibtisch/jettytests/10minsubuntu200t/all">
-      <metric href="librede:metrics#VISITS"/>
+      <metric href="librede:metrics#ARRIVALS"/>
       <unit href="librede:units#REQUESTS"/>
       <interval value="10.0">
         <unit href="librede:units#SECONDS"/>
@@ -190,7 +190,7 @@
     </observations>
   </input>
   <estimation window="1">
-  	<approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>
+    <approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>
     <approaches type="tools.descartes.librede.approach.WangKalmanFilterApproach"/>
     <approaches type="tools.descartes.librede.approach.KumarKalmanFilterApproach"/>
     <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
@@ -205,7 +205,7 @@
     <stepSize value="60.0">
       <unit href="librede:units#SECONDS"/>
     </stepSize>
-    <startTimestamp value="1.502480334020E12">
+    <startTimestamp value="1.50248033402E12">
       <unit href="librede:units#MILLISECONDS"/>
     </startTimestamp>
     <endTimestamp value="1.520421688E12">

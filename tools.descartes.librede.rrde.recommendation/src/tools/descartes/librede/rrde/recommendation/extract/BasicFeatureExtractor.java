@@ -162,6 +162,20 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 		// init variables
 		LibredeVariables var = new LibredeVariables(conf);
 		Librede.initRepo(var);
+		return extractFeatures(var);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor
+	 * #extractFeatures
+	 * (tools.descartes.librede.configuration.LibredeConfiguration)
+	 */
+	@Override
+	public FeatureVector extractFeatures(LibredeVariables var) {
+		// init variables
 		FeatureVector vector = new FeatureVectorImpl();
 		extractWorkloadDescription(vector, var);
 		extractRegressionAnalyzisInformation(vector, var);
@@ -195,7 +209,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 
 		return vector;
 	}
-
+	
 	/**
 	 * Extracts and adds correlation and covariane about the workload into the
 	 * given {@link FeatureVector}.

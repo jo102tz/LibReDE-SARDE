@@ -61,9 +61,20 @@ public class SelectionThread extends Thread {
 		IRecomendationAlgorithm recomendationAlgorithm = threadHandler.getActualRecommendationAlgorithm();
 		if(recomendationAlgorithm!=null){
 		    EstimationSpecification est = recomendationAlgorithm.recommendEstimation(features);
-			log.info("Calculations in SelectionThread finished!");
-			log.info("Reporting results from SelectionThread!");
-			this.threadHandler.setNewEstimationSpecification(est);
+		    if(est!=null){
+			    //set the right timestamps in case they are not set yet.
+			    if (!est.getStartTimestamp().equals(threadHandler.getStarttimestamp())) {
+					est.setStartTimestamp(threadHandler.getStarttimestamp());
+				}
+			    if(!est.getEndTimestamp().equals(threadHandler.getEndtimestamp())){
+			    	est.setEndTimestamp(threadHandler.getEndtimestamp());
+			    }
+				log.info("Calculations in SelectionThread finished!");
+				log.info("Reporting results from SelectionThread!");
+				this.threadHandler.setNewEstimationSpecification(est);
+		    }else{
+		    	log.error("The estimation specification given from the recommendation algorithm in SelectionThread was null!");
+		    }
 		}else{
 			log.info("SelectionThread has not yet data from RecommendationThread!");
 		}

@@ -1,0 +1,300 @@
+New results at 1502548273780 (time in milliseconds)
+Approaches
+==========
+[1] Least-squares Regression using Queue Lengths and Response Times
+[2] Recursive Optimization using Response Times and Utilization
+[3] Service Demand Law
+[4] Kalman Filter using Utilization Law
+[5] Recursive Optimization using Response Times
+[6] Approximation with Response Times
+[7] Kalman Filter using Response Times and Utilization
+[8] Least-squares Regression using Utilization Law
+
+Estimates
+=========
+Resource             | Service                                                      | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+KIEKER-DEMO-SRV      | org.mybatis.jpetstore.persistence.Acc ... sernameAndPassword | 0,00011s 0,00016s 0,00000s 0,00187s 0,00011s 0,00000s 0,00010s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.CategoryMapper.getCategory | 0,00004s 0,00002s 0,00000s 0,00020s 0,00004s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ite ... tInventoryQuantity | 0,00028s 0,00000s 0,00000s 0,00158s 0,00028s 0,00000s 0,00014s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.ItemMapper.getItem         | 0,00036s 0,00000s 0,00000s 0,00064s 0,00036s 0,00000s 0,00018s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ite ... tItemListByProduct | 0,00034s 0,00000s 0,00000s 0,00020s 0,00034s 0,00000s 0,00016s 0,00014s |
+                     | org.mybatis.jpetstore.persistence.Ite ... eInventoryQuantity | 0,00011s 0,00000s 0,00000s 0,00144s 0,00011s 0,00000s 0,00001s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Lin ... per.insertLineItem | 0,00007s 0,00000s 0,00000s 0,00144s 0,00007s 0,00000s 0,00000s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.OrderMapper.insertOrder    | 0,00028s 0,00000s 0,00000s 0,00174s 0,00028s 0,00000s 0,00029s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ord ... .insertOrderStatus | 0,00010s 0,00000s 0,00000s 0,00174s 0,00010s 0,00000s 0,00010s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.ProductMapper.getProduct   | 0,00005s 0,00002s 0,00000s 0,00020s 0,00005s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Pro ... ductListByCategory | 0,00009s 0,00003s 0,00000s 0,00020s 0,00009s 0,00000s 0,00004s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Pro ... .searchProductList | 0,00008s 0,00003s 0,00000s 0,00133s 0,00008s 0,00000s 0,00004s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.SequenceMapper.getSequence | 0,00033s 0,00000s 0,00000s 0,00174s 0,00033s 0,00000s 0,00033s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Seq ... per.updateSequence | 0,00015s 0,00000s 0,00000s 0,00174s 0,00015s 0,00000s 0,00016s 0,00000s |
+                     | org.mybatis.jpetstore.service.AccountService.getAccount      | 0,00005s 0,00000s 0,00000s 0,00186s 0,00005s 0,00000s 0,00001s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getCategory     | 0,00001s 0,00002s 0,00000s 0,00020s 0,00001s 0,00000s 0,00003s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getItem         | 0,00003s 0,00000s 0,00000s 0,00064s 0,00003s 0,00000s 0,00021s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... tItemListByProduct | 0,00004s 0,00000s 0,00000s 0,00020s 0,00004s 0,00000s 0,00020s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getProduct      | 0,00001s 0,00002s 0,00000s 0,00020s 0,00001s 0,00000s 0,00003s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... ductListByCategory | 0,00003s 0,00003s 0,00000s 0,00020s 0,00003s 0,00000s 0,00008s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.isItemInStock   | 0,00004s 0,00000s 0,00000s 0,00158s 0,00004s 0,00000s 0,00018s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... .searchProductList | 0,00003s 0,00003s 0,00000s 0,00133s 0,00003s 0,00000s 0,00007s 0,00000s |
+                     | org.mybatis.jpetstore.service.OrderService.insertOrder       | 0,00069s 0,00000s 0,00000s 0,00174s 0,00069s 0,00000s 0,00189s 0,00000s |
+
+Cross-Validation Results:
+=========================
+Utilization Law Validator (Absolute):
+Resource or service                                                              | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+KIEKER-DEMO-SRV                                                                  | 6,01787e-03 0,50363% 1,02430e-03 0,02206% 0,00000e+00 0,09816% 2,51175e-02 2,41360% 6,01738e-03 0,50358% 0,00000e+00 0,09816% 6,04855e-03 0,50670% 9,65545e-04 0,02296% |
+
+Response Time Validator:
+Resource or service                                                              | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+org.mybatis.jpetstore.service.AccountService.getAccount                          | 1,57187e-04 2,97295% 1,56257e-04 2,72927% 0,00000e+00 100,00000% 3,76185e-03 2339,54502% 1,57175e-04 2,96759% 0,00000e+00 100,00000% 1,17845e-04 23,62356% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getCategory                         | 4,94121e-05 1,59521% 3,91995e-05 20,10201% 0,00000e+00 100,00000% 3,94105e-04 703,23817% 4,94081e-05 1,59081% 0,00000e+00 100,00000% 4,23361e-05 13,69973% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getItem                             | 3,91771e-04 37,75277% 0,00000e+00 100,00000% 0,00000e+00 100,00000% 1,36167e-03 315,65619% 3,91740e-04 37,74655% 0,00000e+00 100,00000% 3,88842e-04 37,36214% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getItemListByProduct                | 3,72778e-04 25,73550% 0,00000e+00 100,00000% 0,00000e+00 100,00000% 3,94105e-04 22,56992% 3,72748e-04 25,73026% 0,00000e+00 100,00000% 3,65032e-04 24,85032% 1,43062e-04 56,68285% |
+org.mybatis.jpetstore.service.CatalogService.getProduct                          | 6,15236e-05 14,89585% 4,56862e-05 19,30026% 0,00000e+00 100,00000% 3,94105e-04 594,34100% 6,15187e-05 14,88954% 0,00000e+00 100,00000% 5,37828e-05 9,71814% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getProductListByCategory            | 1,22003e-04 1,17921% 5,97492e-05 50,70446% 0,00000e+00 100,00000% 3,94105e-04 225,10028% 1,21993e-04 1,17455% 0,00000e+00 100,00000% 1,14599e-04 5,46131% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.isItemInStock                       | 3,18961e-04 40,87784% 0,00000e+00 100,00000% 0,00000e+00 100,00000% 3,21706e-03 1160,29206% 3,18935e-04 40,86940% 0,00000e+00 100,00000% 3,18052e-04 40,66388% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.searchProductList                   | 1,12641e-04 2,34132% 5,95785e-05 46,18209% 0,00000e+00 100,00000% 2,71196e-03 2346,83847% 1,12632e-04 2,33602% 0,00000e+00 100,00000% 1,10658e-04 1,49136% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.OrderService.insertOrder                           | 1,74084e-03 26,74022% 0,00000e+00 100,00000% 0,00000e+00 100,00000% 1,16021e-02 456,22122% 1,74070e-03 26,74318% 0,00000e+00 100,00000% 2,81545e-03 43,02844% 0,00000e+00 100,00000% |
+
+New results at 1502548306091 (time in milliseconds)
+Approaches
+==========
+[1] Least-squares Regression using Queue Lengths and Response Times
+[2] Recursive Optimization using Response Times and Utilization
+[3] Service Demand Law
+[4] Kalman Filter using Utilization Law
+[5] Recursive Optimization using Response Times
+[6] Approximation with Response Times
+[7] Kalman Filter using Response Times and Utilization
+[8] Least-squares Regression using Utilization Law
+
+Estimates
+=========
+Resource             | Service                                                      | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+KIEKER-DEMO-SRV      | org.mybatis.jpetstore.persistence.Acc ... sernameAndPassword | 0,00011s 0,00014s 0,00000s 0,00187s 0,00011s 0,00000s 0,00010s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.CategoryMapper.getCategory | 0,00004s 0,00002s 0,00000s 0,00020s 0,00004s 0,00000s -0,00000s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ite ... tInventoryQuantity | 0,00018s 0,00002s 0,00000s 0,00150s 0,00018s 0,00000s 0,00008s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.ItemMapper.getItem         | 0,00024s 0,00001s 0,00000s 0,00039s 0,00024s 0,00000s 0,00010s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ite ... tItemListByProduct | 0,00025s 0,00000s 0,00000s 0,00020s 0,00025s 0,00000s 0,00008s 0,00016s |
+                     | org.mybatis.jpetstore.persistence.Ite ... eInventoryQuantity | 0,00009s 0,00000s 0,00000s 0,00155s 0,00009s 0,00000s 0,00001s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Lin ... per.insertLineItem | 0,00007s 0,00000s 0,00000s 0,00155s 0,00007s 0,00000s 0,00000s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.OrderMapper.insertOrder    | 0,00023s 0,00000s 0,00000s 0,00178s 0,00023s 0,00000s 0,00025s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ord ... .insertOrderStatus | 0,00008s 0,00000s 0,00000s 0,00178s 0,00008s 0,00000s 0,00008s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.ProductMapper.getProduct   | 0,00005s 0,00002s 0,00000s 0,00020s 0,00005s 0,00000s 0,00000s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Pro ... ductListByCategory | 0,00009s 0,00003s 0,00000s 0,00020s 0,00009s 0,00000s 0,00001s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Pro ... .searchProductList | 0,00007s 0,00003s 0,00000s 0,00125s 0,00007s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.SequenceMapper.getSequence | 0,00024s 0,00000s 0,00000s 0,00178s 0,00024s 0,00000s 0,00025s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Seq ... per.updateSequence | 0,00023s 0,00000s 0,00000s 0,00178s 0,00023s 0,00000s 0,00023s 0,00000s |
+                     | org.mybatis.jpetstore.service.AccountService.getAccount      | 0,00004s 0,00000s 0,00000s 0,00187s 0,00004s 0,00000s 0,00000s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getCategory     | 0,00001s 0,00002s 0,00000s 0,00020s 0,00001s 0,00000s 0,00000s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getItem         | 0,00003s 0,00001s 0,00000s 0,00039s 0,00003s 0,00000s 0,00013s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... tItemListByProduct | 0,00004s 0,00000s 0,00000s 0,00020s 0,00004s 0,00000s 0,00012s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getProduct      | 0,00001s 0,00002s 0,00000s 0,00020s 0,00001s 0,00000s 0,00000s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... ductListByCategory | 0,00004s 0,00003s 0,00000s 0,00020s 0,00004s 0,00000s 0,00004s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.isItemInStock   | 0,00004s 0,00002s 0,00000s 0,00150s 0,00004s 0,00000s 0,00013s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... .searchProductList | 0,00004s 0,00003s 0,00000s 0,00125s 0,00004s 0,00000s 0,00006s 0,00000s |
+                     | org.mybatis.jpetstore.service.OrderService.insertOrder       | 0,00054s 0,00000s 0,00000s 0,00178s 0,00054s 0,00000s 0,00167s 0,00000s |
+
+Cross-Validation Results:
+=========================
+Utilization Law Validator (Absolute):
+Resource or service                                                              | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+KIEKER-DEMO-SRV                                                                  | 5,00768e-03 0,40074% 1,11939e-03 0,02379% 0,00000e+00 0,10003% 2,30471e-02 2,20468% 5,00737e-03 0,40071% 0,00000e+00 0,10003% 3,38622e-03 0,23859% 1,04508e-03 0,02080% |
+
+Response Time Validator:
+Resource or service                                                              | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+org.mybatis.jpetstore.service.AccountService.getAccount                          | 1,43540e-04 11,09788% 1,42999e-04 11,15861% 0,00000e+00 100,00000% 3,77450e-03 2419,26845% 1,43532e-04 11,09830% 0,00000e+00 100,00000% 1,00465e-04 32,93163% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getCategory                         | 4,95340e-05 0,88400% 3,99730e-05 18,72049% 0,00000e+00 100,00000% 3,94389e-04 701,92421% 4,95311e-05 0,88035% 0,00000e+00 100,00000% 2,36967e-06 95,36107% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getItem                             | 2,79651e-04 42,27517% 1,97758e-05 93,94267% 0,00000e+00 100,00000% 7,99223e-04 176,88476% 2,79633e-04 42,27391% 0,00000e+00 100,00000% 2,38107e-04 54,33963% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getItemListByProduct                | 2,99418e-04 26,63250% 1,18932e-09 99,99963% 0,00000e+00 100,00000% 3,94389e-04 29,15457% 2,99400e-04 26,63201% 0,00000e+00 100,00000% 2,10270e-04 51,37647% 1,56040e-04 50,23579% |
+org.mybatis.jpetstore.service.CatalogService.getProduct                          | 5,51012e-05 11,48053% 4,31040e-05 22,18932% 0,00000e+00 100,00000% 3,94389e-04 610,73420% 5,50980e-05 11,48114% 0,00000e+00 100,00000% 7,26228e-06 87,11987% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getProductListByCategory            | 1,25002e-04 3,61380% 6,41692e-05 47,54458% 0,00000e+00 100,00000% 3,94389e-04 222,22120% 1,24995e-04 3,61178% 0,00000e+00 100,00000% 4,80351e-05 61,26977% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.isItemInStock                       | 2,31818e-04 38,31266% 3,75043e-05 85,32040% 0,00000e+00 100,00000% 3,04099e-03 1193,77119% 2,31803e-04 38,31129% 0,00000e+00 100,00000% 2,18551e-04 42,78497% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.searchProductList                   | 1,09413e-04 3,41464% 6,26997e-05 43,02362% 0,00000e+00 100,00000% 2,47581e-03 2149,14894% 1,09406e-04 3,41486% 0,00000e+00 100,00000% 8,74772e-05 21,37569% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.OrderService.insertOrder                           | 1,50129e-03 26,41158% 0,00000e+00 100,00000% 0,00000e+00 100,00000% 1,18654e-02 525,44827% 1,50120e-03 26,41191% 0,00000e+00 100,00000% 2,53476e-03 42,90903% 0,00000e+00 100,00000% |
+
+New results at 1502548393710 (time in milliseconds)
+Approaches
+==========
+[1] Least-squares Regression using Queue Lengths and Response Times
+[2] Recursive Optimization using Response Times and Utilization
+[3] Service Demand Law
+[4] Kalman Filter using Utilization Law
+[5] Recursive Optimization using Response Times
+[6] Approximation with Response Times
+[7] Kalman Filter using Response Times and Utilization
+[8] Least-squares Regression using Utilization Law
+
+Estimates
+=========
+Resource             | Service                                                      | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+KIEKER-DEMO-SRV      | org.mybatis.jpetstore.persistence.Acc ... sernameAndPassword | 0,00010s 0,00003s 0,00000s 0,00190s 0,00010s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.CategoryMapper.getCategory | 0,00004s 0,00002s 0,00000s 0,00020s 0,00004s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ite ... tInventoryQuantity | 0,00018s 0,00003s 0,00000s 0,00151s 0,00018s 0,00000s 0,00009s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.ItemMapper.getItem         | 0,00024s 0,00002s 0,00000s 0,00031s 0,00024s 0,00000s 0,00011s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ite ... tItemListByProduct | 0,00025s 0,00001s 0,00000s 0,00020s 0,00025s 0,00000s 0,00011s 0,00018s |
+                     | org.mybatis.jpetstore.persistence.Ite ... eInventoryQuantity | 0,00009s 0,00000s 0,00000s 0,00146s 0,00009s 0,00000s 0,00001s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Lin ... per.insertLineItem | 0,00005s 0,00000s 0,00000s 0,00146s 0,00005s 0,00000s 0,00000s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.OrderMapper.insertOrder    | 0,00072s 0,00000s 0,00000s 0,00177s 0,00072s 0,00000s 0,00069s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ord ... .insertOrderStatus | 0,00007s 0,00000s 0,00000s 0,00177s 0,00007s 0,00000s 0,00007s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.ProductMapper.getProduct   | 0,00005s 0,00002s 0,00000s 0,00020s 0,00005s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Pro ... ductListByCategory | 0,00009s 0,00004s 0,00000s 0,00020s 0,00009s 0,00000s 0,00004s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Pro ... .searchProductList | 0,00007s 0,00003s 0,00000s 0,00129s 0,00007s 0,00000s 0,00003s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.SequenceMapper.getSequence | 0,00020s 0,00000s 0,00000s 0,00177s 0,00020s 0,00000s 0,00022s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Seq ... per.updateSequence | 0,00023s 0,00000s 0,00000s 0,00177s 0,00023s 0,00000s 0,00023s 0,00000s |
+                     | org.mybatis.jpetstore.service.AccountService.getAccount      | 0,00002s 0,00010s 0,00000s 0,00190s 0,00002s 0,00000s 0,00009s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getCategory     | 0,00001s 0,00002s 0,00000s 0,00020s 0,00001s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getItem         | 0,00003s 0,00002s 0,00000s 0,00031s 0,00003s 0,00000s 0,00014s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... tItemListByProduct | 0,00004s 0,00001s 0,00000s 0,00020s 0,00004s 0,00000s 0,00015s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getProduct      | 0,00001s 0,00002s 0,00000s 0,00020s 0,00001s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... ductListByCategory | 0,00004s 0,00004s 0,00000s 0,00020s 0,00004s 0,00000s 0,00006s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.isItemInStock   | 0,00004s 0,00003s 0,00000s 0,00151s 0,00004s 0,00000s 0,00013s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... .searchProductList | 0,00003s 0,00003s 0,00000s 0,00129s 0,00003s 0,00000s 0,00007s 0,00000s |
+                     | org.mybatis.jpetstore.service.OrderService.insertOrder       | 0,00075s 0,00000s 0,00000s 0,00177s 0,00075s 0,00000s 0,00224s 0,00000s |
+
+Cross-Validation Results:
+=========================
+Utilization Law Validator (Absolute):
+Resource or service                                                              | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+KIEKER-DEMO-SRV                                                                  | 5,38984e-03 0,44472% 1,43401e-03 0,04914% 0,00000e+00 0,09426% 2,53182e-02 2,43756% 5,38953e-03 0,44469% 0,00000e+00 0,09426% 5,64159e-03 0,46990% 1,18969e-03 0,02471% |
+
+Response Time Validator:
+Resource or service                                                              | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+org.mybatis.jpetstore.service.AccountService.getAccount                          | 1,23308e-04 20,32471% 1,23173e-04 20,41328% 0,00000e+00 100,00000% 3,78491e-03 2342,49885% 1,23301e-04 20,32844% 0,00000e+00 100,00000% 1,13919e-04 26,60030% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getCategory                         | 5,00575e-05 0,80986% 4,20228e-05 15,42248% 0,00000e+00 100,00000% 3,92589e-04 690,15120% 5,00547e-05 0,80594% 0,00000e+00 100,00000% 4,11620e-05 17,19072% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getItem                             | 2,74784e-04 28,02885% 3,33978e-05 90,56344% 0,00000e+00 100,00000% 6,17318e-04 77,17778% 2,74769e-04 28,03025% 0,00000e+00 100,00000% 2,68363e-04 30,33993% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getItemListByProduct                | 2,88324e-04 21,81169% 2,28659e-05 93,58663% 0,00000e+00 100,00000% 3,92589e-04 14,29474% 2,88307e-04 21,81342% 0,00000e+00 100,00000% 2,74015e-04 26,28030% 1,83921e-04 47,08793% |
+org.mybatis.jpetstore.service.CatalogService.getProduct                          | 5,40435e-05 11,56861% 4,46855e-05 25,93939% 0,00000e+00 100,00000% 3,92589e-04 551,54355% 5,40404e-05 11,57099% 0,00000e+00 100,00000% 4,47660e-05 27,09023% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getProductListByCategory            | 1,23220e-04 0,46866% 7,44833e-05 39,24677% 0,00000e+00 100,00000% 3,92589e-04 220,11343% 1,23213e-04 0,46288% 0,00000e+00 100,00000% 1,10687e-04 9,56609% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.isItemInStock                       | 2,20365e-04 29,78021% 6,50900e-05 77,32166% 0,00000e+00 100,00000% 3,00451e-03 960,97739% 2,20353e-04 29,78148% 0,00000e+00 100,00000% 2,18388e-04 30,65213% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.searchProductList                   | 1,03141e-04 7,06791% 6,89505e-05 37,89417% 0,00000e+00 100,00000% 2,59915e-03 2241,29987% 1,03135e-04 7,07229% 0,00000e+00 100,00000% 9,99643e-05 9,98809% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.OrderService.insertOrder                           | 2,21406e-03 32,01965% 0,00000e+00 100,00000% 0,00000e+00 100,00000% 1,17585e-02 578,33308% 2,21393e-03 32,01386% 0,00000e+00 100,00000% 3,59925e-03 105,93912% 0,00000e+00 100,00000% |
+
+New results at 1502548426357 (time in milliseconds)
+Approaches
+==========
+[1] Least-squares Regression using Queue Lengths and Response Times
+[2] Recursive Optimization using Response Times and Utilization
+[3] Service Demand Law
+[4] Kalman Filter using Utilization Law
+[5] Recursive Optimization using Response Times
+[6] Approximation with Response Times
+[7] Kalman Filter using Response Times and Utilization
+[8] Least-squares Regression using Utilization Law
+
+Estimates
+=========
+Resource             | Service                                                      | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+KIEKER-DEMO-SRV      | org.mybatis.jpetstore.persistence.Acc ... sernameAndPassword | 0,00010s 0,00005s 0,00000s 0,00184s 0,00010s 0,00000s 0,00003s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.CategoryMapper.getCategory | 0,00004s 0,00002s 0,00000s 0,00020s 0,00004s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ite ... tInventoryQuantity | 0,00018s 0,00004s 0,00000s 0,00144s 0,00018s 0,00000s 0,00009s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.ItemMapper.getItem         | 0,00024s 0,00002s 0,00000s 0,00029s 0,00024s 0,00000s 0,00012s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ite ... tItemListByProduct | 0,00026s 0,00002s 0,00000s 0,00020s 0,00026s 0,00000s 0,00012s 0,00020s |
+                     | org.mybatis.jpetstore.persistence.Ite ... eInventoryQuantity | 0,00008s 0,00000s 0,00000s 0,00147s 0,00008s 0,00000s 0,00001s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Lin ... per.insertLineItem | 0,00005s 0,00000s 0,00000s 0,00147s 0,00005s 0,00000s 0,00000s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.OrderMapper.insertOrder    | 0,00059s 0,00000s 0,00000s 0,00177s 0,00059s 0,00000s 0,00057s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ord ... .insertOrderStatus | 0,00010s 0,00000s 0,00000s 0,00178s 0,00010s 0,00000s 0,00010s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.ProductMapper.getProduct   | 0,00005s 0,00002s 0,00000s 0,00020s 0,00005s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Pro ... ductListByCategory | 0,00008s 0,00004s 0,00000s 0,00020s 0,00008s 0,00000s 0,00004s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Pro ... .searchProductList | 0,00007s 0,00003s 0,00000s 0,00134s 0,00007s 0,00000s 0,00003s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.SequenceMapper.getSequence | 0,00020s 0,00000s 0,00000s 0,00177s 0,00020s 0,00000s 0,00021s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Seq ... per.updateSequence | 0,00019s 0,00000s 0,00000s 0,00177s 0,00019s 0,00000s 0,00019s 0,00000s |
+                     | org.mybatis.jpetstore.service.AccountService.getAccount      | 0,00003s 0,00007s 0,00000s 0,00184s 0,00003s 0,00000s 0,00007s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getCategory     | 0,00001s 0,00002s 0,00000s 0,00020s 0,00001s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getItem         | 0,00003s 0,00002s 0,00000s 0,00029s 0,00003s 0,00000s 0,00015s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... tItemListByProduct | 0,00004s 0,00002s 0,00000s 0,00020s 0,00004s 0,00000s 0,00016s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getProduct      | 0,00001s 0,00002s 0,00000s 0,00020s 0,00001s 0,00000s 0,00003s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... ductListByCategory | 0,00004s 0,00004s 0,00000s 0,00020s 0,00004s 0,00000s 0,00007s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.isItemInStock   | 0,00004s 0,00004s 0,00000s 0,00144s 0,00004s 0,00000s 0,00013s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... .searchProductList | 0,00003s 0,00003s 0,00000s 0,00134s 0,00003s 0,00000s 0,00007s 0,00000s |
+                     | org.mybatis.jpetstore.service.OrderService.insertOrder       | 0,00078s 0,00000s 0,00000s 0,00177s 0,00078s 0,00000s 0,00211s 0,00000s |
+
+Cross-Validation Results:
+=========================
+Utilization Law Validator (Absolute):
+Resource or service                                                              | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+KIEKER-DEMO-SRV                                                                  | 4,82139e-03 0,35184% 1,57369e-03 0,03815% 0,00000e+00 0,13030% 2,18720e-02 2,05690% 4,82113e-03 0,35181% 0,00000e+00 0,13030% 4,90640e-03 0,36034% 1,36546e-03 0,02892% |
+
+Response Time Validator:
+Resource or service                                                              | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+org.mybatis.jpetstore.service.AccountService.getAccount                          | 1,21874e-04 12,25385% 1,21539e-04 12,44295% 0,00000e+00 100,00000% 3,67654e-03 2547,97258% 1,21868e-04 12,25554% 0,00000e+00 100,00000% 9,70053e-05 30,26367% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getCategory                         | 4,80098e-05 3,99958% 4,11546e-05 17,23439% 0,00000e+00 100,00000% 3,92943e-04 690,21266% 4,80072e-05 4,00208% 0,00000e+00 100,00000% 4,26181e-05 14,28891% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getItem                             | 2,64768e-04 27,10470% 5,61394e-05 83,28660% 0,00000e+00 100,00000% 5,46160e-04 73,24474% 2,64754e-04 27,10552% 0,00000e+00 100,00000% 2,62588e-04 27,39319% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getItemListByProduct                | 2,91986e-04 17,79204% 3,93576e-05 88,47006% 0,00000e+00 100,00000% 3,92943e-04 27,67311% 2,91970e-04 17,79040% 0,00000e+00 100,00000% 2,86008e-04 18,24666% 2,07560e-04 37,83096% |
+org.mybatis.jpetstore.service.CatalogService.getProduct                          | 5,13928e-05 11,17276% 4,35293e-05 23,09923% 0,00000e+00 100,00000% 3,92943e-04 593,26821% 5,13900e-05 11,17441% 0,00000e+00 100,00000% 4,54156e-05 19,60862% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getProductListByCategory            | 1,18733e-04 3,45705% 7,68441e-05 37,37815% 0,00000e+00 100,00000% 3,92943e-04 220,22050% 1,18726e-04 3,46094% 0,00000e+00 100,00000% 1,13110e-04 7,86317% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.isItemInStock                       | 2,03285e-04 26,49016% 7,96751e-05 68,50961% 0,00000e+00 100,00000% 2,86342e-03 1052,60536% 2,03274e-04 26,49102% 0,00000e+00 100,00000% 2,02509e-04 26,66551% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.searchProductList                   | 9,99986e-05 5,89314% 7,03064e-05 33,82964% 0,00000e+00 100,00000% 2,79077e-03 2528,32989% 9,99933e-05 5,89814% 0,00000e+00 100,00000% 9,92905e-05 6,55967% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.OrderService.insertOrder                           | 1,76847e-03 40,13351% 0,00000e+00 100,00000% 0,00000e+00 100,00000% 1,17968e-02 430,35517% 1,76837e-03 40,13447% 0,00000e+00 100,00000% 2,83969e-03 49,02723% 0,00000e+00 100,00000% |
+
+New results at 1502548513745 (time in milliseconds)
+Approaches
+==========
+[1] Least-squares Regression using Queue Lengths and Response Times
+[2] Recursive Optimization using Response Times and Utilization
+[3] Service Demand Law
+[4] Kalman Filter using Utilization Law
+[5] Recursive Optimization using Response Times
+[6] Approximation with Response Times
+[7] Kalman Filter using Response Times and Utilization
+[8] Least-squares Regression using Utilization Law
+
+Estimates
+=========
+Resource             | Service                                                      | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+KIEKER-DEMO-SRV      | org.mybatis.jpetstore.persistence.Acc ... sernameAndPassword | 0,00010s 0,00013s 0,00000s 0,00184s 0,00010s 0,00000s 0,00009s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.CategoryMapper.getCategory | 0,00004s 0,00002s 0,00000s 0,00020s 0,00004s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ite ... tInventoryQuantity | 0,00016s 0,00004s 0,00000s 0,00142s 0,00016s 0,00000s 0,00008s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.ItemMapper.getItem         | 0,00027s 0,00002s 0,00000s 0,00022s 0,00027s 0,00000s 0,00013s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ite ... tItemListByProduct | 0,00024s 0,00002s 0,00000s 0,00020s 0,00024s 0,00000s 0,00011s 0,00019s |
+                     | org.mybatis.jpetstore.persistence.Ite ... eInventoryQuantity | 0,00007s 0,00000s 0,00000s 0,00140s 0,00007s 0,00000s 0,00001s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Lin ... per.insertLineItem | 0,00005s 0,00000s 0,00000s 0,00140s 0,00005s 0,00000s 0,00001s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.OrderMapper.insertOrder    | 0,00021s 0,00000s 0,00000s 0,00176s 0,00021s 0,00000s 0,00023s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Ord ... .insertOrderStatus | 0,00012s 0,00000s 0,00000s 0,00176s 0,00012s 0,00000s 0,00012s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.ProductMapper.getProduct   | 0,00004s 0,00002s 0,00000s 0,00020s 0,00004s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Pro ... ductListByCategory | 0,00008s 0,00004s 0,00000s 0,00020s 0,00008s 0,00000s 0,00004s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Pro ... .searchProductList | 0,00007s 0,00003s 0,00000s 0,00135s 0,00007s 0,00000s 0,00003s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.SequenceMapper.getSequence | 0,00019s 0,00000s 0,00000s 0,00176s 0,00019s 0,00000s 0,00021s 0,00000s |
+                     | org.mybatis.jpetstore.persistence.Seq ... per.updateSequence | 0,00012s 0,00000s 0,00000s 0,00176s 0,00012s 0,00000s 0,00013s 0,00000s |
+                     | org.mybatis.jpetstore.service.AccountService.getAccount      | 0,00003s 0,00000s 0,00000s 0,00183s 0,00003s 0,00000s 0,00000s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getCategory     | 0,00001s 0,00002s 0,00000s 0,00020s 0,00001s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getItem         | 0,00003s 0,00002s 0,00000s 0,00022s 0,00003s 0,00000s 0,00016s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... tItemListByProduct | 0,00004s 0,00002s 0,00000s 0,00020s 0,00004s 0,00000s 0,00015s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.getProduct      | 0,00001s 0,00002s 0,00000s 0,00020s 0,00001s 0,00000s 0,00002s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... ductListByCategory | 0,00004s 0,00004s 0,00000s 0,00020s 0,00004s 0,00000s 0,00007s 0,00000s |
+                     | org.mybatis.jpetstore.service.CatalogService.isItemInStock   | 0,00004s 0,00004s 0,00000s 0,00142s 0,00004s 0,00000s 0,00012s 0,00000s |
+                     | org.mybatis.jpetstore.service.Catalog ... .searchProductList | 0,00004s 0,00003s 0,00000s 0,00135s 0,00004s 0,00000s 0,00007s 0,00000s |
+                     | org.mybatis.jpetstore.service.OrderService.insertOrder       | 0,00071s 0,00000s 0,00000s 0,00176s 0,00071s 0,00000s 0,00168s 0,00000s |
+
+Cross-Validation Results:
+=========================
+Utilization Law Validator (Absolute):
+Resource or service                                                              | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+KIEKER-DEMO-SRV                                                                  | 4,75481e-03 0,37486% 1,39203e-03 0,03933% 0,00000e+00 0,10062% 2,12164e-02 2,02102% 4,75457e-03 0,37484% 0,00000e+00 0,10062% 4,52605e-03 0,35199% 1,21710e-03 0,02274% |
+
+Response Time Validator:
+Resource or service                                                              | [1]      [2]      [3]      [4]      [5]      [6]      [7]      [8]      |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+org.mybatis.jpetstore.service.AccountService.getAccount                          | 1,30690e-04 9,69491% 1,30093e-04 10,08762% 0,00000e+00 100,00000% 3,67305e-03 2439,58118% 1,30683e-04 9,69619% 0,00000e+00 100,00000% 9,33564e-05 35,47062% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getCategory                         | 4,59370e-05 5,52646% 3,88890e-05 18,86489% 0,00000e+00 100,00000% 3,95359e-04 725,05685% 4,59351e-05 5,52743% 0,00000e+00 100,00000% 3,26007e-05 32,06358% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getItem                             | 3,06618e-04 28,03768% 3,09321e-05 91,56204% 0,00000e+00 100,00000% 4,36895e-04 38,50566% 3,06603e-04 28,03622% 0,00000e+00 100,00000% 3,00780e-04 27,84890% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getItemListByProduct                | 2,72923e-04 9,09552% 2,61329e-05 91,50656% 0,00000e+00 100,00000% 3,95359e-04 40,99711% 2,72909e-04 9,09241% 0,00000e+00 100,00000% 2,58186e-04 12,79799% 1,80739e-04 37,30959% |
+org.mybatis.jpetstore.service.CatalogService.getProduct                          | 5,02304e-05 6,89048% 4,17521e-05 22,71648% 0,00000e+00 100,00000% 3,95359e-04 632,85510% 5,02283e-05 6,89272% 0,00000e+00 100,00000% 3,54931e-05 34,95940% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.getProductListByCategory            | 1,20399e-04 2,48903% 7,13197e-05 41,90702% 0,00000e+00 100,00000% 3,95359e-04 222,02178% 1,20393e-04 2,48844% 0,00000e+00 100,00000% 1,06378e-04 13,35289% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.isItemInStock                       | 1,98262e-04 15,15237% 6,56504e-05 71,35512% 0,00000e+00 100,00000% 2,87560e-03 1213,84564% 1,98252e-04 15,15152% 0,00000e+00 100,00000% 1,96313e-04 15,19609% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.CatalogService.searchProductList                   | 1,05825e-04 7,21121% 6,74424e-05 38,01117% 0,00000e+00 100,00000% 2,66834e-03 2353,80766% 1,05820e-04 7,21036% 0,00000e+00 100,00000% 1,04031e-04 7,33249% 0,00000e+00 100,00000% |
+org.mybatis.jpetstore.service.OrderService.insertOrder                           | 1,45388e-03 22,02706% 0,00000e+00 100,00000% 0,00000e+00 100,00000% 1,15765e-02 546,46764% 1,45380e-03 22,02717% 0,00000e+00 100,00000% 2,35986e-03 44,88435% 0,00000e+00 100,00000% |
+

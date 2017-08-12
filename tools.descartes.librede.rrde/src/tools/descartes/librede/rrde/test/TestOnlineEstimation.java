@@ -26,7 +26,7 @@ public class TestOnlineEstimation{
 	/**
 	 * The used variables in this test.
 	 */
-	private String datafolder = "/home/torsten/test/estimation";
+	private String datafolder = "/home/torsten/git/ma/tools.descartes.librede.rrde/resources/data/estimation";
 	
 	
 	@BeforeClass
@@ -46,7 +46,7 @@ public class TestOnlineEstimation{
 	public void test() {
 		log.info("Starting the test...");
 		//create the runner class
-		ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,300000, 60000, 180000, 600000, 3600000);
+		ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,300000, 60000, 6000000, 20000, 6000000);
 		//start it
 		threadHandler.start();
 		System.out.println("Type something to stop");
