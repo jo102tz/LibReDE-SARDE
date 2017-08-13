@@ -1,6 +1,7 @@
 package tools.descartes.librede.rrde;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -49,7 +50,6 @@ public class ThreadHandler extends Thread {
 	 */
 	private OptimizationThread optimizationThread;
 	private RecommendationThread recommendationThread;
-	private SelectionThread selectionThread;
 	private EstimationThread estimationThread;
 	/**
 	 * The different configurations.
@@ -58,7 +58,6 @@ public class ThreadHandler extends Thread {
 	private OptimizationConfiguration optimizationConfiguration;
 	private RecommendationTrainingConfiguration recommendationTrainingConfiguration;
 	private LibredeConfiguration libredeConfigurationEstimation;
-	private LibredeConfiguration libredeConfigurationSelection;
 	//this is only a skeleton for the output
 	private LibredeConfiguration libredeConfigurationOptimization;
 	/**
@@ -142,8 +141,8 @@ public class ThreadHandler extends Thread {
 		this.offsettimeMs = offsettimeMs;
 		//load the config files
 		loadData(this.folderWithConfigFiles);
-		this.starttimestamp = libredeConfigurationEstimation.getEstimation().getStartTimestamp();
-		this.endtimestamp = libredeConfigurationEstimation.getEstimation().getEndTimestamp();
+		this.starttimestamp = EcoreUtil.copy(libredeConfigurationEstimation.getEstimation().getStartTimestamp());
+		this.endtimestamp = EcoreUtil.copy(libredeConfigurationEstimation.getEstimation().getEndTimestamp());
 		this.lifeCycleConfiguration.setEstimationLoopTime(estimationLoopMs);
 		this.lifeCycleConfiguration.setRecommendationLoopTime(recommendationLoopMs);
 		this.lifeCycleConfiguration.setOptimizationLoopTime(optimizationLoopMs);
@@ -173,9 +172,11 @@ public class ThreadHandler extends Thread {
 			//initialize the thread here
 			log.info("Initializing ThreadHandler...");
 			//initialize the threads
-			this.estimationThread = new EstimationThread(this,libredeConfigurationEstimation, offsettimeMs, lifeCycleConfiguration.getEstimationLoopTime(), 2000, 5000, folderEstimationOutput);
+			IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
+					.loadFeatureExtractor(recommendationTrainingConfiguration.getFeatureAlgorithm());
+			this.estimationThread = new EstimationThread(this,libredeConfigurationEstimation, extractor, offsettimeMs, lifeCycleConfiguration.getEstimationLoopTime(), lifeCycleConfiguration.getSelectionLoopTime(), 2000, 5000, folderEstimationOutput);
 			//start the estimation thread, and therefore the data collecting
-			//this.estimationThread.start();
+			this.estimationThread.start();
 			//set the firsst execution timestamps
 			long timestamp = System.currentTimeMillis();
 			nextExecutionTimeStampOptimization = timestamp+lifeCycleConfiguration.getOptimizationLoopTime();
@@ -191,28 +192,16 @@ public class ThreadHandler extends Thread {
 			//start the desired thread, if the next execution
 			//timestamp is reached and, if the thread is
 			//not still working
-			
-			//check the selection thread
-			if(nextExecutionTimeStampSelection<=timestamp && !stop){
-				//if the thread is actually not calculating results
-				if(selectionThread==null || !selectionThread.isRunning()){
-					//start a new Calcualtion
-					IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
-							.loadFeatureExtractor(recommendationTrainingConfiguration.getFeatureAlgorithm());
-					this.selectionThread = new SelectionThread(this, 
-							libredeConfigurationSelection, extractor);
-					//selectionThread.start();
-				}
-				nextExecutionTimeStampSelection = nextExecutionTimeStampSelection + (lifeCycleConfiguration.getSelectionLoopTime());
-			}
 
 			//check the recommendation thread
 			if(nextExecutionTimeStampRecommendation<=timestamp && !stop){
 				//if the thread is actually not calculating results
-				if(recommendationThread==null || !recommendationThread.isRunning()){
+				if((recommendationThread==null || !recommendationThread.isRunning())
+						 && minimumTowTracesAvailable(recommendationTrainingConfiguration.getTrainingData().get(0).getRootFolder())){
 					//start a new Calcualtion
 					this.recommendationThread = new RecommendationThread(this, recommendationTrainingConfiguration);
 					recommendationThread.start();
+					log.error("STARTED RECOMMENDATION");
 				}
 				nextExecutionTimeStampRecommendation = nextExecutionTimeStampRecommendation + (lifeCycleConfiguration.getRecommendationLoopTime());
 			}
@@ -220,11 +209,13 @@ public class ThreadHandler extends Thread {
 			//check the optimization thread
 			if(nextExecutionTimeStampOptimization<=timestamp && !stop){
 				//if the thread is actually not calculating results
-				if(optimizationThread==null || !optimizationThread.isRunning()){
+				if((optimizationThread==null || !optimizationThread.isRunning()) 
+						&& minimumTowTracesAvailable(optimizationConfiguration.getContainsOf().get(0).getTrainingData().get(0).getRootFolder())){
 					//start a new Calcualtion
 					this.optimizationThread = new OptimizationThread(this,libredeConfigurationOptimization,
 							optimizationConfiguration,folderOptimizationOutput);
-					optimizationThread.start();
+					//optimizationThread.start();
+					//log.error("STARTED OPTIMIZATION");
 				}
 				nextExecutionTimeStampOptimization = nextExecutionTimeStampOptimization + (lifeCycleConfiguration.getOptimizationLoopTime());
 			}
@@ -248,9 +239,6 @@ public class ThreadHandler extends Thread {
 		}
 		if(recommendationThread!=null){
 			recommendationThread.terminate();
-		}
-		if(selectionThread!=null){
-			selectionThread.terminate();
 		}
 		if(estimationThread!=null){
 			estimationThread.terminate();
@@ -276,11 +264,25 @@ public class ThreadHandler extends Thread {
 		log.info("ThreadHandler deinitialized!");
 	}
 
+	private boolean minimumTowTracesAvailable(String rootFolder) {
+		boolean rc = false;
+		File file = new File(rootFolder);
+		if(file.exists() && file.isDirectory()){
+			File[] files = file.listFiles(new FileFilter() {
+			    @Override
+			    public boolean accept(File f) {
+			        return f.isDirectory();
+			    }
+			});
+			rc = files.length>=2;
+		}
+		return rc;
+	}
 	private void loadData(String folder){
 		log.info("ThreadHandler starts loading configuration files...");
 		lifeCycleConfiguration = Util.loadLifecycleConfiguration(new File(folder+"/conf.lifecycle").toPath());
 		libredeConfigurationEstimation = Librede.loadConfiguration(new File(folder+"/estimation_amqp.librede").toPath());
-		libredeConfigurationSelection = Librede.loadConfiguration(new File(folder+"/estimation_sel.librede").toPath());
+		//libredeConfigurationSelection = Librede.loadConfiguration(new File(folder+"/estimation_sel.librede").toPath());
 	    libredeConfigurationOptimization = Librede.loadConfiguration(new File(folder+"/estimation_opt.librede").toPath());
 	    optimizationConfiguration = Util.loadOptimizationConfiguration(new File(folder+"/conf.optimization").toPath());
 	    recommendationTrainingConfiguration = Util.loadRecommendationConfiguration(new File(folder+"/conf.recommendation").toPath());
@@ -303,6 +305,11 @@ public class ThreadHandler extends Thread {
 			Collection<EstimationSpecification> newData) {
 		try {
 			semaphoreEstimations.acquire();
+			if(newData!=null&&newData.size()!=0){
+				//log.error("OPTIMIZATION RESULT AVAILABLE");
+			}else{
+				//log.error("NO OPTIMIZATION RESULT AVAILABLE");
+			}
 			this.newEstimationSpecifications = newData;
 			log.info("New Estimation Specification stored!");
 			semaphoreEstimations.release();
@@ -318,10 +325,12 @@ public class ThreadHandler extends Thread {
 	 */
 	public Collection<EstimationSpecification> getActualEstimationSpecifications() {
 		try {
+			//log.error("TRY TO PULL THE OPTIMIZATION RESULT BY RECOMMENDATION");
 			semaphoreEstimations.acquire();
 			if(this.newEstimationSpecifications!=null){
+				//log.error("PULLED THE OPTIMIZATION RESULT BY RECOMMENDATION");
 				this.actualEstimationSpecifications = this.newEstimationSpecifications;
-				this.optimizationConfiguration = null;
+				this.newEstimationSpecifications = null;
 				log.info("Actual Estimation Specification updated!");
 			}
 			log.info("Actual Estimation Specification returned.");
@@ -348,6 +357,11 @@ public class ThreadHandler extends Thread {
 	public void setNewRecommendationAlgorithm(IRecomendationAlgorithm newRecommendationAlgorithm) {
 		try {
 			semaphoreRecommendation.acquire();
+			if(newRecommendationAlgorithm!=null){
+				log.error("RECOMMENDATION RESULT ALGORITHM AVAILABLE");
+			}else{
+				log.error("NO RECOMMENDATION RESULT ALGORITHM AVAILABLE");
+			}
 			this.newRecommendationAlgorithm = newRecommendationAlgorithm;
 			log.info("New Recommendation Algorithm stored!");
 			semaphoreRecommendation.release();

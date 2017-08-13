@@ -3,6 +3,7 @@ package tools.descartes.librede.rrde.test;
 import java.io.File;
 import java.util.Scanner;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,13 +27,16 @@ public class TestOnlineEstimation{
 	/**
 	 * The used variables in this test.
 	 */
-	private String datafolder = "/home/torsten/git/ma/tools.descartes.librede.rrde/resources/data/estimation";
+	private String datafolder = "/home/torsten/test/estimation";
 	
 	
 	@BeforeClass
 	public static void register() {
 		log.info("Initialize Librede...");
 		Librede.initLogging();
+		//TODO:
+		Logger.getRootLogger().setLevel(Level.INFO);
+		//Logger.getLogger("tools.descartes.librede.repository").setLevel(Level.WARN);
 		Librede.init();
 		//Librede.init();
 		IpoptLibrary.init();
@@ -46,7 +50,7 @@ public class TestOnlineEstimation{
 	public void test() {
 		log.info("Starting the test...");
 		//create the runner class
-		ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,300000, 60000, 6000000, 20000, 6000000);
+		ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,300000, 60000, 30000, 30000, 6000000);
 		//start it
 		threadHandler.start();
 		System.out.println("Type something to stop");

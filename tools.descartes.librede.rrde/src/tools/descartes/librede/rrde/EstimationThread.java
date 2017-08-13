@@ -21,6 +21,8 @@ import tools.descartes.librede.datasource.DataSourceSelector;
 import tools.descartes.librede.datasource.IDataSource;
 import tools.descartes.librede.rrde.optimization.util.Wrapper;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
+import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
 /**
  * This class runs the estimations of librede.
@@ -55,15 +57,17 @@ public class EstimationThread extends Thread {
 	long calculationintervalMs;//60000
 	long pollinginteralMs; //20000
 	long maxupdaterepotimeMs; //5000
+	long selectionintervalMs;
 	/**
 	 * Members
 	 */
 	private Map<String, IDataSource> existingDatasources;
 	private DataSourceSelector dataSourceListener;
 	LibredeVariables var;
+	private IFeatureExtractor featureExtractor;
 	
-	public EstimationThread(ThreadHandler threadHandler, LibredeConfiguration libredeConfiguration, long offsettimeMs, long calculationintervalMs, long pollingintervalMs, long maxupdaterepotimeMs, String folderEstimationOutput) {
-		log.info("Create SelectionThread instance...");
+	public EstimationThread(ThreadHandler threadHandler, LibredeConfiguration libredeConfiguration, IFeatureExtractor featureExtractor, long offsettimeMs, long calculationintervalMs, long selectionintervalMs, long pollingintervalMs, long maxupdaterepotimeMs, String folderEstimationOutput) {
+		log.info("Create EstimationThread instance...");
 		this.threadHandler = threadHandler;
 		this.libredeConfiguration = libredeConfiguration;
 		this.isInitialized = false;
@@ -74,9 +78,11 @@ public class EstimationThread extends Thread {
 		this.calculationintervalMs = calculationintervalMs;
 		this.pollinginteralMs = pollingintervalMs;
 		this.maxupdaterepotimeMs = maxupdaterepotimeMs;
+		this.selectionintervalMs = selectionintervalMs;
 		this.var = null;
 		this.folderEstimationOutput = folderEstimationOutput;
-		log.info("SelectionThread instance created!");
+		this.featureExtractor = featureExtractor;
+		log.info("EstimationThread instance created!");
 	}
 	
 	@Override
@@ -98,6 +104,7 @@ public class EstimationThread extends Thread {
 		//the next time stamp when librede should calculate resource demands
 		long actualtime = System.currentTimeMillis();
 		long nextexecutiontimestamp = actualtime+offsettimeMs;
+		long nextselectiontimestamp = actualtime+selectionintervalMs;
 		while(!stop){
 			log.info("Wait until the next calcualtion...");
 			//sleep some time to give the repo time to initialize
@@ -118,7 +125,32 @@ public class EstimationThread extends Thread {
 				Librede.updateRepositoryOnline(maxupdaterepotimeMs, var, existingDatasources, dataSourceListener);
 				log.info("Stopped updating repository.");
 			}
-			
+			if(!stop && System.currentTimeMillis() >= nextselectiontimestamp){
+				log.info("Start the next selection...");
+				IRecomendationAlgorithm recomendationAlgorithm = threadHandler.getActualRecommendationAlgorithm();
+				if(recomendationAlgorithm!=null){
+					FeatureVector features = featureExtractor.extractFeatures(var);
+				    EstimationSpecification est = recomendationAlgorithm.recommendEstimation(features);
+				    if(est!=null){
+					    //set the right timestamps in case they are not set yet.
+					    if (!est.getStartTimestamp().equals(threadHandler.getStarttimestamp())) {
+							est.setStartTimestamp(threadHandler.getStarttimestamp());
+						}
+					    if(!est.getEndTimestamp().equals(threadHandler.getEndtimestamp())){
+					    	est.setEndTimestamp(threadHandler.getEndtimestamp());
+					    }
+						log.info("Selection finished!");
+						log.info("Reporting results from the selection!");
+						this.threadHandler.setNewEstimationSpecification(est);
+				    }else{
+				    	log.error("The estimation specification given from the recommendation algorithm by selection was null!");
+				    }
+				}else{
+					log.info("Selection does not habe data yet from RecommendationThread!");
+				}
+				log.info("Start finished!");
+				nextselectiontimestamp = nextselectiontimestamp+selectionintervalMs;
+			}
 			if(!stop && System.currentTimeMillis() >= nextexecutiontimestamp){
 				log.info("Start the next calcualtion...");
 				//get the actual estimation approach
