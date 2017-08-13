@@ -212,10 +212,12 @@ public class ThreadHandler extends Thread {
 				if((optimizationThread==null || !optimizationThread.isRunning()) 
 						&& minimumTowTracesAvailable(optimizationConfiguration.getContainsOf().get(0).getTrainingData().get(0).getRootFolder())){
 					//start a new Calcualtion
+					this.optimizationConfiguration = null;
+					this.optimizationConfiguration = Util.loadOptimizationConfiguration(new File(this.folderWithConfigFiles+"/conf.optimization").toPath());;
 					this.optimizationThread = new OptimizationThread(this,libredeConfigurationOptimization,
 							optimizationConfiguration,folderOptimizationOutput);
-					//optimizationThread.start();
-					//log.error("STARTED OPTIMIZATION");
+					optimizationThread.start();
+					log.error("STARTED OPTIMIZATION");
 				}
 				nextExecutionTimeStampOptimization = nextExecutionTimeStampOptimization + (lifeCycleConfiguration.getOptimizationLoopTime());
 			}
@@ -306,9 +308,9 @@ public class ThreadHandler extends Thread {
 		try {
 			semaphoreEstimations.acquire();
 			if(newData!=null&&newData.size()!=0){
-				//log.error("OPTIMIZATION RESULT AVAILABLE");
+				log.error("OPTIMIZATION RESULT AVAILABLE");
 			}else{
-				//log.error("NO OPTIMIZATION RESULT AVAILABLE");
+				log.error("NO OPTIMIZATION RESULT AVAILABLE");
 			}
 			this.newEstimationSpecifications = newData;
 			log.info("New Estimation Specification stored!");
@@ -325,10 +327,10 @@ public class ThreadHandler extends Thread {
 	 */
 	public Collection<EstimationSpecification> getActualEstimationSpecifications() {
 		try {
-			//log.error("TRY TO PULL THE OPTIMIZATION RESULT BY RECOMMENDATION");
+			log.error("TRY TO PULL THE OPTIMIZATION RESULT BY RECOMMENDATION");
 			semaphoreEstimations.acquire();
 			if(this.newEstimationSpecifications!=null){
-				//log.error("PULLED THE OPTIMIZATION RESULT BY RECOMMENDATION");
+				log.error("PULLED THE OPTIMIZATION RESULT BY RECOMMENDATION");
 				this.actualEstimationSpecifications = this.newEstimationSpecifications;
 				this.newEstimationSpecifications = null;
 				log.info("Actual Estimation Specification updated!");
@@ -380,6 +382,7 @@ public class ThreadHandler extends Thread {
 		try {
 			semaphoreRecommendation.acquire();
 			if(this.newRecommendationAlgorithm!=null){
+				log.error("PULLED RECOMMENDATION RESULT BY SELECTION");
 				this.actualRecommendationAlgorithm = this. newRecommendationAlgorithm;
 				this.newRecommendationAlgorithm = null;
 				log.info("Actual Recommendation Algorithm updated!");
@@ -409,6 +412,7 @@ public class ThreadHandler extends Thread {
 		try {
 			semaphoreEstimation.acquire();
 			this.newEstimationSpecification = newEstimationSpecification;
+			log.error("NEW ALGORITHM SET");
 			log.info("New Estimation Specification stored!");
 			semaphoreEstimation.release();
 		} catch (InterruptedException e) {
@@ -426,6 +430,7 @@ public class ThreadHandler extends Thread {
 		try {
 			semaphoreEstimation.acquire();
 			if(this.newEstimationSpecification!=null){
+				log.error("NEW ALGORITHM PULLED");
 				this.actualEstimationSpecification = this.newEstimationSpecification;
 				this.newEstimationSpecification = null;
 				log.info("Actual Estimation Specification updated!");

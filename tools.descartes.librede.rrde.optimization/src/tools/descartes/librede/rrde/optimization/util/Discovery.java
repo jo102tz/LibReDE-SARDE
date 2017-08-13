@@ -62,6 +62,7 @@ import tools.descartes.librede.configuration.ValidationSpecification;
 import tools.descartes.librede.configuration.WorkloadDescription;
 import tools.descartes.librede.datasource.IDataSource;
 import tools.descartes.librede.datasource.csv.CsvDataSource;
+import tools.descartes.librede.datasource.csv.CsvDataSourceOffline;
 import tools.descartes.librede.registry.Instantiator;
 import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.optimization.InputData;
@@ -559,7 +560,7 @@ public class Discovery {
 						}
 
 						// retrieve all important parameters
-						if (ds instanceof CsvDataSource) {
+						if (ds instanceof CsvDataSource || ds instanceof CsvDataSourceOffline) {
 
 							unit = parseTimeUnit(fileTrace.getDataSource());
 							if (fileTrace.getMappings().size() >= 1) {

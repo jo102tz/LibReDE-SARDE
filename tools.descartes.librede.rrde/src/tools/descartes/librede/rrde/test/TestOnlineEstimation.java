@@ -35,8 +35,11 @@ public class TestOnlineEstimation{
 		log.info("Initialize Librede...");
 		Librede.initLogging();
 		//TODO:
-		Logger.getRootLogger().setLevel(Level.INFO);
-		//Logger.getLogger("tools.descartes.librede.repository").setLevel(Level.WARN);
+		Logger.getRootLogger().setLevel(Level.WARN);
+		Logger.getLogger("tools.descartes.librede.rrde.EstimationThread").setLevel(Level.INFO);
+		Logger.getLogger("tools.descartes.librede.rrde.ThreadHandler").setLevel(Level.INFO);
+		Logger.getLogger("tools.descartes.librede.rrde.RecommendationThread").setLevel(Level.INFO);
+		Logger.getLogger("tools.descartes.librede.rrde.OptimizationThread").setLevel(Level.INFO);
 		Librede.init();
 		//Librede.init();
 		IpoptLibrary.init();
@@ -50,7 +53,7 @@ public class TestOnlineEstimation{
 	public void test() {
 		log.info("Starting the test...");
 		//create the runner class
-		ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,300000, 60000, 30000, 30000, 6000000);
+		ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,300000, 60000, 30000, 30000, 150000);
 		//start it
 		threadHandler.start();
 		System.out.println("Type something to stop");
