@@ -186,6 +186,7 @@ public class ThreadHandler extends Thread {
 			isInitialized = true;
 		}
 		log.info("ThreadHandler starts looping...");
+		int counteropt = 0;
 		//run until stopped
 		while(!stop){
 			long timestamp = System.currentTimeMillis();
@@ -212,12 +213,16 @@ public class ThreadHandler extends Thread {
 				if((optimizationThread==null || !optimizationThread.isRunning()) 
 						&& minimumTowTracesAvailable(optimizationConfiguration.getContainsOf().get(0).getTrainingData().get(0).getRootFolder())){
 					//start a new Calcualtion
+					//if(counteropt==0){
 					this.optimizationConfiguration = null;
 					this.optimizationConfiguration = Util.loadOptimizationConfiguration(new File(this.folderWithConfigFiles+"/conf.optimization").toPath());;
 					this.optimizationThread = new OptimizationThread(this,libredeConfigurationOptimization,
 							optimizationConfiguration,folderOptimizationOutput);
 					optimizationThread.start();
 					log.error("STARTED OPTIMIZATION");
+					
+					//counteropt++;
+					//}
 				}
 				nextExecutionTimeStampOptimization = nextExecutionTimeStampOptimization + (lifeCycleConfiguration.getOptimizationLoopTime());
 			}

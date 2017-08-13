@@ -59,7 +59,7 @@ public class RecommendationThread extends Thread {
 		Collection<EstimationSpecification> actualestimationspecifications = threadHandler.getActualEstimationSpecifications();
 		if(actualestimationspecifications!=null){
 			recommendationTrainingConfiguration.getEstimators().clear();
-			recommendationTrainingConfiguration.getEstimators().addAll(threadHandler.getActualEstimationSpecifications());
+			recommendationTrainingConfiguration.getEstimators().addAll(actualestimationspecifications);
 			
 		}else{
 			log.info("RecommendationThread has not yet input data from the OptimizationThread!");

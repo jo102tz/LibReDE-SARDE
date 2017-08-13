@@ -53,6 +53,7 @@ public class TestOnlineEstimation{
 	public void test() {
 		log.info("Starting the test...");
 		//create the runner class
+		//ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,6000000, 6000000, 6000000, 60000, 2000);
 		ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,300000, 60000, 30000, 30000, 150000);
 		//start it
 		threadHandler.start();
