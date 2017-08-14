@@ -40,7 +40,6 @@ import java.util.SortedSet;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 
 import tools.descartes.librede.data.harvester.io.DataStream;
 import tools.descartes.librede.data.harvester.io.Folder;
@@ -65,7 +64,7 @@ public class Harvester {
 
 	public static final boolean USE_DISK_UTIL = false;
 
-	private static String PATH = "D:/googledata/clusterdata-2011-2/";
+	private static String PATH = "C:/googledata/clusterdata-2011-2/";
 
 	static Logger log = Logger.getLogger("tools.descartes.librede.data.harvester.Main");
 
