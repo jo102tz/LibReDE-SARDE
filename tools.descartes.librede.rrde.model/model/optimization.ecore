@@ -106,4 +106,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="productMaxValue" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double" defaultValueLiteral="10000"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClusterOptimizationSpecifier" eSuperTypes="#//ConfigurationOptimizationAlgorithmSpecifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="clusterAlgorithm" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subAlgorithm" lowerBound="1"
+        eType="#//ConfigurationOptimizationAlgorithmSpecifier"/>
+  </eClassifiers>
 </ecore:EPackage>

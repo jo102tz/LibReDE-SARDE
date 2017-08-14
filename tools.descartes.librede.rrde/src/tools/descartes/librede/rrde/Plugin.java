@@ -135,7 +135,7 @@ public class Plugin implements IApplication {
 
       // wrap into Executor
       OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor, algorithm);
-
+      
       log.info("Finished training! Ready for predictions now.");
       log.info("Finished optimization and recommendation.");
       return exec;

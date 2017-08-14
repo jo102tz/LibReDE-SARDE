@@ -130,6 +130,15 @@ public interface OptimizationFactory extends EFactory {
 	StepSizeRelWindow createStepSizeRelWindow();
 
 	/**
+	 * Returns a new object of class '<em>Cluster Optimization Specifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Cluster Optimization Specifier</em>'.
+	 * @generated
+	 */
+	ClusterOptimizationSpecifier createClusterOptimizationSpecifier();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
