@@ -103,6 +103,9 @@ public class ThreadHandler extends Thread {
 	//the folder for the estimation output
 	//always has to be named "estimationoutput"
 	private String folderEstimationOutput;
+	//the folder for the experiment output
+	//always has to be named "info"
+	public static String folderInfo;
 	//the parent folder of all data for one run
 	private String datafolder;
 	/**
@@ -136,6 +139,7 @@ public class ThreadHandler extends Thread {
 		this.folderWithKiekerFiles = datafolder+"/kieker";
 		this.folderOptimizationOutput = datafolder+"/optimizationoutput";
 		this.folderEstimationOutput = datafolder+"/estimationoutput";
+		this.folderInfo = datafolder+"/estimationoutput";
 		this.datafolder = datafolder;
 		this.triggerIntervallMs = triggerIntervalMs;
 		this.offsettimeMs = offsettimeMs;

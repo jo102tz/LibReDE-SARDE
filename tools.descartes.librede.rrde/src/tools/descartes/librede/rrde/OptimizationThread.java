@@ -69,8 +69,12 @@ public class OptimizationThread extends Thread {
 			isInitialized = true;
 		}
 		log.info("Starting calculations in OptimizationThread...");
+		long starttime = System.currentTimeMillis();
 		Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
 				.runConfigurationOptimization(libredeConfiguration, optimizationConfiguration, outputdirectory);
+		long endtime = System.currentTimeMillis();
+		Logging.logOptimizationExecutionTime(starttime, endtime);
+		Logging.logOptimizationOutput(starttime, estimations, libredeConfiguration);
 		log.info("Calculations in OptimizationThread finished!");
 		log.info("Reporting results from OptimizationThread!");
 		this.threadHandler.setNewEstimationSpecifications(estimations);

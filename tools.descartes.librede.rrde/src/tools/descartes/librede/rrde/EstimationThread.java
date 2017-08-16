@@ -130,9 +130,13 @@ public class EstimationThread extends Thread {
 				log.info("Start the next selection...");
 				IRecomendationAlgorithm recomendationAlgorithm = threadHandler.getActualRecommendationAlgorithm();
 				if(recomendationAlgorithm!=null){
+					long starttime = System.currentTimeMillis();
 					FeatureVector features = featureExtractor.extractFeatures(var);
 				    EstimationSpecification est = recomendationAlgorithm.recommendEstimation(features);
+				    long endtime = System.currentTimeMillis();
 				    if(est!=null){
+				    	Logging.logSelectionExecutionTime(starttime, endtime);
+				    	Logging.logSelectionOutput(starttime, endtime, est);
 					    //set the right timestamps in case they are not set yet.
 					    if (est.getStartTimestamp() == null || !est.getStartTimestamp().equals(threadHandler.getStarttimestamp())) {
 							est.setStartTimestamp(threadHandler.getStarttimestamp());
@@ -162,7 +166,11 @@ public class EstimationThread extends Thread {
 		        	
 		        }
 				//update the repo and calcualte the results
+		        long starttime = System.currentTimeMillis();
 				LibredeResults results = Librede.executeOnline(var, existingDatasources, dataSourceListener);
+				long endtime = System.currentTimeMillis();
+				Logging.logEstimationExecutionTime(starttime, endtime);
+				Logging.logEstimationOutput(starttime, endtime, results);
 				//LOG LIBREDE RESULTS
 				try {
 					log.info("Writing results...");

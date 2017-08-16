@@ -16,5 +16,6 @@ Require-Bundle: tools.descartes.librede.rrde.model;bundle-version="1.0.0",
  tools.descartes.librede.rrde.rinterface;bundle-version="1.0.0",
  tools.descartes.librede.bayesplusplus.java,
  tools.descartes.librede.nnls.java,
- tools.descartes.librede.ipopt.java
+ tools.descartes.librede.ipopt.java,
+ tools.descartes.librede.linalg
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

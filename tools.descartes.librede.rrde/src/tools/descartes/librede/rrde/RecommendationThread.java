@@ -64,8 +64,11 @@ public class RecommendationThread extends Thread {
 		}else{
 			log.info("RecommendationThread has not yet input data from the OptimizationThread!");
 		}
+		long starttime = System.currentTimeMillis();
 		IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
 				.loadAndTrainAlgorithm(recommendationTrainingConfiguration);
+		long endtime = System.currentTimeMillis();
+		Logging.logRecommendationExecutionTime(starttime, endtime);
 		log.info("Calculations in RecommendationThread finished!");
 		log.info("Reporting results from RecommendationThread!");
 		this.threadHandler.setNewRecommendationAlgorithm(algorithm);
