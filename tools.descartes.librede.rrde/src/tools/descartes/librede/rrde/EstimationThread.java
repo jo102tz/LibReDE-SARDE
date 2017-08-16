@@ -29,7 +29,7 @@ import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
  * This is the same functinality as in the ContinuousKiekerReadingTest.java
  * The KiekerAmqpDataSource needs to have the right directory to save the kieker files.
  * 
- * @author Torsten Krauß
+ * @author Torsten KrauÃŸ
  *
  */
 public class EstimationThread extends Thread {
@@ -126,6 +126,7 @@ public class EstimationThread extends Thread {
 				log.info("Stopped updating repository.");
 			}
 			if(!stop && System.currentTimeMillis() >= nextselectiontimestamp){
+				nextselectiontimestamp = nextselectiontimestamp+selectionintervalMs;
 				log.info("Start the next selection...");
 				IRecomendationAlgorithm recomendationAlgorithm = threadHandler.getActualRecommendationAlgorithm();
 				if(recomendationAlgorithm!=null){
@@ -133,10 +134,10 @@ public class EstimationThread extends Thread {
 				    EstimationSpecification est = recomendationAlgorithm.recommendEstimation(features);
 				    if(est!=null){
 					    //set the right timestamps in case they are not set yet.
-					    if (!est.getStartTimestamp().equals(threadHandler.getStarttimestamp())) {
+					    if (est.getStartTimestamp() == null || !est.getStartTimestamp().equals(threadHandler.getStarttimestamp())) {
 							est.setStartTimestamp(threadHandler.getStarttimestamp());
 						}
-					    if(!est.getEndTimestamp().equals(threadHandler.getEndtimestamp())){
+					    if(est.getEndTimestamp() == null || !est.getEndTimestamp().equals(threadHandler.getEndtimestamp())){
 					    	est.setEndTimestamp(threadHandler.getEndtimestamp());
 					    }
 						log.info("Selection finished!");
@@ -149,18 +150,20 @@ public class EstimationThread extends Thread {
 					log.info("Selection does not habe data yet from RecommendationThread!");
 				}
 				log.info("Start finished!");
-				nextselectiontimestamp = nextselectiontimestamp+selectionintervalMs;
 			}
 			if(!stop && System.currentTimeMillis() >= nextexecutiontimestamp){
+				nextexecutiontimestamp = nextexecutiontimestamp+calculationintervalMs;
 				log.info("Start the next calcualtion...");
 				//get the actual estimation approach
 		        EstimationSpecification actualapproach = EcoreUtil.copy(threadHandler.getActualEstimationSpecification());
 		        if(actualapproach!=null){
 					log.info("Updated to new approach!");
-		        	var.getConf().setEstimation(actualapproach);
+					var.getConf().setEstimation(actualapproach);
+		        	
 		        }
 				//update the repo and calcualte the results
 				LibredeResults results = Librede.executeOnline(var, existingDatasources, dataSourceListener);
+				//LOG LIBREDE RESULTS
 				try {
 					log.info("Writing results...");
 					File outputfile = new File(folderEstimationOutput+"/results.txt");
@@ -173,7 +176,8 @@ public class EstimationThread extends Thread {
 					log.error("WARN: Cannot write output!");
 				}
 				log.info("Calcualtion done!");
-				nextexecutiontimestamp = nextexecutiontimestamp+calculationintervalMs;
+				//clear out the results of this execution
+				var.getResults().clear();
 			}
 		}
 		log.info("Librede Process stopped!");

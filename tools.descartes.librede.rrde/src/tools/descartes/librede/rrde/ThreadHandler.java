@@ -35,7 +35,7 @@ import tools.descartes.librede.units.Time;
  * It schedules the different calculations that have to be done
  * cyclic.
  * 
- * @author Torsten Krauß
+ * @author Torsten KrauÃŸ
  *
  */
 public class ThreadHandler extends Thread {
@@ -416,6 +416,7 @@ public class ThreadHandler extends Thread {
 	public void setNewEstimationSpecification(EstimationSpecification newEstimationSpecification) {
 		try {
 			semaphoreEstimation.acquire();
+			this.newEstimationSpecification = null;
 			this.newEstimationSpecification = newEstimationSpecification;
 			log.error("NEW ALGORITHM SET");
 			log.info("New Estimation Specification stored!");
