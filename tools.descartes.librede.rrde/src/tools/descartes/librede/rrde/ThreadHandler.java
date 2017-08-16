@@ -139,7 +139,7 @@ public class ThreadHandler extends Thread {
 		this.folderWithKiekerFiles = datafolder+"/kieker";
 		this.folderOptimizationOutput = datafolder+"/optimizationoutput";
 		this.folderEstimationOutput = datafolder+"/estimationoutput";
-		this.folderInfo = datafolder+"/estimationoutput";
+		this.folderInfo = datafolder+"/info";
 		this.datafolder = datafolder;
 		this.triggerIntervallMs = triggerIntervalMs;
 		this.offsettimeMs = offsettimeMs;
