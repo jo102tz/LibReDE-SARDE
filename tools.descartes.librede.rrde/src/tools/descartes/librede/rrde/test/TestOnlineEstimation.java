@@ -27,8 +27,8 @@ public class TestOnlineEstimation{
 	/**
 	 * The used variables in this test.
 	 */
-	private String datafolder = "/home/torsten/test/estimation";
-	//private String datafolder = "C:/jettytest/estimation";
+	//private String datafolder = "/home/torsten/test/estimation";
+	private String datafolder = "C:/jettytest/estimation";
 	
 	
 	@BeforeClass
