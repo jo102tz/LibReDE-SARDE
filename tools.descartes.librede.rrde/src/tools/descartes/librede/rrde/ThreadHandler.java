@@ -121,6 +121,8 @@ public class ThreadHandler extends Thread {
 	private Quantity<Time> starttimestamp;
 	private Quantity<Time> endtimestamp;
 	
+	private boolean haveoptresult = false;
+	
 	/**
 	 * The constructor of this class.
 	 * @param datafolder - the root folder of the data
@@ -197,16 +199,18 @@ public class ThreadHandler extends Thread {
 			//start the desired thread, if the next execution
 			//timestamp is reached and, if the thread is
 			//not still working
-
+			
 			//check the recommendation thread
 			if(nextExecutionTimeStampRecommendation<=timestamp && !stop){
 				//if the thread is actually not calculating results
 				if((recommendationThread==null || !recommendationThread.isRunning())
 						 && minimumTowTracesAvailable(recommendationTrainingConfiguration.getTrainingData().get(0).getRootFolder())){
 					//start a new Calcualtion
-					this.recommendationThread = new RecommendationThread(this, recommendationTrainingConfiguration);
-					recommendationThread.start();
-					log.error("STARTED RECOMMENDATION");
+					if(haveoptresult){
+						this.recommendationThread = new RecommendationThread(this, recommendationTrainingConfiguration);
+						recommendationThread.start();
+						log.error("STARTED RECOMMENDATION");
+					}
 				}
 				nextExecutionTimeStampRecommendation = nextExecutionTimeStampRecommendation + (lifeCycleConfiguration.getRecommendationLoopTime());
 			}
@@ -215,9 +219,10 @@ public class ThreadHandler extends Thread {
 			if(nextExecutionTimeStampOptimization<=timestamp && !stop){
 				//if the thread is actually not calculating results
 				if((optimizationThread==null || !optimizationThread.isRunning()) 
-						&& minimumTowTracesAvailable(optimizationConfiguration.getContainsOf().get(0).getTrainingData().get(0).getRootFolder())){
+						//&& minimumTowTracesAvailable(optimizationConfiguration.getContainsOf().get(0).getTrainingData().get(0).getRootFolder())
+						){
 					//start a new Calcualtion
-					//if(counteropt==0){
+					if(counteropt==0){
 					this.optimizationConfiguration = null;
 					this.optimizationConfiguration = Util.loadOptimizationConfiguration(new File(this.folderWithConfigFiles+"/conf.optimization").toPath());;
 					this.optimizationThread = new OptimizationThread(this,libredeConfigurationOptimization,
@@ -225,8 +230,8 @@ public class ThreadHandler extends Thread {
 					optimizationThread.start();
 					log.error("STARTED OPTIMIZATION");
 					
-					//counteropt++;
-					//}
+					counteropt++;
+					}
 				}
 				nextExecutionTimeStampOptimization = nextExecutionTimeStampOptimization + (lifeCycleConfiguration.getOptimizationLoopTime());
 			}
@@ -318,6 +323,7 @@ public class ThreadHandler extends Thread {
 			semaphoreEstimations.acquire();
 			if(newData!=null&&newData.size()!=0){
 				log.error("OPTIMIZATION RESULT AVAILABLE");
+				haveoptresult=true;
 			}else{
 				log.error("NO OPTIMIZATION RESULT AVAILABLE");
 			}

@@ -22,6 +22,8 @@ import tools.descartes.librede.datasource.IDataSource;
 import tools.descartes.librede.rrde.optimization.util.Wrapper;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
+import tools.descartes.librede.rrde.recommendation.algorithm.ITradeOffRecommendationAlgorithm;
+import tools.descartes.librede.rrde.recommendation.algorithm.TimeImportance;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
 /**
@@ -58,6 +60,13 @@ public class EstimationThread extends Thread {
 	long pollinginteralMs; //20000
 	long maxupdaterepotimeMs; //5000
 	long selectionintervalMs;
+	private boolean hasselectedonce=false;
+	/**
+	 * For trade off recommendation
+	 */
+	  private Double timeThreshold;
+	  
+	  private TimeImportance timeImportance;
 	/**
 	 * Members
 	 */
@@ -82,6 +91,8 @@ public class EstimationThread extends Thread {
 		this.var = null;
 		this.folderEstimationOutput = folderEstimationOutput;
 		this.featureExtractor = featureExtractor;
+		this.timeThreshold = 2000.0;
+		this.timeImportance = TimeImportance.LOW;
 		log.info("EstimationThread instance created!");
 	}
 	
@@ -132,7 +143,15 @@ public class EstimationThread extends Thread {
 				if(recomendationAlgorithm!=null){
 					long starttime = System.currentTimeMillis();
 					FeatureVector features = featureExtractor.extractFeatures(var);
-				    EstimationSpecification est = recomendationAlgorithm.recommendEstimation(features);
+					EstimationSpecification est = null;
+					if(recomendationAlgorithm instanceof ITradeOffRecommendationAlgorithm){
+				    	  est = ((ITradeOffRecommendationAlgorithm)recomendationAlgorithm).recommendEstimation(features,timeThreshold,timeImportance);
+				    	  log.error("Recommend with Trade-off algorithm");
+				    	  log.info("Recommend with Trade-off algorithm");
+					}else{
+				    	  est = recomendationAlgorithm.recommendEstimation(features);
+				    	  log.info("Recommend with normal algorithm");
+					}
 				    long endtime = System.currentTimeMillis();
 				    if(est!=null){
 				    	Logging.logSelectionExecutionTime(starttime, endtime);
@@ -163,14 +182,34 @@ public class EstimationThread extends Thread {
 		        if(actualapproach!=null){
 					log.info("Updated to new approach!");
 					var.getConf().setEstimation(actualapproach);
-		        	
+					if(!hasselectedonce){
+						try {
+							File outputfile = new File(ThreadHandler.folderInfo+"/estimation_output.csv");
+							PrintStream outputStream;
+							outputStream = new PrintStream(new FileOutputStream(outputfile, true));
+							//write the output here
+							String outline = "We selected once now.\n";
+							outputStream.print(outline);
+							//end
+							outputStream.flush();
+							outputStream.close();
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+							System.out.println("LOGGING FAILED!!!");
+						}
+						hasselectedonce=true;
+					}
 		        }
 				//update the repo and calcualte the results
 		        long starttime = System.currentTimeMillis();
 				LibredeResults results = Librede.executeOnline(var, existingDatasources, dataSourceListener);
 				long endtime = System.currentTimeMillis();
 				Logging.logEstimationExecutionTime(starttime, endtime);
-				Logging.logEstimationOutput(starttime, endtime, results);
+				if(hasselectedonce){
+					Logging.logEstimationOutput(starttime, endtime, results);
+				}else{
+					Logging.logBestEstimationOutput(starttime, endtime, results);
+				}
 				//LOG LIBREDE RESULTS
 				try {
 					log.info("Writing results...");

@@ -28,6 +28,7 @@ package tools.descartes.librede.rrde.recommendation;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.log4j.Level;
@@ -42,9 +43,11 @@ import org.eclipse.equinox.app.IApplicationContext;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
+import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ValidationSpecification;
+import tools.descartes.librede.linalg.Matrix;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
@@ -234,8 +237,28 @@ public class Plugin implements IApplication {
 		    long start = System.currentTimeMillis();
 			LibredeResults result = Wrapper.executeLibrede(conf);
 		    long time = System.currentTimeMillis()-start;
-			results.put(spec, Util.getValidationError(result, conf.getValidation()));
-			times.put(spec, Double.longBitsToDouble(time));
+		    //IMPORTANT: This is a fix to ignore approaches, that do not really deliver an result
+		    //these approaches always deliver 0s for all resource demands and an error of 100%
+		    //this fix is necessary due to no adequate exception handling in the librede project.
+		    boolean hasrealvalue = false;
+		    for(Entry<Class<? extends IEstimationApproach>, Matrix> a : result.getAllEstimates().entrySet()){
+		    	for(int i=0; i< a.getValue().rows(); ++i){
+			    	double value = a.getValue().get(i, 0);
+			    	if(value!=0.0){
+			    		hasrealvalue=true;
+			    		break;
+			    	}
+		    	}
+		    }
+		    if(hasrealvalue){
+		    	//this is the code before we did the fix:
+		    	results.put(spec, Util.getValidationError(result, conf.getValidation()));
+		    	times.put(spec, Double.longBitsToDouble(time));
+		    }else{
+		    	results.put(spec, Double.MAX_VALUE);
+		    	times.put(spec, Double.MAX_VALUE);
+		    }
+		    //end fo fix
 		}
 		if(alg instanceof ITradeOffRecommendationAlgorithm){
 			((ITradeOffRecommendationAlgorithm) alg)

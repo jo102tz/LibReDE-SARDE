@@ -54,8 +54,8 @@ public class TestOnlineEstimation{
 	public void test() {
 		log.info("Starting the test...");
 		//create the runner class
-		//ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,6000000, 6000000, 6000000, 60000, 2000);
-		ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,300000, 60000, 120000, 600000, 1800000);
+		ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,300000, 60000, 30000, 600000,1000);
+		//ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,300000, 60000, 120000, 600000, 1800000);
 		//ThreadHandler threadHandler = new ThreadHandler(datafolder,2000,300000, 60000, 30000, 2000, 1800000);
 		//start it
 		threadHandler.start();
