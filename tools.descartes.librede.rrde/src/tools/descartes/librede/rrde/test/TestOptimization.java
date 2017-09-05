@@ -35,6 +35,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
@@ -60,8 +61,8 @@ public class TestOptimization extends AbstractTest {
 	private static final Logger log = Logger.getLogger(TestOptimization.class);
 
 	@Test
-	// WARNING! THIS TEST USUALLY TAKES QUITE A WHILE (up to 30 minutes)
-	public void test() {
+	// WARNING! THIS TEST USUALLY TAKES QUITE A WHILE
+	public void testS3() {
 
 		// check if RBridge is available and running
 		try {
@@ -79,10 +80,11 @@ public class TestOptimization extends AbstractTest {
 		log.info("Initialized! Starting optimization...");
 		long start = System.currentTimeMillis();
 		// run optimization
-		Collection<EstimationSpecification> estimations = new OptimizationPlugin()
-				.runConfigurationOptimization(librede, optimization, OUTPUT);
+		Collection<EstimationSpecification> estimations = new OptimizationPlugin().runConfigurationOptimization(librede,
+				optimization, OUTPUT);
 		long opti = System.currentTimeMillis() - start;
 		log.info("Finished optimization! Done...");
+		log.info("Took: " + opti + "ms");
 
 		// should work with normal optimzation, if not, replace with EcorUtil
 		// copies
@@ -118,6 +120,10 @@ public class TestOptimization extends AbstractTest {
 			testSingleEstimator(est, aftermap.keySet().iterator().next(),
 					map.get(est.getApproaches().get(0).getType()));
 
+	}
+
+	@Test
+	public void testLocalSearch() {
 		// restore default and set new algorithm
 		optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
 		for (RunCall call : optimization.getContainsOf()) {
@@ -135,14 +141,14 @@ public class TestOptimization extends AbstractTest {
 		}
 
 		// repeat
-		estimations = new OptimizationPlugin().runConfigurationOptimization(librede,
+		Collection<EstimationSpecification> estimations = new OptimizationPlugin().runConfigurationOptimization(librede,
 				optimization, OUTPUT);
 		log.info("Finished optimization! Done...");
 
 		// print results
-		aftermap = vali.compareOptimized(estimations, true);
+		Map<LibredeConfiguration, TestResult> aftermap = vali.compareOptimized(estimations, true);
 
-		map = new HashMap<>();
+		HashMap<String, Double> map = new HashMap<>();
 		map.put("tools.descartes.librede.approach.KumarKalmanFilterApproach", 0.11392650410342983);
 
 		map.put("tools.descartes.librede.approach.UtilizationRegressionApproach", 0.5655154888467464);
@@ -163,7 +169,13 @@ public class TestOptimization extends AbstractTest {
 		for (EstimationSpecification est : estimations)
 			testSingleEstimator(est, aftermap.keySet().iterator().next(),
 					map.get(est.getApproaches().get(0).getType()));
+	}
 
+	// THIS SHOULD WORK, HOWEVER TESTS TAKE WAY TOO LONG, SO IT WAS EXCLUDED FOR
+	// AUTOMATED TESTING
+	@Test
+	@Ignore
+	public void testBruteForce() {
 		// set new algorithm
 		optimization = Util.loadOptimizationConfiguration(new File(OPT_PATH).toPath());
 		for (RunCall call : optimization.getContainsOf()) {
@@ -172,7 +184,7 @@ public class TestOptimization extends AbstractTest {
 			}
 			call.getSettings().setValidator(EcoreUtil.copy(librede.getValidation()));
 		}
-		spec = new LocalSearchSpecifierImpl();
+		LocalSearchSpecifier spec = new LocalSearchSpecifierImpl();
 		spec.setAlgorithmName("tools.descartes.librede.rrde.optimization.algorithm.impl.BruteForceAlgorithm");
 		spec.setStepSize(1);
 		spec.setTolerance(0);
@@ -181,14 +193,14 @@ public class TestOptimization extends AbstractTest {
 		}
 
 		// repeat
-		estimations = new OptimizationPlugin().runConfigurationOptimization(librede,
+		Collection<EstimationSpecification> estimations = new OptimizationPlugin().runConfigurationOptimization(librede,
 				optimization, OUTPUT);
 		log.info("Finished optimization! Done...");
 
 		// print results
-		aftermap = vali.compareOptimized(estimations, true);
+		Map<LibredeConfiguration, TestResult> aftermap = vali.compareOptimized(estimations, true);
 
-		map = new HashMap<>();
+		HashMap<String, Double> map = new HashMap<>();
 		map.put("tools.descartes.librede.approach.KumarKalmanFilterApproach", 0.11890723189927888);
 
 		map.put("tools.descartes.librede.approach.UtilizationRegressionApproach", 0.6150293802231154);
@@ -209,7 +221,6 @@ public class TestOptimization extends AbstractTest {
 		for (EstimationSpecification est : estimations)
 			testSingleEstimator(est, aftermap.keySet().iterator().next(),
 					map.get(est.getApproaches().get(0).getType()));
-
 	}
 
 }
