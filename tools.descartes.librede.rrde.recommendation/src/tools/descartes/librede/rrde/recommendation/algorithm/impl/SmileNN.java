@@ -29,6 +29,7 @@ package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 import org.apache.log4j.Logger;
 
 import smile.classification.NeuralNetwork;
+import tools.descartes.librede.registry.Component;
 import tools.descartes.librede.rrde.model.recommendation.NeuralNetworkAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
@@ -40,6 +41,7 @@ import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgor
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
+@Component(displayName = "SmileNN")
 public class SmileNN extends AbstractSmileAlgorithm {
 
 	/**

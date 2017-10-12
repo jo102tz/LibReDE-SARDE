@@ -29,6 +29,7 @@ package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 import org.apache.log4j.Logger;
 
 import smile.classification.DecisionTree;
+import tools.descartes.librede.registry.Component;
 import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 
@@ -36,6 +37,7 @@ import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithm
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
+@Component(displayName = "SmileTree")
 public class SmileTree extends AbstractSmileAlgorithm {
 
 	/**

@@ -36,6 +36,7 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.ipopt.java.IpoptLibrary;
 import tools.descartes.librede.nnls.NNLSLibrary;
 
+
 /**
  * This class provides some interface functionality and serves as a wrapper
  * around the standard LibReDE tool in order to make calls for the algorithms
@@ -62,6 +63,7 @@ public class Wrapper {
 		IpoptLibrary.init();
 		NNLSLibrary.init();
 		BayesLibrary.init();
+		
 //		cache = new HashMap<LibredeConfiguration, LibredeVariables>();
 	}
 

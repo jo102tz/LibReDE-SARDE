@@ -28,10 +28,12 @@ package tools.descartes.librede.rrde.optimization.algorithm.impl;
 
 import org.apache.log4j.Logger;
 
+import tools.descartes.librede.registry.Component;
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.model.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
+
 
 /**
  * A general implementation of a Hill-climbing routine supporting a tolerance
@@ -40,6 +42,7 @@ import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfiguration
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
+@Component(displayName = "Hill Climbing")
 public class HillClimbingAlgorithm extends AbstractConfigurationOptimizer {
 
 	private static final Logger log = Logger

@@ -1,0 +1,182 @@
+/**
+ * ==============================================
+ *  LibReDE : Library for Resource Demand Estimation
+ * ==============================================
+ *
+ * (c) Copyright 2013-2014, by Simon Spinner and Contributors.
+ *
+ * Project Info:   http://www.descartes-research.net/
+ *
+ * All rights reserved. This software is made available under the terms of the
+ * Eclipse Public License (EPL) v1.0 as published by the Eclipse Foundation
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * This software is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License (EPL)
+ * for more details.
+ *
+ * You should have received a copy of the Eclipse Public License (EPL)
+ * along with this software; if not visit http://www.eclipse.org or write to
+ * Eclipse Foundation, Inc., 308 SW First Avenue, Suite 110, Portland, 97204 USA
+ * Email: license (at) eclipse.org
+ *
+ * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
+ * in the United States and other countries.]
+ */
+package tools.descartes.librede.rrde.model.editor.forms.master;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.eclipse.core.databinding.observable.list.IObservableList;
+import org.eclipse.core.databinding.observable.list.WritableList;
+import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
+import org.eclipse.jface.viewers.CheckboxTableViewer;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.ui.forms.DetailsPart;
+import org.eclipse.ui.forms.IDetailsPage;
+import org.eclipse.ui.forms.IDetailsPageProvider;
+
+import tools.descartes.librede.algorithm.IEstimationAlgorithm;
+import tools.descartes.librede.configuration.ConfigurationFactory;
+import tools.descartes.librede.configuration.ConfigurationPackage;
+import tools.descartes.librede.configuration.EstimationAlgorithmConfiguration;
+import tools.descartes.librede.configuration.EstimationSpecification;
+import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.configuration.editor.forms.ClassesViewerFilter;
+
+import tools.descartes.librede.registry.Registry;
+import tools.descartes.librede.rrde.model.editor.forms.details.ParametersDetailsPage;
+import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
+import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
+import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.model.optimization.OptimizationFactory;
+import tools.descartes.librede.rrde.model.optimization.OptimizationPackage;
+import tools.descartes.librede.rrde.model.optimization.RunCall;
+
+public class EstimationApproachesMasterBlock extends AbstractMasterBlock
+		implements ISelectionChangedListener, IDetailsPageProvider {
+
+	protected Table tableAlgorithms;
+	protected TableViewer tableAlgorithmsViewer;
+
+	private RunCall input;
+
+	/**
+	 * Create the master details block.
+	 */
+	public EstimationApproachesMasterBlock(AdapterFactoryEditingDomain domain, LifeCycleConfiguration model) {
+		super(domain, model);
+
+	}
+
+	/**
+	 * Register the pages.
+	 * 
+	 * @param part
+	 */
+	@Override
+	protected void registerPages(DetailsPart part) {
+		part.setPageProvider(this);
+	}
+
+	@Override
+	protected String getMasterSectionTitle() {
+		return "All Estimation Algorithms";
+	}
+
+	@Override
+	protected Control createItemsList(Composite composite) {
+		tableAlgorithmsViewer = new TableViewer(composite, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+		tableAlgorithms = tableAlgorithmsViewer.getTable();
+
+		tableAlgorithmsViewer.setLabelProvider(new AdapterFactoryLabelProvider(page.getAdapterFactory()));
+		tableAlgorithmsViewer.setContentProvider(new AdapterFactoryContentProvider(page.getAdapterFactory()));
+		
+		
+		tableAlgorithmsViewer.addFilter(
+				new ClassesViewerFilter(EstimationSpecification.class, EstimationAlgorithmConfiguration.class));
+		tableAlgorithmsViewer.addSelectionChangedListener(this);
+
+		registerViewer(tableAlgorithmsViewer);
+		
+		// init the bindings on creation of the page
+		runCallPageSelectionChanged();
+		
+		return tableAlgorithms;
+	}
+
+	protected void existAlgorithmAdder() {
+		// We need to add the existing validators in the configuration
+		// first, so
+		// that the test for
+		// equality in the checked table binding works correctly. EMF always
+		// does an equality check on
+		// the object instance.
+		if (input.getEstimation() == null) {
+			input.eSet(OptimizationPackage.Literals.RUN_CALL__ESTIMATION, ConfigurationFactory.eINSTANCE.createEstimationSpecification());
+		}
+		Set<String> existingAlgorithms = new HashSet<String>();
+		for (EstimationAlgorithmConfiguration v : input.getEstimation().getAlgorithms()) {
+			existingAlgorithms.add(v.getType());
+		}
+		for (String instance : Registry.INSTANCE.getInstances(IEstimationAlgorithm.class)) {
+			if (!existingAlgorithms.contains(instance)) {
+				EstimationAlgorithmConfiguration a = ConfigurationFactory.eINSTANCE
+						.createEstimationAlgorithmConfiguration();
+				a.setType(instance);
+				Command cmd = AddCommand.create(domain, input.getEstimation(),
+						ConfigurationPackage.Literals.ESTIMATION_SPECIFICATION__ALGORITHMS, a);
+				domain.getCommandStack().execute(cmd);
+			}
+		}
+	}
+
+	@Override
+	public Object getPageKey(Object object) {
+		if (object instanceof EstimationAlgorithmConfiguration) {
+			return ((EstimationAlgorithmConfiguration) object).getType();
+		}
+		return null;
+	}
+
+	@Override
+	public IDetailsPage getPage(Object key) {
+		if (key instanceof String) {
+			return new ParametersDetailsPage(page, domain, "Estimation Algorithm Configuration",
+					ConfigurationPackage.Literals.ESTIMATION_ALGORITHM_CONFIGURATION, (String) key,
+					ConfigurationPackage.Literals.ESTIMATION_ALGORITHM_CONFIGURATION__PARAMETERS);
+		}
+		return null;
+	}
+
+	public void runCallPageSelectionChanged() {
+		input = SelectionProvider.INSTANCE().getSelectedRunCall();
+		if (input != null) {
+
+			if (tableAlgorithmsViewer != null) {
+				existAlgorithmAdder();
+				tableAlgorithmsViewer.setInput(input.getEstimation());
+			}
+		} else {
+			if (tableAlgorithmsViewer != null) {
+				tableAlgorithmsViewer.setInput(input);
+				tableAlgorithmsViewer.refresh();
+			}
+			
+			
+		}
+	}
+}

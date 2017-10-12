@@ -32,6 +32,7 @@ import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.ModelEntity;
 import tools.descartes.librede.metrics.Aggregation;
 import tools.descartes.librede.metrics.Metric;
+import tools.descartes.librede.registry.Component;
 import tools.descartes.librede.repository.IRepositoryCursor;
 import tools.descartes.librede.rrde.model.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
@@ -47,6 +48,7 @@ import tools.descartes.librede.units.Unit;
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
+@Component(displayName = "MinimalFeatureExtractor")
 public class MinimalFeatureExtractor extends ReducedFeatureExtractor {
 
 	/**

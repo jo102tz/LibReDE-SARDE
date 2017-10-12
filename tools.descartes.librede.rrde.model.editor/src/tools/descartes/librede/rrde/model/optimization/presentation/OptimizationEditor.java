@@ -87,7 +87,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 
 import org.eclipse.ui.dialogs.SaveAsDialog;
-
+import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.ide.IGotoMarker;
 
 import org.eclipse.ui.part.FileEditorInput;
@@ -154,20 +154,40 @@ import org.eclipse.emf.edit.ui.util.EditUIUtil;
 
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 
+import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.model.optimization.provider.OptimizationItemProviderAdapterFactory;
 
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 import tools.descartes.librede.configuration.provider.ConfigurationItemProviderAdapterFactory;
-
 import tools.descartes.librede.metrics.provider.MetricsItemProviderAdapterFactory;
-
+import tools.descartes.librede.registry.Registry;
+import tools.descartes.librede.rrde.model.editor.forms.EstimationFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.MasterDetailsFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.ValidationFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.WorkloadDescriptionFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.master.ConfigurationOptimizationAlgorithmSpecifierMasterPage;
+import tools.descartes.librede.rrde.model.editor.forms.master.DataSourcesMasterBlock;
+import tools.descartes.librede.rrde.model.editor.forms.master.EstimationApproachesMasterBlock;
+import tools.descartes.librede.rrde.model.editor.forms.master.InputDataMasterBlock;
+import tools.descartes.librede.rrde.model.editor.forms.master.OptimizationSettingsMasterBock;
+import tools.descartes.librede.rrde.model.editor.forms.master.TracesMasterBlock;
+import tools.descartes.librede.rrde.model.editor.forms.master.ValidationMasterBlock;
+import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
 import tools.descartes.librede.rrde.model.lifecycle.presentation.RrdeEditorPlugin;
 
 import tools.descartes.librede.rrde.model.lifecycle.provider.LifecycleItemProviderAdapterFactory;
-
+import tools.descartes.librede.rrde.model.recommendation.presentation.RecommendationEditor;
 import tools.descartes.librede.rrde.model.recommendation.provider.RecommendationItemProviderAdapterFactory;
-
+import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.BruteForceAlgorithm;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.EstimateExportAlgorithm;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.HillClimbingAlgorithm;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm;
+import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
+import tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileNN;
+import tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileSVM;
+import tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree;
 import tools.descartes.librede.units.provider.UnitsItemProviderAdapterFactory;
 
 
@@ -178,7 +198,7 @@ import tools.descartes.librede.units.provider.UnitsItemProviderAdapterFactory;
  * @generated
  */
 public class OptimizationEditor
-	extends MultiPageEditorPart
+	extends FormEditor
 	implements IEditingDomainProvider, ISelectionProvider, IMenuListener, IViewerProvider, IGotoMarker {
 	/**
 	 * This keeps track of the editing domain that is used to track all changes to the model.
@@ -944,7 +964,7 @@ public class OptimizationEditor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void createContextMenuFor(StructuredViewer viewer) {
+	public void createContextMenuFor(StructuredViewer viewer) {
 		MenuManager contextMenu = new MenuManager("#PopUp");
 		contextMenu.add(new Separator("additions"));
 		contextMenu.setRemoveAllWhenShown(true);
@@ -1266,6 +1286,7 @@ public class OptimizationEditor
 					 updateProblemIndication();
 				 }
 			 });
+	
 	}
 
 	/**
@@ -1833,4 +1854,61 @@ public class OptimizationEditor
 	protected boolean showOutlineView() {
 		return true;
 	}
+	/*
+	@Override
+	protected void addPages() {
+		OptimizationConfiguration conf = null;
+		for (Resource res : editingDomain.getResourceSet().getResources()) {
+			if (res.getContents().get(0) instanceof OptimizationConfiguration) {
+				conf = (OptimizationConfiguration) res.getContents().get(0);
+				break;
+			}
+		}
+		if (conf == null) {
+			throw new IllegalStateException("No Config Found");
+		}
+		
+		try {
+			
+			ConfigurationOptimizationAlgorithmSpecifierMasterPage configOptMasterBlock = new ConfigurationOptimizationAlgorithmSpecifierMasterPage(editingDomain, conf);
+			addPage(new MasterDetailsFormPage(this, "runCallSelection", "Run Call Selection", "", editingDomain, conf, configOptMasterBlock));
+							
+			InputDataMasterBlock inputDataMasterBlock = new InputDataMasterBlock(editingDomain, conf);
+			addPage(new MasterDetailsFormPage(this, "inputDataSelection", "Input Data Selection", "", editingDomain, conf, inputDataMasterBlock));
+			
+			WorkloadDescriptionFormPage workloadFormPage = new WorkloadDescriptionFormPage(this, "workloadmodel", "Workload Description", editingDomain, conf);
+			addPage(workloadFormPage);
+			
+			DataSourcesMasterBlock providerMasterBlock = new DataSourcesMasterBlock(editingDomain, conf);
+			addPage(new MasterDetailsFormPage(this, "datasources", "Data Sources", "full/page/DataSources.gif", editingDomain, conf, providerMasterBlock));
+			
+			TracesMasterBlock tracesMasterBlock = new TracesMasterBlock(editingDomain, conf);
+			addPage(new MasterDetailsFormPage(this, "traces", "Traces", "full/page/Traces", editingDomain, conf, tracesMasterBlock));
+			
+			EstimationApproachesMasterBlock approachesMasterBlock = new EstimationApproachesMasterBlock(editingDomain, conf);
+			EstimationFormPage estFormPage = new EstimationFormPage(this, "estimation", "Estimation", "full/page/Estimation", editingDomain, conf, approachesMasterBlock);
+			addPage(estFormPage);
+			
+			ValidationMasterBlock validationMasterBlock = new ValidationMasterBlock(editingDomain, conf);
+			ValidationFormPage validFormPage = new ValidationFormPage(this, "validation", "Validation", "", editingDomain, conf, validationMasterBlock);
+			addPage(validFormPage);
+			
+			OptimizationSettingsMasterBock optSettingsMasterBlock = new OptimizationSettingsMasterBock(editingDomain, conf);
+			addPage(new MasterDetailsFormPage(this, "optSettings", "Parameters to optimize", "", editingDomain, conf, optSettingsMasterBlock));
+			//OutputMasterBlock outputMasterBlock = new OutputMasterBlock(editingDomain, conf);
+			//addPage(new MasterDetailsFormPage(this, "output", "Output", "full/page/Output", editingDomain, conf, outputMasterBlock));
+			
+			SelectionProvider.INSTANCE().init(conf, editingDomain, providerMasterBlock, tracesMasterBlock, workloadFormPage, approachesMasterBlock, inputDataMasterBlock, optSettingsMasterBlock, validationMasterBlock, estFormPage, validFormPage);
+		} catch (PartInitException e) {
+			e.printStackTrace();
+		}		
+	}
+	*/
+
+	@Override
+	protected void addPages() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

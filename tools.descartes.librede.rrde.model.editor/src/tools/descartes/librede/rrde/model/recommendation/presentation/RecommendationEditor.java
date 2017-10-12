@@ -87,7 +87,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 
 import org.eclipse.ui.dialogs.SaveAsDialog;
-
+import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.ide.IGotoMarker;
 
 import org.eclipse.ui.part.FileEditorInput;
@@ -178,7 +178,7 @@ import tools.descartes.librede.units.provider.UnitsItemProviderAdapterFactory;
  * @generated
  */
 public class RecommendationEditor
-	extends MultiPageEditorPart
+	extends FormEditor
 	implements IEditingDomainProvider, ISelectionProvider, IMenuListener, IViewerProvider, IGotoMarker {
 	/**
 	 * This keeps track of the editing domain that is used to track all changes to the model.
@@ -1832,5 +1832,11 @@ public class RecommendationEditor
 	 */
 	protected boolean showOutlineView() {
 		return true;
+	}
+
+	@Override
+	protected void addPages() {
+		// TODO Auto-generated method stub
+		
 	}
 }

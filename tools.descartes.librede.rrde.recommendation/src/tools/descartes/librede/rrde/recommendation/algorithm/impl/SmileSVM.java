@@ -31,6 +31,7 @@ import org.apache.log4j.Logger;
 import smile.classification.SVM;
 import smile.classification.SVM.Multiclass;
 import smile.math.kernel.GaussianKernel;
+import tools.descartes.librede.registry.Component;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
@@ -42,6 +43,7 @@ import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgor
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
+@Component(displayName = "SmileSVM")
 public class SmileSVM extends AbstractSmileAlgorithm {
 
 	/**

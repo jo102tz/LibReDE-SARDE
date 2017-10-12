@@ -1,0 +1,171 @@
+/**
+ * ==============================================
+ *  LibReDE : Library for Resource Demand Estimation
+ * ==============================================
+ *
+ * (c) Copyright 2013-2014, by Simon Spinner and Contributors.
+ *
+ * Project Info:   http://www.descartes-research.net/
+ *
+ * All rights reserved. This software is made available under the terms of the
+ * Eclipse Public License (EPL) v1.0 as published by the Eclipse Foundation
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * This software is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License (EPL)
+ * for more details.
+ *
+ * You should have received a copy of the Eclipse Public License (EPL)
+ * along with this software; if not visit http://www.eclipse.org or write to
+ * Eclipse Foundation, Inc., 308 SW First Avenue, Suite 110, Portland, 97204 USA
+ * Email: license (at) eclipse.org
+ *
+ * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
+ * in the United States and other countries.]
+ */
+package tools.descartes.librede.rrde.model.editor.forms.master;
+
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.MasterDetailsBlock;
+import org.eclipse.ui.forms.SectionPart;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
+
+import tools.descartes.librede.rrde.model.actions.RunLifecycleAction;
+import tools.descartes.librede.rrde.model.actions.RunOptimizationAction;
+import tools.descartes.librede.rrde.model.actions.RunRecommendationAction;
+import tools.descartes.librede.rrde.model.editor.forms.AbstractLifecycleConfigurationFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.AbstractOptimizationConfigurationFormPage;
+import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
+import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
+
+public abstract class AbstractMasterBlock extends MasterDetailsBlock implements ISelectionChangedListener {
+	
+	protected IManagedForm managedForm;
+	protected FormToolkit toolkit;
+	protected AbstractLifecycleConfigurationFormPage page;
+	protected SectionPart masterPart;
+	protected AdapterFactoryEditingDomain domain;
+	protected LifeCycleConfiguration model;
+	protected Section sctnMaster;
+	public AbstractMasterBlock(AdapterFactoryEditingDomain domain, LifeCycleConfiguration model) {
+		this.domain = domain;
+		this.model = model;
+	}
+	
+	public void setFormPage(AbstractLifecycleConfigurationFormPage page) {
+		this.page = page;
+	}
+	
+	@Override
+	protected void applyLayout(Composite parent) {
+		GridLayout layout = new GridLayout(2, true);
+		// Values from org.eclipse.pde.internal.ui.editor.FormLayoutFactory
+		layout.marginHeight = 0;
+		layout.marginWidth = 0;
+		layout.marginTop = 12;
+		layout.marginBottom = 12;
+		layout.marginLeft = 6;
+		layout.marginRight = 6;
+		layout.horizontalSpacing = 20;
+		layout.verticalSpacing = 17;
+		parent.setLayout(layout);
+	}
+	
+	@Override
+	protected void applyLayoutData(SashForm sashForm) {
+		GridData data = new GridData(GridData.FILL_BOTH);
+		data.horizontalSpan = 2;
+		sashForm.setLayoutData(data);
+		sashForm.setSashWidth(20);
+	}
+	
+	@Override
+	protected void createToolBarActions(IManagedForm managedForm) {
+		managedForm.getForm().getToolBarManager().add(new RunOptimizationAction(model));
+		managedForm.getForm().getToolBarManager().add(new RunRecommendationAction(model));
+		managedForm.getForm().getToolBarManager().add(new RunLifecycleAction(model));
+	}
+	
+	@Override
+	protected void createMasterPart(IManagedForm managedForm, Composite parent) {
+		this.managedForm = managedForm;
+		this.toolkit = managedForm.getToolkit();
+		
+		//Composite container = toolkit.createComposite(parent);
+	
+		sctnMaster = toolkit.createSection(parent,
+				ExpandableComposite.EXPANDED | ExpandableComposite.TITLE_BAR);
+		sctnMaster.setText(getMasterSectionTitle());
+		if (getInfoLabelContent() != null) {
+			sctnMaster.setDescription(getInfoLabelContent());
+		}		
+		createToolbarAction(sctnMaster);
+		sctnMaster.setLayoutData(new GridData(GridData.FILL_BOTH));
+		
+		//
+		
+		Composite composite = toolkit.createComposite(sctnMaster, SWT.NONE);
+		toolkit.paintBordersFor(composite);
+		sctnMaster.setClient(composite);
+		composite.setLayout(new GridLayout(2, false));
+		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		Label infoLabel;
+		
+		Control list = createItemsList(composite);
+		GridData gd_list = new GridData(GridData.FILL_BOTH);
+		gd_list.verticalSpan = 2;
+		gd_list.widthHint = 100;
+		gd_list.heightHint = 100;
+		list.setLayoutData(gd_list);
+		
+		createButtons(composite);
+		
+		masterPart = new SectionPart(sctnMaster);
+		managedForm.addPart(masterPart);
+	}
+	
+	
+	
+	@Override
+	public void selectionChanged(SelectionChangedEvent event) {
+		managedForm.fireSelectionChanged(masterPart, event.getSelection());
+	}
+	
+	public void registerViewer(final StructuredViewer viewer) {
+		viewer.getControl().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				page.getLifecycleEditor().setCurrentViewer(viewer);
+			}
+		});
+		page.getLifecycleEditor().createContextMenuFor(viewer);
+	}
+	
+	protected abstract String getMasterSectionTitle();
+	
+	protected abstract Control createItemsList(Composite parent);
+	
+	protected void createButtons(Composite parent) {
+	}
+	protected void createToolbarAction(Section section) {
+	}
+	protected String getInfoLabelContent() {
+		return null;
+	}
+}

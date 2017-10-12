@@ -29,6 +29,7 @@ package tools.descartes.librede.rrde.util.extract;
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.LibredeVariables;
+import tools.descartes.librede.registry.Component;
 import tools.descartes.librede.rrde.model.recommendation.FeatureExtractorSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.model.recommendation.StatisticalFeatures;
@@ -39,6 +40,7 @@ import tools.descartes.librede.rrde.model.recommendation.StatisticalFeatures;
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
+@Component(displayName = "ReducedFeatureExtractor")
 public class ReducedFeatureExtractor extends BasicFeatureExtractor {
 
 	/**

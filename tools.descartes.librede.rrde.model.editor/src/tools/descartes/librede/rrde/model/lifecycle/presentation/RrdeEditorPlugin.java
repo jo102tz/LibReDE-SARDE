@@ -7,8 +7,15 @@ import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.ui.EclipseUIPlugin;
 
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.osgi.framework.BundleContext;
 
+import tools.descartes.librede.Librede;
+import tools.descartes.librede.bayesplusplus.BayesLibrary;
 import tools.descartes.librede.configuration.provider.LibredeEditPlugin;
+import tools.descartes.librede.ipopt.java.IpoptLibrary;
+import tools.descartes.librede.nnls.NNLSLibrary;
+import tools.descartes.librede.rrde.Plugin;
+import tools.descartes.librede.rrde.model.optimization.presentation.OptimizationEditor;
 
 /**
  * This is the central singleton for the Rrde editor plugin.
@@ -89,6 +96,24 @@ public final class RrdeEditorPlugin extends EMFPlugin {
 			//
 			plugin = this;
 		}
+		@Override
+		public void start(BundleContext context) throws Exception {
+			super.start(context);
+			Librede.initLogging();
+			Librede.init();
+			NNLSLibrary.init();
+			IpoptLibrary.init();
+			BayesLibrary.init();
+			Plugin.initRegistry();
+			try {
+				// This is only optional.
+				// DmlLibrary.init();
+			} catch(NoClassDefFoundError er) {
+				// Ignore it.
+			}
+		}
 	}
+	
+	
 
 }

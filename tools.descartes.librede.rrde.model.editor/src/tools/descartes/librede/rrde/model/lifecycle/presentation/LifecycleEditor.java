@@ -87,7 +87,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 
 import org.eclipse.ui.dialogs.SaveAsDialog;
-
+import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.ide.IGotoMarker;
 
 import org.eclipse.ui.part.FileEditorInput;
@@ -119,14 +119,13 @@ import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
-
-
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-
+import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
@@ -154,16 +153,39 @@ import org.eclipse.emf.edit.ui.util.EditUIUtil;
 
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 
+import tools.descartes.librede.rrde.model.editor.forms.EstimationFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.EstimationRecommendationFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.MasterDetailsFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.RecommendationConfigurationFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.ValidationFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.WorkloadDescriptionFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.master.ConfigurationOptimizationAlgorithmSpecifierMasterPage;
+import tools.descartes.librede.rrde.model.editor.forms.master.DataSourcesMasterBlock;
+import tools.descartes.librede.rrde.model.editor.forms.master.EstimationApproachesMasterBlock;
+import tools.descartes.librede.rrde.model.editor.forms.master.EstimationApproachesRecommendationMasterBlock;
+import tools.descartes.librede.rrde.model.editor.forms.master.EstimationSelectionMasterBlock;
+import tools.descartes.librede.rrde.model.editor.forms.master.InputDataMasterBlock;
+import tools.descartes.librede.rrde.model.editor.forms.master.InputDataRecommendationMasterBlock;
+import tools.descartes.librede.rrde.model.editor.forms.master.OptimizationSettingsMasterBock;
+import tools.descartes.librede.rrde.model.editor.forms.master.TracesMasterBlock;
+import tools.descartes.librede.rrde.model.editor.forms.master.ValidationMasterBlock;
+import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
+import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
+import tools.descartes.librede.rrde.model.lifecycle.LifecycleFactory;
+import tools.descartes.librede.rrde.model.lifecycle.LifecyclePackage;
 import tools.descartes.librede.rrde.model.lifecycle.provider.LifecycleItemProviderAdapterFactory;
 
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 import tools.descartes.librede.configuration.provider.ConfigurationItemProviderAdapterFactory;
-
 import tools.descartes.librede.metrics.provider.MetricsItemProviderAdapterFactory;
-
+import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.model.optimization.OptimizationFactory;
+import tools.descartes.librede.rrde.model.optimization.presentation.OptimizationEditor;
 import tools.descartes.librede.rrde.model.optimization.provider.OptimizationItemProviderAdapterFactory;
-
+import tools.descartes.librede.rrde.model.recommendation.RecommendationFactory;
+import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.rrde.model.recommendation.presentation.RecommendationEditor;
 import tools.descartes.librede.rrde.model.recommendation.provider.RecommendationItemProviderAdapterFactory;
 
 import tools.descartes.librede.units.provider.UnitsItemProviderAdapterFactory;
@@ -176,7 +198,7 @@ import tools.descartes.librede.units.provider.UnitsItemProviderAdapterFactory;
  * @generated
  */
 public class LifecycleEditor
-	extends MultiPageEditorPart
+	extends FormEditor
 	implements IEditingDomainProvider, ISelectionProvider, IMenuListener, IViewerProvider, IGotoMarker {
 	/**
 	 * This keeps track of the editing domain that is used to track all changes to the model.
@@ -942,7 +964,7 @@ public class LifecycleEditor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void createContextMenuFor(StructuredViewer viewer) {
+	public void createContextMenuFor(StructuredViewer viewer) {
 		MenuManager contextMenu = new MenuManager("#PopUp");
 		contextMenu.add(new Separator("additions"));
 		contextMenu.setRemoveAllWhenShown(true);
@@ -1029,7 +1051,7 @@ public class LifecycleEditor
 		// Creates the model from the editor input
 		//
 		createModel();
-
+		/*
 		// Only creates the other pages if there is something that can be edited
 		//
 		if (!getEditingDomain().getResourceSet().getResources().isEmpty()) {
@@ -1264,6 +1286,8 @@ public class LifecycleEditor
 					 updateProblemIndication();
 				 }
 			 });
+			 */
+		super.createPages();
 	}
 
 	/**
@@ -1831,4 +1855,103 @@ public class LifecycleEditor
 	protected boolean showOutlineView() {
 		return true;
 	}
+	
+	@Override
+	protected void addPages() {
+		LifeCycleConfiguration conf = null;
+		
+		OptimizationConfiguration optConf = null;
+		RecommendationTrainingConfiguration recConf = null;
+			
+		for (Resource res : editingDomain.getResourceSet().getResources()) {
+			for (EObject obj : res.getContents()) {
+				if (obj instanceof LifeCycleConfiguration)
+					conf = (LifeCycleConfiguration) obj;
+				if (obj instanceof OptimizationConfiguration)
+					optConf = (OptimizationConfiguration) obj;
+				if (obj instanceof RecommendationTrainingConfiguration)
+					recConf = (RecommendationTrainingConfiguration) obj;
+			}
+		}
+		
+		for (Resource res : editingDomain.getResourceSet().getResources()) {
+			if (res.getContents().get(0) instanceof LifeCycleConfiguration) {
+				if (optConf == null) {
+					optConf = OptimizationFactory.eINSTANCE.createOptimizationConfiguration();
+					res.getContents().add(optConf);
+				}
+				if (recConf == null) {
+					recConf = RecommendationFactory.eINSTANCE.createRecommendationTrainingConfiguration();
+					res.getContents().add(recConf);
+				}
+			}
+		}
+		
+		Command cmd = SetCommand.create(editingDomain, conf, LifecyclePackage.Literals.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION, optConf);
+			editingDomain.getCommandStack().execute(cmd);
+		Command cmd2 = SetCommand.create(editingDomain, conf, LifecyclePackage.Literals.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION, recConf);
+		editingDomain.getCommandStack().execute(cmd2);
+		
+		if (conf == null) {
+			throw new IllegalStateException("No Config Found");
+		}
+		
+		
+		
+		try {
+			
+			ConfigurationOptimizationAlgorithmSpecifierMasterPage configOptMasterBlock = new ConfigurationOptimizationAlgorithmSpecifierMasterPage(editingDomain, conf);
+			addPage(new MasterDetailsFormPage(this, "runCallSelection", "Run Calls", "", editingDomain, conf, configOptMasterBlock));
+							
+			InputDataMasterBlock inputDataMasterBlock = new InputDataMasterBlock(editingDomain, conf);
+			addPage(new MasterDetailsFormPage(this, "inputDataSelection", "Opt. Input Data", "", editingDomain, conf, inputDataMasterBlock));
+			
+			WorkloadDescriptionFormPage workloadFormPage = new WorkloadDescriptionFormPage(this, "workloadmodel", "Workload Description", editingDomain, conf);
+			addPage(workloadFormPage);
+			
+			DataSourcesMasterBlock providerMasterBlock = new DataSourcesMasterBlock(editingDomain, conf);
+			addPage(new MasterDetailsFormPage(this, "datasources", "Data Sources", "full/page/DataSources.gif", editingDomain, conf, providerMasterBlock));
+			
+			TracesMasterBlock tracesMasterBlock = new TracesMasterBlock(editingDomain, conf);
+			addPage(new MasterDetailsFormPage(this, "traces", "Traces", "full/page/Traces", editingDomain, conf, tracesMasterBlock));
+			
+			EstimationApproachesMasterBlock approachesMasterBlock = new EstimationApproachesMasterBlock(editingDomain, conf);
+			EstimationFormPage estFormPage = new EstimationFormPage(this, "estimation", "Estimation", "full/page/Estimation", editingDomain, conf, approachesMasterBlock);
+			addPage(estFormPage);
+			
+			ValidationMasterBlock validationMasterBlock = new ValidationMasterBlock(editingDomain, conf, false);
+			ValidationFormPage validFormPage = new ValidationFormPage(this, "validation", "Opt. Validation", "", editingDomain, conf, validationMasterBlock);
+			addPage(validFormPage);
+			
+			OptimizationSettingsMasterBock optSettingsMasterBlock = new OptimizationSettingsMasterBock(editingDomain, conf);
+			addPage(new MasterDetailsFormPage(this, "optSettings", "Parameters", "", editingDomain, conf, optSettingsMasterBlock));
+			
+			InputDataRecommendationMasterBlock inputDataRecommendationMasterBlock = new InputDataRecommendationMasterBlock(editingDomain, conf);
+			RecommendationConfigurationFormPage recommendationConfigurationFormPage = new RecommendationConfigurationFormPage(this, "recommendationConfig", "Recommendation", editingDomain, conf, inputDataRecommendationMasterBlock);
+			addPage(recommendationConfigurationFormPage);
+			
+		
+			//addPage(new MasterDetailsFormPage(this, "inputRecommendation", "Rec. Input", "", editingDomain, conf, inputDataRecommendationMasterBlock));
+			
+			
+			ValidationMasterBlock validationRecommendationMasterBlock = new ValidationMasterBlock(editingDomain, conf, true);
+			ValidationFormPage validRecommendationFormPage = new ValidationFormPage(this, "validation", "Rec. Validation", "", editingDomain, conf, validationRecommendationMasterBlock);
+			addPage(validRecommendationFormPage);
+			
+			EstimationSelectionMasterBlock estimationSelectionMasterBlock = new EstimationSelectionMasterBlock(editingDomain, conf);
+			addPage(new MasterDetailsFormPage(this, "estimationSelection", "Est. Sel.", "", editingDomain, conf, estimationSelectionMasterBlock));
+			
+			EstimationApproachesRecommendationMasterBlock estimationApproachesRecommendationMasterBlock = new EstimationApproachesRecommendationMasterBlock(editingDomain, conf);
+			EstimationRecommendationFormPage estimationRecommendationFormPage = new EstimationRecommendationFormPage(this, "estRecFormPage", "Rec. Estimation", "", editingDomain, conf, estimationApproachesRecommendationMasterBlock);
+			addPage(estimationRecommendationFormPage);
+			//OutputMasterBlock outputMasterBlock = new OutputMasterBlock(editingDomain, conf);
+			//addPage(new MasterDetailsFormPage(this, "output", "Output", "full/page/Output", editingDomain, conf, outputMasterBlock));
+			
+			SelectionProvider.INSTANCE().init(conf, editingDomain, providerMasterBlock, tracesMasterBlock, workloadFormPage, approachesMasterBlock, inputDataMasterBlock, optSettingsMasterBlock, validationMasterBlock, estFormPage, validFormPage, estimationRecommendationFormPage, estimationApproachesRecommendationMasterBlock);
+		} catch (PartInitException e) {
+			e.printStackTrace();
+		}		
+	}
+
+
 }

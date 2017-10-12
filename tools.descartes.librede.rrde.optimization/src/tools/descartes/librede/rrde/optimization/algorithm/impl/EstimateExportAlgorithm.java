@@ -40,9 +40,11 @@ import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ModelEntity;
+import tools.descartes.librede.registry.Component;
 import tools.descartes.librede.rrde.model.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.model.optimization.GenericParameter;
 import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
+
 import tools.descartes.librede.validation.ResponseTimeValidator;
 
 /**
@@ -51,6 +53,7 @@ import tools.descartes.librede.validation.ResponseTimeValidator;
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
+@Component(displayName = "Estimate Export")
 public class EstimateExportAlgorithm extends ExportAlgorithm {
 
 	/**

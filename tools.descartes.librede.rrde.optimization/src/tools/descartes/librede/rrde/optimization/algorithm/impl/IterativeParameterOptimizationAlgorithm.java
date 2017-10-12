@@ -33,10 +33,12 @@ import java.util.Map.Entry;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.log4j.Logger;
 
+import tools.descartes.librede.registry.Component;
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.model.optimization.impl.IterativeParameterOptimizerSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
+
 import tools.descartes.librede.rrde.rinterface.ICallbackEvaluator;
 import tools.descartes.librede.rrde.rinterface.RBridge;
 import tools.descartes.librede.rrde.util.Util;
@@ -48,6 +50,7 @@ import tools.descartes.librede.rrde.util.Util;
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
+@Component(displayName = "Iterative Parameter Optimizer")
 public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurationOptimizer {
 
 	/**

@@ -28,15 +28,18 @@ package tools.descartes.librede.rrde.optimization.algorithm.impl;
 
 import org.apache.log4j.Logger;
 
+import tools.descartes.librede.registry.Component;
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.model.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
 
+
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
+@Component(displayName="Brute Force")
 public class BruteForceAlgorithm extends AbstractConfigurationOptimizer {
 
 	/**

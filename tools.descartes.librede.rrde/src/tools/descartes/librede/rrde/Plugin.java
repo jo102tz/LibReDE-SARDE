@@ -41,15 +41,27 @@ import org.eclipse.equinox.app.IApplicationContext;
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
+import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.BruteForceAlgorithm;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.EstimateExportAlgorithm;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.HillClimbingAlgorithm;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
+import tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileNN;
+import tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileSVM;
+import tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree;
 import tools.descartes.librede.rrde.util.Util;
 import tools.descartes.librede.rrde.util.Wrapper;
+import tools.descartes.librede.rrde.util.extract.BasicFeatureExtractor;
 import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
+import tools.descartes.librede.rrde.util.extract.MinimalFeatureExtractor;
+import tools.descartes.librede.rrde.util.extract.ReducedFeatureExtractor;
 
 /**
  * The main class of this Plug-In. Here, the life-cycle of the plugin is configured.
@@ -323,5 +335,22 @@ public class Plugin implements IApplication {
     initLogging(loglevel);
     Wrapper.init();
   }
+  
+  public static void initRegistry() {
+		Registry.INSTANCE.registerImplementationType(IConfigurationOptimizer.class, BruteForceAlgorithm.class);
+		Registry.INSTANCE.registerImplementationType(IConfigurationOptimizer.class, EstimateExportAlgorithm.class);
+		Registry.INSTANCE.registerImplementationType(IConfigurationOptimizer.class, HillClimbingAlgorithm.class);
+		Registry.INSTANCE.registerImplementationType(IConfigurationOptimizer.class,
+				IterativeParameterOptimizationAlgorithm.class);
+
+		Registry.INSTANCE.registerImplementationType(IRecomendationAlgorithm.class, SmileNN.class);
+		Registry.INSTANCE.registerImplementationType(IRecomendationAlgorithm.class, SmileSVM.class);
+		Registry.INSTANCE.registerImplementationType(IRecomendationAlgorithm.class, SmileTree.class);
+		
+		Registry.INSTANCE.registerImplementationType(IFeatureExtractor.class, BasicFeatureExtractor.class);
+		Registry.INSTANCE.registerImplementationType(IFeatureExtractor.class, ReducedFeatureExtractor.class);
+		Registry.INSTANCE.registerImplementationType(IFeatureExtractor.class, MinimalFeatureExtractor.class);
+	}
+
 
 }

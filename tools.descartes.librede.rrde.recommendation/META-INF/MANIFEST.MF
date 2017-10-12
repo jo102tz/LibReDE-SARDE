@@ -19,4 +19,5 @@ Bundle-ClassPath: .,
  lib/smile/com.github.haifengl.smile-data-1.2.0.jar,
  lib/smile/org.slf4j.slf4j-api-1.7.21.jar
 Export-Package: tools.descartes.librede.rrde.recommendation,
- tools.descartes.librede.rrde.recommendation.algorithm
+ tools.descartes.librede.rrde.recommendation.algorithm,
+ tools.descartes.librede.rrde.recommendation.algorithm.impl
