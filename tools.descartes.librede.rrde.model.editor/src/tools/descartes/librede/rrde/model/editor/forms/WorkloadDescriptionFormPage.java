@@ -86,6 +86,7 @@ import tools.descartes.librede.configuration.presentation.LibredeEditorPlugin;
 import tools.descartes.librede.rrde.model.actions.RunLifecycleAction;
 import tools.descartes.librede.rrde.model.actions.RunOptimizationAction;
 import tools.descartes.librede.rrde.model.actions.RunRecommendationAction;
+import tools.descartes.librede.rrde.model.editor.util.InputDataRegistry;
 import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.lifecycle.presentation.LifecycleEditor;
@@ -137,26 +138,6 @@ public class WorkloadDescriptionFormPage extends AbstractLifecycleConfigurationF
 
 	}
 
-	private void initializeValues() {
-
-		if (getModel().getOptimizationConfiguration().getContainsOf().size() == 0) {
-			RunCall inputRun = OptimizationFactory.eINSTANCE.createRunCall();
-
-			Command cmd = AddCommand.create(getEditingDomain(), getModel(),
-					OptimizationPackage.Literals.OPTIMIZATION_CONFIGURATION__CONTAINS_OF, inputRun);
-			getEditingDomain().getCommandStack().execute(cmd);
-
-		}
-
-		if (getModel().getOptimizationConfiguration().getContainsOf().get(0).getTrainingData().size() == 0) {
-			input = OptimizationFactory.eINSTANCE.createInputData();
-			input.setWorkloadDescription(ConfigurationFactory.eINSTANCE.createWorkloadDescription());
-			Command cmd = AddCommand.create(getEditingDomain(), getModel().getOptimizationConfiguration().getContainsOf().get(0),
-					OptimizationPackage.Literals.RUN_CALL__TRAINING_DATA, input);
-			getEditingDomain().getCommandStack().execute(cmd);
-		}
-
-	}
 
 	/**
 	 * Create contents of the form.
@@ -193,7 +174,12 @@ public class WorkloadDescriptionFormPage extends AbstractLifecycleConfigurationF
 		createServicesSection(managedForm);
 
 		createResourcesSection(managedForm);
-
+		
+		if (input != null) {
+			form.setText("Workload Description - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromInputData(input));
+		} else {
+			form.setText("Workload Description - No Input Data selected.");
+		}
 		// sctnImport =
 		// managedForm.getToolkit().createSection(managedForm.getForm().getBody(),
 		// Section.TWISTIE | Section.TITLE_BAR);
@@ -428,7 +414,7 @@ public class WorkloadDescriptionFormPage extends AbstractLifecycleConfigurationF
 		if (input != null) {
 			
 			if (treeViewerResources != null) {
-				form.setText("Workload Description - Editing " + input.toString());
+				form.setText("Workload Description - Editing " + InputDataRegistry.INSTANCE.getLabelFromInputData(input));
 				treeViewerResources.setInput(input.getWorkloadDescription());
 				treeViewerResources.refresh();
 			}
@@ -438,6 +424,7 @@ public class WorkloadDescriptionFormPage extends AbstractLifecycleConfigurationF
 			}
 		} else {
 			if (treeViewerResources != null && treeViewerServices != null) {
+				form.setText("Workload Description - No Input Data selected.");
 				treeViewerServices.setInput(input);
 				treeViewerResources.setInput(input);
 				treeViewerResources.refresh();

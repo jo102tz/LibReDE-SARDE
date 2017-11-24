@@ -155,6 +155,7 @@ import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 
 import tools.descartes.librede.rrde.model.editor.forms.EstimationFormPage;
 import tools.descartes.librede.rrde.model.editor.forms.EstimationRecommendationFormPage;
+import tools.descartes.librede.rrde.model.editor.forms.LifeCycleConfigurationFormPage;
 import tools.descartes.librede.rrde.model.editor.forms.MasterDetailsFormPage;
 import tools.descartes.librede.rrde.model.editor.forms.RecommendationConfigurationFormPage;
 import tools.descartes.librede.rrde.model.editor.forms.ValidationFormPage;
@@ -179,6 +180,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 import tools.descartes.librede.configuration.provider.ConfigurationItemProviderAdapterFactory;
 import tools.descartes.librede.metrics.provider.MetricsItemProviderAdapterFactory;
+import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.model.optimization.OptimizationFactory;
 import tools.descartes.librede.rrde.model.optimization.presentation.OptimizationEditor;
@@ -1531,6 +1533,11 @@ public class LifecycleEditor
 					//
 					boolean first = true;
 					for (Resource resource : editingDomain.getResourceSet().getResources()) {
+						// IMPORTANT: Do not save the librede units and metrics as they are in-memory only.
+						if (resource.getURI().scheme().equals(Registry.LIBREDE_URI_SCHEME)) {
+							continue;
+						}
+						
 						if ((first || !resource.getContents().isEmpty() || isPersisted(resource)) && !editingDomain.isReadOnly(resource)) {
 							try {
 								long timeStamp = resource.getTimeStamp();
@@ -1858,8 +1865,7 @@ public class LifecycleEditor
 	
 	@Override
 	protected void addPages() {
-		LifeCycleConfiguration conf = null;
-		
+		LifeCycleConfiguration conf = null;		
 		OptimizationConfiguration optConf = null;
 		RecommendationTrainingConfiguration recConf = null;
 			
@@ -1887,10 +1893,6 @@ public class LifecycleEditor
 			}
 		}
 		
-		Command cmd = SetCommand.create(editingDomain, conf, LifecyclePackage.Literals.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION, optConf);
-			editingDomain.getCommandStack().execute(cmd);
-		Command cmd2 = SetCommand.create(editingDomain, conf, LifecyclePackage.Literals.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION, recConf);
-		editingDomain.getCommandStack().execute(cmd2);
 		
 		if (conf == null) {
 			throw new IllegalStateException("No Config Found");
@@ -1899,6 +1901,9 @@ public class LifecycleEditor
 		
 		
 		try {
+			
+			LifeCycleConfigurationFormPage lifecycleConfigurationFormPage = new LifeCycleConfigurationFormPage(this, "lifeCycleFP", "Lifecycle", editingDomain, conf);
+			addPage(lifecycleConfigurationFormPage);
 			
 			ConfigurationOptimizationAlgorithmSpecifierMasterPage configOptMasterBlock = new ConfigurationOptimizationAlgorithmSpecifierMasterPage(editingDomain, conf);
 			addPage(new MasterDetailsFormPage(this, "runCallSelection", "Run Calls", "", editingDomain, conf, configOptMasterBlock));
@@ -1920,7 +1925,7 @@ public class LifecycleEditor
 			addPage(estFormPage);
 			
 			ValidationMasterBlock validationMasterBlock = new ValidationMasterBlock(editingDomain, conf, false);
-			ValidationFormPage validFormPage = new ValidationFormPage(this, "validation", "Opt. Validation", "", editingDomain, conf, validationMasterBlock);
+			ValidationFormPage validFormPage = new ValidationFormPage(this, "validationOpt", "Opt. Validation", "", editingDomain, conf, validationMasterBlock);
 			addPage(validFormPage);
 			
 			OptimizationSettingsMasterBock optSettingsMasterBlock = new OptimizationSettingsMasterBock(editingDomain, conf);
@@ -1935,7 +1940,7 @@ public class LifecycleEditor
 			
 			
 			ValidationMasterBlock validationRecommendationMasterBlock = new ValidationMasterBlock(editingDomain, conf, true);
-			ValidationFormPage validRecommendationFormPage = new ValidationFormPage(this, "validation", "Rec. Validation", "", editingDomain, conf, validationRecommendationMasterBlock);
+			ValidationFormPage validRecommendationFormPage = new ValidationFormPage(this, "validationRec", "Rec. Validation", "", editingDomain, conf, validationRecommendationMasterBlock);
 			addPage(validRecommendationFormPage);
 			
 			EstimationSelectionMasterBlock estimationSelectionMasterBlock = new EstimationSelectionMasterBlock(editingDomain, conf);

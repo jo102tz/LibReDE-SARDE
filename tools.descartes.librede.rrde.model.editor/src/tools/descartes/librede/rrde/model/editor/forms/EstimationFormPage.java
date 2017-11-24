@@ -134,24 +134,6 @@ public class EstimationFormPage extends MasterDetailsFormPage {
 
 	}
 
-	private void initizalizeValues() {
-		// prevent NullPointerException if no RunCall was added and the Page is
-		// selected
-		if (input == null) {
-			try {
-				input = getModel().getOptimizationConfiguration().getContainsOf().get(0);
-			} catch (Exception e) {
-				input = OptimizationFactory.eINSTANCE.createRunCall();
-
-				Command cmd = AddCommand.create(getEditingDomain(), getModel(),
-						OptimizationPackage.Literals.OPTIMIZATION_CONFIGURATION__CONTAINS_OF, input);
-				getEditingDomain().getCommandStack().execute(cmd);
-
-			}
-		}
-
-	}
-
 	@Override
 	protected void createFormContentBeginning(FormToolkit toolkit, Composite parent) {
 		super.createFormContentBeginning(toolkit, parent);
@@ -159,6 +141,7 @@ public class EstimationFormPage extends MasterDetailsFormPage {
 		createEstimationSection(toolkit, parent);
 
 		createIntervalSection(toolkit, parent);
+
 	}
 
 	protected void initializeQuantityFields() {
@@ -192,10 +175,8 @@ public class EstimationFormPage extends MasterDetailsFormPage {
 			Quantity<Time> endTimestamp = UnitsFactory.eINSTANCE.createQuantity();
 			endTimestamp.setValue(0);
 			endTimestamp.setUnit(Time.SECONDS);
-			Command cmd = SetCommand
-					.create(getEditingDomain(), input.getEstimation(),
-									ConfigurationPackage.Literals.ESTIMATION_SPECIFICATION__END_TIMESTAMP,
-							endTimestamp);
+			Command cmd = SetCommand.create(getEditingDomain(), input.getEstimation(),
+					ConfigurationPackage.Literals.ESTIMATION_SPECIFICATION__END_TIMESTAMP, endTimestamp);
 			getEditingDomain().getCommandStack().execute(cmd);
 		}
 	}
@@ -270,7 +251,7 @@ public class EstimationFormPage extends MasterDetailsFormPage {
 		spnWindow.setMinimum(1);
 		spnWindow.setMaximum(Integer.MAX_VALUE);
 		toolkit.paintBordersFor(spnWindow);
-		
+
 		// init the bindings/page on creation if input already set
 		runCallPageSelectionChanged();
 
@@ -379,8 +360,8 @@ public class EstimationFormPage extends MasterDetailsFormPage {
 	private void createToolbar(Section section) {
 		ToolBar toolbar = new ToolBar(section, SWT.NONE);
 		ToolItem readFromTracesItem = new ToolItem(toolbar, SWT.NONE);
-		// readFromTracesItem.setImage(ExtendedImageRegistry.INSTANCE
-		// .getImage(LibredeEditorPlugin.getPlugin().getImage("full/obj16/refresh_remote")));
+		readFromTracesItem.setImage(ExtendedImageRegistry.INSTANCE
+				.getImage(LibredeEditorPlugin.getPlugin().getImage("full/obj16/refresh_remote")));
 		readFromTracesItem.setToolTipText("Update from Traces");
 		readFromTracesItem.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -497,7 +478,7 @@ public class EstimationFormPage extends MasterDetailsFormPage {
 		return strategy;
 	}
 
-	private void handleReadFromTrace() {
+	protected void handleReadFromTrace() {
 		Map<String, IDataSource> dataSources = new HashMap<String, IDataSource>();
 
 		double maxStart = Double.MIN_VALUE;
@@ -505,7 +486,12 @@ public class EstimationFormPage extends MasterDetailsFormPage {
 		InputData data = SelectionProvider.INSTANCE().getSelectedInputData();
 		if (data == null) {
 			MessageDialog.openInformation(getEditorSite().getShell(), "Info",
-					"No Input Data selected. Select one on the Input Data Selection page.");
+					"No Input Data selected. Select one on the Input Data Selection pages.");
+			return;
+		}
+		if (SelectionProvider.INSTANCE().getSelectedRunCall() == null || !SelectionProvider.INSTANCE().getSelectedRunCall().getTrainingData().contains(data)) {
+			MessageDialog.openInformation(getEditorSite().getShell(), "Info",
+					"Input Data from Recommendation selected. This is the Optimization Estimation Page.");
 			return;
 		}
 		for (TraceConfiguration trace : data.getInput().getObservations()) {

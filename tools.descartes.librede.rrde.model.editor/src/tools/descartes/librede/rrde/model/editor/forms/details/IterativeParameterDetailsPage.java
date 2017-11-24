@@ -26,6 +26,7 @@ import org.eclipse.ui.forms.IFormPart;
 import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.model.editor.forms.AbstractLifecycleConfigurationFormPage;
 import tools.descartes.librede.rrde.model.editor.forms.AbstractOptimizationConfigurationFormPage;
+import tools.descartes.librede.rrde.model.editor.util.OptAlgorithmLabelProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.IterativeParameterOptimizerSpecifier;
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
@@ -107,7 +108,7 @@ public class IterativeParameterDetailsPage extends AbstractDetailsPage {
 		managedForm.getToolkit().paintBordersFor(combo);
 
 		viewer.setContentProvider(new ArrayContentProvider());
-		viewer.setLabelProvider(new AdapterFactoryLabelProvider(page.getAdapterFactory()));
+		viewer.setLabelProvider(new OptAlgorithmLabelProvider());
 
 		HashMap<String, String> displayNameTypeMapping = new HashMap<String, String>();
 		List<String> suitedAlgs = new ArrayList<String>();
@@ -127,27 +128,9 @@ public class IterativeParameterDetailsPage extends AbstractDetailsPage {
 			// ignore
 		}
 
-		ArrayList<String> inpAlgorithm = new ArrayList<String>();
-		for (String suited : suitedAlgs) {
-			inpAlgorithm.add(Registry.INSTANCE.getDisplayName(Registry.INSTANCE.getInstanceClass(suited)));
-		}
-		viewer.setInput(inpAlgorithm.toArray());
+		
+		viewer.setInput(suitedAlgs.toArray());
 
-		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
-
-				if (sel.size() == 1) {
-					String type = displayNameTypeMapping.get((String) sel.getFirstElement());
-					itParaSpec.eSet(
-							OptimizationPackage.Literals.CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME,
-							type);
-				}
-
-			}
-		});
 
 	}
 
@@ -170,7 +153,15 @@ public class IterativeParameterDetailsPage extends AbstractDetailsPage {
 
 	private void createBindings() {
 		detailBindingContext = new EMFDataBindingContext();
-
+		
+		detailBindingContext
+		.bindValue(
+				ViewerProperties
+						.singleSelection().observe(viewer),
+				EMFEditProperties.value(domain,
+						OptimizationPackage.Literals.CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME)
+						.observe(itParaSpec));
+		
 		detailBindingContext.bindValue(WidgetProperties.text(SWT.Modify).observe(inpNumbSplits),
 				EMFEditProperties
 						.value(domain,

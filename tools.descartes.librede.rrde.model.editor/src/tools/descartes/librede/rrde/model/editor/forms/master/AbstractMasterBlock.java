@@ -111,10 +111,7 @@ public abstract class AbstractMasterBlock extends MasterDetailsBlock implements 
 	
 		sctnMaster = toolkit.createSection(parent,
 				ExpandableComposite.EXPANDED | ExpandableComposite.TITLE_BAR);
-		sctnMaster.setText(getMasterSectionTitle());
-		if (getInfoLabelContent() != null) {
-			sctnMaster.setDescription(getInfoLabelContent());
-		}		
+		sctnMaster.setText(getMasterSectionTitle());	
 		createToolbarAction(sctnMaster);
 		sctnMaster.setLayoutData(new GridData(GridData.FILL_BOTH));
 		
@@ -164,8 +161,5 @@ public abstract class AbstractMasterBlock extends MasterDetailsBlock implements 
 	protected void createButtons(Composite parent) {
 	}
 	protected void createToolbarAction(Section section) {
-	}
-	protected String getInfoLabelContent() {
-		return null;
 	}
 }

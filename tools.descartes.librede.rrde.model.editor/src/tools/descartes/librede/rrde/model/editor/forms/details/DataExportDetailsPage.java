@@ -37,6 +37,7 @@ import org.eclipse.ui.forms.widgets.Section;
 import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.model.editor.forms.AbstractLifecycleConfigurationFormPage;
 import tools.descartes.librede.rrde.model.editor.forms.AbstractOptimizationConfigurationFormPage;
+import tools.descartes.librede.rrde.model.editor.util.OptAlgorithmLabelProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
@@ -131,7 +132,7 @@ public class DataExportDetailsPage extends AbstractDetailsPage {
 		new Label(composite, SWT.NONE);
 
 		viewer.setContentProvider(new ArrayContentProvider());
-		viewer.setLabelProvider(new AdapterFactoryLabelProvider(page.getAdapterFactory()));
+		viewer.setLabelProvider(new OptAlgorithmLabelProvider());
 		
 		HashMap<String, String> displayNameTypeMapping = new HashMap<String, String>();
 		
@@ -152,25 +153,7 @@ public class DataExportDetailsPage extends AbstractDetailsPage {
 			// ignore
 		}
 
-		ArrayList<String> inpAlgorithm = new ArrayList<String>();
-		for (String suited : suitedAlgs) {
-			inpAlgorithm.add(Registry.INSTANCE.getDisplayName(Registry.INSTANCE.getInstanceClass(suited)));
-		}
-		viewer.setInput(inpAlgorithm.toArray());
-		
-		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
-				
-				if (sel.size() == 1) {
-					String type = displayNameTypeMapping.get((String) sel.getFirstElement());
-					dataExSpec.eSet(OptimizationPackage.Literals.CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME, type);
-				}
-				
-			}
-		});
+		viewer.setInput(suitedAlgs.toArray());	
 
 	}
 
@@ -194,6 +177,14 @@ public class DataExportDetailsPage extends AbstractDetailsPage {
 
 	private void createBindings() {
 		detailBindingContext = new EMFDataBindingContext();
+		
+		detailBindingContext
+		.bindValue(
+				ViewerProperties
+						.singleSelection().observe(viewer),
+				EMFEditProperties.value(domain,
+						OptimizationPackage.Literals.CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME)
+						.observe(dataExSpec));
 
 		detailBindingContext.bindValue(WidgetProperties.selection().observe(btnMultidimensional),
 				EMFEditProperties.value(domain, OptimizationPackage.Literals.DATA_EXPORT_SPECIFIER__MULTIDIMENSIONAL)

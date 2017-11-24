@@ -61,6 +61,7 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ValidatorConfiguration;
 import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.model.editor.forms.details.ParametersDetailsPage;
+import tools.descartes.librede.rrde.model.editor.util.InputDataRegistry;
 import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
@@ -87,25 +88,6 @@ public class ValidationMasterBlock extends AbstractMasterBlock implements IDetai
 
 	}
 
-	private void initializeValues() {
-		// prevent NullPointerException if no RunCall was added and the Page is
-		// selected
-		if (input == null) {
-			try {
-				input = model.getOptimizationConfiguration().getContainsOf().get(0);
-			} catch (Exception e) {
-				input = OptimizationFactory.eINSTANCE.createRunCall();
-				OptimizationSettings settings = OptimizationFactory.eINSTANCE.createOptimizationSettings();
-				settings.setValidator(ConfigurationFactory.eINSTANCE.createValidationSpecification());
-				input.setSettings(settings);
-				Command cmd = AddCommand.create(domain, model.getOptimizationConfiguration(),
-						OptimizationPackage.Literals.OPTIMIZATION_CONFIGURATION__CONTAINS_OF, input);
-				domain.getCommandStack().execute(cmd);
-
-			}
-		}
-
-	}
 
 	@Override
 	protected String getMasterSectionTitle() {
@@ -123,6 +105,14 @@ public class ValidationMasterBlock extends AbstractMasterBlock implements IDetai
 		tableValidatorsViewer.setContentProvider(new ObservableListContentProvider());
 		tableValidatorsViewer.setLabelProvider(new AdapterFactoryLabelProvider(page.getAdapterFactory()));
 
+		if (!createRecommendationBindings) {
+			if (input != null) {
+				managedForm.getForm()
+						.setText("Optimization Validiation - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromRunCall(input));
+			} else {
+				managedForm.getForm().setText("Optimization Validation - No RunCall selected.");
+			}
+		}
 		tableValidatorsViewer.addSelectionChangedListener(this);
 
 		registerViewer(tableValidatorsViewer);
@@ -238,17 +228,22 @@ public class ValidationMasterBlock extends AbstractMasterBlock implements IDetai
 
 	public void runCallPageSelectionChanged() {
 		input = SelectionProvider.INSTANCE().getSelectedRunCall();
+		
+		
 		if (input != null) {
 			if (tableValidatorsViewer != null) {
 				if (bindingContext != null)
 					bindingContext.dispose();
 				bindingContext = new EMFDataBindingContext();
 				createValidatorBindings();
+				managedForm.getForm()
+						.setText("Optimization Validiation - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromRunCall(input));
 			}
 		} else {
 			if (tableValidatorsViewer != null) {
 				tableValidatorsViewer.setInput(input);
 				tableValidatorsViewer.refresh();
+				managedForm.getForm().setText("Optimization Validation - No RunCall selected.");
 				if (bindingContext != null)
 					bindingContext.dispose();
 			}

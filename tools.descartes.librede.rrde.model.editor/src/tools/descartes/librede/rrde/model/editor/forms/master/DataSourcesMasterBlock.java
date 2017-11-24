@@ -62,6 +62,7 @@ import tools.descartes.librede.configuration.editor.forms.master.AbstractMasterB
 import tools.descartes.librede.datasource.IDataSource;
 import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.model.editor.forms.details.ParametersDetailsPage;
+import tools.descartes.librede.rrde.model.editor.util.InputDataRegistry;
 import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.InputData;
@@ -103,12 +104,15 @@ public class DataSourcesMasterBlock
 	protected Control createItemsList(Composite composite) {
 		tableSourcesViewer = new TableViewer(composite, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		tableSources = tableSourcesViewer.getTable();
-		if (btnAdd != null)
-			btnAdd.setEnabled(false);
+		
 		tableSourcesViewer.setContentProvider(new AdapterFactoryContentProvider(page.getAdapterFactory()));
 		tableSourcesViewer.setLabelProvider(new AdapterFactoryLabelProvider(page.getAdapterFactory()));
-		if (inputData != null && tableSourcesViewer != null)
+		if (inputData != null) {
 			tableSourcesViewer.setInput(inputData.getInput());
+			managedForm.getForm().setText("Data Sources - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromInputData(inputData));
+		} else {
+			managedForm.getForm().setText("Data Sources - No Input Data selected.");
+		}
 		tableSourcesViewer.addFilter(new ClassesViewerFilter(InputSpecification.class, DataSourceConfiguration.class));
 		tableSourcesViewer.addSelectionChangedListener(this);
 
@@ -196,9 +200,11 @@ public class DataSourcesMasterBlock
 
 		if (tableSourcesViewer != null) {
 			if (inputData != null) {
+				managedForm.getForm().setText("Data Sources - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromInputData(inputData));
 				tableSourcesViewer.setInput(inputData.getInput());
 				tableSourcesViewer.refresh();
 			} else {
+				managedForm.getForm().setText("Data Sources - No InputData selected.");
 				tableSourcesViewer.setInput(inputData);
 				tableSourcesViewer.refresh();
 			}

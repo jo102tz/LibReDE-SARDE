@@ -12,12 +12,15 @@ import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -28,6 +31,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.forms.DetailsPart;
 import org.eclipse.ui.forms.widgets.Section;
 
@@ -37,9 +41,13 @@ import tools.descartes.librede.configuration.InputSpecification;
 import tools.descartes.librede.configuration.TraceConfiguration;
 import tools.descartes.librede.configuration.WorkloadDescription;
 import tools.descartes.librede.configuration.editor.forms.ClassesViewerFilter;
+import tools.descartes.librede.datasource.IDataSource;
+import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.model.editor.forms.details.InputDataDetailsPage;
+import tools.descartes.librede.rrde.model.editor.util.InputDataRegistry;
 import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
+import tools.descartes.librede.rrde.model.lifecycle.presentation.RrdeEditorPlugin;
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.optimization.InputData;
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
@@ -59,6 +67,14 @@ public class InputDataRecommendationMasterBlock extends AbstractMasterBlockWithB
 
 	public InputDataRecommendationMasterBlock(AdapterFactoryEditingDomain domain, LifeCycleConfiguration model) {
 		super(domain, model);
+		init();
+	}
+
+	private void init() {
+		for (InputData data : model.getRecommendationConfiguration().getTrainingData()) {
+			InputDataRegistry.INSTANCE.registerRecommendationInputData(data);
+		}
+
 	}
 
 	@Override
@@ -73,9 +89,12 @@ public class InputDataRecommendationMasterBlock extends AbstractMasterBlockWithB
 		InputSpecification inpSpec = ConfigurationFactory.eINSTANCE.createInputSpecification();
 		inptDat.setInput(inpSpec);
 
+		InputDataRegistry.INSTANCE.registerRecommendationInputData(inptDat);
+
 		Command cmd = AddCommand.create(domain, model.getRecommendationConfiguration(),
 				RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA, inptDat);
 		domain.getCommandStack().execute(cmd);
+
 		inpDataViewer.refresh(true);
 
 	}
@@ -89,6 +108,7 @@ public class InputDataRecommendationMasterBlock extends AbstractMasterBlockWithB
 			if (o instanceof InputData) {
 				Command cmd = RemoveCommand.create(domain, o);
 				domain.getCommandStack().execute(cmd);
+				InputDataRegistry.INSTANCE.deleteInputDataValue((InputData) o);
 			}
 		}
 
@@ -111,7 +131,7 @@ public class InputDataRecommendationMasterBlock extends AbstractMasterBlockWithB
 		inpDataTable = inpDataViewer.getTable();
 
 		inpDataViewer.setContentProvider(new AdapterFactoryContentProvider(page.getAdapterFactory()));
-		inpDataViewer.setLabelProvider(new AdapterFactoryLabelProvider(page.getAdapterFactory()));
+		inpDataViewer.setLabelProvider(new InputDataLabelProvider());
 
 		inpDataViewer.setInput(model.getRecommendationConfiguration());
 		inpDataViewer.addFilter(new ClassesViewerFilter(RecommendationTrainingConfiguration.class, InputData.class));
@@ -121,16 +141,29 @@ public class InputDataRecommendationMasterBlock extends AbstractMasterBlockWithB
 		return inpDataTable;
 	}
 
+	public class InputDataLabelProvider extends LabelProvider {
+
+		@Override
+		public String getText(Object element) {
+			if (element instanceof InputData) {
+				InputData input = (InputData) element;
+				return InputDataRegistry.INSTANCE.getLabelFromInputData(input);
+			}
+			return "";
+		}
+	}
+
 	@Override
 	protected void createToolbarAction(Section sctnMaster) {
-		sctnMaster.setDescription("Add and remove input data from the recommendation. Edit it through the Workload Desc., Traces and Data Souces Pages.");
-		
+		sctnMaster.setDescription(
+				"Add and remove input data from the recommendation. Edit it through the Workload Desc., Traces and Data Souces Pages.");
+
 		ToolBar toolbar = new ToolBar(sctnMaster, SWT.NONE);
-		ToolItem readFromTracesItem = new ToolItem(toolbar, SWT.NONE);
-		// readFromTracesItem.setImage(ExtendedImageRegistry.INSTANCE
-		// .getImage(LibredeEditorPlugin.getPlugin().getImage("full/obj16/refresh_remote")));
-		readFromTracesItem.setToolTipText("Copy Input Data from Optimization");
-		readFromTracesItem.addSelectionListener(new SelectionAdapter() {
+		ToolItem copyFromOptimizationItem = new ToolItem(toolbar, SWT.NONE);
+		copyFromOptimizationItem.setImage(ExtendedImageRegistry.INSTANCE
+				.getImage(RrdeEditorPlugin.getPlugin().getImage("full/obj16/refresh_remote")));
+		copyFromOptimizationItem.setToolTipText("Copy Input Data from Optimization");
+		copyFromOptimizationItem.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				copyInputDataFromOptimization();
@@ -140,14 +173,42 @@ public class InputDataRecommendationMasterBlock extends AbstractMasterBlockWithB
 	}
 
 	private void copyInputDataFromOptimization() {
-		for (RunCall call : model.getOptimizationConfiguration().getContainsOf()) {
+		ElementListSelectionDialog dialog = new ElementListSelectionDialog(page.getSite().getShell(),
+				new LabelProvider() {
+					@Override
+					public String getText(Object element) {
+						if (element instanceof RunCall)
+							return InputDataRegistry.INSTANCE.getLabelFromRunCall((RunCall) element);
+						return "";
+					}
+				});
+
+		dialog.setElements(model.getOptimizationConfiguration().getContainsOf().toArray());
+		dialog.setMultipleSelection(false);
+		dialog.setAllowDuplicates(false);
+		dialog.setTitle("Optimization Configuration Run Calls");
+		dialog.setMessage("Select a RunCall of the Optimization, of which you want the InputData to be added to the recommendation:");
+		dialog.create();
+		if (dialog.open() == Window.OK) {
+			addInputDataFromRunCall(dialog.getResult());
+		}
+
+	}
+
+	private void addInputDataFromRunCall(Object[] results) {
+		for (Object r : results) {
+			RunCall call = (RunCall) r;
 			for (InputData data : call.getTrainingData()) {
 				InputData copy = EcoreUtil.copy(data);
 				Command cmd = AddCommand.create(domain, model.getRecommendationConfiguration(),
-						RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA, copy);
+						RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__TRAINING_DATA,
+						copy);
 				domain.getCommandStack().execute(cmd);
+				InputDataRegistry.INSTANCE.registerRecommendationInputData(copy);
 			}
+
 		}
+
 	}
 
 	@Override
@@ -157,11 +218,7 @@ public class InputDataRecommendationMasterBlock extends AbstractMasterBlockWithB
 		detailsPart.registerPage(InputDataImpl.class, inpDataPage);
 
 	}
-	
-	@Override
-	protected String getInfoLabelContent() {
-		return "Add and remove input data from the optimization. Edit it through the Workload Desc., Traces and Data Souces Pages.";
-	}
+
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent event) {

@@ -60,6 +60,7 @@ import tools.descartes.librede.configuration.impl.FileTraceConfigurationImpl;
 import tools.descartes.librede.metrics.Aggregation;
 import tools.descartes.librede.metrics.StandardMetrics;
 import tools.descartes.librede.rrde.model.editor.forms.details.FileTraceDetailsPage;
+import tools.descartes.librede.rrde.model.editor.util.InputDataRegistry;
 import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.InputData;
@@ -109,8 +110,11 @@ public class TracesMasterBlock extends AbstractMasterBlockWithButtons {
 
 		tableTracesViewer.setContentProvider(new AdapterFactoryContentProvider(page.getAdapterFactory()));
 		tableTracesViewer.setLabelProvider(new AdapterFactoryLabelProvider(page.getAdapterFactory()));
-		if (inputData != null && tableTracesViewer != null) {
+		if (inputData != null) {
 			tableTracesViewer.setInput(inputData.getInput());
+			managedForm.getForm().setText("Traces - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromInputData(inputData));
+		} else {
+			managedForm.getForm().setText("Traces - No Input Data selected.");
 		}
 		tableTracesViewer.addFilter(new ClassesViewerFilter(InputSpecification.class, TraceConfiguration.class));
 		tableTracesViewer.addSelectionChangedListener(this);
@@ -179,9 +183,10 @@ public class TracesMasterBlock extends AbstractMasterBlockWithButtons {
 					ConfigurationPackage.Literals.INPUT_SPECIFICATION__OBSERVATIONS, series);
 			domain.getCommandStack().execute(cmd);
 		} else {
-			
-			MessageDialog.openInformation(page.getSite().getShell(), "Info", "Select Input Data to edit first on either Input Data page for OptimizatioConfiguration or Recommendation page for Recommenation Configuration.");
-			
+
+			MessageDialog.openInformation(page.getSite().getShell(), "Info",
+					"Select Input Data to edit first on either Input Data page for OptimizatioConfiguration or Recommendation page for Recommenation Configuration.");
+
 		}
 	}
 
@@ -204,7 +209,8 @@ public class TracesMasterBlock extends AbstractMasterBlockWithButtons {
 			InputSpecification inpSpec = ConfigurationFactory.eINSTANCE.createInputSpecification();
 			inputData.setInput(inpSpec);
 
-			Command cmd = AddCommand.create(domain, model.getOptimizationConfiguration(), OptimizationPackage.Literals.INPUT_DATA__INPUT, inpSpec);
+			Command cmd = AddCommand.create(domain, model.getOptimizationConfiguration(),
+					OptimizationPackage.Literals.INPUT_DATA__INPUT, inpSpec);
 			domain.getCommandStack().execute(cmd);
 		}
 		for (TraceConfiguration trace : inputData.getInput().getObservations()) {
@@ -228,15 +234,15 @@ public class TracesMasterBlock extends AbstractMasterBlockWithButtons {
 
 	public void inputDataPageSelectionChanged() {
 		inputData = SelectionProvider.INSTANCE().getSelectedInputData();
-		if (inputData != null) {
-			if (tableTracesViewer != null) {
-				
+		if (tableTracesViewer != null) {
+			if (inputData != null) {
+				managedForm.getForm().setText("Traces - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromInputData(inputData));
 				initializeValues();
 				tableTracesViewer.setInput(inputData.getInput());
 				tableTracesViewer.refresh();
-			}
-		} else {
-			if (tableTracesViewer != null) {
+
+			} else {
+				managedForm.getForm().setText("Traces - No Input Data selected.");
 				tableTracesViewer.setInput(inputData);
 				tableTracesViewer.refresh();
 			}

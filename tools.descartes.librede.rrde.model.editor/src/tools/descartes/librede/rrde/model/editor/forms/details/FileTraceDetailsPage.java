@@ -143,9 +143,7 @@ public class FileTraceDetailsPage extends AbstractDetailsPage {
 		sctnMeasurementTraceDetails = toolkit.createSection(parent,
 				ExpandableComposite.EXPANDED | ExpandableComposite.TITLE_BAR);
 		sctnMeasurementTraceDetails.setText("Measurement Trace Details");
-		GridData gd_sctnMeasurementTraceDetails = new GridData(GridData.FILL_BOTH);
-		gd_sctnMeasurementTraceDetails.verticalAlignment = SWT.TOP;
-		sctnMeasurementTraceDetails.setLayoutData(gd_sctnMeasurementTraceDetails);
+		sctnMeasurementTraceDetails.setLayoutData(new GridData(GridData.FILL_BOTH));
 		//
 
 		Composite composite = toolkit.createComposite(sctnMeasurementTraceDetails, SWT.NONE);
@@ -316,6 +314,7 @@ public class FileTraceDetailsPage extends AbstractDetailsPage {
 		return viewer;
 	}
 
+	@SuppressWarnings("unchecked")
 	private void createBindings() {
 		detailBindingContext = new EMFDataBindingContext();
 		detailBindingContext.bindValue(WidgetProperties.text(SWT.Modify).observe(txtFilePath), EMFEditProperties

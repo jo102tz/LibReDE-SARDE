@@ -105,7 +105,8 @@ public class ValidationFormPage extends MasterDetailsFormPage {
 	}
 
 	private void createBindings() {
-		if (title.equals("Opt. Validator") && input != null) {
+		
+		if (title.equals("Opt. Validation") && input != null) {
 			bindingContext.bindValue(WidgetProperties.selection().observe(btnCrossValidation),
 					EMFEditProperties
 							.value(getEditingDomain(),

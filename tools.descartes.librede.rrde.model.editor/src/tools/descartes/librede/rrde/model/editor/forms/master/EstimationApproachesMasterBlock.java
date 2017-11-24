@@ -59,6 +59,7 @@ import tools.descartes.librede.configuration.editor.forms.ClassesViewerFilter;
 
 import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.model.editor.forms.details.ParametersDetailsPage;
+import tools.descartes.librede.rrde.model.editor.util.InputDataRegistry;
 import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
@@ -105,6 +106,13 @@ public class EstimationApproachesMasterBlock extends AbstractMasterBlock
 		tableAlgorithmsViewer.setLabelProvider(new AdapterFactoryLabelProvider(page.getAdapterFactory()));
 		tableAlgorithmsViewer.setContentProvider(new AdapterFactoryContentProvider(page.getAdapterFactory()));
 		
+		if (input != null) {
+			managedForm.getForm().setText("Estimation Specification - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromRunCall(input));
+			existAlgorithmAdder();
+			tableAlgorithmsViewer.setInput(input);
+		} else {
+			managedForm.getForm().setText("Estimation Specification - No RunCall selected.");
+		}
 		
 		tableAlgorithmsViewer.addFilter(
 				new ClassesViewerFilter(EstimationSpecification.class, EstimationAlgorithmConfiguration.class));
@@ -168,10 +176,12 @@ public class EstimationApproachesMasterBlock extends AbstractMasterBlock
 
 			if (tableAlgorithmsViewer != null) {
 				existAlgorithmAdder();
+				managedForm.getForm().setText("Estimation Specification - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromRunCall(input));
 				tableAlgorithmsViewer.setInput(input.getEstimation());
 			}
 		} else {
 			if (tableAlgorithmsViewer != null) {
+				managedForm.getForm().setText("Estimation Specification - No RunCall selected.");
 				tableAlgorithmsViewer.setInput(input);
 				tableAlgorithmsViewer.refresh();
 			}

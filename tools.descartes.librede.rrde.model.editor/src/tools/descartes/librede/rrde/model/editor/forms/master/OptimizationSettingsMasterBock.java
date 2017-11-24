@@ -41,6 +41,7 @@ import tools.descartes.librede.rrde.model.editor.forms.details.GenericParameterD
 import tools.descartes.librede.rrde.model.editor.forms.details.IterativeParameterDetailsPage;
 import tools.descartes.librede.rrde.model.editor.forms.details.LocalSearchDetailsPage;
 import tools.descartes.librede.rrde.model.editor.forms.details.OptimizableParameterDetailsPage;
+import tools.descartes.librede.rrde.model.editor.util.InputDataRegistry;
 import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
@@ -90,11 +91,11 @@ public class OptimizationSettingsMasterBock extends AbstractMasterBlockWithButto
 	@Override
 	protected void handleAdd() {
 		if (input == null) {
-			MessageDialog.openInformation(page.getSite().getShell(), "Info", "Select the RunCall, for which the parameters should be added, on the RunCall page first.");
+			MessageDialog.openInformation(page.getSite().getShell(), "Info",
+					"Select the RunCall, for which the parameters should be added, on the RunCall page first.");
 			return;
 		}
-			
-			
+
 		ElementListSelectionDialog dialog = new ElementListSelectionDialog(page.getSite().getShell(),
 				new LabelProvider());
 		dialog.setElements(new String[] { "Generic Parameter", "Window Size", "Step Size" });
@@ -120,7 +121,7 @@ public class OptimizationSettingsMasterBock extends AbstractMasterBlockWithButto
 			}
 			if (para == null)
 				return;
-			
+
 			para.setLowerBound(0.0);
 			para.setStartValue(0.0);
 			para.setUpperBound(1.0);
@@ -156,8 +157,13 @@ public class OptimizationSettingsMasterBock extends AbstractMasterBlockWithButto
 
 		optSettingsViewer.setContentProvider(new AdapterFactoryContentProvider(page.getAdapterFactory()));
 		optSettingsViewer.setLabelProvider(new AdapterFactoryLabelProvider(page.getAdapterFactory()));
-		if (input != null)
+		if (input != null) {
 			optSettingsViewer.setInput(input.getSettings());
+			managedForm.getForm().setText("Optimization Parameters - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromRunCall(input));
+		} else {
+			managedForm.getForm().setText("Optimization Parameters - No RunCall selected.");
+		}
+		
 		optSettingsViewer.addFilter(new ClassesViewerFilter(OptimizationSettings.class, IOptimizableParameter.class));
 		optSettingsViewer.addSelectionChangedListener(this);
 
@@ -177,14 +183,18 @@ public class OptimizationSettingsMasterBock extends AbstractMasterBlockWithButto
 
 	public void runCallPageSelectionChanged() {
 		input = SelectionProvider.INSTANCE().getSelectedRunCall();
+
 		if (input != null) {
 			if (optSettingsViewer != null) {
 				optSettingsViewer.setInput(input.getSettings());
-				//optSettingsViewer.refresh();
+				managedForm.getForm().setText("Optimization Parameters - Currently editing "
+					+ InputDataRegistry.INSTANCE.getLabelFromRunCall(input));
+				
 			}
 		} else {
 			if (btnAdd != null && optSettingsViewer != null) {
 				optSettingsViewer.setInput(input);
+				managedForm.getForm().setText("Optimization Parameters - No RunCall selected.");
 				optSettingsViewer.refresh();
 			}
 		}

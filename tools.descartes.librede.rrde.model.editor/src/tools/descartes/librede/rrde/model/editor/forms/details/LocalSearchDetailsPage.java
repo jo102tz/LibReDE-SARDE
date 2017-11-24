@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.databinding.EMFDataBindingContext;
+import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -25,6 +26,7 @@ import tools.descartes.librede.configuration.ConfigurationPackage;
 import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.model.editor.forms.AbstractLifecycleConfigurationFormPage;
 import tools.descartes.librede.rrde.model.editor.forms.AbstractOptimizationConfigurationFormPage;
+import tools.descartes.librede.rrde.model.editor.util.OptAlgorithmLabelProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.LocalSearchSpecifier;
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
@@ -32,6 +34,7 @@ import tools.descartes.librede.rrde.model.optimization.OptimizationFactory;
 import tools.descartes.librede.rrde.model.optimization.OptimizationPackage;
 import tools.descartes.librede.rrde.model.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
+import tools.descartes.librede.units.UnitsPackage;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.forms.widgets.Section;
@@ -109,10 +112,11 @@ public class LocalSearchDetailsPage extends AbstractDetailsPage {
 		managedForm.getToolkit().paintBordersFor(combo);
 
 		viewer.setContentProvider(new ArrayContentProvider());
-		viewer.setLabelProvider(new AdapterFactoryLabelProvider(page.getAdapterFactory()));
-
+		viewer.setLabelProvider(new OptAlgorithmLabelProvider());
+		
 		HashMap<String, String> displayNameTypeMapping = new HashMap<String, String>();
-
+		
+		// get all algorithms that use the local search specifier
 		List<String> suitedAlgs = new ArrayList<String>();
 		try {
 			Set<String> algorithms = Registry.INSTANCE.getInstances(IConfigurationOptimizer.class);
@@ -128,28 +132,8 @@ public class LocalSearchDetailsPage extends AbstractDetailsPage {
 		} catch (Exception e) {
 			// ignore
 		}
-
-		ArrayList<String> inpAlgorithm = new ArrayList<String>();
-		for (String suited : suitedAlgs) {
-			inpAlgorithm.add(Registry.INSTANCE.getDisplayName(Registry.INSTANCE.getInstanceClass(suited)));
-		}
-		viewer.setInput(inpAlgorithm.toArray());
-
-		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
-
-				if (sel.size() == 1) {
-					String type = displayNameTypeMapping.get((String) sel.getFirstElement());
-					locSearchSpec.eSet(
-							OptimizationPackage.Literals.CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME,
-							type);
-				}
-
-			}
-		});
+		
+		viewer.setInput(suitedAlgs.toArray());
 	}
 
 	@Override
@@ -162,6 +146,7 @@ public class LocalSearchDetailsPage extends AbstractDetailsPage {
 		if (structuredSelection.size() == 1) {
 			locSearchSpec = (LocalSearchSpecifier) structuredSelection.getFirstElement();
 			createBindings();
+			
 		} else {
 			locSearchSpec = null;
 		}
@@ -171,7 +156,15 @@ public class LocalSearchDetailsPage extends AbstractDetailsPage {
 
 	private void createBindings() {
 		detailBindingContext = new EMFDataBindingContext();
-
+		
+		detailBindingContext
+		.bindValue(
+				ViewerProperties
+						.singleSelection().observe(viewer),
+				EMFEditProperties.value(domain,
+						OptimizationPackage.Literals.CONFIGURATION_OPTIMIZATION_ALGORITHM_SPECIFIER__ALGORITHM_NAME)
+						.observe(locSearchSpec));
+		
 		detailBindingContext.bindValue(WidgetProperties.text(SWT.Modify).observe(inpMaxNumber),
 				EMFEditProperties
 						.value(domain, OptimizationPackage.Literals.LOCAL_SEARCH_SPECIFIER__MAXIMUM_NUMBER_OF_STEPS)

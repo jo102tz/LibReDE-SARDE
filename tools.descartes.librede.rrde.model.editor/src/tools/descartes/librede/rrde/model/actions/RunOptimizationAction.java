@@ -35,6 +35,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
@@ -49,6 +50,8 @@ import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
+import tools.descartes.librede.rrde.model.lifecycle.presentation.RrdeEditorPlugin;
+import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
 
 
 
@@ -63,9 +66,9 @@ public class RunOptimizationAction extends Action {
 		super();
 		this.conf = conf;
 		setToolTipText("Run Optimization...");
-		//setImageDescriptor(ExtendedImageRegistry.INSTANCE
-		//		.getImageDescriptor(LibredeEditorPlugin.getPlugin().getImage(
-		//				"full/obj16/run_exc")));
+		setImageDescriptor(ExtendedImageRegistry.INSTANCE
+				.getImageDescriptor(RrdeEditorPlugin.getPlugin().getImage(
+						"full/obj16/run_exc")));
 	}
 
 	@Override
@@ -99,7 +102,8 @@ public class RunOptimizationAction extends Action {
 		BasicConfigurator.configure();
 		Logger.getRootLogger().setLevel(Level.INFO);
 		
-		//OptimizationPlugin.runConfigurationOptimization(conf.getOptimizationConfiguration());
+		OptimizationPlugin plugin = new OptimizationPlugin();
+		plugin.runConfigurationOptimization(conf.getOptimizationConfiguration());
 
 		System.setOut(oldOut);
 		System.setErr(oldErr);

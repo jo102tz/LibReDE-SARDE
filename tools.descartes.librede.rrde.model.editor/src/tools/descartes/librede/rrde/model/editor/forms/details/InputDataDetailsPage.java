@@ -50,7 +50,7 @@ public class InputDataDetailsPage extends AbstractDetailsPage {
 		Section sctnNewSection = managedForm.getToolkit().createSection(parent, Section.TWISTIE | Section.TITLE_BAR);
 		sctnNewSection.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, true, 1, 1));
 		managedForm.getToolkit().paintBordersFor(sctnNewSection);
-		sctnNewSection.setText("Data Export");
+		sctnNewSection.setText("Edit");
 		sctnNewSection.setExpanded(true);
 
 		Composite composite = managedForm.getToolkit().createComposite(sctnNewSection, SWT.NONE);
@@ -60,7 +60,7 @@ public class InputDataDetailsPage extends AbstractDetailsPage {
 
 		Label lblNewLabel = new Label(composite, SWT.NONE);
 		managedForm.getToolkit().adapt(lblNewLabel, true, true);
-		lblNewLabel.setText("OutputDirectory");
+		lblNewLabel.setText("Root Folder");
 
 		inpOutput = new Text(composite, SWT.BORDER);
 		inpOutput.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -106,7 +106,7 @@ public class InputDataDetailsPage extends AbstractDetailsPage {
 		update();
 	}
 
-	private void createBindings() {
+	protected void createBindings() {
 		detailBindingContext = new EMFDataBindingContext();
 
 		detailBindingContext.bindValue(WidgetProperties.selection().observe(btnMultiFolderStruct),

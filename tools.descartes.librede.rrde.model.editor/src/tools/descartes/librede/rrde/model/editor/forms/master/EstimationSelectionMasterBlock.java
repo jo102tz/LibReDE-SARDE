@@ -34,6 +34,7 @@ import tools.descartes.librede.configuration.TraceConfiguration;
 import tools.descartes.librede.configuration.WorkloadDescription;
 import tools.descartes.librede.configuration.editor.forms.ClassesViewerFilter;
 import tools.descartes.librede.rrde.model.editor.forms.details.InputDataDetailsPage;
+import tools.descartes.librede.rrde.model.editor.util.InputDataRegistry;
 import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
@@ -60,6 +61,14 @@ public class EstimationSelectionMasterBlock extends AbstractMasterBlockWithButto
 	public EstimationSelectionMasterBlock(AdapterFactoryEditingDomain domain, LifeCycleConfiguration model) {
 		super(domain, model);
 		this.model = model;
+		init();
+	}
+
+	private void init() {
+		for (EstimationSpecification spec : model.getRecommendationConfiguration().getEstimators()) {
+			InputDataRegistry.INSTANCE.registerEstimationSpecification(spec);
+		}
+		
 	}
 
 	@Override
@@ -69,6 +78,7 @@ public class EstimationSelectionMasterBlock extends AbstractMasterBlockWithButto
 		Command cmd = AddCommand.create(domain, model.getRecommendationConfiguration(),
 				RecommendationPackage.Literals.RECOMMENDATION_TRAINING_CONFIGURATION__ESTIMATORS, spec);
 		domain.getCommandStack().execute(cmd);
+		InputDataRegistry.INSTANCE.registerEstimationSpecification(spec);
 		
 		
 	}
@@ -79,9 +89,10 @@ public class EstimationSelectionMasterBlock extends AbstractMasterBlockWithButto
 		Iterator<?> iterator = selection.iterator();
 		while (iterator.hasNext()) {
 			Object o = iterator.next();
-			if (o instanceof InputData) {
+			if (o instanceof EstimationSpecification) {
 				Command cmd = RemoveCommand.create(domain, o);
 				domain.getCommandStack().execute(cmd);
+				InputDataRegistry.INSTANCE.deleteEstimationValue((EstimationSpecification) o);
 			}
 		}
 
@@ -118,7 +129,9 @@ public class EstimationSelectionMasterBlock extends AbstractMasterBlockWithButto
 
 		@Override
 		public String getText(Object element) {
-			return "Estimation Specification";
+			if (element instanceof EstimationSpecification)
+				return InputDataRegistry.INSTANCE.getLabelFromEstimationSpec((EstimationSpecification) element);
+			return "";
 		}
 	}
 

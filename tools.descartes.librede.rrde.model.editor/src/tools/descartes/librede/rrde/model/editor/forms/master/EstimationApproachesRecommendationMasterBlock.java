@@ -20,6 +20,7 @@ import tools.descartes.librede.configuration.EstimationAlgorithmConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.editor.forms.ClassesViewerFilter;
 import tools.descartes.librede.registry.Registry;
+import tools.descartes.librede.rrde.model.editor.util.InputDataRegistry;
 import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 
@@ -41,8 +42,11 @@ public class EstimationApproachesRecommendationMasterBlock extends EstimationApp
 		tableAlgorithmsViewer.setLabelProvider(new AdapterFactoryLabelProvider(page.getAdapterFactory()));
 		tableAlgorithmsViewer.setContentProvider(new AdapterFactoryContentProvider(page.getAdapterFactory()));
 		if (input != null) {
+			managedForm.getForm().setText("Estimation Specification - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromEstimationSpec(input));
 			existAlgorithmAdder();
 			tableAlgorithmsViewer.setInput(input);
+		} else {
+			managedForm.getForm().setText("Estimation Specification - No Estimation Specification selected.");
 		}
 		tableAlgorithmsViewer.addFilter(
 				new ClassesViewerFilter(EstimationSpecification.class, EstimationAlgorithmConfiguration.class));
@@ -82,11 +86,13 @@ public class EstimationApproachesRecommendationMasterBlock extends EstimationApp
 		if (input != null) {
 
 			if (tableAlgorithmsViewer != null) {
+				managedForm.getForm().setText("Estimation Specification - Currently editing " + InputDataRegistry.INSTANCE.getLabelFromEstimationSpec(input));
 				existAlgorithmAdder();
 				tableAlgorithmsViewer.setInput(input);
 			}
 		} else {
 			if (tableAlgorithmsViewer != null) {
+				managedForm.getForm().setText("Estimation Specification - No Estimation Specification selected.");
 				tableAlgorithmsViewer.setInput(input);
 				tableAlgorithmsViewer.refresh();
 			}

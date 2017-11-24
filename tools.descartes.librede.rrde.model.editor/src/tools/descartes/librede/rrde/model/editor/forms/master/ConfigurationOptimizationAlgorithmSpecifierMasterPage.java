@@ -44,6 +44,7 @@ import tools.descartes.librede.registry.Registry;
 import tools.descartes.librede.rrde.model.editor.forms.details.DataExportDetailsPage;
 import tools.descartes.librede.rrde.model.editor.forms.details.IterativeParameterDetailsPage;
 import tools.descartes.librede.rrde.model.editor.forms.details.LocalSearchDetailsPage;
+import tools.descartes.librede.rrde.model.editor.util.InputDataRegistry;
 import tools.descartes.librede.rrde.model.editor.util.SelectionProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.lifecycle.LifecyclePackage;
@@ -71,7 +72,6 @@ public class ConfigurationOptimizationAlgorithmSpecifierMasterPage extends Abstr
 	private DataExportDetailsPage dataExportPage;
 	private IterativeParameterDetailsPage parameterPage;
 	private LocalSearchDetailsPage localSearchPage;
-	private int counter = 0;
 
 	private List<ConfigurationOptimizationAlgorithmSpecifier> configurationsList = new ArrayList<ConfigurationOptimizationAlgorithmSpecifier>();
 
@@ -134,55 +134,13 @@ public class ConfigurationOptimizationAlgorithmSpecifierMasterPage extends Abstr
 				call.setAlgorithm(spec);
 				configurationsList.add(spec);
 			}
-
-			InputData inpData = OptimizationFactory.eINSTANCE.createInputData();
-			call.getTrainingData().add(inpData);
-
+			
+			// Register the Label for the RunCall
+			InputDataRegistry.INSTANCE.registerRunCall(call);
+			
 			EstimationSpecification specification = ConfigurationFactory.eINSTANCE.createEstimationSpecification();
 			call.setEstimation(specification);
-			/*
-			Set<String> existingAlgorithms = new HashSet<String>();
-			for (EstimationAlgorithmConfiguration v : specification.getAlgorithms()) {
-				existingAlgorithms.add(v.getType());
-			}
-			for (String instance : Registry.INSTANCE.getInstances(IEstimationAlgorithm.class)) {
-				if (!existingAlgorithms.contains(instance)) {
-					EstimationAlgorithmConfiguration a = ConfigurationFactory.eINSTANCE
-							.createEstimationAlgorithmConfiguration();
-					a.setType(instance);
-					specification.getAlgorithms().add(a);
-				}
-			}
-
-			Set<String> existingParameters = new HashSet<String>();
-			for (EstimationAlgorithmConfiguration conf : specification.getAlgorithms()) {
-				for (Parameter para : conf.getParameters()) {
-					existingParameters.add(para.getName());
-				}
-			}
-			// initialize the parameters of estimation algorithms so the are available to be added as optimizable parameter
-			for (String type : Registry.INSTANCE.getInstances(IEstimationAlgorithm.class)) {
-				Class<?> classType = Registry.INSTANCE.getInstanceClass(type);
-				if (classType != null) {
-					if (classType.isAnnotationPresent(Component.class)) {
-						for (Field field : classType.getDeclaredFields()) {
-							ParameterDefinition paraDef = field.getAnnotation(ParameterDefinition.class);
-							if (paraDef != null) {
-								for (EstimationAlgorithmConfiguration config : specification.getAlgorithms()) {
-									if (!existingParameters.contains(paraDef.name()) && config.getType().equals(type)) {
-										Parameter newPara = ConfigurationFactory.eINSTANCE.createParameter();
-										newPara.setName(paraDef.name());
-										newPara.setValue(paraDef.defaultValue());
-										config.getParameters().add(newPara);
-									}
-
-								}
-							}
-						}
-					}
-				}
-			}
-			*/
+			
 
 			OptimizationSettings settings = OptimizationFactory.eINSTANCE.createOptimizationSettings();
 			call.setSettings(settings);
@@ -210,12 +168,15 @@ public class ConfigurationOptimizationAlgorithmSpecifierMasterPage extends Abstr
 					RunCall call = iter.next();
 					if (call.getAlgorithm() == o) {
 						cmd = RemoveCommand.create(domain, call);
-
+						for (InputData data : call.getTrainingData()) {
+							InputDataRegistry.INSTANCE.deleteInputDataValue(data);
+						}
+						InputDataRegistry.INSTANCE.deleteRunCallValue(call);
 					}
 				}
 				domain.getCommandStack().execute(cmd);
 				configurationsList.remove((ConfigurationOptimizationAlgorithmSpecifier) o);
-
+				
 			}
 		}
 		 runCallViewer.setInput(configurationsList);
@@ -238,20 +199,9 @@ public class ConfigurationOptimizationAlgorithmSpecifierMasterPage extends Abstr
 
 		@Override
 		public String getText(Object element) {
-			if (element instanceof DataExportSpecifier) {
-				
-				
-				return "Data Export Specifier";
-			} else if (element instanceof IterativeParameterOptimizerSpecifier) {
-				
-				
-				return "Iterative Parameter Specifier";
-			} else if (element instanceof LocalSearchSpecifier) {
-				
-				
-				return "Local Search Specifier";
-			}
-			return "none";
+			ConfigurationOptimizationAlgorithmSpecifier spec = (ConfigurationOptimizationAlgorithmSpecifier) element;
+			RunCall call = (RunCall) spec.eContainer();
+			return InputDataRegistry.INSTANCE.getLabelFromRunCall(call);
 		}
 	}
 
@@ -286,6 +236,7 @@ public class ConfigurationOptimizationAlgorithmSpecifierMasterPage extends Abstr
 		for (RunCall call : model.getOptimizationConfiguration().getContainsOf()) {
 			if (call.getAlgorithm() != null) {
 				configurationsList.add(call.getAlgorithm());
+				InputDataRegistry.INSTANCE.registerRunCall(call);
 			} else {
 				LocalSearchSpecifier spec = OptimizationFactory.eINSTANCE.createLocalSearchSpecifier();
 				spec.setTimeOut(-1);
@@ -297,41 +248,16 @@ public class ConfigurationOptimizationAlgorithmSpecifierMasterPage extends Abstr
 				configurationsList.add(spec);
 				Command cmd = SetCommand.create(domain, call, OptimizationPackage.Literals.RUN_CALL__ALGORITHM, spec);
 				domain.getCommandStack().execute(cmd);
+				
+				// create labels for the run calls
+				InputDataRegistry.INSTANCE.registerRunCall(call);
+			}
+			
+			// create Labels for the InputData
+			for (InputData data : call.getTrainingData()) {
+				InputDataRegistry.INSTANCE.registerOptimizationInputData(data);
 			}
 		}
-		/*
-		 * for (RunCall call : model.getContainsOf()) { if (call.getAlgorithm()
-		 * == null) { ConfigurationOptimizationAlgorithmSpecifier spec =
-		 * OptimizationFactory.eINSTANCE.
-		 * createConfigurationOptimizationAlgorithmSpecifier();
-		 * spec.setTimeOut(-1); spec.setAlgorithmName("Empty"); Command cmd =
-		 * SetCommand.create(domain, call,
-		 * OptimizationPackage.Literals.RUN_CALL__ALGORITHM, spec);
-		 * domain.getCommandStack().execute(cmd);
-		 * 
-		 * DataExportSpecifier exp =
-		 * OptimizationFactory.eINSTANCE.createDataExportSpecifier();
-		 * exp.setMultidimensional(false); exp.setOutputDirectory("");
-		 * exp.setSplitConfigurations(true); exp.setStepSize(1.0); cmd =
-		 * SetCommand.create(domain, spec,
-		 * OptimizationPackage.Literals.DATA_EXPORT_SPECIFIER, exp);
-		 * domain.getCommandStack().execute(cmd);
-		 * 
-		 * IterativeParameterOptimizerSpecifier para =
-		 * OptimizationFactory.eINSTANCE.
-		 * createIterativeParameterOptimizerSpecifier();
-		 * para.setNumberOfExplorations(3); para.setNumberOfIterations(3);
-		 * para.setNumberOfSplits(3); cmd = SetCommand.create(domain, spec,
-		 * OptimizationPackage.Literals.ITERATIVE_PARAMETER_OPTIMIZER_SPECIFIER,
-		 * para); domain.getCommandStack().execute(cmd);
-		 * 
-		 * LocalSearchSpecifier loc =
-		 * OptimizationFactory.eINSTANCE.createLocalSearchSpecifier();
-		 * loc.setStepSize(1.0); loc.setMaximumNumberOfSteps(-1);
-		 * loc.setTolerance(0.05); cmd = SetCommand.create(domain, spec,
-		 * OptimizationPackage.Literals.LOCAL_SEARCH_SPECIFIER, loc);
-		 * domain.getCommandStack().execute(cmd); } }
-		 */
 	}
 
 	@Override
