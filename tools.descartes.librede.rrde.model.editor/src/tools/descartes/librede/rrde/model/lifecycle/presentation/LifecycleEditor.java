@@ -1894,11 +1894,15 @@ public class LifecycleEditor
 		}
 		
 		
+		
+		
 		if (conf == null) {
 			throw new IllegalStateException("No Config Found");
 		}
-		
-		
+		if (conf.getOptimizationConfiguration() == null) 
+			conf.eSet(LifecyclePackage.Literals.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION, optConf);
+		if (conf.getRecommendationConfiguration() == null)
+			conf.eSet(LifecyclePackage.Literals.LIFE_CYCLE_CONFIGURATION__RECOMMENDATION_CONFIGURATION, recConf);
 		
 		try {
 			

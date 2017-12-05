@@ -2,7 +2,6 @@ package tools.descartes.librede.rrde.model.editor.forms;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.databinding.observable.list.IObservableList;
@@ -11,44 +10,33 @@ import org.eclipse.emf.databinding.EMFDataBindingContext;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.ScrolledForm;
+import org.eclipse.ui.forms.widgets.Section;
 
-import tools.descartes.librede.configuration.ConfigurationFactory;
-import tools.descartes.librede.configuration.ConfigurationPackage;
 import tools.descartes.librede.configuration.editor.util.TimeUnitSpinnerBuilder;
-import tools.descartes.librede.metrics.Aggregation;
-import tools.descartes.librede.metrics.MetricsFactory;
-import tools.descartes.librede.metrics.MetricsPackage;
 import tools.descartes.librede.registry.Registry;
-import tools.descartes.librede.rrde.model.actions.RunOptimizationAction;
 import tools.descartes.librede.rrde.model.editor.forms.master.AbstractMasterBlock;
 import tools.descartes.librede.rrde.model.editor.util.OptAlgorithmLabelProvider;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.lifecycle.presentation.LifecycleEditor;
-import tools.descartes.librede.rrde.model.optimization.OptimizationPackage;
 import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.NeuralNetworkAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationFactory;
@@ -62,12 +50,6 @@ import tools.descartes.librede.units.Time;
 import tools.descartes.librede.units.Unit;
 import tools.descartes.librede.units.UnitsFactory;
 import tools.descartes.librede.units.UnitsPackage;
-import tools.descartes.librede.units.UnitsRepository;
-
-import org.eclipse.ui.forms.widgets.Section;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
 
 public class RecommendationConfigurationFormPage extends MasterDetailsFormPage {
 
