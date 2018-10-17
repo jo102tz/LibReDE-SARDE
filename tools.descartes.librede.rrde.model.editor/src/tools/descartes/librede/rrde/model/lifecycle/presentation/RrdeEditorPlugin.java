@@ -3,9 +3,7 @@
 package tools.descartes.librede.rrde.model.lifecycle.presentation;
 
 import org.eclipse.emf.common.EMFPlugin;
-
 import org.eclipse.emf.common.ui.EclipseUIPlugin;
-
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import tools.descartes.librede.configuration.provider.LibredeEditPlugin;

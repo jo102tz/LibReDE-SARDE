@@ -3,9 +3,7 @@
 package tools.descartes.librede.rrde.model.lifecycle.tests;
 
 import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
-
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.lifecycle.LifecycleFactory;
 

@@ -3,9 +3,7 @@
 package tools.descartes.librede.rrde.model.optimization.tests;
 
 import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
-
 import tools.descartes.librede.rrde.model.optimization.OptimizationFactory;
 import tools.descartes.librede.rrde.model.optimization.RunCall;
 

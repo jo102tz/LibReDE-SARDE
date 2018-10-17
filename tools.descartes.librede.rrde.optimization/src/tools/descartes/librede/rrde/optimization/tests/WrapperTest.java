@@ -31,6 +31,7 @@ import java.io.File;
 import org.junit.Test;
 
 import tools.descartes.librede.Librede;
+import tools.descartes.librede.ResultPrinter;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
 import tools.descartes.librede.rrde.util.Wrapper;
@@ -50,7 +51,7 @@ public class WrapperTest {
 		Wrapper.init();
 		LibredeConfiguration configuration = Librede
 				.loadConfiguration(new File(PATH).toPath());
-		Librede.printSummary(Wrapper.executeLibrede(configuration));
+		ResultPrinter.printSummary(Wrapper.executeLibrede(configuration));
 	}
 
 }

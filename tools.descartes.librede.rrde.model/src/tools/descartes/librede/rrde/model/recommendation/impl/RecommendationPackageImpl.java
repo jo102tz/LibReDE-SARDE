@@ -7,23 +7,15 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 import tools.descartes.librede.configuration.ConfigurationPackage;
-
 import tools.descartes.librede.metrics.MetricsPackage;
-
 import tools.descartes.librede.rrde.model.lifecycle.LifecyclePackage;
-
 import tools.descartes.librede.rrde.model.lifecycle.impl.LifecyclePackageImpl;
-
 import tools.descartes.librede.rrde.model.optimization.OptimizationPackage;
-
 import tools.descartes.librede.rrde.model.optimization.impl.OptimizationPackageImpl;
-
 import tools.descartes.librede.rrde.model.recommendation.DataSet;
 import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.FeatureExtractorSpecifier;
@@ -35,7 +27,6 @@ import tools.descartes.librede.rrde.model.recommendation.RecommendationPackage;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.model.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.StatisticalFeatures;
-
 import tools.descartes.librede.units.UnitsPackage;
 
 /**

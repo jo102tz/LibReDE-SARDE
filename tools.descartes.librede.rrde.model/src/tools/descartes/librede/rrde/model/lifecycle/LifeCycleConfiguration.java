@@ -5,7 +5,6 @@ package tools.descartes.librede.rrde.model.lifecycle;
 import org.eclipse.emf.ecore.EObject;
 
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
-
 import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
 
 /**

@@ -6,27 +6,18 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 import tools.descartes.librede.configuration.ConfigurationPackage;
-
 import tools.descartes.librede.metrics.MetricsPackage;
-
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.lifecycle.LifecycleFactory;
 import tools.descartes.librede.rrde.model.lifecycle.LifecyclePackage;
-
 import tools.descartes.librede.rrde.model.optimization.OptimizationPackage;
-
 import tools.descartes.librede.rrde.model.optimization.impl.OptimizationPackageImpl;
-
 import tools.descartes.librede.rrde.model.recommendation.RecommendationPackage;
-
 import tools.descartes.librede.rrde.model.recommendation.impl.RecommendationPackageImpl;
-
 import tools.descartes.librede.units.UnitsPackage;
 
 /**

@@ -3,12 +3,10 @@
 package tools.descartes.librede.rrde.model.recommendation;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.ValidationSpecification;
-
 import tools.descartes.librede.rrde.model.optimization.InputData;
 
 /**

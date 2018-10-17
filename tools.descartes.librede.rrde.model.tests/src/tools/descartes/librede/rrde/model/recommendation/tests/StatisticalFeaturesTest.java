@@ -3,9 +3,7 @@
 package tools.descartes.librede.rrde.model.recommendation.tests;
 
 import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
-
 import tools.descartes.librede.rrde.model.recommendation.RecommendationFactory;
 import tools.descartes.librede.rrde.model.recommendation.StatisticalFeatures;
 

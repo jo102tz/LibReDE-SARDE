@@ -3,7 +3,6 @@
 package tools.descartes.librede.rrde.model.optimization.tests;
 
 import junit.textui.TestRunner;
-
 import tools.descartes.librede.rrde.model.optimization.IterativeParameterOptimizerSpecifier;
 import tools.descartes.librede.rrde.model.optimization.OptimizationFactory;
 

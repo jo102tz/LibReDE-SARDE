@@ -3,7 +3,6 @@
 package tools.descartes.librede.rrde.model.optimization.tests;
 
 import junit.framework.TestCase;
-
 import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 
 /**

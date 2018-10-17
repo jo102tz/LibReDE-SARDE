@@ -3,9 +3,7 @@
 package tools.descartes.librede.rrde.model.optimization.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import tools.descartes.librede.rrde.model.optimization.LocalSearchSpecifier;

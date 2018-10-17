@@ -3,18 +3,14 @@
 package tools.descartes.librede.rrde.model.lifecycle.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.lifecycle.LifecyclePackage;
-
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
-
 import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
 
 /**

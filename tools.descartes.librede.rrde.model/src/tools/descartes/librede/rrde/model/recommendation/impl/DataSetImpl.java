@@ -6,16 +6,13 @@ import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import tools.descartes.librede.configuration.EstimationAlgorithmConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-
 import tools.descartes.librede.rrde.model.recommendation.DataSet;
 import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationPackage;

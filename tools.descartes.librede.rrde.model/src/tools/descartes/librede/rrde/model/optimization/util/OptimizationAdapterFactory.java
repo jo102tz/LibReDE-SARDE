@@ -4,12 +4,24 @@ package tools.descartes.librede.rrde.model.optimization.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
 
-import tools.descartes.librede.rrde.model.optimization.*;
+import tools.descartes.librede.rrde.model.optimization.ClusterOptimizationSpecifier;
+import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.optimization.DataExportSpecifier;
+import tools.descartes.librede.rrde.model.optimization.GenericParameter;
+import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
+import tools.descartes.librede.rrde.model.optimization.InputData;
+import tools.descartes.librede.rrde.model.optimization.IterativeParameterOptimizerSpecifier;
+import tools.descartes.librede.rrde.model.optimization.LocalSearchSpecifier;
+import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.model.optimization.OptimizationPackage;
+import tools.descartes.librede.rrde.model.optimization.OptimizationSettings;
+import tools.descartes.librede.rrde.model.optimization.RunCall;
+import tools.descartes.librede.rrde.model.optimization.StepSize;
+import tools.descartes.librede.rrde.model.optimization.StepSizeRelWindow;
+import tools.descartes.librede.rrde.model.optimization.WindowSize;
 
 /**
  * <!-- begin-user-doc -->

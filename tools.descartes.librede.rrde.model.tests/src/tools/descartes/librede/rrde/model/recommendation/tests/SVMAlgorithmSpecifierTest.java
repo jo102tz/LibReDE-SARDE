@@ -3,7 +3,6 @@
 package tools.descartes.librede.rrde.model.recommendation.tests;
 
 import junit.textui.TestRunner;
-
 import tools.descartes.librede.rrde.model.recommendation.RecommendationFactory;
 import tools.descartes.librede.rrde.model.recommendation.SVMAlgorithmSpecifier;
 

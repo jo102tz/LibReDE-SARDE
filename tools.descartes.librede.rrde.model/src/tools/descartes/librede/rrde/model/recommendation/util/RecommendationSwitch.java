@@ -4,10 +4,18 @@ package tools.descartes.librede.rrde.model.recommendation.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
 
-import tools.descartes.librede.rrde.model.recommendation.*;
+import tools.descartes.librede.rrde.model.recommendation.DataSet;
+import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.FeatureExtractorSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.model.recommendation.NeuralNetworkAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.RecommendationPackage;
+import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.rrde.model.recommendation.SVMAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.StatisticalFeatures;
 
 /**
  * <!-- begin-user-doc -->
