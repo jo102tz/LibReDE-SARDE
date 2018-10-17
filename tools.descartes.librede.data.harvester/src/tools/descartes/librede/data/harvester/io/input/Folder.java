@@ -93,15 +93,16 @@ public class Folder {
 				}
 			});
 		}
-		if (!folder.exists() || !folder.isDirectory()) {
+		File[] filearray = folder.listFiles();
+		if (!folder.exists() || !folder.isDirectory() || filearray == null) {
 			log.warn("Folder " + folder + " is not a valid folder.");
 			return;
-		}
-		maxIndex = folder.listFiles().length;
-		File[] filearray = folder.listFiles();
-		Arrays.sort(filearray);
-		for (int i = 0; i < filearray.length; i++) {
-			files.add(new IndexedFile(filearray[i], i));
+		} else {
+			maxIndex = filearray.length;
+			Arrays.sort(filearray);
+			for (int i = 0; i < filearray.length; i++) {
+				files.add(new IndexedFile(filearray[i], i));
+			}
 		}
 
 	}

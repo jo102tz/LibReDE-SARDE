@@ -142,7 +142,7 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 				rateUnit = RequestRate.REQ_PER_MINUTE;
 			}
 		}
-		if (spec.getAggregation().getValue() <= 0) {
+		if (spec != null && spec.getAggregation() != null && spec.getAggregation().getValue() <= 0) {
 			getLog().warn(
 					"Aggreation interval could not be read. Using default value...");
 			spec.getAggregation().setValue(60000);

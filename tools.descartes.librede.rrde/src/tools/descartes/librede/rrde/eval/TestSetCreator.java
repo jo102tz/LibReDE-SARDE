@@ -55,8 +55,8 @@ public class TestSetCreator {
 	 * @throws IOException
 	 *             If something fails during execution and movements of files.
 	 */
-	public static void shuffle(String mainfolder, String trainingfolder, String validationfolder, double split, int substract)
-			throws IOException {
+	public static void shuffle(String mainfolder, String trainingfolder, String validationfolder, double split,
+			int substract) throws IOException {
 		log.info("Reshuffeling training and validation data...");
 		log.trace("Cleaning up training and validation folders...");
 		cleanup(new File(trainingfolder));
@@ -73,8 +73,8 @@ public class TestSetCreator {
 		log.info("Validation set size: " + split * directories.size());
 	}
 
-	private static void split(List<File> directories, File trainingfolder, File validationfolder, double split, int substract)
-			throws IOException {
+	private static void split(List<File> directories, File trainingfolder, File validationfolder, double split,
+			int substract) throws IOException {
 		Iterator<File> it = directories.iterator();
 		for (int i = 0; i < directories.size() * split; i++) {
 			// move first part of directories to validation folder until the
@@ -104,12 +104,14 @@ public class TestSetCreator {
 	 */
 	private static void moveTestcase(File testcase, File target, int subtract) throws IOException {
 		String foldername = testcase.getPath().replaceAll(Matcher.quoteReplacement(File.separator), "-");
-		File directory = new File(target.getAbsolutePath() + File.separator + foldername.substring(subtract+1));
+		File directory = new File(target.getAbsolutePath() + File.separator + foldername.substring(subtract + 1));
 		if (directory.exists() || !directory.mkdir()) {
 			throw new IOException("Creating directory " + directory.toString() + " failed.");
 		}
-		for (File f : testcase.listFiles())
-			Files.copy(f.toPath(), new File(directory.toString() + File.separator + f.getName()).toPath());
+		File[] files = testcase.listFiles();
+		if (files != null)
+			for (File f : files)
+				Files.copy(f.toPath(), new File(directory.toString() + File.separator + f.getName()).toPath());
 	}
 
 	/**
@@ -118,12 +120,13 @@ public class TestSetCreator {
 	 * @return
 	 */
 	private static void getSingleTestCases(File main, List<File> directories) {
+		File[] files = main.listFiles();
 		if (!main.exists())
 			return;
-		if (!main.isDirectory())
+		if (!main.isDirectory() || files == null)
 			return;
 		boolean testcase = true;
-		for (File file : main.listFiles()) {
+		for (File file : files) {
 			if (file.exists() && file.isDirectory()) {
 				getSingleTestCases(file, directories);
 				testcase = false;
@@ -132,7 +135,7 @@ public class TestSetCreator {
 				testcase = false;
 			}
 		}
-		if (main.listFiles().length > 0 && testcase) {
+		if (files.length > 0 && testcase) {
 			// this makes main a testcase
 			directories.add(main);
 		}

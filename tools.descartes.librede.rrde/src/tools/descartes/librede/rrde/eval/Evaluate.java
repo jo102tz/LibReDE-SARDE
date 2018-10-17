@@ -161,7 +161,7 @@ public class Evaluate {
   /**
    * A PLugin instance.
    */
-  static Plugin main;
+  Plugin main;
 
   /**
    * The share of the testset to be used for validation.

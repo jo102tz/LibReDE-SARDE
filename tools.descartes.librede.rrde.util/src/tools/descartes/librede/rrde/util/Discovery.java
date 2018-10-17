@@ -73,7 +73,7 @@ import tools.descartes.librede.units.UnitsFactory;
 /**
  * This helper class enables the configuration of different
  * {@link LibredeConfiguration} files based on a root directory as defined in
- * {@link InputData}. FIXME this class needs a total restructuring and overhaul
+ * {@link InputData}. TODO this class needs a total restructuring and overhaul
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
@@ -92,8 +92,7 @@ public class Discovery {
 	 * @return A Map assigning {@link InputSpecification}s to
 	 *         {@link WorkloadDescription}s
 	 */
-	public static Map<WorkloadDescription, Set<InputSpecification>> discoverInputs(
-			EList<InputData> input) {
+	public static Map<WorkloadDescription, Set<InputSpecification>> discoverInputs(EList<InputData> input) {
 		HashMap<WorkloadDescription, Set<InputSpecification>> map = new HashMap<WorkloadDescription, Set<InputSpecification>>();
 		for (InputData data : input) {
 			map.put(data.getWorkloadDescription(), discoverOne(data));
@@ -121,9 +120,8 @@ public class Discovery {
 	 *            should contain
 	 * @return A set of found valid {@link LibredeConfiguration}s
 	 */
-	public static Set<LibredeConfiguration> createConfigurations(
-			EList<InputData> input, EstimationSpecification estimation,
-			ValidationSpecification validator) {
+	public static Set<LibredeConfiguration> createConfigurations(EList<InputData> input,
+			EstimationSpecification estimation, ValidationSpecification validator) {
 		Set<LibredeConfiguration> set = new HashSet<LibredeConfiguration>();
 
 		// change important settings of base file
@@ -131,8 +129,7 @@ public class Discovery {
 
 		// explore inputs and create as many configurations
 		Map<WorkloadDescription, Set<InputSpecification>> map = discoverInputs(input);
-		for (Entry<WorkloadDescription, Set<InputSpecification>> entry : map
-				.entrySet()) {
+		for (Entry<WorkloadDescription, Set<InputSpecification>> entry : map.entrySet()) {
 
 			ArrayList<Resource> reslist = new ArrayList<Resource>();
 			reslist.addAll(entry.getKey().getResources());
@@ -145,8 +142,7 @@ public class Discovery {
 				LibredeConfiguration additional = EcoreUtil.copy(conf);
 
 				// do not copy references
-				additional
-						.setWorkloadDescription(EcoreUtil.copy(entry.getKey()));
+				additional.setWorkloadDescription(EcoreUtil.copy(entry.getKey()));
 
 				additional.setInput(EcoreUtil.copy(spec));
 
@@ -164,7 +160,7 @@ public class Discovery {
 
 				// adapt time stamps
 				// fix mapping references
-				if (fixTimeStamps(additional) & fixMapping(additional)) {
+				if (fixTimeStamps(additional) && fixMapping(additional)) {
 					set.add(additional);
 				} else {
 					log.warn("No valid configuration could be created.");
@@ -181,17 +177,14 @@ public class Discovery {
 	private static void validateConfs(Set<LibredeConfiguration> confs) {
 		HashSet<LibredeConfiguration> remove = new HashSet<LibredeConfiguration>();
 		for (LibredeConfiguration single : confs) {
-			if (single.getWorkloadDescription() == null
-					|| single.getEstimation() == null
-					|| single.getInput() == null || single.getOutput() == null
-					|| single.getValidation() == null) {
-				log.warn("Malformed Configuration. (Null-values) Ignoring "
-						+ single.toString() + ".");
+			if (single.getWorkloadDescription() == null || single.getEstimation() == null || single.getInput() == null
+					|| single.getOutput() == null || single.getValidation() == null) {
+				log.warn("Malformed Configuration. (Null-values) Ignoring " + single.toString() + ".");
 
 			} else if (single.getWorkloadDescription().getResources().isEmpty()
 					|| single.getWorkloadDescription().getServices().isEmpty()) {
-				log.warn("Malformed Configuration. Resources or Services are empty. Ignoring "
-						+ single.toString() + ".");
+				log.warn("Malformed Configuration. Resources or Services are empty. Ignoring " + single.toString()
+						+ ".");
 				remove.add(single);
 			}
 		}
@@ -205,81 +198,61 @@ public class Discovery {
 	/**
 	 * Checks the collection for identical configurations just varying in
 	 * workload descriptions and just keeps the one with the biggest
-	 * description. (Resources first, after that WCs
+	 * description. (Resources first, after that WCs)
 	 * 
 	 * @param confs
 	 *            The set to check
 	 */
-	private static void deleteMultipleWorkloadConfs(
-			Set<LibredeConfiguration> confs) {
+	private static void deleteMultipleWorkloadConfs(Set<LibredeConfiguration> confs) {
 		HashSet<LibredeConfiguration> remove = new HashSet<>();
-		// TODO could be problematic with multifolderstructures
 		// repeat until no conflicts are detected anymore
 		do {
 			confs.removeAll(remove);
 			remove.clear();
 			for (LibredeConfiguration original : confs) {
-				if(!remove.isEmpty()){
+				if (!remove.isEmpty()) {
 					break;
 				}
-				File parent = new File(((FileTraceConfiguration) original
-						.getInput().getObservations().get(0)).getFile())
-						.getParentFile();
+				File parent = new File(
+						((FileTraceConfiguration) original.getInput().getObservations().get(0)).getFile())
+								.getParentFile();
 				for (LibredeConfiguration second : confs) {
 					if (!second.equals(original)) {
-						File next = new File(((FileTraceConfiguration) second
-								.getInput().getObservations().get(0)).getFile())
-								.getParentFile();
+						File next = new File(
+								((FileTraceConfiguration) second.getInput().getObservations().get(0)).getFile())
+										.getParentFile();
 						if (next.equals(parent)) {
-							int orgResources = original
-									.getWorkloadDescription().getResources()
-									.size();
-							int orgServices = original.getWorkloadDescription()
-									.getServices().size();
-							int secResources = second.getWorkloadDescription()
-									.getResources().size();
-							int secServices = second.getWorkloadDescription()
-									.getServices().size();
+							int orgResources = original.getWorkloadDescription().getResources().size();
+							int orgServices = original.getWorkloadDescription().getServices().size();
+							int secResources = second.getWorkloadDescription().getResources().size();
+							int secServices = second.getWorkloadDescription().getServices().size();
 							// the two configurations have the same parent
 							// check first for resources, then for WCs
 							if (orgResources == secResources) {
 								if (orgServices == secServices) {
 									// both have the same description -> delete
 									// one
-									log.info("Duplicate Configurations: "
-											+ original + " and " + second
-											+ ". Deleting " + second);
+									log.info("Duplicate Configurations: " + original + " and " + second + ". Deleting "
+											+ second);
 									remove.add(second);
 								} else if (orgServices > secServices) {
 									// original has more WCs
-									log.debug("Duplicate Configurations: "
-											+ original + " and " + second
-											+ " with " + original
-											+ " having more WCs. Deleting "
-											+ second);
+									log.debug("Duplicate Configurations: " + original + " and " + second + " with "
+											+ original + " having more WCs. Deleting " + second);
 									remove.add(second);
 								} else {
-									log.debug("Duplicate Configurations: "
-											+ original + " and " + second
-											+ " with " + second
-											+ " having more WCs. Deleting "
-											+ original);
+									log.debug("Duplicate Configurations: " + original + " and " + second + " with "
+											+ second + " having more WCs. Deleting " + original);
 									remove.add(original);
 								}
 							} else if (orgResources > secResources) {
-								log.debug("Duplicate Configurations: "
-										+ original + " and " + second
-										+ " with " + original
-										+ " having more resources. Deleting "
-										+ second);
+								log.debug("Duplicate Configurations: " + original + " and " + second + " with "
+										+ original + " having more resources. Deleting " + second);
 								remove.add(second);
 
 							} else {
-								log.debug("Duplicate Configurations: "
-										+ original + " and " + second
-										+ " with " + second
-										+ " having more resources. Deleting "
-										+ original);
+								log.debug("Duplicate Configurations: " + original + " and " + second + " with " + second
+										+ " having more resources. Deleting " + original);
 								remove.add(original);
 							}
 							break;
@@ -300,14 +273,12 @@ public class Discovery {
 	private static boolean fixMapping(LibredeConfiguration additional) {
 		for (TraceConfiguration trace : additional.getInput().getObservations()) {
 			for (TraceToEntityMapping mapping : trace.getMappings()) {
-				for (Resource res : additional.getWorkloadDescription()
-						.getResources()) {
+				for (Resource res : additional.getWorkloadDescription().getResources()) {
 					if (mapping.getEntity().getName().equals(res.getName())) {
 						mapping.setEntity(res);
 					}
 				}
-				for (Service ser : additional.getWorkloadDescription()
-						.getServices()) {
+				for (Service ser : additional.getWorkloadDescription().getServices()) {
 					if (mapping.getEntity().getName().equals(ser.getName())) {
 						mapping.setEntity(ser);
 					}
@@ -335,8 +306,7 @@ public class Discovery {
 			log.warn(folder.toString() + " is not a directory.");
 			return set;
 		}
-		iterateDirectories(folder.toPath(), input.getInput(), set,
-				input.isMultiFolderStructures());
+		iterateDirectories(folder.toPath(), input.getInput(), set, input.isMultiFolderStructures());
 		return set;
 	}
 
@@ -352,11 +322,9 @@ public class Discovery {
 	 *            should contain
 	 * @return An new {@link LibredeConfiguration}
 	 */
-	private static LibredeConfiguration createConfigFile(
-			EstimationSpecification estimation,
+	private static LibredeConfiguration createConfigFile(EstimationSpecification estimation,
 			ValidationSpecification validator) {
-		LibredeConfiguration copy = ConfigurationFactory.eINSTANCE
-				.createLibredeConfiguration();
+		LibredeConfiguration copy = ConfigurationFactory.eINSTANCE.createLibredeConfiguration();
 
 		// set values to the one of the runcall
 		copy.setEstimation(EcoreUtil.copy(estimation));
@@ -364,12 +332,10 @@ public class Discovery {
 
 		// set other fields to empty values
 		copy.setInput(ConfigurationFactory.eINSTANCE.createInputSpecification());
-		copy.setWorkloadDescription(ConfigurationFactory.eINSTANCE
-				.createWorkloadDescription());
+		copy.setWorkloadDescription(ConfigurationFactory.eINSTANCE.createWorkloadDescription());
 
 		// configure output
-		copy.setOutput(ConfigurationFactory.eINSTANCE
-				.createOutputSpecification());
+		copy.setOutput(ConfigurationFactory.eINSTANCE.createOutputSpecification());
 		// copy.getOutput()
 		// .getExporters()
 		// .add(ConfigurationFactory.eINSTANCE
@@ -401,8 +367,8 @@ public class Discovery {
 	 * @param set
 	 *            The set to add the new {@link InputSpecification}
 	 */
-	private static void iterateDirectories(Path root, InputSpecification main,
-			Set<InputSpecification> set, boolean multiFolderStructures) {
+	private static void iterateDirectories(Path root, InputSpecification main, Set<InputSpecification> set,
+			boolean multiFolderStructures) {
 		if (root.toFile().isDirectory()) {
 			DirectoryStream<Path> stream = null;
 			try {
@@ -413,8 +379,7 @@ public class Discovery {
 			Iterator<Path> iter = stream.iterator();
 			// call recursively
 			while (iter.hasNext()) {
-				iterateDirectories(iter.next(), main, set,
-						multiFolderStructures);
+				iterateDirectories(iter.next(), main, set, multiFolderStructures);
 			}
 			checkThisFolder(root, main, set, multiFolderStructures);
 		} else if (!root.toFile().exists()) {
@@ -439,8 +404,8 @@ public class Discovery {
 	 * @param set
 	 *            The set to add the new {@link InputSpecification}
 	 */
-	private static void checkThisFolder(Path root, InputSpecification main,
-			Set<InputSpecification> set, boolean multiFolderStructures) {
+	private static void checkThisFolder(Path root, InputSpecification main, Set<InputSpecification> set,
+			boolean multiFolderStructures) {
 
 		// first collect all possible paths and subpaths of this folder
 		// this behaviour is quite inefficient (especially since all directories
@@ -450,8 +415,7 @@ public class Discovery {
 		toIterate.add(root);
 		while (!toIterate.isEmpty()) {
 			Path current = toIterate.remove();
-			try (DirectoryStream<Path> stream = Files
-					.newDirectoryStream(current)) {
+			try (DirectoryStream<Path> stream = Files.newDirectoryStream(current)) {
 				Iterator<Path> iter = stream.iterator();
 				while (iter.hasNext()) {
 					Path filepath = iter.next();
@@ -473,39 +437,32 @@ public class Discovery {
 			boolean found = false;
 			// try to find a file with the given name
 			for (Path p : allSubpaths) {
-				if (p.endsWith(new File(((FileTraceConfiguration) trace)
-						.getFile()).getName())) {
+				if (p.endsWith(new File(((FileTraceConfiguration) trace).getFile()).getName())) {
 					// the filepath contains the file ending
 					// -> set the file
-					((FileTraceConfiguration) trace).setFile(p.toAbsolutePath()
-							.toString());
+					((FileTraceConfiguration) trace).setFile(p.toAbsolutePath().toString());
 					found = true;
 				}
 			}
 			if (!found) {
 				// if no match was found for this observation -> abort
-				log.debug("No valid configuration files found in " + root
-						+ " folder.");
+				log.debug("No valid configuration files found in " + root + " folder.");
 				return;
 			}
 		}
 		// if we reach here, all traces have been set
 		if (!multiFolderStructures) {
-			// TODO should be restructured. A check like this might exclude
-			// possible correct folders with multiple correct file
-			// configurations (as found in root folders)
 
 			// if multi-folder strucutres are not allowed
 			// we have to make sure all files are in the same folder
-			Path folder = new File(((FileTraceConfiguration) copy
-					.getObservations().get(0)).getFile()).toPath().getParent();
+			Path folder = new File(((FileTraceConfiguration) copy.getObservations().get(0)).getFile()).toPath()
+					.getParent();
 			for (TraceConfiguration trace : copy.getObservations()) {
 				FileTraceConfiguration filetrace = (FileTraceConfiguration) trace;
-				if (!new File(filetrace.getFile()).toPath().getParent()
-						.equals(folder)) {
+				Path parentpath = new File(filetrace.getFile()).toPath().getParent();
+				if (parentpath != null && parentpath.equals(folder)) {
 					// this one is not in the same parent as the first one
-					log.debug("Configuration of "
-							+ root
+					log.debug("Configuration of " + root
 							+ " was excluded, because not all files were in the same folder.");
 					return;
 				}
@@ -538,19 +495,14 @@ public class Discovery {
 				FileTraceConfiguration fileTrace = (FileTraceConfiguration) trace;
 				File inputFile = new File(fileTrace.getFile());
 				if (inputFile.exists()) {
-					DataSourceConfiguration dataSourceConf = fileTrace
-							.getDataSource();
+					DataSourceConfiguration dataSourceConf = fileTrace.getDataSource();
 					if (dataSourceConf != null) {
-						IDataSource ds = dataSources.get(dataSourceConf
-								.getType());
+						IDataSource ds = dataSources.get(dataSourceConf.getType());
 
 						if (ds == null) {
 							try {
-								Class<?> cl = Registry.INSTANCE
-										.getInstanceClass(dataSourceConf
-												.getType());
-								ds = (IDataSource) Instantiator.newInstance(cl,
-										dataSourceConf.getParameters());
+								Class<?> cl = Registry.INSTANCE.getInstanceClass(dataSourceConf.getType());
+								ds = (IDataSource) Instantiator.newInstance(cl, dataSourceConf.getParameters());
 								dataSources.put(dataSourceConf.getType(), ds);
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -568,14 +520,9 @@ public class Discovery {
 									// column
 									// 0, this should be changed?
 									maxStart = Math.max(
-											loadFirst(inputFile, 0,
-													getSeparators(fileTrace
-															.getDataSource())),
+											loadFirst(inputFile, 0, getSeparators(fileTrace.getDataSource())),
 											maxStart);
-									minEnd = Math.min(
-											loadLast(inputFile, 0,
-													getSeparators(fileTrace
-															.getDataSource())),
+									minEnd = Math.min(loadLast(inputFile, 0, getSeparators(fileTrace.getDataSource())),
 											minEnd);
 								} catch (Exception e) {
 									log.error("Error occurred", e);
@@ -655,10 +602,8 @@ public class Discovery {
 		// default
 		Unit<Time> dateUnit = Time.MILLISECONDS;
 		if (simpleDateFormat != null && !simpleDateFormat.isEmpty()) {
-			if (simpleDateFormat.startsWith("[")
-					&& simpleDateFormat.endsWith("]")) {
-				String unit = simpleDateFormat.substring(1,
-						simpleDateFormat.length() - 1);
+			if (simpleDateFormat.startsWith("[") && simpleDateFormat.endsWith("]")) {
+				String unit = simpleDateFormat.substring(1, simpleDateFormat.length() - 1);
 				for (Unit<?> u : Time.INSTANCE.getUnits()) {
 					if (u.getSymbol().equalsIgnoreCase(unit)) {
 						dateUnit = (Unit<Time>) u;
