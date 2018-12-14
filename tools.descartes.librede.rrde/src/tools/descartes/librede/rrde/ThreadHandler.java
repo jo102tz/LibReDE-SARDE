@@ -274,7 +274,6 @@ public class ThreadHandler extends Thread {
 			optimizationThread.join();
 			log.info("OptimizationThread instance finished!");*/
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		log.info("ThreadHandler deinitialized!");

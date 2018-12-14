@@ -152,19 +152,6 @@ public class Plugin implements IApplication {
 		
 	}
 	
-	/**
-	 * Method, that starts the online estimation and learning cycle
-	 * 
-	 * @param lifeCycleConfiguration
-	 * @param libredeConfiguration
-	 */
-	public LibredeResults onlineEstimation(LifeCycleConfiguration lifeCycleConfiguration, LibredeConfiguration libredeConfiguration) {
-		//first try to simply execute librede
-		Discovery.fixTimeStamps(libredeConfiguration);
-		LibredeResults results = Wrapper.executeLibrede(libredeConfiguration);
-		return results;
-	}
-	
 	@Override
 	public void stop() {
 		// do nothing
