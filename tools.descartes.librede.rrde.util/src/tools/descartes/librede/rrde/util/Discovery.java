@@ -73,7 +73,7 @@ import tools.descartes.librede.units.UnitsFactory;
 /**
  * This helper class enables the configuration of different
  * {@link LibredeConfiguration} files based on a root directory as defined in
- * {@link InputData}. TODO this class needs a total restructuring and overhaul
+ * {@link InputData}. This class needs a total restructuring and overhaul
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *

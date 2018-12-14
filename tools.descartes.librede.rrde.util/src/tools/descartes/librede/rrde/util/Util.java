@@ -270,7 +270,6 @@ public class Util {
 		}
 		Class<? extends IEstimationApproach> approach = result.getApproaches().iterator().next();
 
-		// TODO implement weighting with geom. mean
 		double error = 0;
 
 		for (ValidatorConfiguration validator : vali.getValidators()) {
