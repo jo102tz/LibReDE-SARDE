@@ -61,7 +61,7 @@ public class Plugin implements IApplication {
 	/**
 	 * The logging level for all classes of this package
 	 */
-	private final Level loglevel = Level.INFO;
+	private final Level loglevel = Level.TRACE;
 
 	/**
 	 * The logger used for logging

@@ -27,6 +27,9 @@
  */
 package tools.descartes.librede.rrde.lifecycle;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -55,6 +58,7 @@ public class LogBook {
 	 */
 	public LogBook(OperationType type) {
 		this.type = type;
+		book = new ArrayList<>();
 	}
 
 	/**
@@ -77,11 +81,37 @@ public class LogBook {
 	}
 
 	/**
+	 * Writes this logbook to the given CSV-File.
 	 * 
-	 * @param mainfolder
+	 * @param file
+	 *            The file to write to.
+	 * @throws FileNotFoundException
+	 *             If the given file object does not denote an existing,
+	 *             writable regular file and a new regular file of that name
+	 *             cannot be created, or if some other error occurs while
+	 *             opening orcreating the file.
 	 */
-	public void exportToCsv(String mainfolder) {
-		// TODO
+	public void exportToCsv(String file) throws FileNotFoundException {
+		PrintWriter pw;
+		pw = new PrintWriter(new File(file));
+		StringBuilder sb = new StringBuilder();
+
+		// header
+		sb.append("Timestamp,");
+		sb.append("Metric,");
+		sb.append("Time,");
+		sb.append("\n");
+
+		// entries
+		for (LogEntry entry : book) {
+			sb.append(entry.getEndtimems() + ", ");
+			sb.append(entry.getMetric() + ", ");
+			sb.append(entry.getEndtimems() - entry.getStarttimems() + ", ");
+			sb.append("\n");
+		}
+
+		pw.write(sb.toString());
+		pw.close();
 	}
 
 }

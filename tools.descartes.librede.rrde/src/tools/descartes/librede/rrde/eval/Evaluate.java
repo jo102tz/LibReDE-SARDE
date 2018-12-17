@@ -64,6 +64,7 @@ import tools.descartes.librede.rrde.optimization.impl.LocalSearchSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.impl.StepSizeImpl;
 import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
@@ -570,7 +571,7 @@ public class Evaluate {
       long start = System.currentTimeMillis();
       // run optimization
       Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
-          .runConfigurationOptimization(libconf, conf, OUTPUT);
+          .runConfigurationOptimization(libconf, conf, new Wrapper(), OUTPUT);
       long opti = System.currentTimeMillis() - start;
       log.info("Finished optimization! Validating...");
 

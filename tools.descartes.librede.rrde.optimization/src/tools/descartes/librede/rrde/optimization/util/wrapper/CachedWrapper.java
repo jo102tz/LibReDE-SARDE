@@ -27,14 +27,12 @@
 package tools.descartes.librede.rrde.optimization.util.wrapper;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.LibredeVariables;
-import tools.descartes.librede.bayesplusplus.BayesLibrary;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.ipopt.java.IpoptLibrary;
-import tools.descartes.librede.nnls.NNLSLibrary;
 import tools.descartes.librede.repository.IMonitoringRepository;
 
 /**
@@ -65,17 +63,21 @@ public class CachedWrapper extends Wrapper {
 	public LibredeResults executeLibrede(LibredeConfiguration conf) {
 
 		try {
-			LibredeVariables var = new LibredeVariables(conf);
+			LibredeVariables var = null;
 			if (repo == null) {
+				var = new LibredeVariables(conf);
 				long tic = System.currentTimeMillis();
 				Librede.initRepo(var);
 				repo = var.getRepo();
+				cachedConf = EcoreUtil.copy(conf);
 				long toc = System.currentTimeMillis();
 				log.trace("Loaded and cached the repository in " + (toc - tic) + " ms.");
 			} else {
-				var.setRepo(repo);
+				var = new LibredeVariables(conf, repo);
 				log.trace("Used cached repository for run with " + conf.toString());
 			}
+			var.getRepo().setCurrentTime(EcoreUtil.copy(conf.getEstimation().getEndTimestamp()));
+			System.out.println(var.getRepo().getCurrentTime());
 			if (var.getConf().getValidation().getValidationFolds() <= 1) {
 				return Librede.runEstimationWithValidation(var);
 			} else {

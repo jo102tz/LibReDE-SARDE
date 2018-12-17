@@ -52,36 +52,41 @@ public class LifeCycleController {
 	 * Method, that starts the online estimation and learning cycle.
 	 * 
 	 * @param lifeCycleConfiguration
+	 *            The configuration to execute.
 	 * @param libredeConfiguration
-	 * @throws Exception 
+	 *            The librede Configuration to execute (default until
+	 *            overwritten).
+	 * @param logFolder
+	 *            Location to log intermediate information to.
+	 * @throws Exception
 	 */
-	public void startLifeCycle(LifeCycleConfiguration lifeCycleConfiguration,
-			LibredeConfiguration libredeConfiguration) throws Exception {
+	public void startLifeCycle(LifeCycleConfiguration lifeCycleConfiguration, LibredeConfiguration libredeConfiguration,
+			String logFolder) throws Exception {
 		// get interval
 		Quantity<Time> interval = EcoreUtil.copy(libredeConfiguration.getEstimation().getStepSize());
 		interval.setValue(lifeCycleConfiguration.getEstimationLoopTime());
 		interval.setUnit(Time.SECONDS);
 		Quantity<Time> originalEnd = libredeConfiguration.getEstimation().getEndTimestamp();
 		Quantity<Time> newEnd = libredeConfiguration.getEstimation().getStartTimestamp();
-		ExecutionHandler handler = new ExecutionHandler();
-		
-		log.info("Initializing repo.");
-		LibredeVariables var = new LibredeVariables(libredeConfiguration);
-		Librede.initRepo(var);
-		IMonitoringRepository repo = var.getRepo();
-		log.info("Finished initializing repository.");
-		
-		
-		while (newEnd.compareTo(originalEnd) < 0){
-			newEnd.plus(interval);
-			setConfigurationEndTime(libredeConfiguration, var, newEnd);
-			handler.executeEstimation(repo, libredeConfiguration);
+		ExecutionHandler handler = new ExecutionHandler(logFolder);
+
+		// log.info("Initializing repo.");
+		// LibredeVariables var = new LibredeVariables(libredeConfiguration);
+		// Librede.initRepo(var);
+		// IMonitoringRepository repo = var.getRepo();
+		// log.info("Finished initializing repository.");
+
+		while (newEnd.compareTo(originalEnd) <= 0) {
+			newEnd = newEnd.plus(interval);
+			setConfigurationEndTime(libredeConfiguration, newEnd);
+			handler.executeEstimation(libredeConfiguration);
 		}
+		handler.finish();
 
 	}
-	
-	private void setConfigurationEndTime(LibredeConfiguration conf, LibredeVariables var, Quantity<Time> newEnd){
-		var.getConf().getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
+
+	private void setConfigurationEndTime(LibredeConfiguration conf, Quantity<Time> newEnd) {
+		// var.getConf().getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
 		conf.getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
 	}
 

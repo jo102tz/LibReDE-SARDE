@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<librede-lifecycle:LifeCycleConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-lifecycle="http://tools/descartes/librede/rrde/lifecycle" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization" xmlns:librede-recommendation="http://tools/descartes/librede/rrde/recommendation" recommendationLoopTime="1000" optimizationLoopTime="10000" selectionLoopTime="100" estimationLoopTime="10">
+<librede-lifecycle:LifeCycleConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-lifecycle="http://tools/descartes/librede/rrde/lifecycle" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization" xmlns:librede-recommendation="http://tools/descartes/librede/rrde/recommendation" recommendationLoopTime="1000" optimizationLoopTime="10000" selectionLoopTime="100" estimationLoopTime="60">
   <recommendationConfiguration>
     <validator validateEstimates="true">
       <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>

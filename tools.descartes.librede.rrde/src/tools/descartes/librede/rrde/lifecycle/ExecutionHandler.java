@@ -27,6 +27,9 @@
  */
 package tools.descartes.librede.rrde.lifecycle;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import org.apache.log4j.Logger;
 
 import tools.descartes.librede.Librede;
@@ -35,6 +38,8 @@ import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.repository.IMonitoringRepository;
 import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.optimization.util.wrapper.CachedWrapper;
+import tools.descartes.librede.rrde.optimization.util.wrapper.IWrapper;
 
 /**
  * Handler for executing, logging and storing all execution runs.
@@ -51,26 +56,31 @@ public class ExecutionHandler {
 
 	private LogBook estimationLog;
 
+	private IWrapper estimationWrapper;
+
+	private String outputfolder;
+
 	/**
 	 * Constructor.
 	 */
-	public ExecutionHandler() {
+	public ExecutionHandler(String outputfolder) {
 		estimationLog = new LogBook(OperationType.ESTIMATION);
+		estimationWrapper = new CachedWrapper();
+		this.outputfolder = outputfolder;
 	}
 
 	/**
 	 * Executes one estimation run with the given variables. The variables
 	 * should not be modified during this execution (based on a copy).
 	 * 
-	 * @param var
-	 *            The variables (containing the configuration) to execute.
+	 * @param libredeConfiguration
 	 */
-	public void executeEstimation(LibredeVariables var) {
+	public void executeEstimation(LibredeConfiguration libredeConfiguration) {
 		log.info("Executing estimation run.");
 		LibredeResults res = null;
 		long tic = System.currentTimeMillis();
 		try {
-			res = Librede.runEstimationWithCrossValidation(var);
+			res = estimationWrapper.executeLibrede(libredeConfiguration);
 		} catch (Exception e) {
 			log.warn("Executing the estimation threw an error.");
 			e.printStackTrace();
@@ -78,24 +88,27 @@ public class ExecutionHandler {
 			long toc = System.currentTimeMillis();
 			LogEntry entry = new LogEntry(tic, toc, "Estimation Error.");
 			if (res != null) {
-				entry.setMetric(new Double(Util.getValidationError(res, var.getConf().getValidation())).toString());
+				entry.setMetric(
+						new Double(Util.getValidationError(res, libredeConfiguration.getValidation())).toString());
 			}
 			estimationLog.insert(entry);
 		}
 		log.info("Executed " + estimationLog.getLength() + "th run. End-timestamp: "
-				+ var.getConf().getEstimation().getEndTimestamp().toString() + ".");
+				+ libredeConfiguration.getEstimation().getEndTimestamp().toString() + ".");
+
 	}
 
 	/**
-	 * Executes one estimation run with the given variables. The variables
-	 * should not be modified during this execution (based on a copy).
-	 * 
-	 * @param repo
-	 * @param libredeConfiguration
+	 * Flushes all logs, and closes all remaining threads.
 	 */
-	public void executeEstimation(IMonitoringRepository repo, LibredeConfiguration libredeConfiguration) {
-		// TODO Auto-generated method stub
-
+	public void finish() {
+		try {
+			estimationLog.exportToCsv(outputfolder + File.separator + "estimates.csv");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			log.error("Error with logging the estimation log.");
+			;
+		}
 	}
 
 }

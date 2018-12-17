@@ -153,7 +153,7 @@ public class EvaluateLifeCycle {
 
 		LifeCycleController lcc = new LifeCycleController();
 		try {
-			lcc.startLifeCycle(conf, librede);
+			lcc.startLifeCycle(conf, librede, OUTPUT);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 			fail();
