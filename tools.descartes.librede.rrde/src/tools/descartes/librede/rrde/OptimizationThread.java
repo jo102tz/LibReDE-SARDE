@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 
 /**
  * This class runs the optimization of librede and returns
@@ -71,7 +72,7 @@ public class OptimizationThread extends Thread {
 		log.info("Starting calculations in OptimizationThread...");
 		long starttime = System.currentTimeMillis();
 		Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
-				.runConfigurationOptimization(libredeConfiguration, optimizationConfiguration, outputdirectory);
+				.runConfigurationOptimization(libredeConfiguration, optimizationConfiguration, new Wrapper(), outputdirectory);
 		long endtime = System.currentTimeMillis();
 		Logging.logOptimizationExecutionTime(starttime, endtime);
 		Logging.logOptimizationOutput(starttime, estimations, libredeConfiguration);

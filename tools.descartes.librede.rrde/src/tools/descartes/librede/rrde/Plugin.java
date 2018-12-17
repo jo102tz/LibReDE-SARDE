@@ -123,7 +123,7 @@ public class Plugin implements IApplication {
 
 			// run optimization
 			Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
-					.runConfigurationOptimization(librede, optimization, OUTPUT);
+					.runConfigurationOptimization(librede, optimization, new Wrapper(), OUTPUT);
 			log.info("Finished optimization! Starting training phase...");
 
 			// delete the read estimators and replace them with the optimized
