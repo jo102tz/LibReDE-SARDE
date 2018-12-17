@@ -77,4 +77,15 @@ public class Wrapper implements IWrapper {
 		}
 	}
 
+	@Override
+	public IWrapper clone() {
+		try {
+			return (IWrapper) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			log.error("Cloning of Wrapper object failed.");
+		}
+		return null;
+	}
+
 }

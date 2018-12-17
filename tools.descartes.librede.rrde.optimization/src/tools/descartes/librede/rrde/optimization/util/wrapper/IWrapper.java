@@ -38,7 +38,7 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public interface IWrapper {
+public interface IWrapper extends Cloneable {
 
 	/**
 	 * Call LibReDE with the given configuration.
@@ -48,5 +48,12 @@ public interface IWrapper {
 	 * @return The results returned by LibReDE
 	 */
 	public LibredeResults executeLibrede(LibredeConfiguration conf);
+
+	/**
+	 * Implementation of the clone() method.
+	 * 
+	 * @return Returns a copy of this object.
+	 */
+	public IWrapper clone();
 
 }

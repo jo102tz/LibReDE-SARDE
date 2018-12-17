@@ -62,6 +62,7 @@ import tools.descartes.librede.exceptions.EstimationException;
 import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.optimization.util.wrapper.IWrapper;
 import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 
 /**
@@ -111,7 +112,7 @@ public class Plugin implements IApplication {
 			OptimizationConfiguration conf = Util.loadOptimizationConfiguration(new File(CONF_PATH).toPath());
 
 			// run optimization
-			runConfigurationOptimization(librede, conf, OUTPUT);
+			runConfigurationOptimization(librede, conf, new Wrapper(), OUTPUT);
 
 		} catch (Exception e) {
 			log.error("Error occurred", e);
@@ -144,7 +145,7 @@ public class Plugin implements IApplication {
 	 *         required.
 	 */
 	public Collection<EstimationSpecification> runConfigurationOptimization(OptimizationConfiguration conf) {
-		return runConfigurationOptimization(null, conf, null);
+		return runConfigurationOptimization(null, conf, null, null);
 	}
 
 	/**
@@ -173,6 +174,9 @@ public class Plugin implements IApplication {
 	 * @param conf
 	 *            The {@link OptimizationConfiguration}, specifying the desired
 	 *            optimizations
+	 * @param wrapper
+	 *            The {@link IWrapper} instance to be used to make calls to be
+	 *            evaluated.
 	 * @param outputDir
 	 *            The String of the output directory used for modified
 	 *            {@link LibredeConfiguration} files.
@@ -185,7 +189,7 @@ public class Plugin implements IApplication {
 	 * 
 	 */
 	public Collection<EstimationSpecification> runConfigurationOptimization(LibredeConfiguration librede,
-			OptimizationConfiguration conf, String outputDir) {
+			OptimizationConfiguration conf, IWrapper wrapper, String outputDir) {
 
 		Objects.requireNonNull(conf.getContainsOf());
 		if (conf.getContainsOf().isEmpty()) {
@@ -197,6 +201,11 @@ public class Plugin implements IApplication {
 					"The skeleton configuration must not be null, if output configurations are desired.");
 		}
 
+		if (wrapper == null) {
+			wrapper = new Wrapper();
+			log.info("No wrapper instance was specified. Using standard Wrapper.");
+		}
+
 		// split one RunCall with several approaches into multiple RunCalls with
 		// just one approach each, since the framework can not handle multiple
 		// right now, since e.g. StepSize applies for all approaches at once
@@ -204,7 +213,7 @@ public class Plugin implements IApplication {
 		conf.getContainsOf().addAll(newRunCalls);
 
 		// execute Calls
-		HashMap<RunCall, EstimationSpecification> results = collectResults(conf.getContainsOf());
+		HashMap<RunCall, EstimationSpecification> results = collectResults(conf.getContainsOf(), wrapper);
 
 		// store each specification in a different file
 		if (outputDir != null) {
@@ -260,11 +269,15 @@ public class Plugin implements IApplication {
 	 * the corresponding results.
 	 * 
 	 * @param calls
-	 *            A Collection of {@link RunCall}s to execute
+	 *            A Collection of {@link RunCall}s to execute.
+	 * @param wrapper
+	 *            The {@link IWrapper} instance to be used. This will make use
+	 *            of the clone function to copy as many identical
+	 *            {@link IWrapper} instances as needed.
 	 * @return A Map, assigning each {@link RunCall} its result as an
 	 *         {@link EstimationSpecification}
 	 */
-	public HashMap<RunCall, EstimationSpecification> collectResults(Collection<RunCall> calls) {
+	public HashMap<RunCall, EstimationSpecification> collectResults(Collection<RunCall> calls, IWrapper wrapper) {
 		// Run each RunCall separately and concurrently
 		ExecutorService pool = Executors.newCachedThreadPool();
 		ExecutorService fixedpool = Executors.newFixedThreadPool(1);
@@ -285,7 +298,7 @@ public class Plugin implements IApplication {
 					|| call.getEstimation().getApproaches().get(0).getType()
 							.equals(MenasceOptimizationApproach.class.getName())) {
 				// shutdown and restart
-				results.put(call, fixedpool.submit(new RunCallExecutor(call)));
+				results.put(call, fixedpool.submit(new RunCallExecutor(call, wrapper.clone())));
 				fixedpool.shutdown();
 				while (!fixedpool.isTerminated()) {
 					try {
@@ -296,7 +309,7 @@ public class Plugin implements IApplication {
 				}
 				fixedpool = Executors.newFixedThreadPool(1);
 			} else {
-				results.put(call, pool.submit(new RunCallExecutor(call)));
+				results.put(call, pool.submit(new RunCallExecutor(call, wrapper.clone())));
 			}
 		}
 		pool.shutdown();
@@ -348,12 +361,21 @@ public class Plugin implements IApplication {
 
 		private RunCall call;
 
+		private IWrapper wrapper;
+
 		/**
+		 * Constructor.
+		 * 
 		 * @param call
+		 *            The call to be executed.
+		 * @param wrapper
+		 *            The {@link IWrapper} to which the run-calls should be
+		 *            sent.
 		 */
-		public RunCallExecutor(RunCall call) {
+		public RunCallExecutor(RunCall call, IWrapper wrapper) {
 			super();
 			this.call = call;
+			this.wrapper = wrapper;
 		}
 
 		/*
@@ -377,6 +399,7 @@ public class Plugin implements IApplication {
 			}
 			IConfigurationOptimizer algo = (IConfigurationOptimizer) Class
 					.forName(call.getAlgorithm().getAlgorithmName()).newInstance();
+			algo.setWrapper(wrapper);
 			algo.optimizeConfiguration(call.getEstimation(), call.getTrainingData(), call.getSettings(),
 					call.getAlgorithm());
 			return algo.getResult();

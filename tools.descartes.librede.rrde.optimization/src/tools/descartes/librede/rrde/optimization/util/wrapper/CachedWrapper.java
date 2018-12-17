@@ -51,7 +51,15 @@ public class CachedWrapper extends Wrapper {
 	 */
 	private static final Logger log = Logger.getLogger(CachedWrapper.class);
 
+	/**
+	 * The repository loaded the first time.
+	 */
 	private IMonitoringRepository repo = null;
+
+	/**
+	 * The configuration used to create the cached repo. (Used for cloning).
+	 */
+	private LibredeConfiguration cachedConf = null;
 
 	@Override
 	public LibredeResults executeLibrede(LibredeConfiguration conf) {
@@ -77,6 +85,47 @@ public class CachedWrapper extends Wrapper {
 			log.error("Error running cached estimation.", e);
 			return null;
 		}
+	}
+
+	/**
+	 * Clean all cache and reset this instance.
+	 */
+	public void cleanCache() {
+		repo = null;
+		cachedConf = null;
+	}
+
+	/**
+	 * @return the repo
+	 */
+	public IMonitoringRepository getRepo() {
+		return repo;
+	}
+
+	/**
+	 * @param repo
+	 *            the repo to set
+	 */
+	public void setRepo(IMonitoringRepository repo) {
+		this.repo = repo;
+	}
+
+	@Override
+	public IWrapper clone() {
+		CachedWrapper copy = (CachedWrapper) super.clone();
+		if (repo == null) {
+			// no problem, we can return this instance as nothing was
+			// initialized yet.
+			return copy;
+		} else {
+			LibredeVariables var = new LibredeVariables(cachedConf);
+			long tic = System.currentTimeMillis();
+			Librede.initRepo(var);
+			copy.setRepo(var.getRepo());
+			long toc = System.currentTimeMillis();
+			log.trace("Cloned the cached repository by reloading it from file. Took: " + (toc - tic) + " ms.");
+		}
+		return copy;
 	}
 
 }

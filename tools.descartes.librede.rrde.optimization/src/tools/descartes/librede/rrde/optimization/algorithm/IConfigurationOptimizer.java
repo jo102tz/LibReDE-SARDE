@@ -33,6 +33,7 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
+import tools.descartes.librede.rrde.optimization.util.wrapper.IWrapper;
 
 /**
  * Basic interface for algorithms optimizing LibReDE configuration files.
@@ -71,9 +72,8 @@ public interface IConfigurationOptimizer {
 	 *             supported by the implementing type as returned by
 	 *             {@link #isSpecifierSupported(IConfigurationOptimizationAlgorithmSpecifier)}
 	 */
-	public boolean optimizeConfiguration(EstimationSpecification estimation,
-			EList<InputData> input, OptimizationSettings settings,
-			ConfigurationOptimizationAlgorithmSpecifier specifier)
+	public boolean optimizeConfiguration(EstimationSpecification estimation, EList<InputData> input,
+			OptimizationSettings settings, ConfigurationOptimizationAlgorithmSpecifier specifier)
 			throws IllegalArgumentException;
 
 	/**
@@ -111,6 +111,14 @@ public interface IConfigurationOptimizer {
 	 * @return True, if the implementing type supports the instance, false
 	 *         otherwise.
 	 */
-	public boolean isSpecifierSupported(
-			ConfigurationOptimizationAlgorithmSpecifier specifier);
+	public boolean isSpecifierSupported(ConfigurationOptimizationAlgorithmSpecifier specifier);
+
+	/**
+	 * Sets the {@link IWrapper} to be used to run and evaluate different
+	 * configurations.
+	 * 
+	 * @param wrapper
+	 *            An {@link IWrapper} instance to be used.
+	 */
+	public void setWrapper(IWrapper wrapper);
 }

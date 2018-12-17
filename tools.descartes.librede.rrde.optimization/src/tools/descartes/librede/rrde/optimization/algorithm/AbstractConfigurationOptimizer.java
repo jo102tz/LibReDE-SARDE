@@ -224,7 +224,7 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	public long getFirstiterationtime() {
 		return firstiterationtime;
 	}
-	
+
 	/**
 	 * @return the wrapper
 	 */
@@ -232,9 +232,7 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 		return wrapper;
 	}
 
-	/**
-	 * @param wrapper the wrapper to set
-	 */
+	@Override
 	public void setWrapper(IWrapper wrapper) {
 		this.wrapper = wrapper;
 	}
