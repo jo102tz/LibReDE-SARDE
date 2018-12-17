@@ -25,17 +25,15 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde;
+package tools.descartes.librede.rrde.lifecycle;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import tools.descartes.librede.Librede;
-import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.LibredeVariables;
-import tools.descartes.librede.ResultPrinter;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration;
+import tools.descartes.librede.repository.IMonitoringRepository;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;
 
@@ -65,22 +63,26 @@ public class LifeCycleController {
 		interval.setUnit(Time.SECONDS);
 		Quantity<Time> originalEnd = libredeConfiguration.getEstimation().getEndTimestamp();
 		Quantity<Time> newEnd = libredeConfiguration.getEstimation().getStartTimestamp();
+		ExecutionHandler handler = new ExecutionHandler();
 		
 		log.info("Initializing repo.");
 		LibredeVariables var = new LibredeVariables(libredeConfiguration);
 		Librede.initRepo(var);
+		IMonitoringRepository repo = var.getRepo();
 		log.info("Finished initializing repository.");
 		
-		int i = 0;
+		
 		while (newEnd.compareTo(originalEnd) < 0){
 			newEnd.plus(interval);
-			libredeConfiguration.getEstimation().setEndTimestamp(newEnd);
-			LibredeResults res = Librede.runEstimationWithCrossValidation(var);
-			ResultPrinter.printSummary(res);
-			i++;
-			log.info("Executed "+i+"th run. End-timestamp: "+newEnd.toString()+". Final end will be: "+originalEnd.toString());
+			setConfigurationEndTime(libredeConfiguration, var, newEnd);
+			handler.executeEstimation(repo, libredeConfiguration);
 		}
 
+	}
+	
+	private void setConfigurationEndTime(LibredeConfiguration conf, LibredeVariables var, Quantity<Time> newEnd){
+		var.getConf().getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
+		conf.getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
 	}
 
 }

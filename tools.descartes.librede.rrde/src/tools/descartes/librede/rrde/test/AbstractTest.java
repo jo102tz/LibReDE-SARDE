@@ -46,7 +46,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 
 /**
@@ -212,7 +212,7 @@ public class AbstractTest {
       LibredeConfiguration libredeConfiguration, Double expected) {
     libredeConfiguration.setEstimation(EcoreUtil.copy(est));
     Discovery.fixTimeStamps(libredeConfiguration);
-    LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+    LibredeResults res = new Wrapper().executeLibrede(libredeConfiguration);
     // System.out.println(est.getApproaches().iterator().next().getType() + ": "
     // + Util.getValidationError(res, libredeConfiguration.getValidation()));
     Assert.assertEquals("Wrong value for " + est.getApproaches().get(0).getType() + ".", expected,

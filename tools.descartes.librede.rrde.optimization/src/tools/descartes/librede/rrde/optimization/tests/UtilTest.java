@@ -38,7 +38,7 @@ import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.Plugin;
 import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -55,7 +55,7 @@ public class UtilTest {
 		Wrapper.init();
 		LibredeConfiguration configuration = Librede
 				.loadConfiguration(new File(PATH).toPath());
-		LibredeResults res = Wrapper.executeLibrede(configuration);
+		LibredeResults res = new Wrapper().executeLibrede(configuration);
 
 		DescriptiveStatistics stat = new DescriptiveStatistics();
 		for (Class<? extends IEstimationApproach> approach : res

@@ -24,7 +24,7 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.util;
+package tools.descartes.librede.rrde.optimization.util.wrapper;
 
 import org.apache.log4j.Logger;
 
@@ -37,21 +37,17 @@ import tools.descartes.librede.ipopt.java.IpoptLibrary;
 import tools.descartes.librede.nnls.NNLSLibrary;
 
 /**
- * This class provides some interface functionality and serves as a wrapper
- * around the standard LibReDE tool in order to make calls for the algorithms
- * implemented here.
+ * Standard implementation of the {@link IWrapper} interface.
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class Wrapper {
+public class Wrapper implements IWrapper {
 
 	/**
 	 * The logging tool to be used in this context.
 	 */
 	private static final Logger log = Logger.getLogger(Wrapper.class);
-
-//	private static HashMap<LibredeConfiguration, LibredeVariables> cache = new HashMap<LibredeConfiguration, LibredeVariables>();
 
 	/**
 	 * Initialize the connection and set up the target, in this case LibReDE
@@ -62,17 +58,10 @@ public class Wrapper {
 		IpoptLibrary.init();
 		NNLSLibrary.init();
 		BayesLibrary.init();
-//		cache = new HashMap<LibredeConfiguration, LibredeVariables>();
 	}
 
-	/**
-	 * Call LibReDE with the given configuration.
-	 * 
-	 * @param conf
-	 *            The configuration settings
-	 * @return The results returned by LibReDE
-	 */
-	public static LibredeResults executeLibrede(LibredeConfiguration conf) {
+	@Override
+	public LibredeResults executeLibrede(LibredeConfiguration conf) {
 
 		try {
 			LibredeVariables var = new LibredeVariables(conf);

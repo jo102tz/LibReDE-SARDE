@@ -62,7 +62,7 @@ import tools.descartes.librede.exceptions.EstimationException;
 import tools.descartes.librede.rrde.optimization.algorithm.IConfigurationOptimizer;
 import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 
 /**
  * The main class of this Plug-In. Here, the configuration files are read, and

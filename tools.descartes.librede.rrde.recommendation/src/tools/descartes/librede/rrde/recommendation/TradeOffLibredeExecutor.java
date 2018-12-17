@@ -8,7 +8,7 @@ import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.optimization.util.Discovery;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.algorithm.ITradeOffRecommendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.algorithm.TimeImportance;
@@ -133,7 +133,7 @@ public class TradeOffLibredeExecutor {
 	      throw new RuntimeException(e);
 	    }
 	    Discovery.fixTimeStamps(conf);
-	    return Wrapper.executeLibrede(conf);
+	    return new Wrapper().executeLibrede(conf);
 	  }
 	
 }

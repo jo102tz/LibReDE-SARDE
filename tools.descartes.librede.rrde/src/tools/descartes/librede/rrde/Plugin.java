@@ -43,7 +43,7 @@ import tools.descartes.librede.rrde.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;

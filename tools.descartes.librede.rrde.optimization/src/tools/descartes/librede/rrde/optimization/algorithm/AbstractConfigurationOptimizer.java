@@ -44,7 +44,8 @@ import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.OptimizationSettings;
 import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.wrapper.IWrapper;
+import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 
 /**
  * This class contains an abstract implementation of an
@@ -127,6 +128,11 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	private DescriptiveStatistics stat;
 
 	/**
+	 * The execution wrapper to be used to execute Librede.
+	 */
+	private IWrapper wrapper;
+
+	/**
 	 * Constructor preparing and initializing execution
 	 */
 	public AbstractConfigurationOptimizer() {
@@ -135,6 +141,7 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 		totalruns = 0;
 		lastResults = new HashMap<LibredeConfiguration, LibredeResults>();
 		stat = new DescriptiveStatistics();
+		wrapper = new Wrapper();
 	}
 
 	/**
@@ -217,6 +224,20 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	public long getFirstiterationtime() {
 		return firstiterationtime;
 	}
+	
+	/**
+	 * @return the wrapper
+	 */
+	public IWrapper getWrapper() {
+		return wrapper;
+	}
+
+	/**
+	 * @param wrapper the wrapper to set
+	 */
+	public void setWrapper(IWrapper wrapper) {
+		this.wrapper = wrapper;
+	}
 
 	/**
 	 * Returns the log instance, to provide proper visible logging.
@@ -290,6 +311,7 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 		String timestamp = DurationFormatUtils.formatDuration(firstiterationtime, "ss.SSS", false);
 		getLog().info("The starting configurations have an error of " + firstError
 				+ ". Time elapsed for the first iteration: " + timestamp + "s.");
+		Wrapper.init();
 	}
 
 	/**
@@ -304,7 +326,7 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 		for (LibredeConfiguration single : confs) {
 			totalruns++;
 			getLog().trace("Starting execution of " + single.toString());
-			LibredeResults results = Wrapper.executeLibrede(single);
+			LibredeResults results = wrapper.executeLibrede(single);
 			lastResults.put(single, results);
 			if (results == null || results.getApproaches() == null) {
 				getLog().error("The execution resulted an non-trackable error.");

@@ -51,7 +51,7 @@ import tools.descartes.librede.linalg.Matrix;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
-import tools.descartes.librede.rrde.optimization.util.Wrapper;
+import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.algorithm.ITradeOffRecommendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
@@ -235,7 +235,7 @@ public class Plugin implements IApplication {
 			conf.setEstimation(EcoreUtil.copy(spec));
 			Discovery.fixTimeStamps(conf);
 		    long start = System.currentTimeMillis();
-			LibredeResults result = Wrapper.executeLibrede(conf);
+			LibredeResults result = new Wrapper().executeLibrede(conf);
 		    long time = System.currentTimeMillis()-start;
 		    //IMPORTANT: This is a fix to ignore approaches, that do not really deliver an result
 		    //these approaches always deliver 0s for all resource demands and an error of 100%

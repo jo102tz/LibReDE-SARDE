@@ -3,7 +3,8 @@
  *  LibReDE : Library for Resource Demand Estimation
  * ==============================================
  *
- * (c) Copyright 2013-2014, by Simon Spinner and Contributors.
+ * (c) Copyright 2013-2018, by Simon Spinner, Johannes Grohmann
+ * and Contributors.
  *
  * Project Info:   http://www.descartes-research.net/
  *
@@ -24,34 +25,63 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.tests;
+package tools.descartes.librede.rrde.lifecycle;
 
-import java.io.File;
-
-import org.junit.Test;
-
-import tools.descartes.librede.Librede;
-import tools.descartes.librede.ResultPrinter;
-import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.Plugin;
-import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
+import java.util.ArrayList;
 
 /**
+ * A class containing log information of different runs.
+ * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class WrapperTest {
+public class LogBook {
 
-	public final static String PATH = "resources/estimation.librede";
+	/**
+	 * The actual log entries.
+	 */
+	private ArrayList<LogEntry> book;
 
-	@Test
-	public void test() {
-		Plugin p = new Plugin();
-		p.initLogging();
-		Wrapper.init();
-		LibredeConfiguration configuration = Librede
-				.loadConfiguration(new File(PATH).toPath());
-		ResultPrinter.printSummary(new Wrapper().executeLibrede(configuration));
+	/**
+	 * The type of logs this Book contains.
+	 */
+	private OperationType type;
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param type
+	 *            The type of records that should be contained in this LogBook.
+	 */
+	public LogBook(OperationType type) {
+		this.type = type;
+	}
+
+	/**
+	 * Add this entry to logbook.
+	 * 
+	 * @param entry
+	 *            The entry to add.
+	 */
+	public void insert(LogEntry entry) {
+		book.add(entry);
+	}
+
+	/**
+	 * Returns the number of logs (executions) contained in the book.
+	 * 
+	 * @return Size of the {@link LogBook}.
+	 */
+	public int getLength() {
+		return book.size();
+	}
+
+	/**
+	 * 
+	 * @param mainfolder
+	 */
+	public void exportToCsv(String mainfolder) {
+		// TODO
 	}
 
 }
