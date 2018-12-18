@@ -25,7 +25,9 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.lifecycle;
+package tools.descartes.librede.rrde.lifecycle.logs;
+
+import tools.descartes.librede.rrde.lifecycle.OperationType;
 
 /**
  * This class describes one log entity.
@@ -46,20 +48,23 @@ public class LogEntry {
 	private long endtimems;
 
 	/**
-	 * The payload metric to store.
+	 * The payload type.
 	 */
-	private String metric;
+	private OperationType type;
 
 	/**
 	 * @param starttimems
+	 *            The start time of the process in milliseconds.
 	 * @param endtimems
-	 * @param metric
+	 *            The end time of the process in milliseconds.
+	 * @param type
+	 *            The {@link OperationType} of this logging entry.
 	 */
-	public LogEntry(long starttimems, long endtimems, String metric) {
+	public LogEntry(long starttimems, long endtimems, OperationType type) {
 		super();
 		this.starttimems = starttimems;
 		this.endtimems = endtimems;
-		this.metric = metric;
+		this.type = type;
 	}
 
 	/**
@@ -93,17 +98,17 @@ public class LogEntry {
 	}
 
 	/**
-	 * @return the metric
+	 * @return the type
 	 */
-	public String getMetric() {
-		return metric;
+	public OperationType getType() {
+		return type;
 	}
 
 	/**
-	 * @param metric
-	 *            the metric to set
+	 * @param type
+	 *            the type to set
 	 */
-	public void setMetric(String metric) {
-		this.metric = metric;
+	public void setMetric(OperationType type) {
+		this.type = type;
 	}
 }

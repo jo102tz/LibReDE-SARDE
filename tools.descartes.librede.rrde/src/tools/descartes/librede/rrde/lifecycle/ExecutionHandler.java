@@ -29,17 +29,32 @@ package tools.descartes.librede.rrde.lifecycle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collection;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.LibredeVariables;
+import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.repository.IMonitoringRepository;
+import tools.descartes.librede.rrde.lifecycle.logs.EstimationEntry;
+import tools.descartes.librede.rrde.lifecycle.logs.LogBook;
+import tools.descartes.librede.rrde.lifecycle.logs.LogEntry;
+import tools.descartes.librede.rrde.lifecycle.semaphors.OptimizationResult;
+import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
 import tools.descartes.librede.rrde.optimization.util.wrapper.CachedWrapper;
 import tools.descartes.librede.rrde.optimization.util.wrapper.IWrapper;
+import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
+import tools.descartes.librede.rrde.recommendation.FeatureVector;
+import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
+import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
+import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
 /**
  * Handler for executing, logging and storing all execution runs.
@@ -54,9 +69,23 @@ public class ExecutionHandler {
 	 */
 	private static final Logger log = Logger.getLogger(ExecutionHandler.class);
 
-	private LogBook estimationLog;
+	private LogBook logbook;
 
 	private IWrapper estimationWrapper;
+
+	private IWrapper optimizationWrapper;
+	
+	private IWrapper trainingWrapper;
+
+	private OptimizationResult optResult;
+
+	private boolean optRunning = false;
+
+	private IRecomendationAlgorithm trainedRecommender;
+
+	private IFeatureExtractor usedExtractor;
+
+	private EstimationSpecification recommendedSpecification;
 
 	private String outputfolder;
 
@@ -64,16 +93,18 @@ public class ExecutionHandler {
 	 * Constructor.
 	 */
 	public ExecutionHandler(String outputfolder) {
-		estimationLog = new LogBook(OperationType.ESTIMATION);
+		logbook = new LogBook();
 		estimationWrapper = new CachedWrapper();
+		optimizationWrapper = new CachedWrapper();
+		trainingWrapper = new CachedWrapper();
 		this.outputfolder = outputfolder;
 	}
 
 	/**
-	 * Executes one estimation run with the given variables. The variables
-	 * should not be modified during this execution (based on a copy).
+	 * Executes one estimation run with the given variables.
 	 * 
 	 * @param libredeConfiguration
+	 *            The configuration to use.
 	 */
 	public void executeEstimation(LibredeConfiguration libredeConfiguration) {
 		log.info("Executing estimation run.");
@@ -86,15 +117,83 @@ public class ExecutionHandler {
 			e.printStackTrace();
 		} finally {
 			long toc = System.currentTimeMillis();
-			LogEntry entry = new LogEntry(tic, toc, "Estimation Error.");
+			EstimationEntry entry = new EstimationEntry(tic, toc, "Error when running estimation.", "Error when running estimation.");
 			if (res != null) {
-				entry.setMetric(
+				entry.setError(
 						new Double(Util.getValidationError(res, libredeConfiguration.getValidation())).toString());
+				entry.setEstimate(res.getAllEstimates().values().toString());
 			}
-			estimationLog.insert(entry);
+			logbook.insert(entry);
 		}
-		log.info("Executed " + estimationLog.getLength() + "th run. End-timestamp: "
+		log.info("Executed " + logbook.getLength(OperationType.ESTIMATION) + "th run. End-timestamp: "
 				+ libredeConfiguration.getEstimation().getEndTimestamp().toString() + ".");
+
+	}
+
+	/**
+	 * Runs an optimization run for the given variables.
+	 * 
+	 * 
+	 * @param optimization
+	 *            The OptimizationConfiguration, specifying the desired
+	 *            optimizations
+	 * @param librede
+	 *            The LibReDE configuration to use as skeleton for the outputs
+	 */
+	public void executeOptimization(OptimizationConfiguration optimization, LibredeConfiguration librede) {
+		if (!optRunning) {
+			synchronized (this) {
+				optRunning = true;
+				log.info("Executing optimization run.");
+				long tic = System.currentTimeMillis();
+				// run optimization
+				Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
+						.runConfigurationOptimization(librede, optimization, optimizationWrapper,
+								outputfolder + File.separator + "optimizations");
+				long toc = System.currentTimeMillis();
+				optResult = new OptimizationResult(System.currentTimeMillis());
+				optResult.setOptimizedEstimators(estimations);
+				LogEntry entry = new LogEntry(tic, toc, OperationType.OPTIMIZATION);
+				logbook.insert(entry);
+				log.info(
+						"Executed " + logbook.getLength(OperationType.OPTIMIZATION) + "th run. Result-time: " + optResult.getTimestamp());
+				optRunning = false;
+			}
+		} else {
+			log.warn("There is currently one optimization run still running. Therefore we skip this iteration.");
+		}
+	}
+
+	public void executeRecommendation(LibredeConfiguration conf) {
+		try {
+			FeatureVector features = usedExtractor.extractFeatures(conf);
+			EstimationSpecification est = trainedRecommender.recommendEstimation(features);
+			if (est != null) {
+
+			} else {
+				log.warn("Recommendation failed. Returning standard result.");
+			}
+		} catch (Exception e) {
+			log.error("There was an unexpected Exception with recommending.", e);
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void executeTraining(RecommendationTrainingConfiguration recommendation) {
+		if (optResult != null) {
+			// delete the read estimators and replace them with the optimized
+			// ones
+			recommendation.getEstimators().clear();
+			recommendation.getEstimators().addAll(optResult.getOptimizedEstimators());
+		}
+
+		// train algorithm
+		IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
+				.loadAndTrainAlgorithm(recommendation);
+		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
+				.loadFeatureExtractor(recommendation.getFeatureAlgorithm());
+		trainedRecommender = algorithm;
+		usedExtractor = extractor;
 
 	}
 
@@ -103,11 +202,10 @@ public class ExecutionHandler {
 	 */
 	public void finish() {
 		try {
-			estimationLog.exportToCsv(outputfolder + File.separator + "estimates.csv");
+			logbook.exportToCsv(outputfolder + File.separator + "logbook.csv");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			log.error("Error with logging the estimation log.");
-			;
 		}
 	}
 

@@ -30,10 +30,7 @@ package tools.descartes.librede.rrde.lifecycle;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import tools.descartes.librede.Librede;
-import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.repository.IMonitoringRepository;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;
 
@@ -62,10 +59,12 @@ public class LifeCycleController {
 	 */
 	public void startLifeCycle(LifeCycleConfiguration lifeCycleConfiguration, LibredeConfiguration libredeConfiguration,
 			String logFolder) throws Exception {
-		// get interval
+		// get intervals
 		Quantity<Time> interval = EcoreUtil.copy(libredeConfiguration.getEstimation().getStepSize());
 		interval.setValue(lifeCycleConfiguration.getEstimationLoopTime());
 		interval.setUnit(Time.SECONDS);
+		
+		
 		Quantity<Time> originalEnd = libredeConfiguration.getEstimation().getEndTimestamp();
 		Quantity<Time> newEnd = libredeConfiguration.getEstimation().getStartTimestamp();
 		ExecutionHandler handler = new ExecutionHandler(logFolder);
@@ -75,11 +74,14 @@ public class LifeCycleController {
 		// Librede.initRepo(var);
 		// IMonitoringRepository repo = var.getRepo();
 		// log.info("Finished initializing repository.");
+		
+		int timepassed = 0;
 
 		while (newEnd.compareTo(originalEnd) <= 0) {
 			newEnd = newEnd.plus(interval);
 			setConfigurationEndTime(libredeConfiguration, newEnd);
 			handler.executeEstimation(libredeConfiguration);
+			//handler.executeOptimization(lifeCycleConfiguration.getOptimizationConfiguration(), libredeConfiguration);
 		}
 		handler.finish();
 

@@ -77,7 +77,6 @@ public class CachedWrapper extends Wrapper {
 				log.trace("Used cached repository for run with " + conf.toString());
 			}
 			var.getRepo().setCurrentTime(EcoreUtil.copy(conf.getEstimation().getEndTimestamp()));
-			System.out.println(var.getRepo().getCurrentTime());
 			if (var.getConf().getValidation().getValidationFolds() <= 1) {
 				return Librede.runEstimationWithValidation(var);
 			} else {

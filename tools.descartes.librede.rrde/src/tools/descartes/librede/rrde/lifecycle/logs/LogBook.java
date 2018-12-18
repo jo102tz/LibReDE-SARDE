@@ -25,12 +25,16 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.lifecycle;
+package tools.descartes.librede.rrde.lifecycle.logs;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import tools.descartes.librede.rrde.lifecycle.OperationType;
 
 /**
  * A class containing log information of different runs.
@@ -46,9 +50,9 @@ public class LogBook {
 	private ArrayList<LogEntry> book;
 
 	/**
-	 * The type of logs this Book contains.
+	 * The map storing the counts.
 	 */
-	private OperationType type;
+	private Map<OperationType, Integer> counts;
 
 	/**
 	 * Constructor.
@@ -56,8 +60,12 @@ public class LogBook {
 	 * @param type
 	 *            The type of records that should be contained in this LogBook.
 	 */
-	public LogBook(OperationType type) {
-		this.type = type;
+	public LogBook() {
+		counts = new HashMap<>();
+		counts.put(OperationType.ESTIMATION, 0);
+		counts.put(OperationType.RECOMENDATION, 0);
+		counts.put(OperationType.TRAINING, 0);
+		counts.put(OperationType.OPTIMIZATION, 0);
 		book = new ArrayList<>();
 	}
 
@@ -69,15 +77,21 @@ public class LogBook {
 	 */
 	public void insert(LogEntry entry) {
 		book.add(entry);
+		counts.put(entry.getType(), counts.get(entry.getType()) + 1);
 	}
 
 	/**
-	 * Returns the number of logs (executions) contained in the book.
+	 * Returns the number of logs (executions) of the specific type contained in
+	 * the book.
 	 * 
 	 * @return Size of the {@link LogBook}.
 	 */
-	public int getLength() {
-		return book.size();
+	public int getLength(OperationType type) {
+		if (counts.containsKey(type)) {
+			return counts.get(type);
+		} else {
+			return book.size();
+		}
 	}
 
 	/**
@@ -97,16 +111,31 @@ public class LogBook {
 		StringBuilder sb = new StringBuilder();
 
 		// header
-		sb.append("Timestamp,");
-		sb.append("Metric,");
+		sb.append("Finish time,");
 		sb.append("Time,");
+		sb.append("Type,");
+		sb.append("Selected Approach,");
+		sb.append("Estimated Demand,");
+		sb.append("Estimated Error,");
 		sb.append("\n");
 
 		// entries
 		for (LogEntry entry : book) {
 			sb.append(entry.getEndtimems() + ", ");
-			sb.append(entry.getMetric() + ", ");
 			sb.append(entry.getEndtimems() - entry.getStarttimems() + ", ");
+			sb.append(entry.getType() + ", ");
+			if (entry instanceof SelectionEntry) {
+				sb.append(((SelectionEntry) entry).getChosenApproach() + ", ");
+			} else {
+				sb.append("-,");
+			}
+			if (entry instanceof EstimationEntry) {
+				sb.append(((EstimationEntry) entry).getEstimate() + ", ");
+				sb.append(((EstimationEntry) entry).getError() + ", ");
+			} else {
+				sb.append("-,");
+				sb.append("-,");
+			}
 			sb.append("\n");
 		}
 
