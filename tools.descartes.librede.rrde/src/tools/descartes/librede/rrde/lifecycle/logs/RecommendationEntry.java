@@ -25,45 +25,48 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.lifecycle.semaphors;
+package tools.descartes.librede.rrde.lifecycle.logs;
 
-import java.util.Collection;
-
-import tools.descartes.librede.configuration.EstimationSpecification;
+import tools.descartes.librede.rrde.lifecycle.OperationType;
 
 /**
- * The results from the optimization process.
+ * This class represents a specific log entry, logged by the selection process.
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class OptimizationResult extends Result {
+public class RecommendationEntry extends LogEntry {
 
-	private Collection<EstimationSpecification> optimizedEstimators;
+	private String chosenApproach;
 
 	/**
 	 * Constructor.
 	 * 
-	 * @param timestamp
-	 *            The timestamp, when this result was created.
+	 * @param starttimems
+	 *            The start time of the process in milliseconds.
+	 * @param endtimems
+	 *            The end time of the process in milliseconds.
+	 * @param chosenApproach
+	 *            The approach chosen by the selection entry.
 	 */
-	public OptimizationResult(long timestamp) {
-		super(timestamp);
+	public RecommendationEntry(long starttimems, long endtimems, String chosenApproach) {
+		super(starttimems, endtimems, OperationType.RECOMENDATION);
+		this.chosenApproach = chosenApproach;
 	}
 
 	/**
-	 * @return the optimizedEstimators
+	 * @return the chosenApproach
 	 */
-	public Collection<EstimationSpecification> getOptimizedEstimators() {
-		return optimizedEstimators;
+	public String getChosenApproach() {
+		return chosenApproach;
 	}
 
 	/**
-	 * @param optimizedEstimators
-	 *            the optimizedEstimators to set
+	 * @param chosenApproach
+	 *            the chosenApproach to set
 	 */
-	public void setOptimizedEstimators(Collection<EstimationSpecification> optimizedEstimators) {
-		this.optimizedEstimators = optimizedEstimators;
+	public void setChosenApproach(String chosenApproach) {
+		this.chosenApproach = chosenApproach;
 	}
 
 }

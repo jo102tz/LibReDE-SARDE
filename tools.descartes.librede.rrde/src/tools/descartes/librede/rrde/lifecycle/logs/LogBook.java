@@ -124,8 +124,8 @@ public class LogBook {
 			sb.append(entry.getEndtimems() + ", ");
 			sb.append(entry.getEndtimems() - entry.getStarttimems() + ", ");
 			sb.append(entry.getType() + ", ");
-			if (entry instanceof SelectionEntry) {
-				sb.append(((SelectionEntry) entry).getChosenApproach() + ", ");
+			if (entry instanceof RecommendationEntry) {
+				sb.append(((RecommendationEntry) entry).getChosenApproach() + ", ");
 			} else {
 				sb.append("-,");
 			}

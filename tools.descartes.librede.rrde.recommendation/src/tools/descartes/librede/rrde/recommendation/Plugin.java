@@ -51,6 +51,7 @@ import tools.descartes.librede.linalg.Matrix;
 import tools.descartes.librede.rrde.optimization.InputData;
 import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
+import tools.descartes.librede.rrde.optimization.util.wrapper.IWrapper;
 import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.algorithm.ITradeOffRecommendationAlgorithm;
@@ -132,6 +133,21 @@ public class Plugin implements IApplication {
 	 * @return The {@link IRecomendationAlgorithm}
 	 */
 	public IRecomendationAlgorithm loadAndTrainAlgorithm(RecommendationTrainingConfiguration conf) {
+		return loadAndTrainAlgorithm(conf, new Wrapper());
+	}
+
+	/**
+	 * Loads, trains and returns the given algorithm as specified by the
+	 * {@link RecommendationTrainingConfiguration}.
+	 * 
+	 * @param conf
+	 *            The configuration file
+	 * @param wrapper
+	 *            The {@link IWrapper} instance to be used to make calls to be
+	 *            evaluated.
+	 * @return The {@link IRecomendationAlgorithm}
+	 */
+	public IRecomendationAlgorithm loadAndTrainAlgorithm(RecommendationTrainingConfiguration conf, IWrapper wrapper) {
 		IRecomendationAlgorithm alg = loadAlgorithm(conf.getLearningAlgorithm());
 		if (alg == null) {
 			log.error("Algorithm could not be loaded. Failing...");
@@ -155,7 +171,7 @@ public class Plugin implements IApplication {
 			return null;
 		}
 		if (!trainAlgorithm(alg, conf.getLearningAlgorithm(), extractor, conf.getEstimators(), conf.getValidator(),
-				conf.getTrainingData())) {
+				conf.getTrainingData(), wrapper)) {
 			log.error("Training failed. Returning algorithm anyway...");
 		}
 		return alg;
@@ -180,12 +196,15 @@ public class Plugin implements IApplication {
 	 * @param validationSpecification
 	 *            The validator to use in order to create the error values
 	 * @param inputs
-	 *            The training data given as {@link InputData}s
+	 *            The training data given as {@link InputData}
+	 * @param wrapper
+	 *            The {@link IWrapper} instance to be used to make calls to be
+	 *            evaluated.
 	 * @return True if the training was successful, false otherwise
 	 */
 	public boolean trainAlgorithm(IRecomendationAlgorithm alg, RecommendationAlgorithmSpecifier specifer,
 			IFeatureExtractor extractor, EList<EstimationSpecification> estimators,
-			ValidationSpecification validationSpecification, EList<InputData> inputs) {
+			ValidationSpecification validationSpecification, EList<InputData> inputs, IWrapper wrapper) {
 		log.info("Start training of algorithm " + alg.getName() + "...");
 		alg.initialize(specifer);
 		boolean res = true;
@@ -198,7 +217,7 @@ public class Plugin implements IApplication {
 		}
 		for (LibredeConfiguration conf : set) {
 			try {
-				boolean result = trainOneConfiguration(alg, extractor, estimators, conf);
+				boolean result = trainOneConfiguration(alg, extractor, estimators, conf, wrapper);
 				if (!result) {
 					log.warn("Training configuration " + conf + " was not successful.");
 				}
@@ -225,45 +244,50 @@ public class Plugin implements IApplication {
 	 * @param conf
 	 *            The {@link LibredeConfiguration} to use as a basis for the
 	 *            estimators
+	 * @param wrapper
+	 *            The {@link IWrapper} instance to be used to make calls to be
+	 *            evaluated.
 	 */
 	private boolean trainOneConfiguration(IRecomendationAlgorithm alg, IFeatureExtractor extractor,
-			EList<EstimationSpecification> estimators, LibredeConfiguration conf) {
+			EList<EstimationSpecification> estimators, LibredeConfiguration conf, IWrapper wrapper) {
 		EMap<EstimationSpecification, Double> results = new BasicEMap<EstimationSpecification, Double>();
 		EMap<EstimationSpecification, Double> times = new BasicEMap<EstimationSpecification, Double>();
 		for (EstimationSpecification spec : estimators) {
 			// calculate error values for all estimators
 			conf.setEstimation(EcoreUtil.copy(spec));
 			Discovery.fixTimeStamps(conf);
-		    long start = System.currentTimeMillis();
-			LibredeResults result = new Wrapper().executeLibrede(conf);
-		    long time = System.currentTimeMillis()-start;
-		    //IMPORTANT: This is a fix to ignore approaches, that do not really deliver an result
-		    //these approaches always deliver 0s for all resource demands and an error of 100%
-		    //this fix is necessary due to no adequate exception handling in the librede project.
-		    boolean hasrealvalue = false;
-		    for(Entry<Class<? extends IEstimationApproach>, Matrix> a : result.getAllEstimates().entrySet()){
-		    	for(int i=0; i< a.getValue().rows(); ++i){
-			    	double value = a.getValue().get(i, 0);
-			    	if(value!=0.0){
-			    		hasrealvalue=true;
-			    		break;
-			    	}
-		    	}
-		    }
-		    if(hasrealvalue){
-		    	//this is the code before we did the fix:
-		    	results.put(spec, Util.getValidationError(result, conf.getValidation()));
-		    	times.put(spec, Double.longBitsToDouble(time));
-		    }else{
-		    	results.put(spec, Double.MAX_VALUE);
-		    	times.put(spec, Double.MAX_VALUE);
-		    }
-		    //end fo fix
+			long start = System.currentTimeMillis();
+			LibredeResults result = wrapper.executeLibrede(conf);
+			long time = System.currentTimeMillis() - start;
+			// IMPORTANT: This is a fix to ignore approaches, that do not really
+			// deliver an result
+			// these approaches always deliver 0s for all resource demands and
+			// an error of 100%
+			// this fix is necessary due to no adequate exception handling in
+			// the librede project.
+			boolean hasrealvalue = false;
+			for (Entry<Class<? extends IEstimationApproach>, Matrix> a : result.getAllEstimates().entrySet()) {
+				for (int i = 0; i < a.getValue().rows(); ++i) {
+					double value = a.getValue().get(i, 0);
+					if (value != 0.0) {
+						hasrealvalue = true;
+						break;
+					}
+				}
+			}
+			if (hasrealvalue) {
+				// this is the code before we did the fix:
+				results.put(spec, Util.getValidationError(result, conf.getValidation()));
+				times.put(spec, Double.longBitsToDouble(time));
+			} else {
+				results.put(spec, Double.MAX_VALUE);
+				times.put(spec, Double.MAX_VALUE);
+			}
+			// end fo fix
 		}
-		if(alg instanceof ITradeOffRecommendationAlgorithm){
-			((ITradeOffRecommendationAlgorithm) alg)
-			.trainSet(results, times, extractor.extractFeatures(conf));
-		} else{
+		if (alg instanceof ITradeOffRecommendationAlgorithm) {
+			((ITradeOffRecommendationAlgorithm) alg).trainSet(results, times, extractor.extractFeatures(conf));
+		} else {
 			alg.trainSet(results, extractor.extractFeatures(conf));
 		}
 		log.info("Inserted training set for configuration " + conf + ".");

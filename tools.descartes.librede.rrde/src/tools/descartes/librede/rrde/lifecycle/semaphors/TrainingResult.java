@@ -25,48 +25,61 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.lifecycle.logs;
+package tools.descartes.librede.rrde.lifecycle.semaphors;
 
-import tools.descartes.librede.rrde.lifecycle.OperationType;
+import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
+import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
 
 /**
- * This class represents a specific log entry, logged by the selection process.
+ * The results from the training process.
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class SelectionEntry extends LogEntry {
+public class TrainingResult extends Result {
 
-	private String chosenApproach;
+	private IRecomendationAlgorithm trainedRecommender;
+
+	private IFeatureExtractor usedExtractor;
 
 	/**
 	 * Constructor.
 	 * 
-	 * @param starttimems
-	 *            The start time of the process in milliseconds.
-	 * @param endtimems
-	 *            The end time of the process in milliseconds.
-	 * @param chosenApproach
-	 *            The approach chosen by the selection entry.
+	 * @param timestamp
+	 *            The timestamp, when this result was created.
 	 */
-	public SelectionEntry(long starttimems, long endtimems, String chosenApproach) {
-		super(starttimems, endtimems, OperationType.RECOMENDATION);
-		this.chosenApproach = chosenApproach;
+	public TrainingResult(long timestamp) {
+		super(timestamp);
 	}
 
 	/**
-	 * @return the chosenApproach
+	 * @return the trainedRecommender
 	 */
-	public String getChosenApproach() {
-		return chosenApproach;
+	public IRecomendationAlgorithm getTrainedRecommender() {
+		return trainedRecommender;
 	}
 
 	/**
-	 * @param chosenApproach
-	 *            the chosenApproach to set
+	 * @param trainedRecommender
+	 *            the trainedRecommender to set
 	 */
-	public void setChosenApproach(String chosenApproach) {
-		this.chosenApproach = chosenApproach;
+	public void setTrainedRecommender(IRecomendationAlgorithm trainedRecommender) {
+		this.trainedRecommender = trainedRecommender;
+	}
+
+	/**
+	 * @return the usedExtractor
+	 */
+	public IFeatureExtractor getUsedExtractor() {
+		return usedExtractor;
+	}
+
+	/**
+	 * @param usedExtractor
+	 *            the usedExtractor to set
+	 */
+	public void setUsedExtractor(IFeatureExtractor usedExtractor) {
+		this.usedExtractor = usedExtractor;
 	}
 
 }

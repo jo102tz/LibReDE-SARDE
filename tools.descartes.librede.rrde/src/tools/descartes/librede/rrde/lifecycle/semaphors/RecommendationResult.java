@@ -27,19 +27,17 @@
  */
 package tools.descartes.librede.rrde.lifecycle.semaphors;
 
-import java.util.Collection;
-
 import tools.descartes.librede.configuration.EstimationSpecification;
 
 /**
- * The results from the optimization process.
+ * The results from the recommendation process.
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class OptimizationResult extends Result {
+public class RecommendationResult extends Result {
 
-	private Collection<EstimationSpecification> optimizedEstimators;
+	private EstimationSpecification recommendedSpecification;
 
 	/**
 	 * Constructor.
@@ -47,23 +45,22 @@ public class OptimizationResult extends Result {
 	 * @param timestamp
 	 *            The timestamp, when this result was created.
 	 */
-	public OptimizationResult(long timestamp) {
+	public RecommendationResult(long timestamp) {
 		super(timestamp);
 	}
 
 	/**
-	 * @return the optimizedEstimators
+	 * @return the recommendedSpecification
 	 */
-	public Collection<EstimationSpecification> getOptimizedEstimators() {
-		return optimizedEstimators;
+	public EstimationSpecification getRecommendedSpecification() {
+		return recommendedSpecification;
 	}
 
 	/**
-	 * @param optimizedEstimators
-	 *            the optimizedEstimators to set
+	 * @param recommendedSpecification
+	 *            the recommendedSpecification to set
 	 */
-	public void setOptimizedEstimators(Collection<EstimationSpecification> optimizedEstimators) {
-		this.optimizedEstimators = optimizedEstimators;
+	public void setRecommendedSpecification(EstimationSpecification recommendedSpecification) {
+		this.recommendedSpecification = recommendedSpecification;
 	}
-
 }

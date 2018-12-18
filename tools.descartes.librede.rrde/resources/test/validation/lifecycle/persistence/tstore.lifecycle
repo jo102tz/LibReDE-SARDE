@@ -5,7 +5,7 @@
       <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
       <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
     </validator>
-    <trainingData rootFolder="C:\Users\Johannes\Desktop\librede\long traces\">
+    <trainingData rootFolder="C:\Users\Johannes\Desktop\librede\short traces\">
       <input>
         <dataSources name="NS CSV" type="tools.descartes.librede.datasource.csv.CsvDataSource">
           <parameters name="TimestampFormat" value="[ns]"/>
