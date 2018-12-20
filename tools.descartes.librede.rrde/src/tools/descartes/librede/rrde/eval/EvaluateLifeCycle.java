@@ -125,10 +125,10 @@ public class EvaluateLifeCycle {
 		validator = librede.getValidation();
 
 		// adapt configurations to be similar
-//		for (InputData data : conf.getRecommendationConfiguration().getTrainingData()) {
-//			data.setRootFolder(datafolder);
-//		}
-//		conf.getRecommendationConfiguration().setValidator(EcoreUtil.copy(validator));
+		for (InputData data : conf.getRecommendationConfiguration().getTrainingData()) {
+			data.setRootFolder(datafolder);
+		}
+		conf.getRecommendationConfiguration().setValidator(EcoreUtil.copy(validator));
 
 		// adapt optimization
 		for (RunCall call : conf.getOptimizationConfiguration().getContainsOf()) {

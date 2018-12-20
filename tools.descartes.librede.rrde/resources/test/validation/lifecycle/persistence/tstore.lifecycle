@@ -359,7 +359,8 @@
   </recommendationConfiguration>
   <optimizationConfiguration>
     <containsOf>
-      <algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm" numberOfSplits="1" numberOfExplorations="2" numberOfIterations="2"/>
+      <!--<algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm" numberOfSplits="1" numberOfExplorations="2" numberOfIterations="2"/>-->
+      <algorithm xsi:type="librede-optimization:LocalSearchSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.HillClimbingAlgorithm"/>
       <trainingData rootFolder="C:\Users\Johannes\Desktop\librede\long traces\">
         <input>
           <dataSources name="NS CSV" type="tools.descartes.librede.datasource.csv.CsvDataSource">

@@ -227,7 +227,7 @@
     </endTimestamp>
   </estimation>
   <output/>
-  <validation validationFolds="3" validateEstimates="true">
+  <validation validateEstimates="true">
     <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
     <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
   </validation>
