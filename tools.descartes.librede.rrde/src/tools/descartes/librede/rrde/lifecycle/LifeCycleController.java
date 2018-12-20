@@ -30,9 +30,13 @@ package tools.descartes.librede.rrde.lifecycle;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
+import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;
+import tools.descartes.librede.units.UnitsFactory;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -59,46 +63,53 @@ public class LifeCycleController {
 	 */
 	public void startLifeCycle(LifeCycleConfiguration lifeCycleConfiguration, LibredeConfiguration libredeConfiguration,
 			String logFolder) throws Exception {
-		// get intervals
-		Quantity<Time> interval = EcoreUtil.copy(libredeConfiguration.getEstimation().getStepSize());
-		interval.setValue(lifeCycleConfiguration.getEstimationLoopTime());
-		interval.setUnit(Time.SECONDS);
+		ExecutionHandler handler = new ExecutionHandler(logFolder);
 
 		Quantity<Time> originalEnd = libredeConfiguration.getEstimation().getEndTimestamp();
 		Quantity<Time> newEnd = libredeConfiguration.getEstimation().getStartTimestamp();
-		ExecutionHandler handler = new ExecutionHandler(logFolder);
-
-		// log.info("Initializing repo.");
-		// LibredeVariables var = new LibredeVariables(libredeConfiguration);
-		// Librede.initRepo(var);
-		// IMonitoringRepository repo = var.getRepo();
-		// log.info("Finished initializing repository.");
-
+		// we use an increment of 1 second here.
+		// this can be easily adapted, however for now, we assume 1 second to be
+		// the smallest unit.
+		// get intervals
+		Quantity<Time> increment = UnitsFactory.eINSTANCE.createQuantity();
+		increment.setUnit(Time.SECONDS);
+		increment.setValue(1);
+		long starttime = System.currentTimeMillis();
 		int timepassed = 0;
-
 		while (newEnd.compareTo(originalEnd) <= 0) {
+			timepassed = (int) ((System.currentTimeMillis() - starttime) / 1000);
 			timepassed++;
-			newEnd = newEnd.plus(interval);
-			setConfigurationEndTime(libredeConfiguration, newEnd);
-			handler.executeEstimation(libredeConfiguration);
-			if (timepassed % 4 == 0) {
+			newEnd = newEnd.plus(increment);
+			setConfigurationEndTime(libredeConfiguration, lifeCycleConfiguration, newEnd);
+			if (timepassed % lifeCycleConfiguration.getEstimationLoopTime() == 0) {
+				handler.executeEstimation(libredeConfiguration);
+			}
+			if (timepassed % lifeCycleConfiguration.getSelectionLoopTime() == 0) {
 				handler.executeRecommendation(libredeConfiguration);
 			}
-			if (timepassed % 10 == 0) {
+			if (timepassed % lifeCycleConfiguration.getRecommendationLoopTime() == 0) {
 				handler.executeTraining(lifeCycleConfiguration.getRecommendationConfiguration());
 			}
-			if (timepassed % 100 == 0) {
+			if (timepassed % lifeCycleConfiguration.getOptimizationLoopTime() == 0) {
 				handler.executeOptimization(lifeCycleConfiguration.getOptimizationConfiguration(),
 						libredeConfiguration);
 			}
+			Thread.sleep(1000);
+			log.trace("Executed " + timepassed + "th loop interval.");
 		}
 		handler.finish();
-
 	}
 
-	private void setConfigurationEndTime(LibredeConfiguration conf, Quantity<Time> newEnd) {
+	private void setConfigurationEndTime(LibredeConfiguration conf, LifeCycleConfiguration lifeCycleConfiguration,
+			Quantity<Time> newEnd) {
 		// var.getConf().getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
 		conf.getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
+		for (RunCall i : lifeCycleConfiguration.getOptimizationConfiguration().getContainsOf()) {
+			i.getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
+		}
+		for (EstimationSpecification i : lifeCycleConfiguration.getRecommendationConfiguration().getEstimators()) {
+			i.setEndTimestamp(EcoreUtil.copy(newEnd));
+		}
 	}
 
 }

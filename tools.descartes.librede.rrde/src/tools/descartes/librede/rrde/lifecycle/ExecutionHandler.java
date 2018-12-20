@@ -30,17 +30,18 @@ package tools.descartes.librede.rrde.lifecycle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
-import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.ipopt.java.RecursiveOptimization;
-import tools.descartes.librede.repository.IMonitoringRepository;
 import tools.descartes.librede.rrde.lifecycle.logs.EstimationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.LogBook;
 import tools.descartes.librede.rrde.lifecycle.logs.LogEntry;
@@ -49,13 +50,10 @@ import tools.descartes.librede.rrde.lifecycle.semaphors.OptimizationResult;
 import tools.descartes.librede.rrde.lifecycle.semaphors.RecommendationResult;
 import tools.descartes.librede.rrde.lifecycle.semaphors.TrainingResult;
 import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
-import tools.descartes.librede.rrde.optimization.util.Discovery;
 import tools.descartes.librede.rrde.optimization.util.Util;
 import tools.descartes.librede.rrde.optimization.util.wrapper.CachedWrapper;
 import tools.descartes.librede.rrde.optimization.util.wrapper.IWrapper;
-import tools.descartes.librede.rrde.optimization.util.wrapper.Wrapper;
 import tools.descartes.librede.rrde.recommendation.FeatureVector;
-import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.extract.IFeatureExtractor;
@@ -89,144 +87,350 @@ public class ExecutionHandler {
 
 	private boolean optRunning = false;
 
+	private boolean estRunning = false;
+
+	private boolean recoRunning = false;
+
+	private boolean trainRunning = false;
+
 	private String outputfolder;
+
+	private ExecutorService executor;
 
 	/**
 	 * Constructor.
+	 * 
+	 * @param outputfolder
+	 *            The folder to store all results to.
 	 */
 	public ExecutionHandler(String outputfolder) {
 		logbook = new LogBook();
 		estimationWrapper = new CachedWrapper();
 		optimizationWrapper = new CachedWrapper();
 		trainingWrapper = new CachedWrapper();
+		executor = Executors.newCachedThreadPool();
 		this.outputfolder = outputfolder;
 	}
 
 	/**
-	 * Executes one estimation run with the given variables.
+	 * Schedules one estimation run.
 	 * 
-	 * @param libredeConfiguration
-	 *            The configuration to use.
+	 * @param The
+	 *            Librede configuration to execute.
 	 */
-	public void executeEstimation(LibredeConfiguration libredeConfiguration) {
-		log.info("Executing estimation run.");
-		LibredeResults res = null;
-		long tic = System.currentTimeMillis();
-		try {
-			res = estimationWrapper.executeLibrede(libredeConfiguration);
-		} catch (Exception e) {
-			log.warn("Executing the estimation threw an error.");
-			e.printStackTrace();
-		} finally {
-			long toc = System.currentTimeMillis();
-			EstimationEntry entry = new EstimationEntry(tic, toc, "Error when running estimation.",
-					"Error when running estimation.");
-			if (res != null) {
-				entry.setError(
-						new Double(Util.getValidationError(res, libredeConfiguration.getValidation())).toString());
-				entry.setEstimate(res.getAllEstimates().values().toString());
+	public void executeEstimation(LibredeConfiguration defaultConfig) {
+		if (!estRunning) {
+			// This synchronized is probably unnecessary, but technically, there
+			// might still occur double entry here, so thats why this is here.
+			synchronized (this) {
+				executor.execute(new EstimationRunner(defaultConfig));
 			}
-			logbook.insert(entry);
+		} else {
+			log.warn("There is currently one estimation run still running. Therefore we skip this iteration.");
 		}
-		log.info("Executed " + logbook.getLength(OperationType.ESTIMATION) + "th run. End-timestamp: "
-				+ libredeConfiguration.getEstimation().getEndTimestamp().toString() + ".");
-
 	}
 
 	/**
 	 * Runs an optimization run for the given variables.
 	 * 
-	 * 
-	 * @param optimization
-	 *            The OptimizationConfiguration, specifying the desired
-	 *            optimizations
-	 * @param librede
-	 *            The LibReDE configuration to use as skeleton for the outputs
+	 * @param optimizationConfig
+	 *            The optimization configuration to execute.
+	 * @param defaultConfig
+	 *            The librede configuration to use as skeleton for outputs.
 	 */
-	public void executeOptimization(OptimizationConfiguration optimization, LibredeConfiguration librede) {
+	public void executeOptimization(OptimizationConfiguration optimizationConfig, LibredeConfiguration defaultConfig) {
 		if (!optRunning) {
+			// This synchronized is probably unnecessary, but technically, there
+			// might still occur double entry here, so thats why this is here.
 			synchronized (this) {
-				optRunning = true;
-				log.info("Executing optimization run.");
-				long tic = System.currentTimeMillis();
-				// run optimization
-				Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
-						.runConfigurationOptimization(librede, optimization, optimizationWrapper,
-								outputfolder + File.separator + "optimizations");
-				long toc = System.currentTimeMillis();
-				optResult = new OptimizationResult(toc);
-				optResult.setOptimizedEstimators(estimations);
-				LogEntry entry = new LogEntry(tic, toc, OperationType.OPTIMIZATION);
-				logbook.insert(entry);
-				log.info("Executed " + logbook.getLength(OperationType.OPTIMIZATION) + "th run. Result-time: "
-						+ optResult.getTimestamp());
-				optRunning = false;
+				executor.execute(new OptimizationRunner(defaultConfig, optimizationConfig));
 			}
 		} else {
 			log.warn("There is currently one optimization run still running. Therefore we skip this iteration.");
 		}
 	}
 
+	/**
+	 * Schedules one recommendation run.
+	 * 
+	 * @param conf
+	 *            The librede configuration to recommend for.
+	 */
 	public void executeRecommendation(LibredeConfiguration conf) {
-		log.info("Executing recommendation run.");
-		long tic = System.currentTimeMillis();
-		long toc = 0;
-		String chosenapproach = "None.";
-		if (trainResult != null) {
-			FeatureVector features = trainResult.getUsedExtractor().extractFeatures(conf);
-			EstimationSpecification est = trainResult.getTrainedRecommender().recommendEstimation(features);
-			toc = System.currentTimeMillis();
-			if (est != null) {
-				recoResult = new RecommendationResult(toc);
-				recoResult.setRecommendedSpecification(est);
-				chosenapproach = est.getApproaches().get(0).toString();
-			} else {
-				log.warn("Recommendation failed. Returning standard result.");
+		if (!recoRunning) {
+			// This synchronized is probably unnecessary, but technically, there
+			// might still occur double entry here, so thats why this is here.
+			synchronized (this) {
+				executor.execute(new RecommendationRunner(conf));
 			}
 		} else {
-			log.warn("No Recommendation possible, before training is finished.");
-			toc = System.currentTimeMillis();
+			log.warn("There is currently one recommendation run still running. Therefore we skip this iteration.");
 		}
-		RecommendationEntry entry = new RecommendationEntry(tic, toc, chosenapproach);
-		logbook.insert(entry);
-		log.info("Executed " + logbook.getLength(OperationType.RECOMENDATION) + "th run. Result-time: " + toc);
 	}
 
-	public void executeTraining(RecommendationTrainingConfiguration recommendation) {
-		log.info("Executing training run.");
-		if (optResult != null) {
-			// delete the read estimators and replace them with the optimized
-			// ones
-			recommendation.getEstimators().clear();
-			recommendation.getEstimators().addAll(optResult.getOptimizedEstimators());
+	/**
+	 * Schedules one training run.
+	 * 
+	 * @param recommendationConfig
+	 *            The training configuration to execute.
+	 */
+	public void executeTraining(RecommendationTrainingConfiguration recommendationConfig) {
+		if (!trainRunning) {
+			// This synchronized is probably unnecessary, but technically, there
+			// might still occur double entry here, so thats why this is here.
+			synchronized (this) {
+				executor.execute(new TrainingRunner(recommendationConfig));
+			}
+		} else {
+			log.warn("There is currently one training run still running. Therefore we skip this iteration.");
 		}
-		// train algorithm
-		long tic = System.currentTimeMillis();
-		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
-				.loadFeatureExtractor(recommendation.getFeatureAlgorithm());
-		IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
-				.loadAndTrainAlgorithm(recommendation, trainingWrapper);
-		long toc = System.currentTimeMillis();
-		logbook.insert(new LogEntry(tic, toc, OperationType.TRAINING));
-		trainResult = new TrainingResult(toc);
-		trainResult.setTrainedRecommender(algorithm);
-		trainResult.setUsedExtractor(extractor);
-
-		log.info("Executed " + logbook.getLength(OperationType.TRAINING) + "th run. Result-time: "
-				+ trainResult.getTimestamp());
-
 	}
 
 	/**
 	 * Flushes all logs, and closes all remaining threads.
 	 */
 	public void finish() {
+		log.info("Shutting down. Waiting for all tasks to finish...");
+		executor.shutdown();
+		boolean orderly = false;
 		try {
-			logbook.exportToCsv(outputfolder + File.separator + "logbook.csv");
+			orderly = executor.awaitTermination(500, TimeUnit.SECONDS);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+			log.error("The waiting for termination was interrupted.");
+		}
+		if (orderly) {
+			log.info("All task finished. Shut down.");
+		} else {
+			log.warn("Not all tasks could finish succesfully, before shutdown.");
+		}
+		try {
+			String output = outputfolder + File.separator + "logbook.csv";
+			logbook.exportToCsv(output);
+			log.info("Exported logs to " + output);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			log.error("Error with logging the estimation log.");
 		}
+	}
+
+	/**
+	 * Runnable for the estimation.
+	 * 
+	 * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
+	 *
+	 */
+	private class EstimationRunner implements Runnable {
+
+		private LibredeConfiguration libredeConfiguration;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param The
+		 *            config to execute.
+		 */
+		public EstimationRunner(LibredeConfiguration config) {
+			this.libredeConfiguration = EcoreUtil.copy(config);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Runnable#run()
+		 */
+		@Override
+		public void run() {
+			estRunning = true;
+			log.info("Executing estimation run.");
+			LibredeResults res = null;
+			long tic = System.currentTimeMillis();
+			try {
+				if (recoResult != null) {
+					libredeConfiguration.setEstimation(recoResult.getRecommendedSpecification());
+				} else {
+					log.info("Executed default configuration, as no approach is selected yet.");
+				}
+				res = estimationWrapper.executeLibrede(libredeConfiguration);
+			} catch (Exception e) {
+				log.warn("Executing the estimation threw an error.");
+				e.printStackTrace();
+			} finally {
+				long toc = System.currentTimeMillis();
+				EstimationEntry entry = new EstimationEntry(tic, toc, "Error when running estimation.",
+						"Error when running estimation.");
+				if (res != null) {
+					entry.setError(
+							new Double(Util.getValidationError(res, libredeConfiguration.getValidation())).toString());
+					entry.setEstimate(res.getAllEstimates().values().toString());
+				}
+				logbook.insert(entry);
+			}
+			log.info("Executed " + logbook.getLength(OperationType.ESTIMATION) + "th run. End-timestamp: "
+					+ libredeConfiguration.getEstimation().getEndTimestamp().toString() + ".");
+			estRunning = false;
+		}
+
+	}
+
+	/**
+	 * Runnable for the optimization.
+	 * 
+	 * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
+	 *
+	 */
+	private class OptimizationRunner implements Runnable {
+
+		private LibredeConfiguration defaultConfig;
+
+		private OptimizationConfiguration optimizationConfig;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param defaultConfig
+		 *            The librede configuration to use as skeleton for outputs.
+		 * @param optimizationConfig
+		 *            The optimization configuration to execute.
+		 */
+		public OptimizationRunner(LibredeConfiguration defaultConfig, OptimizationConfiguration optimizationConfig) {
+			super();
+			this.defaultConfig = EcoreUtil.copy(defaultConfig);
+			this.optimizationConfig = EcoreUtil.copy(optimizationConfig);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Runnable#run()
+		 */
+		@Override
+		public void run() {
+			optRunning = true;
+			log.info("Executing optimization run.");
+			long tic = System.currentTimeMillis();
+			// run optimization
+			Collection<EstimationSpecification> estimations = new tools.descartes.librede.rrde.optimization.Plugin()
+					.runConfigurationOptimization(EcoreUtil.copy(defaultConfig), optimizationConfig,
+							optimizationWrapper, outputfolder + File.separator + "optimizations");
+			long toc = System.currentTimeMillis();
+			optResult = new OptimizationResult(toc);
+			optResult.setOptimizedEstimators(estimations);
+			LogEntry entry = new LogEntry(tic, toc, OperationType.OPTIMIZATION);
+			logbook.insert(entry);
+			log.info("Executed " + logbook.getLength(OperationType.OPTIMIZATION) + "th run. Result-time: "
+					+ optResult.getTimestamp());
+			optRunning = false;
+		}
+
+	}
+
+	/**
+	 * Runnable for the recommendation.
+	 * 
+	 * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
+	 *
+	 */
+	private class RecommendationRunner implements Runnable {
+
+		private LibredeConfiguration conf;
+
+		/**
+		 * @param conf
+		 *            The librede configuration to recommend for.
+		 */
+		public RecommendationRunner(LibredeConfiguration conf) {
+			super();
+			this.conf = EcoreUtil.copy(conf);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Runnable#run()
+		 */
+		@Override
+		public void run() {
+			recoRunning = true;
+			log.info("Executing recommendation run.");
+			long tic = System.currentTimeMillis();
+			long toc = 0;
+			String chosenapproach = "None.";
+			if (trainResult != null) {
+				FeatureVector features = trainResult.getUsedExtractor().extractFeatures(conf);
+				EstimationSpecification est = trainResult.getTrainedRecommender().recommendEstimation(features);
+				toc = System.currentTimeMillis();
+				if (est != null) {
+					recoResult = new RecommendationResult(toc);
+					recoResult.setRecommendedSpecification(est);
+					chosenapproach = est.getApproaches().get(0).toString();
+				} else {
+					log.warn("Recommendation failed. Returning standard result.");
+				}
+			} else {
+				log.warn("No Recommendation possible, before training is finished.");
+				toc = System.currentTimeMillis();
+			}
+			RecommendationEntry entry = new RecommendationEntry(tic, toc, chosenapproach);
+			logbook.insert(entry);
+			log.info("Executed " + logbook.getLength(OperationType.RECOMENDATION) + "th run. Result-time: " + toc);
+			recoRunning = false;
+		}
+
+	}
+
+	/**
+	 * Runnable for the recommendation training.
+	 * 
+	 * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
+	 *
+	 */
+	private class TrainingRunner implements Runnable {
+
+		private RecommendationTrainingConfiguration recommendationConfig;
+
+		/**
+		 * @param recommendationConfig
+		 *            The training configuration to execute.
+		 */
+		public TrainingRunner(RecommendationTrainingConfiguration recommendationConfig) {
+			super();
+			this.recommendationConfig = EcoreUtil.copy(recommendationConfig);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Runnable#run()
+		 */
+		@Override
+		public void run() {
+			trainRunning = true;
+			log.info("Executing training run.");
+			if (optResult != null) {
+				// delete the read estimators and replace them with the
+				// optimized
+				// ones
+				recommendationConfig.getEstimators().clear();
+				recommendationConfig.getEstimators().addAll(optResult.getOptimizedEstimators());
+			}
+			// train algorithm
+			long tic = System.currentTimeMillis();
+			IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
+					.loadFeatureExtractor(recommendationConfig.getFeatureAlgorithm());
+			IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
+					.loadAndTrainAlgorithm(recommendationConfig, trainingWrapper);
+			long toc = System.currentTimeMillis();
+			logbook.insert(new LogEntry(tic, toc, OperationType.TRAINING));
+			trainResult = new TrainingResult(toc);
+			trainResult.setTrainedRecommender(algorithm);
+			trainResult.setUsedExtractor(extractor);
+
+			log.info("Executed " + logbook.getLength(OperationType.TRAINING) + "th run. Result-time: "
+					+ trainResult.getTimestamp());
+			trainRunning = false;
+		}
+
 	}
 
 }
