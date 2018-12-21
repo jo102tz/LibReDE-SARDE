@@ -27,8 +27,6 @@
  */
 package tools.descartes.librede.rrde.lifecycle.logs;
 
-import tools.descartes.librede.rrde.lifecycle.OperationType;
-
 /**
  * This class represents a specific log entry, logged by the selection process.
  * 
@@ -50,7 +48,7 @@ public class RecommendationEntry extends LogEntry {
 	 *            The approach chosen by the selection entry.
 	 */
 	public RecommendationEntry(long starttimems, long endtimems, String chosenApproach) {
-		super(starttimems, endtimems, OperationType.RECOMENDATION);
+		super(starttimems, endtimems, OperationType.RECOMMENDATION);
 		this.chosenApproach = chosenApproach;
 	}
 

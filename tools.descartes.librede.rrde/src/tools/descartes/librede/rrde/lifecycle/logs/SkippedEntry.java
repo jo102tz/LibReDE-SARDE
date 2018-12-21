@@ -27,8 +27,6 @@
  */
 package tools.descartes.librede.rrde.lifecycle.logs;
 
-import tools.descartes.librede.rrde.lifecycle.OperationType;
-
 /**
  * This log represents a skipped process as the previous process was still
  * running.

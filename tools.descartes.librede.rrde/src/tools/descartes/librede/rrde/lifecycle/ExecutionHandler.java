@@ -43,6 +43,7 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.lifecycle.logs.EstimationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.LogBook;
 import tools.descartes.librede.rrde.lifecycle.logs.LogEntry;
+import tools.descartes.librede.rrde.lifecycle.logs.OperationType;
 import tools.descartes.librede.rrde.lifecycle.logs.RecommendationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.SkippedEntry;
 import tools.descartes.librede.rrde.lifecycle.semaphors.OptimizationResult;
@@ -125,8 +126,9 @@ public class ExecutionHandler {
 				executor.execute(new EstimationRunner(defaultConfig));
 			}
 		} else {
-			log.warn("There is currently one estimation run still running. Therefore we skip this iteration.");
 			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.ESTIMATION));
+			log.warn("There is currently one estimation run still running. Therefore we skip the "
+					+ logbook.getLength(OperationType.ESTIMATION) + "th operation.");
 		}
 	}
 
@@ -146,8 +148,9 @@ public class ExecutionHandler {
 				executor.execute(new OptimizationRunner(defaultConfig, optimizationConfig));
 			}
 		} else {
-			log.warn("There is currently one optimization run still running. Therefore we skip this iteration.");
 			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.OPTIMIZATION));
+			log.warn("There is currently one optimization run still running. Therefore we skip the "
+					+ logbook.getLength(OperationType.OPTIMIZATION) + "th operation.");
 		}
 	}
 
@@ -165,8 +168,9 @@ public class ExecutionHandler {
 				executor.execute(new RecommendationRunner(conf));
 			}
 		} else {
-			log.warn("There is currently one recommendation run still running. Therefore we skip this iteration.");
-			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.RECOMENDATION));
+			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.RECOMMENDATION));
+			log.warn("There is currently one recommendation run still running. Therefore we skip the "
+					+ logbook.getLength(OperationType.RECOMMENDATION) + "th operation.");
 		}
 	}
 
@@ -184,8 +188,9 @@ public class ExecutionHandler {
 				executor.execute(new TrainingRunner(recommendationConfig));
 			}
 		} else {
-			log.warn("There is currently one training run still running. Therefore we skip this iteration.");
 			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.TRAINING));
+			log.warn("There is currently one training run still running. Therefore we skip the "
+					+ logbook.getLength(OperationType.TRAINING) + "th operation.");
 		}
 	}
 
@@ -376,7 +381,8 @@ public class ExecutionHandler {
 			}
 			RecommendationEntry entry = new RecommendationEntry(tic, toc, chosenapproach);
 			logbook.insert(entry);
-			log.info("Executed " + logbook.getLength(OperationType.RECOMENDATION) + "th recommendation run. Result-time: " + toc);
+			log.info("Executed " + logbook.getLength(OperationType.RECOMMENDATION)
+					+ "th recommendation run. Result-time: " + toc);
 			recoRunning = false;
 		}
 

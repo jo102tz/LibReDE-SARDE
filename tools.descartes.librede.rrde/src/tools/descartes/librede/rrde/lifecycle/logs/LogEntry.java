@@ -27,8 +27,6 @@
  */
 package tools.descartes.librede.rrde.lifecycle.logs;
 
-import tools.descartes.librede.rrde.lifecycle.OperationType;
-
 /**
  * This class describes one log entity.
  * 

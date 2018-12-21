@@ -80,16 +80,16 @@ public class LifeCycleController {
 			timepassed++;
 			newEnd = newEnd.plus(increment);
 			setConfigurationEndTime(libredeConfiguration, lifeCycleConfiguration, newEnd);
-			if (timepassed % lifeCycleConfiguration.getEstimationLoopTime() == 0) {
+			if (lifeCycleConfiguration.getEstimationLoopTime() != -1 &&  timepassed % lifeCycleConfiguration.getEstimationLoopTime() == 0) {
 				handler.executeEstimation(libredeConfiguration);
 			}
-			if (timepassed % lifeCycleConfiguration.getSelectionLoopTime() == 0) {
+			if (lifeCycleConfiguration.getSelectionLoopTime() != -1 &&  timepassed % lifeCycleConfiguration.getSelectionLoopTime() == 0) {
 				handler.executeRecommendation(libredeConfiguration);
 			}
-			if (timepassed % lifeCycleConfiguration.getRecommendationLoopTime() == 0) {
+			if (lifeCycleConfiguration.getRecommendationLoopTime() != -1 &&  timepassed % lifeCycleConfiguration.getRecommendationLoopTime() == 0) {
 				handler.executeTraining(lifeCycleConfiguration.getRecommendationConfiguration());
 			}
-			if (timepassed % lifeCycleConfiguration.getOptimizationLoopTime() == 0) {
+			if (lifeCycleConfiguration.getOptimizationLoopTime() != -1 && timepassed % lifeCycleConfiguration.getOptimizationLoopTime() == 0) {
 				handler.executeOptimization(lifeCycleConfiguration.getOptimizationConfiguration(),
 						libredeConfiguration);
 			}

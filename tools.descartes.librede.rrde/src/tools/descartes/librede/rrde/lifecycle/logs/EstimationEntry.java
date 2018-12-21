@@ -27,8 +27,6 @@
  */
 package tools.descartes.librede.rrde.lifecycle.logs;
 
-import tools.descartes.librede.rrde.lifecycle.OperationType;
-
 /**
  * This class represents a specific log entry, logged by the estimation process.
  * 

@@ -25,7 +25,9 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.lifecycle;
+package tools.descartes.librede.rrde.lifecycle.logs;
+
+import tools.descartes.librede.rrde.lifecycle.ExecutionHandler;
 
 /**
  * This enum represents the four types of executions that can be executed (and
@@ -35,5 +37,5 @@ package tools.descartes.librede.rrde.lifecycle;
  *
  */
 public enum OperationType {
-	ESTIMATION, RECOMENDATION, TRAINING, OPTIMIZATION;
+	ESTIMATION, RECOMMENDATION, TRAINING, OPTIMIZATION;
 }

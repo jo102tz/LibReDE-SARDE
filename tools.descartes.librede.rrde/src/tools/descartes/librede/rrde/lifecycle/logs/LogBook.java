@@ -36,8 +36,6 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import tools.descartes.librede.rrde.lifecycle.OperationType;
-
 /**
  * A class containing log information of different runs.
  * 
@@ -65,7 +63,7 @@ public class LogBook {
 	public LogBook() {
 		counts = new HashMap<>();
 		counts.put(OperationType.ESTIMATION, 0);
-		counts.put(OperationType.RECOMENDATION, 0);
+		counts.put(OperationType.RECOMMENDATION, 0);
 		counts.put(OperationType.TRAINING, 0);
 		counts.put(OperationType.OPTIMIZATION, 0);
 		book = new TreeSet<>();
@@ -128,13 +126,18 @@ public class LogBook {
 			sb.append(entry.getType() + ", ");
 			if (entry instanceof RecommendationEntry) {
 				sb.append(((RecommendationEntry) entry).getChosenApproach() + ", ");
-			} else {
 				sb.append("-,");
-			}
-			if (entry instanceof EstimationEntry) {
+				sb.append("-,");
+			} else if (entry instanceof EstimationEntry) {
+				sb.append("-,");
 				sb.append(((EstimationEntry) entry).getEstimate() + ", ");
 				sb.append(((EstimationEntry) entry).getError() + ", ");
+			} else if (entry instanceof SkippedEntry){
+				sb.append("SKIPPED,");
+				sb.append("SKIPPED,");
+				sb.append("SKIPPED,");
 			} else {
+				sb.append("-,");
 				sb.append("-,");
 				sb.append("-,");
 			}
