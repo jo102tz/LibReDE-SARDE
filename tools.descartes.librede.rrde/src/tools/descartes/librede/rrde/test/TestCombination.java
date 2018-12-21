@@ -36,6 +36,7 @@ import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
+import tools.descartes.librede.rrde.util.wrapper.Wrapper;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -53,8 +54,8 @@ public class TestCombination extends AbstractTest {
 		// do not initialize error values
 		log.info("Initialized! Starting optimization...");
 		// run optimization
-		Collection<EstimationSpecification> estimations = new OptimizationPlugin()
-				.runConfigurationOptimization(librede, optimization, OUTPUT);
+		Collection<EstimationSpecification> estimations = new OptimizationPlugin().runConfigurationOptimization(librede,
+				optimization, new Wrapper(), OUTPUT);
 		log.info("Finished optimization! Starting training phase...");
 
 		// delete the read estimators and replace them with the optimized
@@ -64,7 +65,7 @@ public class TestCombination extends AbstractTest {
 
 		// train algorithm
 		IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
-				.loadAndTrainAlgorithm(recommendation);
+				.loadAndTrainAlgorithm(recommendation, new Wrapper());
 		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
 				.loadFeatureExtractor(recommendation.getFeatureAlgorithm());
 		log.info("Finished training! Validating...");
@@ -73,8 +74,9 @@ public class TestCombination extends AbstractTest {
 		OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor, algorithm);
 		// print results
 		vali.compareOptimized(exec);
-		
-		// THIS test just checks for functionality and makes sure no exceptions are thrown.
+
+		// THIS test just checks for functionality and makes sure no exceptions
+		// are thrown.
 		// no values or accuracies are checked
 		// this is done by the individual tests
 	}

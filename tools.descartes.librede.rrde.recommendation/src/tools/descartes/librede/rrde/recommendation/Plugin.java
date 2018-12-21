@@ -51,8 +51,9 @@ import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingC
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.util.Discovery;
 import tools.descartes.librede.rrde.util.Util;
-import tools.descartes.librede.rrde.util.Wrapper;
 import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
+import tools.descartes.librede.rrde.util.wrapper.IWrapper;
+import tools.descartes.librede.rrde.util.wrapper.Wrapper;
 
 /**
  * The main class of this Plugin.
@@ -93,8 +94,7 @@ public class Plugin implements IApplication {
 		Logger.getLogger(this.getClass().getPackage().getName()).setLevel(loglevel);
 		Logger.getLogger(tools.descartes.librede.rrde.rinterface.RBridge.class.getPackage().getName())
 				.setLevel(loglevel);
-		Logger.getLogger(tools.descartes.librede.rrde.util.Discovery.class.getPackage().getName())
-				.setLevel(loglevel);
+		Logger.getLogger(tools.descartes.librede.rrde.util.Discovery.class.getPackage().getName()).setLevel(loglevel);
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class Plugin implements IApplication {
 					.loadRecommendationConfiguration(new File(CONF_PATH).toPath());
 
 			// train algorithm
-			loadAndTrainAlgorithm(conf);
+			loadAndTrainAlgorithm(conf, new Wrapper());
 
 		} catch (Exception e) {
 			log.error("Error occurred", e);
@@ -127,9 +127,12 @@ public class Plugin implements IApplication {
 	 * 
 	 * @param conf
 	 *            The configuration file
+	 * @param trainingWrapper
+	 *            The wrapper to use to execute calls
 	 * @return The {@link IRecomendationAlgorithm}
 	 */
-	public IRecomendationAlgorithm loadAndTrainAlgorithm(RecommendationTrainingConfiguration conf) {
+	public IRecomendationAlgorithm loadAndTrainAlgorithm(RecommendationTrainingConfiguration conf,
+			IWrapper trainingWrapper) {
 		IRecomendationAlgorithm alg = loadAlgorithm(conf.getLearningAlgorithm());
 		if (alg == null) {
 			log.error("Algorithm could not be loaded. Failing...");
@@ -152,8 +155,12 @@ public class Plugin implements IApplication {
 			log.error("Training data set is null or empty.");
 			return null;
 		}
+		if (trainingWrapper == null) {
+			trainingWrapper = new Wrapper();
+			log.info("No Wrapper specified. Using standard Wrapper.");
+		}
 		if (!trainAlgorithm(alg, conf.getLearningAlgorithm(), extractor, conf.getEstimators(), conf.getValidator(),
-				conf.getTrainingData())) {
+				conf.getTrainingData(), trainingWrapper)) {
 			log.error("Training failed. Returning algorithm anyway...");
 		}
 		return alg;
@@ -179,11 +186,13 @@ public class Plugin implements IApplication {
 	 *            The validator to use in order to create the error values
 	 * @param inputs
 	 *            The training data given as {@link InputData}s
+	 * @param trainingWrapper
+	 *            The wrapper used to execute calls.
 	 * @return True if the training was successful, false otherwise
 	 */
 	public boolean trainAlgorithm(IRecomendationAlgorithm alg, RecommendationAlgorithmSpecifier specifer,
 			IFeatureExtractor extractor, EList<EstimationSpecification> estimators,
-			ValidationSpecification validationSpecification, EList<InputData> inputs) {
+			ValidationSpecification validationSpecification, EList<InputData> inputs, IWrapper trainingWrapper) {
 		log.info("Start training of algorithm " + alg.getName() + "...");
 		alg.initialize(specifer);
 		boolean res = true;
@@ -196,7 +205,7 @@ public class Plugin implements IApplication {
 		}
 		for (LibredeConfiguration conf : set) {
 			try {
-				boolean result = trainOneConfiguration(alg, extractor, estimators, conf);
+				boolean result = trainOneConfiguration(alg, extractor, estimators, conf, trainingWrapper);
 				if (!result) {
 					log.warn("Training configuration " + conf + " was not successful.");
 				}
@@ -223,15 +232,16 @@ public class Plugin implements IApplication {
 	 * @param conf
 	 *            The {@link LibredeConfiguration} to use as a basis for the
 	 *            estimators
+	 * @param trainingWrapper The wrapper used to execute calls
 	 */
 	private boolean trainOneConfiguration(IRecomendationAlgorithm alg, IFeatureExtractor extractor,
-			EList<EstimationSpecification> estimators, LibredeConfiguration conf) {
+			EList<EstimationSpecification> estimators, LibredeConfiguration conf, IWrapper trainingWrapper) {
 		EMap<EstimationSpecification, Double> results = new BasicEMap<EstimationSpecification, Double>();
 		for (EstimationSpecification spec : estimators) {
 			// calculate error values for all estimators
 			conf.setEstimation(EcoreUtil.copy(spec));
 			Discovery.fixTimeStamps(conf);
-			results.put(spec, Util.getValidationError(Wrapper.executeLibrede(conf), conf.getValidation()));
+			results.put(spec, Util.getValidationError(trainingWrapper.executeLibrede(conf), conf.getValidation()));
 		}
 		alg.trainSet(results, extractor.extractFeatures(conf));
 		log.info("Inserted training set for configuration " + conf + ".");

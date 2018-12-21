@@ -33,6 +33,7 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.optimization.InputData;
 import tools.descartes.librede.rrde.model.optimization.OptimizationSettings;
+import tools.descartes.librede.rrde.util.wrapper.IWrapper;
 
 /**
  * Basic interface for algorithms optimizing LibReDE configuration files.
@@ -113,4 +114,13 @@ public interface IConfigurationOptimizer {
 	 */
 	public boolean isSpecifierSupported(
 			ConfigurationOptimizationAlgorithmSpecifier specifier);
+	
+	/**
+	 * Sets the {@link IWrapper} to be used to run and evaluate different
+	 * configurations.
+	 * 
+	 * @param wrapper
+	 *            An {@link IWrapper} instance to be used.
+	 */
+	public void setWrapper(IWrapper wrapper);
 }

@@ -26,6 +26,7 @@ import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingC
  *   <li>{@link tools.descartes.librede.rrde.model.lifecycle.impl.LifeCycleConfigurationImpl#getSelectionLoopTime <em>Selection Loop Time</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.model.lifecycle.impl.LifeCycleConfigurationImpl#getRecommendationConfiguration <em>Recommendation Configuration</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.model.lifecycle.impl.LifeCycleConfigurationImpl#getOptimizationConfiguration <em>Optimization Configuration</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.model.lifecycle.impl.LifeCycleConfigurationImpl#getEstimationLoopTime <em>Estimation Loop Time</em>}</li>
  * </ul>
  *
  * @generated
@@ -110,6 +111,26 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	 * @ordered
 	 */
 	protected OptimizationConfiguration optimizationConfiguration;
+
+	/**
+	 * The default value of the '{@link #getEstimationLoopTime() <em>Estimation Loop Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEstimationLoopTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final long ESTIMATION_LOOP_TIME_EDEFAULT = -1L;
+
+	/**
+	 * The cached value of the '{@link #getEstimationLoopTime() <em>Estimation Loop Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEstimationLoopTime()
+	 * @generated
+	 * @ordered
+	 */
+	protected long estimationLoopTime = ESTIMATION_LOOP_TIME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -274,6 +295,27 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public long getEstimationLoopTime() {
+		return estimationLoopTime;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEstimationLoopTime(long newEstimationLoopTime) {
+		long oldEstimationLoopTime = estimationLoopTime;
+		estimationLoopTime = newEstimationLoopTime;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, LifecyclePackage.LIFE_CYCLE_CONFIGURATION__ESTIMATION_LOOP_TIME, oldEstimationLoopTime, estimationLoopTime));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -289,6 +331,8 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION:
 				if (resolve) return getOptimizationConfiguration();
 				return basicGetOptimizationConfiguration();
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__ESTIMATION_LOOP_TIME:
+				return getEstimationLoopTime();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -315,6 +359,9 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 				return;
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION:
 				setOptimizationConfiguration((OptimizationConfiguration)newValue);
+				return;
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__ESTIMATION_LOOP_TIME:
+				setEstimationLoopTime((Long)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -343,6 +390,9 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION:
 				setOptimizationConfiguration((OptimizationConfiguration)null);
 				return;
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__ESTIMATION_LOOP_TIME:
+				setEstimationLoopTime(ESTIMATION_LOOP_TIME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -365,6 +415,8 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 				return recommendationConfiguration != null;
 			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION:
 				return optimizationConfiguration != null;
+			case LifecyclePackage.LIFE_CYCLE_CONFIGURATION__ESTIMATION_LOOP_TIME:
+				return estimationLoopTime != ESTIMATION_LOOP_TIME_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -385,6 +437,8 @@ public class LifeCycleConfigurationImpl extends MinimalEObjectImpl.Container imp
 		result.append(optimizationLoopTime);
 		result.append(", selectionLoopTime: ");
 		result.append(selectionLoopTime);
+		result.append(", estimationLoopTime: ");
+		result.append(estimationLoopTime);
 		result.append(')');
 		return result.toString();
 	}

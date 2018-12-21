@@ -5,7 +5,6 @@ package tools.descartes.librede.rrde.model.lifecycle.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.lifecycle.LifecyclePackage;
 

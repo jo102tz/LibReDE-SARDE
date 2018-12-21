@@ -50,7 +50,7 @@ import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.util.Discovery;
 import tools.descartes.librede.rrde.util.Util;
-import tools.descartes.librede.rrde.util.Wrapper;
+import tools.descartes.librede.rrde.util.wrapper.Wrapper;
 
 /**
  * This class is for validating via a Test set.
@@ -148,7 +148,7 @@ public class TestSetValidator {
     }
     for (LibredeConfiguration libredeConfiguration : testset) {
       long starttime = System.currentTimeMillis();
-      LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+      LibredeResults res = new Wrapper().executeLibrede(libredeConfiguration);
       long finish = System.currentTimeMillis() - starttime;
       before.put(libredeConfiguration, new TestResult(res, finish));
     }
@@ -170,7 +170,7 @@ public class TestSetValidator {
     }
     for (LibredeConfiguration libredeConfiguration : testset) {
       long starttime = System.currentTimeMillis();
-      LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+      LibredeResults res = new Wrapper().executeLibrede(libredeConfiguration);
       long finish = System.currentTimeMillis() - starttime;
       before.put(libredeConfiguration, new TestResult(res, finish));
     }
@@ -205,7 +205,7 @@ public class TestSetValidator {
       libredeConfiguration.getEstimation().getApproaches().addAll(EcoreUtil.copyAll(estimations));
       // first measure runtime
       long starttime = System.currentTimeMillis();
-      Wrapper.executeLibrede(libredeConfiguration);
+      new Wrapper().executeLibrede(libredeConfiguration);
       long finish = System.currentTimeMillis() - starttime;
 
       LibredeResults finalres = null;
@@ -231,7 +231,7 @@ public class TestSetValidator {
         libredeConfiguration.getEstimation().getApproaches().add(EcoreUtil.copy(est));
         // check timestamps
         Discovery.fixTimeStamps(libredeConfiguration);
-        LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+        LibredeResults res = new Wrapper().executeLibrede(libredeConfiguration);
         set.add(res);
       }
       libredeConfiguration.getEstimation().getApproaches().addAll(tmp);
@@ -494,7 +494,7 @@ public class TestSetValidator {
         libredeConfiguration.setEstimation(EcoreUtil.copy(estimationSpecification));
         // check timestamps
         Discovery.fixTimeStamps(libredeConfiguration);
-        LibredeResults res = Wrapper.executeLibrede(libredeConfiguration);
+        LibredeResults res = new Wrapper().executeLibrede(libredeConfiguration);
         set.add(res);
         // System.out.println(estimationSpecification.getApproaches().get(0).getType()
         // + ": "

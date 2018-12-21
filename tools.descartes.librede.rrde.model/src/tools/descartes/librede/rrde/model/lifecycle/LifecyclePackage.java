@@ -112,13 +112,22 @@ public interface LifecyclePackage extends EPackage {
 	int LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION = 4;
 
 	/**
+	 * The feature id for the '<em><b>Estimation Loop Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIFE_CYCLE_CONFIGURATION__ESTIMATION_LOOP_TIME = 5;
+
+	/**
 	 * The number of structural features of the '<em>Life Cycle Configuration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIFE_CYCLE_CONFIGURATION_FEATURE_COUNT = 5;
+	int LIFE_CYCLE_CONFIGURATION_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Life Cycle Configuration</em>' class.
@@ -196,6 +205,17 @@ public interface LifecyclePackage extends EPackage {
 	EReference getLifeCycleConfiguration_OptimizationConfiguration();
 
 	/**
+	 * Returns the meta object for the attribute '{@link tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration#getEstimationLoopTime <em>Estimation Loop Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Estimation Loop Time</em>'.
+	 * @see tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration#getEstimationLoopTime()
+	 * @see #getLifeCycleConfiguration()
+	 * @generated
+	 */
+	EAttribute getLifeCycleConfiguration_EstimationLoopTime();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -267,6 +287,14 @@ public interface LifecyclePackage extends EPackage {
 		 * @generated
 		 */
 		EReference LIFE_CYCLE_CONFIGURATION__OPTIMIZATION_CONFIGURATION = eINSTANCE.getLifeCycleConfiguration_OptimizationConfiguration();
+
+		/**
+		 * The meta object literal for the '<em><b>Estimation Loop Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LIFE_CYCLE_CONFIGURATION__ESTIMATION_LOOP_TIME = eINSTANCE.getLifeCycleConfiguration_EstimationLoopTime();
 
 	}
 

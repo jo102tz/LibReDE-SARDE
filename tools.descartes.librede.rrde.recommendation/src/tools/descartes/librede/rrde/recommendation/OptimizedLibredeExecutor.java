@@ -36,8 +36,8 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.util.Discovery;
-import tools.descartes.librede.rrde.util.Wrapper;
 import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
+import tools.descartes.librede.rrde.util.wrapper.Wrapper;
 
 /**
  * This class accepts an {@link IRecomendationAlgorithm} and wraps all calls to be optimized.
@@ -130,6 +130,6 @@ public class OptimizedLibredeExecutor {
       throw new RuntimeException(e);
     }
     Discovery.fixTimeStamps(conf);
-    return Wrapper.executeLibrede(conf);
+    return new Wrapper().executeLibrede(conf);
   }
 }

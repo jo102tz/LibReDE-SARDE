@@ -3,7 +3,8 @@
  *  LibReDE : Library for Resource Demand Estimation
  * ==============================================
  *
- * (c) Copyright 2013-2014, by Simon Spinner and Contributors.
+ * (c) Copyright 2013-2018, by Simon Spinner, Johannes Grohmann
+ * and Contributors.
  *
  * Project Info:   http://www.descartes-research.net/
  *
@@ -24,34 +25,45 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.tests;
+package tools.descartes.librede.rrde.lifecycle.semaphors;
 
-import java.io.File;
+import java.util.Collection;
 
-import org.junit.Test;
-
-import tools.descartes.librede.Librede;
-import tools.descartes.librede.ResultPrinter;
-import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
-import tools.descartes.librede.rrde.util.wrapper.Wrapper;
+import tools.descartes.librede.configuration.EstimationSpecification;
 
 /**
+ * The results from the optimization process.
+ * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class WrapperTest {
+public class OptimizationResult extends Result {
 
-	public final static String PATH = "resources/estimation.librede";
+	private Collection<EstimationSpecification> optimizedEstimators;
 
-	@Test
-	public void test() {
-		OptimizationPlugin p = new OptimizationPlugin();
-		p.initLogging();
-		Wrapper.init();
-		LibredeConfiguration configuration = Librede
-				.loadConfiguration(new File(PATH).toPath());
-		ResultPrinter.printSummary(new Wrapper().executeLibrede(configuration));
+	/**
+	 * Constructor.
+	 * 
+	 * @param timestamp
+	 *            The timestamp, when this result was created.
+	 */
+	public OptimizationResult(long timestamp) {
+		super(timestamp);
+	}
+
+	/**
+	 * @return the optimizedEstimators
+	 */
+	public Collection<EstimationSpecification> getOptimizedEstimators() {
+		return optimizedEstimators;
+	}
+
+	/**
+	 * @param optimizedEstimators
+	 *            the optimizedEstimators to set
+	 */
+	public void setOptimizedEstimators(Collection<EstimationSpecification> optimizedEstimators) {
+		this.optimizedEstimators = optimizedEstimators;
 	}
 
 }

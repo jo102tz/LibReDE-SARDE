@@ -57,6 +57,7 @@ import tools.descartes.librede.configuration.ValidatorConfiguration;
 import tools.descartes.librede.linalg.Vector;
 import tools.descartes.librede.registry.ParameterDefinition;
 import tools.descartes.librede.registry.Registry;
+import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.GenericParameter;
 import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
@@ -433,6 +434,28 @@ public class Util {
 		EcoreUtil.resolveAll(resource);
 		return (RecommendationTrainingConfiguration) resource.getContents().get(0);
 	}
+	
+	/**
+	 * Loads the given path as a {@link LifeCycleConfiguration}
+	 * configuration, if one is found.
+	 * 
+	 * @param path
+	 *            The Path to the configuration file
+	 * @return The specified {@link LifeCycleConfiguration}
+	 * @throws Exception
+	 *             If something in the loading process fails
+	 */
+	public static LifeCycleConfiguration loadLifecycleConfiguration(Path path) {
+		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("lifecycle",
+				new XMIResourceFactoryImpl());
+		File configFile = new File(path.toString());
+		URI fileURI = URI.createFileURI(configFile.getAbsolutePath());
+		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(fileURI, true);
+		EcoreUtil.resolveAll(resource);
+		return (LifeCycleConfiguration) resource.getContents().get(0);
+	}
+
 
 	/**
 	 * Converts an array of {@link Double}s into an array of primitives.

@@ -48,6 +48,7 @@ import tools.descartes.librede.rrde.model.optimization.impl.LocalSearchSpecifier
 import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
 import tools.descartes.librede.rrde.rinterface.RBridge;
 import tools.descartes.librede.rrde.util.Util;
+import tools.descartes.librede.rrde.util.wrapper.Wrapper;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -81,7 +82,7 @@ public class TestOptimization extends AbstractTest {
 		long start = System.currentTimeMillis();
 		// run optimization
 		Collection<EstimationSpecification> estimations = new OptimizationPlugin().runConfigurationOptimization(librede,
-				optimization, OUTPUT);
+				optimization, new Wrapper(), OUTPUT);
 		long opti = System.currentTimeMillis() - start;
 		log.info("Finished optimization! Done...");
 		log.info("Took: " + opti + "ms");
@@ -142,7 +143,7 @@ public class TestOptimization extends AbstractTest {
 
 		// repeat
 		Collection<EstimationSpecification> estimations = new OptimizationPlugin().runConfigurationOptimization(librede,
-				optimization, OUTPUT);
+				optimization, new Wrapper(), OUTPUT);
 		log.info("Finished optimization! Done...");
 
 		// print results
@@ -194,7 +195,7 @@ public class TestOptimization extends AbstractTest {
 
 		// repeat
 		Collection<EstimationSpecification> estimations = new OptimizationPlugin().runConfigurationOptimization(librede,
-				optimization, OUTPUT);
+				optimization, new Wrapper(), OUTPUT);
 		log.info("Finished optimization! Done...");
 
 		// print results

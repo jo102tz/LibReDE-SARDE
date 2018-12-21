@@ -21,6 +21,7 @@ import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingC
  *   <li>{@link tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration#getSelectionLoopTime <em>Selection Loop Time</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration#getRecommendationConfiguration <em>Recommendation Configuration</em>}</li>
  *   <li>{@link tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration#getOptimizationConfiguration <em>Optimization Configuration</em>}</li>
+ *   <li>{@link tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration#getEstimationLoopTime <em>Estimation Loop Time</em>}</li>
  * </ul>
  *
  * @see tools.descartes.librede.rrde.model.lifecycle.LifecyclePackage#getLifeCycleConfiguration()
@@ -160,5 +161,32 @@ public interface LifeCycleConfiguration extends EObject {
 	 * @generated
 	 */
 	void setOptimizationConfiguration(OptimizationConfiguration value);
+
+	/**
+	 * Returns the value of the '<em><b>Estimation Loop Time</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Estimation Loop Time</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Estimation Loop Time</em>' attribute.
+	 * @see #setEstimationLoopTime(long)
+	 * @see tools.descartes.librede.rrde.model.lifecycle.LifecyclePackage#getLifeCycleConfiguration_EstimationLoopTime()
+	 * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Long" required="true"
+	 * @generated
+	 */
+	long getEstimationLoopTime();
+
+	/**
+	 * Sets the value of the '{@link tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration#getEstimationLoopTime <em>Estimation Loop Time</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Estimation Loop Time</em>' attribute.
+	 * @see #getEstimationLoopTime()
+	 * @generated
+	 */
+	void setEstimationLoopTime(long value);
 
 } // LifeCycleConfiguration

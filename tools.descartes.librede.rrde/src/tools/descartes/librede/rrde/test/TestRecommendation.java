@@ -43,6 +43,7 @@ import tools.descartes.librede.rrde.model.recommendation.impl.SVMAlgorithmSpecif
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
+import tools.descartes.librede.rrde.util.wrapper.Wrapper;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -63,7 +64,7 @@ public class TestRecommendation extends AbstractTest {
 			estimators.add(EcoreUtil.copy(app));
 		}
 		vali.calculateInitialErrorsRecommendation(estimators, true);
-		
+
 		log.info("Initialized! Starting training phase with Decision Tree...");
 		DecisionTreeAlgorithmSpecifier tree = new DecisionTreeAlgorithmSpecifierImpl();
 		tree.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree");
@@ -73,7 +74,7 @@ public class TestRecommendation extends AbstractTest {
 		// train algorithm
 		long start = System.currentTimeMillis();
 		IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
-				.loadAndTrainAlgorithm(recommendation);
+				.loadAndTrainAlgorithm(recommendation, new Wrapper());
 		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
 				.loadFeatureExtractor(recommendation.getFeatureAlgorithm());
 		long reco = System.currentTimeMillis() - start;
@@ -85,7 +86,7 @@ public class TestRecommendation extends AbstractTest {
 		vali.compareOptimized(exec);
 		StatisticsSummary stat = vali.printResults(null, null, 0, reco, true, null);
 		testStatValues(stat, 0.10701291948298311, 0.10701291948298311, 0, 0, 1, false, true);
-		
+
 		log.info("Initialized! Starting training phase with neural net...");
 		NeuralNetworkAlgorithmSpecifierImpl nn = new NeuralNetworkAlgorithmSpecifierImpl();
 		nn.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileNN");
@@ -94,7 +95,8 @@ public class TestRecommendation extends AbstractTest {
 
 		// train algorithm
 		start = System.currentTimeMillis();
-		algorithm = new tools.descartes.librede.rrde.recommendation.Plugin().loadAndTrainAlgorithm(recommendation);
+		algorithm = new tools.descartes.librede.rrde.recommendation.Plugin().loadAndTrainAlgorithm(recommendation,
+				new Wrapper());
 		reco = System.currentTimeMillis() - start;
 		log.info("Finished training with Decision Tree! Validating...");
 
@@ -114,7 +116,8 @@ public class TestRecommendation extends AbstractTest {
 
 		// train algorithm
 		start = System.currentTimeMillis();
-		algorithm = new tools.descartes.librede.rrde.recommendation.Plugin().loadAndTrainAlgorithm(recommendation);
+		algorithm = new tools.descartes.librede.rrde.recommendation.Plugin().loadAndTrainAlgorithm(recommendation,
+				new Wrapper());
 		reco = System.currentTimeMillis() - start;
 		log.info("Finished training with Decision Tree! Validating...");
 

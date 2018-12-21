@@ -3,7 +3,8 @@
  *  LibReDE : Library for Resource Demand Estimation
  * ==============================================
  *
- * (c) Copyright 2013-2014, by Simon Spinner and Contributors.
+ * (c) Copyright 2013-2018, by Simon Spinner, Johannes Grohmann
+ * and Contributors.
  *
  * Project Info:   http://www.descartes-research.net/
  *
@@ -24,34 +25,17 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.tests;
+package tools.descartes.librede.rrde.lifecycle.logs;
 
-import java.io.File;
-
-import org.junit.Test;
-
-import tools.descartes.librede.Librede;
-import tools.descartes.librede.ResultPrinter;
-import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
-import tools.descartes.librede.rrde.util.wrapper.Wrapper;
+import tools.descartes.librede.rrde.lifecycle.ExecutionHandler;
 
 /**
+ * This enum represents the four types of executions that can be executed (and
+ * logged) by our {@link ExecutionHandler}.
+ * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class WrapperTest {
-
-	public final static String PATH = "resources/estimation.librede";
-
-	@Test
-	public void test() {
-		OptimizationPlugin p = new OptimizationPlugin();
-		p.initLogging();
-		Wrapper.init();
-		LibredeConfiguration configuration = Librede
-				.loadConfiguration(new File(PATH).toPath());
-		ResultPrinter.printSummary(new Wrapper().executeLibrede(configuration));
-	}
-
+public enum OperationType {
+	ESTIMATION, RECOMMENDATION, TRAINING, OPTIMIZATION;
 }

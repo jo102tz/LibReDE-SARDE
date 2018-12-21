@@ -44,7 +44,8 @@ import tools.descartes.librede.rrde.model.optimization.InputData;
 import tools.descartes.librede.rrde.model.optimization.OptimizationSettings;
 import tools.descartes.librede.rrde.util.Discovery;
 import tools.descartes.librede.rrde.util.Util;
-import tools.descartes.librede.rrde.util.Wrapper;
+import tools.descartes.librede.rrde.util.wrapper.IWrapper;
+import tools.descartes.librede.rrde.util.wrapper.Wrapper;
 
 /**
  * This class contains an abstract implementation of an
@@ -125,6 +126,11 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	 * A statistics object for storing and analyzing.
 	 */
 	private DescriptiveStatistics stat;
+	
+	/**
+	 * The execution wrapper to be used to execute Librede.
+	 */
+	private IWrapper wrapper;
 
 	/**
 	 * Constructor preparing and initializing execution
@@ -135,6 +141,7 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 		totalruns = 0;
 		lastResults = new HashMap<LibredeConfiguration, LibredeResults>();
 		stat = new DescriptiveStatistics();
+		wrapper = new Wrapper();
 	}
 
 	/**
@@ -226,6 +233,20 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	}
 
 	/**
+	 * @return the wrapper
+	 */
+	public IWrapper getWrapper() {
+		return wrapper;
+	}
+
+	/**
+	 * @param wrapper the wrapper to set
+	 */
+	public void setWrapper(IWrapper wrapper) {
+		this.wrapper = wrapper;
+	}
+
+	/**
 	 * Returns the log instance, to provide proper visible logging.
 	 * 
 	 * @return the logger of the implementing class
@@ -312,7 +333,7 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 		for (LibredeConfiguration single : confs) {
 			totalruns++;
 			getLog().trace("Starting execution of " + single.toString());
-			LibredeResults results = Wrapper.executeLibrede(single);
+			LibredeResults results = wrapper.executeLibrede(single);
 			lastResults.put(single, results);
 			if (results == null || results.getApproaches() == null) {
 				getLog().error("The execution resulted an non-trackable error.");

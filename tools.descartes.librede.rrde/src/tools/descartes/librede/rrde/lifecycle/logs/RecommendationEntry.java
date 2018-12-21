@@ -3,7 +3,8 @@
  *  LibReDE : Library for Resource Demand Estimation
  * ==============================================
  *
- * (c) Copyright 2013-2014, by Simon Spinner and Contributors.
+ * (c) Copyright 2013-2018, by Simon Spinner, Johannes Grohmann
+ * and Contributors.
  *
  * Project Info:   http://www.descartes-research.net/
  *
@@ -24,34 +25,46 @@
  * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
  * in the United States and other countries.]
  */
-package tools.descartes.librede.rrde.optimization.tests;
-
-import java.io.File;
-
-import org.junit.Test;
-
-import tools.descartes.librede.Librede;
-import tools.descartes.librede.ResultPrinter;
-import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
-import tools.descartes.librede.rrde.util.wrapper.Wrapper;
+package tools.descartes.librede.rrde.lifecycle.logs;
 
 /**
+ * This class represents a specific log entry, logged by the selection process.
+ * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class WrapperTest {
+public class RecommendationEntry extends LogEntry {
 
-	public final static String PATH = "resources/estimation.librede";
+	private String chosenApproach;
 
-	@Test
-	public void test() {
-		OptimizationPlugin p = new OptimizationPlugin();
-		p.initLogging();
-		Wrapper.init();
-		LibredeConfiguration configuration = Librede
-				.loadConfiguration(new File(PATH).toPath());
-		ResultPrinter.printSummary(new Wrapper().executeLibrede(configuration));
+	/**
+	 * Constructor.
+	 * 
+	 * @param starttimems
+	 *            The start time of the process in milliseconds.
+	 * @param endtimems
+	 *            The end time of the process in milliseconds.
+	 * @param chosenApproach
+	 *            The approach chosen by the selection entry.
+	 */
+	public RecommendationEntry(long starttimems, long endtimems, String chosenApproach) {
+		super(starttimems, endtimems, OperationType.RECOMMENDATION);
+		this.chosenApproach = chosenApproach;
+	}
+
+	/**
+	 * @return the chosenApproach
+	 */
+	public String getChosenApproach() {
+		return chosenApproach;
+	}
+
+	/**
+	 * @param chosenApproach
+	 *            the chosenApproach to set
+	 */
+	public void setChosenApproach(String chosenApproach) {
+		this.chosenApproach = chosenApproach;
 	}
 
 }

@@ -73,6 +73,7 @@ import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgor
 import tools.descartes.librede.rrde.util.Discovery;
 import tools.descartes.librede.rrde.util.Util;
 import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
+import tools.descartes.librede.rrde.util.wrapper.Wrapper;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -319,7 +320,7 @@ public class Evaluate {
     // train algorithm
     long start = System.currentTimeMillis();
     IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
-        .loadAndTrainAlgorithm(postreco);
+        .loadAndTrainAlgorithm(postreco, new Wrapper());
     IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
         .loadFeatureExtractor(postreco.getFeatureAlgorithm());
     // wrap into Executor
@@ -392,7 +393,7 @@ public class Evaluate {
       long start = System.currentTimeMillis();
       // train algorithm
       IRecomendationAlgorithm algorithm = new tools.descartes.librede.rrde.recommendation.Plugin()
-          .loadAndTrainAlgorithm(conf);
+          .loadAndTrainAlgorithm(conf, new Wrapper());
       OptimizedLibredeExecutor exec = new OptimizedLibredeExecutor(extractor, algorithm);
       long reco = System.currentTimeMillis() - start;
 
@@ -567,7 +568,7 @@ public class Evaluate {
       long start = System.currentTimeMillis();
       // run optimization
       Collection<EstimationSpecification> estimations = new OptimizationPlugin()
-          .runConfigurationOptimization(libconf, conf, OUTPUT);
+          .runConfigurationOptimization(libconf, conf, new Wrapper(), OUTPUT);
       long opti = System.currentTimeMillis() - start;
       log.info("Finished optimization! Validating...");
 
