@@ -33,6 +33,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import tools.descartes.librede.rrde.lifecycle.OperationType;
 
@@ -47,7 +49,7 @@ public class LogBook {
 	/**
 	 * The actual log entries.
 	 */
-	private ArrayList<LogEntry> book;
+	private SortedSet<LogEntry> book;
 
 	/**
 	 * The map storing the counts.
@@ -66,7 +68,7 @@ public class LogBook {
 		counts.put(OperationType.RECOMENDATION, 0);
 		counts.put(OperationType.TRAINING, 0);
 		counts.put(OperationType.OPTIMIZATION, 0);
-		book = new ArrayList<>();
+		book = new TreeSet<>();
 	}
 
 	/**

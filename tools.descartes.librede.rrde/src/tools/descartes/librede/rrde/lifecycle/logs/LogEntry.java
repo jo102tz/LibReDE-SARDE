@@ -35,7 +35,7 @@ import tools.descartes.librede.rrde.lifecycle.OperationType;
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class LogEntry {
+public class LogEntry implements Comparable<LogEntry> {
 
 	/**
 	 * The start time in milliseconds.
@@ -110,5 +110,17 @@ public class LogEntry {
 	 */
 	public void setMetric(OperationType type) {
 		this.type = type;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(LogEntry o) {
+		// ordering the elements after their finish time, i.e., their logging
+		// order
+		return Long.valueOf(this.getEndtimems()).compareTo(o.getEndtimems());
 	}
 }

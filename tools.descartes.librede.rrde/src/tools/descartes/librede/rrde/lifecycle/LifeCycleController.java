@@ -32,7 +32,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.rrde.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.optimization.RunCall;
 import tools.descartes.librede.units.Quantity;
 import tools.descartes.librede.units.Time;

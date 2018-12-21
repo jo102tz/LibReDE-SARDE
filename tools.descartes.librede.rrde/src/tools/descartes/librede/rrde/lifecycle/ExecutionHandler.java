@@ -30,10 +30,8 @@ package tools.descartes.librede.rrde.lifecycle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
@@ -46,6 +44,7 @@ import tools.descartes.librede.rrde.lifecycle.logs.EstimationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.LogBook;
 import tools.descartes.librede.rrde.lifecycle.logs.LogEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.RecommendationEntry;
+import tools.descartes.librede.rrde.lifecycle.logs.SkippedEntry;
 import tools.descartes.librede.rrde.lifecycle.semaphors.OptimizationResult;
 import tools.descartes.librede.rrde.lifecycle.semaphors.RecommendationResult;
 import tools.descartes.librede.rrde.lifecycle.semaphors.TrainingResult;
@@ -127,6 +126,7 @@ public class ExecutionHandler {
 			}
 		} else {
 			log.warn("There is currently one estimation run still running. Therefore we skip this iteration.");
+			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.ESTIMATION));
 		}
 	}
 
@@ -147,6 +147,7 @@ public class ExecutionHandler {
 			}
 		} else {
 			log.warn("There is currently one optimization run still running. Therefore we skip this iteration.");
+			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.OPTIMIZATION));
 		}
 	}
 
@@ -165,6 +166,7 @@ public class ExecutionHandler {
 			}
 		} else {
 			log.warn("There is currently one recommendation run still running. Therefore we skip this iteration.");
+			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.RECOMENDATION));
 		}
 	}
 
@@ -183,6 +185,7 @@ public class ExecutionHandler {
 			}
 		} else {
 			log.warn("There is currently one training run still running. Therefore we skip this iteration.");
+			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.TRAINING));
 		}
 	}
 
@@ -266,7 +269,7 @@ public class ExecutionHandler {
 				}
 				logbook.insert(entry);
 			}
-			log.info("Executed " + logbook.getLength(OperationType.ESTIMATION) + "th run. End-timestamp: "
+			log.info("Executed " + logbook.getLength(OperationType.ESTIMATION) + "th estimation run. End-timestamp: "
 					+ libredeConfiguration.getEstimation().getEndTimestamp().toString() + ".");
 			estRunning = false;
 		}
@@ -318,7 +321,7 @@ public class ExecutionHandler {
 			optResult.setOptimizedEstimators(estimations);
 			LogEntry entry = new LogEntry(tic, toc, OperationType.OPTIMIZATION);
 			logbook.insert(entry);
-			log.info("Executed " + logbook.getLength(OperationType.OPTIMIZATION) + "th run. Result-time: "
+			log.info("Executed " + logbook.getLength(OperationType.OPTIMIZATION) + "th optimization run. Result-time: "
 					+ optResult.getTimestamp());
 			optRunning = false;
 		}
@@ -373,7 +376,7 @@ public class ExecutionHandler {
 			}
 			RecommendationEntry entry = new RecommendationEntry(tic, toc, chosenapproach);
 			logbook.insert(entry);
-			log.info("Executed " + logbook.getLength(OperationType.RECOMENDATION) + "th run. Result-time: " + toc);
+			log.info("Executed " + logbook.getLength(OperationType.RECOMENDATION) + "th recommendation run. Result-time: " + toc);
 			recoRunning = false;
 		}
 
@@ -426,7 +429,7 @@ public class ExecutionHandler {
 			trainResult.setTrainedRecommender(algorithm);
 			trainResult.setUsedExtractor(extractor);
 
-			log.info("Executed " + logbook.getLength(OperationType.TRAINING) + "th run. Result-time: "
+			log.info("Executed " + logbook.getLength(OperationType.TRAINING) + "th training run. Result-time: "
 					+ trainResult.getTimestamp());
 			trainRunning = false;
 		}
