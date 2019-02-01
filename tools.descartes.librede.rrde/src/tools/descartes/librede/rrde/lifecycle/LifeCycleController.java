@@ -50,6 +50,17 @@ public class LifeCycleController {
 	private static final Logger log = Logger.getLogger(LifeCycleController.class);
 
 	/**
+	 * A constant to emulate faster time (if set > 1). Default = 1.
+	 */
+	private static final int SPEEDFACTOR = 10;
+
+	/**
+	 * A constant defining the maximum interval (in virtual time, see
+	 * {@link #SPEEDFACTOR}) the life cycle runs.
+	 */
+	private static final int MAXSECS = 6000;
+
+	/**
 	 * Method, that starts the online estimation and learning cycle.
 	 * 
 	 * @param lifeCycleConfiguration
@@ -64,9 +75,6 @@ public class LifeCycleController {
 	public void startLifeCycle(LifeCycleConfiguration lifeCycleConfiguration, LibredeConfiguration libredeConfiguration,
 			String logFolder) throws Exception {
 		ExecutionHandler handler = new ExecutionHandler(logFolder);
-		
-		// temporal for testing
-		int maxsecs = 2000;
 
 		Quantity<Time> originalEnd = libredeConfiguration.getEstimation().getEndTimestamp();
 		Quantity<Time> newEnd = libredeConfiguration.getEstimation().getStartTimestamp();
@@ -79,28 +87,31 @@ public class LifeCycleController {
 		increment.setValue(1);
 		long starttime = System.currentTimeMillis();
 		int timepassed = 0;
-		while (newEnd.compareTo(originalEnd) <= 0 && timepassed < maxsecs) {
-			// TODO change back to one
-			timepassed = (int) ((System.currentTimeMillis() - starttime) / 1000) * 20;
-//			newEnd = newEnd.plus(increment);
+		while (newEnd.compareTo(originalEnd) <= 0 && timepassed < MAXSECS) {
+			timepassed = (int) ((System.currentTimeMillis() - starttime) / 1000) * SPEEDFACTOR;
+			// newEnd = newEnd.plus(increment);
 			Quantity<Time> addition = increment.times(timepassed);
 			newEnd = libredeConfiguration.getEstimation().getStartTimestamp().plus(addition);
 			setConfigurationEndTime(libredeConfiguration, lifeCycleConfiguration, newEnd);
-			if (lifeCycleConfiguration.getEstimationLoopTime() != -1 &&  timepassed % lifeCycleConfiguration.getEstimationLoopTime() == 0) {
+			if (lifeCycleConfiguration.getEstimationLoopTime() != -1
+					&& timepassed % lifeCycleConfiguration.getEstimationLoopTime() == 0) {
 				handler.executeEstimation(libredeConfiguration);
 			}
-			if (lifeCycleConfiguration.getSelectionLoopTime() != -1 &&  timepassed % lifeCycleConfiguration.getSelectionLoopTime() == 0) {
+			if (lifeCycleConfiguration.getSelectionLoopTime() != -1
+					&& timepassed % lifeCycleConfiguration.getSelectionLoopTime() == 0) {
 				handler.executeRecommendation(libredeConfiguration);
 			}
-			if (lifeCycleConfiguration.getRecommendationLoopTime() != -1 &&  timepassed % lifeCycleConfiguration.getRecommendationLoopTime() == 0) {
+			if (lifeCycleConfiguration.getRecommendationLoopTime() != -1
+					&& timepassed % lifeCycleConfiguration.getRecommendationLoopTime() == 0) {
 				handler.executeTraining(lifeCycleConfiguration.getRecommendationConfiguration());
 			}
-			if (lifeCycleConfiguration.getOptimizationLoopTime() != -1 && timepassed % lifeCycleConfiguration.getOptimizationLoopTime() == 0) {
+			if (lifeCycleConfiguration.getOptimizationLoopTime() != -1
+					&& timepassed % lifeCycleConfiguration.getOptimizationLoopTime() == 0) {
 				handler.executeOptimization(lifeCycleConfiguration.getOptimizationConfiguration(),
 						libredeConfiguration);
 			}
 			Thread.sleep(1000);
-			log.info("Executed " + timepassed + "th loop interval.");
+			log.trace("Executed " + timepassed + "th loop interval.");
 		}
 		handler.finish();
 	}
