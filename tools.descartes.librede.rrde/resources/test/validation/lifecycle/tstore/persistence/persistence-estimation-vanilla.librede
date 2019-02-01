@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<librede:LibredeConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0">
+  <workloadDescription>
+    <resources name="lp.cs-test.descartes.tools" demands="//@workloadDescription/@services.0/@tasks.0 //@workloadDescription/@services.1/@tasks.0 //@workloadDescription/@services.2/@tasks.0 //@workloadDescription/@services.3/@tasks.0 //@workloadDescription/@services.4/@tasks.0 //@workloadDescription/@services.5/@tasks.0 //@workloadDescription/@services.8/@tasks.0 //@workloadDescription/@services.7/@tasks.0 //@workloadDescription/@services.6/@tasks.0"/>
+    <services name="tools.descartes.teastore.persistence.rest.OrderEndpoint.listAllForUser">
+      <tasks xsi:type="librede:ResourceDemand" name="lp.cs-test.descartes.tools" resource="//@workloadDescription/@resources.0"/>
+    </services>
+    <services name="tools.descartes.teastore.persistence.rest.OrderEndpoint.createEntity">
+      <tasks xsi:type="librede:ResourceDemand" name="lp.cs-test.descartes.tools" resource="//@workloadDescription/@resources.0"/>
+    </services>
+    <services name="tools.descartes.teastore.persistence.rest.OrderItemEndpoint.createEntity">
+      <tasks xsi:type="librede:ResourceDemand" name="lp.cs-test.descartes.tools" resource="//@workloadDescription/@resources.0"/>
+    </services>
+    <services name="tools.descartes.teastore.persistence.rest.ProductEndpoint.countForCategory">
+      <tasks xsi:type="librede:ResourceDemand" name="lp.cs-test.descartes.tools" resource="//@workloadDescription/@resources.0"/>
+    </services>
+    <services name="tools.descartes.teastore.persistence.rest.ProductEndpoint.listAllForCategory">
+      <tasks xsi:type="librede:ResourceDemand" name="lp.cs-test.descartes.tools" resource="//@workloadDescription/@resources.0"/>
+    </services>
+    <services name="tools.descartes.teastore.persistence.rest.ProductEndpoint.findEntityById">
+      <tasks xsi:type="librede:ResourceDemand" name="lp.cs-test.descartes.tools" resource="//@workloadDescription/@resources.0"/>
+    </services>
+    <services name="tools.descartes.teastore.persistence.rest.UserEndpoint.findEntityById">
+      <tasks xsi:type="librede:ResourceDemand" name="lp.cs-test.descartes.tools" resource="//@workloadDescription/@resources.0"/>
+    </services>
+    <services name="tools.descartes.teastore.persistence.rest.CategoryEndpoint.listAllEntities">
+      <tasks xsi:type="librede:ResourceDemand" name="lp.cs-test.descartes.tools" resource="//@workloadDescription/@resources.0"/>
+    </services>
+    <services name="tools.descartes.teastore.persistence.rest.CategoryEndpoint.findEntityById">
+      <tasks xsi:type="librede:ResourceDemand" name="lp.cs-test.descartes.tools" resource="//@workloadDescription/@resources.0"/>
+    </services>
+  </workloadDescription>
+  <input>
+    <dataSources name="NS CSV" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+      <parameters name="TimestampFormat" value="[ns]"/>
+    </dataSources>
+    <dataSources name="MS CSV" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+      <parameters name="TimestampFormat" value="[ms]"/>
+    </dataSources>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\residencetime-tools.descartes.teastore.persistence.rest.CategoryEndpoint.findEntityById.csv">
+      <metric href="librede:metrics#RESIDENCE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.8"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\residencetime-tools.descartes.teastore.persistence.rest.CategoryEndpoint.listAllEntities.csv">
+      <metric href="librede:metrics#RESIDENCE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.7"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\residencetime-tools.descartes.teastore.persistence.rest.OrderEndpoint.createEntity.csv">
+      <metric href="librede:metrics#RESIDENCE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.1"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\residencetime-tools.descartes.teastore.persistence.rest.OrderEndpoint.listAllForUser.csv">
+      <metric href="librede:metrics#RESIDENCE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.0"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\residencetime-tools.descartes.teastore.persistence.rest.OrderItemEndpoint.createEntity.csv">
+      <metric href="librede:metrics#RESIDENCE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.2"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\residencetime-tools.descartes.teastore.persistence.rest.ProductEndpoint.countForCategory.csv">
+      <metric href="librede:metrics#RESIDENCE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.3"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\residencetime-tools.descartes.teastore.persistence.rest.ProductEndpoint.findEntityById.csv">
+      <metric href="librede:metrics#RESIDENCE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.5"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\residencetime-tools.descartes.teastore.persistence.rest.ProductEndpoint.listAllForCategory.csv">
+      <metric href="librede:metrics#RESIDENCE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.4"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\residencetime-tools.descartes.teastore.persistence.rest.UserEndpoint.findEntityById.csv">
+      <metric href="librede:metrics#RESIDENCE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.6"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@input/@dataSources.1" file="C:\Users\Johannes\Desktop\librede\short traces\lp.cs-test.descartes.tools.csv">
+      <metric href="librede:metrics#UTILIZATION"/>
+      <unit href="librede:units#NONE"/>
+      <interval value="1.0">
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@resources.0"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\responsetime-tools.descartes.teastore.persistence.rest.CategoryEndpoint.findEntityById.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.8"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\responsetime-tools.descartes.teastore.persistence.rest.CategoryEndpoint.listAllEntities.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.7"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\responsetime-tools.descartes.teastore.persistence.rest.OrderEndpoint.createEntity.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.1"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\responsetime-tools.descartes.teastore.persistence.rest.OrderEndpoint.listAllForUser.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.0"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\responsetime-tools.descartes.teastore.persistence.rest.OrderItemEndpoint.createEntity.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.2"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\responsetime-tools.descartes.teastore.persistence.rest.ProductEndpoint.countForCategory.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.3"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\responsetime-tools.descartes.teastore.persistence.rest.ProductEndpoint.findEntityById.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.5"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\responsetime-tools.descartes.teastore.persistence.rest.ProductEndpoint.listAllForCategory.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.4"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\responsetime-tools.descartes.teastore.persistence.rest.UserEndpoint.findEntityById.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#NANOSECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.6"/>
+    </observations>
+  </input>
+  <estimation window="5">
+    <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
+      <parameters name="PrintLevel" value="1"/>
+    </algorithms>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="120.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.547547793E12">
+      <unit href="librede:units#MILLISECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.547549593E12">
+      <unit href="librede:units#MILLISECONDS"/>
+    </endTimestamp>
+  </estimation>
+  <output/>
+  <validation validationFolds="2" validateEstimates="true">
+    <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
+  </validation>
+</librede:LibredeConfiguration>

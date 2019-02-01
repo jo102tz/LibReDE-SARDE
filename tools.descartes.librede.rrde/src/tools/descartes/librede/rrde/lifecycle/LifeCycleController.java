@@ -64,6 +64,9 @@ public class LifeCycleController {
 	public void startLifeCycle(LifeCycleConfiguration lifeCycleConfiguration, LibredeConfiguration libredeConfiguration,
 			String logFolder) throws Exception {
 		ExecutionHandler handler = new ExecutionHandler(logFolder);
+		
+		// temporal for testing
+		int maxsecs = 2000;
 
 		Quantity<Time> originalEnd = libredeConfiguration.getEstimation().getEndTimestamp();
 		Quantity<Time> newEnd = libredeConfiguration.getEstimation().getStartTimestamp();
@@ -76,10 +79,12 @@ public class LifeCycleController {
 		increment.setValue(1);
 		long starttime = System.currentTimeMillis();
 		int timepassed = 0;
-		while (newEnd.compareTo(originalEnd) <= 0) {
-			timepassed = (int) ((System.currentTimeMillis() - starttime) / 1000);
-			timepassed++;
-			newEnd = newEnd.plus(increment);
+		while (newEnd.compareTo(originalEnd) <= 0 && timepassed < maxsecs) {
+			// TODO change back to one
+			timepassed = (int) ((System.currentTimeMillis() - starttime) / 1000) * 20;
+//			newEnd = newEnd.plus(increment);
+			Quantity<Time> addition = increment.times(timepassed);
+			newEnd = libredeConfiguration.getEstimation().getStartTimestamp().plus(addition);
 			setConfigurationEndTime(libredeConfiguration, lifeCycleConfiguration, newEnd);
 			if (lifeCycleConfiguration.getEstimationLoopTime() != -1 &&  timepassed % lifeCycleConfiguration.getEstimationLoopTime() == 0) {
 				handler.executeEstimation(libredeConfiguration);
@@ -95,7 +100,7 @@ public class LifeCycleController {
 						libredeConfiguration);
 			}
 			Thread.sleep(1000);
-			log.trace("Executed " + timepassed + "th loop interval.");
+			log.info("Executed " + timepassed + "th loop interval.");
 		}
 		handler.finish();
 	}

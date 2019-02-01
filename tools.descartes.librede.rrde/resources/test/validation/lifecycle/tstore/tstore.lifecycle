@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<librede-lifecycle:LifeCycleConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-lifecycle="http://tools/descartes/librede/rrde/lifecycle" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization" xmlns:librede-recommendation="http://tools/descartes/librede/rrde/recommendation" recommendationLoopTime="100" optimizationLoopTime="-1" selectionLoopTime="20" estimationLoopTime="5">
+<librede-lifecycle:LifeCycleConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-lifecycle="http://tools/descartes/librede/rrde/lifecycle" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization" xmlns:librede-recommendation="http://tools/descartes/librede/rrde/recommendation" recommendationLoopTime="-1" optimizationLoopTime="20" selectionLoopTime="-1" estimationLoopTime="5">
   <recommendationConfiguration>
     <validator validateEstimates="true">
       <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
@@ -215,7 +215,7 @@
         </services>
       </workloadDescription>
     </trainingData>
-    <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.recommendation.extract.ReducedFeatureExtractor">
+    <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.util.extract.ReducedFeatureExtractor">
       <rateUnit href="librede:units#REQUESTS_PER_MINUTE"/>
       <aggregation value="60.0">
         <unit href="librede:units#SECONDS"/>
@@ -359,8 +359,8 @@
   </recommendationConfiguration>
   <optimizationConfiguration>
     <containsOf>
-      <!--<algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm" numberOfSplits="1" numberOfExplorations="2" numberOfIterations="2"/>-->
-      <algorithm xsi:type="librede-optimization:LocalSearchSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.HillClimbingAlgorithm"/>
+      <algorithm xsi:type="librede-optimization:IterativeParameterOptimizerSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm" numberOfSplits="10" numberOfExplorations="5" numberOfIterations="3"/>
+      <!--<algorithm xsi:type="librede-optimization:LocalSearchSpecifier" algorithmName="tools.descartes.librede.rrde.optimization.algorithm.impl.HillClimbingAlgorithm"/>-->
       <trainingData rootFolder="C:\Users\Johannes\Desktop\librede\long traces\">
         <input>
           <dataSources name="NS CSV" type="tools.descartes.librede.datasource.csv.CsvDataSource">
@@ -575,12 +575,14 @@
         <validator validateEstimates="true">
           <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
         </validator>
-        <parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="0.01" parameter="//@optimizationConfiguration/@containsOf.0/@estimation/@algorithms.0/@parameters.1"/>
-        <parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="0.1" startValue="0.01" parameter="//@optimizationConfiguration/@containsOf.0/@estimation/@algorithms.0/@parameters.4"/>
-        <parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="0.1" startValue="0.01" parameter="//@optimizationConfiguration/@containsOf.0/@estimation/@algorithms.0/@parameters.0"/>
-        <parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="2.0" startValue="0.01" parameter="//@optimizationConfiguration/@containsOf.0/@estimation/@algorithms.0/@parameters.3"/>
-        <parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="2.0" startValue="0.01" parameter="//@optimizationConfiguration/@containsOf.0/@estimation/@algorithms.0/@parameters.2"/>
-        <parametersToOptimize xsi:type="librede-optimization:StepSizeRelWindow" lowerBound="20.0" upperBound="360.0" startValue="60.0" productMaxValue="7200.0"/>
+        <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="0.01" parameter="//@optimizationConfiguration/@containsOf.0/@estimation/@algorithms.0/@parameters.1"/>-->
+        <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="0.1" startValue="0.01" parameter="//@optimizationConfiguration/@containsOf.0/@estimation/@algorithms.0/@parameters.4"/>-->
+        <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="0.1" startValue="0.01" parameter="//@optimizationConfiguration/@containsOf.0/@estimation/@algorithms.0/@parameters.0"/>-->
+        <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="2.0" startValue="0.01" parameter="//@optimizationConfiguration/@containsOf.0/@estimation/@algorithms.0/@parameters.3"/>-->
+        <!--<parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="2.0" startValue="0.01" parameter="//@optimizationConfiguration/@containsOf.0/@estimation/@algorithms.0/@parameters.2"/>-->
+        <!--<parametersToOptimize xsi:type="librede-optimization:StepSizeRelWindow" lowerBound="20.0" upperBound="360.0" startValue="60.0" productMaxValue="7200.0"/>-->
+        <parametersToOptimize xsi:type="librede-optimization:StepSize" lowerBound="10.0" upperBound="360.0" startValue="60.0"/>
+        <parametersToOptimize xsi:type="librede-optimization:WindowSize" lowerBound="1.0" upperBound="60" startValue="5"/>
       </settings>
       <estimation window="60">
         <approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>

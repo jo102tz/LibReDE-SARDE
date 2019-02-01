@@ -68,19 +68,20 @@ public class EvaluateLifeCycle {
 	 * The path linking to the test folder.
 	 */
 	public static final String TESTPATH = "resources" + File.separator + "test" + File.separator + "validation"
-			+ File.separator + "lifecycle" + File.separator + "persistence";
+			+ File.separator + "lifecycle" + File.separator + "petstore";
 
 	/**
 	 * The path to the default {@link LibredeConfiguration}
 	 */
-	public final static String LIB_PATH = TESTPATH + File.separator + "persistence-estimation.librede";
+	public final static String LIB_PATH = TESTPATH + File.separator + "petstore.librede";
 
-	public final static String CONF_PATH = TESTPATH + File.separator + "tstore.lifecycle";
+	public final static String CONF_PATH = TESTPATH + File.separator + "petstore.lifecycle";
 
 	/**
 	 * The path for training
 	 */
-	public static final String datafolder = DESKTOP + File.separator + "librede" + File.separator + "short traces";
+	public static final String datafolder = DESKTOP + File.separator + "data-save-master" + File.separator
+			+ "experiment1_1" + File.separator + "my_export";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -143,11 +144,20 @@ public class EvaluateLifeCycle {
 		}
 
 		// adapt librede files
-		for (TraceConfiguration e : librede.getInput().getObservations()){
+		for (TraceConfiguration e : librede.getInput().getObservations()) {
 			FileTraceConfiguration ftrace = (FileTraceConfiguration) e;
 			String filename = ftrace.getFile();
-			ftrace.setFile(datafolder+File.separator+filename);
+			ftrace.setFile(datafolder + File.separator + filename);
 		}
+
+		// OPTIONAL
+		// set input specification of optimization to be the same of the
+		// standard estimation (this just saves time, but could be done manually
+		// as well)
+		conf.getOptimizationConfiguration().getContainsOf().get(0).getTrainingData().get(0)
+				.setWorkloadDescription(EcoreUtil.copy(librede.getWorkloadDescription()));
+		conf.getOptimizationConfiguration().getContainsOf().get(0).getTrainingData().get(0)
+				.setInput(EcoreUtil.copy(librede.getInput()));
 
 		log.info("Finished initialization");
 

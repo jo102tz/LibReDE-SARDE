@@ -268,9 +268,14 @@ public class ExecutionHandler {
 				EstimationEntry entry = new EstimationEntry(tic, toc, "Error when running estimation.",
 						"Error when running estimation.");
 				if (res != null) {
-					entry.setError(
-							new Double(Util.getValidationError(res, libredeConfiguration.getValidation())).toString());
-					entry.setEstimate(res.getAllEstimates().values().toString());
+					try {
+						entry.setError(new Double(Util.getValidationError(res, libredeConfiguration.getValidation()))
+								.toString());
+						entry.setEstimate(res.getAllEstimates().values().toString());
+					} catch (Exception e) {
+						// do nothing, continue
+						log.warn("Error when estimating the estimation error.", e);
+					}
 				}
 				logbook.insert(entry);
 			}

@@ -53,6 +53,8 @@ public class CachedWrapper extends Wrapper {
 	 * The repository loaded the first time.
 	 */
 	private IMonitoringRepository repo = null;
+	
+	private LibredeVariables variables = null;
 
 	/**
 	 * The configuration used to create the cached repo. (Used for cloning).
@@ -61,20 +63,35 @@ public class CachedWrapper extends Wrapper {
 
 	@Override
 	public LibredeResults executeLibrede(LibredeConfiguration conf) {
+//		return new Wrapper().executeLibrede(conf);
 
 		try {
 			LibredeVariables var = null;
 			if (repo == null) {
-				var = new LibredeVariables(conf);
+				log.info("Start loading repo.");
 				long tic = System.currentTimeMillis();
+				var = new LibredeVariables(conf);
 				Librede.initRepo(var);
 				repo = var.getRepo();
 				cachedConf = EcoreUtil.copy(conf);
+				variables = var;
 				long toc = System.currentTimeMillis();
-				log.trace("Loaded and cached the repository in " + (toc - tic) + " ms.");
+				log.info("Loaded and cached the repository in " + (toc - tic) + " ms.");
 			} else {
-				var = new LibredeVariables(conf, repo);
-				log.trace("Used cached repository for run with " + conf.toString());
+//				var = new LibredeVariables(conf);
+//				Librede.initRepo(var);
+//				log.trace("Used cached repository for run with " + conf.toString());
+//				var.getRepo().setCurrentTime(EcoreUtil.copy(conf.getEstimation().getEndTimestamp()));
+//				repo.setCurrentTime(EcoreUtil.copy(conf.getEstimation().getEndTimestamp()));
+//				if(!var.getRepo().equals(repo)){
+//					System.out.println("Not equal.");
+//				}
+//				log.info("Start loading repo.");
+//				var = new LibredeVariables(conf);
+//				Librede.initRepo(var);
+//				System.out.println("Double");
+				var = variables;
+				//var.resetRunNr();
 			}
 			var.getRepo().setCurrentTime(EcoreUtil.copy(conf.getEstimation().getEndTimestamp()));
 			if (var.getConf().getValidation().getValidationFolds() <= 1) {
