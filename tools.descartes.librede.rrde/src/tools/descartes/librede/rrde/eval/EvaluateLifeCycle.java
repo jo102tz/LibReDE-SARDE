@@ -148,7 +148,7 @@ public class EvaluateLifeCycle {
 
 		// adapt configurations to be similar
 		for (InputData data : conf.getRecommendationConfiguration().getTrainingData()) {
-			data.setRootFolder(datafolder);
+			data.setRootFolder(datafolder + File.separator + "training");
 		}
 		conf.getRecommendationConfiguration().setValidator(EcoreUtil.copy(validator));
 
@@ -173,17 +173,20 @@ public class EvaluateLifeCycle {
 
 		log.info("Finished initialization");
 
-		OptimizationConfiguration opt = Util
-				.loadOptimizationConfiguration(new File(TESTPATH + File.separator + "petstore.optimization").toPath());
-		for (RunCall call : opt.getContainsOf()) {
-			for (InputData data : call.getTrainingData()) {
-				data.setRootFolder(datafolder);
-			}
-		}
-		new tools.descartes.librede.rrde.optimization.OptimizationPlugin().runConfigurationOptimization(
-				EcoreUtil.copy(librede), opt, new CachedWrapper(), OUTPUT + File.separator + "optimizations");
-
-		fail();
+		// OptimizationConfiguration opt = Util
+		// .loadOptimizationConfiguration(new File(TESTPATH + File.separator +
+		// "petstore.optimization").toPath());
+		// for (RunCall call : opt.getContainsOf()) {
+		// for (InputData data : call.getTrainingData()) {
+		// data.setRootFolder(datafolder);
+		// }
+		// }
+		// new
+		// tools.descartes.librede.rrde.optimization.OptimizationPlugin().runConfigurationOptimization(
+		// EcoreUtil.copy(librede), opt, new CachedWrapper(), OUTPUT +
+		// File.separator + "optimizations");
+		//
+		// fail();
 
 		LifeCycleController lcc = new LifeCycleController();
 		try {

@@ -28,14 +28,11 @@ package tools.descartes.librede.rrde.util.wrapper;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.configuration.Service;
-import tools.descartes.librede.configuration.WorkloadDescription;
 
 /**
  * Cached Implementation of the {@link IWrapper} interface. It tries to only
@@ -63,7 +60,6 @@ public class CachedWrapper extends Wrapper {
 
 	@Override
 	public LibredeResults executeLibrede(LibredeConfiguration conf) {
-		// return new Wrapper().executeLibrede(conf);
 
 		try {
 			LibredeVariables var = null;

@@ -1,485 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<librede-lifecycle:LifeCycleConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-lifecycle="http://tools/descartes/librede/rrde/lifecycle" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization" xmlns:librede-recommendation="http://tools/descartes/librede/rrde/recommendation" recommendationLoopTime="-1" optimizationLoopTime="10" selectionLoopTime="-1" estimationLoopTime="10">
+<librede-lifecycle:LifeCycleConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0" xmlns:librede-lifecycle="http://tools/descartes/librede/rrde/lifecycle" xmlns:librede-optimization="http://tools/descartes/librede/rrde/optimization" xmlns:librede-recommendation="http://tools/descartes/librede/rrde/recommendation" recommendationLoopTime="1000" optimizationLoopTime="-1" selectionLoopTime="300" estimationLoopTime="60">
   <recommendationConfiguration>
     <validator validateEstimates="true">
       <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
       <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
     </validator>
-    <trainingData rootFolder="C:\Users\Johannes\Desktop\librede\short traces\">
-       <input>
-    <dataSources name="NS CSV Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
-      <parameters name="TimestampFormat" value="[ns]"/>
-      <parameters name="Separators" value=","/>
-    </dataSources>
-    <dataSources name="S CSV Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
-      <parameters name="TimestampFormat" value="[s]"/>
-      <parameters name="Separators" value=";"/>
-    </dataSources>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
+   <trainingData rootFolder="C:\Users\Johannes Grohmann\Desktop\Train">
+    <input>
+      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+        <parameters name="SkipFirstLine" value="on"/>
+        <parameters name="Separators" value=";"/>
+        <parameters name="TimestampFormat" value="[ms]"/>
+      </dataSources>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" location="" file="experiment1_WC0_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
         <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.11"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.CategoryMapper.getCategory.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.0"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" location="" file="experiment1_WC1_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
         <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.3"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.1"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" location="" file="experiment1_WC2_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
         <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.13"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getItem.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.2"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" location="" file="host1_CPU_UTILIZATION.csv">
+        <metric href="librede:metrics#UTILIZATION"/>
+        <unit href="librede:units#NONE"/>
+        <interval value="30.0">
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+      </observations>
+    </input>
+    <workloadDescription>
+      <resources name="Host1" demands="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.2/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.1/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.0/@tasks.0"/>
+      <services name="WC0">
+        <tasks xsi:type="librede:ResourceDemand" name="WC0" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+      </services>
+      <services name="WC1">
+        <tasks xsi:type="librede:ResourceDemand" name="WC1" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+      </services>
+      <services name="WC2">
+        <tasks xsi:type="librede:ResourceDemand" name="WC2" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+      </services>
+    </workloadDescription>
+  </trainingData>
+  <trainingData rootFolder="C:\Users\Johannes Grohmann\Desktop\Train">
+    <input>
+      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+        <parameters name="SkipFirstLine" value="on"/>
+        <parameters name="Separators" value=";"/>
+        <parameters name="TimestampFormat" value="[ms]"/>
+      </dataSources>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.1/@input/@dataSources.0" location="" file="experiment1_WC0_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
         <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.9"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@recommendationConfiguration/@trainingData.1/@workloadDescription/@services.0"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.1/@input/@dataSources.0" location="" file="experiment1_WC1_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
         <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.5"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@recommendationConfiguration/@trainingData.1/@workloadDescription/@services.1"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@recommendationConfiguration/@trainingData.1/@input/@dataSources.0" location="" file="host1_CPU_UTILIZATION.csv">
+        <metric href="librede:metrics#UTILIZATION"/>
+        <unit href="librede:units#NONE"/>
+        <interval value="30.0">
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@recommendationConfiguration/@trainingData.1/@workloadDescription/@resources.0"/>
+      </observations>
+    </input>
+    <workloadDescription>
+      <resources name="Host1" demands="//@recommendationConfiguration/@trainingData.1/@workloadDescription/@services.1/@tasks.0 //@recommendationConfiguration/@trainingData.1/@workloadDescription/@services.0/@tasks.0"/>
+      <services name="WC0">
+        <tasks xsi:type="librede:ResourceDemand" name="WC0" resource="//@recommendationConfiguration/@trainingData.1/@workloadDescription/@resources.0"/>
+      </services>
+      <services name="WC1">
+        <tasks xsi:type="librede:ResourceDemand" name="WC1" resource="//@recommendationConfiguration/@trainingData.1/@workloadDescription/@resources.0"/>
+      </services>
+    </workloadDescription>
+  </trainingData>
+  <trainingData rootFolder="C:\Users\Johannes Grohmann\Desktop\Train">
+    <input>
+      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+        <parameters name="SkipFirstLine" value="on"/>
+        <parameters name="Separators" value=";"/>
+        <parameters name="TimestampFormat" value="[ms]"/>
+      </dataSources>
+      <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.2/@input/@dataSources.0" location="" file="experiment1_WC0_RESPONSE_TIME.csv">
+        <metric href="librede:metrics#RESPONSE_TIME"/>
         <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.19"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.22"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrder.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.20"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.21"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.getProduct.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.7"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.1"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.searchProductList.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.15"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.SequenceMapper.getSequence.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.17"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.18"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.AccountService.getAccount.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.10"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getCategory.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.2"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getItem.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.8"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getItemListByProduct.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.4"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getProduct.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.6"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getProductListByCategory.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.0"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.isItemInStock.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.12"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.searchProductList.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.14"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.OrderService.insertOrder.csv">
-      <metric href="librede:metrics#RESPONSE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.11"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.CategoryMapper.getCategory.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.3"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.13"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getItem.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.9"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.5"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.19"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.22"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrder.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.20"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.21"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.getProduct.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.7"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.1"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.searchProductList.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.15"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.SequenceMapper.getSequence.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.17"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.18"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.AccountService.getAccount.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.10"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getCategory.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.2"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getItem.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.8"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getItemListByProduct.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.4"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getProduct.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.6"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getProductListByCategory.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.0"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.isItemInStock.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.12"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.searchProductList.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.14"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.OrderService.insertOrder.csv">
-      <metric href="librede:metrics#RESIDENCE_TIME"/>
-      <unit href="librede:units#NANOSECONDS"/>
-      <interval>
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16"/>
-    </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.1" file="UTILIZATION_KIEKER-DEMO-SRV.csv">
-      <metric href="librede:metrics#UTILIZATION"/>
-      <unit href="librede:units#NONE"/>
-      <interval value="4.0">
-        <unit href="librede:units#SECONDS"/>
-      </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </observations>
-      </input>
-       <workloadDescription>
-    <resources name="KIEKER-DEMO-SRV" numberOfServers="4" demands="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.0/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.1/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.2/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.3/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.4/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.5/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.6/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.7/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.8/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.9/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.10/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.11/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.12/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.13/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.14/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.15/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.17/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.18/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.19/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.20/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.21/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.22/@tasks.0"/>
-    <services name="org.mybatis.jpetstore.service.CatalogService.getProductListByCategory">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getProductListByCategory" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.1"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.0/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.service.CatalogService.getCategory">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getCategory" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.CategoryMapper.getCategory" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.3"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.CategoryMapper.getCategory" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.2/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.CategoryMapper.getCategory" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.service.CatalogService.getItemListByProduct">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getItemListByProduct" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.5"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.4/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.service.CatalogService.getProduct">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getProduct" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ProductMapper.getProduct" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.7"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.ProductMapper.getProduct" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.6/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ProductMapper.getProduct" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.service.CatalogService.getItem">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getItem" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ItemMapper.getItem" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.9"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.ItemMapper.getItem" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.8/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.getItem" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.service.AccountService.getAccount">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.AccountService.getAccount" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.11"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.10/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.service.CatalogService.isItemInStock">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.isItemInStock" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.13"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.12/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.service.CatalogService.searchProductList">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.searchProductList" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ProductMapper.searchProductList" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.15"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.ProductMapper.searchProductList" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.14/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ProductMapper.searchProductList" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.service.OrderService.insertOrder">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.OrderService.insertOrder" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.service.OrderService.insertOrder" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.17"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.service.OrderService.insertOrder" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.18"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.service.OrderService.insertOrder" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.19"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrder" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.20"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.21"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.22"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.SequenceMapper.getSequence" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.SequenceMapper.getSequence" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.2">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.3">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrder" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.4">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrder" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.5">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-    <services name="org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.6">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-    </services>
-  </workloadDescription>
-    </trainingData>
-    <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.util.extract.ReducedFeatureExtractor">
+        <interval>
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@recommendationConfiguration/@trainingData.2/@workloadDescription/@services.0"/>
+      </observations>
+      <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@recommendationConfiguration/@trainingData.2/@input/@dataSources.0" location="" file="host1_CPU_UTILIZATION.csv">
+        <metric href="librede:metrics#UTILIZATION"/>
+        <unit href="librede:units#NONE"/>
+        <interval value="30.0">
+          <unit href="librede:units#SECONDS"/>
+        </interval>
+        <mappings entity="//@recommendationConfiguration/@trainingData.2/@workloadDescription/@resources.0"/>
+      </observations>
+    </input>
+    <workloadDescription>
+      <resources name="Host1" demands="//@recommendationConfiguration/@trainingData.2/@workloadDescription/@services.0/@tasks.0"/>
+      <services name="WC0">
+        <tasks xsi:type="librede:ResourceDemand" name="WC0" resource="//@recommendationConfiguration/@trainingData.2/@workloadDescription/@resources.0"/>
+      </services>
+    </workloadDescription>
+  </trainingData>
+	<featureAlgorithm featureExtractor="tools.descartes.librede.rrde.util.extract.ReducedFeatureExtractor">
       <rateUnit href="librede:units#REQUESTS_PER_MINUTE"/>
       <aggregation value="60.0">
         <unit href="librede:units#SECONDS"/>
@@ -635,467 +287,467 @@
       <parameters name="TimestampFormat" value="[s]"/>
       <parameters name="Separators" value=";"/>
     </dataSources>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.11"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.11"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.CategoryMapper.getCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.CategoryMapper.getCategory.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.3"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.3"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.13"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.13"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getItem.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.9"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.9"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.5"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.5"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.19"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.19"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.22"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.22"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrder.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrder.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.20"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.20"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.21"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.21"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.getProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.getProduct.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.7"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.7"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.1"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.1"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.searchProductList.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.searchProductList.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.15"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.15"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.SequenceMapper.getSequence.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.SequenceMapper.getSequence.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.17"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.17"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.18"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.18"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.AccountService.getAccount.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.AccountService.getAccount.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.10"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.10"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getCategory.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.2"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.2"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getItem.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.8"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.8"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getItemListByProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getItemListByProduct.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.4"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.4"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getProduct.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.6"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.6"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getProductListByCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getProductListByCategory.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.0"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.0"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.isItemInStock.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.isItemInStock.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.12"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.12"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.searchProductList.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.searchProductList.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.14"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.14"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.OrderService.insertOrder.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.OrderService.insertOrder.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.16"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.11"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.11"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.CategoryMapper.getCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.CategoryMapper.getCategory.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.3"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.3"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.13"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.13"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getItem.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.9"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.9"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.5"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.5"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.19"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.19"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.22"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.22"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrder.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrder.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.20"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.20"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.21"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.21"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.getProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.getProduct.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.7"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.7"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.1"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.1"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.searchProductList.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.searchProductList.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.15"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.15"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.SequenceMapper.getSequence.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.SequenceMapper.getSequence.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.17"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.17"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.18"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.18"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.AccountService.getAccount.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.AccountService.getAccount.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.10"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.10"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getCategory.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.2"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.2"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getItem.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.8"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.8"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getItemListByProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getItemListByProduct.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.4"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.4"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getProduct.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.6"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.6"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getProductListByCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getProductListByCategory.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.0"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.0"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.isItemInStock.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.isItemInStock.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.12"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.12"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.searchProductList.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.searchProductList.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.14"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.14"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.OrderService.insertOrder.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.OrderService.insertOrder.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.16"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@recommendationConfiguration/@trainingData.0/@input/@dataSources.1" file="UTILIZATION_KIEKER-DEMO-SRV.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@input/@dataSources.1" file="UTILIZATION_KIEKER-DEMO-SRV.csv">
       <metric href="librede:metrics#UTILIZATION"/>
       <unit href="librede:units#NONE"/>
       <interval value="4.0">
         <unit href="librede:units#SECONDS"/>
       </interval>
-      <mappings entity="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+      <mappings entity="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </observations>
 	</input>
          <workloadDescription>
-    <resources name="KIEKER-DEMO-SRV" numberOfServers="4" demands="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.0/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.1/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.2/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.3/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.4/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.5/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.6/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.7/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.8/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.9/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.10/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.11/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.12/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.13/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.14/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.15/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.17/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.18/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.19/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.20/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.21/@tasks.0 //@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.22/@tasks.0"/>
+    <resources name="KIEKER-DEMO-SRV" numberOfServers="4" demands="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.0/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.1/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.2/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.3/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.4/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.5/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.6/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.7/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.8/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.9/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.10/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.11/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.12/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.13/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.14/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.15/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.16/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.17/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.18/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.19/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.20/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.21/@tasks.0 //@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.22/@tasks.0"/>
     <services name="org.mybatis.jpetstore.service.CatalogService.getProductListByCategory">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getProductListByCategory" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.1"/>
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getProductListByCategory" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.1"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.0/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.0/@tasks.1">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
     <services name="org.mybatis.jpetstore.service.CatalogService.getCategory">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getCategory" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.CategoryMapper.getCategory" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.3"/>
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getCategory" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.CategoryMapper.getCategory" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.3"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.CategoryMapper.getCategory" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.2/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.CategoryMapper.getCategory" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.CategoryMapper.getCategory" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.2/@tasks.1">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.CategoryMapper.getCategory" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
     <services name="org.mybatis.jpetstore.service.CatalogService.getItemListByProduct">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getItemListByProduct" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.5"/>
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getItemListByProduct" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.5"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.4/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.4/@tasks.1">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
     <services name="org.mybatis.jpetstore.service.CatalogService.getProduct">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getProduct" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ProductMapper.getProduct" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.7"/>
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getProduct" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ProductMapper.getProduct" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.7"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.ProductMapper.getProduct" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.6/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ProductMapper.getProduct" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.ProductMapper.getProduct" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.6/@tasks.1">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ProductMapper.getProduct" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
     <services name="org.mybatis.jpetstore.service.CatalogService.getItem">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getItem" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ItemMapper.getItem" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.9"/>
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.getItem" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ItemMapper.getItem" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.9"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.ItemMapper.getItem" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.8/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.getItem" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.ItemMapper.getItem" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.8/@tasks.1">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.getItem" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
     <services name="org.mybatis.jpetstore.service.AccountService.getAccount">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.AccountService.getAccount" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.11"/>
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.AccountService.getAccount" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.11"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.10/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.10/@tasks.1">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
     <services name="org.mybatis.jpetstore.service.CatalogService.isItemInStock">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.isItemInStock" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.13"/>
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.isItemInStock" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.13"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.12/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.12/@tasks.1">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
     <services name="org.mybatis.jpetstore.service.CatalogService.searchProductList">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.searchProductList" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ProductMapper.searchProductList" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.15"/>
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.CatalogService.searchProductList" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.ProductMapper.searchProductList" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.15"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.ProductMapper.searchProductList" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.14/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ProductMapper.searchProductList" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.ProductMapper.searchProductList" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.14/@tasks.1">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ProductMapper.searchProductList" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
     <services name="org.mybatis.jpetstore.service.OrderService.insertOrder">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.OrderService.insertOrder" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.service.OrderService.insertOrder" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.17"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.service.OrderService.insertOrder" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.18"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.service.OrderService.insertOrder" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.19"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrder" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.20"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.21"/>
-      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem" calledService="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.22"/>
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.service.OrderService.insertOrder" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.service.OrderService.insertOrder" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.17"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.service.OrderService.insertOrder" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.18"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.service.OrderService.insertOrder" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.19"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrder" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.20"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.21"/>
+      <tasks xsi:type="librede:ExternalCall" name="org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem" calledService="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.22"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.SequenceMapper.getSequence" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.1">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.SequenceMapper.getSequence" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.SequenceMapper.getSequence" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.16/@tasks.1">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.SequenceMapper.getSequence" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.2">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.16/@tasks.2">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.3">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.16/@tasks.3">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrder" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.4">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrder" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrder" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.16/@tasks.4">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrder" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.5">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.16/@tasks.5">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
-    <services name="org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem" incomingCalls="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@services.16/@tasks.6">
-      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem" resource="//@recommendationConfiguration/@trainingData.0/@workloadDescription/@resources.0"/>
+    <services name="org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem" incomingCalls="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@services.16/@tasks.6">
+      <tasks xsi:type="librede:ResourceDemand" name="org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem" resource="//@optimizationConfiguration/@containsOf.0/@trainingData.0/@workloadDescription/@resources.0"/>
     </services>
   </workloadDescription>
       </trainingData>
