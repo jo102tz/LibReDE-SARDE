@@ -80,7 +80,7 @@ public class CachedWrapper extends Wrapper {
 				if (areReposEqual(cachedConf, conf)) {
 					var = variables;
 					var.resetRunNr();
-					log.info("Using cached repository for estimation " + conf);
+					log.debug("Using cached repository for estimation " + conf);
 				} else {
 					log.info(
 							"Given configuration differs from cached configuration. Clearing cache and load different repo...");

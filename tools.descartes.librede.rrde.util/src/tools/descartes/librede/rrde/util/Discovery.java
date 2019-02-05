@@ -460,7 +460,7 @@ public class Discovery {
 			for (TraceConfiguration trace : copy.getObservations()) {
 				FileTraceConfiguration filetrace = (FileTraceConfiguration) trace;
 				Path parentpath = new File(filetrace.getFile()).toPath().getParent();
-				if (parentpath != null && parentpath.equals(folder)) {
+				if (parentpath != null && !parentpath.equals(folder)) {
 					// this one is not in the same parent as the first one
 					log.debug("Configuration of " + root
 							+ " was excluded, because not all files were in the same folder.");
@@ -485,10 +485,12 @@ public class Discovery {
 	public static boolean fixTimeStamps(LibredeConfiguration conf) {
 		Map<String, IDataSource> dataSources = new HashMap<String, IDataSource>();
 
-		double maxStart = Double.MIN_VALUE;
-		double minEnd = Double.MAX_VALUE;
-
-		Unit<Time> unit = Time.MILLISECONDS;
+		Quantity<Time> maxStart = UnitsFactory.eINSTANCE.createQuantity();
+		maxStart.setUnit(Time.MILLISECONDS);
+		maxStart.setValue(0);
+		Quantity<Time> minEnd = UnitsFactory.eINSTANCE.createQuantity();
+		minEnd.setUnit(Time.MILLISECONDS);
+		minEnd.setValue(Double.POSITIVE_INFINITY);
 
 		for (TraceConfiguration trace : conf.getInput().getObservations()) {
 			if (trace instanceof FileTraceConfiguration) {
@@ -513,17 +515,30 @@ public class Discovery {
 						// retrieve all important parameters
 						if (ds instanceof CsvDataSource) {
 
-							unit = parseTimeUnit(fileTrace.getDataSource());
 							if (fileTrace.getMappings().size() >= 1) {
 								try {
 									// assume that the timestamp is always in
-									// column
-									// 0, this should be changed?
-									maxStart = Math.max(
-											loadFirst(inputFile, 0, getSeparators(fileTrace.getDataSource())),
-											maxStart);
-									minEnd = Math.min(loadLast(inputFile, 0, getSeparators(fileTrace.getDataSource())),
-											minEnd);
+									// column 0, this should be changed?
+
+									Quantity<Time> currStart = UnitsFactory.eINSTANCE.createQuantity();
+									currStart.setUnit(parseTimeUnit(fileTrace.getDataSource()));
+									currStart.setValue(
+											loadFirst(inputFile, 0, getSeparators(fileTrace.getDataSource())));
+									if (currStart.compareTo(maxStart) > 0) {
+										// curr Start is bigger than maxStart ->
+										// new maxStart
+										maxStart = currStart;
+									}
+
+									Quantity<Time> currEnd = UnitsFactory.eINSTANCE.createQuantity();
+									currEnd.setUnit(parseTimeUnit(fileTrace.getDataSource()));
+									currEnd.setValue(loadLast(inputFile, 0, getSeparators(fileTrace.getDataSource())));
+									if (currEnd.compareTo(minEnd) < 0) {
+										// curr End is smaller than min End ->
+										// new min End
+										minEnd = currEnd;
+									}
+
 								} catch (Exception e) {
 									log.error("Error occurred", e);
 								}
@@ -536,26 +551,19 @@ public class Discovery {
 			}
 		}
 
-		if (maxStart >= minEnd) {
+		if (maxStart.compareTo(minEnd) > 0) {
 			log.error("The time spans of the traces do not overlap.");
 			return false;
 		}
 
-		Quantity<Time> maxStartpoint = UnitsFactory.eINSTANCE.createQuantity();
-		maxStartpoint.setValue(maxStart);
-		maxStartpoint.setUnit(unit);
-		Quantity<Time> minEndpoint = UnitsFactory.eINSTANCE.createQuantity();
-		minEndpoint.setValue(minEnd);
-		minEndpoint.setUnit(unit);
-
-		conf.getEstimation().setStartTimestamp(maxStartpoint);
-		conf.getEstimation().setEndTimestamp(minEndpoint);
+		conf.getEstimation().setStartTimestamp(maxStart);
+		conf.getEstimation().setEndTimestamp(minEnd);
 
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		log.trace("Startpoint of config " + conf.toString() + " set to "
-				+ date.format(maxStartpoint.getValue(Time.MILLISECONDS)));
-		log.trace("Endpoint of config " + conf.toString() + " set to "
-				+ date.format(minEndpoint.getValue(Time.MILLISECONDS)));
+				+ date.format(maxStart.getValue(Time.MILLISECONDS)));
+		log.trace(
+				"Endpoint of config " + conf.toString() + " set to " + date.format(minEnd.getValue(Time.MILLISECONDS)));
 		return true;
 	}
 

@@ -29,12 +29,15 @@ package tools.descartes.librede.rrde.eval;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Test;
 
 import tools.descartes.librede.Librede;
+import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.FileTraceConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.TraceConfiguration;
@@ -44,8 +47,14 @@ import tools.descartes.librede.rrde.lifecycle.LifeCycleController;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
 import tools.descartes.librede.rrde.model.optimization.DataExportSpecifier;
 import tools.descartes.librede.rrde.model.optimization.InputData;
+import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.model.optimization.RunCall;
+import tools.descartes.librede.rrde.model.optimization.impl.ConfigurationOptimizationAlgorithmSpecifierImpl;
+import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm.FileExporter;
 import tools.descartes.librede.rrde.util.Util;
+import tools.descartes.librede.rrde.util.wrapper.CachedWrapper;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -125,6 +134,18 @@ public class EvaluateLifeCycle {
 		conf = Util.loadLifecycleConfiguration(new File(CONF_PATH).toPath());
 		validator = librede.getValidation();
 
+		// OPTIONAL
+		// set input specification of optimization to be the same of the
+		// standard estimation (this just saves time when creating the config
+		// file, but could be done manually as well)
+		conf.getOptimizationConfiguration().getContainsOf().get(0).getTrainingData().get(0)
+				.setWorkloadDescription(EcoreUtil.copy(librede.getWorkloadDescription()));
+		conf.getOptimizationConfiguration().getContainsOf().get(0).getTrainingData().get(0)
+				.setInput(EcoreUtil.copy(librede.getInput()));
+		conf.getOptimizationConfiguration().getContainsOf().get(0).getTrainingData().get(0).setRootFolder(datafolder);
+		conf.getOptimizationConfiguration().getContainsOf().get(0).getTrainingData().get(0)
+				.setMultiFolderStructures(false);
+
 		// adapt configurations to be similar
 		for (InputData data : conf.getRecommendationConfiguration().getTrainingData()) {
 			data.setRootFolder(datafolder);
@@ -150,16 +171,19 @@ public class EvaluateLifeCycle {
 			ftrace.setFile(datafolder + File.separator + filename);
 		}
 
-		// OPTIONAL
-		// set input specification of optimization to be the same of the
-		// standard estimation (this just saves time, but could be done manually
-		// as well)
-		conf.getOptimizationConfiguration().getContainsOf().get(0).getTrainingData().get(0)
-				.setWorkloadDescription(EcoreUtil.copy(librede.getWorkloadDescription()));
-		conf.getOptimizationConfiguration().getContainsOf().get(0).getTrainingData().get(0)
-				.setInput(EcoreUtil.copy(librede.getInput()));
-
 		log.info("Finished initialization");
+
+		OptimizationConfiguration opt = Util
+				.loadOptimizationConfiguration(new File(TESTPATH + File.separator + "petstore.optimization").toPath());
+		for (RunCall call : opt.getContainsOf()) {
+			for (InputData data : call.getTrainingData()) {
+				data.setRootFolder(datafolder);
+			}
+		}
+		new tools.descartes.librede.rrde.optimization.OptimizationPlugin().runConfigurationOptimization(
+				EcoreUtil.copy(librede), opt, new CachedWrapper(), OUTPUT + File.separator + "optimizations");
+
+		fail();
 
 		LifeCycleController lcc = new LifeCycleController();
 		try {
