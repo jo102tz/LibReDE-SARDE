@@ -66,7 +66,7 @@ public class CachedWrapper extends Wrapper {
 			if (variables == null) {
 				log.trace("Start loading repo.");
 				long tic = System.currentTimeMillis();
-				var = new LibredeVariables(conf);
+				var = new LibredeVariables(EcoreUtil.copy(conf));
 				Librede.initRepo(var);
 				cachedConf = EcoreUtil.copy(conf);
 				variables = var;
@@ -76,6 +76,7 @@ public class CachedWrapper extends Wrapper {
 				if (areReposEqual(cachedConf, conf)) {
 					var = variables;
 					var.resetRunNr();
+					cachedConf = EcoreUtil.copy(conf);
 					log.debug("Using cached repository for estimation " + conf);
 				} else {
 					log.info(
@@ -85,6 +86,9 @@ public class CachedWrapper extends Wrapper {
 				}
 			}
 			var.getRepo().setCurrentTime(EcoreUtil.copy(conf.getEstimation().getEndTimestamp()));
+			var.getConf().getEstimation().getApproaches().clear();
+			var.getConf().getEstimation().getApproaches().addAll(conf.getEstimation().getApproaches());
+			var.getConf().getEstimation().setWindow(conf.getEstimation().getWindow());
 			if (var.getConf().getValidation().getValidationFolds() <= 1) {
 				return Librede.runEstimationWithValidation(var);
 			} else {

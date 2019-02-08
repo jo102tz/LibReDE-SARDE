@@ -30,14 +30,19 @@ package tools.descartes.librede.rrde.lifecycle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.junit.experimental.theories.Theories;
 
 import tools.descartes.librede.LibredeResults;
+import tools.descartes.librede.approach.IEstimationApproach;
+import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.lifecycle.logs.EstimationEntry;
@@ -57,6 +62,9 @@ import tools.descartes.librede.rrde.util.Util;
 import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
 import tools.descartes.librede.rrde.util.wrapper.CachedWrapper;
 import tools.descartes.librede.rrde.util.wrapper.IWrapper;
+import tools.descartes.librede.rrde.util.wrapper.Wrapper;
+import tools.descartes.librede.units.Quantity;
+import tools.descartes.librede.units.Time;
 
 /**
  * Handler for executing, logging and storing all execution runs.
@@ -73,7 +81,7 @@ public class ExecutionHandler {
 
 	private LogBook logbook;
 
-	private IWrapper estimationWrapper;
+	private Map<String, IWrapper> estimationMap;
 
 	private IWrapper optimizationWrapper;
 
@@ -105,11 +113,36 @@ public class ExecutionHandler {
 	 */
 	public ExecutionHandler(String outputfolder) {
 		logbook = new LogBook();
-		estimationWrapper = new CachedWrapper();
 		optimizationWrapper = new CachedWrapper();
-		trainingWrapper = new CachedWrapper();
+		trainingWrapper = new Wrapper();
 		executor = Executors.newCachedThreadPool();
 		this.outputfolder = outputfolder;
+	}
+
+	/**
+	 * Initializes all semaphors and caches.
+	 * 
+	 * @param allConf
+	 *            LibredeConfiguration containing all approaches to be cached
+	 *            for later use.
+	 * @param warumup
+	 *            If the cached should be warmed-up. (Takes time, but probably
+	 *            speeds up later uses.)
+	 * 
+	 * @return True, if initializing successful, false otherwise.
+	 */
+	public boolean init(LibredeConfiguration allConf, boolean warmup) {
+		estimationMap = new HashMap<>();
+		for (EstimationApproachConfiguration est : allConf.getEstimation().getApproaches()) {
+			estimationMap.put(est.getType(), new CachedWrapper());
+		}
+		if (warmup) {
+			// warm cache
+			for (IWrapper wrap : estimationMap.values()) {
+				wrap.executeLibrede(allConf);
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -230,6 +263,11 @@ public class ExecutionHandler {
 	 */
 	private class EstimationRunner implements Runnable {
 
+		/**
+		 * The logger used for logging
+		 */
+		private final Logger log = Logger.getLogger(EstimationRunner.class);
+
 		private LibredeConfiguration libredeConfiguration;
 
 		/**
@@ -255,13 +293,29 @@ public class ExecutionHandler {
 			long tic = System.currentTimeMillis();
 			try {
 				if (recoResult != null) {
-					libredeConfiguration.setEstimation(recoResult.getRecommendedSpecification());
+					// use recommended configuration, but reuse new end-time
+					// configuration
+					Quantity<Time> startTime = libredeConfiguration.getEstimation().getStartTimestamp();
+					Quantity<Time> endTime = libredeConfiguration.getEstimation().getEndTimestamp();
+					libredeConfiguration.setEstimation(EcoreUtil.copy(recoResult.getRecommendedSpecification()));
+					libredeConfiguration.getEstimation().setStartTimestamp(startTime);
+					libredeConfiguration.getEstimation().setEndTimestamp(endTime);
 				} else {
 					log.info("Executed default configuration, as no approach is selected yet.");
 				}
-				res = estimationWrapper.executeLibrede(libredeConfiguration);
+				if (libredeConfiguration.getEstimation().getApproaches().size() != 1) {
+					throw new IllegalArgumentException("Exactly one defined approach expected.");
+				}
+				IWrapper wrapper = estimationMap
+						.get(libredeConfiguration.getEstimation().getApproaches().get(0).getType());
+				if (wrapper == null) {
+					throw new IllegalStateException(
+							"The estimation aprpoach " + libredeConfiguration.getEstimation().getApproaches().get(0)
+									+ " has no valid wrapper type assigned.");
+				}
+				res = wrapper.executeLibrede(libredeConfiguration);
 			} catch (Exception e) {
-				log.warn("Executing the estimation threw an error.");
+				log.warn("Executing the estimation threw an error.", e);
 				e.printStackTrace();
 			} finally {
 				long toc = System.currentTimeMillis();
@@ -275,6 +329,7 @@ public class ExecutionHandler {
 					} catch (Exception e) {
 						// do nothing, continue
 						log.warn("Error when estimating the estimation error.", e);
+						e.printStackTrace();
 					}
 				}
 				logbook.insert(entry);
@@ -293,6 +348,11 @@ public class ExecutionHandler {
 	 *
 	 */
 	private class OptimizationRunner implements Runnable {
+
+		/**
+		 * The logger used for logging
+		 */
+		private final Logger log = Logger.getLogger(OptimizationRunner.class);
 
 		private LibredeConfiguration defaultConfig;
 
@@ -346,6 +406,11 @@ public class ExecutionHandler {
 	 */
 	private class RecommendationRunner implements Runnable {
 
+		/**
+		 * The logger used for logging
+		 */
+		private final Logger log = Logger.getLogger(RecommendationRunner.class);
+
 		private LibredeConfiguration conf;
 
 		/**
@@ -369,26 +434,32 @@ public class ExecutionHandler {
 			long tic = System.currentTimeMillis();
 			long toc = 0;
 			String chosenapproach = "None.";
-			if (trainResult != null) {
-				FeatureVector features = trainResult.getUsedExtractor().extractFeatures(conf);
-				EstimationSpecification est = trainResult.getTrainedRecommender().recommendEstimation(features);
-				toc = System.currentTimeMillis();
-				if (est != null) {
+			try {
+				if (trainResult != null) {
+					FeatureVector features = trainResult.getUsedExtractor().extractFeatures(conf);
+					EstimationSpecification est = trainResult.getTrainedRecommender().recommendEstimation(features);
+					if (est.getApproaches().size() != 1) {
+						throw new IllegalStateException("Exactly one recommended approach expected.");
+					}
+					toc = System.currentTimeMillis();
 					recoResult = new RecommendationResult(toc);
-					recoResult.setRecommendedSpecification(est);
+					recoResult.setRecommendedSpecification(EcoreUtil.copy(est));
 					chosenapproach = est.getApproaches().get(0).toString();
 				} else {
-					log.warn("Recommendation failed. Returning standard result.");
+					log.warn("No Recommendation possible, before training is finished.");
+					toc = System.currentTimeMillis();
 				}
-			} else {
-				log.warn("No Recommendation possible, before training is finished.");
+			} catch (Exception e) {
+				log.error("Recommendation failed. Returning standard result.", e);
+				e.printStackTrace();
 				toc = System.currentTimeMillis();
+			} finally {
+				RecommendationEntry entry = new RecommendationEntry(tic, toc, chosenapproach);
+				logbook.insert(entry);
+				log.info("Executed " + logbook.getLength(OperationType.RECOMMENDATION)
+						+ "th recommendation run. Result-time: " + toc);
+				recoRunning = false;
 			}
-			RecommendationEntry entry = new RecommendationEntry(tic, toc, chosenapproach);
-			logbook.insert(entry);
-			log.info("Executed " + logbook.getLength(OperationType.RECOMMENDATION)
-					+ "th recommendation run. Result-time: " + toc);
-			recoRunning = false;
 		}
 
 	}
@@ -400,6 +471,11 @@ public class ExecutionHandler {
 	 *
 	 */
 	private class TrainingRunner implements Runnable {
+
+		/**
+		 * The logger used for logging
+		 */
+		private final Logger log = Logger.getLogger(TrainingRunner.class);
 
 		private RecommendationTrainingConfiguration recommendationConfig;
 

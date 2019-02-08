@@ -267,7 +267,10 @@ public class Util {
 	public static double getValidationError(LibredeResults result, ValidationSpecification vali) {
 		if (result.getApproaches().size() > 1) {
 			log.error("More than one approach is not supported. " + result);
-			throw new InputMismatchException("More than one approach is not expected.");
+			throw new IllegalArgumentException("More than one approach is not expected.");
+		}
+		if (result.getApproaches().size() == 0){
+			throw new IllegalArgumentException("No results were given.");
 		}
 		Class<? extends IEstimationApproach> approach = result.getApproaches().iterator().next();
 

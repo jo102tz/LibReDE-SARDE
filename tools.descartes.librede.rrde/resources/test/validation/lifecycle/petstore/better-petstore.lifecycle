@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="ASCII"?>
+<librede-lifecycle:LifeCycleConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:librede-lifecycle="http://tools/descartes/librede/rrde/lifecycle" recommendationLoopTime="1000" selectionLoopTime="300" estimationLoopTime="60"/>

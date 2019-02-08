@@ -52,13 +52,13 @@ public class LifeCycleController {
 	/**
 	 * A constant to emulate faster time (if set > 1). Default = 1.
 	 */
-	private static final int SPEEDFACTOR = 10;
+	private static final double SPEEDFACTOR = 1;
 
 	/**
 	 * A constant defining the maximum interval (in virtual time, see
 	 * {@link #SPEEDFACTOR}) the life cycle runs.
 	 */
-	private static final int MAXSECS = 6000;
+	private static final int MAXSECS = 600000;
 
 	/**
 	 * Method, that starts the online estimation and learning cycle.
@@ -68,13 +68,17 @@ public class LifeCycleController {
 	 * @param libredeConfiguration
 	 *            The librede Configuration to execute (default until
 	 *            overwritten).
+	 * @param allConf
+	 *            The configuration containing all estimation approaches used
+	 *            for caching.
 	 * @param logFolder
 	 *            Location to log intermediate information to.
 	 * @throws Exception
 	 */
 	public void startLifeCycle(LifeCycleConfiguration lifeCycleConfiguration, LibredeConfiguration libredeConfiguration,
-			String logFolder) throws Exception {
+			LibredeConfiguration allConf, String logFolder) throws Exception {
 		ExecutionHandler handler = new ExecutionHandler(logFolder);
+		handler.init(allConf, false);
 
 		Quantity<Time> originalEnd = libredeConfiguration.getEstimation().getEndTimestamp();
 		Quantity<Time> newEnd = libredeConfiguration.getEstimation().getStartTimestamp();
@@ -88,7 +92,7 @@ public class LifeCycleController {
 		long starttime = System.currentTimeMillis();
 		int timepassed = 0;
 		while (newEnd.compareTo(originalEnd) <= 0 && timepassed < MAXSECS) {
-			timepassed = (int) ((System.currentTimeMillis() - starttime) / 1000) * SPEEDFACTOR;
+			timepassed = (int) (((System.currentTimeMillis() - starttime) / 1000) * SPEEDFACTOR);
 			// newEnd = newEnd.plus(increment);
 			Quantity<Time> addition = increment.times(timepassed);
 			newEnd = libredeConfiguration.getEstimation().getStartTimestamp().plus(addition);
