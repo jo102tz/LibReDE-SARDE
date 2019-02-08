@@ -38,10 +38,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.junit.experimental.theories.Theories;
 
 import tools.descartes.librede.LibredeResults;
-import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
@@ -51,6 +49,7 @@ import tools.descartes.librede.rrde.lifecycle.logs.LogEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.OperationType;
 import tools.descartes.librede.rrde.lifecycle.logs.RecommendationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.SkippedEntry;
+import tools.descartes.librede.rrde.lifecycle.semaphors.DefaultOptimizationResult;
 import tools.descartes.librede.rrde.lifecycle.semaphors.OptimizationResult;
 import tools.descartes.librede.rrde.lifecycle.semaphors.RecommendationResult;
 import tools.descartes.librede.rrde.lifecycle.semaphors.TrainingResult;
@@ -88,6 +87,8 @@ public class ExecutionHandler {
 	private IWrapper trainingWrapper;
 
 	private OptimizationResult optResult;
+
+	private DefaultOptimizationResult optDefault;
 
 	private TrainingResult trainResult;
 
@@ -295,13 +296,16 @@ public class ExecutionHandler {
 				if (recoResult != null) {
 					// use recommended configuration, but reuse new end-time
 					// configuration
-					Quantity<Time> startTime = libredeConfiguration.getEstimation().getStartTimestamp();
-					Quantity<Time> endTime = libredeConfiguration.getEstimation().getEndTimestamp();
-					libredeConfiguration.setEstimation(EcoreUtil.copy(recoResult.getRecommendedSpecification()));
-					libredeConfiguration.getEstimation().setStartTimestamp(startTime);
-					libredeConfiguration.getEstimation().setEndTimestamp(endTime);
+					libredeConfiguration = setEstimationSpec(libredeConfiguration, recoResult.getRecommendedSpecification());
 				} else {
 					log.info("Executed default configuration, as no approach is selected yet.");
+					if (optDefault != null) {
+						log.info(
+								"The default configuration has been optimized though, using optimized default approach.");
+						libredeConfiguration = setEstimationSpec(libredeConfiguration, optDefault.getOptimizedEstimator());
+					} else {
+						// using the standard default behavior
+					}
 				}
 				if (libredeConfiguration.getEstimation().getApproaches().size() != 1) {
 					throw new IllegalArgumentException("Exactly one defined approach expected.");
@@ -339,6 +343,15 @@ public class ExecutionHandler {
 			estRunning = false;
 		}
 
+		private LibredeConfiguration setEstimationSpec(LibredeConfiguration libConf, EstimationSpecification newSpec) {
+			Quantity<Time> startTime = libConf.getEstimation().getStartTimestamp();
+			Quantity<Time> endTime = libConf.getEstimation().getEndTimestamp();
+			libConf.setEstimation(EcoreUtil.copy(newSpec));
+			libConf.getEstimation().setStartTimestamp(startTime);
+			libConf.getEstimation().setEndTimestamp(endTime);
+			return libConf;
+		}
+
 	}
 
 	/**
@@ -368,7 +381,8 @@ public class ExecutionHandler {
 		 */
 		public OptimizationRunner(LibredeConfiguration defaultConfig, OptimizationConfiguration optimizationConfig) {
 			super();
-			this.defaultConfig = EcoreUtil.copy(defaultConfig);
+			// do not copy the default config, as we want to modify it later
+			this.defaultConfig = defaultConfig;
 			this.optimizationConfig = EcoreUtil.copy(optimizationConfig);
 		}
 
@@ -387,13 +401,35 @@ public class ExecutionHandler {
 					.runConfigurationOptimization(EcoreUtil.copy(defaultConfig), optimizationConfig,
 							optimizationWrapper, outputfolder + File.separator + "optimizations");
 			long toc = System.currentTimeMillis();
-			optResult = new OptimizationResult(toc);
-			optResult.setOptimizedEstimators(estimations);
+			OptimizationResult res = new OptimizationResult(toc);
+			res.setOptimizedEstimators(estimations);
+			propagateToDefaultConfig(this.defaultConfig, res, toc);
+			optResult = res;
 			LogEntry entry = new LogEntry(tic, toc, OperationType.OPTIMIZATION);
 			logbook.insert(entry);
 			log.info("Executed " + logbook.getLength(OperationType.OPTIMIZATION) + "th optimization run. Result-time: "
 					+ optResult.getTimestamp());
 			optRunning = false;
+		}
+
+		/**
+		 * Propagates the optimization result to the default config.
+		 * 
+		 * @param defaultConf
+		 * @param result
+		 */
+		private void propagateToDefaultConfig(LibredeConfiguration defaultConf, OptimizationResult result,
+				long timestamp) {
+			for (EstimationSpecification opt : result.getOptimizedEstimators()) {
+				if (opt.getApproaches().get(0).getType()
+						.equals(defaultConf.getEstimation().getApproaches().get(0).getType())) {
+					// we have found an optimized version for the default
+					// configuration
+					DefaultOptimizationResult res = new DefaultOptimizationResult(timestamp);
+					res.setOptimizedEstimator(EcoreUtil.copy(opt));
+					optDefault = res;
+				}
+			}
 		}
 
 	}

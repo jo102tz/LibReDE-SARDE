@@ -126,7 +126,7 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	 * A statistics object for storing and analyzing.
 	 */
 	private DescriptiveStatistics stat;
-	
+
 	/**
 	 * The execution wrapper to be used to execute Librede.
 	 */
@@ -219,7 +219,8 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	}
 
 	/**
-	 * @param confs the confs to set
+	 * @param confs
+	 *            the confs to set
 	 */
 	public void setConfs(Set<LibredeConfiguration> confs) {
 		this.confs = confs;
@@ -240,7 +241,8 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 	}
 
 	/**
-	 * @param wrapper the wrapper to set
+	 * @param wrapper
+	 *            the wrapper to set
 	 */
 	public void setWrapper(IWrapper wrapper) {
 		this.wrapper = wrapper;

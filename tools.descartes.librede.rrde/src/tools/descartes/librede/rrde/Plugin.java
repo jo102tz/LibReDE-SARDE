@@ -59,7 +59,7 @@ public class Plugin implements IApplication {
 	/**
 	 * The logging level for all classes of this package
 	 */
-	private final Level loglevel = Level.DEBUG;
+	private final Level loglevel = Level.INFO;
 
 	/**
 	 * The logger used for logging

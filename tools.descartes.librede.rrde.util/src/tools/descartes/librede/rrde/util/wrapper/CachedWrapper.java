@@ -33,6 +33,7 @@ import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.exceptions.EstimationException;
 
 /**
  * Cached Implementation of the {@link IWrapper} interface. It tries to only
@@ -75,7 +76,6 @@ public class CachedWrapper extends Wrapper {
 			} else {
 				if (areReposEqual(cachedConf, conf)) {
 					var = variables;
-					var.resetRunNr();
 					cachedConf = EcoreUtil.copy(conf);
 					log.debug("Using cached repository for estimation " + conf);
 				} else {
@@ -86,16 +86,22 @@ public class CachedWrapper extends Wrapper {
 				}
 			}
 			var.getRepo().setCurrentTime(EcoreUtil.copy(conf.getEstimation().getEndTimestamp()));
-			var.getConf().getEstimation().getApproaches().clear();
-			var.getConf().getEstimation().getApproaches().addAll(conf.getEstimation().getApproaches());
-			var.getConf().getEstimation().setWindow(conf.getEstimation().getWindow());
+			// var.getConf().getEstimation().getApproaches().clear();
+			// var.getConf().getEstimation().getApproaches().addAll(conf.getEstimation().getApproaches());
+			// var.getConf().getEstimation().setWindow(conf.getEstimation().getWindow());
+			// var.getConf().getEstimation().setStepSize(EcoreUtil.copy(conf.getEstimation().getStepSize()));
+			var.getConf().setEstimation(EcoreUtil.copy(conf.getEstimation()));
+			var.reset();
 			if (var.getConf().getValidation().getValidationFolds() <= 1) {
 				return Librede.runEstimationWithValidation(var);
 			} else {
 				return Librede.runEstimationWithCrossValidation(var);
 			}
-		} catch (Exception e) {
-			log.error("Error running cached estimation. Cleaning the cache.", e);
+		} catch (EstimationException e) {
+			log.error("Estimation error occurred while running cached estimation. Keeping Cache for now...", e);
+			return null;
+		} catch (Exception e){
+			log.error("Unexpected error running cached estimation. Cleaning the cache.", e);
 			cleanCache();
 			return null;
 		}

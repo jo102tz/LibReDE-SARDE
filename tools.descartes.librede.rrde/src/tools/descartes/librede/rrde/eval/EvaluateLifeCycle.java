@@ -48,11 +48,7 @@ import tools.descartes.librede.rrde.model.optimization.InputData;
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.model.optimization.RunCall;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
-import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
-import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.util.Util;
-import tools.descartes.librede.rrde.util.wrapper.CachedWrapper;
-import tools.descartes.librede.rrde.util.wrapper.Wrapper;
 
 /**
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -75,7 +71,7 @@ public class EvaluateLifeCycle {
 	 * The path linking to the test folder.
 	 */
 	public static final String TESTPATH = "resources" + File.separator + "test" + File.separator + "validation"
-			+ File.separator + "lifecycle" + File.separator + "petstore";
+			+ File.separator + "lifecycle" + File.separator + "petstore-scaled";
 
 	/**
 	 * The path to the default {@link LibredeConfiguration}
@@ -125,8 +121,8 @@ public class EvaluateLifeCycle {
 		conf.setOptimizationConfiguration(opt);
 		conf.setRecommendationConfiguration(reco);
 		conf.setEstimationLoopTime(60);
-		conf.setSelectionLoopTime(180);
-		conf.setRecommendationLoopTime(500);
+		conf.setSelectionLoopTime(120);
+		conf.setRecommendationLoopTime(300);
 		conf.setOptimizationLoopTime(1000);
 
 		// OPTIONAL
@@ -176,8 +172,8 @@ public class EvaluateLifeCycle {
 
 		log.info("Finished initialization");
 
-		new OptimizationPlugin().runConfigurationOptimization(conf.getOptimizationConfiguration());
-		fail();
+//		new OptimizationPlugin().runConfigurationOptimization(librede, conf.getOptimizationConfiguration(), new CachedWrapper(), OUTPUT);
+//		fail();
 
 		LifeCycleController lcc = new LifeCycleController();
 		try {
