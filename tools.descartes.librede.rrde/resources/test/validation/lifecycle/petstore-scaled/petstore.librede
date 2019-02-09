@@ -89,13 +89,13 @@
   <input>
     <dataSources name="MS CSV Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
       <parameters name="TimestampFormat" value="[ms]"/>
-      <parameters name="Separators" value=","/>
+      <parameters name="Separators" value=";"/>
     </dataSources>
     <dataSources name="S CSV Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
       <parameters name="TimestampFormat" value="[s]"/>
-      <parameters name="Separators" value=","/>
+      <parameters name="Separators" value=";"/>
     </dataSources>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -103,7 +103,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.11"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.CategoryMapper.getCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.CategoryMapper.getCategory.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -111,7 +111,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.3"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -119,7 +119,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.13"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getItem.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -127,7 +127,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.9"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -135,7 +135,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.5"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -143,7 +143,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.19"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -151,7 +151,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.22"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrder.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrder.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -159,7 +159,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.20"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -167,7 +167,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.21"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.getProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.ProductMapper.getProduct.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -175,7 +175,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.7"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -183,7 +183,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.1"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.ProductMapper.searchProductList.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.ProductMapper.searchProductList.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -191,7 +191,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.15"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.SequenceMapper.getSequence.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.SequenceMapper.getSequence.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -199,7 +199,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.17"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -207,7 +207,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.18"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.AccountService.getAccount.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.service.AccountService.getAccount.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -215,7 +215,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.10"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.service.CatalogService.getCategory.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -223,7 +223,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.2"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.service.CatalogService.getItem.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -231,7 +231,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.8"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getItemListByProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.service.CatalogService.getItemListByProduct.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -239,7 +239,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.4"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.service.CatalogService.getProduct.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -247,7 +247,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.6"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.getProductListByCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.service.CatalogService.getProductListByCategory.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -255,7 +255,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.0"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.isItemInStock.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.service.CatalogService.isItemInStock.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -263,7 +263,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.12"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.CatalogService.searchProductList.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.service.CatalogService.searchProductList.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -271,7 +271,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.14"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="responsetime-org.mybatis.jpetstore.service.OrderService.insertOrder.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-responsetime-org.mybatis.jpetstore.service.OrderService.insertOrder.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -279,7 +279,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.16"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.AccountMapper.getAccountByUsernameAndPassword.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -287,7 +287,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.11"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.CategoryMapper.getCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.CategoryMapper.getCategory.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -295,7 +295,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.3"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getInventoryQuantity.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -303,7 +303,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.13"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getItem.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -311,7 +311,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.9"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.ItemMapper.getItemListByProduct.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -319,7 +319,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.5"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.ItemMapper.updateInventoryQuantity.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -327,7 +327,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.19"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.LineItemMapper.insertLineItem.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -335,7 +335,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.22"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrder.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrder.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -343,7 +343,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.20"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.OrderMapper.insertOrderStatus.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -351,7 +351,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.21"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.getProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.ProductMapper.getProduct.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -359,7 +359,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.7"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.ProductMapper.getProductListByCategory.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -367,7 +367,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.1"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.ProductMapper.searchProductList.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.ProductMapper.searchProductList.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -375,7 +375,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.15"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.SequenceMapper.getSequence.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.SequenceMapper.getSequence.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -383,7 +383,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.17"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.persistence.SequenceMapper.updateSequence.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -391,7 +391,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.18"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.AccountService.getAccount.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.service.AccountService.getAccount.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -399,7 +399,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.10"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.service.CatalogService.getCategory.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -407,7 +407,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.2"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getItem.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.service.CatalogService.getItem.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -415,7 +415,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.8"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getItemListByProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.service.CatalogService.getItemListByProduct.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -423,7 +423,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.4"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getProduct.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.service.CatalogService.getProduct.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -431,7 +431,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.6"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.getProductListByCategory.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.service.CatalogService.getProductListByCategory.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -439,7 +439,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.0"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.isItemInStock.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.service.CatalogService.isItemInStock.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -447,7 +447,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.12"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.CatalogService.searchProductList.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.service.CatalogService.searchProductList.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -455,7 +455,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.14"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="residencetime-org.mybatis.jpetstore.service.OrderService.insertOrder.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="SCALED-residencetime-org.mybatis.jpetstore.service.OrderService.insertOrder.csv">
       <metric href="librede:metrics#RESIDENCE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -463,7 +463,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.16"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@input/@dataSources.1" file="UTILIZATION_KIEKER-DEMO-SRV.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@input/@dataSources.1" file="SCALED-UTILIZATION_KIEKER-DEMO-SRV.csv">
       <metric href="librede:metrics#UTILIZATION"/>
       <unit href="librede:units#NONE"/>
       <interval value="4.0">
@@ -483,10 +483,10 @@
     <stepSize value="60.0">
       <unit href="librede:units#SECONDS"/>
     </stepSize>
-    <startTimestamp value="1.502914474E9">
+    <startTimestamp value="1.502914473E10">
       <unit href="librede:units#SECONDS"/>
     </startTimestamp>
-    <endTimestamp value="1.502916174E9">
+    <endTimestamp value="1.502916174E10">
       <unit href="librede:units#SECONDS"/>
     </endTimestamp>
   </estimation>

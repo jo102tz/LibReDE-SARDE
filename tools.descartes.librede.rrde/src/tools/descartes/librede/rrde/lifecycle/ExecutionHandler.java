@@ -291,18 +291,21 @@ public class ExecutionHandler {
 			estRunning = true;
 			log.info("Executing estimation run.");
 			LibredeResults res = null;
+			EstimationEntry entry = null;
 			long tic = System.currentTimeMillis();
 			try {
 				if (recoResult != null) {
 					// use recommended configuration, but reuse new end-time
 					// configuration
-					libredeConfiguration = setEstimationSpec(libredeConfiguration, recoResult.getRecommendedSpecification());
+					libredeConfiguration = setEstimationSpec(libredeConfiguration,
+							recoResult.getRecommendedSpecification());
 				} else {
 					log.info("Executed default configuration, as no approach is selected yet.");
 					if (optDefault != null) {
 						log.info(
 								"The default configuration has been optimized though, using optimized default approach.");
-						libredeConfiguration = setEstimationSpec(libredeConfiguration, optDefault.getOptimizedEstimator());
+						libredeConfiguration = setEstimationSpec(libredeConfiguration,
+								optDefault.getOptimizedEstimator());
 					} else {
 						// using the standard default behavior
 					}
@@ -323,7 +326,7 @@ public class ExecutionHandler {
 				e.printStackTrace();
 			} finally {
 				long toc = System.currentTimeMillis();
-				EstimationEntry entry = new EstimationEntry(tic, toc, "Error when running estimation.",
+				entry = new EstimationEntry(tic, toc, "Error when running estimation.",
 						"Error when running estimation.");
 				if (res != null) {
 					try {
@@ -339,7 +342,8 @@ public class ExecutionHandler {
 				logbook.insert(entry);
 			}
 			log.info("Executed " + logbook.getLength(OperationType.ESTIMATION) + "th estimation run. End-timestamp: "
-					+ libredeConfiguration.getEstimation().getEndTimestamp().toString() + ".");
+					+ libredeConfiguration.getEstimation().getEndTimestamp().toString() + ", Error: "
+					+ entry.getError());
 			estRunning = false;
 		}
 
@@ -474,7 +478,7 @@ public class ExecutionHandler {
 				if (trainResult != null) {
 					FeatureVector features = trainResult.getUsedExtractor().extractFeatures(conf);
 					EstimationSpecification est = trainResult.getTrainedRecommender().recommendEstimation(features);
-					if (est.getApproaches().size() != 1) {
+					if (est == null || est.getApproaches() == null || est.getApproaches().size() != 1) {
 						throw new IllegalStateException("Exactly one recommended approach expected.");
 					}
 					toc = System.currentTimeMillis();

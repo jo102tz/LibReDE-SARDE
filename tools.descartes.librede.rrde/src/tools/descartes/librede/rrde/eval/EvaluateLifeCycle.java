@@ -120,10 +120,10 @@ public class EvaluateLifeCycle {
 		RecommendationTrainingConfiguration reco = Util.loadRecommendationConfiguration(new File(RECO_PATH).toPath());
 		conf.setOptimizationConfiguration(opt);
 		conf.setRecommendationConfiguration(reco);
-		conf.setEstimationLoopTime(60);
-		conf.setSelectionLoopTime(120);
-		conf.setRecommendationLoopTime(300);
-		conf.setOptimizationLoopTime(1000);
+		conf.setEstimationLoopTime(70);
+		conf.setSelectionLoopTime(310);
+		conf.setRecommendationLoopTime(1100);
+		conf.setOptimizationLoopTime(700);
 
 		// OPTIONAL
 		// set input specification of optimization to be the same of the
