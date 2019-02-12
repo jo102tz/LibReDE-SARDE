@@ -41,6 +41,7 @@ import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import tools.descartes.librede.Librede;
+import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.ValidationSpecification;
@@ -52,6 +53,7 @@ import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgor
 import tools.descartes.librede.rrde.util.Discovery;
 import tools.descartes.librede.rrde.util.Util;
 import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
+import tools.descartes.librede.rrde.util.wrapper.CachedWrapper;
 import tools.descartes.librede.rrde.util.wrapper.IWrapper;
 import tools.descartes.librede.rrde.util.wrapper.Wrapper;
 
@@ -232,7 +234,8 @@ public class Plugin implements IApplication {
 	 * @param conf
 	 *            The {@link LibredeConfiguration} to use as a basis for the
 	 *            estimators
-	 * @param trainingWrapper The wrapper used to execute calls
+	 * @param trainingWrapper
+	 *            The wrapper used to execute calls
 	 */
 	private boolean trainOneConfiguration(IRecomendationAlgorithm alg, IFeatureExtractor extractor,
 			EList<EstimationSpecification> estimators, LibredeConfiguration conf, IWrapper trainingWrapper) {
@@ -243,7 +246,16 @@ public class Plugin implements IApplication {
 			Discovery.fixTimeStamps(conf);
 			results.put(spec, Util.getValidationError(trainingWrapper.executeLibrede(conf), conf.getValidation()));
 		}
-		alg.trainSet(results, extractor.extractFeatures(conf));
+		// get librede Variables
+		LibredeVariables vars = null;
+		if (trainingWrapper instanceof CachedWrapper) {
+			// used cached version to save time
+			vars = ((CachedWrapper) trainingWrapper).getVariables();
+		} else {
+			vars = new LibredeVariables(conf);
+			Librede.initRepo(vars);
+		}
+		alg.trainSet(results, extractor.extractFeatures(conf, vars));
 		log.info("Inserted training set for configuration " + conf + ".");
 		return true;
 	}

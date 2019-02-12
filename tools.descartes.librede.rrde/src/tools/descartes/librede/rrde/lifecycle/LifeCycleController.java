@@ -58,7 +58,7 @@ public class LifeCycleController {
 	 * A constant defining the maximum interval (in virtual time, see
 	 * {@link #SPEEDFACTOR}) the life cycle runs.
 	 */
-	private static final int MAXSECS = 10000;
+	private static final int MAXSECS = 30000;
 
 	/**
 	 * Method, that starts the online estimation and learning cycle.

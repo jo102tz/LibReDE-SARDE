@@ -158,10 +158,8 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 	 * (tools.descartes.librede.configuration.LibredeConfiguration)
 	 */
 	@Override
-	public FeatureVector extractFeatures(LibredeConfiguration conf) {
+	public FeatureVector extractFeatures(LibredeConfiguration conf, LibredeVariables var) {
 		// init variables
-		LibredeVariables var = new LibredeVariables(conf);
-		Librede.initRepo(var);
 		FeatureVector vector = new FeatureVectorImpl();
 		extractWorkloadDescription(vector, var);
 		extractRegressionAnalyzisInformation(vector, var);

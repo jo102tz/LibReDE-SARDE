@@ -265,6 +265,10 @@ public class Util {
 	 * 
 	 */
 	public static double getValidationError(LibredeResults result, ValidationSpecification vali) {
+		if(result==null || result.getApproaches() == null){
+			log.error("Result was null!");
+			return Double.MAX_VALUE;
+		}
 		if (result.getApproaches().size() > 1) {
 			log.error("More than one approach is not supported. " + result);
 			throw new IllegalArgumentException("More than one approach is not expected.");

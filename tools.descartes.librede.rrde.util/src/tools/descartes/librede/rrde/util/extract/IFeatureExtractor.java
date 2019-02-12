@@ -26,6 +26,7 @@
  */
 package tools.descartes.librede.rrde.util.extract;
 
+import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
 
@@ -44,7 +45,9 @@ public interface IFeatureExtractor {
 	 * 
 	 * @param conf
 	 *            The configuration to extract
+	 * @param var
+	 *            The already initialized {@link LibredeVariables}.
 	 * @return The extracted features.
 	 */
-	public FeatureVector extractFeatures(LibredeConfiguration conf);
+	public FeatureVector extractFeatures(LibredeConfiguration conf, LibredeVariables var);
 }

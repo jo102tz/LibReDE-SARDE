@@ -97,10 +97,10 @@ public class CachedWrapper extends Wrapper {
 			} else {
 				return Librede.runEstimationWithCrossValidation(var);
 			}
-		} catch (EstimationException e) {
+		} catch (EstimationException | NullPointerException | IllegalStateException e) {
 			log.error("Estimation error occurred while running cached estimation. Keeping Cache for now...", e);
 			return null;
-		} catch (Exception e){
+		} catch (Exception e) {
 			log.error("Unexpected error running cached estimation. Cleaning the cache.", e);
 			cleanCache();
 			return null;

@@ -39,7 +39,9 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
+import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
@@ -86,6 +88,8 @@ public class ExecutionHandler {
 
 	private IWrapper trainingWrapper;
 
+	private IWrapper recommendationWrapper;
+
 	private OptimizationResult optResult;
 
 	private DefaultOptimizationResult optDefault;
@@ -115,6 +119,7 @@ public class ExecutionHandler {
 	public ExecutionHandler(String outputfolder) {
 		logbook = new LogBook();
 		optimizationWrapper = new CachedWrapper();
+		recommendationWrapper = new Wrapper();
 		trainingWrapper = new Wrapper();
 		executor = Executors.newCachedThreadPool();
 		this.outputfolder = outputfolder;
@@ -476,7 +481,17 @@ public class ExecutionHandler {
 			String chosenapproach = "None.";
 			try {
 				if (trainResult != null) {
-					FeatureVector features = trainResult.getUsedExtractor().extractFeatures(conf);
+					LibredeVariables vars = null;
+					if (recommendationWrapper instanceof CachedWrapper) {
+						recommendationWrapper.executeLibrede(conf);
+						vars = ((CachedWrapper) recommendationWrapper).getVariables();
+					} else {
+						vars = new LibredeVariables(conf);
+						Librede.initRepo(vars);
+					}
+
+					FeatureVector features = trainResult.getUsedExtractor().extractFeatures(conf, vars);
+
 					EstimationSpecification est = trainResult.getTrainedRecommender().recommendEstimation(features);
 					if (est == null || est.getApproaches() == null || est.getApproaches().size() != 1) {
 						throw new IllegalStateException("Exactly one recommended approach expected.");

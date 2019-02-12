@@ -71,7 +71,7 @@ public class EvaluateLifeCycle {
 	 * The path linking to the test folder.
 	 */
 	public static final String TESTPATH = "resources" + File.separator + "test" + File.separator + "validation"
-			+ File.separator + "lifecycle" + File.separator + "petstore-scaled";
+			+ File.separator + "lifecycle" + File.separator + "petstore";
 
 	/**
 	 * The path to the default {@link LibredeConfiguration}
@@ -122,8 +122,8 @@ public class EvaluateLifeCycle {
 		conf.setRecommendationConfiguration(reco);
 		conf.setEstimationLoopTime(70);
 		conf.setSelectionLoopTime(310);
-		conf.setRecommendationLoopTime(1100);
-		conf.setOptimizationLoopTime(700);
+		conf.setRecommendationLoopTime(1700);
+		conf.setOptimizationLoopTime(2100);
 
 		// OPTIONAL
 		// set input specification of optimization to be the same of the
