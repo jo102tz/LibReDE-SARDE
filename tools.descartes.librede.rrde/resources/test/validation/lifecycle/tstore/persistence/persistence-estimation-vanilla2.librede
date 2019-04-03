@@ -13,7 +13,10 @@
     <dataSources name="MS CSV" type="tools.descartes.librede.datasource.csv.CsvDataSource">
       <parameters name="TimestampFormat" value="[ms]"/>
     </dataSources>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\residencetime-tools.descartes.teastore.persistence.rest.ProductEndpoint.countForCategory.csv">
+    <dataSources name="S CSV" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+      <parameters name="TimestampFormat" value="[s]"/>
+    </dataSources>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede\short traces\responsetime-tools.descartes.teastore.persistence.rest.ProductEndpoint.countForCategory.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#NANOSECONDS"/>
       <interval>
@@ -21,7 +24,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.0"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@input/@dataSources.1" file="C:\Users\Johannes\Desktop\librede\short traces\la.cs-test.descartes.tools.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@input/@dataSources.1" file="C:\Users\Johannes\Desktop\librede\short traces\lp.cs-test.descartes.tools.csv">
       <metric href="librede:metrics#UTILIZATION"/>
       <unit href="librede:units#NONE"/>
       <interval value="1.0">
@@ -30,27 +33,31 @@
       <mappings entity="//@workloadDescription/@resources.0"/>
     </observations>
   </input>
-  <estimation window="14">
+  <estimation window="20">
+    <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
+    <approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>
     <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
+    <approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
     <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
     <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
       <parameters name="PrintLevel" value="1"/>
     </algorithms>
     <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
-    <stepSize value="60.0">
+    <stepSize value="150.0">
       <unit href="librede:units#SECONDS"/>
     </stepSize>
-    <startTimestamp value="1.547547793E12">
-      <unit href="librede:units#MILLISECONDS"/>
+    <startTimestamp value="1.547727727E9">
+      <unit href="librede:units#SECONDS"/>
     </startTimestamp>
-    <endTimestamp value="1.547549593E12">
-      <unit href="librede:units#MILLISECONDS"/>
+    <endTimestamp value="1.547734954E9">
+      <unit href="librede:units#SECONDS"/>
     </endTimestamp>
   </estimation>
   <output/>
-  <validation validationFolds="2" validateEstimates="true">
+  <validation validationFolds="5" validateEstimates="true">
     <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
     <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
+    <validators type="tools.descartes.librede.validation.AbsoluteUtilizationValidator"/>
   </validation>
 </librede:LibredeConfiguration>

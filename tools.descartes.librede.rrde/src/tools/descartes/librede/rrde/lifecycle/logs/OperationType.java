@@ -37,5 +37,5 @@ import tools.descartes.librede.rrde.lifecycle.ExecutionHandler;
  *
  */
 public enum OperationType {
-	ESTIMATION, RECOMMENDATION, TRAINING, OPTIMIZATION;
+	ESTIMATION, RECOMMENDATION, TRAINING, OPTIMIZATION, EVALUATION;
 }

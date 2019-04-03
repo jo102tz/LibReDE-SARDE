@@ -66,6 +66,7 @@ public class LogBook {
 		counts.put(OperationType.RECOMMENDATION, 0);
 		counts.put(OperationType.TRAINING, 0);
 		counts.put(OperationType.OPTIMIZATION, 0);
+		counts.put(OperationType.EVALUATION, 0);
 		book = new TreeSet<>();
 	}
 
@@ -132,6 +133,10 @@ public class LogBook {
 				sb.append("-,");
 				sb.append(((EstimationEntry) entry).getEstimate() + ", ");
 				sb.append(((EstimationEntry) entry).getError() + ", ");
+			} else if (entry instanceof EvaluationEntry){
+				sb.append(((EvaluationEntry) entry).getApproach()+", ");
+				sb.append(((EvaluationEntry) entry).getEstimate()+", ");
+				sb.append(((EvaluationEntry) entry).getError()+", ");
 			} else if (entry instanceof SkippedEntry){
 				sb.append("SKIPPED,");
 				sb.append("SKIPPED,");

@@ -71,26 +71,28 @@ public class EvaluateLifeCycle {
 	 * The path linking to the test folder.
 	 */
 	public static final String TESTPATH = "resources" + File.separator + "test" + File.separator + "validation"
-			+ File.separator + "lifecycle" + File.separator + "petstore";
+			+ File.separator + "lifecycle" + File.separator + "tstore" + File.separator + "persistence";
 
 	/**
 	 * The path to the default {@link LibredeConfiguration}
 	 */
-	public final static String LIB_PATH = TESTPATH + File.separator + "petstore.librede";
-	
-	public final static String LIB_ALL_PATH = TESTPATH + File.separator + "petstore-allConf.librede";
+	public final static String LIB_PATH = TESTPATH + File.separator + "persistence.librede";
 
-	public final static String CONF_PATH = TESTPATH + File.separator + "petstore.lifecycle";
+	public final static String LIB_ALL_PATH = TESTPATH + File.separator + "persistence-allConf.librede";
 
-	public final static String OPT_PATH = TESTPATH + File.separator + "petstore.optimization";
+	public final static String OPT_PATH = TESTPATH + File.separator + "persistence.optimization";
 
-	public final static String RECO_PATH = TESTPATH + File.separator + "petstore.recommendation";
+	public final static String RECO_PATH = TESTPATH + File.separator + "persistence.recommendation";
 
 	/**
 	 * The path for training
 	 */
-	public static final String datafolder = DESKTOP + File.separator + "data-save-master" + File.separator
-			+ "experiment1_1" + File.separator + "my_export";
+	// PETSTORE
+//	public static final String datafolder = DESKTOP + File.separator + "data-save-master" + File.separator
+//			+ "experiment1_1" + File.separator + "my_export";
+	// TSTORE
+	public static final String datafolder = DESKTOP + File.separator + "librede" + File.separator
+			+ "short traces";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -120,10 +122,16 @@ public class EvaluateLifeCycle {
 		RecommendationTrainingConfiguration reco = Util.loadRecommendationConfiguration(new File(RECO_PATH).toPath());
 		conf.setOptimizationConfiguration(opt);
 		conf.setRecommendationConfiguration(reco);
+
+		conf.setEstimationLoopTime(-1);
+		conf.setSelectionLoopTime(-1);
+		conf.setRecommendationLoopTime(-1);
+		conf.setOptimizationLoopTime(-1);
+
 		conf.setEstimationLoopTime(70);
 		conf.setSelectionLoopTime(310);
-		conf.setRecommendationLoopTime(1700);
-		conf.setOptimizationLoopTime(2100);
+		conf.setRecommendationLoopTime(2700);
+		conf.setOptimizationLoopTime(3100);
 
 		// OPTIONAL
 		// set input specification of optimization to be the same of the
@@ -169,11 +177,14 @@ public class EvaluateLifeCycle {
 			String filename = ftrace.getFile();
 			ftrace.setFile(datafolder + File.separator + filename);
 		}
+		allConfLibrede.getEstimation().setStartTimestamp(EcoreUtil.copy(librede.getEstimation().getStartTimestamp()));
+		allConfLibrede.getEstimation().setEndTimestamp(EcoreUtil.copy(librede.getEstimation().getEndTimestamp()));
 
 		log.info("Finished initialization");
 
-//		new OptimizationPlugin().runConfigurationOptimization(librede, conf.getOptimizationConfiguration(), new CachedWrapper(), OUTPUT);
-//		fail();
+		// new OptimizationPlugin().runConfigurationOptimization(librede,
+		// conf.getOptimizationConfiguration(), new CachedWrapper(), OUTPUT);
+		// fail();
 
 		LifeCycleController lcc = new LifeCycleController();
 		try {

@@ -29,11 +29,13 @@ package tools.descartes.librede.rrde.lifecycle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
@@ -46,6 +48,7 @@ import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.lifecycle.logs.EstimationEntry;
+import tools.descartes.librede.rrde.lifecycle.logs.EvaluationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.LogBook;
 import tools.descartes.librede.rrde.lifecycle.logs.LogEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.OperationType;
@@ -84,6 +87,8 @@ public class ExecutionHandler {
 
 	private Map<String, IWrapper> estimationMap;
 
+	private Map<String, IWrapper> evaluationMap;
+
 	private IWrapper optimizationWrapper;
 
 	private IWrapper trainingWrapper;
@@ -105,6 +110,8 @@ public class ExecutionHandler {
 	private boolean recoRunning = false;
 
 	private boolean trainRunning = false;
+
+	private boolean evalRunning = false;
 
 	private String outputfolder;
 
@@ -139,12 +146,17 @@ public class ExecutionHandler {
 	 */
 	public boolean init(LibredeConfiguration allConf, boolean warmup) {
 		estimationMap = new HashMap<>();
+		evaluationMap = new HashMap<>();
 		for (EstimationApproachConfiguration est : allConf.getEstimation().getApproaches()) {
 			estimationMap.put(est.getType(), new CachedWrapper());
+			evaluationMap.put(est.getType(), new CachedWrapper());
 		}
 		if (warmup) {
 			// warm cache
 			for (IWrapper wrap : estimationMap.values()) {
+				wrap.executeLibrede(allConf);
+			}
+			for (IWrapper wrap : evaluationMap.values()) {
 				wrap.executeLibrede(allConf);
 			}
 		}
@@ -168,6 +180,44 @@ public class ExecutionHandler {
 			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.ESTIMATION));
 			log.warn("There is currently one estimation run still running. Therefore we skip the "
 					+ logbook.getLength(OperationType.ESTIMATION) + "th operation.");
+		}
+	}
+
+	/**
+	 * Schedules one evaluation estimation run.
+	 * 
+	 * @param The
+	 *            Librede configuration to execute. (Contains all approaches to
+	 *            execute.
+	 */
+	public void executeEvaluation(LibredeConfiguration allConf) {
+		if (!evalRunning) {
+			synchronized (this) {
+				evalRunning = true;
+				log.info("Executing evaluation estimations run.");
+				Collection<Future<?>> futures = new ArrayList<>();
+				try {
+					LibredeConfiguration toExec = EcoreUtil.copy(allConf);
+					for (EstimationApproachConfiguration est : allConf.getEstimation().getApproaches()) {
+						toExec.getEstimation().getApproaches().clear();
+						toExec.getEstimation().getApproaches().add(EcoreUtil.copy(est));
+						futures.add(executor.submit(new SingleEvaluationRunner(toExec)));
+					}
+					// wait for all tasks to complete in order to reschedule new
+					// runs
+					for (Future<?> f : futures) {
+						f.get();
+					}
+				} catch (Exception e) {
+					log.warn("Organizing the evaluation estimation threw an error.", e);
+					e.printStackTrace();
+				}
+				evalRunning = false;
+			}
+		} else {
+			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.EVALUATION));
+			log.warn("There is currently one evaluation run still running. Therefore we skip the "
+					+ logbook.getLength(OperationType.EVALUATION) + "th operation.");
 		}
 	}
 
@@ -262,6 +312,26 @@ public class ExecutionHandler {
 	}
 
 	/**
+	 * Sets the estimation specification for the given librede configuration,
+	 * but tries to keep the configured start and end timestamps.
+	 * 
+	 * @param libConf
+	 *            The configuration to modify
+	 * @param newSpec
+	 *            The specification to set
+	 * @return The modified {@link LibredeConfiguration}. This is not a copy.
+	 */
+	protected static LibredeConfiguration setEstimationSpec(LibredeConfiguration libConf,
+			EstimationSpecification newSpec) {
+		Quantity<Time> startTime = libConf.getEstimation().getStartTimestamp();
+		Quantity<Time> endTime = libConf.getEstimation().getEndTimestamp();
+		libConf.setEstimation(EcoreUtil.copy(newSpec));
+		libConf.getEstimation().setStartTimestamp(startTime);
+		libConf.getEstimation().setEndTimestamp(endTime);
+		return libConf;
+	}
+
+	/**
 	 * Runnable for the estimation.
 	 * 
 	 * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -350,15 +420,6 @@ public class ExecutionHandler {
 					+ libredeConfiguration.getEstimation().getEndTimestamp().toString() + ", Error: "
 					+ entry.getError());
 			estRunning = false;
-		}
-
-		private LibredeConfiguration setEstimationSpec(LibredeConfiguration libConf, EstimationSpecification newSpec) {
-			Quantity<Time> startTime = libConf.getEstimation().getStartTimestamp();
-			Quantity<Time> endTime = libConf.getEstimation().getEndTimestamp();
-			libConf.setEstimation(EcoreUtil.copy(newSpec));
-			libConf.getEstimation().setStartTimestamp(startTime);
-			libConf.getEstimation().setEndTimestamp(endTime);
-			return libConf;
 		}
 
 	}
@@ -576,6 +637,79 @@ public class ExecutionHandler {
 			trainRunning = false;
 		}
 
+	}
+
+	/**
+	 * Runnable for the evaluation estimations.
+	 * 
+	 * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
+	 *
+	 */
+	private class SingleEvaluationRunner implements Runnable {
+
+		/**
+		 * The logger used for logging
+		 */
+		private final Logger log = Logger.getLogger(SingleEvaluationRunner.class);
+
+		private LibredeConfiguration toExec;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param The
+		 *            config to execute.
+		 */
+		public SingleEvaluationRunner(LibredeConfiguration toExec) {
+			this.toExec = EcoreUtil.copy(toExec);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Runnable#run()
+		 */
+		@Override
+		public void run() {
+			log.info("Executing evaluation run for approach " + toExec.getEstimation().getApproaches().get(0).getType()
+					+ ".");
+			LibredeResults res = null;
+			EvaluationEntry entry = null;
+			long tic = System.currentTimeMillis();
+			try {
+				if (toExec.getEstimation().getApproaches().size() != 1) {
+					throw new IllegalArgumentException("Exactly one defined approach expected.");
+				}
+				IWrapper wrapper = evaluationMap.get(toExec.getEstimation().getApproaches().get(0).getType());
+				if (wrapper == null) {
+					throw new IllegalStateException(
+							"The evaluation estimation aprpoach " + toExec.getEstimation().getApproaches().get(0)
+									+ " has no valid evaluation wrapper type assigned.");
+				}
+				res = wrapper.executeLibrede(toExec);
+			} catch (Exception e) {
+				log.warn("Executing the evaluation estimation threw an error.", e);
+				e.printStackTrace();
+			} finally {
+				long toc = System.currentTimeMillis();
+				entry = new EvaluationEntry(tic, toc, toExec.getEstimation().getApproaches().get(0).getType(),
+						"Error when running evaluation estimation.", "Error when running evaluation estimation.");
+				if (res != null) {
+					try {
+						entry.setError(new Double(Util.getValidationError(res, toExec.getValidation())).toString());
+						entry.setEstimate(res.getAllEstimates().values().toString());
+					} catch (Exception e) {
+						// do nothing, continue
+						log.warn("Error when estimating the estimation error.", e);
+						e.printStackTrace();
+					}
+				}
+				logbook.insert(entry);
+			}
+			log.info("Executed " + logbook.getLength(OperationType.EVALUATION) + "th estimation run for approach "
+					+ entry.getApproach() + ". End-timestamp: " + toExec.getEstimation().getEndTimestamp().toString()
+					+ ", Error: " + entry.getError());
+		}
 	}
 
 }

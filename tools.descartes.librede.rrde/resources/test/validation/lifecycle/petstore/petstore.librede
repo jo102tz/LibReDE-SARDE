@@ -473,7 +473,7 @@
     </observations>
   </input>
   <estimation window="60">
-    <approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>
+    <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
     <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
     <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
@@ -486,7 +486,7 @@
     <startTimestamp value="1.502905371E9">
       <unit href="librede:units#SECONDS"/>
     </startTimestamp>
-    <endTimestamp value="1.502916174E9">
+    <endTimestamp value="1.502910774E9">
       <unit href="librede:units#SECONDS"/>
     </endTimestamp>
   </estimation>

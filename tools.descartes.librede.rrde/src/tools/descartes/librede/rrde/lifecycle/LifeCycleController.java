@@ -96,10 +96,11 @@ public class LifeCycleController {
 			// newEnd = newEnd.plus(increment);
 			Quantity<Time> addition = increment.times(timepassed);
 			newEnd = libredeConfiguration.getEstimation().getStartTimestamp().plus(addition);
-			setConfigurationEndTime(libredeConfiguration, lifeCycleConfiguration, newEnd);
+			setConfigurationEndTime(libredeConfiguration, lifeCycleConfiguration, allConf, newEnd);
 			if (lifeCycleConfiguration.getEstimationLoopTime() != -1
 					&& timepassed % lifeCycleConfiguration.getEstimationLoopTime() == 0) {
 				handler.executeEstimation(libredeConfiguration);
+				handler.executeEvaluation(allConf);
 			}
 			if (lifeCycleConfiguration.getSelectionLoopTime() != -1
 					&& timepassed % lifeCycleConfiguration.getSelectionLoopTime() == 0) {
@@ -121,9 +122,10 @@ public class LifeCycleController {
 	}
 
 	private void setConfigurationEndTime(LibredeConfiguration conf, LifeCycleConfiguration lifeCycleConfiguration,
-			Quantity<Time> newEnd) {
+			LibredeConfiguration allConf, Quantity<Time> newEnd) {
 		// var.getConf().getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
 		conf.getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
+		allConf.getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
 		for (RunCall i : lifeCycleConfiguration.getOptimizationConfiguration().getContainsOf()) {
 			i.getEstimation().setEndTimestamp(EcoreUtil.copy(newEnd));
 		}
