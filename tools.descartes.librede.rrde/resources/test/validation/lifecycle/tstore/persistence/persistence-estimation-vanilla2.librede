@@ -34,10 +34,7 @@
     </observations>
   </input>
   <estimation window="20">
-    <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
-    <approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>
     <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
-    <approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
     <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
     <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">

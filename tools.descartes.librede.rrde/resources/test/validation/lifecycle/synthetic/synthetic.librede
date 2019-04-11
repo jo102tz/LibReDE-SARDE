@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<librede:LibredeConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0">
+  <workloadDescription>
+    <resources name="host1" demands="//@workloadDescription/@services.0/@tasks.0 //@workloadDescription/@services.1/@tasks.0 //@workloadDescription/@services.2/@tasks.0"/>
+    <services name="WC1">
+      <tasks xsi:type="librede:ResourceDemand" name="host1" resource="//@workloadDescription/@resources.0"/>
+    </services>
+    <services name="WC2">
+      <tasks xsi:type="librede:ResourceDemand" name="host1" resource="//@workloadDescription/@resources.0"/>
+    </services>
+    <services name="WC3">
+      <tasks xsi:type="librede:ResourceDemand" name="host1" resource="//@workloadDescription/@resources.0"/>
+    </services>
+  </workloadDescription>
+  <input>
+    <dataSources name="S CSV" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+      <parameters name="TimestampFormat" value="[s]"/>
+      <parameters name="SkipFirstLine" value="off"/>
+    </dataSources>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="wc1.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#MILLISECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.0"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="wc2.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#MILLISECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.1"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="wc3.csv">
+      <metric href="librede:metrics#RESPONSE_TIME"/>
+      <unit href="librede:units#MILLISECONDS"/>
+      <interval>
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@services.2"/>
+    </observations>
+    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@input/@dataSources.0" file="10.1.234.186.csv">
+      <metric href="librede:metrics#UTILIZATION"/>
+      <unit href="librede:units#PERCENTAGE"/>
+      <interval value="1.0">
+        <unit href="librede:units#SECONDS"/>
+      </interval>
+      <mappings entity="//@workloadDescription/@resources.0"/>
+    </observations>
+  </input>
+  <estimation window="60">
+    <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
+    <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
+    <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
+    <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
+      <parameters name="PrintLevel" value="1"/>
+    </algorithms>
+    <algorithms type="tools.descartes.librede.algorithm.SimpleApproximation"/>
+    <stepSize value="60.0">
+      <unit href="librede:units#SECONDS"/>
+    </stepSize>
+    <startTimestamp value="1.554896779E9">
+      <unit href="librede:units#SECONDS"/>
+    </startTimestamp>
+    <endTimestamp value="1.554900379E9">
+      <unit href="librede:units#SECONDS"/>
+    </endTimestamp>
+  </estimation>
+  <output/>
+  <validation validateEstimates="true">
+    <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
+  </validation>
+</librede:LibredeConfiguration>

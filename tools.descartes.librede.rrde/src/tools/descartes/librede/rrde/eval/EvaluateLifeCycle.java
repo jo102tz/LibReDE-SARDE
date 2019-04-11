@@ -71,18 +71,18 @@ public class EvaluateLifeCycle {
 	 * The path linking to the test folder.
 	 */
 	public static final String TESTPATH = "resources" + File.separator + "test" + File.separator + "validation"
-			+ File.separator + "lifecycle" + File.separator + "tstore" + File.separator + "persistence";
+			+ File.separator + "lifecycle" + File.separator + "synthetic";
 
 	/**
 	 * The path to the default {@link LibredeConfiguration}
 	 */
-	public final static String LIB_PATH = TESTPATH + File.separator + "persistence.librede";
+	public final static String LIB_PATH = TESTPATH + File.separator + "synthetic.librede";
 
-	public final static String LIB_ALL_PATH = TESTPATH + File.separator + "persistence-allConf.librede";
+	public final static String LIB_ALL_PATH = TESTPATH + File.separator + "synthetic-allConf.librede";
 
-	public final static String OPT_PATH = TESTPATH + File.separator + "persistence.optimization";
+	public final static String OPT_PATH = TESTPATH + File.separator + "synthetic.optimization";
 
-	public final static String RECO_PATH = TESTPATH + File.separator + "persistence.recommendation";
+	public final static String RECO_PATH = TESTPATH + File.separator + "synthetic.recommendation";
 
 	/**
 	 * The path for training
@@ -91,8 +91,10 @@ public class EvaluateLifeCycle {
 //	public static final String datafolder = DESKTOP + File.separator + "data-save-master" + File.separator
 //			+ "experiment1_1" + File.separator + "my_export";
 	// TSTORE
-	public static final String datafolder = DESKTOP + File.separator + "librede" + File.separator
-			+ "short traces";
+//	public static final String datafolder = DESKTOP + File.separator + "librede" + File.separator
+//			+ "short traces";
+	// SYNTHETIC
+	public static final String datafolder = DESKTOP + File.separator + "librede-loadgenerator";
 
 	/**
 	 * The output path, where all output files are stored.

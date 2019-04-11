@@ -245,7 +245,7 @@ public class Evaluate {
 
     // validateNothing();
 
-     validateRecommenders(librede, recommendation);
+     //validateRecommenders(librede, recommendation);
 
 //     validateOptimizationAndRecommendation(librede, optimization,
 //     recommendation);

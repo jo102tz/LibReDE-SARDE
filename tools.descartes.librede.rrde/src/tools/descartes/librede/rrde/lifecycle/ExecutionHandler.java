@@ -41,12 +41,15 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import tools.descartes.librede.ApproachResult;
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.LibredeVariables;
+import tools.descartes.librede.ResultTable;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.linalg.Vector;
 import tools.descartes.librede.rrde.lifecycle.logs.EstimationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.EvaluationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.LogBook;
@@ -407,6 +410,10 @@ public class ExecutionHandler {
 					try {
 						entry.setError(new Double(Util.getValidationError(res, libredeConfiguration.getValidation()))
 								.toString());
+						ApproachResult appres = res.getApproachResults(res.getAllEstimates().keySet().iterator().next());
+						ResultTable tab = appres.getResultOfFold(0);
+						Vector pred = tab.getValidationPredictions(tab.getValidators().iterator().next());
+						Vector err = tab.getValidationErrors(tab.getValidators().iterator().next());
 						entry.setEstimate(res.getAllEstimates().values().toString());
 					} catch (Exception e) {
 						// do nothing, continue
