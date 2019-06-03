@@ -50,7 +50,7 @@
       <mappings entity="//@workloadDescription/@resources.0"/>
     </observations>
   </input>
-  <estimation window="60">
+  <estimation window="20">
     <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
     <!--<approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>-->
     <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
@@ -68,15 +68,16 @@
     <stepSize value="60.0">
       <unit href="librede:units#SECONDS"/>
     </stepSize>
-    <startTimestamp value="1.554896779E9">
+    <startTimestamp value="1.555047894E9">
       <unit href="librede:units#SECONDS"/>
     </startTimestamp>
-    <endTimestamp value="1.554900379E9">
+    <endTimestamp value="1.555058694E9">
       <unit href="librede:units#SECONDS"/>
     </endTimestamp>
   </estimation>
   <output/>
-  <validation validateEstimates="true">
-    <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
+  <validation validationFolds="5" validateEstimates="true">
+    <validators type="tools.descartes.librede.validation.AbsoluteUtilizationValidator"/>
+    <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
   </validation>
 </librede:LibredeConfiguration>

@@ -17,7 +17,7 @@
       <parameters name="TimestampFormat" value="[s]"/>
       <parameters name="SkipFirstLine" value="off"/>
     </dataSources>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="wc1.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede-loadgenerator\wc1.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -25,7 +25,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.0"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="wc2.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede-loadgenerator\wc2.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -33,7 +33,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.1"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="wc3.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede-loadgenerator\wc3.csv">
       <metric href="librede:metrics#RESPONSE_TIME"/>
       <unit href="librede:units#MILLISECONDS"/>
       <interval>
@@ -41,7 +41,7 @@
       </interval>
       <mappings entity="//@workloadDescription/@services.2"/>
     </observations>
-    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@input/@dataSources.0" file="10.1.234.186.csv">
+    <observations xsi:type="librede:FileTraceConfiguration" aggregation="AVERAGE" dataSource="//@input/@dataSources.0" file="C:\Users\Johannes\Desktop\librede-loadgenerator\10.1.234.186.csv">
       <metric href="librede:metrics#UTILIZATION"/>
       <unit href="librede:units#PERCENTAGE"/>
       <interval value="1.0">
@@ -50,8 +50,13 @@
       <mappings entity="//@workloadDescription/@resources.0"/>
     </observations>
   </input>
-  <estimation window="20">
+  <estimation window="30">
     <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
+    <approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>
+    <approaches type="tools.descartes.librede.approach.ResponseTimeRegressionApproach"/>
+    <approaches type="tools.descartes.librede.approach.MenasceOptimizationApproach"/>
+    <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>
+    <approaches type="tools.descartes.librede.approach.UtilizationRegressionApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>
     <algorithms type="tools.descartes.librede.nnls.LeastSquaresRegression"/>
     <algorithms type="tools.descartes.librede.ipopt.java.RecursiveOptimization">
@@ -70,6 +75,7 @@
   </estimation>
   <output/>
   <validation validationFolds="5" validateEstimates="true">
+    <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
     <validators type="tools.descartes.librede.validation.AbsoluteUtilizationValidator"/>
     <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
   </validation>
