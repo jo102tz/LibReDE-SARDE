@@ -32,14 +32,12 @@ import java.util.Map.Entry;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
 import tools.descartes.librede.rrde.model.optimization.impl.IterativeParameterOptimizerSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.algorithm.AbstractConfigurationOptimizer;
 import tools.descartes.librede.rrde.rinterface.ICallbackEvaluator;
-import tools.descartes.librede.rrde.rinterface.RBridge;
 import tools.descartes.librede.rrde.util.Util;
 
 /**
@@ -132,7 +130,7 @@ public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurati
 					+ Util.getParameterString(en.getKey()));
 			setTargetValue(en.getKey(), en.getValue());
 		}
-		getLog().info("Finished execution of IPA script!");
+		getLog().info("Finished execution of S3 optimization algorithm!");
 	}
 
 	/**
