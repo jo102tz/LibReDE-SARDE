@@ -32,6 +32,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 
 import tools.descartes.librede.rrde.model.optimization.ConfigurationOptimizationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.optimization.IOptimizableParameter;
@@ -42,8 +43,9 @@ import tools.descartes.librede.rrde.rinterface.RBridge;
 import tools.descartes.librede.rrde.util.Util;
 
 /**
- * This algorithm utilizes the R script for the Iterative Parameter Optimization
- * Algorithm.
+ * This algorithm is an all-Java implementation of the
+ * {@link IterativeParameterOptimizationAlgorithmLegacy} algorithm in order to avoid
+ * compatibility problems with the R bridge.
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
@@ -53,7 +55,7 @@ public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurati
 	/**
 	 * The log used for logging.
 	 */
-	private static final Logger log = Logger.getLogger(IterativeParameterOptimizerSpecifierImpl.class);
+	private static final Logger log = Logger.getLogger(IterativeParameterOptimizationAlgorithm.class);
 
 	/*
 	 * (non-Javadoc)
@@ -84,8 +86,7 @@ public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurati
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer
+	 * @see tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer
 	 * #getLog()
 	 */
 	@Override
@@ -96,15 +97,14 @@ public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurati
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer
+	 * @see tools.descartes.librede.rrde.optimization.AbstractConfigurationOptimizer
 	 * #executeAlgorithm()
 	 */
 	@Override
 	public void executeAlgorithm() {
-		RBridge r = RBridge.getInstance();
+		StepwiseSamplingSearch search = new StepwiseSamplingSearch();
 		IterativeParameterOptimizerSpecifierImpl alg = (IterativeParameterOptimizerSpecifierImpl) getAlgorithm();
-		getLog().info("Starting execution of IPA script...");
+		getLog().info("Starting execution of stepwise sampling search (S3)...");
 
 		// calculate expected runtime
 		long complexity = (long) (alg.getNumberOfIterations() * alg.getNumberOfExplorations()
@@ -122,8 +122,8 @@ public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurati
 				return runIteration();
 			}
 		};
-		Map<IOptimizableParameter, Double> best = r.runOptimization(getSettings().getParametersToOptimize(), evaluator,
-				alg.getNumberOfSplits(), alg.getNumberOfExplorations(), alg.getNumberOfIterations());
+		Map<IOptimizableParameter, Double> best = search.runOptimization(getSettings().getParametersToOptimize(),
+				evaluator, alg.getNumberOfSplits(), alg.getNumberOfExplorations(), alg.getNumberOfIterations());
 		// do sanity check first
 		doSanityCheck(best, evaluator);
 		// set target values
@@ -136,13 +136,11 @@ public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurati
 	}
 
 	/**
-	 * Performs the sanity check, i.e. checks, if the results would be better if
-	 * any of the parameters would go back to default values.
+	 * Performs the sanity check, i.e. checks, if the results would be better if any
+	 * of the parameters would go back to default values.
 	 * 
-	 * @param best
-	 *            The currently best parameter configuration.
-	 * @param evaluator
-	 *            The evaluator to evaluate the parameter changes.
+	 * @param best      The currently best parameter configuration.
+	 * @param evaluator The evaluator to evaluate the parameter changes.
 	 */
 	private void doSanityCheck(Map<IOptimizableParameter, Double> best, ICallbackEvaluator evaluator) {
 		getLog().trace("Performing sanity check.");
@@ -169,15 +167,12 @@ public class IterativeParameterOptimizationAlgorithm extends AbstractConfigurati
 	}
 
 	/**
-	 * Checks, if the results would be better if any of the parameters would go
-	 * back to default values.
+	 * Checks, if the results would be better if any of the parameters would go back
+	 * to default values.
 	 * 
-	 * @param best
-	 *            The currently best parameter configuration.
-	 * @param evaluator
-	 *            The evaluator to evaluate the parameter changes.
-	 * @param target
-	 *            The error value to beat.
+	 * @param best      The currently best parameter configuration.
+	 * @param evaluator The evaluator to evaluate the parameter changes.
+	 * @param target    The error value to beat.
 	 * @return A map that has a better error value than <b>target</b>, or
 	 *         <code>null</code> if none could be found.
 	 */

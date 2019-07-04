@@ -44,7 +44,7 @@ import tools.descartes.librede.rrde.rinterface.ICallbackEvaluator;
 
 /**
  * This algorithm is an all-Java implementation of the
- * {@link IterativeParameterOptimizationAlgorithm} algorithm in order to avoid
+ * {@link IterativeParameterOptimizationAlgorithmLegacy} algorithm in order to avoid
  * compatibility problems with the R bridge.
  * 
  * The algorithm is described in: Qais Noorshams, Dominik Bruhn, Samuel Kounev,
