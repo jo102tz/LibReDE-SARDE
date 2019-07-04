@@ -2,6 +2,6 @@ Checklist for importing the Librede-Project:
  - Make sure you have Eclipse for RCP and RAP Developers installed (or install the required packages like Git, Maven, RCP, EMF)
  - Switch the Target platform to the Librede Update Site
  - When using RRDE-tool: Install R with the rJava package and adapt the JRI settings accordingly
- - Define the application Runtime: Maybe add "-Dos.name=win32" to vm arguments, if Running on Windows or install gfortran3 on Linux; When using RRDE: Set PATH (add rJava to JRI/x64 in R packages and the R Home/bin/x64 to Path) and R_HOME environment variables
+ - Define the application Runtime: Maybe add "-Dos.name=win32" to vm arguments, if Running on Windows or install gfortran3 on Linux; When using RRDE: Set PATH (add rJava to JRI/x64 in R packages and the R Home/bin/x64 to Path) and R_HOME environment variables; also useful: http://www.studytrails.com/rjava-eclipse-plugin/rjava-eclipse-plugin/
  
  TROUBLESHOOTING: Make sure R and Java are using the same versions (64 or 32 Bit). Both R and Java should be on the PATH in order to be able to find each other.
