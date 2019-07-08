@@ -41,6 +41,7 @@ import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.model.optimization.OptimizationConfiguration;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
 import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
+import tools.descartes.librede.rrde.optimization.algorithm.impl.IterativeParameterOptimizationAlgorithm;
 import tools.descartes.librede.rrde.recommendation.OptimizedLibredeExecutor;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.util.Util;

@@ -29,6 +29,7 @@ package tools.descartes.librede.rrde.eval;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -94,7 +95,7 @@ public class EvaluateLifeCycle {
 //	public static final String datafolder = DESKTOP + File.separator + "librede" + File.separator
 //			+ "short traces";
 	// SYNTHETIC
-	public static final String datafolder = DESKTOP + File.separator + "librede-loadgenerator";
+	public static final String datafolder = DESKTOP + File.separator + "librede-synthetic";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -115,8 +116,8 @@ public class EvaluateLifeCycle {
 		// conf = Util.loadLifecycleConfiguration(new File(CONF_PATH).toPath());
 		LifeCycleConfiguration conf = null;
 		try {
-			conf = LifeCycleConfigurationImpl.class.newInstance();
-		} catch (InstantiationException | IllegalAccessException e2) {
+			conf = (LifeCycleConfiguration) LifeCycleConfigurationImpl.class.getDeclaredConstructors()[0].newInstance();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e2) {
 			e2.printStackTrace();
 			fail();
 		}
@@ -132,7 +133,7 @@ public class EvaluateLifeCycle {
 
 		conf.setEstimationLoopTime(70);
 		conf.setSelectionLoopTime(310);
-		conf.setRecommendationLoopTime(2700);
+		conf.setRecommendationLoopTime(1700);
 		conf.setOptimizationLoopTime(3100);
 
 		// OPTIONAL

@@ -251,7 +251,7 @@ public class StepwiseSamplingSearch {
 		@Override
 		public int compareTo(EvaluationPoint o) {
 			// a value is better, if it is smaller, therefore reverse the comparison
-			return o.getValue().compareTo(this.getValue());
+			return this.getValue().compareTo(o.getValue());
 		}
 	}
 

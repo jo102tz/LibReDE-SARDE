@@ -4,7 +4,7 @@
     <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
     <validators type="tools.descartes.librede.validation.UtilizationValidator"/>
   </validator>
-  <trainingData rootFolder="C:\Users\Johannes Grohmann\Desktop\Train">
+  <trainingData rootFolder="EMPTY">
    <input>
     <dataSources name="S CSV" type="tools.descartes.librede.datasource.csv.CsvDataSource">
       <parameters name="TimestampFormat" value="[s]"/>

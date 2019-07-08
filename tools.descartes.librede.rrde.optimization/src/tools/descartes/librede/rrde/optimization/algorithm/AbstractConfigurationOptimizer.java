@@ -349,6 +349,7 @@ public abstract class AbstractConfigurationOptimizer implements IConfigurationOp
 				getLog().warn("Result table is empty.");
 			}
 			stat.addValue(Util.getValidationError(results, single.getValidation()));
+			getLog().trace("Finished execution of " + single.toString());
 		}
 		iterationcounter++;
 		lastError = stat.getMean();
