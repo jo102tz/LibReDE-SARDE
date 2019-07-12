@@ -50,7 +50,7 @@
       <mappings entity="//@workloadDescription/@resources.0"/>
     </observations>
   </input>
-  <estimation window="20">
+  <estimation window="60">
     <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
     <!--<approaches type="tools.descartes.librede.approach.LiuOptimizationApproach"/>-->
     <approaches type="tools.descartes.librede.approach.ResponseTimeApproximationApproach"/>

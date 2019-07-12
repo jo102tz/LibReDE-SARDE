@@ -123,8 +123,7 @@ public class ExecutionHandler {
 	/**
 	 * Constructor.
 	 * 
-	 * @param outputfolder
-	 *            The folder to store all results to.
+	 * @param outputfolder The folder to store all results to.
 	 */
 	public ExecutionHandler(String outputfolder) {
 		logbook = new LogBook();
@@ -138,12 +137,10 @@ public class ExecutionHandler {
 	/**
 	 * Initializes all semaphors and caches.
 	 * 
-	 * @param allConf
-	 *            LibredeConfiguration containing all approaches to be cached
-	 *            for later use.
-	 * @param warumup
-	 *            If the cached should be warmed-up. (Takes time, but probably
-	 *            speeds up later uses.)
+	 * @param allConf LibredeConfiguration containing all approaches to be cached
+	 *                for later use.
+	 * @param warumup If the cached should be warmed-up. (Takes time, but probably
+	 *                speeds up later uses.)
 	 * 
 	 * @return True, if initializing successful, false otherwise.
 	 */
@@ -169,33 +166,33 @@ public class ExecutionHandler {
 	/**
 	 * Schedules one estimation run.
 	 * 
-	 * @param The
-	 *            Librede configuration to execute.
+	 * @param The Librede configuration to execute.
 	 */
 	public void executeEstimation(LibredeConfiguration defaultConfig) {
-		if (!estRunning) {
-			// This synchronized is probably unnecessary, but technically, there
-			// might still occur double entry here, so thats why this is here.
-			synchronized (this) {
+		synchronized (this) {
+			if (!estRunning) {
+				// This synchronized is probably unnecessary, but technically, there
+				// might still occur double entry here, so thats why this is here.
+
+				estRunning = true;
 				executor.execute(new EstimationRunner(defaultConfig));
+			} else {
+				logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.ESTIMATION));
+				log.warn("There is currently one estimation run still running. Therefore we skip the "
+						+ logbook.getLength(OperationType.ESTIMATION) + "th operation.");
 			}
-		} else {
-			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.ESTIMATION));
-			log.warn("There is currently one estimation run still running. Therefore we skip the "
-					+ logbook.getLength(OperationType.ESTIMATION) + "th operation.");
 		}
 	}
 
 	/**
 	 * Schedules one evaluation estimation run.
 	 * 
-	 * @param The
-	 *            Librede configuration to execute. (Contains all approaches to
+	 * @param The Librede configuration to execute. (Contains all approaches to
 	 *            execute.
 	 */
 	public void executeEvaluation(LibredeConfiguration allConf) {
-		if (!evalRunning) {
-			synchronized (this) {
+		synchronized (this) {
+			if (!evalRunning) {
 				evalRunning = true;
 				log.info("Executing evaluation estimations run.");
 				Collection<Future<?>> futures = new ArrayList<>();
@@ -216,73 +213,79 @@ public class ExecutionHandler {
 					e.printStackTrace();
 				}
 				evalRunning = false;
+
+			} else {
+				logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.EVALUATION));
+				log.warn("There is currently one evaluation run still running. Therefore we skip the "
+						+ logbook.getLength(OperationType.EVALUATION) + "th operation.");
 			}
-		} else {
-			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.EVALUATION));
-			log.warn("There is currently one evaluation run still running. Therefore we skip the "
-					+ logbook.getLength(OperationType.EVALUATION) + "th operation.");
 		}
 	}
 
 	/**
 	 * Runs an optimization run for the given variables.
 	 * 
-	 * @param optimizationConfig
-	 *            The optimization configuration to execute.
-	 * @param defaultConfig
-	 *            The librede configuration to use as skeleton for outputs.
+	 * @param optimizationConfig The optimization configuration to execute.
+	 * @param defaultConfig      The librede configuration to use as skeleton for
+	 *                           outputs.
 	 */
 	public void executeOptimization(OptimizationConfiguration optimizationConfig, LibredeConfiguration defaultConfig) {
-		if (!optRunning) {
-			// This synchronized is probably unnecessary, but technically, there
-			// might still occur double entry here, so thats why this is here.
-			synchronized (this) {
+		synchronized (this) {
+			if (!optRunning) {
+				// This synchronized is probably unnecessary, but technically, there
+				// might still occur double entry here, so thats why this is here.
+				optRunning = true;
 				executor.execute(new OptimizationRunner(defaultConfig, optimizationConfig));
+			} else {
+				logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.OPTIMIZATION));
+				log.warn("There is currently one optimization run still running. Therefore we skip the "
+						+ logbook.getLength(OperationType.OPTIMIZATION) + "th operation.");
 			}
-		} else {
-			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.OPTIMIZATION));
-			log.warn("There is currently one optimization run still running. Therefore we skip the "
-					+ logbook.getLength(OperationType.OPTIMIZATION) + "th operation.");
 		}
 	}
 
 	/**
 	 * Schedules one recommendation run.
 	 * 
-	 * @param conf
-	 *            The librede configuration to recommend for.
+	 * @param conf The librede configuration to recommend for.
 	 */
 	public void executeRecommendation(LibredeConfiguration conf) {
-		if (!recoRunning) {
-			// This synchronized is probably unnecessary, but technically, there
-			// might still occur double entry here, so thats why this is here.
-			synchronized (this) {
+		synchronized (this) {
+			if (!recoRunning) {
+				// This synchronized is probably unnecessary, but technically, there
+				// might still occur double entry here, so thats why this is here.
+
+				recoRunning = true;
+
 				executor.execute(new RecommendationRunner(conf));
+
+			} else {
+				logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.RECOMMENDATION));
+				log.warn("There is currently one recommendation run still running. Therefore we skip the "
+						+ logbook.getLength(OperationType.RECOMMENDATION) + "th operation.");
 			}
-		} else {
-			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.RECOMMENDATION));
-			log.warn("There is currently one recommendation run still running. Therefore we skip the "
-					+ logbook.getLength(OperationType.RECOMMENDATION) + "th operation.");
 		}
 	}
 
 	/**
 	 * Schedules one training run.
 	 * 
-	 * @param recommendationConfig
-	 *            The training configuration to execute.
+	 * @param recommendationConfig The training configuration to execute.
 	 */
 	public void executeTraining(RecommendationTrainingConfiguration recommendationConfig) {
-		if (!trainRunning) {
-			// This synchronized is probably unnecessary, but technically, there
-			// might still occur double entry here, so thats why this is here.
-			synchronized (this) {
+		synchronized (this) {
+			if (!trainRunning) {
+				// This synchronized is probably unnecessary, but technically, there
+				// might still occur double entry here, so thats why this is here.
+
+				trainRunning = true;
 				executor.execute(new TrainingRunner(recommendationConfig));
+
+			} else {
+				logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.TRAINING));
+				log.warn("There is currently one training run still running. Therefore we skip the "
+						+ logbook.getLength(OperationType.TRAINING) + "th operation.");
 			}
-		} else {
-			logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.TRAINING));
-			log.warn("There is currently one training run still running. Therefore we skip the "
-					+ logbook.getLength(OperationType.TRAINING) + "th operation.");
 		}
 	}
 
@@ -315,13 +318,11 @@ public class ExecutionHandler {
 	}
 
 	/**
-	 * Sets the estimation specification for the given librede configuration,
-	 * but tries to keep the configured start and end timestamps.
+	 * Sets the estimation specification for the given librede configuration, but
+	 * tries to keep the configured start and end timestamps.
 	 * 
-	 * @param libConf
-	 *            The configuration to modify
-	 * @param newSpec
-	 *            The specification to set
+	 * @param libConf The configuration to modify
+	 * @param newSpec The specification to set
 	 * @return The modified {@link LibredeConfiguration}. This is not a copy.
 	 */
 	protected static LibredeConfiguration setEstimationSpec(LibredeConfiguration libConf,
@@ -352,8 +353,7 @@ public class ExecutionHandler {
 		/**
 		 * Constructor.
 		 * 
-		 * @param The
-		 *            config to execute.
+		 * @param The config to execute.
 		 */
 		public EstimationRunner(LibredeConfiguration config) {
 			this.libredeConfiguration = EcoreUtil.copy(config);
@@ -364,9 +364,9 @@ public class ExecutionHandler {
 		 * 
 		 * @see java.lang.Runnable#run()
 		 */
+		@SuppressWarnings("deprecation")
 		@Override
 		public void run() {
-			estRunning = true;
 			log.info("Executing estimation run.");
 			LibredeResults res = null;
 			EstimationEntry entry = null;
@@ -410,10 +410,11 @@ public class ExecutionHandler {
 					try {
 						entry.setError(new Double(Util.getValidationError(res, libredeConfiguration.getValidation()))
 								.toString());
-						ApproachResult appres = res.getApproachResults(res.getAllEstimates().keySet().iterator().next());
-						ResultTable tab = appres.getResultOfFold(0);
-						Vector pred = tab.getValidationPredictions(tab.getValidators().iterator().next());
-						Vector err = tab.getValidationErrors(tab.getValidators().iterator().next());
+//						ApproachResult appres = res
+//								.getApproachResults(res.getAllEstimates().keySet().iterator().next());
+//						ResultTable tab = appres.getResultOfFold(0);
+//						Vector pred = tab.getValidationPredictions(tab.getValidators().iterator().next());
+//						Vector err = tab.getValidationErrors(tab.getValidators().iterator().next());
 						entry.setEstimate(res.getAllEstimates().values().toString());
 					} catch (Exception e) {
 						// do nothing, continue
@@ -451,10 +452,9 @@ public class ExecutionHandler {
 		/**
 		 * Constructor.
 		 * 
-		 * @param defaultConfig
-		 *            The librede configuration to use as skeleton for outputs.
-		 * @param optimizationConfig
-		 *            The optimization configuration to execute.
+		 * @param defaultConfig      The librede configuration to use as skeleton for
+		 *                           outputs.
+		 * @param optimizationConfig The optimization configuration to execute.
 		 */
 		public OptimizationRunner(LibredeConfiguration defaultConfig, OptimizationConfiguration optimizationConfig) {
 			super();
@@ -470,7 +470,6 @@ public class ExecutionHandler {
 		 */
 		@Override
 		public void run() {
-			optRunning = true;
 			log.info("Executing optimization run.");
 			long tic = System.currentTimeMillis();
 			// run optimization
@@ -527,8 +526,7 @@ public class ExecutionHandler {
 		private LibredeConfiguration conf;
 
 		/**
-		 * @param conf
-		 *            The librede configuration to recommend for.
+		 * @param conf The librede configuration to recommend for.
 		 */
 		public RecommendationRunner(LibredeConfiguration conf) {
 			super();
@@ -542,7 +540,6 @@ public class ExecutionHandler {
 		 */
 		@Override
 		public void run() {
-			recoRunning = true;
 			log.info("Executing recommendation run.");
 			long tic = System.currentTimeMillis();
 			long toc = 0;
@@ -603,8 +600,7 @@ public class ExecutionHandler {
 		private RecommendationTrainingConfiguration recommendationConfig;
 
 		/**
-		 * @param recommendationConfig
-		 *            The training configuration to execute.
+		 * @param recommendationConfig The training configuration to execute.
 		 */
 		public TrainingRunner(RecommendationTrainingConfiguration recommendationConfig) {
 			super();
@@ -618,7 +614,6 @@ public class ExecutionHandler {
 		 */
 		@Override
 		public void run() {
-			trainRunning = true;
 			log.info("Executing training run.");
 			if (optResult != null) {
 				// delete the read estimators and replace them with the
@@ -664,8 +659,7 @@ public class ExecutionHandler {
 		/**
 		 * Constructor.
 		 * 
-		 * @param The
-		 *            config to execute.
+		 * @param The config to execute.
 		 */
 		public SingleEvaluationRunner(LibredeConfiguration toExec) {
 			this.toExec = EcoreUtil.copy(toExec);
@@ -676,6 +670,7 @@ public class ExecutionHandler {
 		 * 
 		 * @see java.lang.Runnable#run()
 		 */
+		@SuppressWarnings("deprecation")
 		@Override
 		public void run() {
 			log.info("Executing evaluation run for approach " + toExec.getEstimation().getApproaches().get(0).getType()
@@ -713,7 +708,7 @@ public class ExecutionHandler {
 				}
 				logbook.insert(entry);
 			}
-			log.info("Executed " + logbook.getLength(OperationType.EVALUATION) + "th estimation run for approach "
+			log.info("Executed " + logbook.getLength(OperationType.EVALUATION) + "th evaluation run for approach "
 					+ entry.getApproach() + ". End-timestamp: " + toExec.getEstimation().getEndTimestamp().toString()
 					+ ", Error: " + entry.getError());
 		}
