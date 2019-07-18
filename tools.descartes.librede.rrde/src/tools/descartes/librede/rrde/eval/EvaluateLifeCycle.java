@@ -65,8 +65,7 @@ public class EvaluateLifeCycle {
 	/**
 	 * A link to the desktop.
 	 */
-	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes" + File.separator
-			+ "Desktop";
+	public static final String DESKTOP = File.separator + "home" + File.separator + "seadmin" + File.separator + "git";
 
 	/**
 	 * The path linking to the test folder.
@@ -95,12 +94,9 @@ public class EvaluateLifeCycle {
 //	public static final String datafolder = DESKTOP + File.separator + "librede" + File.separator
 //			+ "short traces";
 	// SYNTHETIC
-	public static final String datafolder = File.separator + "home" + File.separator + "seadmin" + File.separator
-			+ "git" + File.separator + "librede-data" + File.separator + "librede-synthetic" + File.separator
-			+ "experiment1-3wcs";
 	public static final String datafolder = DESKTOP + File.separator + "librede-data" + File.separator
 			+ "librede-synthetic" + File.separator + "experiment1-3wcs";
-	
+
 	public static final String trainingfolder = DESKTOP + File.separator + "librede-data" + File.separator
 			+ "artificial_exp_03_06_2013" + File.separator + "sampling_1sec";
 
