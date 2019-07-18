@@ -154,7 +154,7 @@ public class EvaluateLifeCycle {
 
 		// adapt configurations to be similar
 		for (InputData data : conf.getRecommendationConfiguration().getTrainingData()) {
-			data.setRootFolder(datafolder + File.separator + "training");
+			data.setRootFolder(trainingfolder);
 		}
 		// except the last one, it is in datafolder
 		conf.getRecommendationConfiguration().getTrainingData()
