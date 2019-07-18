@@ -95,7 +95,9 @@ public class EvaluateLifeCycle {
 //	public static final String datafolder = DESKTOP + File.separator + "librede" + File.separator
 //			+ "short traces";
 	// SYNTHETIC
-	public static final String datafolder = DESKTOP + File.separator + "librede-synthetic";
+	public static final String datafolder = File.separator + "home" + File.separator + "seadmin" + File.separator
+			+ "git" + File.separator + "librede-data" + File.separator + "librede-synthetic" + File.separator
+			+ "experiment1-3wcs";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -117,7 +119,8 @@ public class EvaluateLifeCycle {
 		LifeCycleConfiguration conf = null;
 		try {
 			conf = (LifeCycleConfiguration) LifeCycleConfigurationImpl.class.getDeclaredConstructors()[0].newInstance();
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e2) {
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| SecurityException e2) {
 			e2.printStackTrace();
 			fail();
 		}
@@ -134,7 +137,7 @@ public class EvaluateLifeCycle {
 		conf.setEstimationLoopTime(70);
 		conf.setSelectionLoopTime(310);
 		conf.setRecommendationLoopTime(1700);
-		conf.setOptimizationLoopTime(3100);
+		conf.setOptimizationLoopTime(1000);
 
 		// OPTIONAL
 		// set input specification of optimization to be the same of the

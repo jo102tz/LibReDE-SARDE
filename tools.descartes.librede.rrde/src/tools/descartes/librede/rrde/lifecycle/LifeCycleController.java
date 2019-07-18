@@ -52,7 +52,7 @@ public class LifeCycleController {
 	/**
 	 * A constant to emulate faster time (if set > 1). Default = 1.
 	 */
-	private static final double SPEEDFACTOR = 3;
+	private static final double SPEEDFACTOR = 1;
 
 	/**
 	 * A constant defining the maximum interval in seconds (in virtual time, see
