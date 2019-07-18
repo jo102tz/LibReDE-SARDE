@@ -95,7 +95,11 @@ public class EvaluateLifeCycle {
 //	public static final String datafolder = DESKTOP + File.separator + "librede" + File.separator
 //			+ "short traces";
 	// SYNTHETIC
-	public static final String datafolder = DESKTOP + File.separator + "librede-synthetic";
+	public static final String datafolder = DESKTOP + File.separator + "librede-data" + File.separator
+			+ "librede-synthetic" + File.separator + "experiment1-3wcs";
+	
+	public static final String trainingfolder = DESKTOP + File.separator + "librede-data" + File.separator
+			+ "artificial_exp_03_06_2013" + File.separator + "sampling_1sec";
 
 	/**
 	 * The output path, where all output files are stored.
@@ -117,7 +121,8 @@ public class EvaluateLifeCycle {
 		LifeCycleConfiguration conf = null;
 		try {
 			conf = (LifeCycleConfiguration) LifeCycleConfigurationImpl.class.getDeclaredConstructors()[0].newInstance();
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e2) {
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| SecurityException e2) {
 			e2.printStackTrace();
 			fail();
 		}
@@ -150,7 +155,7 @@ public class EvaluateLifeCycle {
 
 		// adapt configurations to be similar
 		for (InputData data : conf.getRecommendationConfiguration().getTrainingData()) {
-			data.setRootFolder(datafolder + File.separator + "training");
+			data.setRootFolder(trainingfolder);
 		}
 		// except the last one, it is in datafolder
 		conf.getRecommendationConfiguration().getTrainingData()
