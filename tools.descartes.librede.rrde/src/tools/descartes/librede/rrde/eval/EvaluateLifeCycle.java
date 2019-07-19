@@ -65,8 +65,7 @@ public class EvaluateLifeCycle {
 	/**
 	 * A link to the desktop.
 	 */
-	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes" + File.separator
-			+ "Desktop";
+	public static final String DESKTOP = File.separator + "home" + File.separator + "seadmin" + File.separator + "git";
 
 	/**
 	 * The path linking to the test folder.
@@ -97,7 +96,7 @@ public class EvaluateLifeCycle {
 	// SYNTHETIC
 	public static final String datafolder = DESKTOP + File.separator + "librede-data" + File.separator
 			+ "librede-synthetic" + File.separator + "experiment1-3wcs";
-	
+
 	public static final String trainingfolder = DESKTOP + File.separator + "librede-data" + File.separator
 			+ "artificial_exp_03_06_2013" + File.separator + "sampling_1sec";
 
@@ -139,7 +138,7 @@ public class EvaluateLifeCycle {
 		conf.setEstimationLoopTime(70);
 		conf.setSelectionLoopTime(310);
 		conf.setRecommendationLoopTime(1700);
-		conf.setOptimizationLoopTime(3100);
+		conf.setOptimizationLoopTime(1000);
 
 		// OPTIONAL
 		// set input specification of optimization to be the same of the
