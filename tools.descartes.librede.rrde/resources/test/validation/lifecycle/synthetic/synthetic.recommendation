@@ -6,7 +6,7 @@
   </validator>
   <trainingData rootFolder="EMPTY">
     <input>
-      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSourceOffline">
         <parameters name="SkipFirstLine" value="on"/>
         <parameters name="Separators" value=";"/>
         <parameters name="TimestampFormat" value="[ms]"/>
@@ -59,7 +59,7 @@
   </trainingData>
   <trainingData rootFolder="EMPTY">
     <input>
-      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSourceOffline">
         <parameters name="SkipFirstLine" value="on"/>
         <parameters name="Separators" value=";"/>
         <parameters name="TimestampFormat" value="[ms]"/>
@@ -101,7 +101,7 @@
   </trainingData>
   <trainingData rootFolder="EMPTY">
     <input>
-      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+      <dataSources name="Primary Data Source" type="tools.descartes.librede.datasource.csv.CsvDataSourceOffline">
         <parameters name="SkipFirstLine" value="on"/>
         <parameters name="Separators" value=";"/>
         <parameters name="TimestampFormat" value="[ms]"/>
@@ -132,7 +132,7 @@
   </trainingData>
   <trainingData rootFolder="EMPTY">
    <input>
-    <dataSources name="S CSV" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+    <dataSources name="S CSV" type="tools.descartes.librede.datasource.csv.CsvDataSourceOffline">
       <parameters name="TimestampFormat" value="[s]"/>
       <parameters name="SkipFirstLine" value="off"/>
     </dataSources>

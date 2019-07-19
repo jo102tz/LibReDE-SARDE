@@ -13,7 +13,7 @@
     </services>
   </workloadDescription>
   <input>
-    <dataSources name="S CSV" type="tools.descartes.librede.datasource.csv.CsvDataSource">
+    <dataSources name="S CSV" type="tools.descartes.librede.datasource.csv.CsvDataSourceOffline">
       <parameters name="TimestampFormat" value="[s]"/>
       <parameters name="SkipFirstLine" value="off"/>
     </dataSources>
