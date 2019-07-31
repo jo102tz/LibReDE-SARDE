@@ -84,12 +84,9 @@ public class Util {
 	/**
 	 * Set the value of the given Parameter in the given specification
 	 * 
-	 * @param librede
-	 *            The LibReDE Configuration to modify
-	 * @param value
-	 *            The numeric value to set
-	 * @param param
-	 *            The {@link IOptimizableParameter} to set
+	 * @param librede The LibReDE Configuration to modify
+	 * @param value   The numeric value to set
+	 * @param param   The {@link IOptimizableParameter} to set
 	 */
 	public static void setValue(EstimationSpecification librede, double value, IOptimizableParameter param) {
 		String eClass = param.getClass().getInterfaces()[0].getName();
@@ -120,12 +117,9 @@ public class Util {
 	/**
 	 * Sets the value of a {@link GenericParameter} in the given specification
 	 * 
-	 * @param librede
-	 *            The LibReDE Configuration to modify
-	 * @param value
-	 *            The String value to set
-	 * @param param
-	 *            The {@link GenericParameter} to set
+	 * @param librede The LibReDE Configuration to modify
+	 * @param value   The String value to set
+	 * @param param   The {@link GenericParameter} to set
 	 */
 	public static void setGenericParameter(EstimationSpecification librede, GenericParameter param, String value) {
 		// it is usually enough to find one parameter with the given name
@@ -166,13 +160,10 @@ public class Util {
 
 	/**
 	 * Checks if the fields with {@link Annotation} in all
-	 * {@link IEstimationAlgorithm}s do support the given
-	 * {@link GenericParameter}.
+	 * {@link IEstimationAlgorithm}s do support the given {@link GenericParameter}.
 	 * 
-	 * @param alg
-	 *            The {@link EstimationAlgorithmConfiguration} to check
-	 * @param param
-	 *            The {@link GenericParameter} to check
+	 * @param alg   The {@link EstimationAlgorithmConfiguration} to check
+	 * @param param The {@link GenericParameter} to check
 	 * @return True, if the parameter is actually present, false if not
 	 */
 	private static boolean containsParameter(EstimationAlgorithmConfiguration alg, GenericParameter param) {
@@ -202,10 +193,8 @@ public class Util {
 	/**
 	 * Gets the value of a {@link GenericParameter} in the given specification
 	 * 
-	 * @param librede
-	 *            The LibReDE Configuration to read
-	 * @param param
-	 *            The {@link GenericParameter} to get
+	 * @param librede The LibReDE Configuration to read
+	 * @param param   The {@link GenericParameter} to get
 	 * 
 	 * @return The String value of the parameter
 	 */
@@ -224,10 +213,8 @@ public class Util {
 	/**
 	 * Retrieves the value of the given Parameter in the given specification
 	 * 
-	 * @param librede
-	 *            The LibReDE Configuration to read
-	 * @param param
-	 *            The Parameter to get
+	 * @param librede The LibReDE Configuration to read
+	 * @param param   The Parameter to get
 	 * 
 	 * @return The double value of the parameter
 	 */
@@ -259,13 +246,12 @@ public class Util {
 	/**
 	 * Calculates the mean Validation error, i.e. the target function value.
 	 * 
-	 * @param result
-	 *            The result produced by LibReDE
+	 * @param result The result produced by LibReDE
 	 * @return The mean validation error
 	 * 
 	 */
 	public static double getValidationError(LibredeResults result, ValidationSpecification vali) {
-		if(result==null || result.getApproaches() == null){
+		if (result == null || result.getApproaches() == null) {
 			log.error("Result was null!");
 			return Double.MAX_VALUE;
 		}
@@ -273,7 +259,7 @@ public class Util {
 			log.error("More than one approach is not supported. " + result);
 			throw new IllegalArgumentException("More than one approach is not expected.");
 		}
-		if (result.getApproaches().size() == 0){
+		if (result.getApproaches().size() == 0) {
 			throw new IllegalArgumentException("No results were given.");
 		}
 		Class<? extends IEstimationApproach> approach = result.getApproaches().iterator().next();
@@ -288,45 +274,13 @@ public class Util {
 	}
 
 	/**
-	 * Calculates the mean response time error for the given
-	 * {@link LibredeResults}.
+	 * Calculates the error for the given {@link LibredeResults}.
 	 * 
-	 * @param result
-	 *            The result produced by LibReDE
-	 * @param approach
-	 *            The approach to validate
+	 * @param result    The result produced by LibReDE
+	 * @param approach  The approach to validate
+	 * @param validator The validator to use.
 	 * 
-	 * @return The mean response time error
-	 */
-	private static double getResponseTimeError(LibredeResults result, Class<? extends IEstimationApproach> approach) {
-		ApproachResult approachResult = result.getApproachResults(approach);
-		Map<Class<? extends IValidator>, Vector> errorMap = approachResult.getValidationErrors();
-		Set<Class<? extends IValidator>> valis = approachResult.getResult()[0].getValidators();
-		Vector respTimeError = null;
-		for (Class<? extends IValidator> vali : valis) {
-			if (vali.getName().equals("tools.descartes.librede.validation.ResponseTimeValidator")) {
-				respTimeError = errorMap.get(vali);
-			}
-		}
-
-		if (respTimeError != null) {
-			double errorSum = 0.0;
-			for (int i = 0; i < respTimeError.columns(); i++) {
-				errorSum += respTimeError.get(i);
-			}
-			return errorSum / respTimeError.columns();
-		}
-
-		log.warn("The response time error for Approach " + approach.toString() + " was not found.");
-		return Double.MAX_VALUE;
-	}
-
-	/**
-	 * 
-	 * @param result
-	 * @param approach
-	 * @param validator
-	 * @return
+	 * @return The mean error.
 	 */
 	private static double getError(LibredeResults result, Class<? extends IEstimationApproach> approach,
 			ValidatorConfiguration validator) {
@@ -353,44 +307,9 @@ public class Util {
 	}
 
 	/**
-	 * Calculates the mean utilization error for the given
-	 * {@link LibredeResults}.
-	 * 
-	 * @param result
-	 *            The result produced by LibReDE
-	 * @param approach
-	 *            The approach to validate
-	 * 
-	 * @return The mean utilization error
-	 */
-	private static double getUtilizationError(LibredeResults result, Class<? extends IEstimationApproach> approach) {
-		ApproachResult approachResult = result.getApproachResults(approach);
-		Map<Class<? extends IValidator>, Vector> errorMap = approachResult.getValidationErrors();
-		Set<Class<? extends IValidator>> valis = approachResult.getResult()[0].getValidators();
-		Vector utilError = null;
-		for (Class<? extends IValidator> vali : valis) {
-			if (vali.getName().equals("tools.descartes.librede.validation.UtilizationValidator")) {
-				utilError = errorMap.get(vali);
-			}
-		}
-
-		if (utilError != null) {
-			double errorSum = 0.0;
-			for (int i = 0; i < utilError.columns(); i++) {
-				errorSum += utilError.get(i);
-			}
-			return errorSum / utilError.columns();
-		}
-
-		log.warn("The utilization error for Approach " + approach.toString() + " was not found.");
-		return Double.MAX_VALUE;
-	}
-
-	/**
 	 * Returns a readable String representation for the given parameter
 	 * 
-	 * @param param
-	 *            The {@link IOptimizableParameter} to parse
+	 * @param param The {@link IOptimizableParameter} to parse
 	 * @return A String description of the paramter.
 	 */
 	public static String getParameterString(IOptimizableParameter param) {
@@ -401,14 +320,12 @@ public class Util {
 	}
 
 	/**
-	 * Loads the given path as a {@link OptimizationConfiguration}
-	 * configuration, if one is found.
+	 * Loads the given path as a {@link OptimizationConfiguration} configuration, if
+	 * one is found.
 	 * 
-	 * @param path
-	 *            The Path to the configuration file
+	 * @param path The Path to the configuration file
 	 * @return The specified {@link OptimizationConfiguration}
-	 * @throws Exception
-	 *             If something in the loading process fails
+	 * @throws Exception If something in the loading process fails
 	 */
 	public static OptimizationConfiguration loadOptimizationConfiguration(Path path) {
 		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
@@ -425,11 +342,9 @@ public class Util {
 	 * Loads the given path as a {@link RecommendationTrainingConfiguration}
 	 * configuration, if one is found.
 	 * 
-	 * @param path
-	 *            The Path to the configuration file
+	 * @param path The Path to the configuration file
 	 * @return The specified {@link RecommendationTrainingConfiguration}
-	 * @throws Exception
-	 *             If something in the loading process fails
+	 * @throws Exception If something in the loading process fails
 	 */
 	public static RecommendationTrainingConfiguration loadRecommendationConfiguration(Path path) {
 		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
@@ -441,16 +356,14 @@ public class Util {
 		EcoreUtil.resolveAll(resource);
 		return (RecommendationTrainingConfiguration) resource.getContents().get(0);
 	}
-	
+
 	/**
-	 * Loads the given path as a {@link LifeCycleConfiguration}
-	 * configuration, if one is found.
+	 * Loads the given path as a {@link LifeCycleConfiguration} configuration, if
+	 * one is found.
 	 * 
-	 * @param path
-	 *            The Path to the configuration file
+	 * @param path The Path to the configuration file
 	 * @return The specified {@link LifeCycleConfiguration}
-	 * @throws Exception
-	 *             If something in the loading process fails
+	 * @throws Exception If something in the loading process fails
 	 */
 	public static LifeCycleConfiguration loadLifecycleConfiguration(Path path) {
 		ResourceSet resourceSet = Registry.INSTANCE.createResourceSet();
@@ -463,12 +376,10 @@ public class Util {
 		return (LifeCycleConfiguration) resource.getContents().get(0);
 	}
 
-
 	/**
 	 * Converts an array of {@link Double}s into an array of primitives.
 	 * 
-	 * @param list
-	 *            The {@link Double} array
+	 * @param list The {@link Double} array
 	 * @return The double[]
 	 */
 	public static double[] convertListDouble(Double[] array) {
@@ -482,8 +393,7 @@ public class Util {
 	/**
 	 * Converts an array of {@link Double}s into an array of primitives.
 	 * 
-	 * @param list
-	 *            The {@link Double} array
+	 * @param list The {@link Double} array
 	 * @return The int[]
 	 */
 	public static int[] convertListInt(Double[] array) {
@@ -497,9 +407,8 @@ public class Util {
 	/**
 	 * Returns the short name for a given approach.
 	 * 
-	 * @param approach
-	 *            The {@link EstimationApproachConfiguration} describing the
-	 *            approach.
+	 * @param approach The {@link EstimationApproachConfiguration} describing the
+	 *                 approach.
 	 * @return The short name.
 	 */
 	public static String getSimpleApproachName(EstimationApproachConfiguration approach) {
@@ -523,10 +432,9 @@ public class Util {
 	/**
 	 * Returns the acronym for the given approach.
 	 * 
-	 * @param approach
-	 *            The approach name.
-	 * @return The acronym for the approach or the input string, if no acronym
-	 *         was found.
+	 * @param approach The approach name.
+	 * @return The acronym for the approach or the input string, if no acronym was
+	 *         found.
 	 */
 	public static String shortenApproachName(String approach) {
 		if (acronyms.get(approach) != null) {
@@ -536,12 +444,10 @@ public class Util {
 	}
 
 	/**
-	 * Splits all approaches in one {@link RunCall} into different
-	 * {@link RunCall}s.
+	 * Splits all approaches in one {@link RunCall} into different {@link RunCall}s.
 	 * 
-	 * @param conf
-	 *            The {@link OptimizationConfiguration} containing one
-	 *            {@link RunCall}
+	 * @param conf The {@link OptimizationConfiguration} containing one
+	 *             {@link RunCall}
 	 * @return An {@link ArrayList} of {@link RunCall}s, all containing just one
 	 *         {@link EstimationApproachConfiguration}
 	 */

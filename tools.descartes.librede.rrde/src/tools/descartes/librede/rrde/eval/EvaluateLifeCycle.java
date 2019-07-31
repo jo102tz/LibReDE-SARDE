@@ -39,6 +39,8 @@ import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.FileTraceConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.OutputSpecification;
+import tools.descartes.librede.configuration.Resource;
+import tools.descartes.librede.configuration.SchedulingStrategy;
 import tools.descartes.librede.configuration.TraceConfiguration;
 import tools.descartes.librede.configuration.ValidationSpecification;
 import tools.descartes.librede.configuration.WorkloadDescription;
@@ -67,9 +69,9 @@ public class EvaluateLifeCycle {
 	/**
 	 * A link to the desktop.
 	 */
-//	public static final String DESKTOP = File.separator + "home" + File.separator + "seadmin" + File.separator + "git";
-	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes" + File.separator
-			+ "Desktop";
+	public static final String DESKTOP = File.separator + "home" + File.separator + "seadmin" + File.separator + "git";
+//	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes" + File.separator
+//			+ "Desktop";
 
 	/**
 	 * The path linking to the test folder.
@@ -118,7 +120,7 @@ public class EvaluateLifeCycle {
 		LibredeConfiguration librede = Librede.loadConfiguration(new File(LIB_PATH).toPath());
 		LibredeConfiguration allConfLibrede = Librede.loadConfiguration(new File(LIB_ALL_PATH).toPath());
 		ValidationSpecification validator = librede.getValidation();
-		WorkloadDescription workload = librede.getWorkloadDescription();
+		SchedulingStrategy strat = librede.getWorkloadDescription().getResources().get(0).getSchedulingStrategy();
 		OutputSpecification output = librede.getOutput();
 		
 
@@ -160,20 +162,20 @@ public class EvaluateLifeCycle {
 		// .setMultiFolderStructures(false);
 
 		// adapt configurations to be similar
+		conf.getRecommendationConfiguration().setValidator(EcoreUtil.copy(validator));
 		for (InputData data : conf.getRecommendationConfiguration().getTrainingData()) {
 			data.setRootFolder(trainingfolder);
-			data.setWorkloadDescription(EcoreUtil.copy(workload));
+			alignScheduling(strat, data.getWorkloadDescription());
 		}
 		// except the last one, it is in datafolder
 		conf.getRecommendationConfiguration().getTrainingData()
 				.get(conf.getRecommendationConfiguration().getTrainingData().size() - 1).setRootFolder(datafolder);
-		conf.getRecommendationConfiguration().setValidator(EcoreUtil.copy(validator));
 
 		// adapt optimization
 		for (RunCall call : conf.getOptimizationConfiguration().getContainsOf()) {
 			for (InputData data : call.getTrainingData()) {
 				data.setRootFolder(datafolder);
-				data.setWorkloadDescription(EcoreUtil.copy(workload));
+				alignScheduling(strat, data.getWorkloadDescription());
 			}
 			call.getSettings().setValidator(EcoreUtil.copy(validator));
 			if (call.getAlgorithm() instanceof DataExportSpecifier) {
@@ -196,7 +198,8 @@ public class EvaluateLifeCycle {
 		allConfLibrede.getEstimation().setStartTimestamp(EcoreUtil.copy(librede.getEstimation().getStartTimestamp()));
 		allConfLibrede.getEstimation().setEndTimestamp(EcoreUtil.copy(librede.getEstimation().getEndTimestamp()));
 		allConfLibrede.setOutput(EcoreUtil.copy(output));
-		allConfLibrede.setWorkloadDescription(EcoreUtil.copy(workload));
+		alignScheduling(strat, allConfLibrede.getWorkloadDescription());
+		allConfLibrede.setValidation(EcoreUtil.copy(validator));
 
 		log.info("Finished initialization");
 
@@ -212,5 +215,11 @@ public class EvaluateLifeCycle {
 			fail();
 		}
 
+	}
+	
+	private static void alignScheduling(SchedulingStrategy strat, WorkloadDescription target) {
+		for (Resource res : target.getResources()) {
+			res.setSchedulingStrategy(strat);
+		}
 	}
 }
