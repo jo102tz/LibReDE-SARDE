@@ -38,8 +38,10 @@ import org.junit.Test;
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.configuration.FileTraceConfiguration;
 import tools.descartes.librede.configuration.LibredeConfiguration;
+import tools.descartes.librede.configuration.OutputSpecification;
 import tools.descartes.librede.configuration.TraceConfiguration;
 import tools.descartes.librede.configuration.ValidationSpecification;
+import tools.descartes.librede.configuration.WorkloadDescription;
 import tools.descartes.librede.rrde.Plugin;
 import tools.descartes.librede.rrde.lifecycle.LifeCycleController;
 import tools.descartes.librede.rrde.model.lifecycle.LifeCycleConfiguration;
@@ -65,7 +67,9 @@ public class EvaluateLifeCycle {
 	/**
 	 * A link to the desktop.
 	 */
-	public static final String DESKTOP = File.separator + "home" + File.separator + "seadmin" + File.separator + "git";
+//	public static final String DESKTOP = File.separator + "home" + File.separator + "seadmin" + File.separator + "git";
+	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes" + File.separator
+			+ "Desktop";
 
 	/**
 	 * The path linking to the test folder.
@@ -114,6 +118,9 @@ public class EvaluateLifeCycle {
 		LibredeConfiguration librede = Librede.loadConfiguration(new File(LIB_PATH).toPath());
 		LibredeConfiguration allConfLibrede = Librede.loadConfiguration(new File(LIB_ALL_PATH).toPath());
 		ValidationSpecification validator = librede.getValidation();
+		WorkloadDescription workload = librede.getWorkloadDescription();
+		OutputSpecification output = librede.getOutput();
+		
 
 		// create configuration
 		// conf = Util.loadLifecycleConfiguration(new File(CONF_PATH).toPath());
@@ -155,6 +162,7 @@ public class EvaluateLifeCycle {
 		// adapt configurations to be similar
 		for (InputData data : conf.getRecommendationConfiguration().getTrainingData()) {
 			data.setRootFolder(trainingfolder);
+			data.setWorkloadDescription(workload);
 		}
 		// except the last one, it is in datafolder
 		conf.getRecommendationConfiguration().getTrainingData()
@@ -165,6 +173,7 @@ public class EvaluateLifeCycle {
 		for (RunCall call : conf.getOptimizationConfiguration().getContainsOf()) {
 			for (InputData data : call.getTrainingData()) {
 				data.setRootFolder(datafolder);
+				data.setWorkloadDescription(EcoreUtil.copy(workload));
 			}
 			call.getSettings().setValidator(EcoreUtil.copy(validator));
 			if (call.getAlgorithm() instanceof DataExportSpecifier) {
@@ -186,6 +195,8 @@ public class EvaluateLifeCycle {
 		}
 		allConfLibrede.getEstimation().setStartTimestamp(EcoreUtil.copy(librede.getEstimation().getStartTimestamp()));
 		allConfLibrede.getEstimation().setEndTimestamp(EcoreUtil.copy(librede.getEstimation().getEndTimestamp()));
+		allConfLibrede.setOutput(output);
+		allConfLibrede.setWorkloadDescription(workload);
 
 		log.info("Finished initialization");
 
