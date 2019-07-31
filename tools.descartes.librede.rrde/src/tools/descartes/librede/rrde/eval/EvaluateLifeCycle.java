@@ -162,7 +162,7 @@ public class EvaluateLifeCycle {
 		// adapt configurations to be similar
 		for (InputData data : conf.getRecommendationConfiguration().getTrainingData()) {
 			data.setRootFolder(trainingfolder);
-			data.setWorkloadDescription(workload);
+			data.setWorkloadDescription(EcoreUtil.copy(workload));
 		}
 		// except the last one, it is in datafolder
 		conf.getRecommendationConfiguration().getTrainingData()
@@ -195,8 +195,8 @@ public class EvaluateLifeCycle {
 		}
 		allConfLibrede.getEstimation().setStartTimestamp(EcoreUtil.copy(librede.getEstimation().getStartTimestamp()));
 		allConfLibrede.getEstimation().setEndTimestamp(EcoreUtil.copy(librede.getEstimation().getEndTimestamp()));
-		allConfLibrede.setOutput(output);
-		allConfLibrede.setWorkloadDescription(workload);
+		allConfLibrede.setOutput(EcoreUtil.copy(output));
+		allConfLibrede.setWorkloadDescription(EcoreUtil.copy(workload));
 
 		log.info("Finished initialization");
 
