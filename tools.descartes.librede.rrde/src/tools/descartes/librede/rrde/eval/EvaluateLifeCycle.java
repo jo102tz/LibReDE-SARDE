@@ -101,7 +101,7 @@ public class EvaluateLifeCycle {
 //			+ "short traces";
 	// SYNTHETIC
 	public static final String datafolder = DESKTOP + File.separator + "librede-data" + File.separator
-			+ "librede-synthetic" + File.separator + "experiment1-3wcs";
+			+ "librede-synthetic" + File.separator + "experiment1-3wcs-no_overload";
 
 	public static final String trainingfolder = DESKTOP + File.separator + "librede-data" + File.separator
 			+ "artificial_exp_03_06_2013" + File.separator + "sampling_1sec";
@@ -145,9 +145,9 @@ public class EvaluateLifeCycle {
 		conf.setOptimizationLoopTime(-1);
 
 		conf.setEstimationLoopTime(70);
-		conf.setSelectionLoopTime(310);
-		conf.setRecommendationLoopTime(1700);
-		conf.setOptimizationLoopTime(1000);
+//		conf.setSelectionLoopTime(310);
+//		conf.setRecommendationLoopTime(1700);
+//		conf.setOptimizationLoopTime(1000);
 
 		// OPTIONAL
 		// set input specification of optimization to be the same of the

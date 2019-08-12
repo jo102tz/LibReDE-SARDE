@@ -63,16 +63,12 @@ public class LifeCycleController {
 	/**
 	 * Method, that starts the online estimation and learning cycle.
 	 * 
-	 * @param lifeCycleConfiguration
-	 *            The configuration to execute.
-	 * @param libredeConfiguration
-	 *            The librede Configuration to execute (default until
-	 *            overwritten).
-	 * @param allConf
-	 *            The configuration containing all estimation approaches used
-	 *            for caching.
-	 * @param logFolder
-	 *            Location to log intermediate information to.
+	 * @param lifeCycleConfiguration The configuration to execute.
+	 * @param libredeConfiguration   The librede Configuration to execute (default
+	 *                               until overwritten).
+	 * @param allConf                The configuration containing all estimation
+	 *                               approaches used for caching.
+	 * @param logFolder              Location to log intermediate information to.
 	 * @throws Exception
 	 */
 	public void startLifeCycle(LifeCycleConfiguration lifeCycleConfiguration, LibredeConfiguration libredeConfiguration,
@@ -94,7 +90,8 @@ public class LifeCycleController {
 		while (newEnd.compareTo(originalEnd) <= 0 && timepassed < MAXSECS) {
 			timepassed = (int) (((System.currentTimeMillis() - starttime) / 1000) * SPEEDFACTOR);
 			// newEnd = newEnd.plus(increment);
-			Quantity<Time> addition = increment.times(timepassed);
+			// avoid an empty window, therefore avoid timepassed==0
+			Quantity<Time> addition = increment.times((timepassed <= 0) ? 1 : timepassed);
 			newEnd = libredeConfiguration.getEstimation().getStartTimestamp().plus(addition);
 			setConfigurationEndTime(libredeConfiguration, lifeCycleConfiguration, allConf, newEnd);
 			if (lifeCycleConfiguration.getEstimationLoopTime() != -1

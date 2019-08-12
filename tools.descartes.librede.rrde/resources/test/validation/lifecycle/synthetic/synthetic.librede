@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <librede:LibredeConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:librede="http://www.descartes-research.net/librede/configuration/1.0">
   <workloadDescription>
-    <resources name="host1" schedulingStrategy="FCFS" demands="//@workloadDescription/@services.0/@tasks.0 //@workloadDescription/@services.1/@tasks.0 //@workloadDescription/@services.2/@tasks.0"/>
+    <resources name="host1" demands="//@workloadDescription/@services.0/@tasks.0 //@workloadDescription/@services.1/@tasks.0 //@workloadDescription/@services.2/@tasks.0"/>
     <services name="WC1">
       <tasks xsi:type="librede:ResourceDemand" name="host1" resource="//@workloadDescription/@resources.0"/>
     </services>
@@ -61,16 +61,15 @@
     <stepSize value="60.0">
       <unit href="librede:units#SECONDS"/>
     </stepSize>
-    <startTimestamp value="1.555047894E9">
+    <startTimestamp value="1.565259869E9">
       <unit href="librede:units#SECONDS"/>
     </startTimestamp>
-    <endTimestamp value="1.555058694E9">
+    <endTimestamp value="1.565270669E9">
       <unit href="librede:units#SECONDS"/>
     </endTimestamp>
   </estimation>
   <output/>
-  <validation validationFolds="5" validateEstimates="true">
-    <validators type="tools.descartes.librede.validation.AbsoluteUtilizationValidator"/>
+  <validation validateEstimates="true">
     <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
   </validation>
 </librede:LibredeConfiguration>
