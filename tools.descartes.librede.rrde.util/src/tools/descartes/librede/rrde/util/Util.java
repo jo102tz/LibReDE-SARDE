@@ -247,13 +247,59 @@ public class Util {
 	 * Calculates the mean Validation error, i.e. the target function value.
 	 * 
 	 * @param result The result produced by LibReDE
+	 * @param vali   The validation specification.
 	 * @return The mean validation error
 	 * 
 	 */
 	public static double getValidationError(LibredeResults result, ValidationSpecification vali) {
+		Class<? extends IEstimationApproach> approach = resultsValidityCheck(result);
+		double compound = getCompoundError(result);
+		if (compound < Double.MAX_VALUE) {
+			log.trace("Calculating the compound error.");
+			return compound;
+		} else {
+			log.info("Returning the more generic function getValidationError().");
+			double error = 0;
+
+			for (ValidatorConfiguration validator : vali.getValidators()) {
+				error += getError(result, approach, validator.getType());
+			}
+
+			return error;
+		}
+	}
+
+	/**
+	 * Calculates the compound Validation error, i.e. the target function value,
+	 * given by a pre-defined formula.
+	 * 
+	 * @param result The result produced by LibReDE
+	 * @return The mean validation error
+	 * 
+	 */
+	public static double getCompoundError(LibredeResults result) {
+
+		Class<? extends IEstimationApproach> approach = resultsValidityCheck(result);
+
+		String rtType = "tools.descartes.librede.validation.ResponseTimeValidator";
+		String utilType = "tools.descartes.librede.validation.AbsoluteUtilizationValidator";
+
+		double error = Double.MAX_VALUE;
+		try {
+			double rterror = getError(result, approach, rtType);
+			double utilerror = getError(result, approach, utilType);
+			error = rterror / 6f + utilerror / 2f;
+		} catch (Exception e) {
+			log.warn("The compound error could not be computed.");
+			error = Double.MAX_VALUE;
+		}
+		return error;
+	}
+
+	private static Class<? extends IEstimationApproach> resultsValidityCheck(LibredeResults result) {
 		if (result == null || result.getApproaches() == null) {
 			log.error("Result was null!");
-			return Double.MAX_VALUE;
+			throw new IllegalArgumentException("Result was null!");
 		}
 		if (result.getApproaches().size() > 1) {
 			log.error("More than one approach is not supported. " + result);
@@ -263,33 +309,26 @@ public class Util {
 			throw new IllegalArgumentException("No results were given.");
 		}
 		Class<? extends IEstimationApproach> approach = result.getApproaches().iterator().next();
-
-		double error = 0;
-
-		for (ValidatorConfiguration validator : vali.getValidators()) {
-			error += getError(result, approach, validator);
-		}
-
-		return error;
+		return approach;
 	}
 
 	/**
 	 * Calculates the error for the given {@link LibredeResults}.
 	 * 
-	 * @param result    The result produced by LibReDE
-	 * @param approach  The approach to validate
-	 * @param validator The validator to use.
+	 * @param result        The result produced by LibReDE
+	 * @param approach      The approach to validate
+	 * @param validatorType The validator to use.
 	 * 
 	 * @return The mean error.
 	 */
 	private static double getError(LibredeResults result, Class<? extends IEstimationApproach> approach,
-			ValidatorConfiguration validator) {
+			String validatorType) {
 		ApproachResult approachResult = result.getApproachResults(approach);
 		Map<Class<? extends IValidator>, Vector> errorMap = approachResult.getValidationErrors();
 		Set<Class<? extends IValidator>> valis = approachResult.getResult()[0].getValidators();
 		Vector valiError = null;
 		for (Class<? extends IValidator> vali : valis) {
-			if (vali.getName().equals(validator.getType())) {
+			if (vali.getName().equals(validatorType)) {
 				valiError = errorMap.get(vali);
 			}
 		}
@@ -302,8 +341,8 @@ public class Util {
 			return errorSum / valiError.columns();
 		}
 
-		log.warn("The " + validator.getType() + " for Approach " + approach.toString() + " was not found.");
-		return Double.MAX_VALUE;
+		throw new IllegalArgumentException(
+				"The " + validatorType + " for Approach " + approach.toString() + " was not found.");
 	}
 
 	/**
