@@ -32,7 +32,6 @@ import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Set;
 
@@ -286,8 +285,13 @@ public class Util {
 
 		double error = Double.MAX_VALUE;
 		try {
+			// limit response time error to 300 %
 			double rterror = getError(result, approach, rtType);
+			rterror = Math.min(rterror, 3);
+			// limit utilization error to 100%
 			double utilerror = getError(result, approach, utilType);
+			utilerror = Math.min(utilerror, 1);
+			// combine both errors using the formula (1/3 rt + util)/2
 			error = rterror / 6f + utilerror / 2f;
 		} catch (Exception e) {
 			log.warn("The compound error could not be computed.");
