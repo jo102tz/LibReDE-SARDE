@@ -70,6 +70,7 @@
   </estimation>
   <output/>
   <validation validateEstimates="true">
-    <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
+    <validators type="tools.descartes.librede.validation.WeightedResponseTimeValidator"/>
+    <validators type="tools.descartes.librede.validation.AbsoluteUtilizationValidator"/>
   </validation>
 </librede:LibredeConfiguration>

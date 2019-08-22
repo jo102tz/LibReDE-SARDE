@@ -280,7 +280,7 @@ public class Util {
 
 		Class<? extends IEstimationApproach> approach = resultsValidityCheck(result);
 
-		String rtType = "tools.descartes.librede.validation.ResponseTimeValidator";
+		String rtType = "tools.descartes.librede.validation.WeightedResponseTimeValidator";
 		String utilType = "tools.descartes.librede.validation.AbsoluteUtilizationValidator";
 
 		double error = Double.MAX_VALUE;
