@@ -27,6 +27,7 @@
 package tools.descartes.librede.rrde.util.wrapper;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
@@ -66,6 +67,7 @@ public class Wrapper implements IWrapper {
 		try {
 			LibredeVariables var = new LibredeVariables(conf);
 			Librede.initRepo(var);
+			var.getRepo().setCurrentTime(EcoreUtil.copy(conf.getEstimation().getEndTimestamp()));
 			if (var.getConf().getValidation().getValidationFolds() <= 1) {
 				return Librede.runEstimationWithValidation(var);
 			} else {

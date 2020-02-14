@@ -210,7 +210,7 @@ public class AbstractTest {
   protected void testSingleEstimator(EstimationSpecification est,
       LibredeConfiguration libredeConfiguration, Double expected) {
     libredeConfiguration.setEstimation(EcoreUtil.copy(est));
-    Discovery.fixTimeStamps(libredeConfiguration);
+    Discovery.fixTimeStamps(libredeConfiguration, null);
     LibredeResults res = new Wrapper().executeLibrede(libredeConfiguration);
     // System.out.println(est.getApproaches().iterator().next().getType() + ": "
     // + Util.getValidationError(res, libredeConfiguration.getValidation()));

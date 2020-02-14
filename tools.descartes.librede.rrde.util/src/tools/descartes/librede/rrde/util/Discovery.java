@@ -87,9 +87,8 @@ public class Discovery {
 	 * This method creates a Map assigning a set of imput specifications to each
 	 * workload descriptions containted by a set of {@link InputData}.
 	 * 
-	 * @param input
-	 *            A List of {@link InputData}, containing information about the
-	 *            folders to be searched in
+	 * @param input A List of {@link InputData}, containing information about the
+	 *              folders to be searched in
 	 * @return A Map assigning {@link InputSpecification}s to
 	 *         {@link WorkloadDescription}s
 	 */
@@ -102,23 +101,20 @@ public class Discovery {
 	}
 
 	/**
-	 * Discovers and creates {@link LibredeConfiguration} files based on the
-	 * given skeleton data and the {@link InputData} specifications. Based on
-	 * the set of {@link InputData} specifications, different workload
-	 * specifications might be contained.
+	 * Discovers and creates {@link LibredeConfiguration} files based on the given
+	 * skeleton data and the {@link InputData} specifications. Based on the set of
+	 * {@link InputData} specifications, different workload specifications might be
+	 * contained.
 	 * 
 	 * 
-	 * @param input
-	 *            A list of several {@link InputData}s specifying the root
-	 *            folders to start the discovery and the
-	 *            {@link WorkloadDescription} as well as the
-	 *            {@link InputSpecification} to look for
-	 * @param estimation
-	 *            The {@link EstimationSpecification} the new configurations
-	 *            should contain
-	 * @param validator
-	 *            The {@link ValidationSpecification} the new configurations
-	 *            should contain
+	 * @param input      A list of several {@link InputData}s specifying the root
+	 *                   folders to start the discovery and the
+	 *                   {@link WorkloadDescription} as well as the
+	 *                   {@link InputSpecification} to look for
+	 * @param estimation The {@link EstimationSpecification} the new configurations
+	 *                   should contain
+	 * @param validator  The {@link ValidationSpecification} the new configurations
+	 *                   should contain
 	 * @return A set of found valid {@link LibredeConfiguration}s
 	 */
 	public static Set<LibredeConfiguration> createConfigurations(EList<InputData> input,
@@ -161,7 +157,7 @@ public class Discovery {
 
 				// adapt time stamps
 				// fix mapping references
-				if (fixTimeStamps(additional) && fixMapping(additional)) {
+				if (fixTimeStamps(additional, null) && fixMapping(additional)) {
 					set.add(additional);
 				} else {
 					log.warn("No valid configuration could be created.");
@@ -197,12 +193,11 @@ public class Discovery {
 	}
 
 	/**
-	 * Checks the collection for identical configurations just varying in
-	 * workload descriptions and just keeps the one with the biggest
-	 * description. (Resources first, after that WCs)
+	 * Checks the collection for identical configurations just varying in workload
+	 * descriptions and just keeps the one with the biggest description. (Resources
+	 * first, after that WCs)
 	 * 
-	 * @param confs
-	 *            The set to check
+	 * @param confs The set to check
 	 */
 	private static void deleteMultipleWorkloadConfs(Set<LibredeConfiguration> confs) {
 		HashSet<LibredeConfiguration> remove = new HashSet<>();
@@ -267,8 +262,7 @@ public class Discovery {
 	/**
 	 * Fixes the mappings between traces and files for a given configuration.
 	 * 
-	 * @param additional
-	 *            The {@link LibredeConfiguration} to fix.
+	 * @param additional The {@link LibredeConfiguration} to fix.
 	 * @return true, if the operation was successful, false otherwise
 	 */
 	private static boolean fixMapping(LibredeConfiguration additional) {
@@ -292,8 +286,7 @@ public class Discovery {
 	/**
 	 * Explores one {@link InputData} starting on the specified root folder.
 	 * 
-	 * @param input
-	 *            The specification for the discovery
+	 * @param input The specification for the discovery
 	 * @return All {@link InputSpecification}s found
 	 */
 	private static Set<InputSpecification> discoverOne(InputData input) {
@@ -312,15 +305,12 @@ public class Discovery {
 	}
 
 	/**
-	 * Creates a {@link LibredeConfiguration} file with the given skeleton
-	 * values.
+	 * Creates a {@link LibredeConfiguration} file with the given skeleton values.
 	 * 
-	 * @param estimation
-	 *            The {@link EstimationSpecification} the new configuration
-	 *            should contain
-	 * @param validator
-	 *            The {@link ValidationSpecification} the new configuration
-	 *            should contain
+	 * @param estimation The {@link EstimationSpecification} the new configuration
+	 *                   should contain
+	 * @param validator  The {@link ValidationSpecification} the new configuration
+	 *                   should contain
 	 * @return An new {@link LibredeConfiguration}
 	 */
 	private static LibredeConfiguration createConfigFile(EstimationSpecification estimation,
@@ -357,16 +347,13 @@ public class Discovery {
 	}
 
 	/**
-	 * Iterate over all (sub)-directories of the given folder and search for
-	 * valid {@link InputSpecification} using the
+	 * Iterate over all (sub)-directories of the given folder and search for valid
+	 * {@link InputSpecification} using the
 	 * {@link #checkThisFolder(Path, InputSpecification, Set)} method.
 	 * 
-	 * @param root
-	 *            The root directory to start from
-	 * @param main
-	 *            The main {@link InputSpecification} to copy from
-	 * @param set
-	 *            The set to add the new {@link InputSpecification}
+	 * @param root The root directory to start from
+	 * @param main The main {@link InputSpecification} to copy from
+	 * @param set  The set to add the new {@link InputSpecification}
 	 */
 	private static void iterateDirectories(Path root, InputSpecification main, Set<InputSpecification> set,
 			boolean multiFolderStructures) {
@@ -395,15 +382,12 @@ public class Discovery {
 
 	/**
 	 * Checks if the specific folder contains a valid input
-	 * {@link InputSpecification} and adds a copy of the given main
-	 * specification to the given set if so.
+	 * {@link InputSpecification} and adds a copy of the given main specification to
+	 * the given set if so.
 	 * 
-	 * @param root
-	 *            The folder to check
-	 * @param main
-	 *            The main {@link InputSpecification} to copy from
-	 * @param set
-	 *            The set to add the new {@link InputSpecification}
+	 * @param root The folder to check
+	 * @param main The main {@link InputSpecification} to copy from
+	 * @param set  The set to add the new {@link InputSpecification}
 	 */
 	private static void checkThisFolder(Path root, InputSpecification main, Set<InputSpecification> set,
 			boolean multiFolderStructures) {
@@ -476,14 +460,17 @@ public class Discovery {
 	}
 
 	/**
-	 * Fixes the time stamps of the given {@link LibredeConfiguration} to match
-	 * the first and last available measurement.
+	 * Fixes the time stamps of the given {@link LibredeConfiguration} to match the
+	 * first and last available measurement.
 	 * 
-	 * @param conf
-	 *            the {@link LibredeConfiguration} to fix
+	 * @param conf the {@link LibredeConfiguration} to fix
+	 * @param conf the end timestamp to set, if the trace should not be parsed from
+	 *             front to end, but just from front to the end timestamp. (Might be
+	 *             useful in offline/replay-scenarios.) If this feature is not
+	 *             required, passing <code>null</code> will ignore the value.
 	 * @return True, if the operation was successful, false otherwise
 	 */
-	public static boolean fixTimeStamps(LibredeConfiguration conf) {
+	public static boolean fixTimeStamps(LibredeConfiguration conf, Quantity<Time> endTimestamp) {
 		Map<String, IDataSource> dataSources = new HashMap<String, IDataSource>();
 
 		Quantity<Time> maxStart = UnitsFactory.eINSTANCE.createQuantity();
@@ -559,12 +546,18 @@ public class Discovery {
 
 		conf.getEstimation().setStartTimestamp(maxStart);
 		conf.getEstimation().setEndTimestamp(minEnd);
-
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		log.trace("Startpoint of config " + conf.toString() + " set to "
 				+ date.format(maxStart.getValue(Time.MILLISECONDS)));
-		log.trace(
-				"Endpoint of config " + conf.toString() + " set to " + date.format(minEnd.getValue(Time.MILLISECONDS)));
+
+		if (endTimestamp != null) {
+			conf.getEstimation().setEndTimestamp(EcoreUtil.copy(endTimestamp));
+			log.trace("Endpoint of config " + conf.toString() + " set to " + date
+					.format(endTimestamp.getValue(Time.MILLISECONDS) + " as this was the pre-defined end-timestamp."));
+		} else {
+			log.trace("Endpoint of config " + conf.toString() + " set to "
+					+ date.format(minEnd.getValue(Time.MILLISECONDS)));
+		}
 		return true;
 	}
 
@@ -572,8 +565,7 @@ public class Discovery {
 	 * Tries to recover the used separators from the given
 	 * {@link DataSourceConfiguration}.
 	 * 
-	 * @param datasource
-	 *            The datasource to read
+	 * @param datasource The datasource to read
 	 * @return The separator strings
 	 */
 	private static String getSeparators(DataSourceConfiguration dataSource) {
@@ -590,8 +582,7 @@ public class Discovery {
 	 * Tries to recover the used {@link Time} from the given
 	 * {@link DataSourceConfiguration}.
 	 * 
-	 * @param datasource
-	 *            The datasource to read
+	 * @param datasource The datasource to read
 	 * @return The {@link Time} unit found
 	 */
 	@SuppressWarnings("unchecked")
@@ -630,12 +621,9 @@ public class Discovery {
 	/**
 	 * Helper method to find the last time stamp in the file.
 	 * 
-	 * @param inputFile
-	 *            The file to search through
-	 * @param col
-	 *            The column to search through in the file
-	 * @param separator
-	 *            The separator between the columns
+	 * @param inputFile The file to search through
+	 * @param col       The column to search through in the file
+	 * @param separator The separator between the columns
 	 * @return the last time stamp found as a double
 	 */
 	private static double loadLast(File inputFile, int col, String separator) {
@@ -670,12 +658,9 @@ public class Discovery {
 	/**
 	 * Helper method to find the first time stamp in the file.
 	 * 
-	 * @param inputFile
-	 *            The file to search through
-	 * @param col
-	 *            The column to search through in the file
-	 * @param separator
-	 *            The separator between the columns
+	 * @param inputFile The file to search through
+	 * @param col       The column to search through in the file
+	 * @param separator The separator between the columns
 	 * @return the first time stamp found as a double
 	 */
 	private static double loadFirst(File inputFile, int col, String separator) {

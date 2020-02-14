@@ -14,9 +14,9 @@ Require-Bundle: org.apache.log4j;bundle-version="1.2.15",
  tools.descartes.librede.linalg;bundle-version="1.1.0",
  tools.descartes.librede.rrde.util;bundle-version="1.0.0"
 Bundle-ClassPath: .,
+ lib/smile/org.slf4j.slf4j-api-1.7.21.jar,
  lib/smile/com.github.haifengl.smile-core-1.2.0.jar,
- lib/smile/com.github.haifengl.smile-math-1.2.0.jar,
  lib/smile/com.github.haifengl.smile-data-1.2.0.jar,
- lib/smile/org.slf4j.slf4j-api-1.7.21.jar
+ lib/smile/com.github.haifengl.smile-math-1.2.0.jar
 Export-Package: tools.descartes.librede.rrde.recommendation,
  tools.descartes.librede.rrde.recommendation.algorithm

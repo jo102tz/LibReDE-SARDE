@@ -26,6 +26,7 @@
  */
 package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -127,6 +128,12 @@ public abstract class AbstractSmileAlgorithm extends
 					"The number of workload classes is higher than supported by the training set.");
 		}
 		double prediction = classifier.predict(parseToDoubles(features));
+		StringBuilder sb = new StringBuilder();
+		for (double d : parseToDoubles(features)) {
+			sb.append(d);
+			sb.append(",");
+		}
+		getLog().trace("Features for recommendation: " + sb.toString());
 		return getSpecification(prediction);
 	}
 
@@ -209,6 +216,12 @@ public abstract class AbstractSmileAlgorithm extends
 			getLog().error("Training or target values are null.");
 			return false;
 		}
+		// export training data to csv for external analysis
+		try {
+			Util.exportMLData(target, training, algorithmIndexMapping, "export.csv");
+		} catch (IOException e) {
+			getLog().error("Logging file to data was unsuccessful. Proceeding...", e);
+		}
 		// check if all train sets are the same target variable
 		boolean allequal = true;
 		for (int i = 0; i < target.length; i++) {
@@ -263,16 +276,7 @@ public abstract class AbstractSmileAlgorithm extends
 	 * @return The {@link EstimationSpecification} corresponding to it.
 	 */
 	protected EstimationSpecification getSpecification(double index) {
-		for (Entry<EstimationSpecification, Double> entry : algorithmIndexMapping
-				.entrySet()) {
-			if (entry.getValue().doubleValue() == index) {
-				return entry.getKey();
-			}
-		}
-		getLog().warn(
-				"Index " + index + " not found in mapping. Size: "
-						+ algorithmIndexMapping.entrySet().size());
-		return null;
+		return Util.getSpecification(algorithmIndexMapping, index);
 	}
 
 	/**

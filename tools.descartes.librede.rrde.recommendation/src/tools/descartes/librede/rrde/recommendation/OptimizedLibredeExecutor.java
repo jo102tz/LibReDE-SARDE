@@ -36,9 +36,9 @@ import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.rrde.model.recommendation.FeatureVector;
 import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
-import tools.descartes.librede.rrde.util.Discovery;
+import tools.descartes.librede.rrde.util.Util;
 import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
-import tools.descartes.librede.rrde.util.wrapper.Wrapper;
+import tools.descartes.librede.rrde.util.wrapper.CachedWrapper;
 
 /**
  * This class accepts an {@link IRecomendationAlgorithm} and wraps all calls to
@@ -59,16 +59,15 @@ public class OptimizedLibredeExecutor {
 	private IRecomendationAlgorithm algo;
 
 	/**
-	 * Constructor specifying the {@link IFeatureExtractor} to use with a
-	 * trained {@link IRecomendationAlgorithm}.
+	 * Constructor specifying the {@link IFeatureExtractor} to use with a trained
+	 * {@link IRecomendationAlgorithm}.
 	 * 
-	 * @param extractor
-	 *            {@link IFeatureExtractor} that was used to train the algorithm
-	 * @param algo
-	 *            {@link IRecomendationAlgorithm} to use for predictions.
-	 * @throws IllegalArgumentException
-	 *             If {@link IRecomendationAlgorithm#isInTrainingPhase()}
-	 *             returns true
+	 * @param extractor {@link IFeatureExtractor} that was used to train the
+	 *                  algorithm
+	 * @param algo      {@link IRecomendationAlgorithm} to use for predictions.
+	 * @throws IllegalArgumentException If
+	 *                                  {@link IRecomendationAlgorithm#isInTrainingPhase()}
+	 *                                  returns true
 	 */
 	public OptimizedLibredeExecutor(IFeatureExtractor extractor, IRecomendationAlgorithm algo) {
 		super();
@@ -87,8 +86,7 @@ public class OptimizedLibredeExecutor {
 	}
 
 	/**
-	 * @param algo
-	 *            the algo to set
+	 * @param algo the algo to set
 	 */
 	public void setAlgo(IRecomendationAlgorithm algo) {
 		this.algo = algo;
@@ -102,8 +100,7 @@ public class OptimizedLibredeExecutor {
 	}
 
 	/**
-	 * @param extractor
-	 *            the extractor to set
+	 * @param extractor the extractor to set
 	 */
 	public void setExtractor(IFeatureExtractor extractor) {
 		this.extractor = extractor;
@@ -112,30 +109,46 @@ public class OptimizedLibredeExecutor {
 	/**
 	 * Tries to analyze the given {@link LibredeConfiguration} and uses its
 	 * configured {@link IRecomendationAlgorithm} to search for the best
-	 * {@link EstimationSpecification}. If that fails, the unmodified
-	 * configuration is executed.
+	 * {@link EstimationSpecification}. If that fails, the unmodified configuration
+	 * is executed.
 	 * 
-	 * @param conf
-	 *            The {@link LibredeConfiguration} to be run.
+	 * @param conf The {@link LibredeConfiguration} to be run.
 	 * @return The {@link LibredeResults} as returned by the standard
 	 *         {@link Librede}.
 	 */
 	public LibredeResults executeLibrede(LibredeConfiguration conf) {
+//		try {
+//			LibredeVariables vars = new LibredeVariables(conf);
+//			Librede.initRepo(vars);
+//			FeatureVector features = extractor.extractFeatures(conf, vars);
+//			EstimationSpecification est = algo.recommendEstimation(features);
+//			if (est != null) {
+//				conf.setEstimation(EcoreUtil.copy(est));
+//			} else {
+//				log.warn("Recommendation failed. Returning standard result.");
+//			}
+//		} catch (Exception e) {
+//			log.error("There was an unexpected Exception with recommending.", e);
+//			throw new RuntimeException(e);
+//		}
+//		Discovery.fixTimeStamps(conf, null);
+//		return new Wrapper().executeLibrede(conf);
 		try {
-			LibredeVariables vars = new LibredeVariables(conf);
-			Librede.initRepo(vars);
+			CachedWrapper wrapper = new CachedWrapper();
+			wrapper.executeLibrede(conf);
+			LibredeVariables vars = wrapper.getVariables();
 			FeatureVector features = extractor.extractFeatures(conf, vars);
 			EstimationSpecification est = algo.recommendEstimation(features);
 			if (est != null) {
-				conf.setEstimation(EcoreUtil.copy(est));
+				Util.setEstimationSpec(conf, EcoreUtil.copy(est));
 			} else {
 				log.warn("Recommendation failed. Returning standard result.");
 			}
+			return wrapper.executeLibrede(conf);
 		} catch (Exception e) {
 			log.error("There was an unexpected Exception with recommending.", e);
 			throw new RuntimeException(e);
 		}
-		Discovery.fixTimeStamps(conf);
-		return new Wrapper().executeLibrede(conf);
+
 	}
 }

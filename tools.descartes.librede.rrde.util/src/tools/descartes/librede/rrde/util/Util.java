@@ -26,7 +26,10 @@
  */
 package tools.descartes.librede.rrde.util;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
@@ -34,6 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.BasicEList;
@@ -50,6 +54,7 @@ import tools.descartes.librede.approach.IEstimationApproach;
 import tools.descartes.librede.configuration.EstimationAlgorithmConfiguration;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
+import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.configuration.Parameter;
 import tools.descartes.librede.configuration.ValidationSpecification;
 import tools.descartes.librede.configuration.ValidatorConfiguration;
@@ -65,6 +70,8 @@ import tools.descartes.librede.rrde.model.optimization.StepSize;
 import tools.descartes.librede.rrde.model.optimization.StepSizeRelWindow;
 import tools.descartes.librede.rrde.model.optimization.WindowSize;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.units.Quantity;
+import tools.descartes.librede.units.Time;
 import tools.descartes.librede.validation.IValidator;
 
 /**
@@ -285,11 +292,17 @@ public class Util {
 
 		double error = Double.MAX_VALUE;
 		try {
-			// limit response time error to 300 %
+
 			double rterror = getError(result, approach, rtType);
+			double utilerror = getError(result, approach, utilType);
+			if ((rterror == Double.MAX_VALUE || Double.isInfinite(rterror))
+					&& (utilerror == Double.MAX_VALUE || Double.isInfinite(utilerror))) {
+				log.info("Both compounded errors were Double.MAX_VALUE.	");
+				return Double.MAX_VALUE;
+			}
+			// limit response time error to 300 %
 			rterror = Math.min(rterror, 3);
 			// limit utilization error to 100%
-			double utilerror = getError(result, approach, utilType);
 			utilerror = Math.min(utilerror, 1);
 			// combine both errors using the formula (1/3 rt + util)/2
 			error = rterror / 6f + utilerror / 2f;
@@ -334,6 +347,10 @@ public class Util {
 		for (Class<? extends IValidator> vali : valis) {
 			if (vali.getName().equals(validatorType)) {
 				valiError = errorMap.get(vali);
+				if (valiError == null) {
+					System.out.println(result.getAllEstimates());
+					log.warn("Given validator was present, but error was null.");
+				}
 			}
 		}
 
@@ -346,7 +363,7 @@ public class Util {
 		}
 
 		throw new IllegalArgumentException(
-				"The " + validatorType + " for Approach " + approach.toString() + " was not found.");
+				"The validation of " + validatorType + " for Approach " + approach.toString() + " was not found.");
 	}
 
 	/**
@@ -519,4 +536,70 @@ public class Util {
 		return newRunCalls;
 	}
 
+	/**
+	 * Exports the Input for the Recommender algorithms as csv for external
+	 * analysis. For this, the real names will be used, not the integer numbers.
+	 * 
+	 * @param target                The vector of the target variables.
+	 * @param features              The vector of the feature variables.
+	 * @param algorithmIndexMapping The name mapping of
+	 * @param filename              The path to the csv file.
+	 * @throws IOException If any of the underlying IO-operations throws an
+	 *                     Exception.
+	 */
+	public static void exportMLData(int[] target, double[][] features,
+			Map<EstimationSpecification, Double> algorithmIndexMapping, String filename) throws IOException {
+		BufferedWriter br = new BufferedWriter(new FileWriter(filename));
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < target.length; i++) {
+			sb.append(getSimpleApproachName(getSpecification(algorithmIndexMapping, target[i]).getApproaches().get(0))+",");
+			// Append features from array
+			for (double element : features[i]) {
+				sb.append(element);
+				sb.append(",");
+			}
+			sb.append("\n");
+		}
+
+		br.write(sb.toString());
+		br.close();
+	}
+
+	/**
+	 * Returns the {@link EstimationSpecification} corresponding to the given index;
+	 * 
+	 * @param algorithmIndexMapping The algorithm mapping to use.
+	 * 
+	 * @param index                 The index, that is requested
+	 * @return The {@link EstimationSpecification} corresponding to it.
+	 */
+	public static EstimationSpecification getSpecification(Map<EstimationSpecification, Double> algorithmIndexMapping,
+			double index) {
+		for (Entry<EstimationSpecification, Double> entry : algorithmIndexMapping.entrySet()) {
+			if (entry.getValue().doubleValue() == index) {
+				return entry.getKey();
+			}
+		}
+		log.warn("Index " + index + " not found in mapping. Size: " + algorithmIndexMapping.entrySet().size());
+		return null;
+	}
+	
+	/**
+	 * Sets the estimation specification for the given librede configuration, but
+	 * tries to keep the configured start and end timestamps.
+	 * 
+	 * @param libConf The configuration to modify
+	 * @param newSpec The specification to set
+	 * @return The modified {@link LibredeConfiguration}. This is not a copy.
+	 */
+	public static LibredeConfiguration setEstimationSpec(LibredeConfiguration libConf,
+			EstimationSpecification newSpec) {
+		Quantity<Time> startTime = libConf.getEstimation().getStartTimestamp();
+		Quantity<Time> endTime = libConf.getEstimation().getEndTimestamp();
+		libConf.setEstimation(EcoreUtil.copy(newSpec));
+		libConf.getEstimation().setStartTimestamp(startTime);
+		libConf.getEstimation().setEndTimestamp(endTime);
+		return libConf;
+	}
 }

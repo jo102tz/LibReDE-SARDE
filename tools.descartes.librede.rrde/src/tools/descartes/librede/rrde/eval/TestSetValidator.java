@@ -230,7 +230,7 @@ public class TestSetValidator {
         libredeConfiguration.getEstimation().getApproaches().clear();
         libredeConfiguration.getEstimation().getApproaches().add(EcoreUtil.copy(est));
         // check timestamps
-        Discovery.fixTimeStamps(libredeConfiguration);
+        Discovery.fixTimeStamps(libredeConfiguration, null);
         LibredeResults res = new Wrapper().executeLibrede(libredeConfiguration);
         set.add(res);
       }
@@ -493,7 +493,7 @@ public class TestSetValidator {
       for (EstimationSpecification estimationSpecification : estimations) {
         libredeConfiguration.setEstimation(EcoreUtil.copy(estimationSpecification));
         // check timestamps
-        Discovery.fixTimeStamps(libredeConfiguration);
+        Discovery.fixTimeStamps(libredeConfiguration, null);
         LibredeResults res = new Wrapper().executeLibrede(libredeConfiguration);
         set.add(res);
         // System.out.println(estimationSpecification.getApproaches().get(0).getType()

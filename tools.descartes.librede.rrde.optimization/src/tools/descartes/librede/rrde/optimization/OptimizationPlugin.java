@@ -247,7 +247,7 @@ public class OptimizationPlugin implements IApplication {
 		LibredeConfiguration output = EcoreUtil.copy(conf);
 		output.setEstimation(EcoreUtil.copy(result));
 		// fix timestamps for valid output
-		Discovery.fixTimeStamps(output);
+		Discovery.fixTimeStamps(output, null);
 
 		// write to file
 		ResourceSet rs = new ResourceSetImpl();

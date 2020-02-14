@@ -34,6 +34,7 @@ import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.LibredeVariables;
 import tools.descartes.librede.configuration.LibredeConfiguration;
 import tools.descartes.librede.exceptions.EstimationException;
+import tools.descartes.librede.rrde.util.Util;
 
 /**
  * Cached Implementation of the {@link IWrapper} interface. It tries to only
@@ -61,41 +62,12 @@ public class CachedWrapper extends Wrapper {
 
 	@Override
 	public LibredeResults executeLibrede(LibredeConfiguration conf) {
-
 		try {
-			LibredeVariables var = null;
-			if (variables == null) {
-				log.trace("Start loading repo.");
-				long tic = System.currentTimeMillis();
-				var = new LibredeVariables(EcoreUtil.copy(conf));
-				Librede.initRepo(var);
-				cachedConf = EcoreUtil.copy(conf);
-				variables = var;
-				long toc = System.currentTimeMillis();
-				log.info("Loaded and cached the repository in " + (toc - tic) + " ms.");
+			loadRepo(conf);
+			if (this.getVariables().getConf().getValidation().getValidationFolds() <= 1) {
+				return Librede.runEstimationWithValidation(this.getVariables());
 			} else {
-				if (areReposEqual(cachedConf, conf)) {
-					var = variables;
-					cachedConf = EcoreUtil.copy(conf);
-					log.debug("Using cached repository for estimation " + conf);
-				} else {
-					log.info(
-							"Given configuration differs from cached configuration. Clearing cache and load different repo...");
-					cleanCache();
-					return executeLibrede(conf);
-				}
-			}
-			var.getRepo().setCurrentTime(EcoreUtil.copy(conf.getEstimation().getEndTimestamp()));
-			// var.getConf().getEstimation().getApproaches().clear();
-			// var.getConf().getEstimation().getApproaches().addAll(conf.getEstimation().getApproaches());
-			// var.getConf().getEstimation().setWindow(conf.getEstimation().getWindow());
-			// var.getConf().getEstimation().setStepSize(EcoreUtil.copy(conf.getEstimation().getStepSize()));
-			var.getConf().setEstimation(EcoreUtil.copy(conf.getEstimation()));
-			var.reset();
-			if (var.getConf().getValidation().getValidationFolds() <= 1) {
-				return Librede.runEstimationWithValidation(var);
-			} else {
-				return Librede.runEstimationWithCrossValidation(var);
+				return Librede.runEstimationWithCrossValidation(this.getVariables());
 			}
 		} catch (EstimationException | NullPointerException | IllegalStateException e) {
 			log.error("Estimation error occurred while running cached estimation. Keeping Cache for now...", e);
@@ -108,6 +80,48 @@ public class CachedWrapper extends Wrapper {
 	}
 
 	/**
+	 * Ensures that the repository of the given {@link LibredeConfiguration} is
+	 * loaded and returns the loaded {@link LibredeVariables}. If the given
+	 * configuration is already cached, the cached version is returned. If not, the
+	 * cache is updated, and a reference to the new cache is returned. In any case,
+	 * the variables are reset.
+	 * 
+	 * @param conf The {@link LibredeConfiguration} to load from.
+	 * @return A reference to the current {@link LibredeVariables} object stored in
+	 *         the cache.
+	 */
+	public LibredeVariables loadRepo(LibredeConfiguration conf) {
+		LibredeVariables var = null;
+		if (variables == null) {
+			log.trace("Start loading repo.");
+			long tic = System.currentTimeMillis();
+			var = new LibredeVariables(EcoreUtil.copy(conf));
+			Librede.initRepo(var);
+			cachedConf = EcoreUtil.copy(conf);
+			setVariables(var);
+			long toc = System.currentTimeMillis();
+			log.info("Loaded and cached the repository in " + (toc - tic) + " ms.");
+		} else {
+			if (areReposEqual(cachedConf, conf)) {
+				var = this.getVariables();
+				cachedConf = EcoreUtil.copy(conf);
+				log.debug("Using cached repository for estimation " + conf);
+			} else {
+				log.info(
+						"Given configuration differs from cached configuration. Clearing cache and load different repo...");
+				cleanCache();
+				return loadRepo(conf);
+			}
+		}
+		var.getRepo().setCurrentTime(EcoreUtil.copy(conf.getEstimation().getEndTimestamp()));
+		// we usually want to replace the whole conf, but there is no .setConf() in LibredeVariables
+		var.getConf().setEstimation(EcoreUtil.copy(conf.getEstimation()));
+		var.reset();
+		return getVariables();
+
+	}
+
+	/**
 	 * @return the variables
 	 */
 	public LibredeVariables getVariables() {
@@ -115,8 +129,7 @@ public class CachedWrapper extends Wrapper {
 	}
 
 	/**
-	 * @param variables
-	 *            the variables to set
+	 * @param variables the variables to set
 	 */
 	public void setVariables(LibredeVariables variables) {
 		this.variables = variables;
@@ -147,10 +160,8 @@ public class CachedWrapper extends Wrapper {
 	/**
 	 * Checks if the two given configurations have the same repository.
 	 * 
-	 * @param one
-	 *            The first configuration
-	 * @param two
-	 *            The second configuration
+	 * @param one The first configuration
+	 * @param two The second configuration
 	 * @return True, if they are equal for workload description and input
 	 *         definition, false otherwise.
 	 */

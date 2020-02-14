@@ -130,7 +130,7 @@
       </services>
     </workloadDescription>
   </trainingData>
-  <trainingData rootFolder="EMPTY">
+  <!--<trainingData rootFolder="EMPTY">
    <input>
     <dataSources name="S CSV" type="tools.descartes.librede.datasource.csv.CsvDataSourceOffline">
       <parameters name="TimestampFormat" value="[s]"/>
@@ -181,14 +181,14 @@
       <tasks xsi:type="librede:ResourceDemand" name="host1" resource="//@trainingData.3/@workloadDescription/@resources.0"/>
     </services>
   </workloadDescription>
-  </trainingData>
-  <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.util.extract.ReducedFeatureExtractor">
+  </trainingData>-->
+  <featureAlgorithm featureExtractor="tools.descartes.librede.rrde.util.extract.BasicFeatureExtractor">
     <rateUnit href="librede:units#REQUESTS_PER_MINUTE"/>
     <aggregation value="60.0">
       <unit href="librede:units#SECONDS"/>
     </aggregation>
   </featureAlgorithm>
-  <learningAlgorithm xsi:type="librede-recommendation:NeuralNetworkAlgorithmSpecifier" algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileNN"/>
+  <learningAlgorithm xsi:type="librede-recommendation:DecisionTreeAlgorithmSpecifier" algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree"/>
   <estimators window="60">
     <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>

@@ -41,15 +41,12 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import tools.descartes.librede.ApproachResult;
 import tools.descartes.librede.Librede;
 import tools.descartes.librede.LibredeResults;
 import tools.descartes.librede.LibredeVariables;
-import tools.descartes.librede.ResultTable;
 import tools.descartes.librede.configuration.EstimationApproachConfiguration;
 import tools.descartes.librede.configuration.EstimationSpecification;
 import tools.descartes.librede.configuration.LibredeConfiguration;
-import tools.descartes.librede.linalg.Vector;
 import tools.descartes.librede.rrde.lifecycle.logs.EstimationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.EvaluationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.LogBook;
@@ -128,7 +125,7 @@ public class ExecutionHandler {
 	public ExecutionHandler(String outputfolder) {
 		logbook = new LogBook();
 		optimizationWrapper = new CachedWrapper();
-		recommendationWrapper = new Wrapper();
+		recommendationWrapper = new CachedWrapper();
 		trainingWrapper = new Wrapper();
 		executor = Executors.newCachedThreadPool();
 		this.outputfolder = outputfolder;
@@ -318,24 +315,6 @@ public class ExecutionHandler {
 	}
 
 	/**
-	 * Sets the estimation specification for the given librede configuration, but
-	 * tries to keep the configured start and end timestamps.
-	 * 
-	 * @param libConf The configuration to modify
-	 * @param newSpec The specification to set
-	 * @return The modified {@link LibredeConfiguration}. This is not a copy.
-	 */
-	protected static LibredeConfiguration setEstimationSpec(LibredeConfiguration libConf,
-			EstimationSpecification newSpec) {
-		Quantity<Time> startTime = libConf.getEstimation().getStartTimestamp();
-		Quantity<Time> endTime = libConf.getEstimation().getEndTimestamp();
-		libConf.setEstimation(EcoreUtil.copy(newSpec));
-		libConf.getEstimation().setStartTimestamp(startTime);
-		libConf.getEstimation().setEndTimestamp(endTime);
-		return libConf;
-	}
-
-	/**
 	 * Runnable for the estimation.
 	 * 
 	 * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
@@ -364,7 +343,6 @@ public class ExecutionHandler {
 		 * 
 		 * @see java.lang.Runnable#run()
 		 */
-		@SuppressWarnings("deprecation")
 		@Override
 		public void run() {
 			log.info("Executing estimation run.");
@@ -375,14 +353,14 @@ public class ExecutionHandler {
 				if (recoResult != null) {
 					// use recommended configuration, but reuse new end-time
 					// configuration
-					libredeConfiguration = setEstimationSpec(libredeConfiguration,
+					libredeConfiguration = Util.setEstimationSpec(libredeConfiguration,
 							recoResult.getRecommendedSpecification());
 				} else {
 					log.info("Executed default configuration, as no approach is selected yet.");
 					if (optDefault != null) {
 						log.info(
 								"The default configuration has been optimized though, using optimized default approach.");
-						libredeConfiguration = setEstimationSpec(libredeConfiguration,
+						libredeConfiguration = Util.setEstimationSpec(libredeConfiguration,
 								optDefault.getOptimizedEstimator());
 					} else {
 						// using the standard default behavior
@@ -548,14 +526,15 @@ public class ExecutionHandler {
 				if (trainResult != null) {
 					LibredeVariables vars = null;
 					if (recommendationWrapper instanceof CachedWrapper) {
-						recommendationWrapper.executeLibrede(conf);
-						vars = ((CachedWrapper) recommendationWrapper).getVariables();
+						vars = ((CachedWrapper) recommendationWrapper).loadRepo(conf);
 					} else {
 						vars = new LibredeVariables(conf);
 						Librede.initRepo(vars);
+//						recommendationWrapper.executeLibrede(conf);
+						vars.getRepo().setCurrentTime(EcoreUtil.copy(conf.getEstimation().getEndTimestamp()));
 					}
 
-					FeatureVector features = trainResult.getUsedExtractor().extractFeatures(conf, vars);
+					FeatureVector features = trainResult.getUsedExtractor().extractFeatures(EcoreUtil.copy(conf), vars);
 
 					EstimationSpecification est = trainResult.getTrainedRecommender().recommendEstimation(features);
 					if (est == null || est.getApproaches() == null || est.getApproaches().size() != 1) {

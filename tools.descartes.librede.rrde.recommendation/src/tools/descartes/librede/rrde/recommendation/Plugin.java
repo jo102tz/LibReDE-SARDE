@@ -127,10 +127,8 @@ public class Plugin implements IApplication {
 	 * Loads, trains and returns the given algorithm as specified by the
 	 * {@link RecommendationTrainingConfiguration}.
 	 * 
-	 * @param conf
-	 *            The configuration file
-	 * @param trainingWrapper
-	 *            The wrapper to use to execute calls
+	 * @param conf            The configuration file
+	 * @param trainingWrapper The wrapper to use to execute calls
 	 * @return The {@link IRecomendationAlgorithm}
 	 */
 	public IRecomendationAlgorithm loadAndTrainAlgorithm(RecommendationTrainingConfiguration conf,
@@ -171,25 +169,21 @@ public class Plugin implements IApplication {
 	/**
 	 * Trains the given {@link IRecomendationAlgorithm} with the specified
 	 * {@link EstimationSpecification}s validated by the specified
-	 * {@link ValidationSpecification} on the specified list of
-	 * {@link InputData}s using the specified {@link IFeatureExtractor}.
+	 * {@link ValidationSpecification} on the specified list of {@link InputData}s
+	 * using the specified {@link IFeatureExtractor}.
 	 * 
-	 * @param alg
-	 *            The algorithm to train
-	 * @param specifier
-	 *            The {@link RecommendationAlgorithmSpecifier} defining
-	 *            additional parameters for the algorithm
-	 * @param extractor
-	 *            The {@link IFeatureExtractor} to extract features for the
-	 *            inputs
-	 * @param estimators
-	 *            The estimators given as {@link EstimationSpecification}s
-	 * @param validationSpecification
-	 *            The validator to use in order to create the error values
-	 * @param inputs
-	 *            The training data given as {@link InputData}s
-	 * @param trainingWrapper
-	 *            The wrapper used to execute calls.
+	 * @param alg                     The algorithm to train
+	 * @param specifier               The {@link RecommendationAlgorithmSpecifier}
+	 *                                defining additional parameters for the
+	 *                                algorithm
+	 * @param extractor               The {@link IFeatureExtractor} to extract
+	 *                                features for the inputs
+	 * @param estimators              The estimators given as
+	 *                                {@link EstimationSpecification}s
+	 * @param validationSpecification The validator to use in order to create the
+	 *                                error values
+	 * @param inputs                  The training data given as {@link InputData}s
+	 * @param trainingWrapper         The wrapper used to execute calls.
 	 * @return True if the training was successful, false otherwise
 	 */
 	public boolean trainAlgorithm(IRecomendationAlgorithm alg, RecommendationAlgorithmSpecifier specifer,
@@ -222,28 +216,24 @@ public class Plugin implements IApplication {
 	}
 
 	/**
-	 * Executes one configuration with the estimators and adds the training set
-	 * to the given {@link IRecomendationAlgorithm}.
+	 * Executes one configuration with the estimators and adds the training set to
+	 * the given {@link IRecomendationAlgorithm}. Note that the configured time
+	 * stamps of the configuration are ignored and replaced by the start and end times of the trace.
 	 * 
-	 * @param alg
-	 *            The {@link IRecomendationAlgorithm} to train
-	 * @param extractor
-	 *            The {@link IFeatureExtractor} to extract feature information
-	 * @param estimators
-	 *            The estimator set to use
-	 * @param conf
-	 *            The {@link LibredeConfiguration} to use as a basis for the
-	 *            estimators
-	 * @param trainingWrapper
-	 *            The wrapper used to execute calls
+	 * @param alg             The {@link IRecomendationAlgorithm} to train
+	 * @param extractor       The {@link IFeatureExtractor} to extract feature
+	 *                        information
+	 * @param estimators      The estimator set to use
+	 * @param conf            The {@link LibredeConfiguration} to use as a basis for
+	 *                        the estimators
+	 * @param trainingWrapper The wrapper used to execute calls
 	 */
 	private boolean trainOneConfiguration(IRecomendationAlgorithm alg, IFeatureExtractor extractor,
 			EList<EstimationSpecification> estimators, LibredeConfiguration conf, IWrapper trainingWrapper) {
 		EMap<EstimationSpecification, Double> results = new BasicEMap<EstimationSpecification, Double>();
 		for (EstimationSpecification spec : estimators) {
 			// calculate error values for all estimators
-			conf.setEstimation(EcoreUtil.copy(spec));
-			Discovery.fixTimeStamps(conf);
+			Util.setEstimationSpec(conf, EcoreUtil.copy(spec));
 			results.put(spec, Util.getValidationError(trainingWrapper.executeLibrede(conf), conf.getValidation()));
 		}
 		// get librede Variables
@@ -251,6 +241,7 @@ public class Plugin implements IApplication {
 		if (trainingWrapper instanceof CachedWrapper) {
 			// used cached version to save time
 			vars = ((CachedWrapper) trainingWrapper).getVariables();
+
 		} else {
 			vars = new LibredeVariables(conf);
 			Librede.initRepo(vars);
@@ -264,13 +255,11 @@ public class Plugin implements IApplication {
 	 * Loads a new instance of the algorithm specified by the
 	 * {@link RecommendationAlgorithmSpecifier}
 	 * 
-	 * @param spec
-	 *            The configuration
+	 * @param spec The configuration
 	 * @return A new instance of the algorithm as specified by the
 	 *         {@link RecommendationAlgorithmSpecifier}
-	 * @throws NullPointerException
-	 *             If the specifications or any of the required fields are
-	 *             <code>null</code>
+	 * @throws NullPointerException If the specifications or any of the required
+	 *                              fields are <code>null</code>
 	 */
 	public static IRecomendationAlgorithm loadAlgorithm(RecommendationAlgorithmSpecifier spec)
 			throws NullPointerException {
@@ -291,13 +280,11 @@ public class Plugin implements IApplication {
 	 * Loads a new instance of the algorithm specified by the
 	 * {@link FeatureExtractorSpecifier}
 	 * 
-	 * @param spec
-	 *            The configuration
+	 * @param spec The configuration
 	 * @return A new instance of the algorithm as specified by the
 	 *         {@link FeatureExtractorSpecifier}
-	 * @throws NullPointerException
-	 *             If the specifications or any of the required fields are
-	 *             <code>null</code>
+	 * @throws NullPointerException If the specifications or any of the required
+	 *                              fields are <code>null</code>
 	 */
 	public static IFeatureExtractor loadFeatureExtractor(FeatureExtractorSpecifier spec) throws NullPointerException {
 		if (spec == null || spec.getFeatureExtractor() == null) {

@@ -26,31 +26,42 @@
  */
 package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 
-import java.io.IOException;
-
 import org.apache.log4j.Logger;
 
-import smile.classification.SVM;
-import smile.classification.SVM.Multiclass;
-import smile.math.kernel.GaussianKernel;
+import smile.classification.RandomForest;
+import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
-import tools.descartes.librede.rrde.model.recommendation.SVMAlgorithmSpecifier;
-import tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm;
 import tools.descartes.librede.rrde.util.Util;
 
 /**
- * This is an implementation of {@link IRecomendationAlgorithm} using the SVM
- * algorithm from the Smile library.
+ * Random Forest implementation of SMILE.
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class SmileSVM extends AbstractSmileAlgorithm {
+public class SmileRF extends AbstractSmileAlgorithm {
 
 	/**
 	 * The logger used for logging.
 	 */
-	private static final Logger log = Logger.getLogger(SmileSVM.class);
+	private static final Logger log = Logger.getLogger(SmileRF.class);
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see tools.descartes.librede.rrde.recommendation.algorithm.impl.
+	 * AbstractSmileAlgorithm#train(double[][], double[])
+	 */
+	@Override
+	protected boolean train(double[][] features, int[] targets) {
+		try {
+			setClassifier(new RandomForest(features, targets, 10));
+		} catch (Exception e) {
+			log.error("The training of the Random Forest did not finish successfully.", e);
+			return false;
+		}
+		return true;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -66,49 +77,17 @@ public class SmileSVM extends AbstractSmileAlgorithm {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see tools.descartes.librede.rrde.recommendation.algorithm.impl.
-	 * AbstractSmileAlgorithm#train(double[][], int[])
-	 */
-	@Override
-	protected boolean train(double[][] features, int[] targets) {
-		try {
-			SVM<double[]> svm = null;
-			if (getNumberOfSupportedEstimators() == 2) {
-				// only use binary SVM
-				svm = new SVM<double[]>(
-						new GaussianKernel(((SVMAlgorithmSpecifier) getSpecifier()).getGaussianSigma()),
-						((SVMAlgorithmSpecifier) getSpecifier()).getSoftMarginPenalty(),
-						((SVMAlgorithmSpecifier) getSpecifier()).getSoftMarginPenalty());
-			} else {
-				// else train multi-class SVM
-				svm = new SVM<double[]>(
-						new GaussianKernel(((SVMAlgorithmSpecifier) getSpecifier()).getGaussianSigma()),
-						((SVMAlgorithmSpecifier) getSpecifier()).getSoftMarginPenalty(),
-						getNumberOfSupportedEstimators(), Multiclass.ONE_VS_ALL);
-			}
-			svm.learn(features, targets);
-			svm.finish();
-			setClassifier(svm);
-		} catch (Exception e) {
-			log.error("The training of the SVM did not finish successfully.", e);
-			return false;
-		}
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tools.descartes.librede.rrde.recommendation.algorithm.
-	 * IRecomendationAlgorithm
+	 * @see
+	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
 	 * #isSpecifierSupported(tools.descartes.librede.rrde.recommendation.
 	 * RecommendationAlgorithmSpecifier)
 	 */
 	@Override
 	public boolean isSpecifierSupported(RecommendationAlgorithmSpecifier specifier) {
-		if (specifier instanceof SVMAlgorithmSpecifier) {
+		if (specifier instanceof DecisionTreeAlgorithmSpecifier) {
 			return true;
 		}
 		return false;
 	}
+
 }

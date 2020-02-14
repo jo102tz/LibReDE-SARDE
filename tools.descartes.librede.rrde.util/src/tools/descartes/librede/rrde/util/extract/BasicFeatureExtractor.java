@@ -511,7 +511,12 @@ public class BasicFeatureExtractor implements IFeatureExtractor {
 			}
 		}
 
-		regression.newSampleData(avgutilization, preds);
+		try {
+
+			regression.newSampleData(avgutilization, preds);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 
 		// export Rsquared and calculate VIF
 		double rsquared = regression.calculateRSquared();
