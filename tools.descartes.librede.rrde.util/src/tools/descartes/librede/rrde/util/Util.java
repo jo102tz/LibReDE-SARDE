@@ -305,7 +305,8 @@ public class Util {
 			// limit utilization error to 100%
 			utilerror = Math.min(utilerror, 1);
 			// combine both errors using the formula (1/3 rt + util)/2
-			error = rterror / 6f + utilerror / 2f;
+//			error = rterror / 6f + utilerror / 2f;
+			error = rterror / 2f + utilerror / 2f;
 		} catch (Exception e) {
 			log.warn("The compound error could not be computed.");
 			error = Double.MAX_VALUE;

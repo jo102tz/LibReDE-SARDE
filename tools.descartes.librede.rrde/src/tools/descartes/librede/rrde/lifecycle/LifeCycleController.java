@@ -98,6 +98,8 @@ public class LifeCycleController {
 					&& timepassed % lifeCycleConfiguration.getEstimationLoopTime() == 0) {
 				handler.executeEstimation(libredeConfiguration);
 				handler.executeEvaluation(allConf);
+				if (lifeCycleConfiguration.getOptimizationLoopTime() != -1)
+					handler.executeOptimizedEvaluation(allConf);
 			}
 			if (lifeCycleConfiguration.getSelectionLoopTime() != -1
 					&& timepassed % lifeCycleConfiguration.getSelectionLoopTime() == 0) {

@@ -30,7 +30,6 @@ package tools.descartes.librede.rrde.lifecycle.logs;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
@@ -57,8 +56,7 @@ public class LogBook {
 	/**
 	 * Constructor.
 	 * 
-	 * @param type
-	 *            The type of records that should be contained in this LogBook.
+	 * @param type The type of records that should be contained in this LogBook.
 	 */
 	public LogBook() {
 		counts = new HashMap<>();
@@ -67,14 +65,14 @@ public class LogBook {
 		counts.put(OperationType.TRAINING, 0);
 		counts.put(OperationType.OPTIMIZATION, 0);
 		counts.put(OperationType.EVALUATION, 0);
+		counts.put(OperationType.OPTIMIZED_EVALUATION, 0);
 		book = new TreeSet<>();
 	}
 
 	/**
 	 * Add this entry to logbook.
 	 * 
-	 * @param entry
-	 *            The entry to add.
+	 * @param entry The entry to add.
 	 */
 	public void insert(LogEntry entry) {
 		book.add(entry);
@@ -82,8 +80,8 @@ public class LogBook {
 	}
 
 	/**
-	 * Returns the number of logs (executions) of the specific type contained in
-	 * the book.
+	 * Returns the number of logs (executions) of the specific type contained in the
+	 * book.
 	 * 
 	 * @return Size of the {@link LogBook}.
 	 */
@@ -98,13 +96,12 @@ public class LogBook {
 	/**
 	 * Writes this logbook to the given CSV-File.
 	 * 
-	 * @param file
-	 *            The file to write to.
-	 * @throws FileNotFoundException
-	 *             If the given file object does not denote an existing,
-	 *             writable regular file and a new regular file of that name
-	 *             cannot be created, or if some other error occurs while
-	 *             opening orcreating the file.
+	 * @param file The file to write to.
+	 * @throws FileNotFoundException If the given file object does not denote an
+	 *                               existing, writable regular file and a new
+	 *                               regular file of that name cannot be created, or
+	 *                               if some other error occurs while opening
+	 *                               orcreating the file.
 	 */
 	public void exportToCsv(String file) throws FileNotFoundException {
 		PrintWriter pw;
@@ -133,11 +130,15 @@ public class LogBook {
 				sb.append("-,");
 				sb.append(((EstimationEntry) entry).getEstimate() + ", ");
 				sb.append(((EstimationEntry) entry).getError() + ", ");
-			} else if (entry instanceof EvaluationEntry){
-				sb.append(((EvaluationEntry) entry).getApproach()+", ");
-				sb.append(((EvaluationEntry) entry).getEstimate()+", ");
-				sb.append(((EvaluationEntry) entry).getError()+", ");
-			} else if (entry instanceof SkippedEntry){
+			} else if (entry instanceof EvaluationEntry) {
+				sb.append(((EvaluationEntry) entry).getApproach() + ", ");
+				sb.append(((EvaluationEntry) entry).getEstimate() + ", ");
+				sb.append(((EvaluationEntry) entry).getError() + ", ");
+			} else if (entry instanceof OptimizedEvaluationEntry) {
+				sb.append(((OptimizedEvaluationEntry) entry).getApproach() + ", ");
+				sb.append(((OptimizedEvaluationEntry) entry).getEstimate() + ", ");
+				sb.append(((OptimizedEvaluationEntry) entry).getError() + ", ");
+			} else if (entry instanceof SkippedEntry) {
 				sb.append("SKIPPED,");
 				sb.append("SKIPPED,");
 				sb.append("SKIPPED,");

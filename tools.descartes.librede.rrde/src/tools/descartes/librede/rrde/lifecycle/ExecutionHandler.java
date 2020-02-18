@@ -52,6 +52,7 @@ import tools.descartes.librede.rrde.lifecycle.logs.EvaluationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.LogBook;
 import tools.descartes.librede.rrde.lifecycle.logs.LogEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.OperationType;
+import tools.descartes.librede.rrde.lifecycle.logs.OptimizedEvaluationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.RecommendationEntry;
 import tools.descartes.librede.rrde.lifecycle.logs.SkippedEntry;
 import tools.descartes.librede.rrde.lifecycle.semaphors.DefaultOptimizationResult;
@@ -67,8 +68,6 @@ import tools.descartes.librede.rrde.util.extract.IFeatureExtractor;
 import tools.descartes.librede.rrde.util.wrapper.CachedWrapper;
 import tools.descartes.librede.rrde.util.wrapper.IWrapper;
 import tools.descartes.librede.rrde.util.wrapper.Wrapper;
-import tools.descartes.librede.units.Quantity;
-import tools.descartes.librede.units.Time;
 
 /**
  * Handler for executing, logging and storing all execution runs.
@@ -88,6 +87,8 @@ public class ExecutionHandler {
 	private Map<String, IWrapper> estimationMap;
 
 	private Map<String, IWrapper> evaluationMap;
+
+	private Map<String, IWrapper> optimizedEvaluationMap;
 
 	private IWrapper optimizationWrapper;
 
@@ -112,6 +113,8 @@ public class ExecutionHandler {
 	private boolean trainRunning = false;
 
 	private boolean evalRunning = false;
+
+	private boolean optEvalRunning = false;
 
 	private String outputfolder;
 
@@ -144,9 +147,11 @@ public class ExecutionHandler {
 	public boolean init(LibredeConfiguration allConf, boolean warmup) {
 		estimationMap = new HashMap<>();
 		evaluationMap = new HashMap<>();
+		optimizedEvaluationMap = new HashMap<>();
 		for (EstimationApproachConfiguration est : allConf.getEstimation().getApproaches()) {
 			estimationMap.put(est.getType(), new CachedWrapper());
 			evaluationMap.put(est.getType(), new CachedWrapper());
+			optimizedEvaluationMap.put(est.getType(), new CachedWrapper());
 		}
 		if (warmup) {
 			// warm cache
@@ -156,7 +161,11 @@ public class ExecutionHandler {
 			for (IWrapper wrap : evaluationMap.values()) {
 				wrap.executeLibrede(allConf);
 			}
+			for (IWrapper wrap : optimizedEvaluationMap.values()) {
+				wrap.executeLibrede(allConf);
+			}
 		}
+
 		return true;
 	}
 
@@ -215,6 +224,44 @@ public class ExecutionHandler {
 				logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.EVALUATION));
 				log.warn("There is currently one evaluation run still running. Therefore we skip the "
 						+ logbook.getLength(OperationType.EVALUATION) + "th operation.");
+			}
+		}
+	}
+
+	/**
+	 * Schedules one evaluation run of the optimized estimator.
+	 * 
+	 * @param The Librede configuration to execute. (Contains all approaches to
+	 *            execute.
+	 */
+	public void executeOptimizedEvaluation(LibredeConfiguration allConf) {
+		synchronized (this) {
+			if (!optEvalRunning) {
+				optEvalRunning = true;
+				log.info("Executing optimized evaluation estimations run.");
+				Collection<Future<?>> futures = new ArrayList<>();
+				try {
+					LibredeConfiguration toExec = EcoreUtil.copy(allConf);
+					for (EstimationApproachConfiguration est : allConf.getEstimation().getApproaches()) {
+						toExec.getEstimation().getApproaches().clear();
+						toExec.getEstimation().getApproaches().add(EcoreUtil.copy(est));
+						futures.add(executor.submit(new SingleOptimizedEvaluationRunner(toExec)));
+					}
+					// wait for all tasks to complete in order to reschedule new
+					// runs
+					for (Future<?> f : futures) {
+						f.get();
+					}
+				} catch (Exception e) {
+					log.warn("Organizing the optimized evaluation estimation runs threw an error.", e);
+					e.printStackTrace();
+				}
+				optEvalRunning = false;
+
+			} else {
+				logbook.insert(new SkippedEntry(System.currentTimeMillis(), OperationType.OPTIMIZED_EVALUATION));
+				log.warn("There is currently one optimized evaluation run still running. Therefore we skip the "
+						+ logbook.getLength(OperationType.OPTIMIZED_EVALUATION) + "th operation.");
 			}
 		}
 	}
@@ -359,7 +406,7 @@ public class ExecutionHandler {
 					log.info("Executed default configuration, as no approach is selected yet.");
 					if (optDefault != null) {
 						log.info(
-								"The default configuration has been optimized though, using optimized default approach.");
+								"However, the default configuration has been optimized, therefore we use optimized default approach.");
 						libredeConfiguration = Util.setEstimationSpec(libredeConfiguration,
 								optDefault.getOptimizedEstimator());
 					} else {
@@ -649,7 +696,6 @@ public class ExecutionHandler {
 		 * 
 		 * @see java.lang.Runnable#run()
 		 */
-		@SuppressWarnings("deprecation")
 		@Override
 		public void run() {
 			log.info("Executing evaluation run for approach " + toExec.getEstimation().getApproaches().get(0).getType()
@@ -690,6 +736,93 @@ public class ExecutionHandler {
 			log.info("Executed " + logbook.getLength(OperationType.EVALUATION) + "th evaluation run for approach "
 					+ entry.getApproach() + ". End-timestamp: " + toExec.getEstimation().getEndTimestamp().toString()
 					+ ", Error: " + entry.getError());
+		}
+	}
+
+	/**
+	 * Runnable for the evaluation estimations.
+	 * 
+	 * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
+	 *
+	 */
+	private class SingleOptimizedEvaluationRunner implements Runnable {
+
+		/**
+		 * The logger used for logging
+		 */
+		private final Logger log = Logger.getLogger(SingleOptimizedEvaluationRunner.class);
+
+		private LibredeConfiguration toExec;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param The config to execute.
+		 */
+		public SingleOptimizedEvaluationRunner(LibredeConfiguration toExec) {
+			this.toExec = EcoreUtil.copy(toExec);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Runnable#run()
+		 */
+		@Override
+		public void run() {
+			log.info("Executing optimized single evaluation run for approach "
+					+ toExec.getEstimation().getApproaches().get(0).getType() + ".");
+			LibredeResults res = null;
+			EvaluationEntry entry = null;
+			long tic = System.currentTimeMillis();
+			try {
+				if (toExec.getEstimation().getApproaches().size() != 1) {
+					throw new IllegalArgumentException("Exactly one defined approach expected.");
+				}
+				// get current optimized result
+				if (optResult != null) {
+					// if the optimized results contain an optimized specification, we replace the
+					// current approach with the optimized one.
+					for (EstimationSpecification estimation : optResult.getOptimizedEstimators()) {
+						if (toExec.getEstimation().getApproaches().get(0).getType()
+								.equals(estimation.getApproaches().get(0).getType())) {
+							Util.setEstimationSpec(toExec, estimation);
+							log.trace("Replaced standard approach of approach "
+									+ toExec.getEstimation().getApproaches().get(0).getType() + " with optimized one.");
+						}
+					}
+				}
+
+				IWrapper wrapper = evaluationMap.get(toExec.getEstimation().getApproaches().get(0).getType());
+				if (wrapper == null) {
+					throw new IllegalStateException("The optimized evaluation estimation aprpoach "
+							+ toExec.getEstimation().getApproaches().get(0)
+							+ " has no valid evaluation wrapper type assigned.");
+				}
+				res = wrapper.executeLibrede(toExec);
+			} catch (Exception e) {
+				log.warn("Executing the evaluation estimation threw an error.", e);
+				e.printStackTrace();
+			} finally {
+				long toc = System.currentTimeMillis();
+				entry = new OptimizedEvaluationEntry(tic, toc, toExec.getEstimation().getApproaches().get(0).getType(),
+						"Error when running optimized evaluation estimation.",
+						"Error when running optimized evaluation estimation.");
+				if (res != null) {
+					try {
+						entry.setError(new Double(Util.getValidationError(res, toExec.getValidation())).toString());
+						entry.setEstimate(res.getAllEstimates().values().toString());
+					} catch (Exception e) {
+						// do nothing, continue
+						log.warn("Error when estimating the estimation error.", e);
+						e.printStackTrace();
+					}
+				}
+				logbook.insert(entry);
+			}
+			log.info("Executed " + logbook.getLength(OperationType.OPTIMIZED_EVALUATION)
+					+ "th optimized evaluation run for approach " + entry.getApproach() + ". End-timestamp: "
+					+ toExec.getEstimation().getEndTimestamp().toString() + ", Error: " + entry.getError());
 		}
 	}
 

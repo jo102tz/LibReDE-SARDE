@@ -101,6 +101,13 @@ public class LogEntry implements Comparable<LogEntry> {
 	public OperationType getType() {
 		return type;
 	}
+	
+	/**
+	 * @return the type
+	 */
+	public void setType(OperationType type) {
+		this.type = type;
+	}
 
 	/**
 	 * @param type
