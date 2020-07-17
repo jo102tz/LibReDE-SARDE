@@ -28,22 +28,22 @@ package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 
 import org.apache.log4j.Logger;
 
-import smile.classification.RandomForest;
+import smile.classification.GradientTreeBoost;
 import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 
 /**
- * Random Forest implementation of SMILE.
+ * Classifaction algorithm based on gradient tree boosting.
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class SmileRF extends AbstractSmileAlgorithm {
+public class SmileGTB extends AbstractSmileAlgorithm {
 
 	/**
 	 * The logger used for logging.
 	 */
-	private static final Logger log = Logger.getLogger(SmileRF.class);
+	private static final Logger log = Logger.getLogger(SmileGTB.class);
 
 	/*
 	 * (non-Javadoc)
@@ -54,9 +54,10 @@ public class SmileRF extends AbstractSmileAlgorithm {
 	@Override
 	protected boolean train(double[][] features, int[] targets) {
 		try {
-			setClassifier(new RandomForest(features, targets, 5, 2));
+			setClassifier(new GradientTreeBoost(features, targets,
+					((DecisionTreeAlgorithmSpecifier) getSpecifier()).getMaximumNumberOfNodes()));
 		} catch (Exception e) {
-			log.error("The training of the Random Forest did not finish successfully.", e);
+			log.error("The training of the gradient tree forest did not finish successfully.", e);
 			return false;
 		}
 		return true;

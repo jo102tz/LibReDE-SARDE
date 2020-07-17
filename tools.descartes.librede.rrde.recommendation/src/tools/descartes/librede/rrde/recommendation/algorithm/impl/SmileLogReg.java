@@ -28,22 +28,22 @@ package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 
 import org.apache.log4j.Logger;
 
-import smile.classification.RandomForest;
+import smile.classification.LogisticRegression;
 import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 
 /**
- * Random Forest implementation of SMILE.
+ * Classifaction algorithm based on the logistic regression algorithm.
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class SmileRF extends AbstractSmileAlgorithm {
+public class SmileLogReg extends AbstractSmileAlgorithm {
 
 	/**
 	 * The logger used for logging.
 	 */
-	private static final Logger log = Logger.getLogger(SmileRF.class);
+	private static final Logger log = Logger.getLogger(SmileLogReg.class);
 
 	/*
 	 * (non-Javadoc)
@@ -54,9 +54,9 @@ public class SmileRF extends AbstractSmileAlgorithm {
 	@Override
 	protected boolean train(double[][] features, int[] targets) {
 		try {
-			setClassifier(new RandomForest(features, targets, 5, 2));
+			setClassifier(new LogisticRegression(features, targets));
 		} catch (Exception e) {
-			log.error("The training of the Random Forest did not finish successfully.", e);
+			log.error("The training of logistic regression did not finish successfully.", e);
 			return false;
 		}
 		return true;
@@ -83,10 +83,8 @@ public class SmileRF extends AbstractSmileAlgorithm {
 	 */
 	@Override
 	public boolean isSpecifierSupported(RecommendationAlgorithmSpecifier specifier) {
-		if (specifier instanceof DecisionTreeAlgorithmSpecifier) {
-			return true;
-		}
-		return false;
+		// any specifier is fine
+		return true;
 	}
 
 }

@@ -26,67 +26,65 @@
  */
 package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
-import smile.classification.RandomForest;
-import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 
 /**
- * Random Forest implementation of SMILE.
+ * A recommender predicting the estimator that was the most used during
+ * training. Used for comparison mainly.
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class SmileRF extends AbstractSmileAlgorithm {
+public class SmileSingleBestClassifier extends AbstractSmileAlgorithm {
 
 	/**
 	 * The logger used for logging.
 	 */
-	private static final Logger log = Logger.getLogger(SmileRF.class);
+	private static final Logger log = Logger.getLogger(SmileSingleBestClassifier.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tools.descartes.librede.rrde.recommendation.algorithm.impl.
-	 * AbstractSmileAlgorithm#train(double[][], double[])
-	 */
 	@Override
-	protected boolean train(double[][] features, int[] targets) {
-		try {
-			setClassifier(new RandomForest(features, targets, 5, 2));
-		} catch (Exception e) {
-			log.error("The training of the Random Forest did not finish successfully.", e);
-			return false;
-		}
+	public boolean isSpecifierSupported(RecommendationAlgorithmSpecifier specifier) {
+		// any specifier is fine
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tools.descartes.librede.rrde.recommendation.algorithm.
-	 * AbstractRecommendationAlgorithm#getLog()
-	 */
+	@Override
+	protected boolean train(double[][] features, int[] targets) {
+		// counting the approach that occurs most often
+		List<Integer> list = new ArrayList<Integer>();
+		for( int k: targets ) {
+			list.add(k);
+		}
+		int max = 0;
+		int curr = 0;
+		Integer currKey = null;
+		Set<Integer> unique = new HashSet<Integer>(list);
+
+		for (Integer key : unique) {
+			curr = Collections.frequency(list, key);
+
+			if (max < curr) {
+				max = curr;
+				currKey = key;
+			}
+		}
+		
+		// The number currKey  happens the most times (max)
+		setClassifier(new DummyClasifier(currKey));
+		return true;
+	}
+
 	@Override
 	protected Logger getLog() {
 		return log;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
-	 * #isSpecifierSupported(tools.descartes.librede.rrde.recommendation.
-	 * RecommendationAlgorithmSpecifier)
-	 */
-	@Override
-	public boolean isSpecifierSupported(RecommendationAlgorithmSpecifier specifier) {
-		if (specifier instanceof DecisionTreeAlgorithmSpecifier) {
-			return true;
-		}
-		return false;
 	}
 
 }

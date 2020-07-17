@@ -28,65 +28,37 @@ package tools.descartes.librede.rrde.recommendation.algorithm.impl;
 
 import org.apache.log4j.Logger;
 
-import smile.classification.RandomForest;
-import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 
 /**
- * Random Forest implementation of SMILE.
+ * A dummy recommender predicting a random estimator. Used for comparison mainly.
  * 
  * @author Johannes Grohmann (johannes.grohmann@uni-wuerzburg.de)
  *
  */
-public class SmileRF extends AbstractSmileAlgorithm {
-
+public class SmileRandomClassifier extends AbstractSmileAlgorithm {
+	
 	/**
 	 * The logger used for logging.
 	 */
-	private static final Logger log = Logger.getLogger(SmileRF.class);
+	private static final Logger log = Logger.getLogger(SmileRandomClassifier.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tools.descartes.librede.rrde.recommendation.algorithm.impl.
-	 * AbstractSmileAlgorithm#train(double[][], double[])
-	 */
 	@Override
-	protected boolean train(double[][] features, int[] targets) {
-		try {
-			setClassifier(new RandomForest(features, targets, 5, 2));
-		} catch (Exception e) {
-			log.error("The training of the Random Forest did not finish successfully.", e);
-			return false;
-		}
+	public boolean isSpecifierSupported(RecommendationAlgorithmSpecifier specifier) {
+		// any specifier is fine
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tools.descartes.librede.rrde.recommendation.algorithm.
-	 * AbstractRecommendationAlgorithm#getLog()
-	 */
+	@Override
+	protected boolean train(double[][] features, int[] targets) {
+		setClassifier(new RandomClassifier(42, getNumberOfSupportedEstimators()));
+		return true;
+	}
+
 	@Override
 	protected Logger getLog() {
 		return log;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * tools.descartes.librede.rrde.recommendation.algorithm.IRecomendationAlgorithm
-	 * #isSpecifierSupported(tools.descartes.librede.rrde.recommendation.
-	 * RecommendationAlgorithmSpecifier)
-	 */
-	@Override
-	public boolean isSpecifierSupported(RecommendationAlgorithmSpecifier specifier) {
-		if (specifier instanceof DecisionTreeAlgorithmSpecifier) {
-			return true;
-		}
-		return false;
-	}
-
+	
+	
 }

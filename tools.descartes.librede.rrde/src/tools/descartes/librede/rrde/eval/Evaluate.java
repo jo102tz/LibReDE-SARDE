@@ -60,10 +60,14 @@ import tools.descartes.librede.rrde.model.optimization.impl.ConfigurationOptimiz
 import tools.descartes.librede.rrde.model.optimization.impl.IterativeParameterOptimizerSpecifierImpl;
 import tools.descartes.librede.rrde.model.optimization.impl.LocalSearchSpecifierImpl;
 import tools.descartes.librede.rrde.model.optimization.impl.StepSizeImpl;
+import tools.descartes.librede.rrde.model.recommendation.DecisionTreeAlgorithmSpecifier;
+import tools.descartes.librede.rrde.model.recommendation.NeuralNetworkAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.RecommendationTrainingConfiguration;
+import tools.descartes.librede.rrde.model.recommendation.SVMAlgorithmSpecifier;
 import tools.descartes.librede.rrde.model.recommendation.impl.DecisionTreeAlgorithmSpecifierImpl;
 import tools.descartes.librede.rrde.model.recommendation.impl.NeuralNetworkAlgorithmSpecifierImpl;
+import tools.descartes.librede.rrde.model.recommendation.impl.RecommendationAlgorithmSpecifierImpl;
 import tools.descartes.librede.rrde.model.recommendation.impl.SVMAlgorithmSpecifierImpl;
 import tools.descartes.librede.rrde.optimization.OptimizationPlugin;
 import tools.descartes.librede.rrde.optimization.algorithm.impl.ExportAlgorithm;
@@ -243,7 +247,7 @@ public class Evaluate {
 
 		// validateNothing();
 
-		// validateRecommenders(librede, recommendation);
+		validateRecommenders(librede, recommendation);
 
 //     validateOptimizationAndRecommendation(librede, optimization,
 //     recommendation);
@@ -331,17 +335,39 @@ public class Evaluate {
 
 	private void validateRecommenders(LibredeConfiguration libconf, RecommendationTrainingConfiguration conf) {
 		// leave other parameters default
-		DecisionTreeAlgorithmSpecifierImpl tree = new DecisionTreeAlgorithmSpecifierImpl();
+		DecisionTreeAlgorithmSpecifier tree = new DecisionTreeAlgorithmSpecifierImpl();
 		tree.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree");
-		NeuralNetworkAlgorithmSpecifierImpl nn = new NeuralNetworkAlgorithmSpecifierImpl();
+		
+		DecisionTreeAlgorithmSpecifier rf = new DecisionTreeAlgorithmSpecifierImpl();
+		rf.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileRF");
+		
+		DecisionTreeAlgorithmSpecifier ada = new DecisionTreeAlgorithmSpecifierImpl();
+		ada.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileAda");
+		
+		DecisionTreeAlgorithmSpecifier gtb = new DecisionTreeAlgorithmSpecifierImpl();
+		gtb.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileGTB");
+		
+		NeuralNetworkAlgorithmSpecifier nn = new NeuralNetworkAlgorithmSpecifierImpl();
 		nn.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileNN");
-		SVMAlgorithmSpecifierImpl svm = new SVMAlgorithmSpecifierImpl();
-		svm.setGaussianSigma(4);
-		svm.setSoftMarginPenalty(1);
+		
+		SVMAlgorithmSpecifier svm = new SVMAlgorithmSpecifierImpl();
 		svm.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileSVM");
-		SVMAlgorithmSpecifierImpl warmup = EcoreUtil.copy(svm);
+		
+		RecommendationAlgorithmSpecifier logreg = new RecommendationAlgorithmSpecifierImpl();
+		logreg.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileLogReg");
+		
+	    RecommendationAlgorithmSpecifier random = new RecommendationAlgorithmSpecifierImpl();
+	    random.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileRandomClassifier");
+	    
+	    RecommendationAlgorithmSpecifier singlebest = new RecommendationAlgorithmSpecifierImpl();
+	    singlebest.setAlgorithmName("tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileSingleBestClassifier");
+		
+		SVMAlgorithmSpecifier warmup = EcoreUtil.copy(svm);
 		// first one for warmup
-		RecommendationAlgorithmSpecifier[] algos = { warmup, tree, nn, svm };
+//		RecommendationAlgorithmSpecifier[] algos = { warmup, tree, nn, svm, rf };
+		RecommendationAlgorithmSpecifier[] algos = { random, singlebest, tree, ada, gtb, rf, nn, logreg, svm};
+
+		
 
 		IFeatureExtractor extractor = tools.descartes.librede.rrde.recommendation.Plugin
 				.loadFeatureExtractor(conf.getFeatureAlgorithm());
