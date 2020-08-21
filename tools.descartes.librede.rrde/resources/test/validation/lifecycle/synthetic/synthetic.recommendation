@@ -188,7 +188,7 @@
       <unit href="librede:units#SECONDS"/>
     </aggregation>
   </featureAlgorithm>
-  <learningAlgorithm xsi:type="librede-recommendation:DecisionTreeAlgorithmSpecifier" algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileTree"/>
+  <learningAlgorithm xsi:type="librede-recommendation:DecisionTreeAlgorithmSpecifier" algorithmName="tools.descartes.librede.rrde.recommendation.algorithm.impl.SmileRF"/>
   <estimators window="60">
     <approaches type="tools.descartes.librede.approach.ServiceDemandLawApproach"/>
     <algorithms type="tools.descartes.librede.bayesplusplus.ExtendedKalmanFilter"/>

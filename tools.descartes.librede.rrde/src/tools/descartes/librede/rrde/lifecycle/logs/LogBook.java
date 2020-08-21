@@ -101,12 +101,12 @@ public class LogBook {
 	 *                               existing, writable regular file and a new
 	 *                               regular file of that name cannot be created, or
 	 *                               if some other error occurs while opening
-	 *                               orcreating the file.
+	 *                               or creating the file.
 	 */
 	public void exportToCsv(String file) throws FileNotFoundException {
 		PrintWriter pw;
 		pw = new PrintWriter(new File(file));
-		StringBuilder sb = new StringBuilder();
+		StringBuffer sb = new StringBuffer();
 
 		// header
 		sb.append("Finish time,");
@@ -148,9 +148,10 @@ public class LogBook {
 				sb.append("-,");
 			}
 			sb.append("\n");
+			pw.write(sb.toString());
+			pw.flush();
+			sb = new StringBuffer();
 		}
-
-		pw.write(sb.toString());
 		pw.close();
 	}
 

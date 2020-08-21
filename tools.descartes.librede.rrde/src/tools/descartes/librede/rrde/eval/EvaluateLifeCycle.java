@@ -69,9 +69,9 @@ public class EvaluateLifeCycle {
 	/**
 	 * A link to the desktop.
 	 */
-	public static final String DESKTOP = File.separator + "home" + File.separator + "seadmin" + File.separator + "git";
-//	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes" + File.separator
-//			+ "Desktop";
+//	public static final String DESKTOP = File.separator + "home" + File.separator + "seadmin" + File.separator + "git";
+	public static final String DESKTOP = "C:" + File.separator + "Users" + File.separator + "Johannes" + File.separator
+			+ "Desktop";
 
 	/**
 	 * The path linking to the test folder.
@@ -146,9 +146,9 @@ public class EvaluateLifeCycle {
 		conf.setOptimizationLoopTime(-1);
 
 		conf.setEstimationLoopTime(70);
-		conf.setSelectionLoopTime(170);
-		conf.setRecommendationLoopTime(700);
-//		conf.setOptimizationLoopTime(1000);
+//		conf.setSelectionLoopTime(170);
+//		conf.setRecommendationLoopTime(700);
+		conf.setOptimizationLoopTime(1000);
 
 		// OPTIONAL
 		// set input specification of optimization to be the same of the
