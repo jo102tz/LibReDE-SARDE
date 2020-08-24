@@ -360,6 +360,20 @@ public class ExecutionHandler {
 			log.error("Error with logging the estimation log.");
 		}
 	}
+	
+	/**
+	 * Prints an intermediate result logbook to a temp-file.
+	 */
+	public void serialize_intermediate_logs() {
+		String tmp = outputfolder + File.separator + "logbook-tmp.csv";
+		try {
+			logbook.exportToCsv(tmp);
+		} catch (FileNotFoundException e) {
+			log.warn("Temprary logs could not be exportetd.");
+			e.printStackTrace();
+		}
+		log.trace("Exported temporary logs to " + tmp);
+	}
 
 	/**
 	 * Runnable for the estimation.

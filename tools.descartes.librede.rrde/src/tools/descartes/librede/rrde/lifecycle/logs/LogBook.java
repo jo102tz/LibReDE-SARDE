@@ -106,51 +106,48 @@ public class LogBook {
 	public void exportToCsv(String file) throws FileNotFoundException {
 		PrintWriter pw;
 		pw = new PrintWriter(new File(file));
-		StringBuffer sb = new StringBuffer();
 
 		// header
-		sb.append("Finish time,");
-		sb.append("Time,");
-		sb.append("Type,");
-		sb.append("Selected Approach,");
-		sb.append("Estimated Demand,");
-		sb.append("Estimated Error,");
-		sb.append("\n");
+		pw.write("Finish time,");
+		pw.write("Time,");
+		pw.write("Type,");
+		pw.write("Selected Approach,");
+		pw.write("Estimated Demand,");
+		pw.write("Estimated Error,");
+		pw.write("\n");
 
 		// entries
 		for (LogEntry entry : book) {
-			sb.append(entry.getEndtimems() + ", ");
-			sb.append(entry.getEndtimems() - entry.getStarttimems() + ", ");
-			sb.append(entry.getType() + ", ");
+			pw.write(entry.getEndtimems() + ", ");
+			pw.write(entry.getEndtimems() - entry.getStarttimems() + ", ");
+			pw.write(entry.getType() + ", ");
 			if (entry instanceof RecommendationEntry) {
-				sb.append(((RecommendationEntry) entry).getChosenApproach() + ", ");
-				sb.append("-,");
-				sb.append("-,");
+				pw.write(((RecommendationEntry) entry).getChosenApproach() + ", ");
+				pw.write("-,");
+				pw.write("-,");
 			} else if (entry instanceof EstimationEntry) {
-				sb.append("-,");
-				sb.append(((EstimationEntry) entry).getEstimate() + ", ");
-				sb.append(((EstimationEntry) entry).getError() + ", ");
+				pw.write("-,");
+				pw.write(((EstimationEntry) entry).getEstimate() + ", ");
+				pw.write(((EstimationEntry) entry).getError() + ", ");
 			} else if (entry instanceof EvaluationEntry) {
-				sb.append(((EvaluationEntry) entry).getApproach() + ", ");
-				sb.append(((EvaluationEntry) entry).getEstimate() + ", ");
-				sb.append(((EvaluationEntry) entry).getError() + ", ");
+				pw.write(((EvaluationEntry) entry).getApproach() + ", ");
+				pw.write(((EvaluationEntry) entry).getEstimate() + ", ");
+				pw.write(((EvaluationEntry) entry).getError() + ", ");
 			} else if (entry instanceof OptimizedEvaluationEntry) {
-				sb.append(((OptimizedEvaluationEntry) entry).getApproach() + ", ");
-				sb.append(((OptimizedEvaluationEntry) entry).getEstimate() + ", ");
-				sb.append(((OptimizedEvaluationEntry) entry).getError() + ", ");
+				pw.write(((OptimizedEvaluationEntry) entry).getApproach() + ", ");
+				pw.write(((OptimizedEvaluationEntry) entry).getEstimate() + ", ");
+				pw.write(((OptimizedEvaluationEntry) entry).getError() + ", ");
 			} else if (entry instanceof SkippedEntry) {
-				sb.append("SKIPPED,");
-				sb.append("SKIPPED,");
-				sb.append("SKIPPED,");
+				pw.write("SKIPPED,");
+				pw.write("SKIPPED,");
+				pw.write("SKIPPED,");
 			} else {
-				sb.append("-,");
-				sb.append("-,");
-				sb.append("-,");
+				pw.write("-,");
+				pw.write("-,");
+				pw.write("-,");
 			}
-			sb.append("\n");
-			pw.write(sb.toString());
+			pw.write("\n");
 			pw.flush();
-			sb = new StringBuffer();
 		}
 		pw.close();
 	}

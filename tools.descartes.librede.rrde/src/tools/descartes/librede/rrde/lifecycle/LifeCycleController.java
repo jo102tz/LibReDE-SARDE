@@ -27,6 +27,8 @@
  */
 package tools.descartes.librede.rrde.lifecycle;
 
+import java.io.File;
+
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -114,8 +116,11 @@ public class LifeCycleController {
 				handler.executeOptimization(lifeCycleConfiguration.getOptimizationConfiguration(),
 						libredeConfiguration);
 			}
-			Thread.sleep(1000);
+			// saving intermediate results
+			if (timepassed % 10 == 0)
+				handler.serialize_intermediate_logs();
 			log.trace("Executed " + timepassed + "th loop interval.");
+			Thread.sleep(1000);
 		}
 		handler.finish();
 	}
