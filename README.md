@@ -6,5 +6,5 @@ Therefore, the project name `librede-rrde` stands for Reliable Resource Demand E
 
 For more information, please refer to the official website: [LibReDE](http://descartes.tools/librede)
 
-The tool is currently under submission.
+The tool is currently under submission, therefore this page is still under construction.
 
