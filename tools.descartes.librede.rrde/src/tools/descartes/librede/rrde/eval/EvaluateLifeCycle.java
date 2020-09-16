@@ -146,8 +146,8 @@ public class EvaluateLifeCycle {
 		conf.setOptimizationLoopTime(-1);
 
 		conf.setEstimationLoopTime(70);
-		conf.setSelectionLoopTime(170);
-		conf.setRecommendationLoopTime(700);
+//		conf.setSelectionLoopTime(170);
+//		conf.setRecommendationLoopTime(700);
 		conf.setOptimizationLoopTime(1000);
 
 		// OPTIONAL

@@ -264,7 +264,7 @@ public class Util {
 			log.trace("Calculating the compound error.");
 			return compound;
 		} else {
-			log.info("Returning the more generic function getValidationError().");
+			log.trace("Returning the more generic validation error.");
 			double error = 0;
 
 			for (ValidatorConfiguration validator : vali.getValidators()) {

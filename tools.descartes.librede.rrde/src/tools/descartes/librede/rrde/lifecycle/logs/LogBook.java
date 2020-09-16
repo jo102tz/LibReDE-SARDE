@@ -30,6 +30,7 @@ package tools.descartes.librede.rrde.lifecycle.logs;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
@@ -66,7 +67,7 @@ public class LogBook {
 		counts.put(OperationType.OPTIMIZATION, 0);
 		counts.put(OperationType.EVALUATION, 0);
 		counts.put(OperationType.OPTIMIZED_EVALUATION, 0);
-		book = new TreeSet<>();
+		book = Collections.synchronizedSortedSet(new TreeSet<>());
 	}
 
 	/**
@@ -74,7 +75,7 @@ public class LogBook {
 	 * 
 	 * @param entry The entry to add.
 	 */
-	public void insert(LogEntry entry) {
+	public synchronized void insert(LogEntry entry) {
 		book.add(entry);
 		counts.put(entry.getType(), counts.get(entry.getType()) + 1);
 	}
@@ -85,7 +86,7 @@ public class LogBook {
 	 * 
 	 * @return Size of the {@link LogBook}.
 	 */
-	public int getLength(OperationType type) {
+	public synchronized int getLength(OperationType type) {
 		if (counts.containsKey(type)) {
 			return counts.get(type);
 		} else {
@@ -103,7 +104,7 @@ public class LogBook {
 	 *                               if some other error occurs while opening
 	 *                               or creating the file.
 	 */
-	public void exportToCsv(String file) throws FileNotFoundException {
+	public synchronized void exportToCsv(String file) throws FileNotFoundException {
 		PrintWriter pw;
 		pw = new PrintWriter(new File(file));
 

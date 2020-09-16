@@ -156,9 +156,10 @@
   </workloadDescription>
       </trainingData>
       <settings>
-        <validator validateEstimates="true">
-          <validators type="tools.descartes.librede.validation.ResponseTimeValidator"/>
-        </validator>
+		  <validation validateEstimates="true">
+			<validators type="tools.descartes.librede.validation.WeightedResponseTimeValidator"/>
+			<validators type="tools.descartes.librede.validation.AbsoluteUtilizationValidator"/>
+		  </validation>
         <parametersToOptimize xsi:type="librede-optimization:GenericParameter" startValue="0.01" parameter="//@containsOf.1/@estimation/@algorithms.0/@parameters.1"/>
         <parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="0.1" startValue="0.01" parameter="//@containsOf.1/@estimation/@algorithms.0/@parameters.4"/>
         <parametersToOptimize xsi:type="librede-optimization:GenericParameter" upperBound="0.1" startValue="0.01" parameter="//@containsOf.1/@estimation/@algorithms.0/@parameters.0"/>

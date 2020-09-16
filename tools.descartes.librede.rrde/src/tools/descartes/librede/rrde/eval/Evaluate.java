@@ -110,7 +110,7 @@ public class Evaluate {
 	/**
 	 * The path to the default {@link OptimizationConfiguration}
 	 */
-	public final static String OPT_PATH = TESTPATH + File.separator + "conf.optimization";
+	public final static String OPT_PATH = TESTPATH + File.separator + "paper.optimization";
 
 	/**
 	 * The path to the default {@link RecommendationTrainingConfiguration}
@@ -243,15 +243,15 @@ public class Evaluate {
 
 		// calculateOptimalSolutions(EcoreUtil.copy(optimization));
 
-//    validateOptimizers(EcoreUtil.copy(librede), EcoreUtil.copy(optimization));
+        validateOptimizers(EcoreUtil.copy(librede), EcoreUtil.copy(optimization));
 
 		// validateNothing();
 
-		validateRecommenders(librede, recommendation);
+//		validateRecommenders(librede, recommendation);
 
 //     validateOptimizationAndRecommendation(librede, optimization,
 //     recommendation);
-		// validateAllOptimizersAutomatically(librede, optimization);
+//		validateAllOptimizersAutomatically(librede, optimization);
 
 	}
 
