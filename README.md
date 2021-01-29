@@ -58,6 +58,7 @@ Therefore, we need a set of monitoring traces together with a valid LibReDE conf
 An example of such measurements can be downloaded [here](https://bitbucket.org/librede/librede/downloads/LibredeExamples.zip).
 
 ### Configuration
+SARDE relies on EMF models to define run configurations for executions. The respective meta-model definition can be found [here](/tools.descartes.librede.rrde.model/model/lifecycle.ecore).
 
 ### Execution
 
