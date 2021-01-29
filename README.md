@@ -20,7 +20,7 @@ As SARDE is an AddOn to the main project [LibReDE](http://descartes.tools/libred
 - Eclipse: Eclipse Standard 4.4 or higher. (download from [here](http://www.eclipse.org/downloads/))
 - Fortran: On Linux, please ensure that the library `gfortran` is installed. On Windows, Librede comes with its own version.
 
-In addition, when using the development environment, make sure that the Eclipse version you are using has the [Eclipse Modeling Framework (EMF)](https://www.eclipse.org/modeling/emf/), and the [Rich Client Platform (RCP)](https://wiki.eclipse.org/Rich_Client_Platform) installed. 
+In addition, when using the development environment, make sure that the Eclipse version you are using has the [Eclipse Modeling Framework (EMF)](https://www.eclipse.org/modeling/emf/), [Maven](https://maven.apache.org/), and the [Rich Client Platform (RCP)](https://wiki.eclipse.org/Rich_Client_Platform) installed. 
 You can use the [User Guide](https://se.informatik.uni-wuerzburg.de/fileadmin/10030200/user_upload/librede/LibReDE_UserGuide_01.pdf) to help with installation, and to verify that the installation is working correctly. 
 
 ### Prerequisites
@@ -28,13 +28,20 @@ You can use the [User Guide](https://se.informatik.uni-wuerzburg.de/fileadmin/10
 For the proper execution of SARDE, a few Prerequisites are required.
 
 - [LibReDE](http://descartes.tools/librede) at least version 1.1 required. (however we recommend that you check out the current development branch).
-- [An R interpreter](https://www.r-project.org/) version 3.3 or higher. Make sure, that both R and your Java version are 64-Bit installations (or both 32-Bit). Furthermore, ensure that both Java and the R interpreter are added to the PATH of your system. (SARDE comes with [rJava](https://www.rforge.net/rJava/), which enables the optimization engine to run R scripts.)
+- [An R interpreter](https://www.r-project.org/) version 3.3 or higher. Make sure, that both R and your Java version are 64-Bit installations (or both 32-Bit). Furthermore, ensure that both Java and the R interpreter are added to the PATH of your system. Furthermore, install the `rJava` package for the R installation. (SARDE works with [rJava](https://www.rforge.net/rJava/), which enables the optimization engine to run R scripts.)
 
 Just add R_HOME with the Path to the R installation on the system (e.g. C:\Program Files\R\R-3.3.1) and PATH with the path to the libraries (e.g. C:\Program Files\R\R-3.3.1\bin\x64;C:\Program Files\Java\jre1.8.0_77\bin\server;C:\Users\Johannes Grohmann\git\ma\tools.descartes.librede.rrde.rinterface\lib;C:\Users\Johannes Grohmann\git\ma\tools.descartes.librede.rrde.rinterface\R\win-library\3.3\rJava\jri\x64) to the EnvironmentVariables in the RunConfiguration
 
 ### Installation
 
-Download the source code from [GitLab](https://gitlab2.informatik.uni-wuerzburg.de/descartes/librede-rrde). 
+1. Download the source code from [GitLab](https://gitlab2.informatik.uni-wuerzburg.de/descartes/librede-rrde) and integrate it into eclipse.
+2. Make sure that all dependent packages (including LibReDE) can be found, by switching the target build platform to the `Librede Update Site`.
+3. Define the application runtime: 
+    1. If not running a 64-Bit version, add `-Dos.name=win32` as argument to the JVM.
+    2. Link R, the downloaded JRI package, and the JRE binary in the `PATH` as environment variable to the JVM. 
+    3. Furthermore, link the path to the R installation as `R_HOME` as environment variable to the JVM. 
+
+If you are having troubles with running rJava, check out [this website](http://www.studytrails.com/rjava-eclipse-plugin/rjava-eclipse-plugin/) for troubleshooting.
 
 ## Using and Executing SARDE
 
