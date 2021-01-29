@@ -174,7 +174,65 @@ The results of all `RunCalls` are aggregated and form the output of the total `O
 
 
 
+### Recommendation
 
+The main class `RecommendationTrainingConfiguration` consists of five main elements: A list of `EstimationSpecifications` to learn as approaches, the `ValidationSpecification` containing information about how the results should be validated, a list of `InputData` objects as training set, a `FeatureExtractorSpecifier` specifying how the features should be extracted for the traces and a `RecommendationAlgorithmSpecifier` defining and configuring the algorithm to use for recommendation.
+
+#### 1. `EstimationSpecifications`
+In contrast to `OptimzationConfiguration`, several different `EstimationSpecifications` from the LibReDE meta-model can be referenced in `RecommendationTrainingConfiguration`. 
+The estimators list contains all the candidate `EstimationSpecifications` to learn.
+
+During the learning process, all of these are evaluated and the algorithms will try to learn which `EstimationSpecification` fits best based on the features of a specific trace.
+The specifications will not be modified during that process.
+Usually, the output of the optimization process will be set as the estimators list of the `RecommendationTrainingConfiguration`.
+Although a list with just one element is acceptable, it does not make a lot of sense, since algorithms always have to return this specification.
+
+#### 2. `ValidationSpecification`
+The `ValidationSpecification` contains information about how to validate the results.
+A `ValidationSpecification` is also required in the `OptimizationConfiguration`. 
+However, it is wrapped in the `OptimizationSettings` along with other settings.
+The `ValidationSpecification` class is also defined in the original LibReDE meta-model, so we omit a more detailed description here.
+
+#### 3. `TrainingData`
+Similarly to the optimization a set of `InputData` objects define the training set. 
+The used class is directly inherited from the `OptimizationConfiguration`, so we refer to the previous section for more details.
+Although the training sets do not have to be equal, most of the time the same training set can be used for optimization and recommendation.
+
+#### 4. `FeatureExtractorSpecifier`
+The feature set is not finally described by the model. 
+Although there exists a model which we use for all training processes, an interface called `IFeatureExtractor` can be implemented. 
+Every class implementing the `IFeatureExtractor` interface from the package `tools.descartes.librede.rrde.recommendation.extract` can be used during the process by putting the fully qualified class name into the `featureExtractor` field.
+
+The recommendation algorithms work with the features provides by the `IFeatureExtractor`, but the extraction itself is handled by a different class.
+This leads to more flexibility, since algorithms and features can be treated separately.
+Currently only `BasicFeaturesExtractor` and `ReducedFeaturesExtractor` are implemented.
+The latter one extracts the reduced and optimized feature set.
+However, more extractors can easily be added. 
+
+The feature extractors are specified by an aggregation value referencing to a `Quantity` object which is parameterized by any `Dimension` extending `Time` from the original LibReDE meta-model.
+By specifying this parameter the aggregation interval, very similar to the `stepSize` of the `EstimationSpecification`, can be defined. 
+It specifies the size of the intervals where aggregation is required for further analysis.
+
+#### 5. `RecommendationAlgorithmSpecifier`
+This class defines the `IRecommendationAlgorithm` to use for training and prediction.
+Similar to `OptimizationAlgorithmSpecifier`, the String parameter `algorithmName` of `RecommendationAlgorithmSpecifier` holds the fully qualified class name of the algorithm to use. 
+It has to implement the `IRecommendationAlgorithm` interface from the `tools.descartes.librede.rrde.recommendation.algorithm` package.
+
+Also similar to the previous section, sub-classes of `RecommendationAlgorithmSpecifier` can be defined to further specialize the algorithm to use and if more parameters have to be configured.
+
+The `NeuralNetworkAlgorithmSpecifier` defines the usage of a neural net algorithm, currently implemented by the `SmileNN` class in the `tools.descartes.librede.rrde.recommendation.algorithm.impl` package. 
+The Integer parameter `numberOfNeurons` specifies the number of neurons to be used while creating the net.
+
+Furthermore, a Support Vector Machine can be used by using a `SVMAlgorithmSpecifier` instance. 
+The parameter `gaussianSigma` refers to the `\sigma`-value of the Gaussian kernel function, while `softMarginPenalty` defines the penalty using a soft-margin classifier.
+Both parameters are Double values since floating point numbers are permitted in both cases.
+
+If the use of a Decision Tree is desired, the class `SmileTree` in the  `tools.descartes.librede.rrde.recommendation.algorithm.impl` package  can be used by referencing an instance of `DecisionTreeAlgorithmSpecifier` with `learningAlgorithm`. 
+The maximum number of nodes contained in the learned decision tree is controlled via the `maximumNumberOfNodes` Integer.
+
+After the training, an `IRecommendationAlgorithm` is returned which can give recommendations of `EstimationSpecifications` based on a given `FeatureVector`.
+In order to work best, the same `IFeatureExtractor` as for the training has to be used.
+Alternatively, an `OptimizedLibredeExecutor` instance can be returned.
 
 
 ## Project Overview
