@@ -152,7 +152,7 @@ The third sub-classing specifier is called `DataExportSpecifier` and it can be u
 We used this specifier for some algorithms exporting the behavior of the traces for further manual analysis. 
 The Double parameter `stepSize` defines the resolution of the exported traces, while the two Boolean parameters `multidimensional` and `splitConfigurations` define the aggregation level of the export algorithms, i.e., if multiple dimensions and configurations should be plotted individually or aggregated and averaged for the export.
 
-All RunCalls return one --- or many, since the given `EstimationSpecification` might be split up at some point during the optimization --- optimized `EstimationSpecification`.
+All RunCalls return one - or many, since the given `EstimationSpecification` might be split up at some point during the optimization - optimized `EstimationSpecification`.
 The results of all `RunCalls` are aggregated and form the output of the total `OptimizationConfiguration`.
 
 
