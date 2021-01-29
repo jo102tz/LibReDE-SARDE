@@ -42,9 +42,21 @@ For the proper execution of SARDE, a few Prerequisites are required.
 If you are having troubles with running rJava, check out [this website](http://www.studytrails.com/rjava-eclipse-plugin/rjava-eclipse-plugin/) for troubleshooting.
 
 ## Using and Executing SARDE
+Once SARDE is successfully installed, there are multiple ways to execute.
+You can call SARDE programmatically via Java, or just execute from console.
+However, it is recommended to execute SARDE from within Eclipse, as both Librede and SARDE come with nice graphical editors to create or update  configurations and execute the estimation.
+However, we first need test data for execution and a valid configuration.
 
 ### Input Data
+As SARDE is relying on the LibReDE framework, the system measurements follow the same interface as standard LibReDE. 
+
+
+More Details can be found in the [User Guide](https://se.informatik.uni-wuerzburg.de/fileadmin/10030200/user_upload/librede/LibReDE_UserGuide_01.pdf).
 
 ### Configuration
 
 ### Execution
+
+Once SARDE is successfully installed, there are multiple ways to execute.
+You can call SARDE programmatically via Java, or just execute from console.
+However, 
