@@ -70,23 +70,22 @@ Alternatively you could use any test classes from the `tools.descartes.librede.r
 ## Configuration
 SARDE relies on EMF models to define run configurations for executions. The respective meta-model definition can be found [here](/tools.descartes.librede.rrde.model/model/lifecycle.ecore).
 
+### LifeCycleConfiguration
+One LifeCycleConfiguration object serves as a wrapper for one `OptimizationConfiguration` instance and one `RecommendationTrainingConfiguration` instance.
+These specify the recommendation as well as the optimization process, if they are triggered.
+If these references are not specified, they are ignored and not executed during the life-cycle of the tool.
 
+The three Long parameters configurable in `LifeCycleConfiguration` define the time interval in which the events are cyclically triggered. 
+If they are set to `-1`, the configuration are just executed once and then never repeated. 
+However, a positive value for `recommendationLoopTime` defines the time in milliseconds between two repetitions of the defined `RecommendationTrainingConfiguration`, i.e., the re-training of the specified recommendation algorithm. 
+This might be useful, because the training set might change or augment in this interval.
+Similarly the `optimizationLoopTime` defines the time interval in milliseconds between two executions of the `OptimizationConfiguration`.
 
+The `selectionLoopTime` specifies the interval in milliseconds between to repetitions of the selection process executed by the trained algorithm. 
+If the extraction of the features by the `IFeatureExtractor` specified in the `RecommendationTrainingConfiguration` takes a considerably long time, it can be useful to omit the repetition of the selection for every estimation and to stick to the recommended estimator for a few iterations.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+The following image visualizes the meta-model graphically:
+![LifeCycleConfiguration](/tools.descartes.librede.rrde/resources/docs/lifecycle.png)
 
 ### OptimizationConfiguration
 
@@ -128,7 +127,7 @@ Both classes are again referenced from the standard LibReDE configuration and th
 The string parameter `rootFolder` defines the location of the traces.
 Starting in the root folder, the directory is recursively scanned for folders that match the given `InputSpecification` and `WorkloadDescription`.
 If one is found, a LibReDE configuration is created and its `InputSpecification` is properly adapted to match the found file paths. 
-The `Boolean` parameter `multiFolderStructes` defines, if the single files of one trace might be spread among different folders themselves. 
+The Boolean parameter `multiFolderStructes` defines, if the single files of one trace might be spread among different folders themselves. 
 This is appropriate for more complex `WorkloadDescriptions`, but the default setting is false.
 
 Several `InputData` objects can be included and form the training set together. 
