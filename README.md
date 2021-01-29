@@ -70,6 +70,104 @@ Alternatively you could use any test classes from the `tools.descartes.librede.r
 ## Configuration
 SARDE relies on EMF models to define run configurations for executions. The respective meta-model definition can be found [here](/tools.descartes.librede.rrde.model/model/lifecycle.ecore).
 
+
+
+
+
+
+
+
+
+
+
+
+### OptimizationConfiguration
+
+The main class `OptimizationConfiguration` serves as a container for one or several `RunCall` instances. 
+Each of those instances represent one specific optimization run.
+Several `RunCall`s can be executed consecutively in order to use several equal or different algorithms in a row if required. 
+One RunCall is composed of four key configuration elements: The `EstimationSpecification` to optimize, the `OptimizationSettings` to determine parameters for the optimization, the `TrainingData` to specify the training set and the `ConfigurationOptimizationAlgorithmSpecifier` to define the used algorithm and its parameters.
+
+1. `EstimationSpecification` 
+
+First, an existing `EstimationSpecification` for a LibReDE configuration file has to be specified. 
+This configuration will be altered in the configuration process and the returning result will be an `EstimationSpecification` with optimized values. 
+For the lack of space, a detailed description of the different elements of one `EstimationSpecification` is omitted here, we refer to the [LibReDE User Guide](https://se.informatik.uni-wuerzburg.de/fileadmin/10030200/user_upload/librede/LibReDE_UserGuide_01.pdf).
+
+2. `OptimizationSettings`
+
+The optimization is configured by the `OptimizationSettings`. 
+Next to the `ValidationSpecification` which contains information on how the results should be validated, the `OptimizationSettings` contain a list of `IOptimizableParameter`.
+
+This list contains information about the parameters which should be optimized during the process. 
+The interface `IOptimizableParameter` defines key information which is crucial for the optimization algorithm, such as the minimum value `lowerBound`, the maximum value `upperBound` and a default value or `startValue`.
+The `startValue` defines where the algorithm should start the exploration and might be ignored by the executing algorithm. 
+All implementing classes contain particulars about the specific parameter itself. 
+
+Instances of `StepSize` and `WindowSize` in the list `parametersToOptimize` for example specify that the step size and the window size are subject to optimization.
+Now, each instance contains information about lower and upper bounds as well as a start value for the given parameter. 
+
+Similarly a `GenericParameter` contains a reference to a `Parameter` object of the LibReDE configuration, ideally already specified in the given `EstimationSpecification`.
+
+
+3. `TrainingData`
+The optimization is performed on the so called trainingData set which is composed of different instances of `InputData`. 
+One `InputData` instance contains a `WorkloadDescription` and an `InputSpecification`. 
+Both classes are again referenced from the standard LibReDE configuration and they, together with the given `EstimationSpecification` and the `ValidationSpecification` defined in the `OptimizationSettings`, are used to compose a set of LibReDE configuration files which can then be executed and evaluated.
+
+The string parameter `rootFolder` defines the location of the traces.
+Starting in the root folder, the directory is recursively scanned for folders that match the given `InputSpecification` and `WorkloadDescription`.
+If one is found, a LibReDE configuration is created and its `InputSpecification` is properly adapted to match the found file paths. 
+The `Boolean` parameter `multiFolderStructes` defines, if the single files of one trace might be spread among different folders themselves. 
+This is appropriate for more complex `WorkloadDescriptions`, but the default setting is false.
+
+Several `InputData` objects can be included and form the training set together. 
+This way, training on a variety of different `WorkloadDescriptions` can be done at once. 
+
+4. `ConfigurationOptimizationAlgorithmSpecifier`
+Finally, every `RunCall` needs to contain a `ConfigurationOptimizationAlgorithmSpecifier`. 
+Here, the actual algorithm used for optimization is chosen and configured. 
+
+All of the algorithms do have an `algorithmName` which contains the fully qualified class name of the algorithm as string and a `timeOut` value qualifying the maximum number of milliseconds the algorithm should use for computation. 
+This number is not binding, however, and no algorithm is obligated to terminate within the given bounds. 
+The default value of `-1` corresponds to unlimited execution time.
+
+All algorithms implementing the `IConfigurationOptimizer` interface in the `tools.descartes.librede.rrde.optimization.algorithm` package can be used as algorithms by inserting the fully qualified class name in the `algorithmName` parameter.
+However, since inheriting specifiers define different specific parameters for special types of algorithms, the chosen algorithm must accept the actual sub-class of `ConfigurationOptimizationAlgorithmSpecifier`. 
+
+The method `isSpecifierSupported(ConfigurationOptimizationAlgorithmSpecifier)` returns true, if the algorithm can support the `ConfigurationOptimizationAlgorithmSpecifier`, i.e. interpret the given parameters, and false otherwise. 
+Similarly, if the algorithm needs a more specific `ConfigurationOptimizationAlgorithmSpecifier` with more parameters, it also returns false.
+
+As of now, the tool currently supports three types of algorithms. 
+All of them define their own specifier inheriting from `ConfigurationOptimizationAlgorithmSpecifier`.
+
+An instance of `LocalSearchSpecifier` defines the solution tolerance as the `tolerance` Double, the maximum number of steps per iteration as a long value named `maximumNumberOfSteps`, and the step size to be used as a Double value named `stepSize`. 
+The `LocalSearchSpecifier` is currently used by a set of our local search implementations.
+The brute force approach also requires an instance of `LocalSearchSpecifier`, but ignores all parameters but `stepSize`.
+
+The class `IterativeParameterOptimizationAlgorithm` implements the Stepwise Sampling Search (S3). 
+It requires the three Integer parameters `numberOfSplits`, `numberOfExplorations`, and `numberOfIterations` as the number of splits done in each iteration, the number of exploration points to store at once and the number of iterations to perform in total, which can be specified using the `IterativeParameterOptimizerSpecifier`.
+
+The third sub-classing specifier is called `DataExportSpecifier` and it can be used for algorithms, exporting different kinds of information about the traces and their optimization into a folder configured by the String `outputDirectory`. 
+We used this specifier for some algorithms exporting the behavior of the traces for further manual analysis. 
+The Double parameter `stepSize` defines the resolution of the exported traces, while the two Boolean parameters `multidimensional` and `splitConfigurations` define the aggregation level of the export algorithms, i.e., if multiple dimensions and configurations should be plotted individually or aggregated and averaged for the export.
+
+All RunCalls return one --- or many, since the given `EstimationSpecification` might be split up at some point during the optimization --- optimized `EstimationSpecification`.
+The results of all `RunCalls` are aggregated and form the output of the total `OptimizationConfiguration`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Project Overview
 
 Finally, we give an overview over the project structure in order to ease further development.
