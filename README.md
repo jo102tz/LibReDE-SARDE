@@ -81,6 +81,13 @@ SARDE relies on EMF models to define run configurations for executions. The resp
 
 
 
+
+
+
+
+
+
+
 ### OptimizationConfiguration
 
 The main class `OptimizationConfiguration` serves as a container for one or several `RunCall` instances. 
@@ -89,7 +96,7 @@ Several `RunCall`s can be executed consecutively in order to use several equal o
 One RunCall is composed of four key configuration elements: The `EstimationSpecification` to optimize, the `OptimizationSettings` to determine parameters for the optimization, the `TrainingData` to specify the training set and the `ConfigurationOptimizationAlgorithmSpecifier` to define the used algorithm and its parameters. 
 The following image visualizes the meta-model graphically.
 
-![OptimizationConfiguration](https://gitlab2.informatik.uni-wuerzburg.de/descartes/librede-rrde/-/blob/master/tools.descartes.librede.rrde/resources/docs/optimization.png)
+![OptimizationConfiguration](/tools.descartes.librede.rrde/resources/docs/optimization.png)
 
 #### 1. `EstimationSpecification` 
 
