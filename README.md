@@ -165,18 +165,11 @@ All RunCalls return one - or many, since the given `EstimationSpecification` mig
 The results of all `RunCalls` are aggregated and form the output of the total `OptimizationConfiguration`.
 
 
+### RecommendationConfiguration
 
-
-
-
-
-
-
-
-
-### Recommendation
-
-The main class `RecommendationTrainingConfiguration` consists of five main elements: A list of `EstimationSpecifications` to learn as approaches, the `ValidationSpecification` containing information about how the results should be validated, a list of `InputData` objects as training set, a `FeatureExtractorSpecifier` specifying how the features should be extracted for the traces and a `RecommendationAlgorithmSpecifier` defining and configuring the algorithm to use for recommendation.
+The main class `RecommendationTrainingConfiguration` consists of five main elements: A list of `EstimationSpecifications` to learn as approaches, the `ValidationSpecification` containing information about how the results should be validated, a list of `InputData` objects as training set, a `FeatureExtractorSpecifier` specifying how the features should be extracted for the traces and a `RecommendationAlgorithmSpecifier` defining and configuring the algorithm to use for recommendation. 
+The following image visualizes the meta-model graphically:
+![RecommendationConfiguration](/tools.descartes.librede.rrde/resources/docs/recommendation.png)
 
 #### 1. `EstimationSpecifications`
 In contrast to `OptimzationConfiguration`, several different `EstimationSpecifications` from the LibReDE meta-model can be referenced in `RecommendationTrainingConfiguration`. 
