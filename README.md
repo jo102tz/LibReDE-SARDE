@@ -50,8 +50,12 @@ However, we first need test data for execution and a valid configuration.
 ### Input Data
 As SARDE is relying on the LibReDE framework, the system measurements follow the same interface as standard LibReDE. 
 
+Therefore, we need a set of monitoring traces together with a valid LibReDE configuration in order to execute a standard estimation.
 
-More Details can be found in the [User Guide](https://se.informatik.uni-wuerzburg.de/fileadmin/10030200/user_upload/librede/LibReDE_UserGuide_01.pdf).
+1. Monitoring traces: The monitoring data must be available as time series data with associated timestampsfor each sample. The library can work on time series with individual events (e.g., arrival times and response times of individual requests) or on fixed sampled time-aggregated data (e.g., average response times or average throughput).  If the input data consists of time series with individual events, the library automatically computes the required time-aggregated data.
+2. Configuration: The configuration defines six different estimation properties: workload description, data sources, traces, estimation approaches, validation, and output specifications. More details on the required specification can be found in the [User Guide](https://se.informatik.uni-wuerzburg.de/fileadmin/10030200/user_upload/librede/LibReDE_UserGuide_01.pdf).
+
+An example of such measurements can be downloaded [here](https://bitbucket.org/librede/librede/downloads/LibredeExamples.zip).
 
 ### Configuration
 
