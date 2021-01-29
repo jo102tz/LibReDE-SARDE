@@ -58,19 +58,20 @@ Therefore, we need a set of monitoring traces together with a valid LibReDE conf
 An example of such measurements can be downloaded [here](https://bitbucket.org/librede/librede/downloads/LibredeExamples.zip).
 
 ### Configuration
-SARDE relies on EMF models to define run configurations for executions. The respective meta-model definition can be found [here](/tools.descartes.librede.rrde.model/model/lifecycle.ecore). 
+SARDE relies on EMF models to define run configurations for executions. The respective meta-model definition can be found [here](/tools.descartes.librede.rrde.model/model/lifecycle.ecore).
 
-1. LifeCycleConfiguration
-
-The execution of SARDE required an instance of a LifeCycleConfiguration model.
-
-![LifeCycleConfiguration](/tools.descartes.librede.rrde/resources/docs/lifecycle.pdf)
+The execution of SARDE required an instance of a LifeCycleConfiguration model. The details on how to configure SARDE are explained later in more detail. An example LifeCycleConfiguration can be found [here](/tools.descartes.librede.rrde/resources/test/validation/lifecycle/tstore/tstore.lifecycle).
 
 ### Execution
 
 Once SARDE is successfully installed, there are multiple ways to execute.
 You can call SARDE programmatically via Java, or just execute from console.
 However, 
+
+
+
+![LifeCycleConfiguration](/tools.descartes.librede.rrde/resources/docs/lifecycle.pdf)
+
 
 ## Project Overview
 
