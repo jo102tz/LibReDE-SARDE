@@ -30,8 +30,6 @@ For the proper execution of SARDE, a few Prerequisites are required.
 - [LibReDE](http://descartes.tools/librede) at least version 1.1 required. (however we recommend that you check out the current development branch).
 - [An R interpreter](https://www.r-project.org/) version 3.3 or higher. Make sure, that both R and your Java version are 64-Bit installations (or both 32-Bit). Furthermore, ensure that both Java and the R interpreter are added to the PATH of your system. Furthermore, install the `rJava` package for the R installation. (SARDE works with [rJava](https://www.rforge.net/rJava/), which enables the optimization engine to run R scripts.)
 
-Just add R_HOME with the Path to the R installation on the system (e.g. C:\Program Files\R\R-3.3.1) and PATH with the path to the libraries (e.g. C:\Program Files\R\R-3.3.1\bin\x64;C:\Program Files\Java\jre1.8.0_77\bin\server;C:\Users\Johannes Grohmann\git\ma\tools.descartes.librede.rrde.rinterface\lib;C:\Users\Johannes Grohmann\git\ma\tools.descartes.librede.rrde.rinterface\R\win-library\3.3\rJava\jri\x64) to the EnvironmentVariables in the RunConfiguration
-
 ### Installation
 
 1. Download the source code from [GitLab](https://gitlab2.informatik.uni-wuerzburg.de/descartes/librede-rrde) and integrate it into eclipse.
