@@ -16,13 +16,19 @@ Some results can also be viewed on the respective [Code Ocean Capsule](https://d
 As SARDE is an AddOn to the main project [LibReDE](http://descartes.tools/librede), similar restrictions apply to its use.
 
 - Operation System: Windows 10 or higher 32-bit or 64-bit, Linux 64-bit required. (MacOS X and Linux32-bit are currently not supported)
-- Java Runtime Environment: at least 1.8 (on Linux only 64-bit version supported)
-- Eclipse: Eclipse Standard 4.4 or higher (download from [here](http://www.eclipse.org/downloads/))
+- Java Runtime Environment: at least 1.8. (on Linux only 64-bit version supported)
+- Eclipse: Eclipse Standard 4.4 or higher. (download from [here](http://www.eclipse.org/downloads/))
 - Fortran: On Linux, please ensure that the library `gfortran` is installed. On Windows, Librede comes with its own version.
 
-In addition, 
+In addition, when using the development environment, make sure that the Eclipse version you are using has the [Eclipse Modeling Framework (EMF)](https://www.eclipse.org/modeling/emf/), and the [Rich Client Platform (RCP)](https://wiki.eclipse.org/Rich_Client_Platform) installed. 
+You can use the User Guide to help with installation, and to verify that the installation is working correctly. 
 
-### Prerequestis
+### Prerequisites
+
+For the proper execution of SARDE, a few Prerequisites are required.
+
+- [LibReDE](http://descartes.tools/librede) at least version 1.1 required. (however we recommend that you check out the current development branch).
+- [An R interpreter](https://www.r-project.org/)
 
 ### Installation
 
