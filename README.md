@@ -88,13 +88,13 @@ Each of those instances represent one specific optimization run.
 Several `RunCall`s can be executed consecutively in order to use several equal or different algorithms in a row if required. 
 One RunCall is composed of four key configuration elements: The `EstimationSpecification` to optimize, the `OptimizationSettings` to determine parameters for the optimization, the `TrainingData` to specify the training set and the `ConfigurationOptimizationAlgorithmSpecifier` to define the used algorithm and its parameters.
 
-1. `EstimationSpecification` 
+#### 1. `EstimationSpecification` 
 
 First, an existing `EstimationSpecification` for a LibReDE configuration file has to be specified. 
 This configuration will be altered in the configuration process and the returning result will be an `EstimationSpecification` with optimized values. 
 For the lack of space, a detailed description of the different elements of one `EstimationSpecification` is omitted here, we refer to the [LibReDE User Guide](https://se.informatik.uni-wuerzburg.de/fileadmin/10030200/user_upload/librede/LibReDE_UserGuide_01.pdf).
 
-2. `OptimizationSettings`
+#### 2. `OptimizationSettings`
 
 The optimization is configured by the `OptimizationSettings`. 
 Next to the `ValidationSpecification` which contains information on how the results should be validated, the `OptimizationSettings` contain a list of `IOptimizableParameter`.
@@ -110,7 +110,7 @@ Now, each instance contains information about lower and upper bounds as well as 
 Similarly a `GenericParameter` contains a reference to a `Parameter` object of the LibReDE configuration, ideally already specified in the given `EstimationSpecification`.
 
 
-3. `TrainingData`
+#### 3. `TrainingData`
 The optimization is performed on the so called trainingData set which is composed of different instances of `InputData`. 
 One `InputData` instance contains a `WorkloadDescription` and an `InputSpecification`. 
 Both classes are again referenced from the standard LibReDE configuration and they, together with the given `EstimationSpecification` and the `ValidationSpecification` defined in the `OptimizationSettings`, are used to compose a set of LibReDE configuration files which can then be executed and evaluated.
@@ -124,7 +124,7 @@ This is appropriate for more complex `WorkloadDescriptions`, but the default set
 Several `InputData` objects can be included and form the training set together. 
 This way, training on a variety of different `WorkloadDescriptions` can be done at once. 
 
-4. `ConfigurationOptimizationAlgorithmSpecifier`
+#### 4. `ConfigurationOptimizationAlgorithmSpecifier`
 Finally, every `RunCall` needs to contain a `ConfigurationOptimizationAlgorithmSpecifier`. 
 Here, the actual algorithm used for optimization is chosen and configured. 
 
