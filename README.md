@@ -57,21 +57,18 @@ Therefore, we need a set of monitoring traces together with a valid LibReDE conf
 
 An example of such measurements can be downloaded [here](https://bitbucket.org/librede/librede/downloads/LibredeExamples.zip).
 
-### Configuration
-SARDE relies on EMF models to define run configurations for executions. The respective meta-model definition can be found [here](/tools.descartes.librede.rrde.model/model/lifecycle.ecore).
+3. The execution of SARDE required an instance of a LifeCycleConfiguration model. The details on how to configure SARDE are explained later in more detail. An example LifeCycleConfiguration can be found [here](/tools.descartes.librede.rrde/resources/test/validation/lifecycle/tstore/tstore.lifecycle).
 
-The execution of SARDE required an instance of a LifeCycleConfiguration model. The details on how to configure SARDE are explained later in more detail. An example LifeCycleConfiguration can be found [here](/tools.descartes.librede.rrde/resources/test/validation/lifecycle/tstore/tstore.lifecycle).
 
 ### Execution
 
-Once SARDE is successfully installed, there are multiple ways to execute.
-You can call SARDE programmatically via Java, or just execute from console.
-However, 
+You can call SARDE by calling the `startLifeCycle(LifeCycleConfiguration lifeCycleConfiguration, LibredeConfiguration libredeConfiguration, LibredeConfiguration allConf, String logFolder)` method in the `tools.descartes.librede.rrde.lifecycle.LifeCycleController` class.
+This methods starts the online estimation and learning cycle. It requires the life cycle configuration to execute, the librede Configuration to execute, the configuration containing all estimation approaches used for caching, as well as a folder to log intermediate information file to.
 
+Alternatively you could use any test classes from the `tools.descartes.librede.rrde.eval` packages, or just start the application in standard mode  application via `tools.descartes.librede.rrde.Plugin.start(IApplicationContext context)`.
 
-
-![LifeCycleConfiguration](/tools.descartes.librede.rrde/resources/docs/lifecycle.pdf)
-
+## Configuration
+SARDE relies on EMF models to define run configurations for executions. The respective meta-model definition can be found [here](/tools.descartes.librede.rrde.model/model/lifecycle.ecore).
 
 ## Project Overview
 
