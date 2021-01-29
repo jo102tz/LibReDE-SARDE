@@ -21,7 +21,7 @@ As SARDE is an AddOn to the main project [LibReDE](http://descartes.tools/libred
 - Fortran: On Linux, please ensure that the library `gfortran` is installed. On Windows, Librede comes with its own version.
 
 In addition, when using the development environment, make sure that the Eclipse version you are using has the [Eclipse Modeling Framework (EMF)](https://www.eclipse.org/modeling/emf/), and the [Rich Client Platform (RCP)](https://wiki.eclipse.org/Rich_Client_Platform) installed. 
-You can use the User Guide to help with installation, and to verify that the installation is working correctly. 
+You can use the [User Guide](https://se.informatik.uni-wuerzburg.de/fileadmin/10030200/user_upload/librede/LibReDE_UserGuide_01.pdf) to help with installation, and to verify that the installation is working correctly. 
 
 ### Prerequisites
 
