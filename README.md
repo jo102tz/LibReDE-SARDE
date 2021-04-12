@@ -1,13 +1,13 @@
 # Self-adaptive Resource Demand Estimation (SARDE) Framework
 
 This is the repository for the Self-adaptive Resource Demand Estimation (SARDE) framework. SARDE enables continuous resource demand estimations, while constantly adapting and optimizing its used estimators.
-SARDE is designed as an AddOn to the classic [LibReDE](http://descartes.tools/librede) library. 
+SARDE is designed as an AddOn to the classic [LibReDE](https://github.com/DescartesResearch/LibReDE) library. 
 Therefore, the project name `librede-rrde` stands for Reliable Resource Demand Estimation AddOn for LibReDE.
 
 For more information, please refer to the official website: [LibReDE](http://descartes.tools/librede)
 
 The tool is currently under submission at ACM Transactions on Autonomous and Adaptive Systems (TaaS). 
-Some results can also be viewed on the respective [Code Ocean Capsule](https://doi.org/10.24433/CO.8429465.v1), providing a one-click reproducability of the presented results.
+Some results can also be viewed on the respective [Code Ocean Capsule](https://doi.org/10.24433/CO.8429465.v2), providing a one-click reproducability of the presented results.
 
 ## Setting up SARDE
 
