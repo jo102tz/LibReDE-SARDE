@@ -6,7 +6,7 @@ Therefore, the project name `librede-rrde` stands for Reliable Resource Demand E
 
 For more information, please refer to the official website: [LibReDE](http://descartes.tools/librede)
 
-The tool is currently under submission at ACM Transactions on Autonomous and Adaptive Systems (TaaS). 
+The tool is published at [ACM Transactions on Autonomous and Adaptive Systems (TaaS)](https://doi.org/10.1145/3463369). 
 Some results can also be viewed on the respective [Code Ocean Capsule](https://doi.org/10.24433/CO.8429465.v2), providing a one-click reproducability of the presented results.
 
 ## Setting up SARDE
